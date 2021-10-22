@@ -15,15 +15,13 @@ LinkingTo:
     Rcpp,
     nloptr
 Imports: 
+    ape,
     nloptr,
-    nLTT,
     phytools,
     testthat,
     apTreeshape,
     phyloTop,
     DDD,
-    RPANDA,
-    dplyr,
     geiger,
     TreeSim
 SystemRequirements: C++14
