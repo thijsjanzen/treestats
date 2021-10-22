@@ -2,10 +2,10 @@
 
 export(ILnumber)
 export(avgLadder)
-export(beta)
+export(beta_statistic)
 export(cherries)
 export(colless)
-export(gamma)
+export(gamma_statistic)
 export(mean_branch_length)
 export(nLTT)
 export(nLTT_base)

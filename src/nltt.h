@@ -41,7 +41,6 @@ int get_index(const std::vector<float>& brts,
   return std::distance(brts.begin(), index);
 }
 
-
 float calc_nltt_from_data(const std::vector<float>& b1,
                           const std::vector<float>& b2,
                           const std::vector<float>& n1,
@@ -64,7 +63,6 @@ float calc_nltt_from_data(const std::vector<float>& b1,
   }
   return nltt;
 }
-
 
 // please note that the branching times have to be from -T to 0
 float calc_nltt(const std::vector<float>& v1,

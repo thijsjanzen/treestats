@@ -4,7 +4,7 @@
 #' @param upper_lim upper limit for beta parameter
 #' @return sackin index
 #' @export
-beta <- function(phy, upper_lim = 10) {
+beta_statistic <- function(phy, upper_lim = 10) {
   aldous_beta <- apply_function_ltab(phy, calc_beta_cpp, upper_lim)
   return(aldous_beta)
 }
