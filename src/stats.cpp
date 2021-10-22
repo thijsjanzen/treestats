@@ -2,7 +2,7 @@
 
 #include "beta.h"
 #include "nltt.h"
-#include "sackin.hpp"
+#include "sackin.h"
 
 
 // [[Rcpp::export]]

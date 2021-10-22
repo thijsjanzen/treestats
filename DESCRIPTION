@@ -23,5 +23,7 @@ Imports:
     phyloTop,
     DDD,
     RPANDA,
-    dplyr
+    dplyr,
+    geiger,
+    TreeSim
 SystemRequirements: C++14

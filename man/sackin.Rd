@@ -2,7 +2,8 @@
 % Please edit documentation in R/sackin.R
 \name{sackin}
 \alias{sackin}
-\title{fast function using C++ to calculate sackin index}
+\title{fast function using C++ to calculate sackin index, please note that the
+sackin index is not normalized here.}
 \usage{
 sackin(phy)
 }
@@ -13,5 +14,6 @@ sackin(phy)
 sackin index
 }
 \description{
-fast function using C++ to calculate sackin index
+fast function using C++ to calculate sackin index, please note that the
+sackin index is not normalized here.
 }

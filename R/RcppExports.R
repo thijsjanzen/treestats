@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 calc_beta_cpp <- function(in_table, upper_lim) {
-    .Call(`_treestats_calc_beta_cpp`, in_table, upper_lim)
+    .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', in_table, upper_lim)
 }
 
 calc_sackin_cpp <- function(in_table) {
-    .Call(`_treestats_calc_sackin_cpp`, in_table)
+    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', in_table)
 }
 
 calc_nltt_cpp <- function(brts_one, brts_two) {
-    .Call(`_treestats_calc_nltt_cpp`, brts_one, brts_two)
+    .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', brts_one, brts_two)
 }
 

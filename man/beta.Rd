@@ -4,10 +4,12 @@
 \alias{beta}
 \title{fast function using C++ to calculate the aldous beta statistic}
 \usage{
-beta(phy)
+beta(phy, upper_lim = 10)
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
+
+\item{upper_lim}{upper limit for beta parameter}
 }
 \value{
 sackin index
