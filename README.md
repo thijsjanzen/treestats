@@ -7,7 +7,6 @@ Includes fast C++ code to calculate some of these statistics, including:
   - nLTT
   
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/treestats)](https://cran.r-project.org/package=treestats)
-[![](https://cranlogs.r-pkg.org/badges/treestats)](https://cran.r-project.org/package=treestats)
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
 
 Branch|CodeCov
