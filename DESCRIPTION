@@ -14,7 +14,7 @@ Depends:
 LinkingTo: 
     Rcpp,
     nloptr
-Imports: 
+Imports:
     ape,
     nloptr,
     phytools,
@@ -22,6 +22,8 @@ Imports:
     apTreeshape,
     phyloTop,
     DDD,
-    geiger,
+    geiger
+Suggests:
+    nLTT,
     TreeSim
 SystemRequirements: C++14
