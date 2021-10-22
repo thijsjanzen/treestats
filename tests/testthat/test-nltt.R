@@ -17,7 +17,7 @@ test_that("usage", {
   testthat::expect_equal(nltt_base, nltt_base2, tolerance = 1e-3)
   testthat::expect_equal(nltt_base, nltt_base3, tolerance = 1e-3)
 
-  empty_tree <- phytools::read.newick(text = "(1:4,2:4):0;")
+  empty_tree <- ape::read.tree(text = "(1:4,2:4):0;")
   nltt_stat <- nLTT::nltt_diff(tree1, empty_tree)
   testthat::expect_equal(nltt_stat, nltt_base, tolerance = 1e-3)
   testthat::expect_equal(nltt_stat, nltt_base2, tolerance = 1e-3)

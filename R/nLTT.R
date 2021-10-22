@@ -23,6 +23,6 @@ nLTT <- function(phy,
 #' @return number of lineages
 #' @export
 nLTT_base <- function(phy) {
-  empty_tree <- phytools::read.newick(text = "(1:4,2:4):0;")
+  empty_tree <- ape::read.tree(text = "(1:4,2:4):0;")
   return(nLTT(phy, empty_tree))
 }
