@@ -22,7 +22,7 @@ std::vector<float> create_normalized_brts(const std::vector<float>& v) {
 }
 
 std::vector< float > create_normalized_lins(size_t num_lin) {
-  std::vector< float > output(num_lin);
+  std::vector< float > output(num_lin - 1);
   std::iota(output.begin(), output.end(), 2.f);
   auto max_num = output.back();
   output.push_back(max_num);
@@ -60,6 +60,7 @@ float calc_nltt_from_data(const std::vector<float>& b1,
     if (diff_lin < 0) diff_lin *= -1;
     float dt = all_b[k] - all_b[k-1];
     nltt += dt * diff_lin;
+    // std::cerr << tim << " " << num_lin1 << " " << num_lin2 << " " << dt << "\n";
   }
   return nltt;
 }
