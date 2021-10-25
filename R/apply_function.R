@@ -45,7 +45,8 @@ apply_function <- function(input_data, stat_function, ...) {
   }
 
   if (is.list(input_data)) {
-    if (class(input_data) == "multiPhylo") {
+    if (class(input_data) == "multiPhylo" ||
+        class(input_data[[1]]) == "phylo") {
       input_data <- lapply(input_data, geiger::drop.extinct)
       output_data <-  lapply(input_data, stat_function, ...)
       return(unlist(output_data))
@@ -53,7 +54,7 @@ apply_function <- function(input_data, stat_function, ...) {
   }
 
   if (class(input_data) == "phylo") {
-    inptu_data <- geiger::drop.extinct(input_data)
+    input_data <- geiger::drop.extinct(input_data)
     return(stat_function(input_data, ...))
   }
 

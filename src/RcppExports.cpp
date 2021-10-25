@@ -45,11 +45,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_gamma_cpp
+float calc_gamma_cpp(const Rcpp::NumericVector& brts_in);
+RcppExport SEXP _treestats_calc_gamma_cpp(SEXP brts_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type brts_in(brts_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(brts_in));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 2},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 1},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
+    {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {NULL, NULL, 0}
 };
 

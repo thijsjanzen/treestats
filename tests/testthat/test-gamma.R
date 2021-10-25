@@ -6,5 +6,22 @@ test_that("usage", {
 
   gammast <- treestats::gamma_statistic(focal_tree)
   gammast_check <- ape::gammaStat(focal_tree)
-  testthat::expect_equal(gammast, gammast_check)
+  gammast_check2 <- castor::gamma_statistic(focal_tree)
+  gammast_check3 <- phytools::ltt(focal_tree, plot = FALSE, gamma = TRUE)$gamma
+
+  testthat::expect_equal(gammast_check, gammast_check2)
+  testthat::expect_equal(gammast_check2, gammast_check3)
+
+  testthat::expect_equal(gammast, gammast_check, tolerance = 1e-4)
+
+
+
+  focal_trees <- TreeSim::sim.bd.taxa(n = 10, numbsim = 3, lambda = 1, mu = 0)
+  class(focal_trees) <- "multiPhylo"
+
+  testthat::expect_silent(
+    gammast <- treestats::gamma_statistic(focal_trees)
+  )
+
+
 })

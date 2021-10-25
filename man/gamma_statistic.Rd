@@ -2,7 +2,7 @@
 % Please edit documentation in R/gamma.R
 \name{gamma_statistic}
 \alias{gamma_statistic}
-\title{gamma statistic, from ape package}
+\title{calculate the gamma statistic, using C++.}
 \usage{
 gamma_statistic(phy)
 }
@@ -13,5 +13,5 @@ gamma_statistic(phy)
 gamma statistic
 }
 \description{
-gamma statistic, from ape package
+calculate the gamma statistic, using C++.
 }

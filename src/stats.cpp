@@ -3,6 +3,7 @@
 #include "beta.h"
 #include "nltt.h"
 #include "sackin.h"
+#include "gamma.h"
 
 
 // [[Rcpp::export]]
@@ -67,4 +68,13 @@ float calc_nltt_cpp(const Rcpp::NumericVector& brts_one,
 
   auto nltt = calc_nltt(v1, v2);
   return nltt;
+}
+
+// [[Rcpp::export]]
+float calc_gamma_cpp(const Rcpp::NumericVector& brts_in)
+{
+  std::vector<float> brts(brts_in.begin(), brts_in.end());
+  gamma_stat gamma_stat_object(brts);
+
+  return gamma_stat_object.calc_gamma_stat();
 }

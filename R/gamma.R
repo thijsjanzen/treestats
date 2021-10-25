@@ -1,8 +1,16 @@
-#' gamma statistic, from ape package
+#' @keywords internal
+calc_gamma <- function(phy) {
+  if (class(phy) == "phylo")  {
+    phy <- as.vector(ape::branching.times(phy))
+  }
+  return(calc_gamma_cpp(phy))
+}
+
+#' calculate the gamma statistic, using C++.
 #' @param phy phylo or multiPhylo object
 #' @return gamma statistic
 #' @export
 gamma_statistic <- function(phy) {
-  gamma_stat <- apply_function(phy, ape::gammaStat)
+  gamma_stat <- apply_function(phy, calc_gamma)
   return(gamma_stat)
 }

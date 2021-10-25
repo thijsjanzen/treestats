@@ -13,3 +13,7 @@ calc_nltt_cpp <- function(brts_one, brts_two) {
     .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', brts_one, brts_two)
 }
 
+calc_gamma_cpp <- function(brts_in) {
+    .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', brts_in)
+}
+
