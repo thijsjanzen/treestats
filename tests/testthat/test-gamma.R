@@ -2,7 +2,7 @@ context("gamma")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 10, numbsim = 1, lambda = 1, mu = 0)[[1]]
+  focal_tree <- TreeSim::sim.bd.taxa(n = 120, numbsim = 1, lambda = 1, mu = 0)[[1]]
 
   gammast <- treestats::gamma_statistic(focal_tree)
   gammast_check <- ape::gammaStat(focal_tree)
@@ -17,11 +17,9 @@ test_that("usage", {
 
 
   focal_trees <- TreeSim::sim.bd.taxa(n = 10, numbsim = 3, lambda = 1, mu = 0)
+
+  gammast1 <- treestats::gamma_statistic(focal_trees)
   class(focal_trees) <- "multiPhylo"
-
-  testthat::expect_silent(
-    gammast <- treestats::gamma_statistic(focal_trees)
-  )
-
-
+  gammast2 <- treestats::gamma_statistic(focal_trees)
+  testthat::expect_equal(gammast1, gammast2)
 })
