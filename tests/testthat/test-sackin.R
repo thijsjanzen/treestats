@@ -15,7 +15,7 @@ test_that("usage", {
                                       norm = "yule")
   testthat::expect_equal(sackin, sackin_check, tol = 1e-5)
 
-  dsackin <- treestats::sackin(focal_tree, norm = "pda")
+  sackin <- treestats::sackin(focal_tree, norm = "pda")
   sackin_check <- apTreeshape::sackin(apTreeshape::as.treeshape(focal_tree),
                                       norm = "pda")
   testthat::expect_equal(sackin, sackin_check, tol = 1e-5)
