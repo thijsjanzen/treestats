@@ -9,7 +9,9 @@ test_that("usage", {
   nltt_check <- nLTT::nLTTstat(tree1, tree2)
   testthat::expect_equal(nltt, nltt_check)
 
-  empty_tree <- TreeSim::sim.bd.taxa(n = 2, numbsim = 1, lambda = 1, mu = 0)[[1]]
+  empty_tree <- TreeSim::sim.bd.taxa(n = 2,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0)[[1]]
   nltt_base <- treestats::nLTT_base(tree1)
   nltt_base2 <- treestats::nLTT(tree1, empty_tree)
   nltt_base3 <-  nLTT::nLTTstat(tree1, empty_tree)

@@ -5,8 +5,8 @@ calc_beta_cpp <- function(in_table, upper_lim) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', in_table, upper_lim)
 }
 
-calc_sackin_cpp <- function(in_table) {
-    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', in_table)
+calc_sackin_cpp <- function(in_table, normalization) {
+    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', in_table, normalization)
 }
 
 calc_nltt_cpp <- function(brts_one, brts_two) {

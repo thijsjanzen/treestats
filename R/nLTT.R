@@ -5,7 +5,7 @@
 #' @param ref_tree reference tree to compare with
 #' @return number of lineages
 #' @export
-nLTT <- function(phy,
+nLTT <- function(phy, # nolint
                  ref_tree) {
 
   brts1 <- ape::branching.times(phy)
@@ -22,7 +22,7 @@ nLTT <- function(phy,
 #' @param phy phylo or multiPhylo object
 #' @return number of lineages
 #' @export
-nLTT_base <- function(phy) {
+nLTT_base <- function(phy) {  # nolint
   empty_tree <- ape::read.tree(text = "(1:4,2:4):0;")
   return(nLTT(phy, empty_tree))
 }

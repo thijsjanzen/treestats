@@ -23,13 +23,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_sackin_cpp
-int calc_sackin_cpp(Rcpp::NumericMatrix in_table);
-RcppExport SEXP _treestats_calc_sackin_cpp(SEXP in_tableSEXP) {
+float calc_sackin_cpp(Rcpp::NumericMatrix in_table, std::string normalization);
+RcppExport SEXP _treestats_calc_sackin_cpp(SEXP in_tableSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type in_table(in_tableSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(in_table));
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(in_table, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -71,7 +72,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 2},
-    {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 1},
+    {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 2},

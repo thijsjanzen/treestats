@@ -10,6 +10,6 @@ is_ltable <- function(x) {
   if (!is.matrix(x)) return(FALSE)
   if (ncol(x) != 4) return(FALSE)
   if (length(which(x[, 4] == -1)) < 1) return(FALSE)
-  if (x[1,2] != 0) return(FALSE)
+  if (x[1, 2] != 0) return(FALSE)
   return(TRUE)
 }

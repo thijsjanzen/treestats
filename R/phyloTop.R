@@ -2,8 +2,8 @@
 #' @param phy phylo or multiPhylo object
 #' @return average number of ladders
 #' @export
-avgLadder <- function(phy) {
-  avgLadders <- apply_function(phy, phyloTop::avgLadder)
+avgLadder <- function(phy) { # nolint
+  avgLadders <- apply_function(phy, phyloTop::avgLadder) # nolint
   return(avgLadders)
 }
 
@@ -20,9 +20,9 @@ cherries <- function(phy) {
 #' @param phy phylo or multiPhylo object
 #' @return ILnumber
 #' @export
-ILnumber <- function(phy) {
-  ILnum <- apply_function(phy, phyloTop::ILnumber)
-  return(ILnum)
+ILnumber <- function(phy) { # nolint
+  ILnum <- apply_function(phy, phyloTop::ILnumber) # nolint
+  return(ILnum) # nolint
 }
 
 #' calculate pitchforks, from the phyloTop package

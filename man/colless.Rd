@@ -9,7 +9,8 @@ colless(phy, norm = NULL)
 \arguments{
 \item{phy}{phylo object}
 
-\item{norm}{A character string equals to NULL (default) for no normalization or one of "pda" or "yule".}
+\item{norm}{A character string equals to NULL (default) for no
+normalization or one of "pda" or "yule".}
 }
 \value{
 colless index

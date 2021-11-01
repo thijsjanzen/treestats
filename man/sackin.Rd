@@ -5,10 +5,12 @@
 \title{fast function using C++ to calculate sackin index, please note that the
 sackin index is not normalized here.}
 \usage{
-sackin(phy)
+sackin(phy, norm = "none")
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
+
+\item{norm}{normalization, either 'none' (default), "yule" or "pda".}
 }
 \value{
 sackin index
