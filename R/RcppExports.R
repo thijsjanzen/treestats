@@ -17,3 +17,7 @@ calc_gamma_cpp <- function(brts_in) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', brts_in)
 }
 
+calc_phylodiv_cpp <- function(phy, t) {
+    .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t)
+}
+

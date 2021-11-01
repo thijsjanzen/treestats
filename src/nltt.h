@@ -1,3 +1,7 @@
+#ifndef nltt_h
+#define nltt_h
+
+#include <vector>
 
 std::vector<float> create_normalized_brts(const std::vector<float>& v) {
   std::vector< float > output = v;
@@ -83,3 +87,4 @@ float calc_nltt(const std::vector<float>& v1,
   // affect nltt, as dt = 0.
   return calc_nltt_from_data(b_times_1, b_times_2, lin_1, lin_2, all_branching_times);
 }
+#endif

@@ -1,3 +1,8 @@
+#ifndef gamma_h
+#define gamma_h
+
+#include <vector>
+
 struct gamma_stat {
 
   gamma_stat(const std::vector<float>& brts_in) : brts_(brts_in), n(brts_in.size() + 1) {
@@ -45,3 +50,5 @@ private:
   std::vector<float> g;
 
 };
+
+#endif

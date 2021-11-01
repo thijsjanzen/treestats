@@ -1,5 +1,5 @@
-#ifndef statistics_h
-#define statistics_h
+#ifndef beta_h
+#define beta_h
 
 #include <random>
 #include <cmath>

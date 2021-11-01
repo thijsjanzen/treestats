@@ -1,5 +1,5 @@
-#ifndef sackin_hpp
-#define sackin_hpp
+#ifndef sackin_h
+#define sackin_h
 
 #include <vector>
 
