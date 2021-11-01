@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Collection of phylogenetic tree statistics
-Version: 0.1.0
+Version: 0.2.0
 Author: Thijs Janzen
 Maintainer: Thijs Janzen <thijsjanzen@gmail.com>
 Description: Collection of phylogenetic tree statistics, collated from several packages. Some of these functions have been ported to c++ to improve speed.

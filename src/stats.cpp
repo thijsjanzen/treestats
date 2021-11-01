@@ -36,7 +36,8 @@ double calc_beta_cpp(Rcpp::NumericMatrix in_table,
 }
 
 // [[Rcpp::export]]
-int calc_sackin_cpp(Rcpp::NumericMatrix in_table) {
+float calc_sackin_cpp(Rcpp::NumericMatrix in_table,
+                    std::string normalization) {
 
   std::vector< std::vector< float >> ltab;
   for (int i = 0; i < in_table.nrow(); ++i) {
@@ -50,7 +51,15 @@ int calc_sackin_cpp(Rcpp::NumericMatrix in_table) {
   //  force_output("collected into vector\n");
 
   try {
-    int output = calc_sackin(ltab);
+    float output = calc_sackin(ltab);
+
+    if (normalization == "yule") {
+      output = correct_yule(ltab, output);
+    }
+    if (normalization == "pda") {
+      output = correct_pda(ltab, output);
+    }
+
     return output;
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);

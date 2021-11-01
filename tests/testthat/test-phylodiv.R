@@ -2,7 +2,9 @@ context("phylodiv")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 3, numbsim = 1, lambda = 1, mu = 0)[[1]]
+  focal_tree <- TreeSim::sim.bd.taxa(n = 3,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0)[[1]]
 
 
   div1 <- treestats::phylogenetic_diversity(focal_tree)
@@ -11,13 +13,14 @@ test_that("usage", {
 
   # now check sub time
   brts <- ape::branching.times(focal_tree)
-  tt <- (brts[1] - brts[2] ) / 2
+  tt <- (brts[1] - brts[2]) / 2
   div1 <- treestats::phylogenetic_diversity(focal_tree, tt)
   div2 <- tt * 2
   testthat::expect_equal(div1, div2[[1]])
 
   # now with extinct lineages
-  focal_tree <- ape::read.tree(text = "((t1:2.0, t2:2.0):1.0, (t3:1.0, t4:2.0):1.0):1.0;")
+  focal_tree <- ape::read.tree(text =
+                          "((t1:2.0, t2:2.0):1.0, (t3:1.0, t4:2.0):1.0):1.0;")
   plot(focal_tree)
 
   div1 <- treestats::phylogenetic_diversity(focal_tree)
@@ -28,9 +31,8 @@ test_that("usage", {
   testthat::expect_gt(div1, div2)
 
   # now with double extinct lineages
-  #
-  #
-  focal_tree <- ape::read.tree(text = "((:2.0, :2.0):1.0, ((:0.5, :1.0):0.5, :2.0):1.0):1.0;")
+  focal_tree <- ape::read.tree(text =
+                      "((:2.0, :2.0):1.0, ((:0.5, :1.0):0.5, :2.0):1.0):1.0;")
   plot(focal_tree)
   div1 <- treestats::phylogenetic_diversity(focal_tree)
   testthat::expect_equal(div1, 8)

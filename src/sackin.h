@@ -45,4 +45,21 @@ size_t calc_sackin(const std::vector< std::vector< float >>& ltable) {
   return(std::accumulate(s_values.begin(), s_values.end(), 0));
 }
 
+float correct_pda(const std::vector< std::vector< float >>& ltable,
+                  float Is) {
+  float n = ltable.size();
+  float denom = powf(n, 1.5f);
+  return Is / denom;;
+}
+
+float correct_yule(const std::vector< std::vector< float >>& ltable,
+                   float Is) {
+  float n = ltable.size();
+  float sum_count = 0.f;
+  for (float j = 2.f; j <= n; ++j) {
+    sum_count += 1.f / j;
+  }
+  return (Is - 2 * n * sum_count) / n;
+}
+
 #endif

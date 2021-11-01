@@ -108,7 +108,8 @@ std::vector< branch > create_branch_set(const phylo& phy,
   }
 
   for (int i = 0; i < tip_times.size(); ++i) {
-    if (tip_times[i][1] < crown_age) { // extinct tip!
+    //if (tip_times[i][1] < crown_age) { // extinct tip!
+    if (crown_age - tip_times[i][1] > 1e-4f) {
       branchset = remove_from_branchset(branchset, tip_times[i][0]);
     }
   }
