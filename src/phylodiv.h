@@ -73,12 +73,13 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
 
 
 std::vector< branch > create_branch_set(const phylo& phy,
-                                        float max_t) {
+                                        float max_t,
+                                        float crown_age,
+                                        bool has_extinct) {
 
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
   std::vector < std::array< float, 2 >> tip_times;
-  float crown_age = 0.f;
   for (size_t i = 0; i < phy.edge.size(); ++i) {
     size_t parent_label = phy.edge[i][0];
 
@@ -98,19 +99,20 @@ std::vector< branch > create_branch_set(const phylo& phy,
       end_date = max_t;
       bl = end_date - start_date;
     }
-    if (own_label < crown) {
+    if (own_label < crown && has_extinct) {
       tip_times.push_back({static_cast<float>(own_label), end_date});
-      if (end_date > crown_age) crown_age = end_date;
     }
 
     branch new_branch(start_date, parent_label, own_label, end_date, bl);
     branchset.push_back(new_branch);
   }
 
-  for (int i = 0; i < tip_times.size(); ++i) {
-    //if (tip_times[i][1] < crown_age) { // extinct tip!
-    if (crown_age - tip_times[i][1] > 1e-4f) {
-      branchset = remove_from_branchset(branchset, tip_times[i][0]);
+  if (has_extinct) {
+    for (int i = 0; i < tip_times.size(); ++i) {
+      //if (tip_times[i][1] < crown_age) { // extinct tip!
+      if (crown_age - tip_times[i][1] > 1e-4f) {
+        branchset = remove_from_branchset(branchset, tip_times[i][0]);
+      }
     }
   }
 
@@ -118,8 +120,11 @@ std::vector< branch > create_branch_set(const phylo& phy,
 }
 
 float calculate_phylogenetic_diversity(const phylo& phy,
-                                       float t) {
-  std::vector< branch > branchset = create_branch_set(phy, t);
+                                       float t,
+                                       float crown_age,
+                                       bool has_extinct) {
+  std::vector< branch > branchset = create_branch_set(phy, t, crown_age,
+                                                      has_extinct);
 
   float pd = 0.f;
   for (auto it = branchset.cbegin(); it != branchset.cend(); ++it) {

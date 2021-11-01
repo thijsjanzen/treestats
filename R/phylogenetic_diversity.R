@@ -6,5 +6,7 @@
 #' @export
 phylogenetic_diversity <- function(phy,
                                    t = 1e10) {
-  return(calc_phylodiv_cpp(phy, t));
+  has_extinct <- length(geiger::is.extinct(phy)) > 0
+  crown_age = max(ape::branching.times(phy))
+  return(calc_phylodiv_cpp(phy, t, has_extinct, crown_age));
 }

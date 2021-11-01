@@ -104,11 +104,17 @@ return NA_REAL;
 
 // [[Rcpp::export]]
 float calc_phylodiv_cpp(const Rcpp::List& phy,
-                        float t) {
+                        float t,
+                        bool has_extinct,
+                        float crown_age) {
 try {
 
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
+
+  if (t >= crown_age && has_extinct == false) {
+    return std::accumulate(edge_length.begin(), edge_length.end(), 0.f);
+  }
 
   std::vector<float> el(edge_length.begin(), edge_length.end());
   std::vector< std::array<int, 2>> edges(edge.nrow());
@@ -120,7 +126,7 @@ try {
 
   phylo phylo_tree(edges, el);
 
-  return calculate_phylogenetic_diversity(phylo_tree, t);
+  return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, has_extinct);
 
 } catch(std::exception &ex) {
   forward_exception_to_r(ex);
