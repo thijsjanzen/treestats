@@ -17,7 +17,7 @@ calc_gamma_cpp <- function(brts_in) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', brts_in)
 }
 
-calc_phylodiv_cpp <- function(phy, t, has_extinct, crown_age) {
-    .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, has_extinct, crown_age)
+calc_phylodiv_cpp <- function(phy, t, crown_age) {
+    .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, crown_age)
 }
 

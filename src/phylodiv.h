@@ -74,8 +74,7 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
 
 std::vector< branch > create_branch_set(const phylo& phy,
                                         float max_t,
-                                        float crown_age,
-                                        bool has_extinct) {
+                                        float crown_age) {
 
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
@@ -99,19 +98,21 @@ std::vector< branch > create_branch_set(const phylo& phy,
       end_date = max_t;
       bl = end_date - start_date;
     }
-    if (own_label < crown && has_extinct) {
-      tip_times.push_back({static_cast<float>(own_label), end_date});
+    if (own_label < crown ) {
+
+      if (end_date < crown_age && end_date < max_t) {
+        tip_times.push_back({static_cast<float>(own_label), end_date});
+      }
     }
 
     branch new_branch(start_date, parent_label, own_label, end_date, bl);
     branchset.push_back(new_branch);
   }
 
-  if (has_extinct) {
+  if (!tip_times.empty()) {
     float limit = crown_age;
     if (max_t < limit) limit = max_t;
     for (int i = 0; i < tip_times.size(); ++i) {
-      //if (tip_times[i][1] < crown_age) { // extinct tip!
       if (limit - tip_times[i][1] > 1e-4f) {
         branchset = remove_from_branchset(branchset, tip_times[i][0]);
       }
@@ -123,10 +124,8 @@ std::vector< branch > create_branch_set(const phylo& phy,
 
 float calculate_phylogenetic_diversity(const phylo& phy,
                                        float t,
-                                       float crown_age,
-                                       bool has_extinct) {
-  std::vector< branch > branchset = create_branch_set(phy, t, crown_age,
-                                                      has_extinct);
+                                       float crown_age) {
+  std::vector< branch > branchset = create_branch_set(phy, t, crown_age);
 
   float pd = 0.f;
   for (auto it = branchset.cbegin(); it != branchset.cend(); ++it) {
