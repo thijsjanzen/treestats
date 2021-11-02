@@ -22,7 +22,8 @@ Imports:
     apTreeshape,
     phyloTop,
     DDD,
-    geiger
+    geiger,
+    RPANDA
 Suggests:
     nLTT,
     TreeSim,
