@@ -14,14 +14,14 @@ rho
 }
 \description{
 Calculates the change in rate between the first half and the
-second half of the phylogeny. Rho = (r2 - r1) / (r1 + r2), where r reflects
-the rate in either the first or second half. The rate within a half is given
-by (log(n2) - log(n1) / t, where n2 is the number of lineages at the end of
-the half, and n1 the number of lineages at the start of the half. Rho varies
-between -1 and 1, with a 0 indicating a constant rate across the phylogeny,
-a rho < 0 indicating a slow down and a rho > 0 indicating a speed up of
-speciation. In contrast to the gamma statistic, Pigot's rho is not sensitive
-to tree size.
+second half of the extant phylogeny. Rho = (r2 - r1) / (r1 + r2), where r
+reflects the rate in either the first or second half. The rate within a half
+is given by (log(n2) - log(n1) / t, where n2 is the number of lineages at the
+end of the half, and n1 the number of lineages at the start of the half. Rho
+varies between -1 and 1, with a 0 indicating a constant rate across the
+phylogeny, a rho < 0 indicating a slow down and a rho > 0 indicating a speed
+up of speciation. In contrast to the gamma statistic, Pigot's rho is not
+sensitive to tree size.
 }
 \references{
 Alex L. Pigot, Albert B. Phillimore, Ian P. F. Owens,

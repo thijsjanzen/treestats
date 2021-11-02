@@ -5,6 +5,7 @@
 #include "sackin.h"
 #include "gamma.h"
 #include "phylodiv.h"
+#include "pigot_rho.h"
 
 
 // [[Rcpp::export]]
@@ -130,5 +131,33 @@ try {
   ::Rf_error("c++ exception (unknown reason)");
 }
 return NA_REAL;
+}
 
+
+// [[Rcpp::export]]
+double calc_rho_cpp(const Rcpp::List& phy,
+                    double crown_age) {
+  try {
+
+    Rcpp::NumericMatrix edge = phy["edge"];
+    Rcpp::NumericVector edge_length = phy["edge.length"];
+
+    std::vector<double> el(edge_length.begin(), edge_length.end());
+    std::vector< std::array<int, 2>> edges(edge.nrow());
+    for (size_t i = 0; i < edge.nrow(); i++) {
+      std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
+                                   static_cast<int>(edge(i, 1))};
+      edges[i] = to_add;
+    }
+
+    phylo phylo_tree(edges, el);
+    rho pigot_rho(phylo_tree, crown_age);
+    return pigot_rho.calc_pigot_rho();
+
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
 }

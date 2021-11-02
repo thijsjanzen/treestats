@@ -21,3 +21,7 @@ calc_phylodiv_cpp <- function(phy, t, crown_age, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, crown_age, extinct_acc)
 }
 
+calc_rho_cpp <- function(phy, crown_age) {
+    .Call('_treestats_calc_rho_cpp', PACKAGE = 'treestats', phy, crown_age)
+}
+
