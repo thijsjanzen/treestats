@@ -103,15 +103,16 @@ return NA_REAL;
 }
 
 // [[Rcpp::export]]
-float calc_phylodiv_cpp(const Rcpp::List& phy,
-                        float t,
-                        float crown_age) {
+double calc_phylodiv_cpp(const Rcpp::List& phy,
+                         double t,
+                         double crown_age,
+                         double extinct_acc) {
 try {
 
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
-  std::vector<float> el(edge_length.begin(), edge_length.end());
+  std::vector<double> el(edge_length.begin(), edge_length.end());
   std::vector< std::array<int, 2>> edges(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); i++) {
     std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
@@ -121,7 +122,7 @@ try {
 
   phylo phylo_tree(edges, el);
 
-  return calculate_phylogenetic_diversity(phylo_tree, t, crown_age);
+  return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
 
 } catch(std::exception &ex) {
   forward_exception_to_r(ex);

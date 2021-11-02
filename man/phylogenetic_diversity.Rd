@@ -5,12 +5,15 @@
 \title{calculate phylogenetic diversity, e.g. the total branch length of the extant
 tree}
 \usage{
-phylogenetic_diversity(phy, t = 1e+10)
+phylogenetic_diversity(phy, t = 1e+10, extinct_tol = NULL)
 }
 \arguments{
 \item{phy}{phylo object}
 
 \item{t}{time point at which to measure phylogenetic diversity}
+
+\item{extinct_tol}{tolerance to determine if a lineage is extinct at time t.
+Default is 1/100 * smallest branch length of the tree.}
 }
 \value{
 phylogenetic diversity

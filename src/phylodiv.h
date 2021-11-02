@@ -3,7 +3,7 @@
 
 struct branch {
 
-  branch(float bd, int pl, int lab, float ext, float branch_length) :
+  branch(double bd, int pl, int lab, double ext, double branch_length) :
   start_date(bd),
   parent_label(pl),
   label(lab),
@@ -11,24 +11,24 @@ struct branch {
   bl(branch_length)
   {}
 
-  float start_date;
+  double start_date;
   int parent_label;
   int label;
-  float end_date;
-  float bl;
+  double end_date;
+  double bl;
 };
 
 struct phylo {
 
   const std::vector< std::array<int, 2>> edge;
-  const std::vector< float > edge_length;
+  const std::vector< double > edge_length;
 
   phylo(const std::vector< std::array<int, 2>> e,
-        const std::vector<float> el) : edge(e), edge_length(el) {}
+        const std::vector<double> el) : edge(e), edge_length(el) {}
 };
 
 
-float get_start_date(const std::vector<branch>& branchset,
+double get_start_date(const std::vector<branch>& branchset,
                      int parent_label) {
 
   for (const auto& i : branchset) {
@@ -73,16 +73,17 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
 
 
 std::vector< branch > create_branch_set(const phylo& phy,
-                                        float max_t,
-                                        float crown_age) {
+                                        double max_t,
+                                        double crown_age,
+                                        double extinct_acc) {
 
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
-  std::vector < std::array< float, 2 >> tip_times;
+  std::vector < std::array< double, 2 >> tip_times;
   for (size_t i = 0; i < phy.edge.size(); ++i) {
     size_t parent_label = phy.edge[i][0];
 
-    float start_date = 0.f;
+    double start_date = 0.f;
     if (parent_label != crown) {
       start_date = get_start_date(branchset, parent_label);
     }
@@ -91,17 +92,16 @@ std::vector< branch > create_branch_set(const phylo& phy,
       continue;
 
     size_t own_label   = phy.edge[i][1];
-    float bl = phy.edge_length[i];
-    float end_date = start_date + bl;
+    double bl = phy.edge_length[i];
+    double end_date = start_date + bl;
 
     if (end_date > max_t) {
       end_date = max_t;
       bl = end_date - start_date;
     }
     if (own_label < crown ) {
-
       if (end_date < crown_age && end_date < max_t) {
-        tip_times.push_back({static_cast<float>(own_label), end_date});
+        tip_times.push_back({static_cast<double>(own_label), end_date});
       }
     }
 
@@ -110,10 +110,10 @@ std::vector< branch > create_branch_set(const phylo& phy,
   }
 
   if (!tip_times.empty()) {
-    float limit = crown_age;
+    double limit = crown_age;
     if (max_t < limit) limit = max_t;
     for (int i = 0; i < tip_times.size(); ++i) {
-      if (limit - tip_times[i][1] > 1e-4f) {
+      if (limit - tip_times[i][1] > extinct_acc) {
         branchset = remove_from_branchset(branchset, tip_times[i][0]);
       }
     }
@@ -122,12 +122,14 @@ std::vector< branch > create_branch_set(const phylo& phy,
   return(branchset);
 }
 
-float calculate_phylogenetic_diversity(const phylo& phy,
-                                       float t,
-                                       float crown_age) {
-  std::vector< branch > branchset = create_branch_set(phy, t, crown_age);
+double calculate_phylogenetic_diversity(const phylo& phy,
+                                        double t,
+                                        double crown_age,
+                                        double extinct_acc) {
+  std::vector< branch > branchset = create_branch_set(phy, t,
+                                                      crown_age, extinct_acc);
 
-  float pd = 0.f;
+  double pd = 0.f;
   for (auto it = branchset.cbegin(); it != branchset.cend(); ++it) {
     pd += it->bl;
   }
