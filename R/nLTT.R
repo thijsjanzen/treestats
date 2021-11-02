@@ -1,6 +1,8 @@
 #' calculate the nLTT, using C++. Only use if you are very certain
-#' about the input data. If you are less certain, use the nLTT function from
-#' the nLTT package.
+#' about the input data, and are certain that performing nLTT is valid (e.g.
+#' your tree is ultrametric etc). If you are less certain, use the nLTT function
+#' from the nLTT package. The treestats implementation is approximately N/20
+#' times faster, where N is the number of extant tips in the largest tree.
 #' @param phy phylo or multiPhylo object
 #' @param ref_tree reference tree to compare with
 #' @return number of lineages
@@ -16,8 +18,8 @@ nLTT <- function(phy, # nolint
 }
 
 #' calculate the nLTT, using a reference 'empty' tree with only two lineages.
-#' Only use if you are very certain
-#' about the input data. If you are less certain, use the nLTT function from
+#' Only use if you are very certain about the input data.
+#' If you are less certain, use the nLTT function from
 #' the nLTT package.
 #' @param phy phylo or multiPhylo object
 #' @return number of lineages
