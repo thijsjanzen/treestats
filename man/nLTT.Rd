@@ -3,8 +3,10 @@
 \name{nLTT}
 \alias{nLTT}
 \title{calculate the nLTT, using C++. Only use if you are very certain
-about the input data. If you are less certain, use the nLTT function from
-the nLTT package.}
+about the input data, and are certain that performing nLTT is valid (e.g.
+your tree is ultrametric etc). If you are less certain, use the nLTT function
+from the nLTT package. The treestats implementation is approximately N/20
+times faster, where N is the number of extant tips in the largest tree.}
 \usage{
 nLTT(phy, ref_tree)
 }
@@ -18,6 +20,8 @@ number of lineages
 }
 \description{
 calculate the nLTT, using C++. Only use if you are very certain
-about the input data. If you are less certain, use the nLTT function from
-the nLTT package.
+about the input data, and are certain that performing nLTT is valid (e.g.
+your tree is ultrametric etc). If you are less certain, use the nLTT function
+from the nLTT package. The treestats implementation is approximately N/20
+times faster, where N is the number of extant tips in the largest tree.
 }

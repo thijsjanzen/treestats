@@ -3,8 +3,8 @@
 \name{nLTT_base}
 \alias{nLTT_base}
 \title{calculate the nLTT, using a reference 'empty' tree with only two lineages.
-Only use if you are very certain
-about the input data. If you are less certain, use the nLTT function from
+Only use if you are very certain about the input data.
+If you are less certain, use the nLTT function from
 the nLTT package.}
 \usage{
 nLTT_base(phy)
@@ -17,7 +17,7 @@ number of lineages
 }
 \description{
 calculate the nLTT, using a reference 'empty' tree with only two lineages.
-Only use if you are very certain
-about the input data. If you are less certain, use the nLTT function from
+Only use if you are very certain about the input data.
+If you are less certain, use the nLTT function from
 the nLTT package.
 }

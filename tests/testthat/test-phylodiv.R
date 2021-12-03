@@ -21,7 +21,6 @@ test_that("usage", {
   # now with extinct lineages
   focal_tree <- ape::read.tree(text =
                           "((t1:2.0, t2:2.0):1.0, (t3:1.0, t4:2.0):1.0):1.0;")
-  # plot(focal_tree)
 
   div1 <- treestats::phylogenetic_diversity(focal_tree)
   testthat::expect_equal(div1, 8)
@@ -33,7 +32,6 @@ test_that("usage", {
   # now with double extinct lineages
   focal_tree <- ape::read.tree(text =
                       "((:2.0, :2.0):1.0, ((:0.5, :1.0):0.5, :2.0):1.0):1.0;")
-  # plot(focal_tree)
   div1 <- treestats::phylogenetic_diversity(focal_tree)
   testthat::expect_equal(div1, 8)
   div1 <- treestats::phylogenetic_diversity(focal_tree, 2)

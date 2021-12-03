@@ -52,7 +52,7 @@ float calc_sackin_cpp(Rcpp::NumericMatrix in_table,
   //  force_output("collected into vector\n");
 
   try {
-    float output = calc_sackin(ltab);
+    float output = static_cast<float>(calc_sackin(ltab));
 
     if (normalization == "yule") {
       output = correct_yule(ltab, output);

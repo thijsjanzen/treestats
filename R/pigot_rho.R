@@ -1,6 +1,6 @@
 #' @keywords internal
 calc_pigot_rho_cpp <- function(phy) {
-  crown_age = max(ape::branching.times(phy))[[1]]
+  crown_age <- max(ape::branching.times(phy))[[1]]
   return(calc_rho_cpp(phy, crown_age))
 }
 
@@ -28,7 +28,7 @@ pigot_rho <- function(phy) {
 
 
 #' @keywords internal
-calc_pigot_rho_R <- function(phy) {
+calc_pigot_rho_r <- function(phy) {
   # this function is not really used
   # stays as a reference for the algorithm
   ltab <- DDD::phylo2L(phy)
@@ -39,7 +39,8 @@ calc_pigot_rho_R <- function(phy) {
   n_extant <- sum(ltab[, 4] == -1)
   species_born_before_mid_point <- which(ltab[, 1] > mid_point)
   species_alive_after_mid_point <- which(ltab[, 4] == -1)
-  species_mid_point <- species_born_before_mid_point %in% species_alive_after_mid_point
+  species_mid_point <- species_born_before_mid_point %in%
+                          species_alive_after_mid_point
   num_species_mid_point <- sum(species_mid_point)
 
   r1 <- (log(num_species_mid_point) - log(n_crown)) / mid_point

@@ -9,9 +9,9 @@
 phylogenetic_diversity <- function(phy,
                                    t = 1e10,
                                    extinct_tol = NULL) {
-  crown_age = max(ape::branching.times(phy))[[1]]
+  crown_age <- max(ape::branching.times(phy))[[1]]
   if (is.null(extinct_tol)) {
-    extinct_tol <- min(phy$edge.length)/100
+    extinct_tol <- min(phy$edge.length) / 100
   }
-  return(calc_phylodiv_cpp(phy, t, crown_age, extinct_tol));
+  return(calc_phylodiv_cpp(phy, t, crown_age, extinct_tol))
 }

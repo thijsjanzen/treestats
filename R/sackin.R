@@ -4,7 +4,7 @@
 #' @param norm normalization, either 'none' (default), "yule" or "pda".
 #' @return sackin index
 #' @export
-sackin <- function(phy, norm = 'none') {
+sackin <- function(phy, norm = "none") {
   sackin_index <- apply_function_ltab(phy, calc_sackin_cpp, norm)
   return(sackin_index)
 }
