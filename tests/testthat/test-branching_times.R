@@ -6,8 +6,8 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
-  a1 <- ape::branching.times(tree)
-  a2 <- treestats::branching_times(tree)
+  a1 <- ape::branching.times(focal_tree)
+  a2 <- treestats::branching_times(focal_tree)
 
   diff_brts <- abs(sort(a1) - sort(a2))
   mean_diff <- mean(diff_brts)
@@ -19,8 +19,8 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0.3)[[1]]
 
-  a1 <- ape::branching.times(tree)
-  a2 <- treestats::branching_times_treestats(tree)
+  a1 <- ape::branching.times(focal_tree)
+  a2 <- treestats::branching_times_treestats(focal_tree)
 
   diff_brts <- abs(sort(a1) - sort(a2))
   mean_diff <- mean(diff_brts)
