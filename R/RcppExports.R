@@ -25,3 +25,10 @@ calc_rho_cpp <- function(phy, crown_age) {
     .Call('_treestats_calc_rho_cpp', PACKAGE = 'treestats', phy, crown_age)
 }
 
+#' function to calculate branching times of a tree
+#' @param phy phylo object
+#' @export
+branching_times <- function(phy) {
+    .Call('_treestats_branching_times', PACKAGE = 'treestats', phy)
+}
+

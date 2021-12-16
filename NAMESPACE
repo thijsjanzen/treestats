@@ -3,6 +3,7 @@
 export(ILnumber)
 export(avgLadder)
 export(beta_statistic)
+export(branching_times)
 export(cherries)
 export(colless)
 export(gamma_statistic)

@@ -161,3 +161,43 @@ double calc_rho_cpp(const Rcpp::List& phy,
   }
   return NA_REAL;
 }
+
+struct bl {
+  float e1, e2, EL;
+};
+
+//' function to calculate branching times of a tree
+//' @param phy phylo object
+//' @export
+// [[Rcpp::export]]
+std::vector< float > branching_times(const Rcpp::List& phy) {
+
+  size_t Nnode = phy["Nnode"];
+  size_t n = Nnode + 1;
+
+  std::vector<size_t> interns(Nnode);
+
+  std::vector<float> edge_length = phy["edge.length"];
+  Rcpp::NumericMatrix edge = phy["edge"];
+
+  size_t cnt = 0;
+  for (size_t i = 0; i < edge_length.size(); ++i) {
+    if (edge(i, 1) > n) {
+      interns[cnt] = i;
+      cnt++;
+    }
+  }
+
+  std::vector<float> xx(Nnode);
+
+  for (const auto& i : interns) {
+    xx[ edge(i, 1) - n - 1 ] = xx[edge(i, 0) - n - 1] + edge_length[i];
+  }
+
+  int N = edge_length.size() - 1;
+  float depth = xx[edge(N, 0) - n - 1] +  edge_length[N];
+  for (auto& i : xx) {
+    i = depth - i;
+  }
+  return xx;
+}
