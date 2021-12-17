@@ -13,7 +13,7 @@ apply_function_ltab <- function(input_data, stat_function, ...) {
     if (class(input_data) == "multiPhylo") {
       warning("removing extinct branches to be sure!")
       input_data <- lapply(input_data, geiger::drop.extinct)
-      input_data <- lapply(input_data, DDD::phylo2L)
+      input_data <- lapply(input_data, treestats::phylo_to_l)
       output_data <-  lapply(input_data, stat_function, ...)
       return(unlist(output_data))
     }
@@ -25,7 +25,7 @@ apply_function_ltab <- function(input_data, stat_function, ...) {
       input_data <- geiger::drop.extinct(input_data)
     }
 
-    input_data <- DDD::phylo2L(input_data)
+    input_data <- treestats::phylo_to_l(input_data) #DDD::phylo2L(input_data)
     return(stat_function(input_data, ...))
   }
 
