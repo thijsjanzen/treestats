@@ -6,6 +6,7 @@
 #include "gamma.h"
 #include "phylodiv.h"
 #include "pigot_rho.h"
+#include "phylo2L.h"
 
 
 // [[Rcpp::export]]
@@ -162,42 +163,19 @@ double calc_rho_cpp(const Rcpp::List& phy,
   return NA_REAL;
 }
 
-struct bl {
-  float e1, e2, EL;
-};
-
-//' function to calculate branching times of a tree
+//' function to generate ltable from phy object
 //' @param phy phylo object
 //' @export
 // [[Rcpp::export]]
-std::vector< float > branching_times(const Rcpp::List& phy) {
-
-  size_t Nnode = phy["Nnode"];
-  size_t n = Nnode + 1;
-
-  std::vector<size_t> interns(Nnode);
-
-  std::vector<float> edge_length = phy["edge.length"];
-  Rcpp::NumericMatrix edge = phy["edge"];
-
-  size_t cnt = 0;
-  for (size_t i = 0; i < edge_length.size(); ++i) {
-    if (edge(i, 1) > n) {
-      interns[cnt] = i;
-      cnt++;
+Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
+  std::vector< std::array< double, 4> > ltab = phylo_to_l_cpp(phy);
+  size_t nrow = ltab.size();
+  size_t ncol = 4;
+  Rcpp::NumericMatrix out(nrow, ncol);
+  for (size_t i = 0; i < ltab.size(); ++i) {
+    for (size_t j = 0; j < 4; ++j) {
+      out(i, j) = ltab[i][j];
     }
   }
-
-  std::vector<float> xx(Nnode);
-
-  for (const auto& i : interns) {
-    xx[ edge(i, 1) - n - 1 ] = xx[edge(i, 0) - n - 1] + edge_length[i];
-  }
-
-  int N = edge_length.size() - 1;
-  float depth = xx[edge(N, 0) - n - 1] +  edge_length[N];
-  for (auto& i : xx) {
-    i = depth - i;
-  }
-  return xx;
+  return out;
 }

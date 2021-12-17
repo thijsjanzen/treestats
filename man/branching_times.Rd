@@ -2,7 +2,8 @@
 % Please edit documentation in R/RcppExports.R
 \name{branching_times}
 \alias{branching_times}
-\title{function to calculate branching times of a tree}
+\title{function to calculate branching times of a tree, approx 20 times faster
+than the DDD equivalent.}
 \usage{
 branching_times(phy)
 }
@@ -10,5 +11,6 @@ branching_times(phy)
 \item{phy}{phylo object}
 }
 \description{
-function to calculate branching times of a tree
+function to calculate branching times of a tree, approx 20 times faster
+than the DDD equivalent.
 }
