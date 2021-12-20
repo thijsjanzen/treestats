@@ -10,9 +10,9 @@
 nLTT <- function(phy, # nolint
                  ref_tree) {
 
-  brts1 <- ape::branching.times(phy)
+  brts1 <- treestats::branching_times(phy)
   brts1 <- c(-1.0 * rev(sort(brts1)), 0)
-  brts2 <- ape::branching.times(ref_tree)
+  brts2 <- treestats::branching_times(ref_tree)
   brts2 <- c(-1.0 * rev(sort(brts2)), 0)
   return(calc_nltt_cpp(brts1, brts2))
 }
