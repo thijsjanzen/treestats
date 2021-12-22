@@ -12,18 +12,6 @@ test_that("usage", {
 
   testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
 
-  beta_ltab <- treestats::beta_statistic(DDD::phylo2L(focal_tree))
-  testthat::expect_equal(beta_treestats, beta_ltab)
-
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 10,
-                                     lambda = 1, mu = 0)
-  class(focal_tree) <- "multiPhylo"
-  testthat::expect_warning(
-   beta_treestats <- treestats::beta_statistic(focal_tree)
-  )
-
-
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,
                                      lambda = 1, mu = 0.5)[[1]]

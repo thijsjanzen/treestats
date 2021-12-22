@@ -15,13 +15,4 @@ test_that("usage", {
   testthat::expect_equal(gammast_check2, gammast_check3)
 
   testthat::expect_equal(gammast, gammast_check, tolerance = 1e-4)
-
-
-
-  focal_trees <- TreeSim::sim.bd.taxa(n = 10, numbsim = 3, lambda = 1, mu = 0)
-
-  gammast1 <- treestats::gamma_statistic(focal_trees)
-  class(focal_trees) <- "multiPhylo"
-  gammast2 <- treestats::gamma_statistic(focal_trees)
-  testthat::expect_equal(gammast1, gammast2)
 })
