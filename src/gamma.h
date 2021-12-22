@@ -2,53 +2,45 @@
 #define gamma_h
 
 #include <vector>
+double calc_gamma(const std::vector<double>& brts_in) {
+  std::vector<double> brts_ = brts_in;
+  double n = brts_in.size() + 1;
 
-struct gamma_stat {
+  auto h = *std::max_element(brts_.begin(), brts_.end());
 
-  gamma_stat(const std::vector<float>& brts_in) : brts_(brts_in), n(brts_in.size() + 1) {
-    auto h = *std::max_element(brts_.begin(), brts_.end());
-    for (auto& i : brts_) {
-      i =  h - i;
-    }
-    brts_.push_back(0.f);
-    brts_.push_back(h);
-    std::sort(brts_.begin(), brts_.end());
-
-    std::adjacent_difference(brts_.cbegin(), brts_.cend(), std::back_inserter(g));
+  for (auto& i : brts_) {
+    i =  h - i;
   }
 
-  double calc_gamma_stat() {
+  brts_.push_back(0.0);
+  brts_.push_back(h);
+  std::sort(brts_.begin(), brts_.end());
 
-    float double_sum = 0.f;
-    float total = 0.f;
-    for (size_t i = 1; i <= n; ++i) {
+  double total = 0.0;
+  double g = brts_[1] - brts_[0];
+  double local_double_sum = g;
+  double double_sum = g;
 
-      if (i >= 2) {
-        total += i * g[i];
-      }
+  for (size_t i = 2; i < n; ++i) {
+    g = brts_[i] - brts_[i - 1];
 
-      if (i <= (n-1)) {
-        for (size_t k = 1; k <= i; ++k) {
-          double_sum += k * g[k];
-        }
-      }
-    }
+    total += i * g;
 
-    float a = double_sum * 1.0f / (n - 2);
-
-    float b = total / 2;
-    float c = total * sqrtf(1.f / (12 * n - 24));
-
-    return (a - b) / c;
+    local_double_sum += i * g;
+    double_sum += local_double_sum;
   }
+  g = brts_[n] - brts_[n - 1];
+  total += n * g;
 
 
+  double a = double_sum * 1.0 / (n - 2);
 
-private:
-  std::vector<float> brts_;
-  const float n;
-  std::vector<float> g;
+  double b = total / 2;
+  double c = total * sqrt(1.f / (12 * n - 24));
 
-};
+  return (a - b) / c;
+}
+
+
 
 #endif

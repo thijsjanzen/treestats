@@ -3,12 +3,12 @@
 
 #include <vector>
 
-std::vector<float> create_normalized_brts(const std::vector<float>& v) {
-  std::vector< float > output = v;
+std::vector<double> create_normalized_brts(const std::vector<double>& v) {
+  std::vector< double > output = v;
   std::sort(output.begin(), output.end());
   if (output.front() == 0.f) {
     // t goes from 0 to T
-    float maxT = output.back();
+    double maxT = output.back();
     output.push_back(maxT);
     for (auto& i : output) {
       i = i / maxT;
@@ -25,8 +25,8 @@ std::vector<float> create_normalized_brts(const std::vector<float>& v) {
   return output;
 }
 
-std::vector< float > create_normalized_lins(size_t num_lin) {
-  std::vector< float > output(num_lin - 1);
+std::vector< double > create_normalized_lins(size_t num_lin) {
+  std::vector< double > output(num_lin - 1);
   std::iota(output.begin(), output.end(), 2.f);
   auto max_num = output.back();
   output.push_back(max_num);
@@ -36,8 +36,8 @@ std::vector< float > create_normalized_lins(size_t num_lin) {
   return(output);
 }
 
-int get_index(const std::vector<float>& brts,
-              float tim) {
+int get_index(const std::vector<double>& brts,
+              double tim) {
 
   auto index = std::lower_bound(brts.begin(), brts.end(), tim);
   if (index != brts.begin()) index--;
@@ -45,15 +45,15 @@ int get_index(const std::vector<float>& brts,
   return std::distance(brts.begin(), index);
 }
 
-float calc_nltt_from_data(const std::vector<float>& b1,
-                          const std::vector<float>& b2,
-                          const std::vector<float>& n1,
-                          const std::vector<float>& n2,
-                          const std::vector<float>& all_b) {
+double calc_nltt_from_data(const std::vector<double>& b1,
+                           const std::vector<double>& b2,
+                           const std::vector<double>& n1,
+                           const std::vector<double>& n2,
+                           const std::vector<double>& all_b) {
 
-  float nltt = 0.f;
+  double nltt = 0.f;
   for (size_t k = 1; k < all_b.size(); ++k) {
-    float tim = all_b[k];
+    double tim = all_b[k];
     auto index1 = get_index(b1, tim);
     auto index2 = get_index(b2, tim);
 
@@ -62,7 +62,7 @@ float calc_nltt_from_data(const std::vector<float>& b1,
     auto diff_lin = num_lin1 - num_lin2;
 
     if (diff_lin < 0) diff_lin *= -1;
-    float dt = all_b[k] - all_b[k-1];
+    double dt = all_b[k] - all_b[k-1];
     nltt += dt * diff_lin;
     // std::cerr << tim << " " << num_lin1 << " " << num_lin2 << " " << dt << "\n";
   }
@@ -70,16 +70,16 @@ float calc_nltt_from_data(const std::vector<float>& b1,
 }
 
 // please note that the branching times have to be from -T to 0
-float calc_nltt(const std::vector<float>& v1,
-                const std::vector<float>& v2) {
+double calc_nltt(const std::vector<double>& v1,
+                 const std::vector<double>& v2) {
 
-  std::vector< float > b_times_1 = create_normalized_brts(v1);
-  std::vector< float > b_times_2 = create_normalized_brts(v2);
+  std::vector< double > b_times_1 = create_normalized_brts(v1);
+  std::vector< double > b_times_2 = create_normalized_brts(v2);
 
-  std::vector< float > lin_1 = create_normalized_lins(v1.size());
-  std::vector< float > lin_2 = create_normalized_lins(v2.size());
+  std::vector< double > lin_1 = create_normalized_lins(v1.size());
+  std::vector< double > lin_2 = create_normalized_lins(v2.size());
 
-  std::vector< float > all_branching_times(b_times_1.size() + b_times_2.size());
+  std::vector< double > all_branching_times(b_times_1.size() + b_times_2.size());
   std::merge(b_times_1.begin(), b_times_1.end(),
              b_times_2.begin(), b_times_2.end(),
              all_branching_times.begin());

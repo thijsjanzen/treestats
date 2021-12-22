@@ -5,6 +5,6 @@
 #' @return sackin index
 #' @export
 beta_statistic <- function(phy, upper_lim = 10) {
-  aldous_beta <- apply_function_ltab(phy, calc_beta_cpp, upper_lim)
+  aldous_beta <- apply_function_phy(phy, calc_beta_cpp, upper_lim)
   return(aldous_beta)
 }

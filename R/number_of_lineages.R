@@ -8,5 +8,5 @@ number_of_lineages <- function(phy) {
     return(focal_tree$Nnode + 1)
   }
 
-  return(apply_function(phy, calc_num_lin))
+  return(apply_function_phy(phy, calc_num_lin))
 }

@@ -10,23 +10,12 @@
 
 
 // [[Rcpp::export]]
-double calc_beta_cpp(Rcpp::NumericMatrix in_table,
+double calc_beta_cpp(const Rcpp::List& phy,
                      double upper_lim) {
-  if (in_table.ncol() != 4) {
-    Rcpp::stop("ltable needs four columns");
-  }
-  ltable ltab;
-  for (int i = 0; i < in_table.nrow(); ++i) {
-    std::array< float, 4 > row;
-    for (int j = 0; j < in_table.ncol(); ++j) {
-      row[j] = in_table(i,j);
-    }
-    ltab.push_back(row);
-  }
-
-  //  force_output("collected into vector\n");
 
   try {
+    auto ltab = phylo_to_l_cpp(phy);
+
     double output = calc_beta(ltab, -2, upper_lim);
     return output;
   } catch(std::exception &ex) {
@@ -38,22 +27,12 @@ double calc_beta_cpp(Rcpp::NumericMatrix in_table,
 }
 
 // [[Rcpp::export]]
-float calc_sackin_cpp(Rcpp::NumericMatrix in_table,
+double calc_sackin_cpp(const Rcpp::List phy,
                     std::string normalization) {
 
-  std::vector< std::vector< float >> ltab;
-  for (int i = 0; i < in_table.nrow(); ++i) {
-    std::vector< float > row;
-    for (int j = 0; j < in_table.ncol(); ++j) {
-      row.push_back(in_table(i,j));
-    }
-    ltab.push_back(row);
-  }
-
-  //  force_output("collected into vector\n");
-
   try {
-    float output = static_cast<float>(calc_sackin(ltab));
+    ltable ltab = phylo_to_l_cpp(phy);
+    double output = static_cast<double>(calc_sackin(ltab));
 
     if (normalization == "yule") {
       output = correct_yule(ltab, output);
@@ -71,13 +50,38 @@ float calc_sackin_cpp(Rcpp::NumericMatrix in_table,
   return NA_REAL;
 }
 
+//' function to calculate nltt
+//' @param phy1 phylogeny
+//' @param phy2 phylogeny
+//' @export
 // [[Rcpp::export]]
-float calc_nltt_cpp(const Rcpp::NumericVector& brts_one,
-                    const Rcpp::NumericVector& brts_two) {
+double calc_nltt_cpp2(const Rcpp::List& phy1,
+                     const Rcpp::List& phy2) {
+
+  std::vector<double> brts_one = branching_times(phy1);
+  std::vector<double> brts_two = branching_times(phy2);
+  std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());
+  std::sort(brts_two.begin(), brts_two.end(), std::greater<double>());
+  for (auto& i : brts_one) {
+    i *= -1;
+  }
+  for (auto& i : brts_two) {
+    i *= -1;
+  }
+  brts_one.push_back(0.0);
+  brts_two.push_back(0.0);
+  auto nltt = calc_nltt(brts_one, brts_two);
+  return nltt;
+}
+
+
+// [[Rcpp::export]]
+double calc_nltt_cpp(const Rcpp::NumericVector& brts_one,
+                     const Rcpp::NumericVector& brts_two) {
 
 try {
-  std::vector<float> v1(brts_one.begin(), brts_one.end());
-  std::vector<float> v2(brts_two.begin(), brts_two.end());
+  std::vector<double> v1(brts_one.begin(), brts_one.end());
+  std::vector<double> v2(brts_two.begin(), brts_two.end());
 
   auto nltt = calc_nltt(v1, v2);
   return nltt;
@@ -89,13 +93,15 @@ try {
 return NA_REAL;
 }
 
+//' gamma function
+//' @param phy phy
+//' @export
 // [[Rcpp::export]]
-float calc_gamma_cpp(const Rcpp::NumericVector& brts_in) {
+double calc_gamma_cpp(const Rcpp::List& phy) {
 try {
-  std::vector<float> brts(brts_in.begin(), brts_in.end());
-  gamma_stat gamma_stat_object(brts);
+  std::vector<double> brts = branching_times(phy);
+  return calc_gamma(brts);
 
-  return gamma_stat_object.calc_gamma_stat();
 } catch(std::exception &ex) {
   forward_exception_to_r(ex);
 } catch(...) {
@@ -168,6 +174,9 @@ double calc_rho_cpp(const Rcpp::List& phy,
 //' @export
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
+
+  try {
+
   std::vector< std::array< double, 4> > ltab = phylo_to_l_cpp(phy);
   size_t nrow = ltab.size();
   size_t ncol = 4;
@@ -178,4 +187,10 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
     }
   }
   return out;
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
 }

@@ -11,7 +11,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // branching_times
-std::vector< float > branching_times(const Rcpp::List& phy);
+std::vector< double > branching_times(const Rcpp::List& phy);
 RcppExport SEXP _treestats_branching_times(SEXP phySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -22,31 +22,43 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_beta_cpp
-double calc_beta_cpp(Rcpp::NumericMatrix in_table, double upper_lim);
-RcppExport SEXP _treestats_calc_beta_cpp(SEXP in_tableSEXP, SEXP upper_limSEXP) {
+double calc_beta_cpp(const Rcpp::List& phy, double upper_lim);
+RcppExport SEXP _treestats_calc_beta_cpp(SEXP phySEXP, SEXP upper_limSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type in_table(in_tableSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
     Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_beta_cpp(in_table, upper_lim));
+    rcpp_result_gen = Rcpp::wrap(calc_beta_cpp(phy, upper_lim));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_sackin_cpp
-float calc_sackin_cpp(Rcpp::NumericMatrix in_table, std::string normalization);
-RcppExport SEXP _treestats_calc_sackin_cpp(SEXP in_tableSEXP, SEXP normalizationSEXP) {
+double calc_sackin_cpp(const Rcpp::List phy, std::string normalization);
+RcppExport SEXP _treestats_calc_sackin_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type in_table(in_tableSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
     Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(in_table, normalization));
+    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(phy, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_nltt_cpp2
+double calc_nltt_cpp2(const Rcpp::List& phy1, const Rcpp::List& phy2);
+RcppExport SEXP _treestats_calc_nltt_cpp2(SEXP phy1SEXP, SEXP phy2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy1(phy1SEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy2(phy2SEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_nltt_cpp2(phy1, phy2));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_nltt_cpp
-float calc_nltt_cpp(const Rcpp::NumericVector& brts_one, const Rcpp::NumericVector& brts_two);
+double calc_nltt_cpp(const Rcpp::NumericVector& brts_one, const Rcpp::NumericVector& brts_two);
 RcppExport SEXP _treestats_calc_nltt_cpp(SEXP brts_oneSEXP, SEXP brts_twoSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -58,13 +70,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_gamma_cpp
-float calc_gamma_cpp(const Rcpp::NumericVector& brts_in);
-RcppExport SEXP _treestats_calc_gamma_cpp(SEXP brts_inSEXP) {
+double calc_gamma_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_gamma_cpp(SEXP phySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type brts_in(brts_inSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(brts_in));
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(phy));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -110,6 +122,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 2},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
+    {"_treestats_calc_nltt_cpp2", (DL_FUNC) &_treestats_calc_nltt_cpp2, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 4},

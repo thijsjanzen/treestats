@@ -3,7 +3,7 @@
 #' @return average number of ladders
 #' @export
 avgLadder <- function(phy) { # nolint
-  avgLadders <- apply_function(phy, phyloTop::avgLadder) # nolint
+  avgLadders <- apply_function_phy(phy, phyloTop::avgLadder) # nolint
   return(avgLadders)
 }
 
@@ -12,7 +12,7 @@ avgLadder <- function(phy) { # nolint
 #' @return number of cherries
 #' @export
 cherries <- function(phy) {
-  num_cherries <- apply_function(phy, phyloTop::cherries)
+  num_cherries <- apply_function_phy(phy, phyloTop::cherries)
   return(num_cherries)
 }
 
@@ -21,7 +21,7 @@ cherries <- function(phy) {
 #' @return ILnumber
 #' @export
 ILnumber <- function(phy) { # nolint
-  ILnum <- apply_function(phy, phyloTop::ILnumber) # nolint
+  ILnum <- apply_function_phy(phy, phyloTop::ILnumber) # nolint
   return(ILnum) # nolint
 }
 
@@ -30,7 +30,7 @@ ILnumber <- function(phy) { # nolint
 #' @return number of pitchforks
 #' @export
 pitchforks <- function(phy) {
-  num_pitchforks <- apply_function(phy, phyloTop::pitchforks)
+  num_pitchforks <- apply_function_phy(phy, phyloTop::pitchforks)
   return(num_pitchforks)
 }
 
@@ -39,6 +39,6 @@ pitchforks <- function(phy) {
 #' @return number of stairs
 #' @export
 stairs <- function(phy) {
-  num_stairs <- apply_function(phy, phyloTop::stairs)
+  num_stairs <- apply_function_phy(phy, phyloTop::stairs)
   return(num_stairs)
 }

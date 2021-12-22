@@ -8,5 +8,5 @@ mean_branch_length <- function(phy) {
     return(mean(focal_tree$edge.length, na.rm = TRUE))
   }
 
-  return(apply_function(phy, calc_mean_br))
+  return(apply_function_phy(phy, calc_mean_br))
 }

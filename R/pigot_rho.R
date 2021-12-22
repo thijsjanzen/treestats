@@ -1,6 +1,6 @@
 #' @keywords internal
 calc_pigot_rho_cpp <- function(phy) {
-  crown_age <- max(ape::branching.times(phy))[[1]]
+  crown_age <- max(treestats::branching_times(phy))[[1]]
   return(calc_rho_cpp(phy, crown_age))
 }
 
@@ -22,7 +22,7 @@ calc_pigot_rho_cpp <- function(phy) {
 #' December 2010, Pages 660–673, https://doi.org/10.1093/sysbio/syq058
 #' @export
 pigot_rho <- function(phy) {
-  rho <- apply_function(phy, calc_pigot_rho_cpp)
+  rho <- apply_function_phy(phy, calc_pigot_rho_cpp)
   return(rho)
 }
 
@@ -31,7 +31,7 @@ pigot_rho <- function(phy) {
 calc_pigot_rho_r <- function(phy) {
   # this function is not really used
   # stays as a reference for the algorithm
-  ltab <- DDD::phylo2L(phy)
+  ltab <- treestats::phylo_to_l(phy)
   crown_age <- ltab[1, 1]
   mid_point <- crown_age / 2
 

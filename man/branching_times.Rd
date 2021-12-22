@@ -3,7 +3,7 @@
 \name{branching_times}
 \alias{branching_times}
 \title{function to calculate branching times of a tree, approx 20 times faster
-than the DDD equivalent.}
+than the ape equivalent.}
 \usage{
 branching_times(phy)
 }
@@ -12,5 +12,5 @@ branching_times(phy)
 }
 \description{
 function to calculate branching times of a tree, approx 20 times faster
-than the DDD equivalent.
+than the ape equivalent.
 }

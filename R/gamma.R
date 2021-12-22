@@ -1,8 +1,5 @@
 #' @keywords internal
 calc_gamma <- function(phy) {
-  if (class(phy) == "phylo")  {
-    phy <- as.vector(ape::branching.times(phy))
-  }
   return(calc_gamma_cpp(phy))
 }
 
@@ -11,6 +8,6 @@ calc_gamma <- function(phy) {
 #' @return gamma statistic
 #' @export
 gamma_statistic <- function(phy) {
-  gamma_stat <- apply_function(phy, calc_gamma)
+  gamma_stat <- apply_function_phy(phy, calc_gamma)
   return(gamma_stat)
 }

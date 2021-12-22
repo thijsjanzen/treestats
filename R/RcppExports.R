@@ -2,27 +2,38 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' function to calculate branching times of a tree, approx 20 times faster
-#' than the DDD equivalent.
+#' than the ape equivalent.
 #' @param phy phylo object
 #' @export
 branching_times <- function(phy) {
     .Call('_treestats_branching_times', PACKAGE = 'treestats', phy)
 }
 
-calc_beta_cpp <- function(in_table, upper_lim) {
-    .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', in_table, upper_lim)
+calc_beta_cpp <- function(phy, upper_lim) {
+    .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim)
 }
 
-calc_sackin_cpp <- function(in_table, normalization) {
-    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', in_table, normalization)
+calc_sackin_cpp <- function(phy, normalization) {
+    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', phy, normalization)
+}
+
+#' function to calculate nltt
+#' @param phy1 phylogeny
+#' @param phy2 phylogeny
+#' @export
+calc_nltt_cpp2 <- function(phy1, phy2) {
+    .Call('_treestats_calc_nltt_cpp2', PACKAGE = 'treestats', phy1, phy2)
 }
 
 calc_nltt_cpp <- function(brts_one, brts_two) {
     .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', brts_one, brts_two)
 }
 
-calc_gamma_cpp <- function(brts_in) {
-    .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', brts_in)
+#' gamma function
+#' @param phy phy
+#' @export
+calc_gamma_cpp <- function(phy) {
+    .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
 
 calc_phylodiv_cpp <- function(phy, t, crown_age, extinct_acc) {

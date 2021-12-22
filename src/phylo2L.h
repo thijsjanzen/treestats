@@ -8,42 +8,7 @@
 
 #include <iostream>
 
-//' function to calculate branching times of a tree, approx 20 times faster
-//' than the DDD equivalent.
-//' @param phy phylo object
-//' @export
-// [[Rcpp::export]]
-std::vector< float > branching_times(const Rcpp::List& phy) {
-
-  size_t Nnode = phy["Nnode"];
-  size_t n = Nnode + 1;
-
-  std::vector<size_t> interns(Nnode);
-
-  std::vector<float> edge_length = phy["edge.length"];
-  Rcpp::NumericMatrix edge = phy["edge"];
-
-  size_t cnt = 0;
-  for (size_t i = 0; i < edge_length.size(); ++i) {
-    if (edge(i, 1) > n) {
-      interns[cnt] = i;
-      cnt++;
-    }
-  }
-
-  std::vector<float> xx(Nnode);
-
-  for (const auto& i : interns) {
-    xx[ edge(i, 1) - n - 1 ] = xx[edge(i, 0) - n - 1] + edge_length[i];
-  }
-
-  int N = edge_length.size() - 1;
-  float depth = xx[edge(N, 0) - n - 1] +  edge_length[N];
-  for (auto& i : xx) {
-    i = depth - i;
-  }
-  return xx;
-}
+#include "branching_times.h"
 
 
 size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
@@ -133,7 +98,7 @@ std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodes
 
 
 std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
-  std::vector< float > brts = branching_times(phy);
+  std::vector< double > brts = branching_times(phy);
 
   auto min_brts = *std::min_element(brts.begin(), brts.end());
   if (min_brts < 0) {
@@ -150,20 +115,21 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
   size_t num_tips = tiplabel.size();
 
-
-  std::vector< double > brt_preL(edge.nrow());
-  auto min_brt_preL = 1e10;
+  std::vector< long double > brt_preL(edge.nrow());
+  long double min_brt_preL = 1e10;
 
   for (size_t i = 0; i < edge.nrow(); ++i) {
     auto index = edge(i, 0) - num_tips - 1; // -1 because 0 indexing
     brt_preL[i] = brts[index];
-    if (brt_preL[i] < min_brt_preL) min_brt_preL = brt_preL[i];
+    if (brt_preL[i] < min_brt_preL) {
+      min_brt_preL = brt_preL[i];
+    }
   }
 
   if (min_brt_preL == 0.0) {
-    double correction = 0.f;
+    long double correction = 0.0;
     for (size_t i = 0; i < edge_length.size(); ++i) {
-      if (brt_preL[i] == 0.f) {
+      if (brt_preL[i] == 0.0) {
         if (edge_length[i] > correction) {
           correction = edge_length[i];
         }
@@ -184,6 +150,16 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][3] = edge_length[i];
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
+
+/*  std::cerr << "pre_Ltable: \n";
+  for (auto i : pre_Ltable) {
+    for (auto j : i) {
+      std::cerr << j << " ";
+    }
+    std::cerr << '\n';
+  }*/
+
+
 
   // pre_Ltable confirmed correct
   //
@@ -208,6 +184,10 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
     }
   }
+ /* std::cerr << "extant_species_index: ";
+  for (auto i : extant_species_index) {
+    std::cerr << i << " ";
+  } std::cerr << "\n";*/
 
   /*
    std::vector< size_t > tipsindex;

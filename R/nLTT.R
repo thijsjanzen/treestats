@@ -10,11 +10,11 @@
 nLTT <- function(phy, # nolint
                  ref_tree) {
 
-  brts1 <- treestats::branching_times(phy)
-  brts1 <- c(-1.0 * rev(sort(brts1)), 0)
-  brts2 <- treestats::branching_times(ref_tree)
-  brts2 <- c(-1.0 * rev(sort(brts2)), 0)
-  return(calc_nltt_cpp(brts1, brts2))
+ # brts1 <- treestats::branching_times(phy)
+#  brts1 <- c(-1.0 * rev(sort(brts1)), 0)
+#  brts2 <- treestats::branching_times(ref_tree)
+#  brts2 <- c(-1.0 * rev(sort(brts2)), 0)
+  return(calc_nltt_cpp2(phy, ref_tree))
 }
 
 #' calculate the nLTT, using a reference 'empty' tree with only two lineages.

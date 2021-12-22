@@ -11,19 +11,19 @@
 
 constexpr double pi_ = 3.14159265358979323846;
 
-using ltable = std::vector< std::array<float, 4>>;
+using ltable = std::vector< std::array<double, 4>>;
 
-float max_map_size = 1e6;
+double max_map_size = 1e6;
 
-float gammaln(float d)
+double gammaln(double d)
 {
   // return lgammaf(d);
 
-  static std::unordered_map<float, float> cache;
+  static std::unordered_map<double, double> cache;
   if (max_map_size == 0) return lgammaf(d);
 
   // look up function result
-  float ret;
+  double ret;
   auto it = cache.find(d);
   if (it != cache.end()) {
     ret = (*it).second;
@@ -48,9 +48,9 @@ public:
     update_lr_matrix();
   };
 
-  float calc_likelihood(float beta) const {
-    std::vector< float > sn = get_sn(beta);
-    std::vector< float > ll(lr_.size());
+  double calc_likelihood(double beta) const {
+    std::vector< double > sn = get_sn(beta);
+    std::vector< double > ll(lr_.size());
 
     for (size_t i = 0; i < n_.size(); ++i) {
       ll[i] = calc_log_prob(i, sn[ n_[i] ], beta);
@@ -65,7 +65,7 @@ private:
   std::vector< size_t > n_;
   std::vector< size_t > unique_n_;
   size_t max_n_;
-  std::vector<float> brts_;
+  std::vector<double> brts_;
 
   int find_species_in_ltable(int sp) {
     for (int i = 0; i < static_cast<int>(lt_.size()); ++i) {
@@ -76,9 +76,9 @@ private:
     return -1;
   }
 
-  std::vector<float> find_daughters(int sp,
-                                    float bt) {
-    std::vector< float > output;
+  std::vector<double> find_daughters(int sp,
+                                    double bt) {
+    std::vector< double > output;
     for (auto i : lt_) {
       if (i[0] < bt && i[1] == sp) {
         output.push_back(i[2]);
@@ -88,7 +88,7 @@ private:
   }
 
   size_t get_total_num_lin(int sp,
-                           float bt) {
+                           double bt) {
 
     int index = find_species_in_ltable(sp);
     size_t total_tips = 0;
@@ -99,7 +99,7 @@ private:
     }
 
     // now, we have to find daughters branching off
-    std::vector< float > daughters = find_daughters(sp, bt);
+    std::vector< double > daughters = find_daughters(sp, bt);
     if (!daughters.empty())  {
       for (auto d : daughters) {
         total_tips += get_total_num_lin(static_cast<int>(d), bt);
@@ -108,7 +108,7 @@ private:
     return(total_tips);
   }
 
-  std::vector< size_t > get_indices(float bt) {
+  std::vector< size_t > get_indices(double bt) {
     std::vector< size_t > indices;
     for (size_t i = 0; i < lt_.size(); ++i) {
       if (lt_[i][0] == bt) {
@@ -149,21 +149,21 @@ private:
     return;
   }
 
-  float calc_i_n_b(size_t i, size_t n, float b) const {
-    float nom = std::tgamma(1.f*(i + 1 + b)) * std::tgamma(1.f*(n - i + 1 + b));
-    float denom = std::tgamma(1.f*(i + 1)) * std::tgamma(1.f*(n - i + 1));
+  double calc_i_n_b(size_t i, size_t n, double b) const {
+    double nom = std::tgamma(1.f*(i + 1 + b)) * std::tgamma(1.f*(n - i + 1 + b));
+    double denom = std::tgamma(1.f*(i + 1)) * std::tgamma(1.f*(n - i + 1));
     return(nom / denom);
   }
 
-  float calc_i_n_b_l(size_t i, size_t n, float b) const {
+  double calc_i_n_b_l(size_t i, size_t n, double b) const {
     return gammaln(i + 1 + b) + gammaln(n - i + 1 + b) -
       gammaln(i + 1) - gammaln(n - i + 1);
   }
 
 
 
-  std::vector<float> get_sn(float b) const {
-    std::vector<float> sn(max_n_ + 1, 0.f);
+  std::vector<double> get_sn(double b) const {
+    std::vector<double> sn(max_n_ + 1, 0.f);
 
     for (const auto& n : unique_n_) {
       for (size_t i = 1; i <= n - 1; ++i) {
@@ -174,9 +174,9 @@ private:
     return sn;
   }
 
-  float calc_log_prob(size_t index, float sn, float beta) const {
-    float l = lr_[index][0];
-    float r = lr_[index][1];
+  double calc_log_prob(size_t index, double sn, double beta) const {
+    double l = lr_[index][0];
+    double r = lr_[index][1];
     return gammaln(beta + l + 1) + gammaln(beta + r + 1) -
       gammaln(l + 1) - gammaln(r + 1) - log(sn);
   }

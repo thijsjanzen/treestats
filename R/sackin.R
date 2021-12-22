@@ -5,6 +5,6 @@
 #' @return sackin index
 #' @export
 sackin <- function(phy, norm = "none") {
-  sackin_index <- apply_function_ltab(phy, calc_sackin_cpp, norm)
+  sackin_index <- apply_function_phy(phy, calc_sackin_cpp, norm)
   return(sackin_index)
 }
