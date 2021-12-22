@@ -1,6 +1,7 @@
 context("spectral density")
 
 test_that("usage", {
+  testthat::skip_on_ci()
   set.seed(42)
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,
