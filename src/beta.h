@@ -46,6 +46,8 @@ public:
     brts_.erase( std::unique(brts_.begin(), brts_.end()),
                  brts_.end());
     update_lr_matrix();
+
+    assert(ll.size() == n_.size());
   };
 
   double calc_likelihood(double beta) const {
@@ -53,7 +55,9 @@ public:
     std::vector< double > ll(lr_.size());
 
     for (size_t i = 0; i < n_.size(); ++i) {
-      ll[i] = calc_log_prob(i, sn[ n_[i] ], beta);
+      auto index = n_[i] ;
+      assert(index < sn.size() );
+      ll[i] = calc_log_prob(i, sn[ index ], beta);
     }
     double sumll = std::accumulate(ll.begin(), ll.end(), 0.f);
     return sumll;
@@ -77,7 +81,7 @@ private:
   }
 
   std::vector<double> find_daughters(int sp,
-                                    double bt) {
+                                     double bt) {
     std::vector< double > output;
     for (auto i : lt_) {
       if (i[0] < bt && i[1] == sp) {
@@ -159,8 +163,6 @@ private:
     return gammaln(i + 1 + b) + gammaln(n - i + 1 + b) -
       gammaln(i + 1) - gammaln(n - i + 1);
   }
-
-
 
   std::vector<double> get_sn(double b) const {
     std::vector<double> sn(max_n_ + 1, 0.f);
