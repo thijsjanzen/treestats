@@ -3,7 +3,6 @@
 export(ILnumber)
 export(avgLadder)
 export(beta_statistic)
-export(beta_statistic_raw)
 export(branching_times)
 export(calc_gamma_cpp)
 export(calc_nltt_cpp2)
