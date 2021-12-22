@@ -3,8 +3,10 @@
 R package that combines functions to calculate summary statistics on phylogenies.
 Includes fast C++ code to calculate some of these statistics, including:
   - Aldous Beta
-  - Sackin index (without normalization)
+  - Sackin index
   - nLTT
+  - Gamma
+  - Phylogenetic Diversity
   
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/treestats)](https://cran.r-project.org/package=treestats)
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
