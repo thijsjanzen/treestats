@@ -176,9 +176,8 @@ private:
   double calc_log_prob(size_t index, double sn, double beta) const {
     double l = lr_[index][0];
     double r = lr_[index][1];
-    return calc_i_n_b_l(l, r, beta) - log(sn);
- //   return gammaln(beta + l + 1) + gammaln(beta + r + 1) -
-  //    gammaln(l + 1) - gammaln(r + 1) - log(sn);
+    return gammaln(beta + l + 1) + gammaln(beta + r + 1) -
+           gammaln(l + 1) - gammaln(r + 1) - log(sn);
   }
 };
 
