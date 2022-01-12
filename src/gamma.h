@@ -2,8 +2,11 @@
 #define gamma_h
 
 #include <vector>
+
+
 double calc_gamma(const std::vector<double>& brts_in) {
   std::vector<double> brts_ = brts_in;
+  double n = brts_in.size() + 1;
 
   auto h = *std::max_element(brts_.begin(), brts_.end());
 
@@ -20,18 +23,13 @@ double calc_gamma(const std::vector<double>& brts_in) {
   double local_double_sum = g;
   double double_sum = g;
 
-  for (size_t i = 2; i < brts_.size(); ++i) {
+  for (size_t i = 2; i < n; ++i) {
     g = brts_[i] - brts_[i - 1];
 
     total += i * g;
 
     local_double_sum += i * g;
     double_sum += local_double_sum;
-  }
-
-  double n = brts_in.size() + 1;
-  if (n > brts_.size()) {
-    throw std::out_of_range("n > brts_.size()");
   }
   g = brts_[n] - brts_[n - 1];
   total += n * g;
@@ -44,7 +42,5 @@ double calc_gamma(const std::vector<double>& brts_in) {
 
   return (a - b) / c;
 }
-
-
 
 #endif

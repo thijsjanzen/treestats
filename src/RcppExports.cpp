@@ -69,17 +69,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_gamma_cpp
-double calc_gamma_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_gamma_cpp(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_phylodiv_cpp
 double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double crown_age, double extinct_acc);
 RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP crown_ageSEXP, SEXP extinct_accSEXP) {
@@ -124,7 +113,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_nltt_cpp2", (DL_FUNC) &_treestats_calc_nltt_cpp2, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
-    {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 4},
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 2},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},

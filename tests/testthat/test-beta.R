@@ -33,7 +33,9 @@ test_that("usage", {
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,
                                      lambda = 1, mu = 0.5)[[1]]
+
   testthat::expect_error(
+    # throws error, because beta can only be calculated on extant tree
     beta_treestats <- treestats::beta_statistic(focal_tree)
   )
 })

@@ -93,10 +93,6 @@ try {
 return NA_REAL;
 }
 
-//' gamma function
-//' @param phy phy
-//' @export
-// [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
 try {
   std::vector<double> brts = branching_times(phy);
@@ -177,7 +173,6 @@ double calc_rho_cpp(const Rcpp::List& phy,
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   const size_t ncol = 4;
- // Rcpp::Rcout << "welcome to phylo2L::treestats style\n"; force_output();
   std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
 
   size_t nrow = ltab.size();
