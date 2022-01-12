@@ -13,12 +13,10 @@ constexpr double pi_ = 3.14159265358979323846;
 
 using ltable = std::vector< std::array<double, 4>>;
 
-double max_map_size = 1e6;
+const double max_map_size = 1e5;
 
 double gammaln(double d)
 {
-  // return lgammaf(d);
-
   static std::unordered_map<double, double> cache;
   if (max_map_size == 0) return lgammaf(d);
 
@@ -53,9 +51,9 @@ public:
   double calc_likelihood(double beta) const {
     std::vector< double > sn = get_sn(beta);
     std::vector< double > ll(lr_.size());
-
+    assert(ll.size() == n_.size());
     for (size_t i = 0; i < n_.size(); ++i) {
-      auto index = n_[i] ;
+      auto index = n_[i];
       assert(index < sn.size() );
       ll[i] = calc_log_prob(i, sn[ index ], beta);
     }
@@ -96,7 +94,7 @@ private:
 
     int index = find_species_in_ltable(sp);
     size_t total_tips = 0;
-    if (index >= 0) {
+    if (index >= 0 && index < lt_.size()) {
       if (lt_[index][3] == -1) {
         total_tips = 1;
       }
@@ -132,7 +130,6 @@ private:
         lr[1] = get_total_num_lin(lt_[indices[1]][2], br);
       }
       if (indices.size() == 1) {
-
         lr[0] = get_total_num_lin(lt_[indices[0]][2], br);
         lr[1] = get_total_num_lin(lt_[indices[0]][1], br);
       }
@@ -179,8 +176,9 @@ private:
   double calc_log_prob(size_t index, double sn, double beta) const {
     double l = lr_[index][0];
     double r = lr_[index][1];
-    return gammaln(beta + l + 1) + gammaln(beta + r + 1) -
-      gammaln(l + 1) - gammaln(r + 1) - log(sn);
+    return calc_i_n_b_l(l, r, beta) - log(sn);
+ //   return gammaln(beta + l + 1) + gammaln(beta + r + 1) -
+  //    gammaln(l + 1) - gammaln(r + 1) - log(sn);
   }
 };
 
@@ -202,7 +200,7 @@ double calc_beta(const ltable& ltab,
                  double lower_lim,
                  double upper_lim) {
   betastat beta_calc(ltab);
-  // now we do optimization?
+  // now we do optimization
 
   nlopt_f_data optim_data(beta_calc);
 

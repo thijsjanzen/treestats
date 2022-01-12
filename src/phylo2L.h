@@ -6,9 +6,20 @@
 #include <array>
 #include <algorithm>
 
+#include <thread>
+#include <chrono>
+
 #include <iostream>
 
 #include "branching_times.h"
+
+void force_output() {
+  // std::this_thread::sleep_for(std::chrono::nanoseconds(100));
+  std::this_thread::sleep_for(std::chrono::milliseconds(5));
+  R_FlushConsole();
+  R_ProcessEvents();
+  R_CheckUserInterrupt();
+}
 
 
 size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
@@ -98,8 +109,10 @@ std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodes
 
 
 std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
+//  Rcpp::Rcout << "getting brts\n"; force_output();
   std::vector< double > brts = branching_times(phy);
 
+//  Rcpp::Rcout << "starting min_brts\n"; force_output();
   auto min_brts = *std::min_element(brts.begin(), brts.end());
   if (min_brts < 0) {
     for (auto& i : brts) {
@@ -107,6 +120,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     }
   }
 
+ // Rcpp::Rcout << "extracting phy properties\n"; force_output();
   size_t num_species = static_cast<size_t>(phy["Nnode"]) + 1;
 
   Rcpp::StringVector tiplabel = phy["tip.label"];
@@ -117,6 +131,8 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
   std::vector< long double > brt_preL(edge.nrow());
   long double min_brt_preL = 1e10;
+
+ // Rcpp::Rcout << "starting brt_preL\n"; force_output();
 
   for (size_t i = 0; i < edge.nrow(); ++i) {
     auto index = edge(i, 0) - num_tips - 1; // -1 because 0 indexing
@@ -164,6 +180,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   // pre_Ltable confirmed correct
   //
   //
+//  Rcpp::Rcout << "starting eeindicator\n"; force_output();
   std::vector<double> eeindicator(edge_length.size(), 0);
 
   std::vector< size_t > extant_species_index;
@@ -197,6 +214,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
    */
 
+//  Rcpp::Rcout << "starting extant_species_index\n"; force_output();
   for (size_t i = 1; i <= num_species; ++i) {
     bool found = false;
     for (const auto& j : extant_species_index) {
@@ -234,6 +252,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   // verified correct so far
 
 
+ // Rcpp::Rcout << "starting eeindicator2\n"; force_output();
 
   for (size_t i = 0; i < eeindicator.size(); ++i) {
     pre_Ltable[i][5] = eeindicator[i];
@@ -245,18 +264,20 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     return(v1[0] > v2[0]); // sort decreasing
   });
 
+//  Rcpp::Rcout << "starting nodesindex\n"; force_output();
   std::vector< size_t > nodesindex(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); ++i) {
     nodesindex[i] = static_cast<size_t>(edge(i, 0));
   }
 
+//  Rcpp::Rcout << "starting get_realL\n"; force_output();
   std::vector< std::array<double, 6>> realL = get_realL(nodesindex,
                                                         pre_Ltable);
 
   // verified correct so far
   //
   //
-
+ // Rcpp::Rcout << "starting creation L\n"; force_output();
   std::vector< std::array< double, 4> > L( realL.size() );
 
   for (size_t i = 0; i < realL.size(); ++i) {
@@ -291,7 +312,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
       }
     }
   }
-
+//  Rcpp::Rcout << "done L\n"; force_output();
   return L;
 }
 

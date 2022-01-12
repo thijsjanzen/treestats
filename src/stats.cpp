@@ -104,6 +104,8 @@ try {
 
 } catch(std::exception &ex) {
   forward_exception_to_r(ex);
+} catch(std::out_of_range& oor) {
+  Rcpp::Rcout << "Out of Range error: " << oor.what() << '\n';
 } catch(...) {
   ::Rf_error("c++ exception (unknown reason)");
 }
@@ -174,23 +176,17 @@ double calc_rho_cpp(const Rcpp::List& phy,
 //' @export
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
+  const size_t ncol = 4;
+ // Rcpp::Rcout << "welcome to phylo2L::treestats style\n"; force_output();
+  std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
 
-  try {
-
-  std::vector< std::array< double, 4> > ltab = phylo_to_l_cpp(phy);
   size_t nrow = ltab.size();
-  size_t ncol = 4;
   Rcpp::NumericMatrix out(nrow, ncol);
+
   for (size_t i = 0; i < ltab.size(); ++i) {
-    for (size_t j = 0; j < 4; ++j) {
+    for (size_t j = 0; j < ncol; ++j) {
       out(i, j) = ltab[i][j];
     }
   }
   return out;
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
-  }
-  return NA_REAL;
 }
