@@ -8,9 +8,27 @@ test_that("usage", {
 
   beta_treestats <- treestats::beta_statistic(focal_tree)
   beta_ref       <- apTreeshape::maxlik.betasplit(
-                          apTreeshape::as.treeshape(focal_tree))
+    apTreeshape::as.treeshape(focal_tree))
 
   testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
+
+  brts <- as.vector(ape::branching.times(focal_tree))
+
+ # bal_tree <- nodeSub::create_balanced_tree(brts)
+
+#  beta_treestats <- treestats::beta_statistic(bal_tree)
+#  beta_ref       <- apTreeshape::maxlik.betasplit(bal_tree)
+
+ # testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
+
+
+  unbal_tree <- nodeSub::create_unbalanced_tree(brts)
+
+  beta_treestats <- treestats::beta_statistic(unbal_tree)
+  beta_ref       <- apTreeshape::maxlik.betasplit(unbal_tree)
+
+  testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
+  testthat::expect_equal(beta_treestats, -2)
 
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,

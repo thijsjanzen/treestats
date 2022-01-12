@@ -24,6 +24,7 @@ Imports:
     DDD,
     geiger
 Suggests:
+    nodeSub,
     nLTT,
     TreeSim,
     castor
