@@ -64,7 +64,6 @@ double calc_nltt_from_data(const std::vector<double>& b1,
     if (diff_lin < 0) diff_lin *= -1;
     double dt = all_b[k] - all_b[k-1];
     nltt += dt * diff_lin;
-    // std::cerr << tim << " " << num_lin1 << " " << num_lin2 << " " << dt << "\n";
   }
   return nltt;
 }
