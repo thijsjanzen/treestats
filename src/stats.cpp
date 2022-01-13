@@ -93,6 +93,7 @@ try {
 return NA_REAL;
 }
 
+// [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
 try {
   std::vector<double> brts = branching_times(phy);

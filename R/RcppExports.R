@@ -29,6 +29,10 @@ calc_nltt_cpp <- function(brts_one, brts_two) {
     .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', brts_one, brts_two)
 }
 
+calc_gamma_cpp <- function(phy) {
+    .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
+}
+
 calc_phylodiv_cpp <- function(phy, t, crown_age, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, crown_age, extinct_acc)
 }
