@@ -17,16 +17,8 @@ calc_sackin_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', phy, normalization)
 }
 
-#' function to calculate nltt
-#' @param phy1 phylogeny
-#' @param phy2 phylogeny
-#' @export
-calc_nltt_cpp2 <- function(phy1, phy2) {
-    .Call('_treestats_calc_nltt_cpp2', PACKAGE = 'treestats', phy1, phy2)
-}
-
-calc_nltt_cpp <- function(brts_one, brts_two) {
-    .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', brts_one, brts_two)
+calc_nltt_cpp <- function(phy1, phy2) {
+    .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', phy1, phy2)
 }
 
 calc_gamma_cpp <- function(phy) {

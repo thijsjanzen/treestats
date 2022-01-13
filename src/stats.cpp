@@ -50,12 +50,8 @@ double calc_sackin_cpp(const Rcpp::List phy,
   return NA_REAL;
 }
 
-//' function to calculate nltt
-//' @param phy1 phylogeny
-//' @param phy2 phylogeny
-//' @export
 // [[Rcpp::export]]
-double calc_nltt_cpp2(const Rcpp::List& phy1,
+double calc_nltt_cpp(const Rcpp::List& phy1,
                      const Rcpp::List& phy2) {
 
   std::vector<double> brts_one = branching_times(phy1);
@@ -74,24 +70,6 @@ double calc_nltt_cpp2(const Rcpp::List& phy1,
   return nltt;
 }
 
-
-// [[Rcpp::export]]
-double calc_nltt_cpp(const Rcpp::NumericVector& brts_one,
-                     const Rcpp::NumericVector& brts_two) {
-
-try {
-  std::vector<double> v1(brts_one.begin(), brts_one.end());
-  std::vector<double> v2(brts_two.begin(), brts_two.end());
-
-  auto nltt = calc_nltt(v1, v2);
-  return nltt;
-} catch(std::exception &ex) {
-  forward_exception_to_r(ex);
-} catch(...) {
-  ::Rf_error("c++ exception (unknown reason)");
-}
-return NA_REAL;
-}
 
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
@@ -186,3 +164,26 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   }
   return out;
 }
+
+
+
+
+// old stuff
+ /*
+double calc_nltt_cpp_old(const Rcpp::NumericVector& brts_one,
+                         const Rcpp::NumericVector& brts_two) {
+
+  try {
+    std::vector<double> v1(brts_one.begin(), brts_one.end());
+    std::vector<double> v2(brts_two.begin(), brts_two.end());
+
+    auto nltt = calc_nltt(v1, v2);
+    return nltt;
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
+}
+*/

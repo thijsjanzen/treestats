@@ -45,27 +45,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_nltt_cpp2
-double calc_nltt_cpp2(const Rcpp::List& phy1, const Rcpp::List& phy2);
-RcppExport SEXP _treestats_calc_nltt_cpp2(SEXP phy1SEXP, SEXP phy2SEXP) {
+// calc_nltt_cpp
+double calc_nltt_cpp(const Rcpp::List& phy1, const Rcpp::List& phy2);
+RcppExport SEXP _treestats_calc_nltt_cpp(SEXP phy1SEXP, SEXP phy2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy1(phy1SEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy2(phy2SEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_nltt_cpp2(phy1, phy2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_nltt_cpp
-double calc_nltt_cpp(const Rcpp::NumericVector& brts_one, const Rcpp::NumericVector& brts_two);
-RcppExport SEXP _treestats_calc_nltt_cpp(SEXP brts_oneSEXP, SEXP brts_twoSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type brts_one(brts_oneSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type brts_two(brts_twoSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_nltt_cpp(brts_one, brts_two));
+    rcpp_result_gen = Rcpp::wrap(calc_nltt_cpp(phy1, phy2));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -122,7 +110,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 2},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
-    {"_treestats_calc_nltt_cpp2", (DL_FUNC) &_treestats_calc_nltt_cpp2, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 4},

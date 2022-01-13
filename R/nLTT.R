@@ -9,7 +9,7 @@
 #' @export
 nLTT <- function(phy, # nolint
                  ref_tree) {
-  return(calc_nltt_cpp2(phy, ref_tree))
+  return(calc_nltt_cpp(phy, ref_tree))
 }
 
 #' calculate the nLTT, using a reference 'empty' tree with only two lineages.
