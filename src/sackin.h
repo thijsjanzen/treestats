@@ -5,23 +5,26 @@
 
 using ltable = std::vector< std::array<double, 4>>;
 
-size_t find_parent(const ltable& ltable_,
+template <class IT>
+size_t find_parent(IT first,
+                   IT last,
                    int focal_id,
                    int start_index) {
 
-  for(int i = start_index; i >= 0; i--) {
-    if (static_cast<int>(ltable_[i][2]) == focal_id) {
-      return i;
-    }
+  auto focal = first + start_index;
+  for (; focal >= first; --focal) {
+    if ( (*focal)[1] == focal_id )
+      return std::distance(first, focal);
   }
 
-  if (start_index != ltable_.size()) {
-   // force_output("could not find parent, retrying\n");
-    return find_parent(ltable_, focal_id, ltable_.size());
+  if (focal != first) {
+    // force_output("could not find parent, retrying\n");
+    return find_parent(first, last, focal_id, std::distance(first, last));
   } else {
-  //  force_output("could not find parent at all\n");
-    return -1; // trigger access violation --> update to throw
+    //  force_output("could not find parent at all\n");
+    throw std::out_of_range("could not find parent\n");
   }
+  return -1;
 }
 
 
@@ -30,17 +33,19 @@ size_t calc_sackin(const ltable& ltable_) {
   s_values[0] = 1;
   s_values[1] = 1;
 
-  // ltable:
-  // 0 = branching time // not used here
-  // 1 = parent
-  // 2 = id
-  // 3 = extinct time // not used here
-  for (size_t i = 2; i < ltable_.size(); ++i) {
-    int parent_id = ltable_[i][1];
-    int parent_index = find_parent(ltable_, parent_id, i);
+  std::vector< std::array<int, 2>> ref_tab(ltable_.size());
+  for (size_t i = 0; i < ltable_.size(); ++i) {
+    ref_tab[i] = {static_cast<int>(ltable_[i][1]),
+                  static_cast<int>(ltable_[i][2])};
+  }
+
+  for (size_t i = 2; i < ref_tab.size(); ++i) {
+    auto parent_id = ref_tab[i][0];
+    auto parent_index = find_parent(ref_tab.begin(), ref_tab.end(), parent_id, i);
     s_values[parent_index]++;
     s_values[i] = s_values[parent_index];
   }
+
   // verified with R for correct values
   // compared with apTreeShape results, based on ltable
   // 24-09-2021
