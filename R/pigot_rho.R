@@ -25,30 +25,3 @@ pigot_rho <- function(phy) {
   rho <- apply_function_phy(phy, calc_pigot_rho_cpp)
   return(rho)
 }
-
-
-#' @keywords internal
-calc_pigot_rho_r <- function(phy) {
-  # this function is not really used
-  # stays as a reference for the algorithm
-  ltab <- treestats::phylo_to_l(phy)
-  crown_age <- ltab[1, 1]
-  mid_point <- crown_age / 2
-
-  n_crown <- 2
-  n_extant <- sum(ltab[, 4] == -1)
-  species_born_before_mid_point <- which(ltab[, 1] > mid_point)
-  species_alive_after_mid_point <- which(ltab[, 4] == -1)
-  species_mid_point <- species_born_before_mid_point %in%
-                          species_alive_after_mid_point
-  num_species_mid_point <- sum(species_mid_point)
-
-  r1 <- (log(num_species_mid_point) - log(n_crown)) / mid_point
-  r2 <- (log(n_extant) - log(num_species_mid_point)) / mid_point
-
-  rho <- (r2 - r1) / (r1 + r2)
-  cat(n_crown, num_species_mid_point, n_extant, "\n")
-  cat(r1, r2, rho, "\n")
-
-  return(rho)
-}
