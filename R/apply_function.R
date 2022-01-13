@@ -1,4 +1,7 @@
 #' @keywords internal
+#' @rawNamespace import(Rcpp)
+#' @rawNamespace import(nloptr)
+#' @rawNamespace useDynLib(treestats)
 apply_function_phy <- function(input_phy, stat_function, ...) {
 
   if (!inherits(input_phy, "phylo"))  {
