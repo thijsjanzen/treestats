@@ -24,12 +24,10 @@ std::vector< double > branching_times(const Rcpp::List& phy) {
       auto source_index = edge(i, 0) - n - 1;
 
       if (target_index < 0 || target_index >= xx.size()) { // range checks
-       // std::cerr << target_index << "\n";
         throw std::out_of_range("target_index out of bounds");
       }
 
       if (source_index < 0 || source_index >= xx.size()) {
-    //    std::cerr << source_index << "\n";
         throw std::out_of_range("source_index out of bounds");
       }
 
@@ -39,7 +37,6 @@ std::vector< double > branching_times(const Rcpp::List& phy) {
 
   auto edge_index = edge(edge_length.size() - 1, 0) - n - 1;
   if (edge_index < 0 || edge_index >= xx.size()) {
-   // std::cerr << edge_index << "\n";
     throw std::out_of_range("edge_index out of bounds");
   }
 

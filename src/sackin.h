@@ -2,30 +2,9 @@
 #define sackin_h
 
 #include <vector>
+#include <algorithm>
 
 using ltable = std::vector< std::array<double, 4>>;
-
-template <class IT>
-size_t find_parent(IT first,
-                   IT last,
-                   int focal_id,
-                   int start_index) {
-
-  auto focal = first + start_index;
-  for (; focal >= first; --focal) {
-    if ( (*focal)[1] == focal_id )
-      return std::distance(first, focal);
-  }
-
-  if (focal != first) {
-    // force_output("could not find parent, retrying\n");
-    return find_parent(first, last, focal_id, std::distance(first, last));
-  } else {
-    //  force_output("could not find parent at all\n");
-    throw std::out_of_range("could not find parent\n");
-  }
-  return -1;
-}
 
 
 size_t calc_sackin(const ltable& ltable_) {
@@ -33,15 +12,26 @@ size_t calc_sackin(const ltable& ltable_) {
   s_values[0] = 1;
   s_values[1] = 1;
 
-  std::vector< std::array<int, 2>> ref_tab(ltable_.size());
-  for (size_t i = 0; i < ltable_.size(); ++i) {
-    ref_tab[i] = {static_cast<int>(ltable_[i][1]),
-                  static_cast<int>(ltable_[i][2])};
+  std::vector< std::array<int, 2> > parent_map;
+
+  for (int i = 0; i < ltable_.size(); ++i) {
+    parent_map.push_back( {static_cast<int>(ltable_[i][2]), i});
   }
 
-  for (size_t i = 2; i < ref_tab.size(); ++i) {
-    auto parent_id = ref_tab[i][0];
-    auto parent_index = find_parent(ref_tab.begin(), ref_tab.end(), parent_id, i);
+  std::sort(parent_map.begin(), parent_map.end(),
+            [&](const auto& a, const auto& b) {
+              return a[0] < b[0];
+            });
+
+  for (size_t i = 2; i < ltable_.size(); ++i) {
+    int parent_id = ltable_[i][1];
+
+    auto it = std::lower_bound(parent_map.begin(), parent_map.end(), parent_id,
+                               [&](const auto& a, int ref) {
+                                 return a[0] < ref;
+                               });
+    auto parent_index = (*it)[1];
+
     s_values[parent_index]++;
     s_values[i] = s_values[parent_index];
   }
