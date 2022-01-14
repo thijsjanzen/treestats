@@ -3,60 +3,93 @@
 
 #include <vector>
 #include <algorithm>
+#include <array>
 
-using ltable = std::vector< std::array<double, 4>>;
+#include "Rcpp.h"
 
+class sackin_stat {
 
-size_t calc_sackin(const ltable& ltable_) {
-  std::vector< int > s_values(ltable_.size(), 0);
-  s_values[0] = 1;
-  s_values[1] = 1;
-
-  std::vector< std::array<int, 2> > parent_map;
-
-  for (int i = 0; i < ltable_.size(); ++i) {
-    parent_map.push_back( {static_cast<int>(ltable_[i][2]), i});
+public:
+  sackin_stat(const std::vector< std::array< size_t, 2 >> & e) : edge(e) {
+    tiplist = std::vector<int>(edge.size() + 2, -1);
   }
 
-  std::sort(parent_map.begin(), parent_map.end(),
-            [&](const auto& a, const auto& b) {
-              return a[0] < b[0];
-            });
+  size_t calc_sackin() {
+    size_t root_label = edge[0][0];
 
-  for (size_t i = 2; i < ltable_.size(); ++i) {
-    int parent_id = ltable_[i][1];
+    std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
+      return a[0] < b[0];
+    });
 
-    auto it = std::lower_bound(parent_map.begin(), parent_map.end(), parent_id,
-                               [&](const auto& a, int ref) {
-                                 return a[0] < ref;
-                               });
-    auto parent_index = (*it)[1];
-
-    s_values[parent_index]++;
-    s_values[i] = s_values[parent_index];
+    std::vector< size_t > s(edge.size());
+    for (size_t i = 0; i < edge.size(); i++) {
+      s[i] = get_num_tips(edge[i][1], root_label);
+    }
+    return std::accumulate(s.begin(), s.end(), 0.0);
   }
 
-  // verified with R for correct values
-  // compared with apTreeShape results, based on ltable
-  // 24-09-2021
-  return(std::accumulate(s_values.begin(), s_values.end(), 0));
-}
+private:
 
-double correct_pda(const ltable& ltable_,
-                  double Is) {
-  double n = ltable_.size();
+  size_t get_num_tips(size_t label, size_t root_label) {
+    if (label >= tiplist.size()) {
+      throw std::out_of_range("label > tiplist.size()");
+    }
+
+    if (label < root_label) {
+      return 1;
+    }
+
+    if (tiplist[label] > 0) {
+      return(tiplist[label]);
+    }
+
+    std::vector< size_t > matches;
+    auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
+      return a[0] < val;
+    });
+
+    while (match1 != edge.end()) {
+      if ((*match1)[0] == label) {
+        matches.push_back((*match1)[1]);
+        match1++;
+      } else {
+        break;
+      }
+    }
+
+    if (matches.empty()) {
+      // this can't really happen.
+      tiplist[label] = 1;
+      return 1;
+    }
+
+    size_t s = 0;
+    for (size_t j = 0; j < matches.size(); ++j) {
+      s += get_num_tips(matches[j], root_label);
+    }
+    tiplist[label] = s;
+    return s;
+  }
+
+  std::vector< std::array< size_t, 2 >>  edge;
+  std::vector<int> tiplist;
+};
+
+double correct_pda(const size_t n,
+                   size_t Is) {
   double denom = powf(n, 1.5f);
-  return Is / denom;;
+  return 1.0 * Is / denom;
 }
 
-double correct_yule(const ltable& ltable_,
-                   double Is) {
-  double n = ltable_.size();
-  double sum_count = 0.f;
-  for (double j = 2.f; j <= n; ++j) {
-    sum_count += 1.f / j;
+double correct_yule(const size_t n,
+                    size_t Is) {
+  double sum_count = 0.0;
+  for (size_t j = 2; j <= n; ++j) {
+    sum_count += 1.0 / j;
   }
-  return (Is - 2 * n * sum_count) / n;
+  return (1.0 * Is - 2.0 * n * sum_count) / n;
 }
+
+
 
 #endif
