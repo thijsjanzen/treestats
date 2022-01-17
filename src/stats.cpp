@@ -1,5 +1,7 @@
 #include <Rcpp.h>
 
+#include <string>
+
 #include "beta.h"
 #include "nltt.h"
 #include "sackin.h"
@@ -7,6 +9,7 @@
 #include "phylodiv.h"
 #include "pigot_rho.h"
 #include "phylo2L.h"
+#include "colless.h"
 
 
 // [[Rcpp::export]]
@@ -14,9 +17,14 @@ double calc_beta_cpp(const Rcpp::List& phy,
                      double upper_lim) {
 
   try {
-    auto ltab = phylo_to_l_cpp(phy);
+    Rcpp::NumericMatrix edge = phy["edge"];
+    std::vector< std::array< size_t, 2 >> local_edge(edge.nrow());
+    for (size_t i = 0; i < edge.nrow(); ++i) {
+      local_edge[i] = {static_cast<size_t>(edge(i, 0)),
+                       static_cast<size_t>(edge(i, 1))};
+    }
 
-    double output = calc_beta(ltab, -2, upper_lim);
+    double output = calc_beta(local_edge, -2, upper_lim);
     return output;
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
@@ -26,10 +34,48 @@ double calc_beta_cpp(const Rcpp::List& phy,
   return NA_REAL;
 }
 
+//' cpp version of colless
+//' @param phy phy
+//' @param normalization n
+//' @export
+// [[Rcpp::export]]
+double calc_colless_cpp(const Rcpp::List phy,
+                       std::string normalization) {
+
+  try {
+    Rcpp::NumericMatrix edge = phy["edge"];
+    std::vector< std::array< size_t, 2 >> local_edge(edge.nrow());
+    for (size_t i = 0; i < edge.nrow(); ++i) {
+      local_edge[i] = {static_cast<size_t>(edge(i, 0)),
+                       static_cast<size_t>(edge(i, 1))};
+    }
+
+    colless_stat s(local_edge);
+
+    size_t output = s.calc_colless();
+
+    if (normalization == "yule") {
+      Rcpp::NumericVector tip_label = phy["tip.label"];
+      size_t n = tip_label.size();
+      output = correct_yule(n, output);
+    }
+    if (normalization == "pda") {
+      Rcpp::NumericVector tip_label = phy["tip.label"];
+      size_t n = tip_label.size();
+      output = correct_pda(n, output);
+    }
+    return output;
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
+}
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const Rcpp::List phy,
-                       std::string normalization) {
+                       const Rcpp::String& normalization) {
 
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
@@ -53,6 +99,7 @@ double calc_sackin_cpp(const Rcpp::List phy,
       size_t n = tip_label.size();
       output = correct_pda(n, output);
     }
+
     return output;
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);

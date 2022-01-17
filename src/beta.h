@@ -6,14 +6,15 @@
 #include <array>
 #include <unordered_map>
 #include <nloptrAPI.h>
+#include <algorithm>
 
 
 
 constexpr double pi_ = 3.14159265358979323846;
 
-using ltable = std::vector< std::array<double, 4>>;
-
 const double max_map_size = 1e5;
+
+
 
 double gammaln(double d)
 {
@@ -32,21 +33,12 @@ double gammaln(double d)
   return ret;
 }
 
-
-
 class betastat {
 public:
-  betastat(const ltable& lt_in) : lt_(lt_in) {
-    for (auto i : lt_) {
-      brts_.push_back(i[0]);
-    }
-    std::sort(brts_.begin(), brts_.end());
-    brts_.erase( std::unique(brts_.begin(), brts_.end()),
-                 brts_.end());
+  betastat(const std::vector< std::array< size_t, 2 >> e) : edge(e) {
+    tiplist = std::vector<int>(edge.size() + 2, -1);
     update_lr_matrix();
-
-    assert(ll.size() == n_.size());
-  };
+  }
 
   double calc_likelihood(double beta) const {
     std::vector< double > sn = get_sn(beta);
@@ -62,93 +54,87 @@ public:
   }
 
 private:
-  const ltable lt_;
   std::vector< std::array<size_t, 2>> lr_;
-  std::vector< size_t > n_;
-  std::vector< size_t > unique_n_;
+  std::vector< std::array<size_t, 2>> edge;
   size_t max_n_;
-  std::vector<double> brts_;
+  std::vector< size_t > n_;
 
-  int find_species_in_ltable(int sp) {
-    for (int i = 0; i < static_cast<int>(lt_.size()); ++i) {
-      if (lt_[i][2] == sp) {
-        return i;
+  std::vector< int > tiplist;
+
+  size_t get_num_tips(size_t label, size_t root_label) {
+    if (label >= tiplist.size()) {
+      throw std::out_of_range("label > tiplist.size()");
+    }
+
+    if (label < root_label) {
+      return 1;
+    }
+
+    if (tiplist[label] > 0) {
+      return(tiplist[label]);
+    }
+
+    std::vector< size_t > matches;
+    auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
+      return a[0] < val;
+    });
+
+    while (match1 != edge.end()) {
+      if ((*match1)[0] == label) {
+        matches.push_back((*match1)[1]);
+        match1++;
+      } else {
+        break;
       }
     }
-    return -1;
+
+    if (matches.empty()) {
+      // this can't really happen.
+      tiplist[label] = 1;
+      return 1;
+    }
+
+    size_t s = 0;
+    for (size_t j = 0; j < matches.size(); ++j) {
+      s += get_num_tips(matches[j], root_label);
+    }
+    tiplist[label] = s;
+    return s;
   }
 
-  std::vector<double> find_daughters(int sp,
-                                     double bt) {
-    std::vector< double > output;
-    for (auto i : lt_) {
-      if (i[0] < bt && i[1] == sp) {
-        output.push_back(i[2]);
-      }
-    }
-    return(output);
-  }
-
-  size_t get_total_num_lin(int sp,
-                           double bt) {
-
-    int index = find_species_in_ltable(sp);
-    size_t total_tips = 0;
-    if (index >= 0 && index < lt_.size()) {
-      if (lt_[index][3] == -1) {
-        total_tips = 1;
-      }
-    }
-
-    // now, we have to find daughters branching off
-    std::vector< double > daughters = find_daughters(sp, bt);
-    if (!daughters.empty())  {
-      for (auto d : daughters) {
-        total_tips += get_total_num_lin(static_cast<int>(d), bt);
-      }
-    }
-    return(total_tips);
-  }
-
-  std::vector< size_t > get_indices(double bt) {
-    std::vector< size_t > indices;
-    for (size_t i = 0; i < lt_.size(); ++i) {
-      if (lt_[i][0] == bt) {
-        indices.push_back(i);
-      }
-    }
-    return indices;
-  }
 
   void update_lr_matrix() {
-    max_n_ = 0;
-    for (auto br : brts_) {
-      std::array<size_t, 2> lr = {0, 0};
-      std::vector< size_t > indices = get_indices(br);
-      if (indices.size() == 2) {
-        lr[0] = get_total_num_lin(lt_[indices[0]][2], br);
-        lr[1] = get_total_num_lin(lt_[indices[1]][2], br);
-      }
-      if (indices.size() == 1) {
-        lr[0] = get_total_num_lin(lt_[indices[0]][2], br);
-        lr[1] = get_total_num_lin(lt_[indices[0]][1], br);
-      }
 
-      if (lr[0] > lr[1]) {
-        std::swap(lr[0], lr[1]);
+    size_t root_label = edge[0][0];
+
+    std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
+      return a[0] < b[0];
+    });
+
+
+    for (size_t i = 0; i < edge.size(); ++i) {
+      if (i + 1 < edge.size()) {
+        auto j = i + 1;
+        std::array< size_t, 2> lr;
+        lr[0] = get_num_tips(edge[i][1], root_label);
+        lr[1] = get_num_tips(edge[j][1], root_label);
+
+        if (lr[0] > lr[1]) {
+          //std::swap(lr[0], lr[1]);
+          size_t temp = lr[1];
+          lr[1] = lr[0];
+          lr[0] = temp;
+        }
+        size_t total_num_lin = lr[0] + lr[1];
+        n_.push_back(total_num_lin);
+        lr_.push_back(lr);
+        i++;
       }
-      size_t total_num_lin = lr[0] + lr[1];
-      if (total_num_lin > max_n_) max_n_ = total_num_lin;
-      n_.push_back(total_num_lin);
-      lr_.push_back(lr);
     }
-    unique_n_ = n_;
-    std::sort(unique_n_.begin(), unique_n_.end());
-    unique_n_.erase( std::unique(unique_n_.begin(), unique_n_.end()),
-                     unique_n_.end());
 
-    return;
+    max_n_ = *std::max_element(n_.cbegin(), n_.cend());
   }
+
 
   double calc_i_n_b(size_t i, size_t n, double b) const {
     double nom = std::tgamma(1.f*(i + 1 + b)) * std::tgamma(1.f*(n - i + 1 + b));
@@ -162,12 +148,22 @@ private:
   }
 
   std::vector<double> get_sn(double b) const {
-    std::vector<double> sn(max_n_ + 1, 0.f);
+    std::vector<double> sn(max_n_ + 1, 0.0);
+    std::vector<double> xn(max_n_ + 1, 0.0);
 
-    for (const auto& n : unique_n_) {
-      for (size_t i = 1; i <= n - 1; ++i) {
-        sn[n] += expf(calc_i_n_b_l(i, n, b));
-      }
+    xn[2] = 1.0;
+    xn[3] = 0.5;
+
+    sn[2] = expf(calc_i_n_b_l(1, 2, b));
+    sn[3] = expf(calc_i_n_b_l(1, 3, b)) + expf(calc_i_n_b_l(2, 3, b));
+
+    for (size_t n = 3; n < max_n_; ++n) {
+
+      auto term1 = n + 2 + 2 * b;
+      auto term2 = 2 * (n + b) * xn[n];
+
+      xn[n + 1] = ((n + b) * (n + 1) * xn[n]) / (n * term1 + term2);
+      sn[n + 1] =  (1.0 / (n + 1) ) * (term1 + term2 / n) * sn[n];
     }
 
     return sn;
@@ -195,10 +191,10 @@ double objective(unsigned int n, const double* x, double*, void* func_data) {
 }
 
 
-double calc_beta(const ltable& ltab,
+double calc_beta(const std::vector< std::array< size_t, 2 >>& edge,
                  double lower_lim,
                  double upper_lim) {
-  betastat beta_calc(ltab);
+  betastat beta_calc(edge);
   // now we do optimization
 
   nlopt_f_data optim_data(beta_calc);
@@ -216,7 +212,7 @@ double calc_beta(const ltable& ltab,
   std::vector<double> x = {0};
   double minf;
 
-   auto nloptresult = nlopt_optimize(opt, &(x[0]), &minf);
+  auto nloptresult = nlopt_optimize(opt, &(x[0]), &minf);
 
   if (nloptresult < 0) {
     Rcpp::Rcout << "failure to optimize!\n";

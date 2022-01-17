@@ -33,14 +33,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_sackin_cpp
-double calc_sackin_cpp(const Rcpp::List phy, std::string normalization);
-RcppExport SEXP _treestats_calc_sackin_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
+// calc_colless_cpp
+double calc_colless_cpp(const Rcpp::List phy, std::string normalization);
+RcppExport SEXP _treestats_calc_colless_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
     Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_colless_cpp(phy, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_sackin_cpp
+double calc_sackin_cpp(const Rcpp::List phy, const Rcpp::String& normalization);
+RcppExport SEXP _treestats_calc_sackin_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(phy, normalization));
     return rcpp_result_gen;
 END_RCPP
@@ -109,6 +121,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 2},
+    {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},

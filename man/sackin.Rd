@@ -2,20 +2,18 @@
 % Please edit documentation in R/sackin.R
 \name{sackin}
 \alias{sackin}
-\title{fast function using C++ to calculate sackin index, please note that the
-sackin index is not normalized here.}
+\title{fast function using C++ to calculate the sackin index of (im)balance}
 \usage{
-sackin(phy, norm = "none")
+sackin(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
 
-\item{norm}{normalization, either 'none' (default), "yule" or "pda".}
+\item{normalization}{normalization, either 'none' (default), "yule" or "pda".}
 }
 \value{
 sackin index
 }
 \description{
-fast function using C++ to calculate sackin index, please note that the
-sackin index is not normalized here.
+fast function using C++ to calculate the sackin index of (im)balance
 }

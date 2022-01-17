@@ -1,10 +1,9 @@
-#' fast function using C++ to calculate sackin index, please note that the
-#' sackin index is not normalized here.
+#' fast function using C++ to calculate the sackin index of (im)balance
 #' @param phy phylogeny or ltable
-#' @param norm normalization, either 'none' (default), "yule" or "pda".
+#' @param normalization normalization, either 'none' (default), "yule" or "pda".
 #' @return sackin index
 #' @export
-sackin <- function(phy, norm = "none") {
-  sackin_index <- apply_function_phy(phy, calc_sackin_cpp, norm)
+sackin <- function(phy, normalization = "none") {
+  sackin_index <- apply_function_phy(phy, calc_sackin_cpp, normalization)
   return(sackin_index)
 }

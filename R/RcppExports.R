@@ -13,6 +13,14 @@ calc_beta_cpp <- function(phy, upper_lim) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim)
 }
 
+#' cpp version of colless
+#' @param phy phy
+#' @param normalization n
+#' @export
+calc_colless_cpp <- function(phy, normalization) {
+    .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
+}
+
 calc_sackin_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', phy, normalization)
 }
