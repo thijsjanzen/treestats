@@ -9,30 +9,6 @@
 #include <algorithm>
 
 
-
-constexpr double pi_ = 3.14159265358979323846;
-
-const double max_map_size = 1e5;
-
-
-
-double gammaln(double d)
-{
-  static std::unordered_map<double, double> cache;
-  if (max_map_size == 0) return lgammaf(d);
-
-  // look up function result
-  double ret;
-  auto it = cache.find(d);
-  if (it != cache.end()) {
-    ret = (*it).second;
-  } else {
-    ret = lgammaf(d);
-    if (cache.size() < max_map_size) cache[d] = ret;
-  }
-  return ret;
-}
-
 class betastat {
 public:
   betastat(const std::vector< std::array< size_t, 2 >> e) : edge(e) {
@@ -143,8 +119,8 @@ private:
   }
 
   double calc_i_n_b_l(size_t i, size_t n, double b) const {
-    return gammaln(i + 1 + b) + gammaln(n - i + 1 + b) -
-      gammaln(i + 1) - gammaln(n - i + 1);
+    return lgamma(i + 1 + b) + lgamma(n - i + 1 + b) -
+      lgamma(i + 1) - lgamma(n - i + 1);
   }
 
   std::vector<double> get_sn(double b) const {
@@ -172,8 +148,8 @@ private:
   double calc_log_prob(size_t index, double sn, double beta) const {
     double l = lr_[index][0];
     double r = lr_[index][1];
-    return gammaln(beta + l + 1) + gammaln(beta + r + 1) -
-           gammaln(l + 1) - gammaln(r + 1) - log(sn);
+    return lgamma(beta + l + 1) + lgamma(beta + r + 1) -
+           lgamma(l + 1) - lgamma(r + 1) - log(sn);
   }
 };
 
