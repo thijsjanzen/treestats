@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-#include <string>
+#include <cstring>
 
 #include "beta.h"
 #include "nltt.h"
@@ -14,7 +14,10 @@
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
-                     double upper_lim) {
+                     double upper_lim,
+                     std::string algorithm,
+                     double abs_tol,
+                     double rel_tol) {
 
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
@@ -24,7 +27,10 @@ double calc_beta_cpp(const Rcpp::List& phy,
                        static_cast<size_t>(edge(i, 1))};
     }
 
-    double output = calc_beta(local_edge, -2, upper_lim);
+    double output = calc_beta(local_edge, -2, upper_lim, algorithm, abs_tol, rel_tol);
+    if (output == -10) {
+      Rcpp::stop("could not select correct algorithm, did you spell the name correctly?");
+    }
     return output;
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
@@ -34,13 +40,10 @@ double calc_beta_cpp(const Rcpp::List& phy,
   return NA_REAL;
 }
 
-//' cpp version of colless
-//' @param phy phy
-//' @param normalization n
-//' @export
+
 // [[Rcpp::export]]
 double calc_colless_cpp(const Rcpp::List phy,
-                       std::string normalization) {
+                        std::string normalization) {
 
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
@@ -52,17 +55,17 @@ double calc_colless_cpp(const Rcpp::List phy,
 
     colless_stat s(local_edge);
 
-    size_t output = s.calc_colless();
+    double output = static_cast<double>(s.calc_colless());
 
     if (normalization == "yule") {
-      Rcpp::NumericVector tip_label = phy["tip.label"];
+      Rcpp::StringVector tip_label = phy["tip.label"];
       size_t n = tip_label.size();
-      output = correct_yule(n, output);
+      output = s.correct_yule(n, output);
     }
     if (normalization == "pda") {
-      Rcpp::NumericVector tip_label = phy["tip.label"];
+      Rcpp::StringVector tip_label = phy["tip.label"];
       size_t n = tip_label.size();
-      output = correct_pda(n, output);
+      output = s.correct_pda(n, output);
     }
     return output;
   } catch(std::exception &ex) {
@@ -87,17 +90,17 @@ double calc_sackin_cpp(const Rcpp::List phy,
 
     sackin_stat s(local_edge);
 
-    size_t output = s.calc_sackin();
+    double output = static_cast<double>(s.calc_sackin());
 
     if (normalization == "yule") {
-      Rcpp::NumericVector tip_label = phy["tip.label"];
+      Rcpp::StringVector tip_label = phy["tip.label"];
       size_t n = tip_label.size();
-      output = correct_yule(n, output);
+      output = s.correct_yule(n, output);
     }
     if (normalization == "pda") {
-      Rcpp::NumericVector tip_label = phy["tip.label"];
+      Rcpp::StringVector tip_label = phy["tip.label"];
       size_t n = tip_label.size();
-      output = correct_pda(n, output);
+      output = s.correct_pda(n, output);
     }
 
     return output;
