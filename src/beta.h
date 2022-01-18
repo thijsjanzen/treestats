@@ -43,6 +43,7 @@ private:
     }
 
     if (label < root_label) {
+      tiplist[label] = 1;
       return 1;
     }
 
@@ -50,29 +51,31 @@ private:
       return(tiplist[label]);
     }
 
-    std::vector< size_t > matches;
+    std::vector< size_t > matches(2);
     auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
       return a[0] < val;
     });
 
-    while (match1 != edge.end()) {
+    if (match1 != edge.end()) {
       if ((*match1)[0] == label) {
-        matches.push_back((*match1)[1]);
+        matches[0] = (*match1)[1];
         match1++;
-      } else {
-        break;
+        if ((*match1)[0] == label) {
+          matches[1] = (*match1)[1];
+        } else {
+          matches.pop_back();
+        }
       }
-    }
-
-    if (matches.empty()) {
+    } else {
       // this can't really happen.
       tiplist[label] = 1;
       return 1;
     }
 
     size_t s = 0;
-    for (size_t j = 0; j < matches.size(); ++j) {
-      s += get_num_tips(matches[j], root_label);
+    //for (size_t j = 0; j < matches.size(); ++j) {
+    for (auto i : matches) {
+      s += get_num_tips(i, root_label);
     }
     tiplist[label] = s;
     return s;
@@ -169,13 +172,35 @@ double objective(unsigned int n, const double* x, double*, void* func_data) {
 
 double calc_beta(const std::vector< std::array< size_t, 2 >>& edge,
                  double lower_lim,
-                 double upper_lim) {
+                 double upper_lim,
+                 std::string algorithm,
+                 double abs_tol,
+                 double rel_tol) {
   betastat beta_calc(edge);
   // now we do optimization
 
   nlopt_f_data optim_data(beta_calc);
 
-  nlopt_opt opt = nlopt_create(NLOPT_LN_SBPLX, static_cast<unsigned int>(1));
+
+  nlopt_opt opt;
+  bool algo_set = false;
+  if (algorithm == "subplex") {
+    opt = nlopt_create(NLOPT_LN_SBPLX, static_cast<unsigned int>(1));
+    algo_set = true;
+  }
+  if (algorithm == "simplex") {
+    opt = nlopt_create(NLOPT_LN_NELDERMEAD, static_cast<unsigned int>(1));
+    algo_set = true;
+  }
+  if (algorithm == "COBYLA") {
+    opt = nlopt_create(NLOPT_LN_COBYLA, static_cast<unsigned int>(1));
+    algo_set = true;
+  }
+  if (!algo_set) {
+     return -10;
+  }
+
+
   double llim[1] = {static_cast<double>(lower_lim)};
   double ulim[1] = {static_cast<double>(upper_lim)};
 
@@ -184,7 +209,10 @@ double calc_beta(const std::vector< std::array< size_t, 2 >>& edge,
 
   nlopt_set_min_objective(opt, objective, &optim_data);
 
-  nlopt_set_xtol_rel(opt, 1e-6);
+  nlopt_set_xtol_rel(opt, rel_tol);
+  nlopt_set_ftol_abs(opt, abs_tol);
+
+
   std::vector<double> x = {0};
   double minf;
 

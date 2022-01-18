@@ -4,12 +4,26 @@
 \alias{beta_statistic}
 \title{fast function using C++ to calculate the aldous beta statistic}
 \usage{
-beta_statistic(phy, upper_lim = 10)
+beta_statistic(
+  phy,
+  upper_lim = 10,
+  algorithm = "subplex",
+  abs_tol = 1e-04,
+  rel_tol = 1e-06
+)
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
 
 \item{upper_lim}{upper limit for beta parameter}
+
+\item{algorithm}{optimization algorithm used, default is "subplex", also
+available are "COBYLA" (Constrained Optimization BY Linear Approximations)
+and "simplex".}
+
+\item{abs_tol}{absolute stopping criterion. Default is 1e-4.}
+
+\item{rel_tol}{relative stopping criterion. Default is 1e-6}
 }
 \value{
 sackin index

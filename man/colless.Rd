@@ -2,19 +2,19 @@
 % Please edit documentation in R/colless.R
 \name{colless}
 \alias{colless}
-\title{calculate colless index, using apTreeshape}
+\title{fast function using C++ to calculate the colless index of (im)balance}
 \usage{
-colless(phy, norm = NULL)
+colless(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object}
 
-\item{norm}{A character string equals to NULL (default) for no
+\item{normalization}{A character string equals to NULL (default) for no
 normalization or one of "pda" or "yule".}
 }
 \value{
 colless index
 }
 \description{
-calculate colless index, using apTreeshape
+fast function using C++ to calculate the colless index of (im)balance
 }

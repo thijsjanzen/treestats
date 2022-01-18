@@ -53,9 +53,14 @@ std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodes
 
     if (parent_in_nodesindex(nodesindex, parent)) {
 
-      for (size_t index = 0; index < L.size(); ++index) {
-        if (L[index][1] == parent) {
-          L[index][1] = daughter;
+      size_t cnt = 0;
+      for (auto& index : L) {
+        if (index[1] == parent) {
+          index[1] = daughter;
+          cnt++;
+        }
+        if (cnt > 1) {
+          break;
         }
       }
 

@@ -28,6 +28,22 @@ public:
     return std::accumulate(s.begin(), s.end(), 0.0);
   }
 
+
+  double correct_pda(size_t n,
+                     double Is) {
+    double denom = powf(n, 1.5f);
+    return 1.0 * Is / denom;
+  }
+
+  double correct_yule(size_t n,
+                      double Is) {
+    double sum_count = 0.0;
+    for (size_t j = 2; j <= n; ++j) {
+      sum_count += 1.0 / j;
+    }
+    return 1.0 * (Is - 2.0 * n * sum_count) / n;
+  }
+
 private:
 
   size_t get_num_tips(size_t label, size_t root_label) {
@@ -36,6 +52,7 @@ private:
     }
 
     if (label < root_label) {
+      tiplist[label] = 1;
       return 1;
     }
 
@@ -43,29 +60,30 @@ private:
       return(tiplist[label]);
     }
 
-    std::vector< size_t > matches;
+    std::vector< size_t > matches(2);
     auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
       return a[0] < val;
     });
 
-    while (match1 != edge.end()) {
+    if (match1 != edge.end()) {
       if ((*match1)[0] == label) {
-        matches.push_back((*match1)[1]);
+        matches[0] = (*match1)[1];
         match1++;
-      } else {
-        break;
+        if ((*match1)[0] == label) {
+          matches[1] = (*match1)[1];
+        } else {
+          matches.pop_back();
+        }
       }
-    }
-
-    if (matches.empty()) {
+    } else {
       // this can't really happen.
       tiplist[label] = 1;
       return 1;
     }
 
     size_t s = 0;
-    for (size_t j = 0; j < matches.size(); ++j) {
-      s += get_num_tips(matches[j], root_label);
+    for (auto i : matches) {
+      s += get_num_tips(i, root_label);
     }
     tiplist[label] = s;
     return s;
@@ -73,22 +91,11 @@ private:
 
   std::vector< std::array< size_t, 2 >>  edge;
   std::vector<int> tiplist;
+
+
 };
 
-double correct_pda(const size_t n,
-                   size_t Is) {
-  double denom = powf(n, 1.5f);
-  return 1.0 * Is / denom;
-}
 
-double correct_yule(const size_t n,
-                    size_t Is) {
-  double sum_count = 0.0;
-  for (size_t j = 2; j <= n; ++j) {
-    sum_count += 1.0 / j;
-  }
-  return (1.0 * Is - 2.0 * n * sum_count) / n;
-}
 
 
 
