@@ -27,6 +27,7 @@ test_that("usage", {
   beta_treestats <- treestats::beta_statistic(unbal_tree)
   beta_ref       <- apTreeshape::maxlik.betasplit(unbal_tree)
 
+  testthat::expect_equal(beta_ref$max_lik, -2, tolerance = 0.01)
   testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
   testthat::expect_equal(beta_treestats, -2, tolerance = 0.01)
 

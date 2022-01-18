@@ -7,7 +7,7 @@
 beta_statistic(
   phy,
   upper_lim = 10,
-  algorithm = "subplex",
+  algorithm = "COBYLA",
   abs_tol = 1e-04,
   rel_tol = 1e-06
 )
@@ -17,9 +17,9 @@ beta_statistic(
 
 \item{upper_lim}{upper limit for beta parameter}
 
-\item{algorithm}{optimization algorithm used, default is "subplex", also
-available are "COBYLA" (Constrained Optimization BY Linear Approximations)
-and "simplex".}
+\item{algorithm}{optimization algorithm used, default is "COBYLA"
+(Constrained Optimization BY Linear Approximations), also available are
+"subplex" and "simplex".}
 
 \item{abs_tol}{absolute stopping criterion. Default is 1e-4.}
 
