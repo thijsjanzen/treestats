@@ -82,13 +82,16 @@ double calc_sackin_cpp(const Rcpp::List phy,
 
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
-    std::vector< std::array< size_t, 2 >> local_edge(edge.nrow());
+    int num_tips = 1 + edge.nrow() / 2;
+    int num_nodes = num_tips - 1;
+
+    std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
+
     for (size_t i = 0; i < edge.nrow(); ++i) {
-      local_edge[i] = {static_cast<size_t>(edge(i, 0)),
-                       static_cast<size_t>(edge(i, 1))};
+      parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
     }
 
-    sackin_stat s(local_edge);
+    sackin_stat2 s(parents, num_tips);
 
     double output = static_cast<double>(s.calc_sackin());
 

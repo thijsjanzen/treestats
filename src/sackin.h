@@ -21,11 +21,12 @@ public:
       return a[0] < b[0];
     });
 
-    std::vector< size_t > s(edge.size());
-    for (size_t i = 0; i < edge.size(); i++) {
-      s[i] = get_num_tips(edge[i][1], root_label);
+    size_t s = 0;
+    for (int i = edge.size() - 1; i >= 0; i--) {
+      s += get_num_tips(edge[i][1], root_label);
     }
-    return std::accumulate(s.begin(), s.end(), 0.0);
+
+    return s;
   }
 
 
@@ -95,6 +96,48 @@ private:
 
 };
 
+
+class sackin_stat2 {
+
+public:
+  sackin_stat2(const std::vector< int>& p,
+               size_t n_tips) : parents(p), num_tips(n_tips) {
+  }
+
+  size_t calc_sackin() {
+    tiplist = std::vector< int >(parents.size(), 0);
+    for (size_t i = 1; i <= num_tips; ++i) {
+      tiplist[ parents[i]]++;
+    }
+
+    for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
+
+      tiplist[ parents[i] ] += tiplist[i];
+    }
+
+    return std::accumulate(tiplist.begin(), tiplist.end(), 0);
+  }
+
+  double correct_pda(size_t n,
+                     double Is) {
+    double denom = powf(n, 1.5f);
+    return 1.0 * Is / denom;
+  }
+
+  double correct_yule(size_t n,
+                      double Is) {
+    double sum_count = 0.0;
+    for (size_t j = 2; j <= n; ++j) {
+      sum_count += 1.0 / j;
+    }
+    return 1.0 * (Is - 2.0 * n * sum_count) / n;
+  }
+
+private:
+  const std::vector< int >  parents;
+  std::vector< int > tiplist;
+  const size_t num_tips;
+};
 
 
 
