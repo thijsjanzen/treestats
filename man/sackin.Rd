@@ -17,3 +17,7 @@ sackin index
 \description{
 fast function using C++ to calculate the sackin index of (im)balance
 }
+\references{
+M. J. Sackin (1972). "Good" and "Bad" Phenograms.
+Systematic Biology. 21:225-226.
+}

@@ -45,74 +45,137 @@ double calc_beta_cpp(const Rcpp::List& phy,
 double calc_colless_cpp(const Rcpp::List phy,
                         std::string normalization) {
 
-  try {
-    Rcpp::NumericMatrix edge = phy["edge"];
-    std::vector< std::array< size_t, 2 >> local_edge(edge.nrow());
-    for (size_t i = 0; i < edge.nrow(); ++i) {
-      local_edge[i] = {static_cast<size_t>(edge(i, 0)),
-                       static_cast<size_t>(edge(i, 1))};
-    }
+  Rcpp::NumericMatrix edge = phy["edge"];
+  int num_tips = 1 + edge.nrow() / 2;
+  int num_nodes = num_tips - 1;
 
-    colless_stat s(local_edge);
+  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
 
-    double output = static_cast<double>(s.calc_colless());
-
-    if (normalization == "yule") {
-      Rcpp::StringVector tip_label = phy["tip.label"];
-      size_t n = tip_label.size();
-      output = s.correct_yule(n, output);
-    }
-    if (normalization == "pda") {
-      Rcpp::StringVector tip_label = phy["tip.label"];
-      size_t n = tip_label.size();
-      output = s.correct_pda(n, output);
-    }
-    return output;
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
   }
-  return NA_REAL;
+
+  colless_stat s(parents, num_tips);
+
+  double output = static_cast<double>(s.calc_colless());
+
+  if (normalization == "yule") {
+    output = s.correct_yule(output);
+  }
+  if (normalization == "pda") {
+    output = s.correct_pda(output);
+  }
+  return output;
+
+}
+
+
+
+// [[Rcpp::export]]
+double calc_colless_cpp2(const std::vector< int >& edge,
+                         std::string normalization) {
+
+  int num_tips = 1 + edge.size() / 4;
+  int num_nodes = num_tips - 1;
+
+  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
+
+  size_t max_i = (edge.size() - 1);
+  for (size_t i = 0; i < max_i; i += 2) {
+    parents[ edge[i + 1] ] = edge[i + 0];
+  }
+
+  colless_stat s(parents, num_tips);
+
+  double output = static_cast<double>(s.calc_colless());
+
+  if (normalization == "yule") {
+    output = s.correct_yule(output);
+  }
+  if (normalization == "pda") {
+    output = s.correct_pda(output);
+  }
+  return output;
+}
+
+// [[Rcpp::export]]
+double calc_colless_cpp3(const Rcpp::NumericMatrix& edge,
+                         std::string normalization) {
+
+
+  int num_tips = 1 + edge.size() / 4;
+
+  std::vector< size_t > parents(num_tips + num_tips + 1, 0);
+
+
+  for (size_t i = 0; i < edge.nrow(); i += 2) {
+    parents[ edge(i, 1) ] = edge(i, 0);
+  }
+
+  double output = calc_colless_single(parents, num_tips);
+
+  if (normalization == "yule") {
+    output = correct_yule_colless(output, num_tips);
+  }
+  if (normalization == "pda") {
+    output = correct_pda_colless(output, num_tips);
+  }
+  return output;
+
+}
+
+
+// [[Rcpp::export]]
+double calc_blum_cpp(const Rcpp::List phy) {
+
+  Rcpp::NumericMatrix edge = phy["edge"];
+  int num_tips = 1 + edge.nrow() / 2;
+  int num_nodes = num_tips - 1;
+
+  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
+
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
+  }
+
+  sackin_stat2 s(parents, num_tips);
+
+  double output = static_cast<double>(s.calc_blum());
+
+  return output;
+
 }
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const Rcpp::List phy,
                        const Rcpp::String& normalization) {
 
-  try {
-    Rcpp::NumericMatrix edge = phy["edge"];
-    int num_tips = 1 + edge.nrow() / 2;
-    int num_nodes = num_tips - 1;
+  Rcpp::NumericMatrix edge = phy["edge"];
+  int num_tips = 1 + edge.nrow() / 2;
+  int num_nodes = num_tips - 1;
 
-    std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
+  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
 
-    for (size_t i = 0; i < edge.nrow(); ++i) {
-      parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
-    }
-
-    sackin_stat2 s(parents, num_tips);
-
-    double output = static_cast<double>(s.calc_sackin());
-
-    if (normalization == "yule") {
-      Rcpp::StringVector tip_label = phy["tip.label"];
-      size_t n = tip_label.size();
-      output = s.correct_yule(n, output);
-    }
-    if (normalization == "pda") {
-      Rcpp::StringVector tip_label = phy["tip.label"];
-      size_t n = tip_label.size();
-      output = s.correct_pda(n, output);
-    }
-
-    return output;
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
   }
-  return NA_REAL;
+
+  sackin_stat2 s(parents, num_tips);
+
+  double output = static_cast<double>(s.calc_sackin());
+
+  if (normalization == "yule") {
+    Rcpp::StringVector tip_label = phy["tip.label"];
+    size_t n = tip_label.size();
+    output = s.correct_yule(n, output);
+  }
+  if (normalization == "pda") {
+    Rcpp::StringVector tip_label = phy["tip.label"];
+    size_t n = tip_label.size();
+    output = s.correct_pda(n, output);
+  }
+
+  return output;
 }
 
 
@@ -139,18 +202,18 @@ double calc_nltt_cpp(const Rcpp::List& phy1,
 
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
-try {
-  std::vector<double> brts = branching_times(phy);
-  return calc_gamma(brts);
+  try {
+    std::vector<double> brts = branching_times(phy);
+    return calc_gamma(brts);
 
-} catch(std::exception &ex) {
-  forward_exception_to_r(ex);
-} catch(std::out_of_range& oor) {
-  Rcpp::Rcout << "Out of Range error: " << oor.what() << '\n';
-} catch(...) {
-  ::Rf_error("c++ exception (unknown reason)");
-}
-return NA_REAL;
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch(std::out_of_range& oor) {
+    Rcpp::Rcout << "Out of Range error: " << oor.what() << '\n';
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
 }
 
 // [[Rcpp::export]]
@@ -158,29 +221,29 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
                          double crown_age,
                          double extinct_acc) {
-try {
+  try {
 
-  Rcpp::NumericMatrix edge = phy["edge"];
-  Rcpp::NumericVector edge_length = phy["edge.length"];
+    Rcpp::NumericMatrix edge = phy["edge"];
+    Rcpp::NumericVector edge_length = phy["edge.length"];
 
-  std::vector<double> el(edge_length.begin(), edge_length.end());
-  std::vector< std::array<int, 2>> edges(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); i++) {
-    std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
-                                 static_cast<int>(edge(i, 1))};
-    edges[i] = to_add;
+    std::vector<double> el(edge_length.begin(), edge_length.end());
+    std::vector< std::array<int, 2>> edges(edge.nrow());
+    for (size_t i = 0; i < edge.nrow(); i++) {
+      std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
+                                   static_cast<int>(edge(i, 1))};
+      edges[i] = to_add;
+    }
+
+    phylo phylo_tree(edges, el);
+
+    return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
+
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
   }
-
-  phylo phylo_tree(edges, el);
-
-  return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
-
-} catch(std::exception &ex) {
-  forward_exception_to_r(ex);
-} catch(...) {
-  ::Rf_error("c++ exception (unknown reason)");
-}
-return NA_REAL;
+  return NA_REAL;
 }
 
 
@@ -235,21 +298,21 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
 
 
 // old stuff
- /*
-double calc_nltt_cpp_old(const Rcpp::NumericVector& brts_one,
-                         const Rcpp::NumericVector& brts_two) {
+/*
+ double calc_nltt_cpp_old(const Rcpp::NumericVector& brts_one,
+ const Rcpp::NumericVector& brts_two) {
 
-  try {
-    std::vector<double> v1(brts_one.begin(), brts_one.end());
-    std::vector<double> v2(brts_two.begin(), brts_two.end());
+ try {
+ std::vector<double> v1(brts_one.begin(), brts_one.end());
+ std::vector<double> v2(brts_two.begin(), brts_two.end());
 
-    auto nltt = calc_nltt(v1, v2);
-    return nltt;
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
-  }
-  return NA_REAL;
-}
-*/
+ auto nltt = calc_nltt(v1, v2);
+ return nltt;
+ } catch(std::exception &ex) {
+ forward_exception_to_r(ex);
+ } catch(...) {
+ ::Rf_error("c++ exception (unknown reason)");
+ }
+ return NA_REAL;
+ }
+ */

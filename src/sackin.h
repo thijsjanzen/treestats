@@ -118,6 +118,24 @@ public:
     return std::accumulate(tiplist.begin(), tiplist.end(), 0);
   }
 
+  double calc_blum() {
+    tiplist = std::vector< int >(parents.size(), 0);
+    for (size_t i = 1; i <= num_tips; ++i) {
+      tiplist[ parents[i]]++;
+    }
+
+    for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
+
+      tiplist[ parents[i] ] += tiplist[i];
+    }
+
+    double s = 0.0;
+    for (size_t i = num_tips + 1; i < tiplist.size(); ++i) {
+      s += log(1.0 * tiplist[i]);
+    }
+    return s;
+  }
+
   double correct_pda(size_t n,
                      double Is) {
     double denom = powf(n, 1.5f);
@@ -138,6 +156,7 @@ private:
   std::vector< int > tiplist;
   const size_t num_tips;
 };
+
 
 
 

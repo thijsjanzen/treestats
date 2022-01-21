@@ -19,4 +19,13 @@ test_that("usage", {
   colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
                                       norm = "pda")
   testthat::expect_equal(colless, colless_check, tol = 1e-5)
+
+  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0.2)[[1]]
+
+  testthat::expect_error(
+    treestats::colless(focal_tree)
+  )
+
 })

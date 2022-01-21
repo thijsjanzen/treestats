@@ -18,3 +18,7 @@ colless index
 \description{
 fast function using C++ to calculate the colless index of (im)balance
 }
+\references{
+Colless D H. 1982. Review of: Phylogenetics: The Theory and
+Practice of Phylogenetic Systematics. Systematic Zoology 31:100-104.
+}
