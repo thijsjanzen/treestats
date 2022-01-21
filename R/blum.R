@@ -12,5 +12,3 @@ blum <- function(phy) {
   blum_index <- apply_function_phy(phy, calc_blum_cpp)
   return(blum_index)
 }
-
-

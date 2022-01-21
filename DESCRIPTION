@@ -29,3 +29,5 @@ Suggests:
     TreeSim,
     castor
 SystemRequirements: C++14
+VignetteBuilder: 
+    knitr

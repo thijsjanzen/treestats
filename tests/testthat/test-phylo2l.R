@@ -6,10 +6,10 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
-  L1 <- DDD::phylo2L(focal_tree)
-  L2 <- treestats::phylo_to_l(focal_tree)
+  ltable_1 <- DDD::phylo2L(focal_tree)
+  ltable_2 <- treestats::phylo_to_l(focal_tree)
 
-  diff <- L1 - L2
+  diff <- ltable_1 - ltable_2
 
   for (i in 1:4) {
     testthat::expect_lt(mean(diff[, i]), 1e-6)
@@ -21,10 +21,10 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0.3)[[1]]
 
-  L1 <- DDD::phylo2L(focal_tree)
-  L2 <- treestats::phylo_to_l(focal_tree)
+  ltable_1 <- DDD::phylo2L(focal_tree)
+  ltable_2 <- treestats::phylo_to_l(focal_tree)
 
-  diff <- L1 - L2
+  diff <- ltable_1 - ltable_2
   for (i in 1:4) {
     testthat::expect_lt(mean(diff[, i]), 1e-6)
   }

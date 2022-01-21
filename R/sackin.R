@@ -12,5 +12,3 @@ sackin <- function(phy, normalization = "none") {
   sackin_index <- apply_function_phy(phy, calc_sackin_cpp, normalization)
   return(sackin_index)
 }
-
-

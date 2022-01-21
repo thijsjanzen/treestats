@@ -8,7 +8,8 @@ test_that("usage", {
     gammast <- treestats::gamma_statistic(focal_tree)
     gammast_check <- ape::gammaStat(focal_tree)
     gammast_check2 <- castor::gamma_statistic(focal_tree)
-    gammast_check3 <- phytools::ltt(focal_tree, plot = FALSE, gamma = TRUE)$gamma
+    gammast_check3 <- phytools::ltt(focal_tree, plot = FALSE,
+                                                gamma = TRUE)$gamma
 
     testthat::expect_equal(gammast, gammast_check, tolerance = 1e-4)
     testthat::expect_equal(gammast, gammast_check2, tolerance = 1e-4)
