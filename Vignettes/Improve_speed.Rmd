@@ -1,0 +1,151 @@
+---
+title: "Improved_speed"
+author: "Thijs Janzen"
+date: "1/21/2022"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Demonstrate joyplot}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width = 6, fig.height = 8)
+library(treestats)
+library(ggplot2)
+
+nLTT_base_R <- function(phy) {  # nolint
+  empty_tree <- ape::read.tree(text = "(1:4,2:4):0;")
+  return(nLTT::nltt_diff(phy, empty_tree))
+}
+
+calc_beta <- function(phy) {
+  return(apTreeshape::maxlik.betasplit(phy))
+}
+
+calc_colless <- function(phy) {
+  #return(apTreeshape::colless(apTreeshape::as.treeshape(phy)))
+  return(castor::tree_imbalance(phy, "Colless"))
+}
+
+calc_sackin <- function(phy)  {
+  # return(apTreeshape::sackin(apTreeshape::as.treeshape(phy)))
+  return(castor::tree_imbalance(phy, "Sackin"))
+}
+
+calc_blum <- function(phy) {
+  return(castor::tree_imbalance(phy, "Blum"))
+}
+```
+
+# Speed improvements
+
+When calculating tree statistics for many (simulated) trees, improved speed of
+these calculations can be highly beneficial. Therefore, I have set out to 
+improve the speed of the following statistics and functions:
+
+* gamma
+* beta
+* nLTT
+* sackin
+* colless
+* blum
+* ape::branching.times
+* DDD::phylo2L
+
+I'll here demonstrate to which extend I have managed to do so. First, we will
+simulate some trees, up until 1000 tips:
+
+```{r generate_trees}
+tree_list <- list()
+used_ntaxa <- c()
+cnt <- 1
+for (ntaxa in 10^seq(from = 1, to = 3, length.out = 10)) {
+  sim_trees <- list()
+  for (r in 1:3) {
+    sim_trees[[r]] <- ape::rphylo(n = floor(ntaxa), birth = 1, death = 0)
+  }
+
+  tree_list[[cnt]] <- sim_trees
+  used_ntaxa[cnt] <- floor(ntaxa)
+  cnt <- cnt + 1
+}
+```
+
+Now, we can use these trees to calculate the speed of our functions. We do so
+manually, using a custom function:
+```{r timing_function}
+collect_time <- function(tree, func) {
+  t1 <- Sys.time()
+  func(tree)
+  t2 <- Sys.time()
+  return( difftime(t2, t1, units = "secs"))
+}
+```
+
+Then, we can time speed for both the `original`  functions and the new, improved
+functions using this wrapper function:
+```{r wrapper_function}
+compare_speed <- function(trees, r_func, cpp_func, used_ntaxa, text_label) {
+
+  to_add <- matrix(nrow = length(trees) * 2, ncol = 4)
+
+  for (r in 1:length(trees)) {
+    t1 <- collect_time(trees[[r]], r_func)
+    t2 <- collect_time(trees[[r]], cpp_func)
+
+    add1 <- c(used_ntaxa, "R", t1, text_label)
+    add2 <- c(used_ntaxa, "CPP", t2, text_label)
+    index <- 1 + (r - 1) * 2
+    to_add[index, ] <- add1
+    to_add[index + 1, ] <- add2
+  }
+
+  return(to_add)
+}
+```
+
+Which we can then apply to our different functions of interest:
+```{r perform timing}
+found <- c()
+for (i in 1:length(tree_list)) {
+  found <- rbind(found, compare_speed(tree_list[[i]], ape::branching.times, treestats::branching_times, used_ntaxa[i], "branching_times") )
+
+  found <- rbind(found, compare_speed(tree_list[[i]], DDD::phylo2L, treestats::phylo_to_l, used_ntaxa[i], "phylo_to_l"))
+
+  found <- rbind(found, compare_speed(tree_list[[i]], nLTT_base_R,  treestats::nLTT_base, used_ntaxa[i], "nLTT"))
+
+  found <- rbind(found, compare_speed(tree_list[[i]], castor::gamma_statistic,  treestats::gamma_statistic, used_ntaxa[i], "gamma"))
+
+  found <- rbind(found, compare_speed(tree_list[[i]], calc_beta,  treestats::beta_statistic, used_ntaxa[i], "beta"))
+
+  found <- rbind(found, compare_speed(tree_list[[i]], calc_sackin,  treestats::sackin, used_ntaxa[i], "sackin"))
+
+  found <- rbind(found, compare_speed(tree_list[[i]], calc_colless,  treestats::colless, used_ntaxa[i], "colless"))
+
+  found <- rbind(found, 
+                 compare_speed(tree_list[[i]], calc_blum,  treestats::blum, used_ntaxa[i], "blum"))
+}
+
+```
+
+And we can visualize the speed comparisons as follows:
+
+```{r plot}
+colnames(found) <- c("ntips", "method", "time", "treestatsfunction")
+found <- tibble::as_tibble(found)
+
+found$time <- as.numeric(found$time)
+found$ntips <- as.numeric(found$ntips)
+ggplot(found, aes(x = ntips, y = time, col = method)) +
+  geom_point() +
+  stat_smooth() +
+  scale_x_log10() +
+  scale_y_log10() +
+  facet_wrap(~treestatsfunction, scales = "free") +
+  theme_classic() +
+  theme(legend.position = "top") +
+  ylab("Time per tree (seconds)") +
+  xlab("Number of extant tips")
+```
