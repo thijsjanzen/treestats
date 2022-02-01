@@ -20,10 +20,10 @@ struct branch {
 
 struct phylo {
 
-  const std::vector< std::array<int, 2>> edge;
+  const std::vector< std::array<size_t, 2>> edge;
   const std::vector< double > edge_length;
 
-  phylo(const std::vector< std::array<int, 2>> e,
+  phylo(const std::vector< std::array<size_t, 2>> e,
         const std::vector<double> el) : edge(e), edge_length(el) {}
 };
 

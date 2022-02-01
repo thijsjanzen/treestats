@@ -3,7 +3,7 @@
 \name{phylo_to_l}
 \alias{phylo_to_l}
 \title{Function to generate an ltable from a phy object. This function is a C++
-implementation of the function DDD::phylo2L.An L table summarises a
+implementation of the function DDD::phylo2L. An L table summarises a
 phylogeny in a table with four columns, being: 1) time at which a species
 is born, 2) label of the parent of the species, where positive and negative
 numbers indicate whether the species belongs to the left or right crown
@@ -19,7 +19,7 @@ phylo_to_l(phy)
 }
 \description{
 Function to generate an ltable from a phy object. This function is a C++
-implementation of the function DDD::phylo2L.An L table summarises a
+implementation of the function DDD::phylo2L. An L table summarises a
 phylogeny in a table with four columns, being: 1) time at which a species
 is born, 2) label of the parent of the species, where positive and negative
 numbers indicate whether the species belongs to the left or right crown

@@ -11,6 +11,8 @@
 #include "phylo2L.h"
 #include "colless.h"
 
+#include "crown_age.h"
+
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -152,7 +154,6 @@ double calc_gamma_cpp(const Rcpp::List& phy) {
 // [[Rcpp::export]]
 double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
-                         double crown_age,
                          double extinct_acc) {
   try {
 
@@ -160,13 +161,14 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
     Rcpp::NumericVector edge_length = phy["edge.length"];
 
     std::vector<double> el(edge_length.begin(), edge_length.end());
-    std::vector< std::array<int, 2>> edges(edge.nrow());
+    std::vector< std::array<size_t, 2>> edges(edge.nrow());
     for (size_t i = 0; i < edge.nrow(); i++) {
-      std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
-                                   static_cast<int>(edge(i, 1))};
+      std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
+                                   static_cast<size_t>(edge(i, 1))};
       edges[i] = to_add;
     }
 
+    double crown_age = calc_crown_age(edges, el); // ignore root edge
     phylo phylo_tree(edges, el);
 
     return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
@@ -181,26 +183,43 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 
 
 // [[Rcpp::export]]
-double calc_rho_cpp(const Rcpp::List& phy,
-                    double crown_age) {
+double calc_rho_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
   std::vector<double> el(edge_length.begin(), edge_length.end());
-  std::vector< std::array<int, 2>> edges(edge.nrow());
+  std::vector< std::array<size_t, 2>> edges(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); i++) {
-    std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
-                                 static_cast<int>(edge(i, 1))};
+    std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
+                                    static_cast<size_t>(edge(i, 1))};
     edges[i] = to_add;
   }
 
+  double crown_age = calc_crown_age(edges, el);
   phylo phylo_tree(edges, el);
   rho pigot_rho(phylo_tree, crown_age);
   return pigot_rho.calc_pigot_rho();
 }
 
+// [[Rcpp::export]]
+double calc_crown_age_cpp(const Rcpp::List& phy) {
+  Rcpp::NumericMatrix edge = phy["edge"];
+  Rcpp::NumericVector edge_length = phy["edge.length"];
+
+  std::vector<double> el(edge_length.begin(), edge_length.end());
+  std::vector< std::array<size_t, 2>> edges(edge.nrow());
+  for (size_t i = 0; i < edge.nrow(); i++) {
+    std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
+                                    static_cast<size_t>(edge(i, 1))};
+    edges[i] = to_add;
+  }
+
+  double root_len = phy["root.edge"];
+  return calc_crown_age(edges, el) + root_len;
+}
+
 //' Function to generate an ltable from a phy object. This function is a C++
-//' implementation of the function DDD::phylo2L.An L table summarises a
+//' implementation of the function DDD::phylo2L. An L table summarises a
 //' phylogeny in a table with four columns, being: 1) time at which a species
 //' is born, 2) label of the parent of the species, where positive and negative
 //' numbers indicate whether the species belongs to the left or right crown

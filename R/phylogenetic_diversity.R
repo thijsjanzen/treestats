@@ -13,18 +13,17 @@
 phylogenetic_diversity <- function(phy,
                                    t = 1e10,
                                    extinct_tol = NULL) {
-  crown_age <- max(treestats::branching_times(phy))[[1]]
   if (is.null(extinct_tol)) {
     extinct_tol <- min(phy$edge.length) / 100
   }
 
   if (length(t) == 1) {
-    return(calc_phylodiv_cpp(phy, t, crown_age, extinct_tol))
+    return(calc_phylodiv_cpp(phy, t, extinct_tol))
   }
 
 
   fun_to_apply <- function(focal_time) {
-    return(calc_phylodiv_cpp(phy, focal_time, crown_age, extinct_tol))
+    return(calc_phylodiv_cpp(phy, focal_time, extinct_tol))
   }
 
   out <- lapply(t, fun_to_apply)

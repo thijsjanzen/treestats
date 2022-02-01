@@ -95,28 +95,37 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_phylodiv_cpp
-double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double crown_age, double extinct_acc);
-RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP crown_ageSEXP, SEXP extinct_accSEXP) {
+double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double extinct_acc);
+RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP extinct_accSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
     Rcpp::traits::input_parameter< double >::type t(tSEXP);
-    Rcpp::traits::input_parameter< double >::type crown_age(crown_ageSEXP);
     Rcpp::traits::input_parameter< double >::type extinct_acc(extinct_accSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_cpp(phy, t, crown_age, extinct_acc));
+    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_cpp(phy, t, extinct_acc));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_rho_cpp
-double calc_rho_cpp(const Rcpp::List& phy, double crown_age);
-RcppExport SEXP _treestats_calc_rho_cpp(SEXP phySEXP, SEXP crown_ageSEXP) {
+double calc_rho_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_rho_cpp(SEXP phySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    Rcpp::traits::input_parameter< double >::type crown_age(crown_ageSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rho_cpp(phy, crown_age));
+    rcpp_result_gen = Rcpp::wrap(calc_rho_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_crown_age_cpp
+double calc_crown_age_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_crown_age_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_crown_age_cpp(phy));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -140,8 +149,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
-    {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 4},
-    {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 2},
+    {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
+    {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
+    {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {NULL, NULL, 0}
 };

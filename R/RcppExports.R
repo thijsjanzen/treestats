@@ -33,16 +33,20 @@ calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
 
-calc_phylodiv_cpp <- function(phy, t, crown_age, extinct_acc) {
-    .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, crown_age, extinct_acc)
+calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
+    .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }
 
-calc_rho_cpp <- function(phy, crown_age) {
-    .Call('_treestats_calc_rho_cpp', PACKAGE = 'treestats', phy, crown_age)
+calc_rho_cpp <- function(phy) {
+    .Call('_treestats_calc_rho_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_crown_age_cpp <- function(phy) {
+    .Call('_treestats_calc_crown_age_cpp', PACKAGE = 'treestats', phy)
 }
 
 #' Function to generate an ltable from a phy object. This function is a C++
-#' implementation of the function DDD::phylo2L.An L table summarises a
+#' implementation of the function DDD::phylo2L. An L table summarises a
 #' phylogeny in a table with four columns, being: 1) time at which a species
 #' is born, 2) label of the parent of the species, where positive and negative
 #' numbers indicate whether the species belongs to the left or right crown
