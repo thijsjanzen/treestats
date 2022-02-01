@@ -28,7 +28,8 @@ Suggests:
     nLTT,
     TreeSim,
     castor,
-    knitr
+    knitr,
+    rmarkdown
 SystemRequirements: C++14
 VignetteBuilder: 
     knitr

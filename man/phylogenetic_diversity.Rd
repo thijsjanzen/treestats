@@ -3,22 +3,28 @@
 \name{phylogenetic_diversity}
 \alias{phylogenetic_diversity}
 \title{Calculates phylogenetic diversity at time point t, e.g. the total branch
-length of the tree reconstructed up until time point t.}
+length of the tree reconstructed up until time point t. Time is measured
+increasingly, with the crown age equal to 0. Thus, the time at the present
+is equal to the crown age.}
 \usage{
 phylogenetic_diversity(phy, t = 1e+10, extinct_tol = NULL)
 }
 \arguments{
 \item{phy}{phylo object}
 
-\item{t}{time point at which to measure phylogenetic diversity}
+\item{t}{time point at which to measure phylogenetic diversity, alternatively
+a vector of time points can also be provided.}
 
 \item{extinct_tol}{tolerance to determine if a lineage is extinct at time t.
 Default is 1/100 * smallest branch length of the tree.}
 }
 \value{
-phylogenetic diversity
+phylogenetic diversity, or vector of phylogenetic diversity measures
+if a vector of time points is used as input.
 }
 \description{
 Calculates phylogenetic diversity at time point t, e.g. the total branch
-length of the tree reconstructed up until time point t.
+length of the tree reconstructed up until time point t. Time is measured
+increasingly, with the crown age equal to 0. Thus, the time at the present
+is equal to the crown age.
 }
