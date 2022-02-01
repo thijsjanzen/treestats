@@ -48,8 +48,9 @@ test_that("abuse", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
+
   testthat::expect_output(
-    treestats::beta_statistic(focal_tree, algorithm = "none"),
+    treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "no algorithm chosen")
 })
 

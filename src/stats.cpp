@@ -34,6 +34,8 @@ double calc_beta_cpp(const Rcpp::List& phy,
     return output;
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
+  } catch (const char* msg) {
+    Rcpp::Rcout << msg << std::endl;
   } catch(...) {
     ::Rf_error("c++ exception (unknown reason)");
   }
