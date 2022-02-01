@@ -26,7 +26,7 @@ public:
       ll[i] = calc_log_prob(i, sn[ index ], beta);
     }
     double sumll = std::accumulate(ll.begin(), ll.end(), 0.f);
-    std::cerr << beta << " " << sumll << "\n";
+  // std::cerr << beta << " " << sumll << "\n";
     return sumll;
   }
 

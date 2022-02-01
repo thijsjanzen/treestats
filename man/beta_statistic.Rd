@@ -65,6 +65,8 @@ beta_statistic(simulated_tree) # should be near 0
 beta_statistic(unbalanced_tree) # should be approximately 10
 }
 \references{
-Aldous, David. "Probability distributions on cladograms." Random discrete structures. Springer, New York, NY, 1996. 1-18.
-Jones, Graham R. "Tree models for macroevolution and phylogenetic analysis." Systematic biology 60.6 (2011): 735-746.
+Aldous, David. "Probability distributions on cladograms." Random
+discrete structures. Springer, New York, NY, 1996. 1-18.
+Jones, Graham R. "Tree models for macroevolution and phylogenetic analysis."
+Systematic biology 60.6 (2011): 735-746.
 }

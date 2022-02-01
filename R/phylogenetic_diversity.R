@@ -1,5 +1,5 @@
-#' Calculates phylogenetic diversity at time point t, e.g. the total branch length
-#' of the tree reconstructed up until time point t.
+#' Calculates phylogenetic diversity at time point t, e.g. the total branch
+#' length of the tree reconstructed up until time point t.
 #' @param phy phylo object
 #' @param t time point at which to measure phylogenetic diversity
 #' @param extinct_tol tolerance to determine if a lineage is extinct at time t.
@@ -20,7 +20,7 @@ phylogenetic_diversity <- function(phy,
       return(calc_phylodiv_cpp(phy, focal_time, crown_age, extinct_tol))
     }
 
-    out <- sapply(t, fun_to_apply)
+    out <- vapply(t, fun_to_apply)
     return(out)
   }
 

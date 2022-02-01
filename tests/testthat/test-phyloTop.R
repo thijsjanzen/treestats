@@ -23,6 +23,6 @@ test_that("usage", {
   testthat::expect_equal(pitch, pitch_check)
 
   strs <- treestats::stairs(focal_tree)
-  strs_check <- phyloTop::stairs(focal_tree)
+  strs_check <- phyloTop::stairs(focal_tree)[[1]]
   testthat::expect_equal(strs, strs_check)
 })

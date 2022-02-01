@@ -16,7 +16,7 @@ test_that("usage", {
   tt <- (brts[1] - brts[2]) / 2
   div1 <- treestats::phylogenetic_diversity(focal_tree, tt)
   div2 <- tt * 2
-  testthat::expect_equal(div1, div2[[1]])
+  testthat::expect_equal(div1[[1]], div2[[1]])
 
   # now with extinct lineages
   focal_tree <- ape::read.tree(text =
