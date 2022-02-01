@@ -27,11 +27,7 @@ double calc_beta_cpp(const Rcpp::List& phy,
                        static_cast<size_t>(edge(i, 1))};
     }
 
-    double output = calc_beta(local_edge, -2, upper_lim, algorithm, abs_tol, rel_tol);
-    if (output == -10) {
-      Rcpp::stop("could not select correct algorithm, did you spell the name correctly?");
-    }
-    return output;
+    return calc_beta(local_edge, -2, upper_lim, algorithm, abs_tol, rel_tol);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch (const char* msg) {
@@ -149,18 +145,8 @@ double calc_nltt_cpp(const Rcpp::List& phy1,
 
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
-  try {
-    std::vector<double> brts = branching_times(phy);
-    return calc_gamma(brts);
-
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch(std::out_of_range& oor) {
-    Rcpp::Rcout << "Out of Range error: " << oor.what() << '\n';
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
-  }
-  return NA_REAL;
+  std::vector<double> brts = branching_times(phy);
+  return calc_gamma(brts);
 }
 
 // [[Rcpp::export]]
@@ -197,34 +183,41 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 // [[Rcpp::export]]
 double calc_rho_cpp(const Rcpp::List& phy,
                     double crown_age) {
-  try {
+  Rcpp::NumericMatrix edge = phy["edge"];
+  Rcpp::NumericVector edge_length = phy["edge.length"];
 
-    Rcpp::NumericMatrix edge = phy["edge"];
-    Rcpp::NumericVector edge_length = phy["edge.length"];
-
-    std::vector<double> el(edge_length.begin(), edge_length.end());
-    std::vector< std::array<int, 2>> edges(edge.nrow());
-    for (size_t i = 0; i < edge.nrow(); i++) {
-      std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
-                                   static_cast<int>(edge(i, 1))};
-      edges[i] = to_add;
-    }
-
-    phylo phylo_tree(edges, el);
-    rho pigot_rho(phylo_tree, crown_age);
-    return pigot_rho.calc_pigot_rho();
-
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+  std::vector<double> el(edge_length.begin(), edge_length.end());
+  std::vector< std::array<int, 2>> edges(edge.nrow());
+  for (size_t i = 0; i < edge.nrow(); i++) {
+    std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
+                                 static_cast<int>(edge(i, 1))};
+    edges[i] = to_add;
   }
-  return NA_REAL;
+
+  phylo phylo_tree(edges, el);
+  rho pigot_rho(phylo_tree, crown_age);
+  return pigot_rho.calc_pigot_rho();
 }
 
-//' function to generate ltable from phy object
+//' Function to generate an ltable from a phy object. This function is a C++
+//' implementation of the function DDD::phylo2L.An L table summarises a
+//' phylogeny in a table with four columns, being: 1) time at which a species
+//' is born, 2) label of the parent of the species, where positive and negative
+//' numbers indicate whether the species belongs to the left or right crown
+//' lineage, 3) label of the daughter species itself (again positive or
+//' negative depending on left or right crown lineage), and the last column 4)
+//' indicates the time of extinction of a species, or -1 if the species is
+//' extant.
 //' @param phy phylo object
 //' @export
+//' @examples simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
+//' ltable <- phylo_to_l(simulated_tree)
+//' reconstructed_tree <- DDD::L2phylo(ltable)
+//' par(mfrow=c(1, 2))
+//' # trees should be more or less similar, although labels may not match, and
+//' # rotations might cause (initial) visual mismatches
+//' plot(simulated_tree)
+//' plot(reconstructed_tree)
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   const size_t ncol = 4;
