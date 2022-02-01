@@ -25,12 +25,10 @@ calc_beta <- function(phy) {
 }
 
 calc_colless <- function(phy) {
-  #return(apTreeshape::colless(apTreeshape::as.treeshape(phy)))
   return(castor::tree_imbalance(phy, "Colless"))
 }
 
 calc_sackin <- function(phy)  {
-  # return(apTreeshape::sackin(apTreeshape::as.treeshape(phy)))
   return(castor::tree_imbalance(phy, "Sackin"))
 }
 
