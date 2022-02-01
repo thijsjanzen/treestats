@@ -68,9 +68,7 @@ private:
         }
       }
     } else {
-      // this can't really happen.
-      tiplist[label] = 1;
-      return 1;
+      throw "can't find matches";
     }
 
     size_t s = 0;
@@ -198,7 +196,7 @@ double calc_beta(const std::vector< std::array< size_t, 2 >>& edge,
     algo_set = true;
   }
   if (!algo_set) {
-     return -10;
+     throw "no algorithm chosen";
   }
 
 
