@@ -20,8 +20,8 @@ phylogenetic_diversity <- function(phy,
       return(calc_phylodiv_cpp(phy, focal_time, crown_age, extinct_tol))
     }
 
-    out <- vapply(t, fun_to_apply)
-    return(out)
+    out <- lapply(t, fun_to_apply)
+    return(unlist(out))
   }
 
   return(calc_phylodiv_cpp(phy, t, crown_age, extinct_tol))

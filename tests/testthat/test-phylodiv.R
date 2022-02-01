@@ -6,10 +6,17 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
-
   div1 <- treestats::phylogenetic_diversity(focal_tree)
   div2 <- sum(focal_tree$edge.length)
   testthat::expect_equal(div1, div2, tolerance = 1e-4)
+
+  ca <- max(treestats::branching_times(focal_tree))
+  pds <- treestats::phylogenetic_diversity(focal_tree,
+                                           t = seq(0, ca, length.out =  100))
+  testthat::expect_equal(length(pds), 100)
+  for (i in 2:length(pds)) {
+    testthat::expect_gt(pds[i], pds[i - 1])
+  }
 
   # now check sub time
   brts <- ape::branching.times(focal_tree)
@@ -37,4 +44,8 @@ test_that("usage", {
   div1 <- treestats::phylogenetic_diversity(focal_tree, 2)
   div2 <- treestats::phylogenetic_diversity(focal_tree, 2.01)
   testthat::expect_gt(div1, div2)
+
+
+
+
 })
