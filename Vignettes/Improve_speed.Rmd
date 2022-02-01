@@ -11,7 +11,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.width = 6, fig.height = 8)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 10)
 library(treestats)
 library(ggplot2)
 
@@ -35,6 +35,11 @@ calc_sackin <- function(phy)  {
 calc_blum <- function(phy) {
   return(castor::tree_imbalance(phy, "Blum"))
 }
+
+ref_crown_age <- function(phy) {
+  return(max(adephylo::distRoot(phy, method = "patristic")))
+}
+
 ```
 
 # Speed improvements
@@ -49,6 +54,7 @@ improve the speed of the following statistics and functions:
 * sackin
 * colless
 * blum
+* crown age
 * ape::branching.times
 * DDD::phylo2L
 
@@ -109,6 +115,8 @@ Which we can then apply to our different functions of interest:
 found <- c()
 for (i in 1:length(tree_list)) {
   found <- rbind(found, compare_speed(tree_list[[i]], ape::branching.times, treestats::branching_times, used_ntaxa[i], "branching_times") )
+  
+  found <- rbind(found, compare_speed(tree_list[[i]], ref_crown_age, treestats::crown_age, used_ntaxa[i], "crown_age") )
 
   found <- rbind(found, compare_speed(tree_list[[i]], DDD::phylo2L, treestats::phylo_to_l, used_ntaxa[i], "phylo_to_l"))
 
@@ -122,6 +130,8 @@ for (i in 1:length(tree_list)) {
 
   found <- rbind(found, compare_speed(tree_list[[i]], calc_colless,  treestats::colless, used_ntaxa[i], "colless"))
 
+  
+  
   found <- rbind(found, 
                  compare_speed(tree_list[[i]], calc_blum,  treestats::blum, used_ntaxa[i], "blum"))
 }
