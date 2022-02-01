@@ -1,5 +1,5 @@
-#' calculate the mean branch length
-#' @param phy phylo or multiPhylo object
+#' Calculates the mean branch length of a tree, including extinct branches.
+#' @param phy phylo object
 #' @return mean branch length
 #' @export
 mean_branch_length <- function(phy) {

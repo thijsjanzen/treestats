@@ -21,6 +21,10 @@ calc_pigot_rho_cpp <- function(phy) {
 #' Arising from Geographic Speciation, Systematic Biology, Volume 59, Issue 6,
 #' December 2010, Pages 660–673, https://doi.org/10.1093/sysbio/syq058
 #' @export
+#' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+#' pigot_rho(simulated_tree) # should be around 0.
+#' ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
+#' pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
 pigot_rho <- function(phy) {
   rho <- apply_function_phy(phy, calc_pigot_rho_cpp)
   return(rho)

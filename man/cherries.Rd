@@ -2,16 +2,18 @@
 % Please edit documentation in R/phyloTop.R
 \name{cherries}
 \alias{cherries}
-\title{calculate number of cherries, from the phyloTop package}
+\title{Calculate number of cherries, from the phyloTop package. A cherry is a pair
+of sister tips.}
 \usage{
 cherries(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 number of cherries
 }
 \description{
-calculate number of cherries, from the phyloTop package
+Calculate number of cherries, from the phyloTop package. A cherry is a pair
+of sister tips.
 }

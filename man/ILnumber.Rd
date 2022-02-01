@@ -2,7 +2,8 @@
 % Please edit documentation in R/phyloTop.R
 \name{ILnumber}
 \alias{ILnumber}
-\title{calculate ILnumber, from the phyloTop package}
+\title{Calculate ILnumber, from the phyloTop package. The ILnumber is the number
+of internal nodes with a single tip child.}
 \usage{
 ILnumber(phy)
 }
@@ -13,5 +14,6 @@ ILnumber(phy)
 ILnumber
 }
 \description{
-calculate ILnumber, from the phyloTop package
+Calculate ILnumber, from the phyloTop package. The ILnumber is the number
+of internal nodes with a single tip child.
 }

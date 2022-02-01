@@ -2,16 +2,16 @@
 % Please edit documentation in R/phyloTop.R
 \name{avgLadder}
 \alias{avgLadder}
-\title{calculate avgLadder index, from the phyloTop package}
+\title{Calculate the avgLadder index, from the phyloTop package}
 \usage{
 avgLadder(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 average number of ladders
 }
 \description{
-calculate avgLadder index, from the phyloTop package
+Calculate the avgLadder index, from the phyloTop package
 }

@@ -2,16 +2,18 @@
 % Please edit documentation in R/phyloTop.R
 \name{pitchforks}
 \alias{pitchforks}
-\title{calculate pitchforks, from the phyloTop package}
+\title{Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
+with three tips.}
 \usage{
 pitchforks(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 number of pitchforks
 }
 \description{
-calculate pitchforks, from the phyloTop package
+Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
+with three tips.
 }

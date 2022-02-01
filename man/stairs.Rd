@@ -2,16 +2,28 @@
 % Please edit documentation in R/phyloTop.R
 \name{stairs}
 \alias{stairs}
-\title{calculate number of stairs, from the phyloTop package}
+\title{Calculates the staircase-ness measure, from the phyloTop package. The
+staircase-ness reflects the number of subtrees that are imbalanced, e.g.
+subtrees where the left child has more extant tips than the right child, or
+vice versa.}
 \usage{
 stairs(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 number of stairs
 }
 \description{
-calculate number of stairs, from the phyloTop package
+Calculates the staircase-ness measure, from the phyloTop package. The
+staircase-ness reflects the number of subtrees that are imbalanced, e.g.
+subtrees where the left child has more extant tips than the right child, or
+vice versa.
+}
+\references{
+Norström, Melissa M., et al. "Phylotempo: a set of r scripts for
+assessing and visualizing temporal clustering in genealogies inferred from
+serially sampled viral sequences." Evolutionary Bioinformatics 8 (2012):
+EBO-S9738.
 }

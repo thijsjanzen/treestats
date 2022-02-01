@@ -27,7 +27,8 @@ Suggests:
     nodeSub,
     nLTT,
     TreeSim,
-    castor
+    castor,
+    knitr
 SystemRequirements: C++14
 VignetteBuilder: 
     knitr

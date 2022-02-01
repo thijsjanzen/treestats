@@ -2,16 +2,16 @@
 % Please edit documentation in R/number_of_lineages.R
 \name{number_of_lineages}
 \alias{number_of_lineages}
-\title{calculate the number of lineages}
+\title{Calculate the number of tips of a tree, including extinct tips.}
 \usage{
 number_of_lineages(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 number of lineages
 }
 \description{
-calculate the number of lineages
+Calculate the number of tips of a tree, including extinct tips.
 }

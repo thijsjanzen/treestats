@@ -23,6 +23,12 @@ phylogeny, a rho < 0 indicating a slow down and a rho > 0 indicating a speed
 up of speciation. In contrast to the gamma statistic, Pigot's rho is not
 sensitive to tree size.
 }
+\examples{
+simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+pigot_rho(simulated_tree) # should be around 0.
+ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
+pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
+}
 \references{
 Alex L. Pigot, Albert B. Phillimore, Ian P. F. Owens,
 C. David L. Orme, The Shape and Temporal Dynamics of Phylogenetic Trees

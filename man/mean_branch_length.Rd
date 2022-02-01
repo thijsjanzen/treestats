@@ -2,16 +2,16 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{mean_branch_length}
 \alias{mean_branch_length}
-\title{calculate the mean branch length}
+\title{Calculates the mean branch length of a tree, including extinct branches.}
 \usage{
 mean_branch_length(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 mean branch length
 }
 \description{
-calculate the mean branch length
+Calculates the mean branch length of a tree, including extinct branches.
 }
