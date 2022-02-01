@@ -17,14 +17,6 @@ calc_colless_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
 }
 
-calc_colless_cpp2 <- function(edge, normalization) {
-    .Call('_treestats_calc_colless_cpp2', PACKAGE = 'treestats', edge, normalization)
-}
-
-calc_colless_cpp3 <- function(edge, normalization) {
-    .Call('_treestats_calc_colless_cpp3', PACKAGE = 'treestats', edge, normalization)
-}
-
 calc_blum_cpp <- function(phy) {
     .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', phy)
 }

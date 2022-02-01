@@ -48,30 +48,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_colless_cpp2
-double calc_colless_cpp2(const std::vector< int >& edge, std::string normalization);
-RcppExport SEXP _treestats_calc_colless_cpp2(SEXP edgeSEXP, SEXP normalizationSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector< int >& >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_colless_cpp2(edge, normalization));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_colless_cpp3
-double calc_colless_cpp3(const Rcpp::NumericMatrix& edge, std::string normalization);
-RcppExport SEXP _treestats_calc_colless_cpp3(SEXP edgeSEXP, SEXP normalizationSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_colless_cpp3(edge, normalization));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_blum_cpp
 double calc_blum_cpp(const Rcpp::List phy);
 RcppExport SEXP _treestats_calc_blum_cpp(SEXP phySEXP) {
@@ -160,8 +136,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
-    {"_treestats_calc_colless_cpp2", (DL_FUNC) &_treestats_calc_colless_cpp2, 2},
-    {"_treestats_calc_colless_cpp3", (DL_FUNC) &_treestats_calc_colless_cpp3, 2},
     {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},

@@ -70,61 +70,6 @@ double calc_colless_cpp(const Rcpp::List phy,
 }
 
 
-
-// [[Rcpp::export]]
-double calc_colless_cpp2(const std::vector< int >& edge,
-                         std::string normalization) {
-
-  int num_tips = 1 + edge.size() / 4;
-  int num_nodes = num_tips - 1;
-
-  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
-
-  size_t max_i = (edge.size() - 1);
-  for (size_t i = 0; i < max_i; i += 2) {
-    parents[ edge[i + 1] ] = edge[i + 0];
-  }
-
-  colless_stat s(parents, num_tips);
-
-  double output = static_cast<double>(s.calc_colless());
-
-  if (normalization == "yule") {
-    output = s.correct_yule(output);
-  }
-  if (normalization == "pda") {
-    output = s.correct_pda(output);
-  }
-  return output;
-}
-
-// [[Rcpp::export]]
-double calc_colless_cpp3(const Rcpp::NumericMatrix& edge,
-                         std::string normalization) {
-
-
-  int num_tips = 1 + edge.size() / 4;
-
-  std::vector< size_t > parents(num_tips + num_tips + 1, 0);
-
-
-  for (size_t i = 0; i < edge.nrow(); i += 2) {
-    parents[ edge(i, 1) ] = edge(i, 0);
-  }
-
-  double output = calc_colless_single(parents, num_tips);
-
-  if (normalization == "yule") {
-    output = correct_yule_colless(output, num_tips);
-  }
-  if (normalization == "pda") {
-    output = correct_pda_colless(output, num_tips);
-  }
-  return output;
-
-}
-
-
 // [[Rcpp::export]]
 double calc_blum_cpp(const Rcpp::List phy) {
 

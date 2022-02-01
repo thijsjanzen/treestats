@@ -5,40 +5,6 @@
 #include <array>
 #include <numeric> // std::accumulate
 
-double calc_colless_single(const std::vector< size_t >& parents,
-                           size_t num_tips) {
-  std::vector<int> tiplist(parents.size(), 0);
-  for (size_t i = 1; i <= num_tips; ++i) {
-    tiplist[ parents[i] ]++;
-  }
-
-  size_t s = 0;
-  for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-    if (tiplist[ parents[i] ] > 0) {
-
-      int d = tiplist[ parents[i] ] - tiplist[i];
-
-      d < 0 ? s -= d : s+= d;
-    }
-    tiplist[ parents[i] ] += tiplist[i];
-  }
-  return s;
-}
-
-double correct_pda_colless(double Ic,
-                           int num_tips) {
-  double denom = powf(num_tips, 1.5f);
-  return 1.0 * Ic / denom;
-}
-
-double correct_yule_colless(double Ic,
-                            int num_tips) {
-  static const double g = 0.577215664901532;
-  auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
-  return output;
-}
-
-
 class colless_stat {
 
 public:
