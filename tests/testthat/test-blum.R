@@ -10,3 +10,14 @@ test_that("usage", {
   blum_check <- castor::tree_imbalance(focal_tree, type = "Blum")
   testthat::expect_equal(blum1, blum_check)
 })
+
+test_that("abuse", {
+  set.seed(42)
+  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0.3)[[1]]
+  testthat::expect_error(
+    treestats::blum(focal_tree),
+    "can only calculate Blum statistic for ultrametric tree"
+  )
+})

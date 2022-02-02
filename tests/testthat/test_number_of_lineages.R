@@ -9,4 +9,9 @@ test_that("usage", {
   num_lin <- treestats::number_of_lineages(focal_tree)
 
   testthat::expect_equal(num_lin, 100)
+
+  testthat::expect_error(
+    treestats::number_of_lineages(num_lin),
+    "object \"phy\" is not of class \"phylo\""
+  )
 })

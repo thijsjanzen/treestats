@@ -39,4 +39,10 @@ test_that("usage", {
   age2 <- max(adephylo::distRoot(focal_tree))
   testthat::expect_equal(age1, age2)
 
+
+  # and now without root.edge
+  focal_tree <- ape::rphylo(100, 1, 0)
+  age1 <- treestats::crown_age(focal_tree)
+  age2 <- max(adephylo::distRoot(focal_tree))
+  testthat::expect_equal(age1, age2)
 })
