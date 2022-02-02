@@ -28,7 +28,7 @@ calc_lapl_spectrum <- function(phy) {
   e = eigen(lapl_mat, symmetric = TRUE, only.values = TRUE)
 
   x = subset(e$values, e$values >= 1)
-  d = density(log(x))
+  d = stats::density(log(x))
   dsc = d$y / (integr(d$x, d$y))
   principal_eigenvalue <- max(x)
   skewness <- skewness(x)

@@ -32,7 +32,9 @@ Suggests:
     adephylo,
     knitr,
     rmarkdown,
-    RPANDA
+    RPANDA,
+    ggplot2,
+    tibble
 SystemRequirements: C++14
 VignetteBuilder: 
     knitr
