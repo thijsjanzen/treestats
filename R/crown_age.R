@@ -11,7 +11,7 @@
 crown_age <- function(phy) {
 
   if (is.null(phy$root.edge)) {
-    phy$root.edge <- 0
+    phy$root.edge <- 0 # nolint
   }
 
   return(apply_function_phy(phy, calc_crown_age_cpp))

@@ -53,4 +53,3 @@ test_that("abuse", {
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "no algorithm chosen")
 })
-

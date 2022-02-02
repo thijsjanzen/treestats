@@ -30,4 +30,3 @@ colless <- function(phy,
   colless_index <- apply_function_phy(phy, calc_colless_cpp, normalization)
   return(colless_index)
 }
-
