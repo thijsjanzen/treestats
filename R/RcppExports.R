@@ -68,3 +68,7 @@ phylo_to_l <- function(phy) {
     .Call('_treestats_phylo_to_l', PACKAGE = 'treestats', phy)
 }
 
+prep_lapl_spec <- function(phy) {
+    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+

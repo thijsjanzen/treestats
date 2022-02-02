@@ -140,6 +140,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// prep_lapl_spec
+Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy);
+RcppExport SEXP _treestats_prep_lapl_spec(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(prep_lapl_spec(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
@@ -153,6 +164,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
+    {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {NULL, NULL, 0}
 };
 

@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Collection of Phylogenetic Tree Statistics
-Version: 0.3.1
+Version: 0.4
 Author: Thijs Janzen
 Maintainer: Thijs Janzen <thijsjanzen@gmail.com>
 Description: Collection of phylogenetic tree statistics, collated from several packages. Some of these functions have been ported to c++ to improve speed.
@@ -22,7 +22,8 @@ Imports:
     apTreeshape,
     phyloTop,
     DDD,
-    geiger
+    geiger,
+    igraph
 Suggests:
     nodeSub,
     nLTT,
@@ -30,7 +31,8 @@ Suggests:
     castor,
     adephylo,
     knitr,
-    rmarkdown
+    rmarkdown,
+    RPANDA
 SystemRequirements: C++14
 VignetteBuilder: 
     knitr

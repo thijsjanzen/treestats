@@ -55,6 +55,7 @@ improve the speed of the following statistics and functions:
 * colless
 * blum
 * crown age
+* RPANDA::laplacian spectrum
 * ape::branching.times
 * DDD::phylo2L
 
@@ -130,10 +131,11 @@ for (i in 1:length(tree_list)) {
 
   found <- rbind(found, compare_speed(tree_list[[i]], calc_colless,  treestats::colless, used_ntaxa[i], "colless"))
 
-  
-  
   found <- rbind(found, 
                  compare_speed(tree_list[[i]], calc_blum,  treestats::blum, used_ntaxa[i], "blum"))
+  
+  found <- rbind(found, 
+                 compare_speed(tree_list[[i]], RPANDA::spectR,  treestats::calc_lapl_spectrum, used_ntaxa[i], "laplacian_spectrum"))
 }
 
 ```
