@@ -36,8 +36,7 @@ double get_start_date(const std::vector<branch>& branchset,
       return(i.end_date);
     }
   }
-  // throw std::runtime_error("can not find parent");
-  return 1e10f; // max MAX val possible
+  throw std::runtime_error("can not find parent");
 }
 
 bool has_no_daughters(const std::vector<branch>& bs,
