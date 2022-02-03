@@ -29,7 +29,7 @@ double calc_beta_cpp(const Rcpp::List& phy,
                        static_cast<size_t>(edge(i, 1))};
     }
 
-    return calc_beta(local_edge, -2, upper_lim, algorithm, abs_tol, rel_tol);
+    return calc_beta(local_edge, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch (const char* msg) {
