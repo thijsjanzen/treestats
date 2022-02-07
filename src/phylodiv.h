@@ -20,10 +20,10 @@ struct branch {
 
 struct phylo {
 
-  const std::vector< std::array<int, 2>> edge;
+  const std::vector< std::array<size_t, 2>> edge;
   const std::vector< double > edge_length;
 
-  phylo(const std::vector< std::array<int, 2>> e,
+  phylo(const std::vector< std::array<size_t, 2>> e,
         const std::vector<double> el) : edge(e), edge_length(el) {}
 };
 
@@ -36,8 +36,7 @@ double get_start_date(const std::vector<branch>& branchset,
       return(i.end_date);
     }
   }
-  // throw std::runtime_error("can not find parent");
-  return 1e10f; // max MAX val possible
+  throw std::runtime_error("can not find parent");
 }
 
 bool has_no_daughters(const std::vector<branch>& bs,

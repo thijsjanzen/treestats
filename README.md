@@ -8,6 +8,7 @@ Includes fast C++ code to calculate some of these statistics, including:
   - nLTT
   - Gamma
   - Phylogenetic Diversity
+  - RPANDA::spectR
   - ape::branching.times
   - DDD::phylo2L
   

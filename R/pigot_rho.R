@@ -1,8 +1,3 @@
-#' @keywords internal
-calc_pigot_rho_cpp <- function(phy) {
-  crown_age <- max(treestats::branching_times(phy))[[1]]
-  return(calc_rho_cpp(phy, crown_age))
-}
 
 #' calculate Pigot's rho
 #' @param phy phylo or multiPhylo object
@@ -26,6 +21,6 @@ calc_pigot_rho_cpp <- function(phy) {
 #' ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
 #' pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
 pigot_rho <- function(phy) {
-  rho <- apply_function_phy(phy, calc_pigot_rho_cpp)
+  rho <- apply_function_phy(phy, calc_rho_cpp)
   return(rho)
 }

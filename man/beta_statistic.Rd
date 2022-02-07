@@ -31,7 +31,8 @@ beta_statistic(
 
 \item{algorithm}{optimization algorithm used, default is "COBYLA"
 (Constrained Optimization BY Linear Approximations), also available are
-"subplex" and "simplex".}
+"subplex" and "simplex". Subplex and Simplex seem to have difficulties with
+unbalanced trees, e.g. if beta < 0.}
 
 \item{abs_tol}{absolute stopping criterion of optimization. Default is 1e-4.}
 

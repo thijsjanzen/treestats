@@ -23,24 +23,13 @@ std::vector< double > branching_times(const Rcpp::List& phy) {
       auto target_index = edge(i, 1) - n - 1; // -1 because of R to C++ indexing
       auto source_index = edge(i, 0) - n - 1;
 
-      if (target_index < 0 || target_index >= xx.size()) { // range checks
-        throw std::out_of_range("target_index out of bounds");
-      }
-
-      if (source_index < 0 || source_index >= xx.size()) {
-        throw std::out_of_range("source_index out of bounds");
-      }
-
       xx[ target_index  ] = xx[ source_index] + edge_length[i];
     }
   }
 
   auto edge_index = edge(edge_length.size() - 1, 0) - n - 1;
-  if (edge_index < 0 || edge_index >= xx.size()) {
-    throw std::out_of_range("edge_index out of bounds");
-  }
 
-  double depth = xx[edge_index] +  edge_length[edge_length.size() - 1];
+  double depth = xx[edge_index] +  edge_length.back();
   for (auto& i : xx) {
     i = depth - i;
   }

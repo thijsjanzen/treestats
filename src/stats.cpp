@@ -11,6 +11,8 @@
 #include "phylo2L.h"
 #include "colless.h"
 
+#include "crown_age.h"
+
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -27,7 +29,7 @@ double calc_beta_cpp(const Rcpp::List& phy,
                        static_cast<size_t>(edge(i, 1))};
     }
 
-    return calc_beta(local_edge, -2, upper_lim, algorithm, abs_tol, rel_tol);
+    return calc_beta(local_edge, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch (const char* msg) {
@@ -62,61 +64,6 @@ double calc_colless_cpp(const Rcpp::List phy,
   }
   if (normalization == "pda") {
     output = s.correct_pda(output);
-  }
-  return output;
-
-}
-
-
-
-// [[Rcpp::export]]
-double calc_colless_cpp2(const std::vector< int >& edge,
-                         std::string normalization) {
-
-  int num_tips = 1 + edge.size() / 4;
-  int num_nodes = num_tips - 1;
-
-  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
-
-  size_t max_i = (edge.size() - 1);
-  for (size_t i = 0; i < max_i; i += 2) {
-    parents[ edge[i + 1] ] = edge[i + 0];
-  }
-
-  colless_stat s(parents, num_tips);
-
-  double output = static_cast<double>(s.calc_colless());
-
-  if (normalization == "yule") {
-    output = s.correct_yule(output);
-  }
-  if (normalization == "pda") {
-    output = s.correct_pda(output);
-  }
-  return output;
-}
-
-// [[Rcpp::export]]
-double calc_colless_cpp3(const Rcpp::NumericMatrix& edge,
-                         std::string normalization) {
-
-
-  int num_tips = 1 + edge.size() / 4;
-
-  std::vector< size_t > parents(num_tips + num_tips + 1, 0);
-
-
-  for (size_t i = 0; i < edge.nrow(); i += 2) {
-    parents[ edge(i, 1) ] = edge(i, 0);
-  }
-
-  double output = calc_colless_single(parents, num_tips);
-
-  if (normalization == "yule") {
-    output = correct_yule_colless(output, num_tips);
-  }
-  if (normalization == "pda") {
-    output = correct_pda_colless(output, num_tips);
   }
   return output;
 
@@ -207,7 +154,6 @@ double calc_gamma_cpp(const Rcpp::List& phy) {
 // [[Rcpp::export]]
 double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
-                         double crown_age,
                          double extinct_acc) {
   try {
 
@@ -215,13 +161,14 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
     Rcpp::NumericVector edge_length = phy["edge.length"];
 
     std::vector<double> el(edge_length.begin(), edge_length.end());
-    std::vector< std::array<int, 2>> edges(edge.nrow());
+    std::vector< std::array<size_t, 2>> edges(edge.nrow());
     for (size_t i = 0; i < edge.nrow(); i++) {
-      std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
-                                   static_cast<int>(edge(i, 1))};
+      std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
+                                   static_cast<size_t>(edge(i, 1))};
       edges[i] = to_add;
     }
 
+    double crown_age = calc_crown_age(edges, el); // ignore root edge
     phylo phylo_tree(edges, el);
 
     return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
@@ -236,27 +183,60 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 
 
 // [[Rcpp::export]]
-double calc_rho_cpp(const Rcpp::List& phy,
-                    double crown_age) {
+double calc_rho_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
   std::vector<double> el(edge_length.begin(), edge_length.end());
-  std::vector< std::array<int, 2>> edges(edge.nrow());
+  std::vector< std::array<size_t, 2>> edges(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); i++) {
-    std::array<int, 2> to_add = {static_cast<int>(edge(i, 0)),
-                                 static_cast<int>(edge(i, 1))};
+    std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
+                                    static_cast<size_t>(edge(i, 1))};
     edges[i] = to_add;
   }
 
+  double crown_age = calc_crown_age(edges, el);
   phylo phylo_tree(edges, el);
   rho pigot_rho(phylo_tree, crown_age);
   return pigot_rho.calc_pigot_rho();
 }
 
-//' function to generate ltable from phy object
+// [[Rcpp::export]]
+double calc_crown_age_cpp(const Rcpp::List& phy) {
+  Rcpp::NumericMatrix edge = phy["edge"];
+  Rcpp::NumericVector edge_length = phy["edge.length"];
+
+  std::vector<double> el(edge_length.begin(), edge_length.end());
+  std::vector< std::array<size_t, 2>> edges(edge.nrow());
+  for (size_t i = 0; i < edge.nrow(); i++) {
+    std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
+                                    static_cast<size_t>(edge(i, 1))};
+    edges[i] = to_add;
+  }
+
+  double root_len = phy["root.edge"];
+  return calc_crown_age(edges, el) + root_len;
+}
+
+//' Function to generate an ltable from a phy object. This function is a C++
+//' implementation of the function DDD::phylo2L. An L table summarises a
+//' phylogeny in a table with four columns, being: 1) time at which a species
+//' is born, 2) label of the parent of the species, where positive and negative
+//' numbers indicate whether the species belongs to the left or right crown
+//' lineage, 3) label of the daughter species itself (again positive or
+//' negative depending on left or right crown lineage), and the last column 4)
+//' indicates the time of extinction of a species, or -1 if the species is
+//' extant.
 //' @param phy phylo object
 //' @export
+//' @examples simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
+//' ltable <- phylo_to_l(simulated_tree)
+//' reconstructed_tree <- DDD::L2phylo(ltable)
+//' par(mfrow=c(1, 2))
+//' # trees should be more or less similar, although labels may not match, and
+//' # rotations might cause (initial) visual mismatches
+//' plot(simulated_tree)
+//' plot(reconstructed_tree)
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   const size_t ncol = 4;
@@ -271,6 +251,64 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
     }
   }
   return out;
+}
+
+std::vector< std::vector< double >> dist_nodes(const Rcpp::List& phy) {
+  Rcpp::NumericMatrix edge = phy["edge"];
+  Rcpp::NumericVector el   = phy["edge.length"];
+
+  int n = 1 + edge.nrow() / 2;
+  int m = n - 1;
+
+  // code below is from the Ape package
+  std::vector< size_t > e1(edge.nrow());
+  std::vector< size_t > e2(edge.nrow());
+
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    e1[i] = edge(i, 0) - 1;
+    e2[i] = edge(i, 1) - 1;
+  }
+
+  int i, j, k, a, d, NM = n + m, ROOT;
+  double x;
+  size_t N = e1.size();
+  std::vector< std::vector<double>> D(NM, std::vector<double>(NM, 0.0));
+
+  ROOT = e1[0]; d = e2[0]; /* the 2 nodes of the 1st edge */
+  D[ROOT][d] = D[d][ROOT] = -el[0]; /* the 1st edge gives the 1st distance */
+
+  /* go down along the edge matrix
+   starting at the 2nd edge: */
+  for (i = 1; i < N; i++) {
+    a = e1[i]; d = e2[i]; x = el[i]; /* get the i-th nodes and branch length */
+  D[a][d] = D[d][a] = -x;
+  /* then go up along the edge matrix from the i-th edge
+   to visit the nodes already visited and update the distances: */
+  for (j = i - 1; j >= 0; j--) {
+    k = e2[j];
+    if (k == a) continue;
+    D[k][d] = D[d][k] = D[a][k] - x;
+  }
+  if (k != ROOT)
+    D[ROOT][d] = D[d][ROOT] = D[ROOT][a] - x;
+  }
+  return D;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
+
+  std::vector< std::vector< double >> lapl_mat = dist_nodes(phy);
+  Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
+
+  for (size_t i = 0; i < lapl_mat.size(); ++i) {
+    for (size_t j = 0; j < lapl_mat[i].size(); ++j) {
+      res(i, j) = lapl_mat[i][j];
+    }
+    res(i, i) = - std::accumulate(lapl_mat[i].begin(), lapl_mat[i].end(), 0.0);
+  }
+
+  return res;
 }
 
 

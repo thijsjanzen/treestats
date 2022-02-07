@@ -33,6 +33,22 @@ test_that("usage", {
 })
 
 
+  # test methods
+  comp_methods <- function(sim_tree) {
+    beta1 <- treestats::beta_statistic(sim_tree, algorithm = "COBYLA")
+    beta2 <- treestats::beta_statistic(sim_tree, algorithm = "subplex")
+    beta3 <- treestats::beta_statistic(sim_tree, algorithm = "simplex")
+    beta4 <- apTreeshape::maxlik.betasplit(sim_tree)$max_lik
+    testthat::expect_equal(beta1, beta4, tolerance = 0.1)
+    testthat::expect_equal(beta1, beta2, tolerance = 0.1)
+    testthat::expect_equal(beta1, beta3, tolerance = 0.1)
+  }
+
+  comp_methods(bal_tree)
+  # comp_methods(unbal_tree)  # subplex and simplex don't work here
+  comp_methods(focal_tree)
+})
+
 # abuse
 test_that("abuse", {
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
@@ -50,6 +66,9 @@ test_that("abuse", {
 
   testthat::expect_output(
     treestats::beta_statistic(focal_tree, algorithm = "none"),
+
+  testthat::expect_output(
+    treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "no algorithm chosen")
 })
 
