@@ -117,6 +117,13 @@ double calc_colless_cpp(const Rcpp::List phy,
 
 }
 
+// [[Rcpp::export]]
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
+  auto local_ltab = convert_to_ltable(ltab_in);
+  sackin_stat_ltab s(local_ltab);
+
+  return s.calc_blum();
+}
 
 // [[Rcpp::export]]
 double calc_blum_cpp(const Rcpp::List phy) {
@@ -133,10 +140,7 @@ double calc_blum_cpp(const Rcpp::List phy) {
 
   sackin_stat2 s(parents, num_tips);
 
-  double output = static_cast<double>(s.calc_blum());
-
-  return output;
-
+  return s.calc_blum();
 }
 
 // [[Rcpp::export]]

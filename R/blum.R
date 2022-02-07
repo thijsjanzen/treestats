@@ -17,9 +17,9 @@
 #' blum(balanced_tree)
 #' blum(unbalanced_tree) # should be higher
 blum <- function(phy) {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate Blum statistic for ultrametric tree")
-  }
-  blum_index <- apply_function_phy(phy, calc_blum_cpp)
-  return(blum_index)
+
+  apply_function_phy_ltable(phy,
+                            calc_blum_cpp,
+                            calc_blum_ltable_cpp,
+                            only_extant = TRUE)
 }

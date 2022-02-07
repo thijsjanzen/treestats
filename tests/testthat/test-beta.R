@@ -30,7 +30,6 @@ test_that("usage", {
   testthat::expect_equal(beta_ref$max_lik, -2, tolerance = 0.01)
   testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
   testthat::expect_equal(beta_treestats, -2, tolerance = 0.01)
-})
 
 
   # test methods
@@ -63,9 +62,6 @@ test_that("abuse", {
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
-
-  testthat::expect_output(
-    treestats::beta_statistic(focal_tree, algorithm = "none"),
 
   testthat::expect_output(
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),

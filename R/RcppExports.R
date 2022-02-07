@@ -21,6 +21,10 @@ calc_colless_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
 }
 
+calc_blum_ltable_cpp <- function(ltab_in) {
+    .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in)
+}
+
 calc_blum_cpp <- function(phy) {
     .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', phy)
 }

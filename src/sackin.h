@@ -207,6 +207,30 @@ public:
     return(std::accumulate(s_values.begin(), s_values.end(), 0));
   }
 
+  double calc_blum() {
+    std::vector< int > s_values(ltable_.size(), 0);
+    s_values[0] = 1;
+    s_values[1] = 1;
+
+    // ltable:
+    // 0 = branching time // not used here
+    // 1 = parent
+    // 2 = id
+    // 3 = extinct time // not used here
+    for (size_t i = 2; i < ltable_.size(); ++i) {
+      int parent_id = ltable_[i][1];
+      int parent_index = find_parent(ltable_, parent_id, i);
+      s_values[parent_index]++;
+      s_values[i] = s_values[parent_index];
+    }
+
+    double s = 0.0;
+    for (auto i : s_values) {
+      s += log(1.0 * i);
+    }
+    return s;
+  }
+
   double correct_pda(double Is) {
     size_t n = ltable_.size();
     double denom = powf(n, 1.5f);
