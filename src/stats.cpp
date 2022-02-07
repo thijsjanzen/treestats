@@ -13,6 +13,19 @@
 
 #include "crown_age.h"
 
+using ltable = std::vector< std::array<double, 4>>;
+
+auto convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
+  ltable out(mat_in.nrow());
+
+  for (size_t i = 0; i < mat_in.nrow(); ++i) {
+    std::array<double, 4> row_entry = {mat_in(i, 0), mat_in(i, 1),
+                                       mat_in(i, 2), mat_in(i, 3) };
+    out[i] = row_entry;
+  }
+  return out;
+}
+
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -149,6 +162,27 @@ double calc_sackin_cpp(const Rcpp::List phy,
 
   return output;
 }
+
+
+// [[Rcpp::export]]
+double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
+                       const Rcpp::String& normalization) {
+
+  auto local_ltab = convert_to_ltable(ltab);
+  sackin_stat_ltab s(local_ltab);
+
+  double output = static_cast<double>(s.calc_sackin());
+
+  if (normalization == "yule") {
+   output = s.correct_yule(n, output);
+  }
+  if (normalization == "pda") {
+    output = s.correct_pda(n, output);
+  }
+
+  return output;
+}
+
 
 
 // [[Rcpp::export]]
