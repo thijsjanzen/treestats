@@ -92,8 +92,6 @@ private:
 
   std::vector< std::array< size_t, 2 >>  edge;
   std::vector<int> tiplist;
-
-
 };
 
 
@@ -113,7 +111,6 @@ public:
     }
 
     for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-
       tiplist[ parents[i] ] += tiplist[i];
     }
 
@@ -127,7 +124,6 @@ public:
     }
 
     for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-
       tiplist[ parents[i] ] += tiplist[i];
     }
 
@@ -177,10 +173,8 @@ public:
     }
 
     if (start_index != ltable_.size()) {
-      // force_output("could not find parent, retrying\n");
       return find_parent(ltable_, focal_id, ltable_.size());
     } else {
-      //  force_output("could not find parent at all\n");
       return -1; // trigger access violation --> update to throw
     }
   }
@@ -196,8 +190,7 @@ public:
     // 2 = id
     // 3 = extinct time // not used here
     for (size_t i = 2; i < ltable_.size(); ++i) {
-      int parent_id = ltable_[i][1];
-      int parent_index = find_parent(ltable_, parent_id, i);
+      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
       s_values[parent_index]++;
       s_values[i] = s_values[parent_index];
     }
@@ -208,25 +201,26 @@ public:
   }
 
   double calc_blum() {
-    std::vector< int > s_values(ltable_.size(), 0);
-    s_values[0] = 1;
-    s_values[1] = 1;
+    std::vector< int > s_values(ltable_.size(), 1);
+    //s_values[0] = 1;
+    //s_values[1] = 1;
 
     // ltable:
     // 0 = branching time // not used here
     // 1 = parent
     // 2 = id
     // 3 = extinct time // not used here
-    for (size_t i = 2; i < ltable_.size(); ++i) {
-      int parent_id = ltable_[i][1];
-      int parent_index = find_parent(ltable_, parent_id, i);
-      s_values[parent_index]++;
+    for (size_t i = ltable_.size() - 1; i > 0; i--) {
+      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
+      s_values[parent_index] += s_values[i];
       s_values[i] = s_values[parent_index];
     }
 
     double s = 0.0;
-    for (auto i : s_values) {
-      s += log(1.0 * i);
+    for (size_t i = 1; i < s_values.size(); ++i) {
+      if (s_values[i] != 0.0) {
+        s += log(1.0 * s_values[i]);
+      }
     }
     return s;
   }

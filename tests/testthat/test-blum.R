@@ -11,7 +11,7 @@ test_that("usage", {
   testthat::expect_equal(blum1, blum_check)
   ltab <- treestats::phylo_to_l(focal_tree)
   blum2 <- treestats::blum(ltab)
-  # testthat::expect_equal(blum1, blum2)  # FAIL TODO: fix!
+  testthat::expect_equal(blum1, blum2)
 })
 
 test_that("abuse", {

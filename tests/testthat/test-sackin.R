@@ -28,7 +28,7 @@ test_that("usage", {
                                      lambda = 1, mu = 0)[[1]]
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expct_equal(treestats::sackin(focal_tree),
+  testthat::expect_equal(treestats::sackin(focal_tree),
                         treestats::sackin(ltab))
 })
 
@@ -39,6 +39,6 @@ test_that("abuse", {
                                      lambda = 1, mu = 0.3)[[1]]
   testthat::expect_error(
     treestats::sackin(focal_tree),
-    "can only calculate sackin statistic for ultrametric tree"
+    "can only calculate statistic for ultrametric tree"
   )
 })
