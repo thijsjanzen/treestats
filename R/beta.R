@@ -37,11 +37,20 @@ beta_statistic <- function(phy,
                            algorithm = "COBYLA",
                            abs_tol = 1e-4,
                            rel_tol = 1e-6) {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate beta statistic for ultrametric tree")
+
+  if (inherits(phy, "phylo")) {
+    if (!ape::is.ultrametric(phy)) {
+      stop("can only calculate beta statistic for ultrametric tree")
+    }
+
+    aldous_beta <- calc_beta_cpp(phy, upper_lim, algorithm, abs_tol, rel_tol)
+    return(aldous_beta)
   }
 
-  aldous_beta <- apply_function_phy(phy, calc_beta_cpp, upper_lim,
-                                    algorithm, abs_tol, rel_tol)
-  return(aldous_beta)
+  if (inherits(phy, "matrix")) {
+    aldous_beta <- calc_beta_ltable_cpp(phy, upper_lim, algorithm, abs_tol, rel_tol)
+    return(aldous_beta)
+  }
+
+  stop("input object has to be phylo or ltable")
 }

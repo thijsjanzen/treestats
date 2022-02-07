@@ -36,6 +36,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_beta_ltable_cpp
+double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
+RcppExport SEXP _treestats_calc_beta_ltable_cpp(SEXP ltableSEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable(ltableSEXP);
+    Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
+    Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP);
+    Rcpp::traits::input_parameter< double >::type abs_tol(abs_tolSEXP);
+    Rcpp::traits::input_parameter< double >::type rel_tol(rel_tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_beta_ltable_cpp(ltable, upper_lim, algorithm, abs_tol, rel_tol));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_colless_cpp
 double calc_colless_cpp(const Rcpp::List phy, std::string normalization);
 RcppExport SEXP _treestats_calc_colless_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
@@ -155,6 +170,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
+    {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
     {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},

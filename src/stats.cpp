@@ -42,6 +42,33 @@ double calc_beta_cpp(const Rcpp::List& phy,
 
 
 // [[Rcpp::export]]
+double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
+                         double upper_lim,
+                         std::string algorithm,
+                         double abs_tol,
+                         double rel_tol) {
+
+  try {
+    std::vector< std::array< double, 4 >> ltab(ltable.nrow());
+    for (size_t i = 0; i < ltable.nrow(); ++i) {
+      std::array< double, 4> row_entry = {ltable(i, 0), ltable(i, 1),
+                                          ltable(i, 2), ltable(i, 3)};
+      ltab[i] = row_entry;
+    }
+
+    return calc_beta(ltab, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch (const char* msg) {
+    Rcpp::Rcout << msg << std::endl;
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
+}
+
+
+// [[Rcpp::export]]
 double calc_colless_cpp(const Rcpp::List phy,
                         std::string normalization) {
 

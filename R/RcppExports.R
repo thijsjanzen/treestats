@@ -13,6 +13,10 @@ calc_beta_cpp <- function(phy, upper_lim, algorithm, abs_tol, rel_tol) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim, algorithm, abs_tol, rel_tol)
 }
 
+calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol) {
+    .Call('_treestats_calc_beta_ltable_cpp', PACKAGE = 'treestats', ltable, upper_lim, algorithm, abs_tol, rel_tol)
+}
+
 calc_colless_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
 }

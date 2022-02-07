@@ -8,6 +8,8 @@
 #include <nloptrAPI.h>
 #include <algorithm>
 
+using ltable = std::vector< std::array<double, 4>>;
+
 
 class betastat {
 public:
@@ -15,6 +17,19 @@ public:
     tiplist = std::vector<int>(edge.size() + 2, -1);
     update_lr_matrix();
   }
+
+  betastat(const ltable& lt_in) : lt_(lt_in) {
+    for (auto i : lt_) {
+      brts_.push_back(i[0]);
+    }
+    std::sort(brts_.begin(), brts_.end());
+    brts_.erase( std::unique(brts_.begin(), brts_.end()),
+                 brts_.end());
+    update_lr_matrix_ltable();
+  };
+
+
+
 
   double calc_likelihood(double beta) const {
     std::vector< double > sn = get_sn(beta);
@@ -37,6 +52,10 @@ private:
   std::vector< size_t > n_;
 
   std::vector< int > tiplist;
+
+  const ltable lt_;
+  std::vector<double> brts_;
+
 
   size_t get_num_tips(size_t label, size_t root_label) {
     if (label >= tiplist.size()) {
@@ -153,6 +172,86 @@ private:
     return lgamma(beta + l + 1) + lgamma(beta + r + 1) -
            lgamma(l + 1) - lgamma(r + 1) - log(sn);
   }
+
+  int find_species_in_ltable(int sp) {
+    for (int i = 0; i < static_cast<int>(lt_.size()); ++i) {
+      if (lt_[i][2] == sp) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  std::vector<double> find_daughters(int sp,
+                                     double bt) {
+    std::vector< double > output;
+    for (auto i : lt_) {
+      if (i[0] < bt && i[1] == sp) {
+        output.push_back(i[2]);
+      }
+    }
+    return(output);
+  }
+
+
+  size_t get_total_num_lin(int sp,
+                           double bt) {
+
+    int index = find_species_in_ltable(sp);
+    size_t total_tips = 0;
+    if (index >= 0) {
+      if (lt_[index][3] == -1) {
+        total_tips = 1;
+      }
+    }
+
+    // now, we have to find daughters branching off
+    std::vector< double > daughters = find_daughters(sp, bt);
+    if (!daughters.empty())  {
+      for (auto d : daughters) {
+        total_tips += get_total_num_lin(static_cast<int>(d), bt);
+      }
+    }
+    return(total_tips);
+  }
+
+  std::vector< size_t > get_indices(double bt) {
+    std::vector< size_t > indices;
+    for (size_t i = 0; i < lt_.size(); ++i) {
+      if (lt_[i][0] == bt) {
+        indices.push_back(i);
+      }
+    }
+    return indices;
+  }
+
+  /// ltable member functions
+  void update_lr_matrix_ltable() {
+    max_n_ = 0;
+    for (auto br : brts_) {
+      std::array<size_t, 2> lr = {0, 0};
+      std::vector< size_t > indices = get_indices(br);
+      if (indices.size() == 2) {
+        lr[0] = get_total_num_lin(lt_[indices[0]][2], br);
+        lr[1] = get_total_num_lin(lt_[indices[1]][2], br);
+      }
+      if (indices.size() == 1) {
+
+        lr[0] = get_total_num_lin(lt_[indices[0]][2], br);
+        lr[1] = get_total_num_lin(lt_[indices[0]][1], br);
+      }
+
+      if (lr[0] > lr[1]) {
+        std::swap(lr[0], lr[1]);
+      }
+      size_t total_num_lin = lr[0] + lr[1];
+      if (total_num_lin > max_n_) max_n_ = total_num_lin;
+      n_.push_back(total_num_lin);
+      lr_.push_back(lr);
+    }
+
+    return;
+  }
 };
 
 struct nlopt_f_data {
@@ -169,7 +268,9 @@ double objective(unsigned int n, const double* x, double*, void* func_data) {
 }
 
 
-double calc_beta(const std::vector< std::array< size_t, 2 >>& edge,
+
+template< class T>
+double calc_beta(const T& edge,
                  double lower_lim,
                  double upper_lim,
                  std::string algorithm,
