@@ -174,10 +174,10 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
   double output = static_cast<double>(s.calc_sackin());
 
   if (normalization == "yule") {
-   output = s.correct_yule(n, output);
+    output = s.correct_yule(output);
   }
   if (normalization == "pda") {
-    output = s.correct_pda(n, output);
+    output = s.correct_pda(output);
   }
 
   return output;

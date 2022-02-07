@@ -207,15 +207,15 @@ public:
     return(std::accumulate(s_values.begin(), s_values.end(), 0));
   }
 
-  double correct_pda(size_t n,
-                     double Is) {
+  double correct_pda(double Is) {
+    size_t n = ltable_.size();
     double denom = powf(n, 1.5f);
     return 1.0 * Is / denom;
   }
 
-  double correct_yule(size_t n,
-                      double Is) {
+  double correct_yule(double Is) {
     double sum_count = 0.0;
+    size_t n = ltable_.size();
     for (size_t j = 2; j <= n; ++j) {
       sum_count += 1.0 / j;
     }

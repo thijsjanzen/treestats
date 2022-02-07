@@ -29,6 +29,10 @@ calc_sackin_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', phy, normalization)
 }
 
+calc_sackin_ltable_cpp <- function(ltab, normalization) {
+    .Call('_treestats_calc_sackin_ltable_cpp', PACKAGE = 'treestats', ltab, normalization)
+}
+
 calc_nltt_cpp <- function(phy1, phy2) {
     .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', phy1, phy2)
 }
