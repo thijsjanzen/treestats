@@ -33,12 +33,20 @@ calc_sackin_ltable_cpp <- function(ltab, normalization) {
     .Call('_treestats_calc_sackin_ltable_cpp', PACKAGE = 'treestats', ltab, normalization)
 }
 
+calc_nltt_ltable_cpp <- function(ltab1, ltab2) {
+    .Call('_treestats_calc_nltt_ltable_cpp', PACKAGE = 'treestats', ltab1, ltab2)
+}
+
 calc_nltt_cpp <- function(phy1, phy2) {
     .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', phy1, phy2)
 }
 
 calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_gamma_ltable_cpp <- function(ltab_in) {
+    .Call('_treestats_calc_gamma_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
 
 calc_phylodiv_cpp <- function(phy, t, extinct_acc) {

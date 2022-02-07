@@ -26,6 +26,14 @@ auto convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
   return out;
 }
 
+std::vector<double> branching_times_from_ltable(const Rcpp::NumericMatrix& mat_in) {
+  std::vector<double> out(mat_in.nrow() - 1);
+  for (size_t i = 1; i < mat_in.nrow(); ++i) {
+    out[i - 1] = mat_in(i, 0);
+  }
+  return out;
+}
+
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -184,6 +192,25 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 }
 
 
+// [[Rcpp::export]]
+double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1,
+                            const Rcpp::NumericMatrix& ltab2) {
+
+  auto brts_one = branching_times_from_ltable(ltab1);
+  auto brts_two = branching_times_from_ltable(ltab2);
+  std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());
+  std::sort(brts_two.begin(), brts_two.end(), std::greater<double>());
+  for (auto& i : brts_one) {
+    i *= -1;
+  }
+  for (auto& i : brts_two) {
+    i *= -1;
+  }
+  brts_one.push_back(0.0);
+  brts_two.push_back(0.0);
+  auto nltt = calc_nltt(brts_one, brts_two);
+  return nltt;
+}
 
 // [[Rcpp::export]]
 double calc_nltt_cpp(const Rcpp::List& phy1,
@@ -209,6 +236,12 @@ double calc_nltt_cpp(const Rcpp::List& phy1,
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
   std::vector<double> brts = branching_times(phy);
+  return calc_gamma(brts);
+}
+
+// [[Rcpp::export]]
+double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
+  std::vector<double> brts = branching_times_from_ltable(ltab_in);
   return calc_gamma(brts);
 }
 

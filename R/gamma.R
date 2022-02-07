@@ -1,8 +1,3 @@
-#' @keywords internal
-calc_gamma <- function(phy) {
-  return(calc_gamma_cpp(phy))
-}
-
 #' Calculate the gamma statistic, using a fast implementation in C++. The gamma
 #' statistic measures the relative position of internal nodes within a
 #' reconstructed phylogeny. Under the Yule process, the gamma values of a
@@ -20,6 +15,9 @@ calc_gamma <- function(phy) {
 #' ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
 #' gamma_statistic(ddd_tree) # because of diversity dependence, should be < 0
 gamma_statistic <- function(phy) {
-  gamma_stat <- apply_function_phy(phy, calc_gamma)
-  return(gamma_stat)
+
+  apply_function_phy_ltable(phy,
+                            calc_gamma_cpp,
+                            calc_gamma_ltable_cpp,
+                            only_extant = TRUE)
 }

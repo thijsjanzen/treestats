@@ -7,8 +7,8 @@
 #' about the input data, and are certain that performing nLTT is valid (e.g.
 #' your tree is ultrametric etc). If you are less certain, use the nLTT function
 #' from the nLTT package.
-#' @param phy phylo or multiPhylo object
-#' @param ref_tree reference tree to compare with
+#' @param phy phylo object or ltable
+#' @param ref_tree reference tree to compare with (should be same type as phy)
 #' @return number of lineages
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
@@ -17,7 +17,16 @@
 #' nLTT(simulated_tree, simulated_tree) # should be zero.
 nLTT <- function(phy, # nolint
                  ref_tree) {
-  return(calc_nltt_cpp(phy, ref_tree))
+
+  if (inherits(phy, "phylo")) {
+    return(calc_nltt_cpp(phy, ref_tree))
+  }
+
+  if (inherits(phy, "matrix")) {
+    return(calc_nltt_ltable_cpp(phy, ref_tree))
+  }
+
+  stop("input needs to be phylo or ltable object")
 }
 
 #' Calculates the nLTT statistic using a reference 'empty' tree with only
@@ -30,7 +39,7 @@ nLTT <- function(phy, # nolint
 #' may hold true (when, for instance, all normalized lineages of A are less than
 #' all normalized lineages of B), but once the nLTT curve of A intersects the
 #' nLTT curve of B, this no longer applies.
-#' @param phy phylo or multiPhylo object
+#' @param phy phylo object
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' nLTT_base(simulated_tree)
 #' @return number of lineages

@@ -15,9 +15,9 @@ from the nLTT package.}
 nLTT(phy, ref_tree)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object or ltable}
 
-\item{ref_tree}{reference tree to compare with}
+\item{ref_tree}{reference tree to compare with (should be same type as phy)}
 }
 \value{
 number of lineages

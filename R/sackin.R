@@ -17,19 +17,10 @@
 #' sackin(balanced_tree)
 #' sackin(unbalanced_tree) # should be much higher
 sackin <- function(phy, normalization = "none") {
-  if (inherits(phy, "phylo")) {
-    if (!ape::is.ultrametric(phy)) {
-      stop("can only calculate beta statistic for ultrametric tree")
-    }
 
-    sackin_index <- calc_sackin_cpp(phy, normalization)
-    return(sackin_index)
-  }
-
-  if (inherits(phy, "matrix")) {
-    sackin_index <- calc_sackin_ltable_cpp(phy, normalization)
-    return(sackin_index)
-  }
-
-  stop("input object has to be phylo or ltable")
+  apply_function_phy_ltable(phy,
+                            calc_sackin_cpp,
+                            calc_sackin_ltable_cpp,
+                            only_extant = TRUE,
+                            normalization)
 }

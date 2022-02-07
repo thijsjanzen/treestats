@@ -16,7 +16,7 @@ nLTT curve of B, this no longer applies.}
 nLTT_base(phy)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
 }
 \value{
 number of lineages

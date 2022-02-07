@@ -98,6 +98,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_nltt_ltable_cpp
+double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1, const Rcpp::NumericMatrix& ltab2);
+RcppExport SEXP _treestats_calc_nltt_ltable_cpp(SEXP ltab1SEXP, SEXP ltab2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab1(ltab1SEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab2(ltab2SEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_nltt_ltable_cpp(ltab1, ltab2));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_nltt_cpp
 double calc_nltt_cpp(const Rcpp::List& phy1, const Rcpp::List& phy2);
 RcppExport SEXP _treestats_calc_nltt_cpp(SEXP phy1SEXP, SEXP phy2SEXP) {
@@ -118,6 +130,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
     rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_gamma_ltable_cpp
+double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
+RcppExport SEXP _treestats_calc_gamma_ltable_cpp(SEXP ltab_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_ltable_cpp(ltab_in));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -187,8 +210,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
+    {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
+    {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
