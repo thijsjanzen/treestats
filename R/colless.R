@@ -32,40 +32,5 @@ colless <- function(phy,
 }
 
 
-#' fast function using C++ to calculate the colless index of (im)balance
-#' @param phy phylo object
-#' @param normalization A character string equals to NULL (default) for no
-#' normalization or one of "pda" or "yule".
-#' @return colless index
-#' @export
-colless2 <- function(phy,
-                     normalization = "none") {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate colless statistic for ultrametric tree")
-  }
-
-  edge_flat <- as.vector(t(phy$edge))
-
-  colless_index <- calc_colless_cpp2(edge_flat,
-                                     normalization)
-  return(colless_index)
-}
-
-#' fast function using C++ to calculate the colless index of (im)balance
-#' @param phy phylo object
-#' @param normalization A character string equals to NULL (default) for no
-#' normalization or one of "pda" or "yule".
-#' @return colless index
-#' @export
-colless3 <- function(phy,
-                     normalization = "none") {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate colless statistic for ultrametric tree")
-  }
-
-  colless_index <- calc_colless_cpp3(phy$edge,
-                                     normalization)
-  return(colless_index)
-}
 
 
