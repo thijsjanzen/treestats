@@ -3,6 +3,24 @@
 
 #include "phylodiv.h"
 
+double calc_rho(const std::vector<double>& brts) {
+  size_t n1 = 2;
+  size_t n3 = 1 + brts.size();
+  double mid_point = brts[0] / 2;
+
+  auto mid_point_entry = std::lower_bound(brts.begin(), brts.end(), mid_point,
+                                          std::greater<double>());
+  size_t index_mid_point = std::distance(brts.begin(), mid_point_entry);
+
+  size_t n2 = 1 + index_mid_point;
+
+  double  r1 = (log(n2) - log(n1)) / mid_point;
+  double  r2 = (log(n3) - log(n2)) / mid_point;
+
+  return ((r2 - r1) / (r1 + r2));
+}
+
+
 struct rho {
 
   rho (const phylo& phy, double crown_age) {
@@ -29,7 +47,6 @@ struct rho {
 
     double r1 = (log(n2) - log(n1)) / mid_point_;
     double r2 = (log(n3) - log(n2)) / mid_point_;
-
     return (r2 - r1) / (r1 + r2);
   }
 
@@ -48,6 +65,9 @@ private:
   double mid_point_;
   size_t extant_lineages;
 };
+
+
+
 
 
 #endif

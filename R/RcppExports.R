@@ -57,8 +57,16 @@ calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }
 
+calc_rho_complete_cpp <- function(phy) {
+    .Call('_treestats_calc_rho_complete_cpp', PACKAGE = 'treestats', phy)
+}
+
 calc_rho_cpp <- function(phy) {
     .Call('_treestats_calc_rho_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_rho_ltable_cpp <- function(ltab) {
+    .Call('_treestats_calc_rho_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
 calc_crown_age_cpp <- function(phy) {

@@ -280,8 +280,11 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 }
 
 
+
+
+
 // [[Rcpp::export]]
-double calc_rho_cpp(const Rcpp::List& phy) {
+double calc_rho_complete_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
@@ -300,6 +303,29 @@ double calc_rho_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
+double calc_rho_cpp(const Rcpp::List& phy) {
+
+  size_t num_nodes = static_cast<size_t>(phy["Nnode"]);
+
+  if (num_nodes > 200) {
+
+    auto brts = branching_times(phy);
+    return calc_rho(brts);
+  } else {
+    // branching set method is actually faster!
+    return calc_rho_complete_cpp(phy);
+  }
+}
+
+// [[Rcpp::export]]
+double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
+
+  auto brts = branching_times_from_ltable(ltab);
+  return calc_rho(brts);
+}
+
+
+// [[Rcpp::export]]
 double calc_crown_age_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
@@ -312,8 +338,7 @@ double calc_crown_age_cpp(const Rcpp::List& phy) {
     edges[i] = to_add;
   }
 
-  double root_len = phy["root.edge"];
-  return calc_crown_age(edges, el) + root_len;
+  return calc_crown_age(edges, el);
 }
 
 //' Function to generate an ltable from a phy object. This function is a C++

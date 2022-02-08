@@ -168,6 +168,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_rho_complete_cpp
+double calc_rho_complete_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_rho_complete_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rho_complete_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_rho_cpp
 double calc_rho_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_rho_cpp(SEXP phySEXP) {
@@ -176,6 +187,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
     rcpp_result_gen = Rcpp::wrap(calc_rho_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rho_ltable_cpp
+double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab);
+RcppExport SEXP _treestats_calc_rho_ltable_cpp(SEXP ltabSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rho_ltable_cpp(ltab));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -227,7 +249,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
+    {"_treestats_calc_rho_complete_cpp", (DL_FUNC) &_treestats_calc_rho_complete_cpp, 1},
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
+    {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
