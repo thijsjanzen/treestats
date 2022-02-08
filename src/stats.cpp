@@ -307,14 +307,13 @@ double calc_rho_cpp(const Rcpp::List& phy) {
 
   size_t num_nodes = static_cast<size_t>(phy["Nnode"]);
 
-  if (num_nodes > 200) {
-
-    auto brts = branching_times(phy);
-    return calc_rho(brts);
-  } else {
-    // branching set method is actually faster!
+  if (num_nodes < 200) {
+    std::cerr << "using complete regardless\n";
     return calc_rho_complete_cpp(phy);
   }
+
+  auto brts = branching_times(phy);
+  return calc_rho(brts);
 }
 
 // [[Rcpp::export]]

@@ -29,7 +29,18 @@ pigot_rho <- function(phy,
     return(calc_rho_complete_cpp(phy))
   }
 
-  apply_function_phy_ltable(phy,
-                            calc_rho_cpp,
-                            calc_rho_ltable_cpp)
+  if (inherits(phy, "matrix")) {
+    return(calc_rho_ltable_cpp(phy))
+  }
+
+  if (inherits(phy, "phylo")) {
+    if (phy$Nnode < 200) {
+      return(calc_rho_complete_cpp(phy))
+    } else {
+      return(calc_rho_cpp(phy))
+    }
+  }
+
+
+  stop("input object has to be phylo or ltable")
 }
