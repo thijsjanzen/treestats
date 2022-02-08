@@ -40,5 +40,5 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0.0)[[1]]
   rho <- treestats::pigot_rho(focal_tree)
-  testthat::expect_gt(rho, 0)
+  testthat::expect_lt(rho, 0)
 })

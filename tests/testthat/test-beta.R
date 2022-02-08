@@ -44,7 +44,7 @@ test_that("usage", {
 
     ltab <- treestats::phylo_to_l(sim_tree)
     beta5 <- treestats::beta_statistic(ltab)
-    testthat::expect_equal(beta1, beta5)
+    testthat::expect_equal(beta1, beta5, tolerance = 0.1)
   }
 
   comp_methods(bal_tree)
