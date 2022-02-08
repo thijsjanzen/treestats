@@ -179,6 +179,7 @@ private:
         return i;
       }
     }
+    throw "can't find species in ltable\n";
     return -1;
   }
 

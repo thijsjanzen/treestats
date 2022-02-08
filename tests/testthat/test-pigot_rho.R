@@ -42,3 +42,10 @@ test_that("usage", {
   rho <- treestats::pigot_rho(focal_tree)
   testthat::expect_lt(rho, 0)
 })
+
+test_that("abuse", {
+  testthat::expect_error(
+    treestats::pigot_rho(5),
+    "input object has to be phylo or ltable"
+  )
+})
