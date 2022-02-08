@@ -30,6 +30,14 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(treestats::sackin(focal_tree),
                         treestats::sackin(ltab))
+
+  testthat::expect_equal(treestats::sackin(focal_tree, normalization = "yule"),
+                         treestats::sackin(ltab, normalization = "yule"))
+
+  testthat::expect_equal(treestats::sackin(focal_tree, normalization = "pda"),
+                         treestats::sackin(ltab, normalization = "pda"))
+
+
 })
 
 test_that("abuse", {
