@@ -1,9 +1,9 @@
-#' Fast function using C++ to calculate the Blum index of (im)balance. The Blum
-#' index of imbalance calculates the sum of \eqn{log(N-1)} over all internal
-#' nodes, where N represents the total number of extant tips connected to that
-#' node. The Blum statistic thus is only available for ultrametric,
-#' reconstructed trees. An alternative implementation can be found in the
-#' Castor R package.
+#' Fast function using C++ to calculate the Blum index of (im)balance.
+#' @description The Blum index of imbalance calculates the sum of
+#' \eqn{log(N-1)} over all internal nodes, where N represents the total number
+#' of extant tips connected to that node. The Blum statistic thus is only
+#' available for ultrametric, reconstructed trees. An alternative
+#' implementation can be found in the Castor R package.
 #' @param phy phylogeny or ltable
 #' @return Blum index of imbalance
 #' @references M. G. B. Blum and O. Francois (2006). Which random processes

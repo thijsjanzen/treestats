@@ -2,15 +2,7 @@
 % Please edit documentation in R/nLTT.R
 \name{nLTT}
 \alias{nLTT}
-\title{Calculate the nLTT, using C++. The nLTT statistic calculates the sum of
-absolute differences in the number of lineages over time, where both the
-number of lineages and the time are normalized. The number of lineages is
-normalized by the number of extant tips, whereas the time is normalized by
-the crown age. The nLTT can only be calculated for reconstructed trees.
-Only use the treestats version if you are very certain
-about the input data, and are certain that performing nLTT is valid (e.g.
-your tree is ultrametric etc). If you are less certain, use the nLTT function
-from the nLTT package.}
+\title{Calculate the nLTT, using C++.}
 \usage{
 nLTT(phy, ref_tree)
 }
@@ -23,7 +15,7 @@ nLTT(phy, ref_tree)
 number of lineages
 }
 \description{
-Calculate the nLTT, using C++. The nLTT statistic calculates the sum of
+The nLTT statistic calculates the sum of
 absolute differences in the number of lineages over time, where both the
 number of lineages and the time are normalized. The number of lineages is
 normalized by the number of extant tips, whereas the time is normalized by

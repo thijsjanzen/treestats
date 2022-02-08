@@ -1,4 +1,5 @@
-#' Calculate the nLTT, using C++. The nLTT statistic calculates the sum of
+#' Calculate the nLTT, using C++.
+#' @description The nLTT statistic calculates the sum of
 #' absolute differences in the number of lineages over time, where both the
 #' number of lineages and the time are normalized. The number of lineages is
 #' normalized by the number of extant tips, whereas the time is normalized by
@@ -30,15 +31,16 @@ nLTT <- function(phy, # nolint
 }
 
 #' Calculates the nLTT statistic using a reference 'empty' tree with only
-#' two lineages. This can be used as a semi stand-alone statistic for
-#' phylogenetic trees. However, please note that although this provides a nice
-#' way of checking the power of the nLTT statistic without directly comparing
-#' two trees, the nLTT_base statistic is not a substitute for directly comparing
-#' two phylogenetic trees. E.g. one would perhaps naively assume that
-#' \eqn{nLTT(A, B) = |nLTT(A, base) - nLTT(B, base)}. Indeed, in some cases this
-#' may hold true (when, for instance, all normalized lineages of A are less than
-#' all normalized lineages of B), but once the nLTT curve of A intersects the
-#' nLTT curve of B, this no longer applies.
+#' two lineages.
+#' @description The base nLTT statistic can be used as a semi stand-alone
+#' statistic for phylogenetic trees. However, please note that although this
+#' provides a nice way of checking the power of the nLTT statistic without
+#' directly comparing two trees, the nLTT_base statistic is not a substitute
+#' for directly comparing two phylogenetic trees. E.g. one would perhaps
+#' naively assume that \eqn{nLTT(A, B) = |nLTT(A, base) - nLTT(B, base)}.
+#' Indeed, in some cases this may hold true (when, for instance, all normalized
+#' lineages of A are less than all normalized lineages of B), but once the
+#' nLTT curve of A intersects the nLTT curve of B, this no longer applies.
 #' @param phy phylo object
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' nLTT_base(simulated_tree)

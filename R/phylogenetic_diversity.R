@@ -1,7 +1,8 @@
-#' Calculates phylogenetic diversity at time point t, e.g. the total branch
-#' length of the tree reconstructed up until time point t. Time is measured
-#' increasingly, with the crown age equal to 0. Thus, the time at the present
-#' is equal to the crown age.
+#' Calculates phylogenetic diversity at time point t
+#' @description The phylogenetic diversity at time t is given by the total
+#' branch length of the tree reconstructed up until time point t. Time is
+#' measured increasingly, with the crown age equal to 0. Thus, the time at
+#' the present is equal to the crown age.
 #' @param phy phylo object
 #' @param t time point at which to measure phylogenetic diversity, alternatively
 #' a vector of time points can also be provided.

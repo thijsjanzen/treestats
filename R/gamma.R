@@ -1,9 +1,10 @@
-#' Calculate the gamma statistic, using a fast implementation in C++. The gamma
-#' statistic measures the relative position of internal nodes within a
-#' reconstructed phylogeny. Under the Yule process, the gamma values of a
-#' reconstructed tree follow a standard normal distribution. If gamma > 0,
-#' the nodes are located more towards the tips of the tree, and if gamma < 0,
-#' the nodes are located more towards the root of the tree.
+#' Calculate the gamma statistic, using a fast implementation in C++.
+#' @description The gamma statistic measures the relative position of
+#' internal nodes within a reconstructed phylogeny. Under the Yule process,
+#' the gamma values of a reconstructed tree follow a standard normal
+#' distribution. If gamma > 0, the nodes are located more towards the tips of
+#' the tree, and if gamma < 0, the nodes are located more towards the root of
+#' the tree.
 #' @param phy phylo object
 #' @return gamma statistic
 #' @export

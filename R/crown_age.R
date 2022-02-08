@@ -1,10 +1,10 @@
 #' Calculates the height of a tree using C++.
-#' In a reconstructed tree, obtaining the tree height is fairly straightforward,
-#' and the function beautier::get_crown_age does a great job at it.
-#' However, in a non-ultrametric tree, that function no longer works.
+#' @description In a reconstructed tree, obtaining the tree height is fairly
+#' straightforward, and the function beautier::get_crown_age does a great job
+#' at it. However, in a non-ultrametric tree, that function no longer works.
 #' Alternatively, taking the maximum value of adephylo::distRoot will also yield
-#' the crown age, but will typically perform many superfluous calculations and
-#' thus be slow.
+#' the tree height (including the root branch), but will typically perform
+#' many superfluous calculations and thus be slow.
 #' @param phy phylo object
 #' @return crown age
 #' @export
@@ -18,13 +18,11 @@ tree_height <- function(phy) {
   return(tree_height)
 }
 
-#' Calculates the height of a tree using C++.
-#' In a reconstructed tree, obtaining the tree height is fairly straightforward,
-#' and the function beautier::get_crown_age does a great job at it.
-#' However, in a non-ultrametric tree, that function no longer works.
-#' Alternatively, taking the maximum value of adephylo::distRoot will also yield
-#' the crown age, but will typically perform many superfluous calculations and
-#' thus be slow.
+#' Calculates the crown age of a tree using C++.
+#' @description In a reconstructed tree, obtaining the crown age is
+#' fairly straightforward, and the function beautier::get_crown_age does
+#' a great job at it. However, in a non-ultrametric tree, that function no
+#' longer works. This function provides a functioning alternative
 #' @param phy phylo object
 #' @return crown age
 #' @export
