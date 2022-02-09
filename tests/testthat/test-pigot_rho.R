@@ -15,4 +15,37 @@ test_that("usage", {
                                      lambda = 1, mu = 0.0)[[1]]
   rho <- treestats::pigot_rho(focal_tree)
   testthat::expect_gt(rho, 0)
+
+  ltab <- treestats::phylo_to_l(focal_tree)
+  rho2 <- treestats::pigot_rho(ltab)
+  testthat::expect_equal(rho, rho2)
+  # we can use the (slower) method of using a branching set,
+  #  should give same result:
+  rho3 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
+  testthat::expect_equal(rho, rho3)
+
+
+  # and we can do with extinct trees as well
+  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0.2, complete = TRUE)[[1]]
+  rho4 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
+  extant_tree <- geiger::drop.extinct(focal_tree)
+  rho5 <- treestats::pigot_rho(extant_tree)
+  testthat::expect_false(rho4 == rho5)
+
+
+  # lastly, we do large tree:
+  focal_tree <- TreeSim::sim.bd.taxa(n = 500,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0.0)[[1]]
+  rho <- treestats::pigot_rho(focal_tree)
+  testthat::expect_lt(rho, 0)
+})
+
+test_that("abuse", {
+  testthat::expect_error(
+    treestats::pigot_rho(5),
+    "input object has to be phylo or ltable"
+  )
 })

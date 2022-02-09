@@ -1,12 +1,13 @@
-#' Fast function using C++ to calculate the sackin index of (im)balance. The
-#' sackin index is calculated as the sum of ancestors for each of the tips.
-#' Higher values indicate higher imbalance. Two normalizations are available,
-#' where a correction is made for tree size, under either a yule expectation,
-#' or a pda expectation. The sackin index is only available in treestats
-#' for extant, ultrametric, strictly bifurcating, trees
+#' Fast function using C++ to calculate the sackin index of (im)balance.
+#' @description The Sackin index is calculated as the sum of ancestors for each
+#' of the tips. Higher values indicate higher imbalance. Two normalizations
+#' are available, where a correction is made for tree size, under either a
+#' Yule expectation, or a pda expectation. The Sackin index is only available in
+#' treestats for extant, ultrametric, strictly bifurcating, trees we advise to use
+#' the slower version in the package apTreeshape or Castor.
 #' @param phy phylogeny or ltable
 #' @param normalization normalization, either 'none' (default), "yule" or "pda".
-#' @return sackin index
+#' @return Sackin index
 #' @references M. J. Sackin (1972). "Good" and "Bad" Phenograms.
 #' Systematic Biology. 21:225-226.
 #' @export
@@ -17,9 +18,10 @@
 #' sackin(balanced_tree)
 #' sackin(unbalanced_tree) # should be much higher
 sackin <- function(phy, normalization = "none") {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate sackin statistic for ultrametric tree")
-  }
-  sackin_index <- apply_function_phy(phy, calc_sackin_cpp, normalization)
-  return(sackin_index)
+
+  apply_function_phy_ltable(phy,
+                            calc_sackin_cpp,
+                            calc_sackin_ltable_cpp,
+                            only_extant = TRUE,
+                            normalization)
 }

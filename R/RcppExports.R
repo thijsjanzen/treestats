@@ -13,8 +13,16 @@ calc_beta_cpp <- function(phy, upper_lim, algorithm, abs_tol, rel_tol) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim, algorithm, abs_tol, rel_tol)
 }
 
+calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol) {
+    .Call('_treestats_calc_beta_ltable_cpp', PACKAGE = 'treestats', ltable, upper_lim, algorithm, abs_tol, rel_tol)
+}
+
 calc_colless_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
+}
+
+calc_blum_ltable_cpp <- function(ltab_in) {
+    .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
 
 calc_blum_cpp <- function(phy) {
@@ -25,6 +33,14 @@ calc_sackin_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', phy, normalization)
 }
 
+calc_sackin_ltable_cpp <- function(ltab, normalization) {
+    .Call('_treestats_calc_sackin_ltable_cpp', PACKAGE = 'treestats', ltab, normalization)
+}
+
+calc_nltt_ltable_cpp <- function(ltab1, ltab2) {
+    .Call('_treestats_calc_nltt_ltable_cpp', PACKAGE = 'treestats', ltab1, ltab2)
+}
+
 calc_nltt_cpp <- function(phy1, phy2) {
     .Call('_treestats_calc_nltt_cpp', PACKAGE = 'treestats', phy1, phy2)
 }
@@ -33,12 +49,24 @@ calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
 
+calc_gamma_ltable_cpp <- function(ltab_in) {
+    .Call('_treestats_calc_gamma_ltable_cpp', PACKAGE = 'treestats', ltab_in)
+}
+
 calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }
 
+calc_rho_complete_cpp <- function(phy) {
+    .Call('_treestats_calc_rho_complete_cpp', PACKAGE = 'treestats', phy)
+}
+
 calc_rho_cpp <- function(phy) {
     .Call('_treestats_calc_rho_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_rho_ltable_cpp <- function(ltab) {
+    .Call('_treestats_calc_rho_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
 calc_crown_age_cpp <- function(phy) {

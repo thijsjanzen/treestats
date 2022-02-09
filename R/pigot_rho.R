@@ -1,6 +1,8 @@
-
 #' calculate Pigot's rho
-#' @param phy phylo or multiPhylo object
+#' @param phy phylo object
+#' @param extant_tree Pigot's rho is originally only defined for an extant tree,
+#' however we include functionality to calculate Pigot's rho for a complete
+#' tree as well.
 #' @return rho
 #' @description Calculates the change in rate between the first half and the
 #' second half of the extant phylogeny. Rho = (r2 - r1) / (r1 + r2), where r
@@ -9,7 +11,7 @@
 #' end of the half, and n1 the number of lineages at the start of the half. Rho
 #' varies between -1 and 1, with a 0 indicating a constant rate across the
 #' phylogeny, a rho < 0 indicating a slow down and a rho > 0 indicating a speed
-#' up of speciation. In contrast to the gamma statistic, Pigot's rho is not
+#' up of speciation. In contrast to the Gamma statistic, Pigot's rho is not
 #' sensitive to tree size.
 #' @references Alex L. Pigot, Albert B. Phillimore, Ian P. F. Owens,
 #' C. David L. Orme, The Shape and Temporal Dynamics of Phylogenetic Trees
@@ -20,7 +22,25 @@
 #' pigot_rho(simulated_tree) # should be around 0.
 #' ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
 #' pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
-pigot_rho <- function(phy) {
-  rho <- apply_function_phy(phy, calc_rho_cpp)
-  return(rho)
+pigot_rho <- function(phy,
+                      extant_tree = TRUE) {
+
+  if (!extant_tree) {
+    return(calc_rho_complete_cpp(phy))
+  }
+
+  if (inherits(phy, "matrix")) {
+    return(calc_rho_ltable_cpp(phy))
+  }
+
+  if (inherits(phy, "phylo")) {
+    if (phy$Nnode < 200) {
+      return(calc_rho_complete_cpp(phy))
+    } else {
+      return(calc_rho_cpp(phy))
+    }
+  }
+
+
+  stop("input object has to be phylo or ltable")
 }

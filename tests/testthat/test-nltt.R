@@ -23,4 +23,11 @@ test_that("usage", {
   nltt_stat <- nLTT::nltt_diff(tree1, empty_tree)
   testthat::expect_equal(nltt_stat, nltt_base, tolerance = 1e-3)
   testthat::expect_equal(nltt_stat, nltt_base2, tolerance = 1e-3)
+
+
+  # test ltable functionality
+  ltab1 <- treestats::phylo_to_l(tree1)
+  ltab2 <- treestats::phylo_to_l(tree2)
+  nltt3 <- treestats::nLTT(ltab1, ltab2)
+  testthat::expect_equal(nltt3, nltt)
 })

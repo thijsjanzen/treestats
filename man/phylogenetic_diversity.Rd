@@ -2,10 +2,7 @@
 % Please edit documentation in R/phylogenetic_diversity.R
 \name{phylogenetic_diversity}
 \alias{phylogenetic_diversity}
-\title{Calculates phylogenetic diversity at time point t, e.g. the total branch
-length of the tree reconstructed up until time point t. Time is measured
-increasingly, with the crown age equal to 0. Thus, the time at the present
-is equal to the crown age.}
+\title{Calculates phylogenetic diversity at time point t}
 \usage{
 phylogenetic_diversity(phy, t = 1e+10, extinct_tol = NULL)
 }
@@ -23,8 +20,8 @@ phylogenetic diversity, or vector of phylogenetic diversity measures
 if a vector of time points is used as input.
 }
 \description{
-Calculates phylogenetic diversity at time point t, e.g. the total branch
-length of the tree reconstructed up until time point t. Time is measured
-increasingly, with the crown age equal to 0. Thus, the time at the present
-is equal to the crown age.
+The phylogenetic diversity at time t is given by the total
+branch length of the tree reconstructed up until time point t. Time is
+measured increasingly, with the crown age equal to 0. Thus, the time at
+the present is equal to the crown age.
 }

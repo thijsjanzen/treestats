@@ -36,6 +36,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_beta_ltable_cpp
+double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
+RcppExport SEXP _treestats_calc_beta_ltable_cpp(SEXP ltableSEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable(ltableSEXP);
+    Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
+    Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP);
+    Rcpp::traits::input_parameter< double >::type abs_tol(abs_tolSEXP);
+    Rcpp::traits::input_parameter< double >::type rel_tol(rel_tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_beta_ltable_cpp(ltable, upper_lim, algorithm, abs_tol, rel_tol));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_colless_cpp
 double calc_colless_cpp(const Rcpp::List phy, std::string normalization);
 RcppExport SEXP _treestats_calc_colless_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
@@ -45,6 +60,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
     Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_colless_cpp(phy, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_blum_ltable_cpp
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
+RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_blum_ltable_cpp(ltab_in));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -71,6 +97,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_sackin_ltable_cpp
+double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab, const Rcpp::String& normalization);
+RcppExport SEXP _treestats_calc_sackin_ltable_cpp(SEXP ltabSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_sackin_ltable_cpp(ltab, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_nltt_ltable_cpp
+double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1, const Rcpp::NumericMatrix& ltab2);
+RcppExport SEXP _treestats_calc_nltt_ltable_cpp(SEXP ltab1SEXP, SEXP ltab2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab1(ltab1SEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab2(ltab2SEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_nltt_ltable_cpp(ltab1, ltab2));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_nltt_cpp
 double calc_nltt_cpp(const Rcpp::List& phy1, const Rcpp::List& phy2);
 RcppExport SEXP _treestats_calc_nltt_cpp(SEXP phy1SEXP, SEXP phy2SEXP) {
@@ -94,6 +144,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_gamma_ltable_cpp
+double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
+RcppExport SEXP _treestats_calc_gamma_ltable_cpp(SEXP ltab_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_ltable_cpp(ltab_in));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_phylodiv_cpp
 double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double extinct_acc);
 RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP extinct_accSEXP) {
@@ -107,6 +168,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_rho_complete_cpp
+double calc_rho_complete_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_rho_complete_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rho_complete_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_rho_cpp
 double calc_rho_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_rho_cpp(SEXP phySEXP) {
@@ -115,6 +187,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
     rcpp_result_gen = Rcpp::wrap(calc_rho_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rho_ltable_cpp
+double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab);
+RcppExport SEXP _treestats_calc_rho_ltable_cpp(SEXP ltabSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rho_ltable_cpp(ltab));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -155,13 +238,20 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
+    {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
+    {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 1},
     {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
+    {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
+    {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
+    {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
+    {"_treestats_calc_rho_complete_cpp", (DL_FUNC) &_treestats_calc_rho_complete_cpp, 1},
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
+    {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},

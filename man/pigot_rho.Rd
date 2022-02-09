@@ -4,10 +4,14 @@
 \alias{pigot_rho}
 \title{calculate Pigot's rho}
 \usage{
-pigot_rho(phy)
+pigot_rho(phy, extant_tree = TRUE)
 }
 \arguments{
-\item{phy}{phylo or multiPhylo object}
+\item{phy}{phylo object}
+
+\item{extant_tree}{Pigot's rho is originally only defined for an extant tree,
+however we include functionality to calculate Pigot's rho for a complete
+tree as well.}
 }
 \value{
 rho
@@ -20,7 +24,7 @@ is given by (log(n2) - log(n1) / t, where n2 is the number of lineages at the
 end of the half, and n1 the number of lineages at the start of the half. Rho
 varies between -1 and 1, with a 0 indicating a constant rate across the
 phylogeny, a rho < 0 indicating a slow down and a rho > 0 indicating a speed
-up of speciation. In contrast to the gamma statistic, Pigot's rho is not
+up of speciation. In contrast to the Gamma statistic, Pigot's rho is not
 sensitive to tree size.
 }
 \examples{

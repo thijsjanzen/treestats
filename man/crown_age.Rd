@@ -2,13 +2,7 @@
 % Please edit documentation in R/crown_age.R
 \name{crown_age}
 \alias{crown_age}
-\title{Calculates the crown age of a tree using C++.
-In a reconstructed tree, obtaining the crown age is fairly straightforward,
-and the function beautier::get_crown_age does a great job at it.
-However, in a non-ultrametric tree, that function no longer works.
-Alternatively, taking the maximum value of adephylo::distRoot will also yield
-the crown age, but will typically perform many superfluous calculations and
-thus be slow.}
+\title{Calculates the crown age of a tree using C++.}
 \usage{
 crown_age(phy)
 }
@@ -19,11 +13,8 @@ crown_age(phy)
 crown age
 }
 \description{
-Calculates the crown age of a tree using C++.
-In a reconstructed tree, obtaining the crown age is fairly straightforward,
-and the function beautier::get_crown_age does a great job at it.
-However, in a non-ultrametric tree, that function no longer works.
-Alternatively, taking the maximum value of adephylo::distRoot will also yield
-the crown age, but will typically perform many superfluous calculations and
-thus be slow.
+In a reconstructed tree, obtaining the crown age is
+fairly straightforward, and the function beautier::get_crown_age does
+a great job at it. However, in a non-ultrametric tree, that function no
+longer works. This function provides a functioning alternative
 }

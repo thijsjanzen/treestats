@@ -2,12 +2,7 @@
 % Please edit documentation in R/blum.R
 \name{blum}
 \alias{blum}
-\title{Fast function using C++ to calculate the Blum index of (im)balance. The Blum
-index of imbalance calculates the sum of \eqn{log(N-1)} over all internal
-nodes, where N represents the total number of extant tips connected to that
-node. The Blum statistic thus is only available for ultrametric,
-reconstructed trees. An alternative implementation can be found in the
-Castor R package.}
+\title{Fast function using C++ to calculate the Blum index of (im)balance.}
 \usage{
 blum(phy)
 }
@@ -18,12 +13,11 @@ blum(phy)
 Blum index of imbalance
 }
 \description{
-Fast function using C++ to calculate the Blum index of (im)balance. The Blum
-index of imbalance calculates the sum of \eqn{log(N-1)} over all internal
-nodes, where N represents the total number of extant tips connected to that
-node. The Blum statistic thus is only available for ultrametric,
-reconstructed trees. An alternative implementation can be found in the
-Castor R package.
+The Blum index of imbalance calculates the sum of
+\eqn{log(N-1)} over all internal nodes, where N represents the total number
+of extant tips connected to that node. The Blum statistic thus is only
+available for ultrametric, reconstructed trees. An alternative
+implementation can be found in the Castor R package.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)

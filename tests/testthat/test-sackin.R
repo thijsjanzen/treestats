@@ -19,6 +19,25 @@ test_that("usage", {
   sackin_check <- apTreeshape::sackin(apTreeshape::as.treeshape(focal_tree),
                                       norm = "pda")
   testthat::expect_equal(sackin, sackin_check, tol = 1e-5)
+
+
+  # test ltable functionality
+  set.seed(42)
+  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0)[[1]]
+
+  ltab <- treestats::phylo_to_l(focal_tree)
+  testthat::expect_equal(treestats::sackin(focal_tree),
+                        treestats::sackin(ltab))
+
+  testthat::expect_equal(treestats::sackin(focal_tree, normalization = "yule"),
+                         treestats::sackin(ltab, normalization = "yule"))
+
+  testthat::expect_equal(treestats::sackin(focal_tree, normalization = "pda"),
+                         treestats::sackin(ltab, normalization = "pda"))
+
+
 })
 
 test_that("abuse", {
@@ -28,6 +47,6 @@ test_that("abuse", {
                                      lambda = 1, mu = 0.3)[[1]]
   testthat::expect_error(
     treestats::sackin(focal_tree),
-    "can only calculate sackin statistic for ultrametric tree"
+    "can only calculate statistic for ultrametric tree"
   )
 })

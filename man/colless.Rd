@@ -2,16 +2,7 @@
 % Please edit documentation in R/colless.R
 \name{colless}
 \alias{colless}
-\title{Fast function using C++ to calculate the colless index of (im)balance. The
-colless index is calculated as the sum of \eqn{abs(L - R)} over all nodes,
-where L (or R) is the number of extant tips associated with the L (or R)
-daughter branch at that node
-Higher values indicate higher imbalance. Two normalizations are available,
-where a correction is made for tree size, under either a yule expectation,
-or a pda expectation. The sackin index is only available in treestats
-for extant, ultrametric, strictly bifurcating, trees. For trees including
-extinct species, we advise to use the slower version in the package
-apTreeshape or Castor.}
+\title{Fast function using C++ to calculate the Colless index of (im)balance.}
 \usage{
 colless(phy, normalization = "none")
 }
@@ -25,13 +16,12 @@ normalization or one of "pda" or "yule".}
 colless index
 }
 \description{
-Fast function using C++ to calculate the colless index of (im)balance. The
-colless index is calculated as the sum of \eqn{abs(L - R)} over all nodes,
-where L (or R) is the number of extant tips associated with the L (or R)
-daughter branch at that node
-Higher values indicate higher imbalance. Two normalizations are available,
+The Colless index is calculated as the sum of
+\eqn{abs(L - R)} over all nodes, where L (or R) is the number of extant tips
+associated with the L (or R) daughter branch at that node.  Higher values
+indicate higher imbalance. Two normalizations are available,
 where a correction is made for tree size, under either a yule expectation,
-or a pda expectation. The sackin index is only available in treestats
+or a pda expectation. The Colless index is only available in treestats
 for extant, ultrametric, strictly bifurcating, trees. For trees including
 extinct species, we advise to use the slower version in the package
 apTreeshape or Castor.

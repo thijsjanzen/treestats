@@ -1,5 +1,5 @@
-#' Fast function using C++ to calculate the Aldous beta statistic. The Aldous
-#' Beta statistic. The Beta statistic fits a beta splitting model to each node,
+#' Fast function using C++ to calculate the Aldous beta statistic.
+#' @description The Beta statistic fits a beta splitting model to each node,
 #' assuming that the number of extant descendents of each daughter branch is
 #' split following a beta distribution, such that the number of extant
 #' descendentants x and y at a node follows \eqn{q(x, y) = s_n(beta)^-1
@@ -37,11 +37,10 @@ beta_statistic <- function(phy,
                            algorithm = "COBYLA",
                            abs_tol = 1e-4,
                            rel_tol = 1e-6) {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate beta statistic for ultrametric tree")
-  }
 
-  aldous_beta <- apply_function_phy(phy, calc_beta_cpp, upper_lim,
-                                    algorithm, abs_tol, rel_tol)
-  return(aldous_beta)
+  apply_function_phy_ltable(phy,
+                            calc_beta_cpp,
+                            calc_beta_ltable_cpp,
+                            only_extant = TRUE,
+                            upper_lim, algorithm, abs_tol, rel_tol)
 }

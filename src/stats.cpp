@@ -13,6 +13,27 @@
 
 #include "crown_age.h"
 
+using ltable = std::vector< std::array<double, 4>>;
+
+auto convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
+  ltable out(mat_in.nrow());
+
+  for (size_t i = 0; i < mat_in.nrow(); ++i) {
+    std::array<double, 4> row_entry = {mat_in(i, 0), mat_in(i, 1),
+                                       mat_in(i, 2), mat_in(i, 3) };
+    out[i] = row_entry;
+  }
+  return out;
+}
+
+std::vector<double> branching_times_from_ltable(const Rcpp::NumericMatrix& mat_in) {
+  std::vector<double> out(mat_in.nrow() - 1);
+  for (size_t i = 1; i < mat_in.nrow(); ++i) {
+    out[i - 1] = mat_in(i, 0);
+  }
+  return out;
+}
+
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -30,6 +51,33 @@ double calc_beta_cpp(const Rcpp::List& phy,
     }
 
     return calc_beta(local_edge, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch (const char* msg) {
+    Rcpp::Rcout << msg << std::endl;
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
+}
+
+
+// [[Rcpp::export]]
+double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
+                         double upper_lim,
+                         std::string algorithm,
+                         double abs_tol,
+                         double rel_tol) {
+
+  try {
+    std::vector< std::array< double, 4 >> ltab(ltable.nrow());
+    for (size_t i = 0; i < ltable.nrow(); ++i) {
+      std::array< double, 4> row_entry = {ltable(i, 0), ltable(i, 1),
+                                          ltable(i, 2), ltable(i, 3)};
+      ltab[i] = row_entry;
+    }
+
+    return calc_beta(ltab, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch (const char* msg) {
@@ -69,6 +117,13 @@ double calc_colless_cpp(const Rcpp::List phy,
 
 }
 
+// [[Rcpp::export]]
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
+  auto local_ltab = convert_to_ltable(ltab_in);
+  sackin_stat_ltab s(local_ltab);
+
+  return s.calc_blum();
+}
 
 // [[Rcpp::export]]
 double calc_blum_cpp(const Rcpp::List phy) {
@@ -85,10 +140,7 @@ double calc_blum_cpp(const Rcpp::List phy) {
 
   sackin_stat2 s(parents, num_tips);
 
-  double output = static_cast<double>(s.calc_blum());
-
-  return output;
-
+  return s.calc_blum();
 }
 
 // [[Rcpp::export]]
@@ -125,6 +177,46 @@ double calc_sackin_cpp(const Rcpp::List phy,
 
 
 // [[Rcpp::export]]
+double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
+                       const Rcpp::String& normalization) {
+
+  auto local_ltab = convert_to_ltable(ltab);
+  sackin_stat_ltab s(local_ltab);
+
+  double output = static_cast<double>(s.calc_sackin());
+
+  if (normalization == "yule") {
+    output = s.correct_yule(output);
+  }
+  if (normalization == "pda") {
+    output = s.correct_pda(output);
+  }
+
+  return output;
+}
+
+
+// [[Rcpp::export]]
+double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1,
+                            const Rcpp::NumericMatrix& ltab2) {
+
+  auto brts_one = branching_times_from_ltable(ltab1);
+  auto brts_two = branching_times_from_ltable(ltab2);
+  std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());
+  std::sort(brts_two.begin(), brts_two.end(), std::greater<double>());
+  for (auto& i : brts_one) {
+    i *= -1;
+  }
+  for (auto& i : brts_two) {
+    i *= -1;
+  }
+  brts_one.push_back(0.0);
+  brts_two.push_back(0.0);
+  auto nltt = calc_nltt(brts_one, brts_two);
+  return nltt;
+}
+
+// [[Rcpp::export]]
 double calc_nltt_cpp(const Rcpp::List& phy1,
                      const Rcpp::List& phy2) {
 
@@ -148,6 +240,12 @@ double calc_nltt_cpp(const Rcpp::List& phy1,
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
   std::vector<double> brts = branching_times(phy);
+  return calc_gamma(brts);
+}
+
+// [[Rcpp::export]]
+double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
+  std::vector<double> brts = branching_times_from_ltable(ltab_in);
   return calc_gamma(brts);
 }
 
@@ -182,8 +280,11 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 }
 
 
+
+
+
 // [[Rcpp::export]]
-double calc_rho_cpp(const Rcpp::List& phy) {
+double calc_rho_complete_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
@@ -202,6 +303,27 @@ double calc_rho_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
+double calc_rho_cpp(const Rcpp::List& phy) {
+
+  size_t num_nodes = static_cast<size_t>(phy["Nnode"]);
+
+  if (num_nodes < 200) {
+    return calc_rho_complete_cpp(phy);
+  }
+
+  auto brts = branching_times(phy);
+  return calc_rho(brts);
+}
+
+// [[Rcpp::export]]
+double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
+
+  auto brts = branching_times_from_ltable(ltab);
+  return calc_rho(brts);
+}
+
+
+// [[Rcpp::export]]
 double calc_crown_age_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   Rcpp::NumericVector edge_length = phy["edge.length"];
@@ -214,8 +336,7 @@ double calc_crown_age_cpp(const Rcpp::List& phy) {
     edges[i] = to_add;
   }
 
-  double root_len = phy["root.edge"];
-  return calc_crown_age(edges, el) + root_len;
+  return calc_crown_age(edges, el);
 }
 
 //' Function to generate an ltable from a phy object. This function is a C++
@@ -252,8 +373,6 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   }
   return out;
 }
-
-
 
 std::vector< std::vector< double >> dist_nodes(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
