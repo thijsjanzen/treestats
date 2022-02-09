@@ -36,7 +36,7 @@ calc_blum <- function(phy) {
   return(castor::tree_imbalance(phy, "Blum"))
 }
 
-ref_crown_age <- function(phy) {
+ref_tree_height <- function(phy) {
   return(max(adephylo::distRoot(phy, method = "patristic")))
 }
 
@@ -117,7 +117,7 @@ found <- c()
 for (i in 1:length(tree_list)) {
   found <- rbind(found, compare_speed(tree_list[[i]], ape::branching.times, treestats::branching_times, used_ntaxa[i], "branching_times") )
   
-  found <- rbind(found, compare_speed(tree_list[[i]], ref_crown_age, treestats::crown_age, used_ntaxa[i], "crown_age") )
+  found <- rbind(found, compare_speed(tree_list[[i]], ref_tree_height, treestats::tree_height, used_ntaxa[i], "tree_height") )
 
   found <- rbind(found, compare_speed(tree_list[[i]], DDD::phylo2L, treestats::phylo_to_l, used_ntaxa[i], "phylo_to_l"))
 
