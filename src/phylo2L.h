@@ -16,16 +16,11 @@
 
 size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
                      size_t col_index) {
-
-  size_t index = 0;
-  double min_val = localtab[index][col_index];
-  for (size_t i = 1; i < localtab.size(); ++i) {
-    if (localtab[i][col_index] < min_val) {
-      min_val = localtab[i][col_index];
-      index = i;
-    }
-  }
-  return index;
+  auto min_entry = std::min_element(localtab.cbegin(), localtab.cend(),
+                                    [&](const auto& a, const auto& b) {
+                                      return a[col_index] < b[col_index];
+                                    });
+  return std::distance(localtab.cbegin(), min_entry);
 }
 
 bool parent_in_nodesindex(const std::vector< size_t >& nodesindex,
