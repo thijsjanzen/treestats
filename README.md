@@ -11,6 +11,7 @@ Includes fast C++ code to calculate some of these statistics, including:
   - RPANDA::spectR
   - ape::branching.times
   - DDD::phylo2L
+  - DDD::L2phylo
   
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/treestats)](https://cran.r-project.org/package=treestats)
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
