@@ -234,6 +234,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// l_to_newick
+std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R, bool drop_extinct);
+RcppExport SEXP _treestats_l_to_newick(SEXP ltable_RSEXP, SEXP drop_extinctSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    Rcpp::traits::input_parameter< bool >::type drop_extinct(drop_extinctSEXP);
+    rcpp_result_gen = Rcpp::wrap(l_to_newick(ltable_R, drop_extinct));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
@@ -255,6 +267,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
+    {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
     {NULL, NULL, 0}
 };
 

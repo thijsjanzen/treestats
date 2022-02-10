@@ -159,3 +159,7 @@ ggplot(found, aes(x = ntips, y = time, col = method)) +
   ylab("Time per tree (seconds)") +
   xlab("Number of extant tips")
 ```
+
+Across the board, we find that the castor based calculations are generally 
+faster than those in treestats (e.g. gamma, sackin, blum and colless). For all 
+the others, treestats is faster.

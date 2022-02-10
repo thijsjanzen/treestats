@@ -10,6 +10,7 @@
 #include "pigot_rho.h"
 #include "phylo2L.h"
 #include "colless.h"
+#include "L2newick.h"
 
 #include "crown_age.h"
 
@@ -432,6 +433,14 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
   return res;
 }
 
+
+// [[Rcpp::export]]
+std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
+                        bool drop_extinct) {
+  auto ltable_cpp = convert_to_ltable(ltable_R);
+  auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
+  return newick_string;
+}
 
 // old stuff
 /*

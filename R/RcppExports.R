@@ -100,3 +100,7 @@ prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
+l_to_newick <- function(ltable_R, drop_extinct) {
+    .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
+}
+
