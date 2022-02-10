@@ -4,11 +4,8 @@
 #' associated with the L (or R) daughter branch at that node.  Higher values
 #' indicate higher imbalance. Two normalizations are available,
 #' where a correction is made for tree size, under either a yule expectation,
-#' or a pda expectation. The Colless index is only available in treestats
-#' for extant, ultrametric, strictly bifurcating, trees. For trees including
-#' extinct species, we advise to use the slower version in the package
-#' apTreeshape or Castor.
-#' @param phy phylo object
+#' or a pda expectation.
+#' @param phy phylo object or ltable
 #' @param normalization A character string equals to NULL (default) for no
 #' normalization or one of "pda" or "yule".
 #' @return colless index
@@ -23,12 +20,19 @@
 #' colless(unbalanced_tree) # should be higher
 colless <- function(phy,
                     normalization = "none") {
-  if (!ape::is.ultrametric(phy)) {
-    stop("can only calculate colless statistic for ultrametric tree")
-  }
 
-  colless_index <- apply_function_phy(phy, calc_colless_cpp, normalization)
-  return(colless_index)
+  if (inherits(phy, "matrix")) {
+    return(calc_colless_ltable_cpp(phy, normalization))
+  }
+  if (inherits(phy, "phylo")) {
+    if (!ape::is.ultrametric(phy)) {
+      # there are extinct lineages
+      ltab <- treestats::phylo_to_l(phy)
+      return(calc_colless_ltable_cpp(ltab, normalization))
+    }
+
+    return(calc_colless_cpp(phy, normalization))
+  }
 }
 
 

@@ -63,6 +63,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_colless_ltable_cpp
+double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R, std::string normalization);
+RcppExport SEXP _treestats_calc_colless_ltable_cpp(SEXP l_from_RSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_colless_ltable_cpp(l_from_R, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_blum_ltable_cpp
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
 RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP) {
@@ -252,6 +264,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
+    {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
     {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 1},
     {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},

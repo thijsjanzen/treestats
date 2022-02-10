@@ -119,6 +119,25 @@ double calc_colless_cpp(const Rcpp::List phy,
 }
 
 // [[Rcpp::export]]
+double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
+                                std::string normalization) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  colless_stat_ltable s(l_in_cpp);
+
+  double output = static_cast<double>(s.calc_colless());
+
+  if (normalization == "yule") {
+    output = s.correct_yule(output);
+  }
+  if (normalization == "pda") {
+    output = s.correct_pda(output);
+  }
+  return output;
+}
+
+// [[Rcpp::export]]
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
   auto local_ltab = convert_to_ltable(ltab_in);
   sackin_stat_ltab s(local_ltab);

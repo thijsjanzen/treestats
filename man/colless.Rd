@@ -7,7 +7,7 @@
 colless(phy, normalization = "none")
 }
 \arguments{
-\item{phy}{phylo object}
+\item{phy}{phylo object or ltable}
 
 \item{normalization}{A character string equals to NULL (default) for no
 normalization or one of "pda" or "yule".}
@@ -21,10 +21,7 @@ The Colless index is calculated as the sum of
 associated with the L (or R) daughter branch at that node.  Higher values
 indicate higher imbalance. Two normalizations are available,
 where a correction is made for tree size, under either a yule expectation,
-or a pda expectation. The Colless index is only available in treestats
-for extant, ultrametric, strictly bifurcating, trees. For trees including
-extinct species, we advise to use the slower version in the package
-apTreeshape or Castor.
+or a pda expectation.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
