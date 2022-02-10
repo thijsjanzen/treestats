@@ -58,21 +58,26 @@ improve the speed of the following statistics and functions:
 * RPANDA::laplacian spectrum
 * ape::branching.times
 * DDD::phylo2L
+* DDD::L2phylo
 
 I'll here demonstrate to which extend I have managed to do so. First, we will
 simulate some trees, up until 100 tips:
 
 ```{r generate_trees}
 tree_list <- list()
+ltable_list <- list()
 used_ntaxa <- c()
 cnt <- 1
 for (ntaxa in 10^seq(from = 1, to = 2, length.out = 10)) {
   sim_trees <- list()
+  sim_ltabs <- list()
   for (r in 1:3) {
     sim_trees[[r]] <- ape::rphylo(n = floor(ntaxa), birth = 1, death = 0)
+    sim_ltabs[[r]] <- treestats::phylo_to_l(sim_trees[[r]])
   }
 
   tree_list[[cnt]] <- sim_trees
+  ltable_list[[cnt]] <- sim_ltabs
   used_ntaxa[cnt] <- floor(ntaxa)
   cnt <- cnt + 1
 }
@@ -136,6 +141,9 @@ for (i in 1:length(tree_list)) {
   
   found <- rbind(found, 
                  compare_speed(tree_list[[i]], RPANDA::spectR,  treestats::calc_lapl_spectrum, used_ntaxa[i], "laplacian_spectrum"))
+  
+  found <- rbind(found, 
+                 compare_speed(ltable_list[[i]], DDD::L2phylo,  treestats::l_to_phylo, used_ntaxa[i], "L2phylo"))
 }
 
 ```
