@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
+#include <sstream>
 
 
 size_t which_max_index(const std::vector< std::array< double, 4>>& ltable) {
@@ -37,6 +37,11 @@ void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
   linlist.pop_back();
 }
 
+std::string d_to_s(double d) {
+  std::stringstream out;
+  out << std::fixed << std::setprecision(15) << d;
+  return out.str();
+}
 
 
 std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
@@ -91,9 +96,9 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     int parentj   = index_of_parent(L, parent);
     if (parentj != -1) {
       double bl = L[parentj][3] - L[j][0];
-      std::string spec1 = linlist_4[parentj] + ":" + std::to_string(bl);
+      std::string spec1 = linlist_4[parentj] + ":" + d_to_s(bl);
       double bl2 = L[j][3] - L[j][0];
-      std::string spec2 = linlist_4[j] + ":" + std::to_string(bl2);
+      std::string spec2 = linlist_4[j] + ":" + d_to_s(bl2);
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
       remove_from_dataset(L, linlist_4, j);
@@ -106,7 +111,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     }
   }
 
-  return linlist_4[0] + ":" + std::to_string(L[0][3]) + ";";
+  return linlist_4[0] + ":" + d_to_s(L[0][3]) + ";";
 }
 
 
