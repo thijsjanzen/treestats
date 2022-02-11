@@ -37,7 +37,8 @@ skew_ness <- function(x) {
 #' distribution 4) peak_height the largest y-axis valueof the spectral
 #' density distribution and 5) eigengap theposition ofthe largest
 #' difference between eigenvalues, giving the number of modalities in the tree.
-#' @references Lewitus, E., Morlon, H., Characterizing and comparing phylogenies from their Laplacian spectrum, bioRxiv doi: http://dx.doi.org/10.1101/026476
+#' @references Lewitus, E., Morlon, H., Characterizing and comparing phylogenies
+#' from their Laplacian spectrum, bioRxiv doi: http://dx.doi.org/10.1101/026476
 #' @export
 calc_lapl_spectrum <- function(phy) {
 

@@ -2,6 +2,7 @@
 
 #include <cstring>
 
+#include "branching_times.h"
 #include "beta.h"
 #include "nltt.h"
 #include "sackin.h"
@@ -11,7 +12,6 @@
 #include "phylo2L.h"
 #include "colless.h"
 #include "L2newick.h"
-
 #include "crown_age.h"
 
 using ltable = std::vector< std::array<double, 4>>;
@@ -27,12 +27,32 @@ auto convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
   return out;
 }
 
-std::vector<double> branching_times_from_ltable(const Rcpp::NumericMatrix& mat_in) {
+// [[Rcpp::export]]
+std::vector<double> branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
   std::vector<double> out(mat_in.nrow() - 1);
   for (size_t i = 1; i < mat_in.nrow(); ++i) {
     out[i - 1] = mat_in(i, 0);
   }
   return out;
+}
+
+// [[Rcpp::export]]
+std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
+
+  std::vector<double> edge_length = phy["edge.length"];
+  Rcpp::NumericMatrix edge = phy["edge"];
+
+  size_t Nnode = phy["Nnode"];
+
+  std::vector< std::array< size_t, 2 >> edge_cpp(edge.nrow());
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
+                                         static_cast<size_t>(edge(i, 1))};
+    edge_cpp[i] = row_entry;
+  }
+
+  auto brts = branching_times(edge_cpp, edge_length, Nnode);
+  return brts;
 }
 
 
@@ -220,8 +240,8 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1,
                             const Rcpp::NumericMatrix& ltab2) {
 
-  auto brts_one = branching_times_from_ltable(ltab1);
-  auto brts_two = branching_times_from_ltable(ltab2);
+  auto brts_one = branching_times_ltable_cpp(ltab1);
+  auto brts_two = branching_times_ltable_cpp(ltab2);
   std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());
   std::sort(brts_two.begin(), brts_two.end(), std::greater<double>());
   for (auto& i : brts_one) {
@@ -240,8 +260,8 @@ double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1,
 double calc_nltt_cpp(const Rcpp::List& phy1,
                      const Rcpp::List& phy2) {
 
-  std::vector<double> brts_one = branching_times(phy1);
-  std::vector<double> brts_two = branching_times(phy2);
+  std::vector<double> brts_one = branching_times_cpp(phy1);
+  std::vector<double> brts_two = branching_times_cpp(phy2);
   std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());
   std::sort(brts_two.begin(), brts_two.end(), std::greater<double>());
   for (auto& i : brts_one) {
@@ -259,13 +279,13 @@ double calc_nltt_cpp(const Rcpp::List& phy1,
 
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {
-  std::vector<double> brts = branching_times(phy);
+  std::vector<double> brts = branching_times_cpp(phy);
   return calc_gamma(brts);
 }
 
 // [[Rcpp::export]]
 double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
-  std::vector<double> brts = branching_times_from_ltable(ltab_in);
+  std::vector<double> brts = branching_times_ltable_cpp(ltab_in);
   return calc_gamma(brts);
 }
 
@@ -300,9 +320,6 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 }
 
 
-
-
-
 // [[Rcpp::export]]
 double calc_rho_complete_cpp(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
@@ -331,14 +348,14 @@ double calc_rho_cpp(const Rcpp::List& phy) {
     return calc_rho_complete_cpp(phy);
   }
 
-  auto brts = branching_times(phy);
+  auto brts = branching_times_cpp(phy);
   return calc_rho(brts);
 }
 
 // [[Rcpp::export]]
 double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 
-  auto brts = branching_times_from_ltable(ltab);
+  auto brts = branching_times_ltable_cpp(ltab);
   return calc_rho(brts);
 }
 
@@ -460,6 +477,9 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
   auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
   return newick_string;
 }
+
+
+
 
 // old stuff
 /*

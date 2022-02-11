@@ -10,14 +10,25 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// branching_times
-std::vector< double > branching_times(const Rcpp::List& phy);
-RcppExport SEXP _treestats_branching_times(SEXP phySEXP) {
+// branching_times_ltable_cpp
+std::vector<double> branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in);
+RcppExport SEXP _treestats_branching_times_ltable_cpp(SEXP mat_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type mat_in(mat_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(branching_times_ltable_cpp(mat_in));
+    return rcpp_result_gen;
+END_RCPP
+}
+// branching_times_cpp
+std::vector< double > branching_times_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_branching_times_cpp(SEXP phySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(branching_times(phy));
+    rcpp_result_gen = Rcpp::wrap(branching_times_cpp(phy));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -260,7 +271,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_treestats_branching_times", (DL_FUNC) &_treestats_branching_times, 1},
+    {"_treestats_branching_times_ltable_cpp", (DL_FUNC) &_treestats_branching_times_ltable_cpp, 1},
+    {"_treestats_branching_times_cpp", (DL_FUNC) &_treestats_branching_times_cpp, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
