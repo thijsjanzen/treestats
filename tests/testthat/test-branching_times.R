@@ -25,4 +25,9 @@ test_that("usage", {
   diff_brts <- abs(sort(a1) - sort(a2))
   mean_diff <- mean(diff_brts)
   testthat::expect_lt(mean_diff, 1e-6)
+
+  # using ltable
+  l1 <- treestats::phylo_to_l(focal_tree)
+  a3 <- treestats::branching_times(l1)
+  testthat::expect_true(all.equal(a2, a3))
 })
