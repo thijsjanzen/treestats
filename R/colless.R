@@ -36,5 +36,3 @@ colless <- function(phy,
 }
 
 
-
-

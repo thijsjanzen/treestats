@@ -7,154 +7,6 @@
 
 #include "Rcpp.h"
 
-class sackin_stat {
-
-public:
-  sackin_stat(const std::vector< std::array< size_t, 2 >> & e) : edge(e) {
-    tiplist = std::vector<int>(edge.size() + 2, -1);
-  }
-
-  size_t calc_sackin() {
-    size_t root_label = edge[0][0];
-
-    std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
-      return a[0] < b[0];
-    });
-
-    size_t s = 0;
-    for (int i = edge.size() - 1; i >= 0; i--) {
-      s += get_num_tips(edge[i][1], root_label);
-    }
-
-    return s;
-  }
-
-
-  double correct_pda(size_t n,
-                     double Is) {
-    double denom = powf(n, 1.5f);
-    return 1.0 * Is / denom;
-  }
-
-  double correct_yule(size_t n,
-                      double Is) {
-    double sum_count = 0.0;
-    for (size_t j = 2; j <= n; ++j) {
-      sum_count += 1.0 / j;
-    }
-    return 1.0 * (Is - 2.0 * n * sum_count) / n;
-  }
-
-private:
-
-  size_t get_num_tips(size_t label, size_t root_label) {
-    if (label >= tiplist.size()) {
-      throw std::out_of_range("label > tiplist.size()");
-    }
-
-    if (label < root_label) {
-      tiplist[label] = 1;
-      return 1;
-    }
-
-    if (tiplist[label] > 0) {
-      return(tiplist[label]);
-    }
-
-    std::vector< size_t > matches(2);
-    auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
-      return a[0] < val;
-    });
-
-    if (match1 != edge.end()) {
-      if ((*match1)[0] == label) {
-        matches[0] = (*match1)[1];
-        match1++;
-        if ((*match1)[0] == label) {
-          matches[1] = (*match1)[1];
-        } else {
-          matches.pop_back();
-        }
-      }
-    } else {
-      // this can't really happen.
-      tiplist[label] = 1;
-      return 1;
-    }
-
-    size_t s = 0;
-    for (auto i : matches) {
-      s += get_num_tips(i, root_label);
-    }
-    tiplist[label] = s;
-    return s;
-  }
-
-  std::vector< std::array< size_t, 2 >>  edge;
-  std::vector<int> tiplist;
-};
-
-
-class sackin_stat2 {
-
-public:
-  sackin_stat2(const std::vector< int>& p,
-               size_t n_tips) : parents(p), num_tips(n_tips) {
-  }
-
-
-
-  size_t calc_sackin() {
-    tiplist = std::vector< int >(parents.size(), 0);
-    for (size_t i = 1; i <= num_tips; ++i) {
-      tiplist[ parents[i]]++;
-    }
-
-    for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-      tiplist[ parents[i] ] += tiplist[i];
-    }
-
-    return std::accumulate(tiplist.begin(), tiplist.end(), 0);
-  }
-
-  double calc_blum() {
-    tiplist = std::vector< int >(parents.size(), 0);
-    for (size_t i = 1; i <= num_tips; ++i) {
-      tiplist[ parents[i]]++;
-    }
-
-    for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-      tiplist[ parents[i] ] += tiplist[i];
-    }
-
-    double s = 0.0;
-    for (size_t i = num_tips + 1; i < tiplist.size(); ++i) {
-      s += log(1.0 * tiplist[i]);
-    }
-    return s;
-  }
-
-  double correct_pda(size_t n,
-                     double Is) {
-    double denom = powf(n, 1.5f);
-    return 1.0 * Is / denom;
-  }
-
-  double correct_yule(size_t n,
-                      double Is) {
-    double sum_count = 0.0;
-    for (size_t j = 2; j <= n; ++j) {
-      sum_count += 1.0 / j;
-    }
-    return 1.0 * (Is - 2.0 * n * sum_count) / n;
-  }
-
-private:
-  const std::vector< int >  parents;
-  std::vector< int > tiplist;
-  const size_t num_tips;
-};
-
 using ltable = std::vector< std::array<double, 4>>;
 
 class sackin_stat_ltab {
@@ -219,7 +71,7 @@ public:
     double s = 0.0;
     for (size_t i = 1; i < s_values.size(); ++i) {
       if (s_values[i] != 0.0) {
-        s += log(1.0 * s_values[i]);
+        s += log(1.0 * s_values[i] - 1.0);
       }
     }
     return s;
@@ -244,6 +96,122 @@ private:
   const ltable ltable_;
 };
 
+
+struct node {
+  node* daughter1 = nullptr;
+  node* daughter2 = nullptr;
+  size_t num_extant_tips;
+
+  node() {
+    num_extant_tips = 0;
+  }
+
+  void set_both_internal(node& d1, node& d2){
+    num_extant_tips = 0;
+    daughter1 = &d1;
+    daughter2 = &d2;
+  }
+
+  void set_both_extant() {
+    num_extant_tips = 2;
+  }
+
+  void set_one_extant(node& d1) {
+    num_extant_tips = 1;
+    daughter1 = &d1;
+  }
+
+  size_t get_acc_num_tips() {
+    if (num_extant_tips == 2) {
+      return num_extant_tips;
+    }
+
+    if (!daughter1 && !daughter2) {
+      return num_extant_tips;
+    }
+    if (daughter1 && !daughter2) {
+      num_extant_tips += daughter1->get_acc_num_tips();
+    } else {
+      num_extant_tips = daughter1->get_acc_num_tips() + daughter2->get_acc_num_tips();
+    }
+
+    return num_extant_tips;
+  }
+};
+
+class phylo_tree {
+public:
+  phylo_tree(std::vector< std::array<size_t, 2>> edge) {
+    // create tree
+    root_no = static_cast<int>(edge.front()[0]);
+    size_t tree_size = edge.back()[0] + 1 ;// - root_no;
+    tree = std::vector<node>(tree_size);
+
+    std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
+      return a[0] < b[0];
+    });
+
+    for (size_t i = 0; i < edge.size(); i += 2 ) {
+      int index = static_cast<int>(edge[i][0]) - root_no;
+      int d1_index = static_cast<int>(edge[i][1]) - root_no;
+      int d2_index = static_cast<int>(edge[i + 1][1]) - root_no;
+
+      assert(index >= 0);
+      if (d1_index < 0 && d2_index < 0) {
+        // both branches are tip branches
+        tree[index].set_both_extant();
+      } else if (d1_index < 0 && d2_index >= 0) {
+        tree[index].set_one_extant(tree[d2_index]);
+      } else if (d2_index < 0 && d1_index >= 0) {
+        tree[index].set_one_extant(tree[d1_index]);
+      } else {
+        tree[index].set_both_internal(tree[d1_index], tree[d2_index]);
+      }
+
+    }
+  }
+
+  int calc_sackin() {
+    tree[0].get_acc_num_tips();
+    int s = 0;
+    for(const auto& i : tree) {
+      s += i.num_extant_tips;
+    }
+    return s;
+  }
+
+  double correct_pda(size_t n,
+                     double Is) {
+    double denom = powf(n, 1.5f);
+    return 1.0 * Is / denom;
+  }
+
+  double correct_yule(size_t n,
+                      double Is) {
+    double sum_count = 0.0;
+    for (size_t j = 2; j <= n; ++j) {
+      sum_count += 1.0 / j;
+    }
+    return 1.0 * (Is - 2.0 * n * sum_count) / n;
+  }
+
+  double calc_blum() {
+    tree[0].get_acc_num_tips();
+    double s = 0;
+    for(const auto& i : tree) {
+      if (i.num_extant_tips > 1) {
+        s += log(1.0 * i.num_extant_tips - 1);
+      }
+    }
+    return s;
+  }
+
+
+
+private:
+  std::vector< node > tree;
+  int root_no;
+};
 
 
 

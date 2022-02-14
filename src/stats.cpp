@@ -138,6 +138,36 @@ double calc_colless_cpp(const Rcpp::List phy,
 
 }
 
+
+// [[Rcpp::export]]
+double calc_colless_pointer_cpp(const Rcpp::List phy,
+                                std::string normalization) {
+
+  Rcpp::NumericMatrix edge = phy["edge"];
+  std::vector< std::array< size_t, 2 >> edge_cpp(edge.nrow());
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
+                                         static_cast<size_t>(edge(i, 1))};
+    edge_cpp[i] = row_entry;
+  }
+
+  colless_tree::phylo_tree colless_tree(edge_cpp);
+
+  double output = static_cast<double>(colless_tree.calc_colless());
+
+  if (normalization == "yule") {
+    Rcpp::StringVector tip_label = phy["tip.label"];
+    size_t n = tip_label.size();
+    output = colless_tree.correct_yule(output, n);
+  }
+  if (normalization == "pda") {
+    Rcpp::StringVector tip_label = phy["tip.label"];
+    size_t n = tip_label.size();
+    output = colless_tree.correct_pda(output, n);
+  }
+  return output;
+}
+
 // [[Rcpp::export]]
 double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                 std::string normalization) {
@@ -165,51 +195,51 @@ double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
   return s.calc_blum();
 }
 
+
 // [[Rcpp::export]]
 double calc_blum_cpp(const Rcpp::List phy) {
 
   Rcpp::NumericMatrix edge = phy["edge"];
-  int num_tips = 1 + edge.nrow() / 2;
-  int num_nodes = num_tips - 1;
 
-  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
-
+  std::vector< std::array< size_t, 2 >> edge_cpp(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); ++i) {
-    parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
+    std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
+                                         static_cast<size_t>(edge(i, 1))};
+    edge_cpp[i] = row_entry;
   }
 
-  sackin_stat2 s(parents, num_tips);
+  phylo_tree sackin_tree(edge_cpp);
 
-  return s.calc_blum();
+  return sackin_tree.calc_blum();
 }
+
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const Rcpp::List phy,
-                       const Rcpp::String& normalization) {
+                               const Rcpp::String& normalization) {
 
   Rcpp::NumericMatrix edge = phy["edge"];
-  int num_tips = 1 + edge.nrow() / 2;
-  int num_nodes = num_tips - 1;
 
-  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
-
+  std::vector< std::array< size_t, 2 >> edge_cpp(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); ++i) {
-    parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
+    std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
+                                         static_cast<size_t>(edge(i, 1))};
+    edge_cpp[i] = row_entry;
   }
 
-  sackin_stat2 s(parents, num_tips);
+  phylo_tree sackin_tree(edge_cpp);
 
-  double output = static_cast<double>(s.calc_sackin());
+  double output = static_cast<double>(sackin_tree.calc_sackin());
 
   if (normalization == "yule") {
     Rcpp::StringVector tip_label = phy["tip.label"];
     size_t n = tip_label.size();
-    output = s.correct_yule(n, output);
+    output = sackin_tree.correct_yule(n, output);
   }
   if (normalization == "pda") {
     Rcpp::StringVector tip_label = phy["tip.label"];
     size_t n = tip_label.size();
-    output = s.correct_pda(n, output);
+    output = sackin_tree.correct_pda(n, output);
   }
 
   return output;
