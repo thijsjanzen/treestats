@@ -3,7 +3,10 @@ context("blum")
 test_that("usage", {
   set.seed(42)
   castor_version <- packageVersion("castor")
-  if (castor_version <= '1.7.2') skip()
+  if (castor_version <= '1.7.2') {
+    skip_on_cran()
+    skip_on_ci()
+  }
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
