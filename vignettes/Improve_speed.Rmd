@@ -29,7 +29,7 @@ calc_colless <- function(phy) {
 }
 
 calc_sackin <- function(phy)  {
-  return(apTreeshape::sackin(apTreeshape::as.treeshape(phy))
+  return(apTreeshape::sackin(apTreeshape::as.treeshape(phy)))
 }
 
 calc_blum <- function(phy) {
