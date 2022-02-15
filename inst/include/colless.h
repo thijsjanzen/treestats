@@ -183,33 +183,23 @@ struct node {
 
 class phylo_tree {
 public:
-  phylo_tree(std::vector< std::array<size_t, 2>> edge) {
+  phylo_tree(const std::vector< std::array<size_t, 2>>& edge) {
     // create tree
     root_no = static_cast<int>(edge.front()[0]);
     size_t tree_size = edge.back()[0] + 1 ;// - root_no;
-    tree = std::vector<node>(tree_size);
+    //tree = std::vector<node>(tree_size);
+    tree.resize(tree_size);
 
-    std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
-      return a[0] < b[0];
-    });
 
-    for (size_t i = 0; i < edge.size(); i += 2 ) {
+    for (size_t i = 0; i < edge.size(); i ++ ) {
       int index = static_cast<int>(edge[i][0]) - root_no;
       int d1_index = static_cast<int>(edge[i][1]) - root_no;
-      int d2_index = static_cast<int>(edge[i + 1][1]) - root_no;
 
-      assert(index >= 0);
-      if (d1_index < 0 && d2_index < 0) {
-        // both branches are tip branches
-        tree[index].set_both_extant();
-      } else if (d1_index < 0 && d2_index >= 0) {
-        tree[index].set_one_extant(tree[d2_index]);
-      } else if (d2_index < 0 && d1_index >= 0) {
-        tree[index].set_one_extant(tree[d1_index]);
+      if (d1_index < 0) {
+        tree[index].R == 0 ? tree[index].R = 1 : tree[index].L = 1;
       } else {
-        tree[index].set_both_internal(tree[d1_index], tree[d2_index]);
+        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
       }
-
     }
   }
 
