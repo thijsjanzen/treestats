@@ -21,10 +21,6 @@ calc_colless_cpp <- function(phy, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
 }
 
-calc_colless_pointer_cpp <- function(phy, normalization) {
-    .Call('_treestats_calc_colless_pointer_cpp', PACKAGE = 'treestats', phy, normalization)
-}
-
 calc_colless_ltable_cpp <- function(l_from_R, normalization) {
     .Call('_treestats_calc_colless_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
 }

@@ -110,37 +110,9 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
 }
 
 
+
 // [[Rcpp::export]]
 double calc_colless_cpp(const Rcpp::List phy,
-                        std::string normalization) {
-
-  Rcpp::NumericMatrix edge = phy["edge"];
-  int num_tips = 1 + edge.nrow() / 2;
-  int num_nodes = num_tips - 1;
-
-  std::vector< int > parents = std::vector< int >(num_tips + num_nodes + 1, -1);
-
-  for (size_t i = 0; i < edge.nrow(); ++i) {
-    parents[ edge(i, 1) ] = edge(i, 0); // store parent ID for each tip / node
-  }
-
-  colless_stat s(parents, num_tips);
-
-  double output = static_cast<double>(s.calc_colless());
-
-  if (normalization == "yule") {
-    output = s.correct_yule(output);
-  }
-  if (normalization == "pda") {
-    output = s.correct_pda(output);
-  }
-  return output;
-
-}
-
-
-// [[Rcpp::export]]
-double calc_colless_pointer_cpp(const Rcpp::List phy,
                                 std::string normalization) {
 
   Rcpp::NumericMatrix edge = phy["edge"];
