@@ -44,10 +44,9 @@ are much, much faster than their R sister functions. These statistics are:
   - DDD::phylo2L
   - DDD::L2phylo
 
-treestats is often much faster than existing R equivalents, except for the following indices, which are available from
-the Castor R package (which also uses Rcpp): Sackin, Colless, Blum and Gamma.
+treestats is usually much faster than existing R equivalents.
 
-![treestats_speed](https://user-images.githubusercontent.com/19486664/153644598-d6e0b074-b831-438c-8dc5-5e318f019d74.png)
+![treestats_speed4](https://user-images.githubusercontent.com/19486664/154491817-5d94b929-7826-4d06-bc83-5d597442bafb.png)
 
   
 ## C++ Library
