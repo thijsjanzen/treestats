@@ -7,7 +7,7 @@
 gamma_statistic(phy)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{phy}{phylo object or ltable}
 }
 \value{
 gamma statistic
@@ -18,7 +18,7 @@ internal nodes within a reconstructed phylogeny. Under the Yule process,
 the gamma values of a reconstructed tree follow a standard normal
 distribution. If gamma > 0, the nodes are located more towards the tips of
 the tree, and if gamma < 0, the nodes are located more towards the root of
-the tree.
+the tree. Only available for ultrametric trees.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)

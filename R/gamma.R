@@ -4,8 +4,8 @@
 #' the gamma values of a reconstructed tree follow a standard normal
 #' distribution. If gamma > 0, the nodes are located more towards the tips of
 #' the tree, and if gamma < 0, the nodes are located more towards the root of
-#' the tree.
-#' @param phy phylo object
+#' the tree. Only available for ultrametric trees.
+#' @param phy phylo object or ltable
 #' @return gamma statistic
 #' @export
 #' @references Pybus, O. G. and Harvey, P. H. (2000) Testing macro-evolutionary
@@ -17,8 +17,15 @@
 #' gamma_statistic(ddd_tree) # because of diversity dependence, should be < 0
 gamma_statistic <- function(phy) {
 
-  apply_function_phy_ltable(phy,
-                            calc_gamma_cpp,
-                            calc_gamma_ltable_cpp,
-                            only_extant = TRUE)
+  if (inherits(phy, "phylo")) {
+    return(calc_gamma_cpp(phy))
+  }
+
+  if (inherits(phy, "matrix")) {
+    return(calc_gamma_ltable_cpp(phy))
+  }
+
+  stop("input object has to be phylo or ltable")
 }
+
+

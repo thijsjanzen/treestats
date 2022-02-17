@@ -2,8 +2,7 @@
 #' @description The Sackin index is calculated as the sum of ancestors for each
 #' of the tips. Higher values indicate higher imbalance. Two normalizations
 #' are available, where a correction is made for tree size, under either a
-#' Yule expectation, or a pda expectation. The Sackin index is only available in
-#' treestats for extant, ultrametric, strictly bifurcating, trees.
+#' Yule expectation, or a pda expectation.
 #' @param phy phylogeny or ltable
 #' @param normalization normalization, either 'none' (default), "yule" or "pda".
 #' @return Sackin index
@@ -18,10 +17,11 @@
 #' sackin(unbalanced_tree) # should be much higher
 sackin <- function(phy, normalization = "none") {
 
-  apply_function_phy_ltable(phy,
-                            calc_sackin_cpp,
-                            calc_sackin_ltable_cpp,
-                            only_extant = TRUE,
-                            normalization)
+  if (inherits(phy, "matrix")) {
+    return(calc_sackin_ltable_cpp(phy, normalization))
+  }
+  if (inherits(phy, "phylo")) {
+    return(calc_sackin_cpp(as.vector(t(phy$edge)), normalization))
+  }
 }
 

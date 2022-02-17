@@ -95,49 +95,6 @@ private:
 
 
 
-class colless_stat {
-
-public:
-  colless_stat(const std::vector< int>& p,
-                size_t n_tips) : parents(p), num_tips(n_tips) {
-  }
-
-  size_t calc_colless() {
-    tiplist = std::vector< int >(parents.size(), 0);
-    for (size_t i = 1; i <= num_tips; ++i) {
-      tiplist[ parents[i] ]++;
-    }
-
-    size_t s = 0;
-    for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-      if (tiplist[ parents[i] ] > 0) {
-        int l = tiplist[ parents[i] ];
-        int r = tiplist[i];
-        l - r < 0 ? s -= l - r : s+= l - r;
-      }
-      tiplist[ parents[i] ] += tiplist[i];
-    }
-    return s;
-  }
-
-  double correct_pda(double Ic) {
-    double denom = powf(num_tips, 1.5f);
-    return 1.0 * Ic / denom;
-  }
-
-  double correct_yule(double Ic) {
-    static const double g = 0.577215664901532;
-    auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
-    return output;
-  }
-
-
-private:
-  const std::vector< int >  parents;
-  std::vector< int > tiplist;
-  const size_t num_tips;
-};
-
 namespace colless_tree {
 
 
@@ -183,17 +140,16 @@ struct node {
 
 class phylo_tree {
 public:
-  phylo_tree(const std::vector< std::array<size_t, 2>>& edge) {
-    // create tree
-    root_no = static_cast<int>(edge.front()[0]);
-    size_t tree_size = edge.back()[0] + 1 ;// - root_no;
-    //tree = std::vector<node>(tree_size);
-    tree.resize(tree_size);
 
+  phylo_tree(const std::vector< long >& tree_edge) {
 
-    for (size_t i = 0; i < edge.size(); i ++ ) {
-      int index = static_cast<int>(edge[i][0]) - root_no;
-      int d1_index = static_cast<int>(edge[i][1]) - root_no;
+    int root_no = static_cast<int>(tree_edge.front());
+    tree.resize(tree_edge.size() / 2 - root_no + 2);
+
+    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
+
+      int index    = static_cast<int>(tree_edge[i]) - root_no;
+      int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
 
       if (d1_index < 0) {
         tree[index].R == 0 ? tree[index].R = 1 : tree[index].L = 1;
@@ -214,7 +170,6 @@ public:
     return s;
   }
 
-
   double correct_pda(double Ic, size_t num_tips) {
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
@@ -226,15 +181,9 @@ public:
     return output;
   }
 
-
 private:
   std::vector< node > tree;
-  int root_no;
 };
-
-
-
-
 
 }
 

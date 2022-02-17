@@ -63,14 +63,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_colless_cpp
-double calc_colless_cpp(const Rcpp::List phy, std::string normalization);
-RcppExport SEXP _treestats_calc_colless_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
+double calc_colless_cpp(const std::vector<long>& parent_list, std::string normalization);
+RcppExport SEXP _treestats_calc_colless_cpp(SEXP parent_listSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
     Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_colless_cpp(phy, normalization));
+    rcpp_result_gen = Rcpp::wrap(calc_colless_cpp(parent_list, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -98,25 +98,25 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_blum_cpp
-double calc_blum_cpp(const Rcpp::List phy);
-RcppExport SEXP _treestats_calc_blum_cpp(SEXP phySEXP) {
+double calc_blum_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(phy));
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_sackin_cpp
-double calc_sackin_cpp(const Rcpp::List phy, const Rcpp::String& normalization);
-RcppExport SEXP _treestats_calc_sackin_cpp(SEXP phySEXP, SEXP normalizationSEXP) {
+double calc_sackin_cpp(const std::vector<long>& tree_edge, const Rcpp::String& normalization);
+RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
     Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(phy, normalization));
+    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(tree_edge, normalization));
     return rcpp_result_gen;
 END_RCPP
 }

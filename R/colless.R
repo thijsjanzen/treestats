@@ -25,14 +25,7 @@ colless <- function(phy,
     return(calc_colless_ltable_cpp(phy, normalization))
   }
   if (inherits(phy, "phylo")) {
-    if (!ape::is.ultrametric(phy)) {
-      # there are extinct lineages
-      ltab <- treestats::phylo_to_l(phy)
-      return(calc_colless_ltable_cpp(ltab, normalization))
-    }
-
-    return(calc_colless_cpp(phy, normalization))
+    return(calc_colless_cpp(as.vector(t(phy$edge)), normalization))
   }
+  stop("input object has to be phylo or ltable")
 }
-
-
