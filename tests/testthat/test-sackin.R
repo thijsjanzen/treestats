@@ -39,14 +39,3 @@ test_that("usage", {
 
 
 })
-
-test_that("abuse", {
-  set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0.3)[[1]]
-  testthat::expect_error(
-    treestats::sackin(focal_tree),
-    "can only calculate statistic for ultrametric tree"
-  )
-})

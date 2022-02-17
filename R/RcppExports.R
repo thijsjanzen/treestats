@@ -17,8 +17,8 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
     .Call('_treestats_calc_beta_ltable_cpp', PACKAGE = 'treestats', ltable, upper_lim, algorithm, abs_tol, rel_tol)
 }
 
-calc_colless_cpp <- function(phy, normalization) {
-    .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', phy, normalization)
+calc_colless_cpp <- function(parent_list, normalization) {
+    .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', parent_list, normalization)
 }
 
 calc_colless_ltable_cpp <- function(l_from_R, normalization) {
@@ -29,12 +29,12 @@ calc_blum_ltable_cpp <- function(ltab_in) {
     .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
 
-calc_blum_cpp <- function(phy) {
-    .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', phy)
+calc_blum_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-calc_sackin_cpp <- function(phy, normalization) {
-    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', phy, normalization)
+calc_sackin_cpp <- function(tree_edge, normalization) {
+    .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }
 
 calc_sackin_ltable_cpp <- function(ltab, normalization) {

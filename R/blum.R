@@ -18,8 +18,10 @@
 #' blum(unbalanced_tree) # should be higher
 blum <- function(phy) {
 
-  apply_function_phy_ltable(phy,
-                            calc_blum_cpp,
-                            calc_blum_ltable_cpp,
-                            only_extant = TRUE)
+  if (inherits(phy, "matrix")) {
+    return(calc_blum_ltable_cpp(phy))
+  }
+  if (inherits(phy, "phylo")) {
+    return(calc_blum_cpp(as.vector(t(phy$edge))))
+  }
 }

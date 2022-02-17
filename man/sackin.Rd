@@ -18,9 +18,7 @@ Sackin index
 The Sackin index is calculated as the sum of ancestors for each
 of the tips. Higher values indicate higher imbalance. Two normalizations
 are available, where a correction is made for tree size, under either a
-Yule expectation, or a pda expectation. The Sackin index is only available in
-treestats for extant, ultrametric, strictly bifurcating, trees we advise to
-use the slower version in the package apTreeshape or Castor.
+Yule expectation, or a pda expectation.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)

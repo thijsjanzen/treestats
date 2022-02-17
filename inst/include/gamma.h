@@ -2,45 +2,39 @@
 #define gamma_h
 
 #include <vector>
+#include <numeric>
 
+const double prefactor = 2 * sqrt(3);
 
 double calc_gamma(const std::vector<double>& brts_in) {
   std::vector<double> brts_ = brts_in;
   double n = brts_in.size() + 1;
 
-  auto h = *std::max_element(brts_.begin(), brts_.end());
+  auto h = brts_[0]; //*std::max_element(brts_.begin(), brts_.end());
 
   for (auto& i : brts_) {
     i =  h - i;
   }
 
-  brts_.push_back(0.0);
-  brts_.push_back(h);
   std::sort(brts_.begin(), brts_.end());
 
   double total = 0.0;
-  double g = brts_[1] - brts_[0];
-  double local_double_sum = g;
-  double double_sum = g;
+  double double_sum = 0.0;
+  double temp = n * (h - brts_.back());
+  std::adjacent_difference(brts_.begin(), brts_.end(), brts_.begin());
 
-  for (size_t i = 2; i < n; ++i) {
-    g = brts_[i] - brts_[i - 1];
-
-    total += i * g;
-
-    local_double_sum += i * g;
-    double_sum += local_double_sum;
+  size_t j = 1;
+  for(auto i : brts_) {
+    total += j * i;
+    double_sum += total;
+    j++;
   }
-  g = brts_[n] - brts_[n - 1];
-  total += n * g;
+
+  total += temp;
 
 
-  double a = double_sum * 1.0 / (n - 2);
-
-  double b = total / 2;
-  double c = total * sqrt(1.f / (12 * n - 24));
-
-  return (a - b) / c;
+  double mult_total = 1.0 / total;
+  return prefactor * sqrt(n - 2) * (double_sum * 1.0 / (n - 2) - total * 0.5) * mult_total;
 }
 
 #endif

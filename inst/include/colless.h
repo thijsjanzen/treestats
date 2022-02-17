@@ -95,48 +95,99 @@ private:
 
 
 
-class colless_stat {
+namespace colless_tree {
 
-public:
-  colless_stat(const std::vector< int>& p,
-                size_t n_tips) : parents(p), num_tips(n_tips) {
+
+struct node {
+  node* daughter1 = nullptr;
+  node* daughter2 = nullptr;
+  size_t L;
+  size_t R;
+
+  node() {
+    L = R = 0;
   }
 
-  size_t calc_colless() {
-    tiplist = std::vector< int >(parents.size(), 0);
-    for (size_t i = 1; i <= num_tips; ++i) {
-      tiplist[ parents[i] ]++;
+  void set_both_internal(node& d1, node& d2){
+    daughter1 = &d1;
+    daughter2 = &d2;
+  }
+
+  void set_both_extant() {
+    L = R = 1;
+  }
+
+  void set_one_extant(node& d1) {
+    daughter1 = &d1;
+    R = 1;
+  }
+
+  size_t update_num_tips() {
+
+    if (daughter1 && !daughter2) {
+      L = daughter1->update_num_tips();
+
+    }
+    if (daughter1 && daughter2) {
+      L =  daughter1->update_num_tips();
+      R =  daughter2->update_num_tips();
     }
 
-    size_t s = 0;
-    for (size_t i = tiplist.size() - 1; i > num_tips + 1; i--) {
-      if (tiplist[ parents[i] ] > 0) {
-        int l = tiplist[ parents[i] ];
-        int r = tiplist[i];
-        l - r < 0 ? s -= l - r : s+= l - r;
+    return L + R;
+  }
+};
+
+
+class phylo_tree {
+public:
+
+  phylo_tree(const std::vector< long >& tree_edge) {
+
+    int root_no = static_cast<int>(tree_edge.front());
+    tree.resize(tree_edge.size() / 2 - root_no + 2);
+
+    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
+
+      int index    = static_cast<int>(tree_edge[i]) - root_no;
+      int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
+
+      if (d1_index < 0) {
+        tree[index].R == 0 ? tree[index].R = 1 : tree[index].L = 1;
+      } else {
+        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
       }
-      tiplist[ parents[i] ] += tiplist[i];
+    }
+  }
+
+  int calc_colless() {
+    tree[0].update_num_tips();
+    int s = 0;
+    for(const auto& i : tree) {
+      int l = i.L;
+      int r = i.R;
+      l - r < 0 ? s -= l - r : s+= l - r;
     }
     return s;
   }
 
-  double correct_pda(double Ic) {
+  double correct_pda(double Ic, size_t num_tips) {
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
   }
 
-  double correct_yule(double Ic) {
+  double correct_yule(double Ic, size_t num_tips) {
     static const double g = 0.577215664901532;
     auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
     return output;
   }
 
-
 private:
-  const std::vector< int >  parents;
-  std::vector< int > tiplist;
-  const size_t num_tips;
+  std::vector< node > tree;
 };
+
+}
+
+
 
 
 

@@ -10,6 +10,8 @@ test_that("usage", {
   colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
   testthat::expect_equal(colless, colless_check)
 
+
+
   colless <- treestats::colless(focal_tree, normalization = "yule")
   colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
                                       norm = "yule")
