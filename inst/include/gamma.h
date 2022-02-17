@@ -4,14 +4,19 @@
 #include <vector>
 #include <numeric>
 
-double calc_gamma(std::vector<double> brts_) {
-  double n = brts_.size() + 1;
+const double prefactor = 2 * sqrt(3);
 
-  auto h = brts_[0]; // assuming brts are in T...0
+double calc_gamma(const std::vector<double>& brts_in) {
+  std::vector<double> brts_ = brts_in;
+  double n = brts_in.size() + 1;
+
+  auto h = brts_[0]; //*std::max_element(brts_.begin(), brts_.end());
 
   for (auto& i : brts_) {
     i =  h - i;
   }
+
+  std::sort(brts_.begin(), brts_.end());
 
   double total = 0.0;
   double double_sum = 0.0;
@@ -27,7 +32,7 @@ double calc_gamma(std::vector<double> brts_) {
 
   total += temp;
 
-  const double prefactor = 2 * sqrt(3);
+
   double mult_total = 1.0 / total;
   return prefactor * sqrt(n - 2) * (double_sum * 1.0 / (n - 2) - total * 0.5) * mult_total;
 }
