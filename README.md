@@ -46,8 +46,7 @@ are much, much faster than their R sister functions. These statistics are:
 
 treestats is usually much faster than existing R equivalents.
 
-![treestats_speed4](https://user-images.githubusercontent.com/19486664/154491817-5d94b929-7826-4d06-bc83-5d597442bafb.png)
-
+![treestats_speed4](https://user-images.githubusercontent.com/19486664/154710093-eb596fdd-658d-437c-8249-fb2dfefb13d0.png)
   
 ## C++ Library
 For the Rcpp improved summary statistics (excluding the RPANDA and DDD functions, 
