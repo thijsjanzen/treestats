@@ -5,8 +5,6 @@
 #include <array>
 #include <numeric> // std::accumulate
 
-#include <iostream>
-
 
 using ltable = std::vector< std::array<double, 4>>;
 

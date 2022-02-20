@@ -10,8 +10,6 @@
 #include <thread>
 #include <chrono>
 
-#include <iostream>
-
 std::vector< double > branching_times_cpp(const Rcpp::List& phy);
 
 size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,

@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <array>
 
-#include "Rcpp.h"
-
 using ltable = std::vector< std::array<double, 4>>;
 
 class sackin_stat_ltab {

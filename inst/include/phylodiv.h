@@ -1,6 +1,8 @@
 #ifndef phylo_div_h
 #define phylo_div_h
 
+#include <vector>
+
 struct branch {
 
   branch(double bd, int pl, int lab, double ext, double branch_length) :
