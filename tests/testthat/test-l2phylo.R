@@ -49,3 +49,18 @@ test_that("usage", {
   diff_edge_length <- sort(tree2$edge.length) - sort(tree3$edge.length)
   testthat::expect_equal(mean(diff_edge_length), 0.0, tolerance = 0.001)
 })
+
+test_that("newick", {
+  set.seed(42)
+  focal_tree <- TreeSim::sim.bd.age(age = 2, numbsim = 1, lambda = 1, mu = 0,
+                                    mrca = TRUE)[[1]]
+
+  ltable_1 <- treestats::phylo_to_l(focal_tree)
+
+  newick_str <- treestats::ltable_to_newick(ltable_1)
+  tree_2 <- ape::read.tree(text = newick_str)
+  v1 <- as.vector(unlist(treestats::calc_all_stats(focal_tree)))
+  v2 <- as.vector(unlist(treestats::calc_all_stats(tree_2)))
+  testthat::expect_equal(v1, v2, tolerance = 1e-3)
+})
+
