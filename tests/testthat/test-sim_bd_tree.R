@@ -18,19 +18,19 @@ test_that("usage", {
   results <- c()
   for (r in 1:length(trees)) {
     focal_trees <- trees[[r]]
-    all_stats <- lapply(focal_trees, treestats::calc_all_stats)
-    for (s in 1:length(all_stats)) {
-      focal_stats <- all_stats[[s]]
-      results <- rbind(results, c(unlist(focal_stats), methods[r]))
-    }
+    g_vals <- as.vector(unlist(lapply(focal_trees, treestats::gamma_statistic)))
+    nltt_vals <- as.vector(unlist(lapply(focal_trees, treestats::nLTT_base)))
+    to_add <- cbind(g_vals, nltt_vals, methods[r])
+    results <- rbind(results, to_add)
+
   }
 
   ax <- colnames(results)
-  for (i in 1:19) {
+  for (i in 1:2) {
 
     to_plot <- as.numeric(results[, i])
     to_plot <- tibble::as_tibble(to_plot)
-    to_plot$method <- results[, 20]
+    to_plot$method <- results[, 3]
 
     A <- aov(to_plot$value~to_plot$method)
     p <- summary(A)[[1]][["Pr(>F)"]][1]
