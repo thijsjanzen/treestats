@@ -17,7 +17,9 @@ LinkingTo:
 Imports:
     ape,
     nloptr,
-    phyloTop
+    phyloTop,
+    TESS,
+    TreeSim
 Suggests:
     testthat,
     phytools,
@@ -26,7 +28,6 @@ Suggests:
     geiger,
     nodeSub,
     nLTT,
-    TreeSim,
     castor,
     adephylo,
     knitr,
