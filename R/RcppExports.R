@@ -108,3 +108,11 @@ l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
 
+cherries_cpp <- function(phy) {
+    .Call('_treestats_cherries_cpp', PACKAGE = 'treestats', phy)
+}
+
+cherries_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_cherries_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+

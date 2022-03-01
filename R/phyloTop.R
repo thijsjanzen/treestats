@@ -9,12 +9,14 @@ avgLadder <- function(phy) { # nolint
 
 #' Calculate number of cherries, from the phyloTop package. A cherry is a pair
 #' of sister tips.
-#' @param phy phylo object
+#' @param input_obj phylo object or ltable
 #' @return number of cherries
 #' @export
-cherries <- function(phy) {
-  num_cherries <- apply_function_phy(phy, phyloTop::cherries)
-  return(num_cherries)
+cherries <- function(input_obj) {
+ apply_function_phy_ltable(input_obj,
+                           cherries_cpp,
+                           cherries_ltable_cpp,
+                           only_extant = FALSE)
 }
 
 #' Calculate ILnumber, from the phyloTop package. The ILnumber is the number

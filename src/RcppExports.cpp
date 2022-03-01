@@ -269,6 +269,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cherries_cpp
+size_t cherries_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_cherries_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(cherries_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cherries_ltable_cpp
+size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_cherries_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(cherries_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_branching_times_ltable_cpp", (DL_FUNC) &_treestats_branching_times_ltable_cpp, 1},
@@ -293,6 +315,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
+    {"_treestats_cherries_cpp", (DL_FUNC) &_treestats_cherries_cpp, 1},
+    {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
     {NULL, NULL, 0}
 };
 

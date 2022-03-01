@@ -5,10 +5,10 @@
 \title{Calculate number of cherries, from the phyloTop package. A cherry is a pair
 of sister tips.}
 \usage{
-cherries(phy)
+cherries(input_obj)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{input_obj}{phylo object or ltable}
 }
 \value{
 number of cherries
