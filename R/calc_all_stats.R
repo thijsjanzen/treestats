@@ -38,7 +38,6 @@ calc_all_stats <- function(phylo) {
   stats$pigot_rho          <- treestats::pigot_rho(phylo)
   stats$mean_branch_length <- treestats::mean_branch_length(phylo)
   stats$number_of_lineages <- treestats::number_of_lineages(phylo)
-  stats$laplac_spectrum    <- treestats::calc_lapl_spectrum(phylo)
   stats$nltt_base          <- treestats::nLTT_base(phylo)
   stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
   stats$avgLadder          <- treestats::avgLadder(phylo)
@@ -46,6 +45,11 @@ calc_all_stats <- function(phylo) {
   stats$ILnumber           <- treestats::ILnumber(phylo)
   stats$pitchforks         <- treestats::pitchforks(phylo)
   stats$stairs             <- treestats::stairs(phylo)
+
+  temp_stats <- treestats::calc_lapl_spectrum(phylo)
+
+  stats$laplac_spectrum_a  <- temp_stats$asymmetry
+  stats$laplac_spectrum_p  <- temp_stats$peakedness
 
   return(stats)
 }

@@ -56,6 +56,9 @@ sim_bd_tree <- function(birth, death, num_trees,
   }
 
   if (method == "ape") {
+    if (is.null(max_lin)) {
+      stop("ape only supports simulating trees conditional on the number of")
+    }
      for (r in 1:num_trees) {
        output[[r]] <- ape::rphylo(n = max_lin,
                                   birth = birth,
@@ -65,6 +68,11 @@ sim_bd_tree <- function(birth, death, num_trees,
   }
 
   if (method == "DDD") {
+    if (is.null(max_t)) {
+      stop("DDD only supports simulation conditional on time")
+    }
+
+
     for (r in 1:num_trees) {
       local_tree <- DDD::dd_sim(pars = c(birth, death, Inf),
                           age = max_t,
