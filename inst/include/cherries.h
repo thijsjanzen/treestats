@@ -3,34 +3,6 @@
 
 #include <vector>
 #include <array>
-#include <map>
-#include <chrono>
-#include <thread>
-
-size_t calc_cherries(const std::vector< std::array<size_t, 2>>& edge) {
-  // extract nodes
-  size_t root_label = edge[0][0];
-
-  std::map< int, int > anc_map;
-
-  for (const auto& i : edge) {
-    if (i[1] < root_label) {
-      // found tip!
-      auto it = anc_map.find(i[0]);
-      if (it != anc_map.end()) {
-        it->second++;
-      } else {
-        anc_map[ i[0] ] = 1;
-      }
-    }
-  }
-
-  size_t cnt = 0;
-  for (const auto& i : anc_map) {
-    if (i.second == 2) cnt++;
-  }
-  return cnt;
-}
 
 using ltable = std::vector< std::array<double, 4>>;
 

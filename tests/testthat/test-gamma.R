@@ -33,3 +33,10 @@ test_that("usage", {
   check_gamma(dd_tree)
   testthat::expect_lt(treestats::gamma_statistic(dd_tree), 0)
 })
+
+test_that("abuse", {
+  wrong_object <- list("a" = 5)
+  testthat::expect_error(
+    treestats::colless(wrong_object),
+    "input object has to be phylo or ltable")
+})

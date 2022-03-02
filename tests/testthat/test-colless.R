@@ -64,3 +64,9 @@ test_that("usage", {
   testthat::expect_equal(colless, colless_check, tol = 1e-5)
 })
 
+test_that("abuse", {
+  wrong_object <- list("a" = 5)
+  testthat::expect_error(
+    treestats::colless(wrong_object),
+    "input object has to be phylo or ltable")
+})
