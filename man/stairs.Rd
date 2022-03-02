@@ -7,10 +7,10 @@ staircase-ness reflects the number of subtrees that are imbalanced, e.g.
 subtrees where the left child has more extant tips than the right child, or
 vice versa.}
 \usage{
-stairs(phy)
+stairs(input_obj)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{input_obj}{phylo object or ltable}
 }
 \value{
 number of stairs

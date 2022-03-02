@@ -485,3 +485,17 @@ size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   colless_stat_ltable c(local_ltab);
   return c.count_IL();
 }
+
+// [[Rcpp::export]]
+double stairs_cpp(const std::vector<long>& tree_edge) {
+  colless_tree::phylo_tree tree(tree_edge);
+  return tree.calc_stairs();
+}
+
+
+// [[Rcpp::export]]
+double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+  auto local_ltab = convert_to_ltable(ltable_R);
+  colless_stat_ltable c(local_ltab);
+  return c.count_stairs();
+}

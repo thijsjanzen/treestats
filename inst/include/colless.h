@@ -60,6 +60,31 @@ public:
     return num_pitchforks;
   }
 
+  double count_stairs() {
+    size_t num_s = 0;
+    size_t N = ltable_.size();
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      if (L != R) num_s++;
+
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+
+    return num_s * 1.0 / (N - 1);
+  }
+
   size_t count_IL() {
     size_t num_IL = 0;
     while(true) {
@@ -209,6 +234,15 @@ public:
       l - r < 0 ? s -= l - r : s+= l - r;
     }
     return s;
+  }
+
+  double calc_stairs() {
+    tree[0].update_num_tips();
+    int s = 0;
+    for(const auto& i : tree) {
+      if (i.L != i.R) s++;
+    }
+    return s * 1.0 / tree.size();
   }
 
   double correct_pda(double Ic, size_t num_tips) {
