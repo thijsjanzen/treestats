@@ -124,3 +124,11 @@ cherries_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_cherries_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
+ILnumber_cpp <- function(tree_edge) {
+    .Call('_treestats_ILnumber_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
+ILnumber_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_ILnumber_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+

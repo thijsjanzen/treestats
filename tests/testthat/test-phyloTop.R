@@ -10,10 +10,6 @@ test_that("usage", {
   avglad_check <- phyloTop::avgLadder(focal_tree)
   testthat::expect_equal(avglad, avglad_check)
 
-  ILnum <- treestats::ILnumber(focal_tree) # nolint
-  ILnum_check <- phyloTop::ILnumber(focal_tree) # nolint
-  testthat::expect_equal(ILnum, ILnum_check)
-
   strs <- treestats::stairs(focal_tree)
   strs_check <- phyloTop::stairs(focal_tree)[[1]]
   testthat::expect_equal(strs, strs_check)

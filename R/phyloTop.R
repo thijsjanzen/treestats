@@ -24,12 +24,16 @@ cherries <- function(input_obj) {
 
 #' Calculate ILnumber, from the phyloTop package. The ILnumber is the number
 #' of internal nodes with a single tip child.
-#' @param phy phylo or multiPhylo object
+#' @param input_obj phylo object or ltable
 #' @return ILnumber
 #' @export
-ILnumber <- function(phy) { # nolint
-  ILnum <- apply_function_phy(phy, phyloTop::ILnumber) # nolint
-  return(ILnum) # nolint
+ILnumber <- function(input_obj) { # nolint
+  if (inherits(input_obj, "matrix")) {
+    return(ILnumber_ltable_cpp(input_obj))
+  }
+  if (inherits(input_obj, "phylo")) {
+    return(ILnumber_cpp(as.vector(t(input_obj$edge))))
+  }
 }
 
 #' Calculate pitchforks, from the phyloTop package, a pitchfork is a clade

@@ -14,6 +14,7 @@
 #include "L2newick.h"
 #include "crown_age.h"
 #include "cherries.h"
+#include "ILnumber.h"
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -473,23 +474,14 @@ size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   return calc_cherries_ltable(local_ltab);
 }
 
+// [[Rcpp::export]]
+size_t ILnumber_cpp(const std::vector<long>& tree_edge) {
+  return calc_IL(tree_edge);
+}
 
-// old stuff
-/*
- double calc_nltt_cpp_old(const Rcpp::NumericVector& brts_one,
- const Rcpp::NumericVector& brts_two) {
-
- try {
- std::vector<double> v1(brts_one.begin(), brts_one.end());
- std::vector<double> v2(brts_two.begin(), brts_two.end());
-
- auto nltt = calc_nltt(v1, v2);
- return nltt;
- } catch(std::exception &ex) {
- forward_exception_to_r(ex);
- } catch(...) {
- ::Rf_error("c++ exception (unknown reason)");
- }
- return NA_REAL;
- }
- */
+// [[Rcpp::export]]
+size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+  auto local_ltab = convert_to_ltable(ltable_R);
+  colless_stat_ltable c(local_ltab);
+  return c.count_IL();
+}

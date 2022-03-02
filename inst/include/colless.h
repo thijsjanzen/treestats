@@ -60,6 +60,31 @@ public:
     return num_pitchforks;
   }
 
+  size_t count_IL() {
+    size_t num_IL = 0;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
+        num_IL++;
+      }
+
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+    return num_IL;
+  }
+
   double correct_pda(double Ic) {
    double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
