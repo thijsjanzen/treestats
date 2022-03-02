@@ -37,6 +37,29 @@ public:
     return colless_stat;
   }
 
+  size_t count_pitchforks() {
+    size_t num_pitchforks = 0;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      if (L + R == 3) num_pitchforks++;
+
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+    return num_pitchforks;
+  }
+
   double correct_pda(double Ic) {
    double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
@@ -79,11 +102,6 @@ private:
   }
 
   size_t get_num_tips() {
-   /* size_t num_extant_tips = 0;
-    for (const auto& i : ltable_) {
-      if (i[3] < 0) num_extant_tips++;
-    }
-    return num_extant_tips;*/
    return ltable_.size();
   }
   ltable ltable_;

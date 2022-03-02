@@ -5,10 +5,10 @@
 \title{Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
 with three tips.}
 \usage{
-pitchforks(phy)
+pitchforks(input_obj)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{input_obj}{phylo object or ltable}
 }
 \value{
 number of pitchforks

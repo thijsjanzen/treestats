@@ -108,8 +108,16 @@ l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
 
-cherries_cpp <- function(phy) {
-    .Call('_treestats_cherries_cpp', PACKAGE = 'treestats', phy)
+pitchforks_cpp <- function(tree_edge) {
+    .Call('_treestats_pitchforks_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
+pitchforks_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_pitchforks_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
+cherries_cpp <- function(tree_edge) {
+    .Call('_treestats_cherries_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
 cherries_ltable_cpp <- function(ltable_R) {

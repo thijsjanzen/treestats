@@ -147,6 +147,28 @@ public:
     return s;
   }
 
+  size_t count_pitchforks() {
+    tree[0].get_acc_num_tips();
+    size_t num_pitchforks = 0;
+    for(const auto& i : tree) {
+      if (i.num_extant_tips == 3) {
+        num_pitchforks++;
+      }
+    }
+    return num_pitchforks;
+  }
+
+  size_t count_cherries() {
+    tree[0].get_acc_num_tips();
+    size_t num_cherries = 0;
+    for(const auto& i : tree) {
+      if (i.num_extant_tips == 2) {
+        num_cherries++;
+      }
+    }
+    return num_cherries;
+  }
+
   double correct_pda(size_t n,
                      double Is) {
     double denom = powf(n, 1.5f);

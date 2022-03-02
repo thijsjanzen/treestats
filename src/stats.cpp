@@ -449,23 +449,29 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
 }
 
 // [[Rcpp::export]]
-size_t cherries_cpp(const Rcpp::List& phy) {
-  Rcpp::NumericMatrix edge = phy["edge"];
-  std::vector< std::array< size_t, 2 >> local_edge(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); ++i) {
-    local_edge[i] = {static_cast<size_t>(edge(i, 0)),
-                     static_cast<size_t>(edge(i, 1))};
-  }
-  return calc_cherries(local_edge);
+size_t pitchforks_cpp(const std::vector<long>& tree_edge) {
+  phylo_tree sackin_tree(tree_edge);
+  return sackin_tree.count_pitchforks();
+}
+
+// [[Rcpp::export]]
+size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+  auto local_ltab = convert_to_ltable(ltable_R);
+  colless_stat_ltable c(local_ltab);
+  return c.count_pitchforks();
+}
+
+// [[Rcpp::export]]
+size_t cherries_cpp(const std::vector<long>& tree_edge) {
+  phylo_tree sackin_tree(tree_edge);
+  return sackin_tree.count_cherries();
 }
 
 // [[Rcpp::export]]
 size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
-   auto local_ltab = convert_to_ltable(ltable_R);
+  auto local_ltab = convert_to_ltable(ltable_R);
   return calc_cherries_ltable(local_ltab);
 }
-
-
 
 
 // old stuff

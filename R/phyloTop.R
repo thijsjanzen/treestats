@@ -13,10 +13,13 @@ avgLadder <- function(phy) { # nolint
 #' @return number of cherries
 #' @export
 cherries <- function(input_obj) {
- apply_function_phy_ltable(input_obj,
-                           cherries_cpp,
-                           cherries_ltable_cpp,
-                           only_extant = FALSE)
+
+  if (inherits(input_obj, "matrix")) {
+    return(cherries_ltable_cpp(input_obj))
+  }
+  if (inherits(input_obj, "phylo")) {
+    return(cherries_cpp(as.vector(t(input_obj$edge))))
+  }
 }
 
 #' Calculate ILnumber, from the phyloTop package. The ILnumber is the number
@@ -31,13 +34,19 @@ ILnumber <- function(phy) { # nolint
 
 #' Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
 #' with three tips.
-#' @param phy phylo object
+#' @param input_obj phylo object or ltable
 #' @return number of pitchforks
 #' @export
-pitchforks <- function(phy) {
-  num_pitchforks <- apply_function_phy(phy, phyloTop::pitchforks)
-  return(num_pitchforks)
+pitchforks <- function(input_obj) {
+  if (inherits(input_obj, "matrix")) {
+    return(pitchforks_ltable_cpp(input_obj))
+  }
+  if (inherits(input_obj, "phylo")) {
+    return(pitchforks_cpp(as.vector(t(input_obj$edge))))
+  }
 }
+
+
 
 #' Calculates the staircase-ness measure, from the phyloTop package. The
 #' staircase-ness reflects the number of subtrees that are imbalanced, e.g.
