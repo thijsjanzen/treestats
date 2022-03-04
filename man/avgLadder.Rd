@@ -4,10 +4,10 @@
 \alias{avgLadder}
 \title{Calculate the avgLadder index, from the phyloTop package}
 \usage{
-avgLadder(phy)
+avgLadder(input_obj)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{input_obj}{phylo object or ltable}
 }
 \value{
 average number of ladders

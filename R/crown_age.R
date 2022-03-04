@@ -29,4 +29,3 @@ tree_height <- function(phy) {
 crown_age <- function(phy) {
   return(apply_function_phy(phy, calc_crown_age_cpp))
 }
-

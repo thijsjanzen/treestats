@@ -1,10 +1,15 @@
 #' Calculate the avgLadder index, from the phyloTop package
-#' @param phy phylo object
+#' @param input_obj phylo object or ltable
 #' @return average number of ladders
 #' @export
-avgLadder <- function(phy) { # nolint
-  avgLadders <- apply_function_phy(phy, phyloTop::avgLadder) # nolint
-  return(avgLadders)
+avgLadder <- function(input_obj) { # nolint
+  if (inherits(input_obj, "matrix")) {
+    input_obj <- treestats::l_to_phylo(input_obj)
+    return(avgLadder_cpp(as.vector(t(input_obj$edge))))
+  }
+  if (inherits(input_obj, "phylo")) {
+    return(avgLadder_cpp(as.vector(t(input_obj$edge))))
+  }
 }
 
 #' Calculate number of cherries, from the phyloTop package. A cherry is a pair
@@ -71,4 +76,3 @@ stairs <- function(input_obj) {
     return(stairs_cpp(as.vector(t(input_obj$edge))))
   }
 }
-

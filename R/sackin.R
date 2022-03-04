@@ -24,4 +24,3 @@ sackin <- function(phy, normalization = "none") {
     return(calc_sackin_cpp(as.vector(t(phy$edge)), normalization))
   }
 }
-

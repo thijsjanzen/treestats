@@ -40,9 +40,9 @@ calc_all_stats <- function(phylo) {
   stats$number_of_lineages <- treestats::number_of_lineages(phylo)
   stats$nltt_base          <- treestats::nLTT_base(phylo)
   stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
-  stats$avgLadder          <- treestats::avgLadder(phylo)
+  stats$avgLadder          <- treestats::avgLadder(phylo) #nolint
   stats$cherries           <- treestats::cherries(phylo)
-  stats$ILnumber           <- treestats::ILnumber(phylo)
+  stats$ILnumber           <- treestats::ILnumber(phylo) #nolint
   stats$pitchforks         <- treestats::pitchforks(phylo)
   stats$stairs             <- treestats::stairs(phylo)
 

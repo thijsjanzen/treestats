@@ -480,6 +480,11 @@ size_t ILnumber_cpp(const std::vector<long>& tree_edge) {
 }
 
 // [[Rcpp::export]]
+double avgLadder_cpp(const std::vector<long>& tree_edge) {
+  return calc_ladder(tree_edge);
+}
+
+// [[Rcpp::export]]
 size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto local_ltab = convert_to_ltable(ltable_R);
   colless_stat_ltable c(local_ltab);

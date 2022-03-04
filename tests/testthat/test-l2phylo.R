@@ -63,4 +63,3 @@ test_that("newick", {
   v2 <- as.vector(unlist(treestats::calc_all_stats(tree_2)))
   testthat::expect_equal(v1, v2, tolerance = 1e-3)
 })
-

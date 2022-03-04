@@ -48,7 +48,6 @@ test_that("usage", {
   }
 
   comp_methods(bal_tree)
-  # comp_methods(unbal_tree)  # subplex and simplex don't work here
   comp_methods(focal_tree)
 })
 
@@ -71,4 +70,3 @@ test_that("abuse", {
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "no algorithm chosen")
 })
-

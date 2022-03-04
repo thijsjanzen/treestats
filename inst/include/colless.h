@@ -245,6 +245,8 @@ public:
     return s * 1.0 / tree.size();
   }
 
+
+
   double correct_pda(double Ic, size_t num_tips) {
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;

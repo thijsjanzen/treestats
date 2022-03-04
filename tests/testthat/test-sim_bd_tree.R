@@ -13,7 +13,7 @@ test_that("usage num lin", {
                                    method = m)
     trees[[cnt]] <- trees1
     testthat::expect_equal(10, length(trees1))
-    for (i in 1:length(trees1)) {
+    for (i in seq_along(trees1)) {
       testthat::expect_equal(100, treestats::number_of_lineages(trees1[[i]]))
     }
     cnt <- cnt + 1
@@ -21,7 +21,7 @@ test_that("usage num lin", {
   )
 
   results <- c()
-  for (r in 1:length(trees)) {
+  for (r in seq_along(trees)) {
     focal_trees <- trees[[r]]
     g_vals <- as.vector(unlist(lapply(focal_trees, treestats::gamma_statistic)))
     nltt_vals <- as.vector(unlist(lapply(focal_trees, treestats::nLTT_base)))
@@ -37,8 +37,8 @@ test_that("usage num lin", {
     to_plot <- tibble::as_tibble(to_plot)
     to_plot$method <- results[, 3]
 
-    A <- aov(to_plot$value~to_plot$method)
-    p <- summary(A)[[1]][["Pr(>F)"]][1]
+    aov_result <- aov(to_plot$value~to_plot$method)
+    p <- summary(aov_result)[[1]][["Pr(>F)"]][1]
     testthat::expect_gt(p, 0.05)
   }
 })
@@ -55,14 +55,14 @@ test_that("usage max t", {
                                      method = m)
     trees[[cnt]] <- trees1
     testthat::expect_equal(10, length(trees1))
-    for (i in 1:length(trees1)) {
+    for (i in seq_along(trees1)) {
       testthat::expect_equal(1, treestats::crown_age(trees1[[i]]))
     }
     cnt <- cnt + 1
   }
 
   results <- c()
-  for (r in 1:length(trees)) {
+  for (r in seq_along(trees)) {
     focal_trees <- trees[[r]]
     g_vals <- as.vector(unlist(lapply(focal_trees, treestats::gamma_statistic)))
     nltt_vals <- as.vector(unlist(lapply(focal_trees, treestats::nLTT_base)))
@@ -78,8 +78,8 @@ test_that("usage max t", {
     to_plot <- tibble::as_tibble(to_plot)
     to_plot$method <- results[, 3]
 
-    A <- aov(to_plot$value~to_plot$method)
-    p <- summary(A)[[1]][["Pr(>F)"]][1]
+    aov_result <- aov(to_plot$value~to_plot$method)
+    p <- summary(aov_result)[[1]][["Pr(>F)"]][1]
     testthat::expect_gt(p, 0.05)
   }
 })
