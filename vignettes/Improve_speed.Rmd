@@ -55,6 +55,11 @@ improve the speed of the following statistics and functions:
 * colless
 * blum
 * crown age
+* stairs
+* cherries
+* ladders
+* ILnumber
+* pitchforks
 * RPANDA::laplacian spectrum
 * ape::branching.times
 * DDD::phylo2L
@@ -105,8 +110,8 @@ compare_speed <- function(trees, r_func, cpp_func, used_ntaxa, text_label) {
     t1 <- collect_time(trees[[r]], r_func)
     t2 <- collect_time(trees[[r]], cpp_func)
 
-    add1 <- c(used_ntaxa, "R", t1, text_label)
-    add2 <- c(used_ntaxa, "CPP", t2, text_label)
+    add1 <- c(used_ntaxa, "R equivalent", t1, text_label)
+    add2 <- c(used_ntaxa, "treestats", t2, text_label)
     index <- 1 + (r - 1) * 2
     to_add[index, ] <- add1
     to_add[index + 1, ] <- add2
@@ -120,9 +125,20 @@ Which we can then apply to our different functions of interest:
 ```{r perform timing}
 found <- c()
 for (i in 1:length(tree_list)) {
+  
+  found <- rbind(found, compare_speed(tree_list[[i]], phyloTop::avgLadder, treestats::avgLadder, used_ntaxa[i], "avgLadder") )
+  
+  found <- rbind(found, compare_speed(tree_list[[i]], phyloTop::cherries, treestats::cherries, used_ntaxa[i], "cherries") )
+  
+  found <- rbind(found, compare_speed(tree_list[[i]], phyloTop::pitchforks, treestats::pitchforks, used_ntaxa[i], "pitchforks") )
+  
+  found <- rbind(found, compare_speed(tree_list[[i]], phyloTop::ILnumber, treestats::ILnumber, used_ntaxa[i], "ILnumber") )
+  
+  found <- rbind(found, compare_speed(tree_list[[i]], phyloTop::stairs, treestats::stairs, used_ntaxa[i], "stairs") )
+  
   found <- rbind(found, compare_speed(tree_list[[i]], ape::branching.times, treestats::branching_times, used_ntaxa[i], "branching_times") )
   
-  found <- rbind(found, compare_speed(tree_list[[i]], ref_tree_height, treestats::tree_height, used_ntaxa[i], "tree_height") )
+#  found <- rbind(found, compare_speed(tree_list[[i]], ref_tree_height, treestats::tree_height, used_ntaxa[i], "tree_height") )
 
   found <- rbind(found, compare_speed(tree_list[[i]], DDD::phylo2L, treestats::phylo_to_l, used_ntaxa[i], "phylo_to_l"))
 
@@ -162,11 +178,12 @@ ggplot(found, aes(x = ntips, y = time, col = method)) +
   scale_x_log10() +
   scale_y_log10() +
   facet_wrap(~treestatsfunction, scales = "free") +
+  scale_color_viridis_d(option = "A", begin = 0.4, end = 0.7) +
   theme_classic() +
   theme(legend.position = "top") +
   ylab("Time per tree (seconds)") +
   xlab("Number of extant tips")
 ```
 
-Across the board, we find that the castor based calculations are generally faster than those in treestats (e.g. gamma, sackin, 
-blum and colless). For all the others, treestats is faster.
+Across the board, we find that treestats is faster than the currently available methods, mainly due to a translation to C++ using Rcpp. For those functions where already a C++ implementation is available (e.g. functions found in the castor package, such as the blum, gamma, sackin and colless 
+statistics), the improvement is only minimal however.
