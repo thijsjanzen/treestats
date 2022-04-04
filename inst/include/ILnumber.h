@@ -3,7 +3,7 @@
 
 size_t calc_IL(const std::vector< long >& tree_edge) {
 
-  int root_no = static_cast<int>(tree_edge.front());
+  int root_no = 2 + tree_edge.size() * 0.25;   //static_cast<int>(tree_edge.front());
   std::vector< int > nodes(tree_edge.size() / 2, 0);
 
   for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
@@ -23,7 +23,7 @@ size_t calc_IL(const std::vector< long >& tree_edge) {
 double calc_ladder2(const std::vector< long >& tree_edge) {
 
   auto max_node_val = *std::max_element(tree_edge.begin(), tree_edge.end());
-  auto root_no = tree_edge[0];
+  auto root_no = 2 + tree_edge.size() * 0.25;  //tree_edge[0];
   std::vector< std::array< size_t, 3 >> edge_mat(max_node_val + 1, {0, 0, 0});
   for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
     auto node_lab = tree_edge[i];

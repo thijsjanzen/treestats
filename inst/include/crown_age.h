@@ -8,7 +8,7 @@ double get_total_bl(const std::vector< std::array<size_t, 2>>& edge,
                     const std::vector<double>& el,
                     size_t init_label) {
   size_t tip_label = init_label;
-  size_t root_label = 2 + edge.size() * 0.5;   //edge[0][0];
+  size_t root_label = edge[0][0];
   size_t tip_index = 0;
   for (tip_index = 0; tip_index < edge.size(); ++tip_index) {
     if (edge[tip_index][1] == tip_label) {

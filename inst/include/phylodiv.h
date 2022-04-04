@@ -28,6 +28,10 @@ void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
     double bl;
   };
 
+  if (edge.size() != edge_length.size()) {
+    throw std::runtime_error("size mismatch");
+  }
+
   std::vector<entry> everything(edge.size());
   for (size_t i = 0; i < edge.size(); ++i) {
     everything[i].bl = edge_length[i];
@@ -115,7 +119,6 @@ std::vector< branch > create_branch_set(const phylo& phy,
 
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
-  size_t crown2 = 2 + phy.edge_length.size() * 0.5;
 
   std::vector < std::array< double, 2 >> tip_times;
   for (size_t i = 0; i < phy.edge.size(); ++i) {

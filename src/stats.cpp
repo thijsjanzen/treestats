@@ -54,6 +54,9 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
     edge_cpp[i] = row_entry;
   }
 
+  sort_edge_and_edgelength(edge_cpp, edge_length);
+
+
   return branching_times(edge_cpp, edge_length, Nnode);
 }
 
