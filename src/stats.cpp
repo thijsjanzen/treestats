@@ -17,6 +17,7 @@
 #include "ILnumber.h"
 
 using ltable = std::vector< std::array<double, 4>>;
+using edge_table = std::vector< std::array< size_t, 2 >>;
 
 auto convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
   ltable out(mat_in.nrow());
@@ -46,7 +47,7 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
 
   size_t Nnode = phy["Nnode"];
 
-  std::vector< std::array< size_t, 2 >> edge_cpp(edge.nrow());
+  edge_table edge_cpp(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); ++i) {
     std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
                                          static_cast<size_t>(edge(i, 1))};
@@ -55,7 +56,6 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
 
   return branching_times(edge_cpp, edge_length, Nnode);
 }
-
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -66,7 +66,7 @@ double calc_beta_cpp(const Rcpp::List& phy,
 
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
-    std::vector< std::array< size_t, 2 >> local_edge(edge.nrow());
+    edge_table local_edge(edge.nrow());
     for (size_t i = 0; i < edge.nrow(); ++i) {
       local_edge[i] = {static_cast<size_t>(edge(i, 0)),
                        static_cast<size_t>(edge(i, 1))};
@@ -270,7 +270,7 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
     Rcpp::NumericVector edge_length = phy["edge.length"];
 
     std::vector<double> el(edge_length.begin(), edge_length.end());
-    std::vector< std::array<size_t, 2>> edges(edge.nrow());
+    edge_table edges(edge.nrow());
     for (size_t i = 0; i < edge.nrow(); i++) {
       std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
                                    static_cast<size_t>(edge(i, 1))};
@@ -297,7 +297,7 @@ double calc_rho_complete_cpp(const Rcpp::List& phy) {
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
   std::vector<double> el(edge_length.begin(), edge_length.end());
-  std::vector< std::array<size_t, 2>> edges(edge.nrow());
+  edge_table edges(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); i++) {
     std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
                                     static_cast<size_t>(edge(i, 1))};
@@ -337,7 +337,7 @@ double calc_crown_age_cpp(const Rcpp::List& phy) {
   Rcpp::NumericVector edge_length = phy["edge.length"];
 
   std::vector<double> el(edge_length.begin(), edge_length.end());
-  std::vector< std::array<size_t, 2>> edges(edge.nrow());
+  edge_table edges(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); i++) {
     std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
                                     static_cast<size_t>(edge(i, 1))};

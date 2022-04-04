@@ -115,7 +115,11 @@ double calc_ladder(const std::vector< long >& tree_edge) {
     }
   }
 
-  return mean_val * 1.0 / count_val;
+  if (count_val > 0) {
+    mean_val *= 1.0 / count_val;
+  }
+
+  return mean_val;
 }
 
 

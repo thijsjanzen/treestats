@@ -124,7 +124,7 @@ public:
 
   phylo_tree(const std::vector< long >& tree_edge) {
 
-    int root_no = static_cast<int>(tree_edge.front());
+    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
     tree.resize(tree_edge.size() / 2);
 
     for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
