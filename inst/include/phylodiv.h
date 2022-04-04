@@ -3,6 +3,7 @@
 
 #include <vector>
 
+
 struct branch {
 
   branch(double bd, int pl, int lab, double ext, double branch_length) :
@@ -20,13 +21,44 @@ struct branch {
   double bl;
 };
 
+void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
+                              std::vector<double>& edge_length) {
+  struct entry {
+    std::array<size_t, 2> ed;
+    double bl;
+  };
+
+  std::vector<entry> everything(edge.size());
+  for (size_t i = 0; i < edge.size(); ++i) {
+    everything[i].bl = edge_length[i];
+    everything[i].ed = edge[i];
+ }
+
+  std::sort(everything.begin(), everything.end(),
+            [&](auto a, auto b)
+            {return a.ed[0] < b.ed[0];});
+
+  // now place back
+  for (size_t i = 0; i < everything.size(); ++i) {
+    edge[i] = everything[i].ed;
+    edge_length[i] = everything[i].bl;
+  }
+}
+
+
+
 struct phylo {
 
-  const std::vector< std::array<size_t, 2>> edge;
-  const std::vector< double > edge_length;
+  std::vector< std::array<size_t, 2>> edge;
+  std::vector< double > edge_length;
 
   phylo(const std::vector< std::array<size_t, 2>> e,
-        const std::vector<double> el) : edge(e), edge_length(el) {}
+        const std::vector<double> el) : edge(e), edge_length(el) {
+
+    // sort the tree!
+    sort_edge_and_edgelength(edge, edge_length);
+
+  }
 };
 
 
@@ -60,6 +92,9 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
     if (bs[index].label == label)
       break;
   }
+  if (index >= bs.size()) {
+    throw std::runtime_error("index >= bs.size");
+  }
   size_t parent_label = bs[index].parent_label;
   // remove focal branch
   bs[index] = bs.back();
@@ -80,6 +115,8 @@ std::vector< branch > create_branch_set(const phylo& phy,
 
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
+  size_t crown2 = 2 + phy.edge_length.size() * 0.5;
+
   std::vector < std::array< double, 2 >> tip_times;
   for (size_t i = 0; i < phy.edge.size(); ++i) {
     size_t parent_label = phy.edge[i][0];

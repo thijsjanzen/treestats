@@ -78,7 +78,7 @@ double calc_ladder(const std::vector< long >& tree_edge) {
   };
 
   auto max_node_val = *std::max_element(tree_edge.begin(), tree_edge.end());
-  auto root_no = tree_edge[0];
+  auto root_no = 2 + 0.25 * tree_edge.size(); //tree_edge[0];
   std::vector< node_entry > edge_mat(max_node_val + 1 - root_no);
   for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
     auto node_lab = tree_edge[i] - root_no;
