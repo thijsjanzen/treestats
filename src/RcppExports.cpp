@@ -335,6 +335,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// avgLadder_ltable_cpp
+double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_avgLadder_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(avgLadder_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ILnumber_ltable_cpp
 size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
 RcppExport SEXP _treestats_ILnumber_ltable_cpp(SEXP ltable_RSEXP) {
@@ -398,6 +409,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
     {"_treestats_ILnumber_cpp", (DL_FUNC) &_treestats_ILnumber_cpp, 1},
     {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
+    {"_treestats_avgLadder_ltable_cpp", (DL_FUNC) &_treestats_avgLadder_ltable_cpp, 1},
     {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
     {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
     {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},

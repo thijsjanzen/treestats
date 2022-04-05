@@ -115,6 +115,4 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
 
 
 
-
-
 #endif
