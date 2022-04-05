@@ -19,7 +19,8 @@ Imports:
     nloptr,
     phyloTop,
     TESS,
-    TreeSim
+    TreeSim,
+    treebalance
 Suggests:
     testthat,
     phytools,
