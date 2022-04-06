@@ -28,11 +28,6 @@ double calc_ladder(const std::vector< long >& tree_edge) {
     int other_lab = tree_edge[i + 1] - root_no;
 
     if (node_lab > edge_mat.size() || node_lab < 0) {
-      for (size_t j = 0; j < tree_edge.size(); j +=2) {
-        std::cerr << tree_edge[j] << " " << tree_edge[j + 1] << "\n";
-      } std::cerr << "\n";
-      std::cerr << node_lab << " " << other_lab << " " << root_no << "\n";
-
       throw std::out_of_range("node_lab > edge_mat.size()");
     }
 
