@@ -194,6 +194,7 @@ std::vector< long > newick_to_edge(const std::string&    input) {
     tree_edge[2*edge+1] = old2new_clade[tree_edge[2*edge+1]];
   }
 
+  for(auto& i : tree_edge) i++;
 
   return tree_edge;
 }

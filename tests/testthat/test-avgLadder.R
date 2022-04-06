@@ -2,7 +2,7 @@ context("ladders")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 30,
+  focal_tree <- TreeSim::sim.bd.taxa(n = 1000,
                                      numbsim = 1, lambda = 1, mu = 0)[[1]]
 
   c1 <- treestats::avgLadder(focal_tree)

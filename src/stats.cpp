@@ -16,6 +16,7 @@
 #include "cherries.h"
 #include "ILnumber.h"
 #include "newick_to_edge.h"
+#include "avgladder.h"
 
 using ltable = std::vector< std::array<double, 4>>;
 using edge_table = std::vector< std::array< size_t, 2 >>;
@@ -485,14 +486,23 @@ size_t ILnumber_cpp(const std::vector<long>& tree_edge) {
 
 // [[Rcpp::export]]
 double avgLadder_cpp(const std::vector<long>& tree_edge) {
+  try {
   return calc_ladder(tree_edge);
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch (const char* msg) {
+    Rcpp::Rcout << msg << std::endl;
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
 }
 
 // [[Rcpp::export]]
 double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto newick_str = l_to_newick(ltable_R, false);
   auto edge_table = newick_to_edge(newick_str);
-  return calc_ladder(edge_table);
+  return avgLadder_cpp(edge_table);
 }
 
 // [[Rcpp::export]]
