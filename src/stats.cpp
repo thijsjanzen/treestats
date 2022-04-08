@@ -135,6 +135,14 @@ double calc_colless_cpp(const std::vector<long>& parent_list,
 }
 
 // [[Rcpp::export]]
+double calc_eWcolless_cpp(const std::vector<long>& parent_list) {
+
+  colless_tree::phylo_tree colless_tree(parent_list);
+
+  return colless_tree.calc_eWcolless();
+}
+
+// [[Rcpp::export]]
 double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                 std::string normalization) {
 
@@ -151,6 +159,16 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
     output = s.correct_pda(output);
   }
   return output;
+}
+
+// [[Rcpp::export]]
+double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  colless_stat_ltable s(l_in_cpp);
+
+  return s.calc_ew_colless();
 }
 
 // [[Rcpp::export]]

@@ -29,3 +29,32 @@ colless <- function(phy,
   }
   stop("input object has to be phylo or ltable")
 }
+
+#' Fast function using C++ to calculate the equal weights Colless index of
+#' (im)balance.
+#' @description The equal weights Colless index is calculated as the sum of
+#' \eqn{abs(L - R) / (L + R - 2)} over all nodes where L + R > 2,
+#' where L (or R) is the number of extant tips associated with the L (or R)
+#' daughter branch at that node.  Higher values indicate higher imbalance.
+#' @param phy phylo object or ltable
+#' @return colless index
+#' @references  A. O. Mooers and S. B. Heard. Inferring Evolutionary Process
+#' from Phylogenetic Tree Shape. The Quarterly Review of Biology, 72(1), 1997.
+#' doi: 10.1086/419657.
+#' @export
+#' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+#' brts <- branching_times(simulated_tree)
+#' balanced_tree <- nodeSub::create_balanced_tree(brts)
+#' unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+#' eWcolless(balanced_tree)
+#' eWcolless(unbalanced_tree) # should be higher
+ew_colless <- function(phy) {
+
+  if (inherits(phy, "matrix")) {
+    return(calc_eWcolless_ltable_cpp(phy))
+  }
+  if (inherits(phy, "phylo")) {
+    return(calc_eWcolless_cpp(as.vector(t(phy$edge))))
+  }
+  stop("input object has to be phylo or ltable")
+}

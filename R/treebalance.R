@@ -25,7 +25,7 @@ calc_treebalance_stats <- function(phylo) {
  # stats$sackin       <- treebalance::sackinI(phylo)  # this is Sackin
  # stats$sshape1      <- treebalance::sShapeI(phylo)  # this is Blum
 #  stats$stairs1      <- treebalance::stairs1(phylo)  # this is stairs
-  stats$stairs2      <- treebalance::stairs2(phylo)
+ # stats$stairs2      <- treebalance::stairs2(phylo)  # this is stairs2
   stats$symNodes     <- treebalance::symNodesI(phylo)
   stats$totCoph      <- treebalance::totCophI(phylo)
   stats$varLeafDepth <- treebalance::varLeafDepI(phylo)

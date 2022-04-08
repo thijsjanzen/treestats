@@ -21,8 +21,16 @@ calc_colless_cpp <- function(parent_list, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', parent_list, normalization)
 }
 
+calc_eWcolless_cpp <- function(parent_list) {
+    .Call('_treestats_calc_eWcolless_cpp', PACKAGE = 'treestats', parent_list)
+}
+
 calc_colless_ltable_cpp <- function(l_from_R, normalization) {
     .Call('_treestats_calc_colless_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
+}
+
+calc_eWcolless_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_eWcolless_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
 calc_blum_ltable_cpp <- function(ltab_in) {

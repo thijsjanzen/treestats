@@ -39,6 +39,36 @@ public:
     return colless_stat;
   }
 
+  double calc_ew_colless() {
+    double ew_colless_stat = 0;
+    int N = ltable_.size();
+    if (N <= 2) return 0;
+
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+
+      if (L + R > 2) {
+        ew_colless_stat += 1.0 * std::abs(L - R) / (L + R - 2);
+       // std::cerr << L << " " << R << " " << "\n";
+      }
+
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+    return ew_colless_stat * 1.0 / (N - 2);
+  }
+
   size_t count_pitchforks() {
     size_t num_pitchforks = 0;
     while(true) {
@@ -270,6 +300,21 @@ public:
       int r = i.R;
       l - r < 0 ? s -= l - r : s+= l - r;
     }
+    return s;
+  }
+
+  double calc_eWcolless() {
+    tree[0].update_num_tips();
+    double s = 0;
+    for(const auto& i : tree) {
+      int l = i.L;
+      int r = i.R;
+      double l_r = l + r;
+      if (l_r > 2) {
+        s += std::abs(l - r) * 1.0 / (l_r - 2);
+      }
+    }
+    s *= 1.0 / (tree.size() - 1);
     return s;
   }
 
