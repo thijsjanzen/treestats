@@ -24,8 +24,8 @@ simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 brts <- branching_times(simulated_tree)
 balanced_tree <- nodeSub::create_balanced_tree(brts)
 unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-eWcolless(balanced_tree)
-eWcolless(unbalanced_tree) # should be higher
+ew_colless(balanced_tree)
+ew_colless(unbalanced_tree) # should be higher
 }
 \references{
 A. O. Mooers and S. B. Heard. Inferring Evolutionary Process

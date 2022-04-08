@@ -16,7 +16,7 @@ calc_treebalance_stats <- function(phylo) {
 #  stats$colPlaLab    <- treebalance::colPlaLab(phylo, method = "binary")
 #  stats$furnas       <- treebalance::furnasI(phylo)  # only yields unique numbers, not really balancy
   stats$Ibased       <- treebalance::IbasedI(phylo)
-  stats$ewColless    <- treebalance::ewCollessI(phylo)
+ # stats$ewColless    <- treebalance::ewCollessI(phylo) # this is ew_colless
   stats$maxDelW      <- treebalance::maxDelW(phylo)
   stats$maxDepth     <- treebalance::maxDepth(phylo)
   stats$maxWidth     <- treebalance::maxWidth(phylo)

@@ -46,8 +46,8 @@ colless <- function(phy,
 #' brts <- branching_times(simulated_tree)
 #' balanced_tree <- nodeSub::create_balanced_tree(brts)
 #' unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#' eWcolless(balanced_tree)
-#' eWcolless(unbalanced_tree) # should be higher
+#' ew_colless(balanced_tree)
+#' ew_colless(unbalanced_tree) # should be higher
 ew_colless <- function(phy) {
 
   if (inherits(phy, "matrix")) {
