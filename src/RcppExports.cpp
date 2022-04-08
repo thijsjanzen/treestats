@@ -368,6 +368,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// stairs2_cpp
+double stairs2_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_stairs2_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs2_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
 // stairs_ltable_cpp
 double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
 RcppExport SEXP _treestats_stairs_ltable_cpp(SEXP ltable_RSEXP) {
@@ -376,6 +387,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
     rcpp_result_gen = Rcpp::wrap(stairs_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stairs2_ltable_cpp
+double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_stairs2_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs2_ltable_cpp(ltable_R));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -412,7 +434,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_avgLadder_ltable_cpp", (DL_FUNC) &_treestats_avgLadder_ltable_cpp, 1},
     {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
     {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
+    {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 1},
     {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},
+    {"_treestats_stairs2_ltable_cpp", (DL_FUNC) &_treestats_stairs2_ltable_cpp, 1},
     {NULL, NULL, 0}
 };
 

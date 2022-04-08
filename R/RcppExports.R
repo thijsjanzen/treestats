@@ -144,7 +144,15 @@ stairs_cpp <- function(tree_edge) {
     .Call('_treestats_stairs_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
+stairs2_cpp <- function(tree_edge) {
+    .Call('_treestats_stairs2_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
 stairs_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_stairs_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
+stairs2_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_stairs2_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 

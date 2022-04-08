@@ -5,6 +5,7 @@
 #include <array>
 #include <numeric> // std::accumulate
 
+#include <iostream>
 
 
 using ltable = std::vector< std::array<double, 4>>;
@@ -76,6 +77,40 @@ public:
       int L = extant_tips[j];
       int R = extant_tips[j_parent];
       if (L != R) num_s++;
+
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+
+    return num_s * 1.0 / (N - 1);
+  }
+
+  double count_stairs2() {
+    double num_s = 0;
+    size_t N = ltable_.size();
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+
+      int min_l_r, max_l_r;
+      if (L < R) {
+        min_l_r = L; max_l_r = R;
+      } else {
+        min_l_r = R; max_l_r = L;
+      }
+
+
+      num_s += 1.0 * min_l_r / max_l_r;
 
       extant_tips[j_parent] = L + R;
       remove_from_dataset(j);
@@ -243,6 +278,21 @@ public:
     int s = 0;
     for(const auto& i : tree) {
       if (i.L != i.R) s++;
+    }
+    return s * 1.0 / tree.size();
+  }
+
+  double calc_stairs2() {
+    tree[0].update_num_tips();
+    double s = 0;
+    for(const auto& i : tree) {
+      int min_l_r, max_l_r;
+      if (i.L < i.R) {
+        min_l_r = i.L; max_l_r = i.R;
+      } else {
+        min_l_r = i.R; max_l_r = i.L;
+      }
+      s += 1.0 * min_l_r / max_l_r;
     }
     return s * 1.0 / tree.size();
   }
