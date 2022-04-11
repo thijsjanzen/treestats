@@ -23,7 +23,7 @@ test_that("usage", {
 
   a1 <- treestats::mean_i(focal_tree)
   a2 <- treebalance::IbasedI(focal_tree, method = "mean",
-                             correction = "prime", logs = FALSE
+                             correction = "prime", logs = FALSE)
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
