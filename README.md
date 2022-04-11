@@ -34,22 +34,16 @@ The following summary statistics are included:
   - Rogers J
   - Average Leaf Depth
   - I balance index
+  - Laplacian spectrum properties
 
 ## Rcpp
-For some of these statistics, and some additional functions, the package provides Rcpp versions that 
-are much, much faster than their R sister functions. These statistics are:
-  - Aldous Beta
-  - Sackin index
-  - Colless index
-  - nLTT
-  - Gamma
-  - Phylogenetic Diversity
-  - RPANDA::spectR
+For all of these statistics, the package provides Rcpp versions that 
+are much, much faster than their R sister functions. Furthermore, some additional
+functions have been improved as well:
   - ape::branching.times
   - DDD::phylo2L
   - DDD::L2phylo
 
-treestats is usually much faster than existing R equivalents.
 
 ![treestats_speed4](https://user-images.githubusercontent.com/19486664/154710093-eb596fdd-658d-437c-8249-fb2dfefb13d0.png)
   
@@ -59,8 +53,9 @@ as these are only partially captured in Rcpp), tree independent C++ code is prov
 in the inst/include folder. These can be independently linked by adding the treestats 
 package in the DESCRIPTION in both the LinkingTo and Depends fields. Then, in your package,
 you can also calculate these functions. 
-Please note that for most functions, there are two versions available: 
-1) based on input of a phylo object, which is typically one 2-column matrix containing all edges, and a vector containing the edge lengths.
+
+Please note that for all functions, there are two versions available: 
+1) based on input of a phylo object, which is typically one 2-column matrix containing all edges, and a vector containing the edge lengths (depending on which information is required to calculate the statistic).
 2) based on input of an Ltable, which is a 4-column matrix containing information on each species, being 1) birth time, 2) parent species, 3) species label and 4) death time (or -1 if extant).
 
 Ltable input can be useful when summary statistics are required for more complicated simulation models. 
