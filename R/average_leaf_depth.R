@@ -7,7 +7,7 @@
 #' @references K.-T. Shao and R. R. Sokal. Tree balance. Systematic Zoology,
 #' 39(3):266, 1990. doi: 10.2307/2992186.
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' avg_leaf_depth(simulated_tree)
+#' average_leaf_depth(simulated_tree)
 average_leaf_depth <- function(phy) {
 
   if (inherits(phy, "phylo")) {

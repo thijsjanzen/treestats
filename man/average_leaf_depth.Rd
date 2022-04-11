@@ -21,7 +21,7 @@ tips.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-avg_leaf_depth(simulated_tree)
+average_leaf_depth(simulated_tree)
 }
 \references{
 K.-T. Shao and R. R. Sokal. Tree balance. Systematic Zoology,

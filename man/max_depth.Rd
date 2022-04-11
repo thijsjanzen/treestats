@@ -10,7 +10,7 @@ max_depth(phy)
 \item{phy}{phylo object or ltable}
 }
 \value{
-Rogers index
+Maximum depth (in number of edges)
 }
 \description{
 The maximum depth metric, measures the maximal path (in edges),

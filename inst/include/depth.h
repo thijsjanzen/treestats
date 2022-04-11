@@ -111,6 +111,18 @@ public:
      return md;
   }
 
+  int max_width() {
+    tree[0].get_depth();
+    std::vector<int> widths(tree.size() * 2, 0);
+    for (const auto& i : tree) {
+      std::cerr << i.depth << "\n";
+      widths[i.depth]++;
+    }
+    return *std::max_element(widths.begin(), widths.end());
+  }
+
+
+
 
 private:
   std::vector< node > tree;

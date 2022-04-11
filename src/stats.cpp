@@ -227,6 +227,14 @@ double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   return s.calc_max_depth();
 }
 
+// [[Rcpp::export]]
+int calc_max_width_cpp(const std::vector<long>& parent_list) {
+
+  depth::phylo_tree local_tree(parent_list);
+
+  return local_tree.max_width();
+}
+
 
 // [[Rcpp::export]]
 double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
