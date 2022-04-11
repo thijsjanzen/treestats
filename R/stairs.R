@@ -19,7 +19,7 @@ stairs <- function(input_obj) {
 }
 
 
-#' Calculates the stair2 measure, from the phyloTop package. The
+#' Calculates the stairs2 measure, from the phyloTop package. The
 #' stairs2 reflects the imbalance at each node, where it represents the average
 #' across measure at each node, the measure being min(l, r) / max(l, r), where
 #' l and r reflect the number of tips connected at the left (l) and right (r)
