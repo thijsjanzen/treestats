@@ -18,6 +18,7 @@
 #include "ILnumber.h"
 #include "newick_to_edge.h"
 #include "avgladder.h"
+#include "depth.h"
 
 using ltable = std::vector< std::array<double, 4>>;
 using edge_table = std::vector< std::array< size_t, 2 >>;
@@ -206,6 +207,24 @@ double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   colless_stat_ltable s(l_in_cpp);
 
   return s.calc_rogers();
+}
+
+// [[Rcpp::export]]
+int calc_max_depth_cpp(const std::vector<long>& parent_list) {
+
+  depth::phylo_tree local_tree(parent_list);
+
+  return local_tree.max_depth();
+}
+
+// [[Rcpp::export]]
+double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  depth::depth_stat_ltab s(l_in_cpp);
+
+  return s.calc_max_depth();
 }
 
 

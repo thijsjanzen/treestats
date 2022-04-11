@@ -45,6 +45,14 @@ calc_rogers_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_rogers_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_max_depth_cpp <- function(parent_list) {
+    .Call('_treestats_calc_max_depth_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_max_depth_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_max_depth_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_eWcolless_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_eWcolless_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
