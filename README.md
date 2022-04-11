@@ -15,6 +15,7 @@ The following summary statistics are included:
   - Aldous Beta
   - Sackin index
   - Colless index
+  - Equal Weights Colless Index
   - Blum index
   - Crown age
   - Tree height
@@ -29,6 +30,10 @@ The following summary statistics are included:
   - ILnumber
   - pitchforks
   - stairs
+  - stairs2
+  - Rogers J
+  - Average Leaf Depth
+  - I balance index
 
 ## Rcpp
 For some of these statistics, and some additional functions, the package provides Rcpp versions that 
