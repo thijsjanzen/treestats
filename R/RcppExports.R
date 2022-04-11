@@ -29,6 +29,22 @@ calc_colless_ltable_cpp <- function(l_from_R, normalization) {
     .Call('_treestats_calc_colless_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
 }
 
+calc_Ibased_cpp <- function(parent_list) {
+    .Call('_treestats_calc_Ibased_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_Ibased_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_Ibased_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_rogers_cpp <- function(parent_list) {
+    .Call('_treestats_calc_rogers_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_rogers_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_rogers_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_eWcolless_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_eWcolless_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }

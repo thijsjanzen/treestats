@@ -10,17 +10,17 @@ calc_treebalance_stats <- function(phylo) {
   stats$B1           <- treebalance::B1I(phylo)
   stats$B2           <- treebalance::B2I(phylo)
   stats$aPP          <- treebalance::areaPerPairI(phylo)
-  stats$aLD          <- treebalance::avgLeafDepI(phylo)
+ # stats$aLD          <- treebalance::avgLeafDepI(phylo) # this is average_leaf_depth
 #  stats$cherry       <- treebalance::cherryI(phylo)  # this is cherries
  # stats$colless      <- treebalance::collessI(phylo) # this is Colless
 #  stats$colPlaLab    <- treebalance::colPlaLab(phylo, method = "binary")
 #  stats$furnas       <- treebalance::furnasI(phylo)  # only yields unique numbers, not really balancy
-  stats$Ibased       <- treebalance::IbasedI(phylo)
+ # stats$Ibased       <- treebalance::IbasedI(phylo)
  # stats$ewColless    <- treebalance::ewCollessI(phylo) # this is ew_colless
   stats$maxDelW      <- treebalance::maxDelW(phylo)
   stats$maxDepth     <- treebalance::maxDepth(phylo)
   stats$maxWidth     <- treebalance::maxWidth(phylo)
-  stats$rogers       <- treebalance::rogersI(phylo)
+#  stats$rogers       <- treebalance::rogersI(phylo)
   stats$rquarted     <- treebalance::rQuartetI(phylo)
  # stats$sackin       <- treebalance::sackinI(phylo)  # this is Sackin
  # stats$sshape1      <- treebalance::sShapeI(phylo)  # this is Blum

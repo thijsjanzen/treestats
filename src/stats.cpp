@@ -2,6 +2,7 @@
 
 #include <cstring>
 
+
 #include "branching_times.h"
 #include "beta.h"
 #include "nltt.h"
@@ -134,6 +135,7 @@ double calc_colless_cpp(const std::vector<long>& parent_list,
   return output;
 }
 
+
 // [[Rcpp::export]]
 double calc_eWcolless_cpp(const std::vector<long>& parent_list) {
 
@@ -160,6 +162,52 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
   }
   return output;
 }
+
+
+// [[Rcpp::export]]
+double calc_Ibased_cpp(const std::vector<long>& parent_list) {
+
+  colless_tree::phylo_tree colless_tree(parent_list);
+
+  auto I_vec = colless_tree.collect_I();
+
+  auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);
+  return sum * 1.0 / I_vec.size();
+}
+
+// [[Rcpp::export]]
+double calc_Ibased_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  colless_stat_ltable s(l_in_cpp);
+
+  auto I_vec = s.collect_I();
+
+  auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);
+  return sum * 1.0 / I_vec.size();
+}
+
+
+
+// [[Rcpp::export]]
+int calc_rogers_cpp(const std::vector<long>& parent_list) {
+
+  colless_tree::phylo_tree colless_tree(parent_list);
+
+  return colless_tree.calc_rogers();
+}
+
+// [[Rcpp::export]]
+double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  colless_stat_ltable s(l_in_cpp);
+
+  return s.calc_rogers();
+}
+
 
 // [[Rcpp::export]]
 double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {

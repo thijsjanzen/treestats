@@ -39,7 +39,7 @@ public:
     return colless_stat;
   }
 
-  double calc_ew_colless() {
+double calc_ew_colless() {
     double ew_colless_stat = 0;
     int N = ltable_.size();
     if (N <= 2) return 0;
@@ -58,7 +58,6 @@ public:
 
       if (L + R > 2) {
         ew_colless_stat += 1.0 * std::abs(L - R) / (L + R - 2);
-       // std::cerr << L << " " << R << " " << "\n";
       }
 
       extant_tips[j_parent] = L + R;
@@ -67,6 +66,64 @@ public:
       if (ltable_.size() == 1) break;
     }
     return ew_colless_stat * 1.0 / (N - 2);
+  }
+
+  
+
+      
+size_t calc_rogers() {
+    size_t rogers_stat = 0;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      if (L != R) rogers_stat++;
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+    return rogers_stat;
+  }
+
+
+  std::vector<double> collect_I() {
+    std::vector<double> i_vals;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+
+      int L_R = L + R;
+      if (L_R > 3) {
+        double avg_n = std::ceil(L_R * 0.5); // N / 2 + N % 2 (see Fusco 1995).
+        double I_val =  1.0 * (std::max(L, R) - avg_n) / ((L_R - 1) - avg_n);
+        if (L_R % 2 == 0) {
+          I_val *= 1.0 * (L_R - 1) / L_R;
+        }
+        i_vals.push_back(I_val);
+      }
+
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (ltable_.size() == 1) break;
+    }
+    return i_vals;
   }
 
   size_t count_pitchforks() {
@@ -91,6 +148,8 @@ public:
     }
     return num_pitchforks;
   }
+
+
 
   double count_stairs() {
     size_t num_s = 0;
@@ -151,7 +210,7 @@ public:
     return num_s * 1.0 / (N - 1);
   }
 
-  size_t count_IL() {
+size_t count_IL() {
     size_t num_IL = 0;
     while(true) {
       auto j = get_min_index();
@@ -220,6 +279,7 @@ private:
   size_t get_num_tips() {
    return ltable_.size();
   }
+
   ltable ltable_;
   std::vector< int > extant_tips;
   size_t num_tips;
@@ -303,6 +363,7 @@ public:
     return s;
   }
 
+
   double calc_eWcolless() {
     tree[0].update_num_tips();
     double s = 0;
@@ -343,6 +404,41 @@ public:
   }
 
 
+
+
+  std::vector<double> collect_I() {
+    tree[0].update_num_tips();
+    std::vector<double> i_vals;
+    for (size_t i = 0; i < tree.size(); ++i) {
+      int l = tree[i].L;
+      int r = tree[i].R;
+      int nv = l + r;
+      if (nv > 3) {
+        double avg_n = std::ceil(nv * 0.5);
+        auto n1 = l; if (r > l) n1 = r;
+        double I_val =  1.0 * (n1 - avg_n) / ((nv - 1) - avg_n);
+
+        if (nv % 2 == 0) {
+          I_val *= 1.0 * (nv - 1) / nv;
+        }
+        i_vals.push_back(I_val);
+      }
+    }
+    return i_vals;
+  }
+
+
+
+  int calc_rogers() {
+    tree[0].update_num_tips();
+    int s = 0;
+    for(const auto& i : tree) {
+      int l = i.L;
+      int r = i.R;
+      l != r ? s++ : 0;
+    }
+    return s;
+  }
 
   double correct_pda(double Ic, size_t num_tips) {
     double denom = powf(num_tips, 1.5f);
