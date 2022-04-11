@@ -86,6 +86,50 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_Ibased_cpp
+double calc_Ibased_cpp(const std::vector<long>& parent_list);
+RcppExport SEXP _treestats_calc_Ibased_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_Ibased_cpp(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_Ibased_ltable_cpp
+double calc_Ibased_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_Ibased_ltable_cpp(SEXP l_from_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_Ibased_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rogers_cpp
+int calc_rogers_cpp(const std::vector<long>& parent_list);
+RcppExport SEXP _treestats_calc_rogers_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rogers_cpp(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rogers_ltable_cpp
+double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_rogers_ltable_cpp(SEXP l_from_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rogers_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_blum_ltable_cpp
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
 RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP) {
@@ -105,17 +149,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_var_leaf_depth_cpp
-double calc_var_leaf_depth_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_calc_var_leaf_depth_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_var_leaf_depth_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -288,9 +321,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
     {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
+    {"_treestats_calc_Ibased_cpp", (DL_FUNC) &_treestats_calc_Ibased_cpp, 1},
+    {"_treestats_calc_Ibased_ltable_cpp", (DL_FUNC) &_treestats_calc_Ibased_ltable_cpp, 1},
+    {"_treestats_calc_rogers_cpp", (DL_FUNC) &_treestats_calc_rogers_cpp, 1},
+    {"_treestats_calc_rogers_ltable_cpp", (DL_FUNC) &_treestats_calc_rogers_ltable_cpp, 1},
     {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 1},
     {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
-    {"_treestats_calc_var_leaf_depth_cpp", (DL_FUNC) &_treestats_calc_var_leaf_depth_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
     {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},

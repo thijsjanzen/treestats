@@ -150,38 +150,6 @@ public:
     return s;
   }
 
-  /*double calc_var_leaf_depth(size_t n) {
-    tree[0].get_acc_num_tips();
-    int s = 0;
-    for(const auto& i : tree) {
-      std::cerr << i.num_extant_tips << "\n";
-      s += i.num_extant_tips;
-    }
-    double mean_s = 1.0 * s / n;
-    std::cerr << mean_s << "\n";
-    double var_s = 0.0;
-    for(const auto& i : tree) {
-      var_s += (i.num_extant_tips - mean_s) * (i.num_extant_tips - mean_s);
-    }
-    var_s *= 1.0 / tree.size();
-    return var_s;
-  }*/
-  double calc_var_leaf_depth(size_t n) {
-    tree[0].get_acc_num_tips();
-    double s1 = 0.0;
-    double s2 = 0.0;
-    for(const auto& i : tree) {
-      std::cerr << i.num_extant_tips << "\n";
-      s1 += i.num_extant_tips;
-      s2 += i.num_extant_tips * i.num_extant_tips;
-    }
-
-    double output = (1.0 / n) * s2 - (1.0 / (n * n)) * (s2 * s2);
-    return output;
-  }
-
-
-
 
   size_t count_pitchforks() {
     tree[0].get_acc_num_tips();

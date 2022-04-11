@@ -25,16 +25,28 @@ calc_colless_ltable_cpp <- function(l_from_R, normalization) {
     .Call('_treestats_calc_colless_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
 }
 
+calc_Ibased_cpp <- function(parent_list) {
+    .Call('_treestats_calc_Ibased_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_Ibased_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_Ibased_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_rogers_cpp <- function(parent_list) {
+    .Call('_treestats_calc_rogers_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_rogers_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_rogers_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_blum_ltable_cpp <- function(ltab_in) {
     .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
 
 calc_blum_cpp <- function(tree_edge) {
     .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge)
-}
-
-calc_var_leaf_depth_cpp <- function(tree_edge) {
-    .Call('_treestats_calc_var_leaf_depth_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
 calc_sackin_cpp <- function(tree_edge, normalization) {

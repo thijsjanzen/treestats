@@ -128,6 +128,7 @@ double calc_colless_cpp(const std::vector<long>& parent_list,
   return output;
 }
 
+
 // [[Rcpp::export]]
 double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                 std::string normalization) {
@@ -147,6 +148,52 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
   return output;
 }
 
+
+// [[Rcpp::export]]
+double calc_Ibased_cpp(const std::vector<long>& parent_list) {
+
+  colless_tree::phylo_tree colless_tree(parent_list);
+
+  auto I_vec = colless_tree.collect_I();
+
+  auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);
+  return sum * 1.0 / I_vec.size();
+}
+
+// [[Rcpp::export]]
+double calc_Ibased_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  colless_stat_ltable s(l_in_cpp);
+
+  auto I_vec = s.collect_I();
+
+  auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);
+  return sum * 1.0 / I_vec.size();
+}
+
+
+
+// [[Rcpp::export]]
+int calc_rogers_cpp(const std::vector<long>& parent_list) {
+
+  colless_tree::phylo_tree colless_tree(parent_list);
+
+  return colless_tree.calc_rogers();
+}
+
+// [[Rcpp::export]]
+double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+
+  colless_stat_ltable s(l_in_cpp);
+
+  return s.calc_rogers();
+}
+
+
 // [[Rcpp::export]]
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
   auto local_ltab = convert_to_ltable(ltab_in);
@@ -162,15 +209,6 @@ double calc_blum_cpp(const std::vector<long>& tree_edge) {
   phylo_tree sackin_tree(tree_edge);
 
   return sackin_tree.calc_blum();
-}
-
-// [[Rcpp::export]]
-double calc_var_leaf_depth_cpp(const std::vector<long>& tree_edge) {
-
-  size_t n = tree_edge.size() / 4 + 1;
-  phylo_tree sackin_tree(tree_edge);
-
-  return sackin_tree.calc_var_leaf_depth(n);
 }
 
 
