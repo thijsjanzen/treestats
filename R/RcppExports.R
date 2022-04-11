@@ -33,6 +33,10 @@ calc_blum_cpp <- function(tree_edge) {
     .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
+calc_var_leaf_depth_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_var_leaf_depth_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
 calc_sackin_cpp <- function(tree_edge, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }

@@ -2,6 +2,7 @@
 
 #include <cstring>
 
+
 #include "branching_times.h"
 #include "beta.h"
 #include "nltt.h"
@@ -161,6 +162,15 @@ double calc_blum_cpp(const std::vector<long>& tree_edge) {
   phylo_tree sackin_tree(tree_edge);
 
   return sackin_tree.calc_blum();
+}
+
+// [[Rcpp::export]]
+double calc_var_leaf_depth_cpp(const std::vector<long>& tree_edge) {
+
+  size_t n = tree_edge.size() / 4 + 1;
+  phylo_tree sackin_tree(tree_edge);
+
+  return sackin_tree.calc_var_leaf_depth(n);
 }
 
 
