@@ -1,4 +1,4 @@
-context("mean pair distance")
+context("mean nearest taxon distance")
 
 test_that("usage", {
   set.seed(42)
@@ -6,13 +6,13 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
-  a1 <- treestats::mean_pair_dist(focal_tree)
+  a1 <- treestats::mntd(focal_tree)
 
   n <- length(focal_tree$tip.label)
   sample_mat <- matrix(data = 1, nrow = n, ncol = n)
   colnames(sample_mat) <- focal_tree$tip.label
 
-  a2 <- picante::mpd(sample_mat, cophenetic(focal_tree),
+  a2 <- picante::mntd(sample_mat, cophenetic(focal_tree),
                      abundance.weighted = FALSE)[[1]]
   testthat::expect_equal(a1, a2)
 

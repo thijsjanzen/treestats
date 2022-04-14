@@ -600,6 +600,28 @@ double calc_mpd_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
+double calc_mntd_cpp(const Rcpp::List& phy) {
+  auto dist_mat = dist_nodes(phy);
+
+  std::vector< std::string> tip_labels = phy["tip.label"];
+  int n = tip_labels.size();
+
+  double mntd = 0.0;
+  for (size_t i = 0; i < n; ++i) {
+    dist_mat[i][i] = 1e6;
+    double min_val = std::abs(dist_mat[i][0]);
+    for (size_t j = 1; j < n; ++j) {
+      if (std::abs(dist_mat[i][j]) < min_val) min_val = std::abs(dist_mat[i][j]);
+    }
+    mntd += min_val;
+  }
+  mntd *= 1.0 / n;
+  return(mntd);
+}
+
+
+
+// [[Rcpp::export]]
 double calc_var_mpd_cpp(const Rcpp::List& phy) {
   auto dist_mat = dist_nodes(phy);
   std::vector< std::string> tip_labels = phy["tip.label"];

@@ -25,3 +25,7 @@ branch length of the tree reconstructed up until time point t. Time is
 measured increasingly, with the crown age equal to 0. Thus, the time at
 the present is equal to the crown age.
 }
+\references{
+Faith, Daniel P. "Conservation evaluation and phylogenetic
+diversity." Biological conservation 61.1 (1992): 1-10.
+}

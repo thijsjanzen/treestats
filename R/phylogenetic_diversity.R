@@ -10,6 +10,8 @@
 #' Default is 1/100 * smallest branch length of the tree.
 #' @return phylogenetic diversity, or vector of phylogenetic diversity measures
 #' if a vector of time points is used as input.
+#' @references Faith, Daniel P. "Conservation evaluation and phylogenetic
+#' diversity." Biological conservation 61.1 (1992): 1-10.
 #' @export
 phylogenetic_diversity <- function(phy,
                                    t = 1e10,

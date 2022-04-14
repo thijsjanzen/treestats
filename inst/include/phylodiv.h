@@ -61,7 +61,6 @@ struct phylo {
 
     // sort the tree!
     sort_edge_and_edgelength(edge, edge_length);
-
   }
 };
 

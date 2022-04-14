@@ -499,6 +499,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_mntd_cpp
+double calc_mntd_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_mntd_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_mntd_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_var_mpd_cpp
 double calc_var_mpd_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_var_mpd_cpp(SEXP phySEXP) {
@@ -699,6 +710,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 1},
+    {"_treestats_calc_mntd_cpp", (DL_FUNC) &_treestats_calc_mntd_cpp, 1},
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
     {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
