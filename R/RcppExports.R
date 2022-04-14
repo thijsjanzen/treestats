@@ -45,6 +45,34 @@ calc_rogers_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_rogers_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_var_leaf_depth_cpp <- function(parent_list) {
+    .Call('_treestats_calc_var_leaf_depth_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_var_leaf_depth_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_var_leaf_depth_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_sym_nodes_cpp <- function(parent_list) {
+    .Call('_treestats_calc_sym_nodes_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_b1_cpp <- function(parent_list) {
+    .Call('_treestats_calc_b1_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_b1_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_b1_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_b2_cpp <- function(parent_list) {
+    .Call('_treestats_calc_b2_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_b2_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_b2_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_max_depth_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_depth_cpp', PACKAGE = 'treestats', parent_list)
 }
@@ -57,6 +85,18 @@ calc_max_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_width_cpp', PACKAGE = 'treestats', parent_list)
 }
 
+calc_max_width_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_max_width_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_max_del_width_cpp <- function(parent_list) {
+    .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_max_del_width_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_max_del_width_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_eWcolless_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_eWcolless_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
@@ -67,6 +107,14 @@ calc_blum_ltable_cpp <- function(ltab_in) {
 
 calc_blum_cpp <- function(tree_edge) {
     .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
+calc_tot_coph_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_tot_coph_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
+calc_tot_coph_ltable_cpp <- function(ltab) {
+    .Call('_treestats_calc_tot_coph_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
 calc_sackin_cpp <- function(tree_edge, normalization) {
@@ -138,6 +186,14 @@ phylo_to_l <- function(phy) {
 
 prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+
+calc_mpd_cpp <- function(phy) {
+    .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_var_mpd_cpp <- function(phy) {
+    .Call('_treestats_calc_var_mpd_cpp', PACKAGE = 'treestats', phy)
 }
 
 l_to_newick <- function(ltable_R, drop_extinct) {

@@ -7,6 +7,17 @@
 
 using ltable = std::vector< std::array<double, 4>>;
 
+int BinomialCoefficient(const int n, const int k) {
+  std::vector<int> aSolutions(k);
+  aSolutions[0] = n - k + 1;
+
+  for (int i = 1; i < k; ++i) {
+    aSolutions[i] = aSolutions[i - 1] * (n - k + 1 + i) / (i + 1);
+  }
+
+  return aSolutions[k - 1];
+}
+
 class sackin_stat_ltab {
 public:
   sackin_stat_ltab(const ltable& ltab_in) : ltable_(ltab_in) {
@@ -49,6 +60,28 @@ public:
     // 24-09-2021
     return(std::accumulate(s_values.begin(), s_values.end(), 0));
   }
+
+  double calc_tot_coph() {
+    std::vector< int > tips_tracker(ltable_.size(), 1);
+    std::vector< int > node_tips;
+    for (int focal_index = ltable_.size() - 1; focal_index > 1; --focal_index) {
+      auto parent = std::abs(ltable_[focal_index][1]) - 1; // parent index is in R form.
+      auto num_tips = tips_tracker[focal_index] +
+                      tips_tracker[parent];
+      tips_tracker[parent] = num_tips;
+      node_tips.push_back(num_tips);
+    }
+
+    double tot_coph = 0.0;
+    for (size_t i = 0; i < node_tips.size(); ++i) {
+      if (node_tips[i] > 0) {
+        tot_coph += BinomialCoefficient(node_tips[i], 2);
+      }
+    }
+    return tot_coph;
+  }
+
+
 
   double calc_blum() {
     std::vector< int > s_values(ltable_.size(), 1);
@@ -145,6 +178,17 @@ public:
       s += i.num_extant_tips;
     }
     return s;
+  }
+
+  double calc_tot_coph() {
+    tree[0].get_acc_num_tips();
+    double tot_coph = 0.0;
+    for (size_t i = 1; i < tree.size(); ++i) {
+      if (tree[i].num_extant_tips > 0) {
+        tot_coph += BinomialCoefficient(tree[i].num_extant_tips, 2);
+      }
+    }
+    return tot_coph;
   }
 
   size_t count_pitchforks() {

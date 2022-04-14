@@ -60,7 +60,6 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
 
   sort_edge_and_edgelength(edge_cpp, edge_length);
 
-
   return branching_times(edge_cpp, edge_length, Nnode);
 }
 
@@ -120,9 +119,7 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
 // [[Rcpp::export]]
 double calc_colless_cpp(const std::vector<long>& parent_list,
                         std::string normalization) {
-
   colless_tree::phylo_tree colless_tree(parent_list);
-
   double output = static_cast<double>(colless_tree.calc_colless());
 
   if (normalization == "yule") {
@@ -139,9 +136,7 @@ double calc_colless_cpp(const std::vector<long>& parent_list,
 
 // [[Rcpp::export]]
 double calc_eWcolless_cpp(const std::vector<long>& parent_list) {
-
   colless_tree::phylo_tree colless_tree(parent_list);
-
   return colless_tree.calc_eWcolless();
 }
 
@@ -150,9 +145,7 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                 std::string normalization) {
 
   auto l_in_cpp = convert_to_ltable(l_from_R);
-
   colless_stat_ltable s(l_in_cpp);
-
   double output = static_cast<double>(s.calc_colless());
 
   if (normalization == "yule") {
@@ -167,24 +160,17 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
 
 // [[Rcpp::export]]
 double calc_Ibased_cpp(const std::vector<long>& parent_list) {
-
   colless_tree::phylo_tree colless_tree(parent_list);
-
   auto I_vec = colless_tree.collect_I();
-
   auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);
   return sum * 1.0 / I_vec.size();
 }
 
 // [[Rcpp::export]]
 double calc_Ibased_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-
   auto l_in_cpp = convert_to_ltable(l_from_R);
-
   colless_stat_ltable s(l_in_cpp);
-
   auto I_vec = s.collect_I();
-
   auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);
   return sum * 1.0 / I_vec.size();
 }
@@ -193,56 +179,109 @@ double calc_Ibased_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 int calc_rogers_cpp(const std::vector<long>& parent_list) {
-
   colless_tree::phylo_tree colless_tree(parent_list);
-
   return colless_tree.calc_rogers();
 }
 
 // [[Rcpp::export]]
 double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-
   auto l_in_cpp = convert_to_ltable(l_from_R);
-
   colless_stat_ltable s(l_in_cpp);
-
   return s.calc_rogers();
 }
 
 // [[Rcpp::export]]
+double calc_var_leaf_depth_cpp(const std::vector<long>& parent_list) {
+  width::depth_tracker local_tree(parent_list);
+  return local_tree.var_leaf_depth();
+}
+
+// [[Rcpp::export]]
+double calc_var_leaf_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  depth::depth_stat_ltab local_tree(l_in_cpp);
+  return local_tree.calc_var_leaf_depth();
+}
+
+// [[Rcpp::export]]
+int calc_sym_nodes_cpp(const std::vector<long>& parent_list) {
+
+  width::depth_tracker tree(parent_list);
+  return tree.calc_sym_nodes();
+}
+
+// [[Rcpp::export]]
+double calc_b1_cpp(const std::vector<long>& parent_list) {
+  width::depth_tracker tree(parent_list);
+  return tree.calc_b1();
+}
+
+// [[Rcpp::export]]
+double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  depth::depth_stat_ltab s(l_in_cpp);
+  return s.calc_b1();
+}
+
+// [[Rcpp::export]]
+double calc_b2_cpp(const std::vector<long>& parent_list) {
+  width::depth_tracker tree(parent_list);
+  return tree.calc_b2();
+}
+
+// [[Rcpp::export]]
+double calc_b2_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  depth::depth_stat_ltab s(l_in_cpp);
+  return s.calc_b2();
+}
+
+
+
+// [[Rcpp::export]]
 int calc_max_depth_cpp(const std::vector<long>& parent_list) {
-
   depth::phylo_tree local_tree(parent_list);
-
   return local_tree.max_depth();
 }
 
 // [[Rcpp::export]]
 double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-
   auto l_in_cpp = convert_to_ltable(l_from_R);
-
   depth::depth_stat_ltab s(l_in_cpp);
-
   return s.calc_max_depth();
 }
 
 // [[Rcpp::export]]
 int calc_max_width_cpp(const std::vector<long>& parent_list) {
+  width::depth_tracker tree(parent_list);
+  return tree.calc_max_width();
+}
 
-  depth::phylo_tree local_tree(parent_list);
+// [[Rcpp::export]]
+double calc_max_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  depth::depth_stat_ltab s(l_in_cpp);
+  return s.calc_max_width();
+}
 
-  return local_tree.max_width();
+// [[Rcpp::export]]
+int calc_max_del_width_cpp(const std::vector<long>& parent_list) {
+  width::depth_tracker tree(parent_list);
+  return tree.calc_max_del_width();
+}
+
+// [[Rcpp::export]]
+double calc_max_del_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  depth::depth_stat_ltab s(l_in_cpp);
+  return s.max_del_width();
 }
 
 
 // [[Rcpp::export]]
 double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-
   auto l_in_cpp = convert_to_ltable(l_from_R);
-
   colless_stat_ltable s(l_in_cpp);
-
   return s.calc_ew_colless();
 }
 
@@ -250,17 +289,27 @@ double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
   auto local_ltab = convert_to_ltable(ltab_in);
   sackin_stat_ltab s(local_ltab);
-
   return s.calc_blum();
 }
 
 
 // [[Rcpp::export]]
 double calc_blum_cpp(const std::vector<long>& tree_edge) {
-
   phylo_tree sackin_tree(tree_edge);
-
   return sackin_tree.calc_blum();
+}
+
+// [[Rcpp::export]]
+double calc_tot_coph_cpp(const std::vector<long>& tree_edge) {
+  phylo_tree sackin_tree(tree_edge);
+  return sackin_tree.calc_tot_coph();
+}
+
+// [[Rcpp::export]]
+double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
+  auto local_ltab = convert_to_ltable(ltab);
+  sackin_stat_ltab s(local_ltab);
+  return s.calc_tot_coph();
 }
 
 
@@ -269,7 +318,6 @@ double calc_sackin_cpp(const std::vector<long>& tree_edge,
                        const Rcpp::String& normalization) {
 
   phylo_tree sackin_tree(tree_edge);
-
   double output = static_cast<double>(sackin_tree.calc_sackin());
 
   if (normalization == "yule") {
@@ -288,10 +336,8 @@ double calc_sackin_cpp(const std::vector<long>& tree_edge,
 // [[Rcpp::export]]
 double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
                        const Rcpp::String& normalization) {
-
   auto local_ltab = convert_to_ltable(ltab);
   sackin_stat_ltab s(local_ltab);
-
   double output = static_cast<double>(s.calc_sackin());
 
   if (normalization == "yule") {
@@ -308,7 +354,6 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 // [[Rcpp::export]]
 double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1,
                             const Rcpp::NumericMatrix& ltab2) {
-
   auto brts_one = branching_times_ltable_cpp(ltab1);
   auto brts_two = branching_times_ltable_cpp(ltab2);
   std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());
@@ -423,7 +468,6 @@ double calc_rho_cpp(const Rcpp::List& phy) {
 
 // [[Rcpp::export]]
 double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
-
   auto brts = branching_times_ltable_cpp(ltab);
   return calc_rho(brts);
 }
@@ -441,7 +485,6 @@ double calc_crown_age_cpp(const Rcpp::List& phy) {
                                     static_cast<size_t>(edge(i, 1))};
     edges[i] = to_add;
   }
-
   return calc_crown_age(edges, el);
 }
 
@@ -524,7 +567,6 @@ std::vector< std::vector< double >> dist_nodes(const Rcpp::List& phy) {
 
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
-
   std::vector< std::vector< double >> lapl_mat = dist_nodes(phy);
   Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
 
@@ -537,6 +579,52 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
 
   return res;
 }
+
+// [[Rcpp::export]]
+double calc_mpd_cpp(const Rcpp::List& phy) {
+  auto dist_mat = dist_nodes(phy);
+
+  std::vector< std::string> tip_labels = phy["tip.label"];
+  int n = tip_labels.size();
+  double mpd = 0.0;
+  size_t cnt = 0;
+
+
+  for (size_t i = 0; i <n; ++i) {
+    for (size_t j = 0; j < i; ++j) {
+      mpd += std::abs(dist_mat[i][j]); cnt++;
+    }
+  }
+  mpd *= 1.0 / cnt;
+  return(mpd);
+}
+
+// [[Rcpp::export]]
+double calc_var_mpd_cpp(const Rcpp::List& phy) {
+  auto dist_mat = dist_nodes(phy);
+  std::vector< std::string> tip_labels = phy["tip.label"];
+  int n = tip_labels.size();
+  double mpd = 0.0;
+  size_t cnt = 0;
+  for (size_t i = 0; i <n; ++i) {
+    for (size_t j = 0; j < i; ++j) {
+      dist_mat[i][j] = std::abs(dist_mat[i][j]);
+      mpd += dist_mat[i][j]; cnt++;
+    }
+  }
+  mpd *= 1.0 / cnt;
+
+  double var_mpd = 0.0;
+  for (size_t i = 0; i <n; ++i) {
+    for (size_t j = 0; j < i; ++j) {
+      var_mpd += (dist_mat[i][j] - mpd) * (dist_mat[i][j] - mpd);
+    }
+  }
+  var_mpd *= 1.0 / cnt;
+  return var_mpd;
+}
+
+
 
 
 // [[Rcpp::export]]

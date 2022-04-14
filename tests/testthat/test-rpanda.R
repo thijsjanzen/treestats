@@ -6,7 +6,7 @@ test_that("usage", {
 
   if (requireNamespace("RPANDA")) {
     set.seed(42)
-    focal_tree <- TreeSim::sim.bd.taxa(n = 100,
+    focal_tree <- TreeSim::sim.bd.taxa(n = 10,
                                        numbsim = 1,
                                        lambda = 1, mu = 0)[[1]]
 
@@ -16,7 +16,7 @@ test_that("usage", {
     diff_eig <- sum(ref$eigenvalues - stat$eigenvalues)
     testthat::expect_equal(0, diff_eig)
     testthat::expect_equal(ref$asymmetry, stat$asymmetry)
-    testthat::expect_equal(ref$peakedness, stat$peakedness, tolerance = 0.001)
+    testthat::expect_equal(ref$peakedness, stat$peakedness, tolerance = 0.01)
     testthat::expect_equal(ref$principal_eigenvalue, stat$principal_eigenvalue)
     testthat::expect_equal(ref$eigengap, stat$eigengap)
   }

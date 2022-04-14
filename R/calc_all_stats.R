@@ -50,6 +50,23 @@ calc_all_stats <- function(phylo) {
 
   stats$laplac_spectrum_a  <- temp_stats$asymmetry
   stats$laplac_spectrum_p  <- temp_stats$peakedness
+  stats$laplac_sepctrum_e  <- log(temp_stats$principal_eigenvalue)
+
+  stats$B1           <- treestats::b1(phylo)
+  stats$B2           <- treestats::b2(phylo)
+  stats$aPP          <- treestats::area_per_pair(phylo)
+  stats$aLD          <- treestats::average_leaf_depth(phylo)
+  stats$Ibased       <- treestats::mean_i(phylo)
+  stats$ewColless    <- treestats::ew_colless(phylo)
+  stats$maxDelW      <- treestats::max_del_width(phylo)
+  stats$maxDepth     <- treestats::max_depth(phylo)
+  stats$maxWidth     <- treestats::max_width(phylo)
+  stats$rogers       <- treestats::rogers(phylo)
+  stats$stairs2      <- treestats::stairs2(phylo)
+  stats$totCoph      <- treestats::tot_coph(phylo)
+  stats$varLeafDepth <- treestats::var_leaf_depth(phylo)
+
+  stats$mpd          <- treestats::mean_pair_dist(phylo)
 
   return(stats)
 }

@@ -1,4 +1,4 @@
-context("max depth")
+context("tot_coph")
 
 test_that("usage", {
   set.seed(42)
@@ -6,13 +6,15 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
-  a1 <- treestats::max_depth(focal_tree)
-  a2 <- treebalance::maxDepth(focal_tree)
+  a1 <- treestats::tot_coph(focal_tree)
+  a2 <- treebalance::totCophI(focal_tree)
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(treestats::max_depth(focal_tree),
-                         treestats::max_depth(ltab))
+  testthat::expect_equal(treestats::tot_coph(focal_tree),
+                         treestats::tot_coph(ltab))
+
+
 
 
   # with extinct species:
@@ -20,11 +22,12 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0.2)[[1]]
 
-  a1 <- treestats::max_depth(focal_tree)
-  a2 <- treebalance::maxDepth(focal_tree)
+  a1 <- treestats::tot_coph(focal_tree)
+  a2 <- treebalance::totCophI(focal_tree)
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(treestats::max_depth(focal_tree),
-                         treestats::max_depth(ltab))
+  testthat::expect_equal(treestats::tot_coph(focal_tree),
+                         treestats::tot_coph(ltab))
+
 })

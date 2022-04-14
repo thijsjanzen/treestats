@@ -2,7 +2,7 @@
 % Please edit documentation in R/max_width.R
 \name{max_width}
 \alias{max_width}
-\title{Fast function using C++ to calculate the sackin index of (im)balance.}
+\title{Fast function using C++ to calculate the maximum width of branch depth.}
 \usage{
 max_width(phy)
 }
@@ -10,15 +10,17 @@ max_width(phy)
 \item{phy}{phylogeny or ltable}
 }
 \value{
-Sackin index
+maximum width
 }
 \description{
-The Sackin index is calculated as the sum of ancestors for each
-of the tips. Higher values indicate higher imbalance. Two normalizations
-are available, where a correction is made for tree size, under either a
-Yule expectation, or a pda expectation.
+Calculates the maximum width, this is calculated by first
+collecting the depth of each node and tip across the entire tree, where the
+depth represents the distance (in nodes) to the root. Then, the width
+represents the number of occurrences of each possible depth. The maximal width
+then returns the maximum number of such occurences.
 }
 \references{
-M. J. Sackin (1972). "Good" and "Bad" Phenograms.
-Systematic Biology. 21:225-226.
+C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
+transmission patterns. Evolution, Medicine, and Public Health,
+2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018..
 }

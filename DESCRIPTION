@@ -33,7 +33,8 @@ Suggests:
     adephylo,
     RPANDA,
     ggplot2,
-    tibble
+    tibble,
+    picante
 SystemRequirements: C++14
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats/
