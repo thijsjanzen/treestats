@@ -600,6 +600,44 @@ double calc_mpd_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
+double calc_psv_cpp(const Rcpp::List& phy) {
+  auto dist_mat = dist_nodes(phy);
+
+  std::vector< std::string> tip_labels = phy["tip.label"];
+  int n = tip_labels.size();
+  double psv = 0.0;
+
+  for (size_t i = 0; i <n; ++i) {
+    for (size_t j = 0; j < i; ++j) {
+      psv += 0.5 * std::abs(dist_mat[i][j]);
+    }
+  }
+  psv *= 1.0 / (n * (n - 1));
+  psv *= 2.0; // post hoc correction to match picante::psv output, because we
+              // wrongly measure distance to most common ancestor per node.
+  return(psv);
+}
+
+
+double calc_J(const Rcpp::List& phy) {
+  auto dist_mat = dist_nodes(phy);
+
+  std::vector< std::string> tip_labels = phy["tip.label"];
+  int n = tip_labels.size();
+  double mpd = 0.0;
+  size_t cnt = 0;
+
+
+  for (size_t i = 0; i <n; ++i) {
+    for (size_t j = 0; j < i; ++j) {
+      mpd += std::abs(dist_mat[i][j]); cnt++;
+    }
+  }
+  return(mpd * 1.0 / (n * n));
+}
+
+
+// [[Rcpp::export]]
 double calc_mntd_cpp(const Rcpp::List& phy) {
   auto dist_mat = dist_nodes(phy);
 
