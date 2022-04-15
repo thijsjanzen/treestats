@@ -5,8 +5,6 @@
 #include <array>
 #include <numeric> // std::accumulate
 
-#include <iostream>
-
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -68,9 +66,9 @@ double calc_ew_colless() {
     return ew_colless_stat * 1.0 / (N - 2);
   }
 
-  
 
-      
+
+
 size_t calc_rogers() {
     size_t rogers_stat = 0;
     while(true) {

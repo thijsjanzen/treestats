@@ -348,12 +348,9 @@ public :
     for (size_t i = root_no; i < tree.size(); ++i) {
       if (tree[i].L == tree[i].R) {
         num_sym_nodes++;
-        std::cerr << i << " " << tree[i].L << " " << tree[i].R << "\n";
       }
     }
 
-    std::cerr << "\n";
-    std::cerr << tree.size() << " " << num_sym_nodes << "\n";
     return tree.size() - root_no - num_sym_nodes;
   }
 
