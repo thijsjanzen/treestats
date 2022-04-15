@@ -25,12 +25,12 @@
 pigot_rho <- function(phy,
                       extant_tree = TRUE) {
 
-  if (!extant_tree) {
-    return(calc_rho_complete_cpp(phy))
-  }
-
   if (inherits(phy, "matrix")) {
     return(calc_rho_ltable_cpp(phy))
+  }
+
+  if (!extant_tree) {
+    return(calc_rho_complete_cpp(phy))
   }
 
   if (inherits(phy, "phylo")) {

@@ -5,127 +5,50 @@
 #include <algorithm>
 #include <array>
 
+#include "binom.h"
+
 using ltable = std::vector< std::array<double, 4>>;
 
-int BinomialCoefficient(const int n, const int k) {
-  std::vector<int> aSolutions(k);
-  aSolutions[0] = n - k + 1;
+double calc_sackin(const ltable& ltable_,
+                     std::string normalization) {
+  std::vector< int > s_values(ltable_.size(), 0);
+  s_values[0] = 1;
+  s_values[1] = 1;
 
-  for (int i = 1; i < k; ++i) {
-    aSolutions[i] = aSolutions[i - 1] * (n - k + 1 + i) / (i + 1);
+  // ltable:
+  // 0 = branching time // not used here
+  // 1 = parent
+  // 2 = id
+  // 3 = extinct time // not used here
+  for (size_t i = 2; i < ltable_.size(); ++i) {
+    int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
+    s_values[parent_index]++;
+    s_values[i] = s_values[parent_index];
   }
+  // verified with R for correct values
+  // compared with apTreeShape results, based on ltable
+  // 24-09-2021
+  double s = std::accumulate(s_values.begin(), s_values.end(), 0);
 
-  return aSolutions[k - 1];
-}
-
-class sackin_stat_ltab {
-public:
-  sackin_stat_ltab(const ltable& ltab_in) : ltable_(ltab_in) {
-  }
-
-  size_t find_parent(const ltable& ltable_,
-                     int focal_id,
-                     int start_index) {
-
-    for(int i = start_index; i >= 0; i--) {
-      if (static_cast<int>(ltable_[i][2]) == focal_id) {
-        return i;
-      }
-    }
-
-    if (start_index != ltable_.size()) {
-      return find_parent(ltable_, focal_id, ltable_.size());
-    } else {
-      return -1; // trigger access violation --> update to throw
-    }
-  }
-
-  size_t calc_sackin() {
-    std::vector< int > s_values(ltable_.size(), 0);
-    s_values[0] = 1;
-    s_values[1] = 1;
-
-    // ltable:
-    // 0 = branching time // not used here
-    // 1 = parent
-    // 2 = id
-    // 3 = extinct time // not used here
-    for (size_t i = 2; i < ltable_.size(); ++i) {
-      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
-      s_values[parent_index]++;
-      s_values[i] = s_values[parent_index];
-    }
-    // verified with R for correct values
-    // compared with apTreeShape results, based on ltable
-    // 24-09-2021
-    return(std::accumulate(s_values.begin(), s_values.end(), 0));
-  }
-
-  double calc_tot_coph() {
-    std::vector< int > tips_tracker(ltable_.size(), 1);
-    std::vector< int > node_tips;
-    for (int focal_index = ltable_.size() - 1; focal_index > 1; --focal_index) {
-      auto parent = std::abs(ltable_[focal_index][1]) - 1; // parent index is in R form.
-      auto num_tips = tips_tracker[focal_index] +
-                      tips_tracker[parent];
-      tips_tracker[parent] = num_tips;
-      node_tips.push_back(num_tips);
-    }
-
-    double tot_coph = 0.0;
-    for (size_t i = 0; i < node_tips.size(); ++i) {
-      if (node_tips[i] > 0) {
-        tot_coph += BinomialCoefficient(node_tips[i], 2);
-      }
-    }
-    return tot_coph;
-  }
-
-
-
-  double calc_blum() {
-    std::vector< int > s_values(ltable_.size(), 1);
-    //s_values[0] = 1;
-    //s_values[1] = 1;
-
-    // ltable:
-    // 0 = branching time // not used here
-    // 1 = parent
-    // 2 = id
-    // 3 = extinct time // not used here
-    for (size_t i = ltable_.size() - 1; i > 0; i--) {
-      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
-      s_values[parent_index] += s_values[i];
-      s_values[i] = s_values[parent_index];
-    }
-
-    double s = 0.0;
-    for (size_t i = 1; i < s_values.size(); ++i) {
-      if (s_values[i] != 0.0) {
-        s += log(1.0 * s_values[i] - 1.0);
-      }
-    }
-    return s;
-  }
-
-  double correct_pda(double Is) {
-    size_t n = ltable_.size();
-    double denom = powf(n, 1.5f);
-    return 1.0 * Is / denom;
-  }
-
-  double correct_yule(double Is) {
+  if (normalization == "yule") {
     double sum_count = 0.0;
     size_t n = ltable_.size();
     for (size_t j = 2; j <= n; ++j) {
       sum_count += 1.0 / j;
     }
-    return 1.0 * (Is - 2.0 * n * sum_count) / n;
+    return 1.0 * (s - 2.0 * n * sum_count) / n;
   }
 
-private:
-  const ltable ltable_;
-};
+  if (normalization == "pda") {
+    size_t n = ltable_.size();
+    double denom = powf(n, 1.5f);
+    return 1.0 * s /denom;
+  }
+
+  return s;
+}
+
+
 
 
 struct node {
@@ -185,7 +108,7 @@ public:
     double tot_coph = 0.0;
     for (size_t i = 1; i < tree.size(); ++i) {
       if (tree[i].num_extant_tips > 0) {
-        tot_coph += BinomialCoefficient(tree[i].num_extant_tips, 2);
+        tot_coph += binom_coeff(tree[i].num_extant_tips, 2);
       }
     }
     return tot_coph;

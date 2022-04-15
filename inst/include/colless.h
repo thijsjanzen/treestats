@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+enum analysis_type {colless, ewColless, rogers, pitchforks, stairs2,
+                      IL};
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -17,8 +19,54 @@ public:
     num_tips = get_num_tips();
   }
 
-  size_t calc_colless() {
-    size_t colless_stat = 0;
+  template<typename ANAL_TYPE>
+  constexpr double update_stat(int L, int R, double stat) {
+
+    if constexpr (ANAL_TYPE == analysis_type::colless) {
+      return stat + std::abs(L + R);
+    }
+
+    if constexpr (ANAL_TYPE == analysis_type::ewColless) {
+      if (L + R > 2) {
+        stat += 1.0 * std::abs(L - R) / (L + R - 2);
+      }
+      return stat;
+    }
+
+    if constexpr (ANAL_TYPE == analysis_type::rogers) {
+      if (L != R) stat++;
+      return stat;
+    }
+
+    if constexpr (ANAL_TYPE == analysis_type::pitchforks) {
+      if (L + R == 3) stat++;
+      return stat;
+    }
+
+    if constexpr (ANAL_TYPE == analysis_type::stairs2) {
+      int min_l_r, max_l_r;
+      if (L < R) {
+        min_l_r = L; max_l_r = R;
+      } else {
+        min_l_r = R; max_l_r = L;
+      }
+      stat += 1.0 * min_l_r / max_l_r;
+      return stat;
+    }
+
+    if constexpr (ANAL_TYPE == analysis_type::IL) {
+      if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
+        stat++;
+      }
+      return stat;
+    }
+
+  }
+
+
+  template<typename ANAL_TYPE>
+  double collect_stat() {
+    double stat = 0.0;
     while(true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
@@ -30,69 +78,54 @@ public:
 
       int L = extant_tips[j];
       int R = extant_tips[j_parent];
-      colless_stat += std::abs(L - R);
       extant_tips[j_parent] = L + R;
       remove_from_dataset(j);
 
+      stat = update_stat<ANAL_TYPE>(L, R, stat);
+
       if (ltable_.size() == 1) break;
     }
+    return stat;
+  }
+
+  size_t calc_colless() {
+    size_t colless_stat = collect_stat<analysis_type::colless>();
     return colless_stat;
   }
 
-double calc_ew_colless() {
-    double ew_colless_stat = 0;
+  double calc_ew_colless() {
     int N = ltable_.size();
     if (N <= 2) return 0;
-
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-
-      if (L + R > 2) {
-        ew_colless_stat += 1.0 * std::abs(L - R) / (L + R - 2);
-      }
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
+    double ew_colless_stat = collect_stat<analysis_type::ewColless>();
     return ew_colless_stat * 1.0 / (N - 2);
   }
 
-  
 
-      
-size_t calc_rogers() {
-    size_t rogers_stat = 0;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      if (L != R) rogers_stat++;
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
+  size_t calc_rogers() {
+    size_t rogers_stat = collect_stat<analysis_type::rogers>();
     return rogers_stat;
   }
 
+  size_t count_pitchforks() {
+    size_t num_pitchforks = collect_stat<analysis_type::pitchforks>();
+    return num_pitchforks;
+  }
+
+  double count_stairs() {
+    size_t num_s = collect_stat<analysis_type::rogers>();
+    size_t N = ltable_.size();
+    return num_s * 1.0 / (N - 1);
+  }
+
+  double count_stairs2() {
+    double num_s = collect_stat<analysis_type::stairs2>();
+    size_t N = ltable_.size();
+    return num_s * 1.0 / (N - 1);
+  }
+
+  double count_IL() {
+    return collect_stat<analysis_type::IL>();
+  }
 
   std::vector<double> collect_I() {
     std::vector<double> i_vals;
@@ -124,115 +157,6 @@ size_t calc_rogers() {
       if (ltable_.size() == 1) break;
     }
     return i_vals;
-  }
-
-  size_t count_pitchforks() {
-    size_t num_pitchforks = 0;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      if (L + R == 3) num_pitchforks++;
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-    return num_pitchforks;
-  }
-
-
-
-  double count_stairs() {
-    size_t num_s = 0;
-    size_t N = ltable_.size();
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      if (L != R) num_s++;
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-
-    return num_s * 1.0 / (N - 1);
-  }
-
-  double count_stairs2() {
-    double num_s = 0;
-    size_t N = ltable_.size();
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-
-      int min_l_r, max_l_r;
-      if (L < R) {
-        min_l_r = L; max_l_r = R;
-      } else {
-        min_l_r = R; max_l_r = L;
-      }
-
-
-      num_s += 1.0 * min_l_r / max_l_r;
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-
-    return num_s * 1.0 / (N - 1);
-  }
-
-size_t count_IL() {
-    size_t num_IL = 0;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
-        num_IL++;
-      }
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-    return num_IL;
   }
 
   double correct_pda(double Ic) {
@@ -403,9 +327,6 @@ public:
     return s * 1.0 / tree.size();
   }
 
-
-
-
   std::vector<double> collect_I() {
     tree[0].update_num_tips();
     std::vector<double> i_vals;
@@ -426,8 +347,6 @@ public:
     }
     return i_vals;
   }
-
-
 
   int calc_rogers() {
     tree[0].update_num_tips();
