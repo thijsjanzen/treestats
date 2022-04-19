@@ -19,6 +19,7 @@
 #include "newick_to_edge.h"
 #include "avgladder.h"
 #include "depth.h"
+#include "mntd.h"
 
 using ltable = std::vector< std::array<double, 4>>;
 using edge_table = std::vector< std::array< size_t, 2 >>;
@@ -640,7 +641,6 @@ double calc_J(const Rcpp::List& phy) {
 // [[Rcpp::export]]
 double calc_mntd_cpp(const Rcpp::List& phy) {
   auto dist_mat = dist_nodes(phy);
-
   std::vector< std::string> tip_labels = phy["tip.label"];
   int n = tip_labels.size();
 
@@ -655,6 +655,12 @@ double calc_mntd_cpp(const Rcpp::List& phy) {
   }
   mntd *= 1.0 / n;
   return(mntd);
+}
+
+// [[Rcpp::export]]
+double calc_mntd_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+  auto ltable = convert_to_ltable(ltable_R);
+  return calc_mntd_ltable(ltable);
 }
 
 

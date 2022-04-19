@@ -200,6 +200,10 @@ calc_mntd_cpp <- function(phy) {
     .Call('_treestats_calc_mntd_cpp', PACKAGE = 'treestats', phy)
 }
 
+calc_mntd_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_calc_mntd_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
 calc_var_mpd_cpp <- function(phy) {
     .Call('_treestats_calc_var_mpd_cpp', PACKAGE = 'treestats', phy)
 }

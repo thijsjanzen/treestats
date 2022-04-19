@@ -11,7 +11,7 @@
 mntd <- function(phy) {
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    return(calc_mntd_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
     return(calc_mntd_cpp(phy))
