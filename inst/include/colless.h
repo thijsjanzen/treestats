@@ -76,14 +76,14 @@ public:
   }
 
   double count_stairs() {
-    size_t num_s = collect_stat<tag::stairs>();
     size_t N = ltable_.size();
+    size_t num_s = collect_stat<tag::stairs>();
     return num_s * 1.0 / (N - 1);
   }
 
   double count_stairs2() {
-    double num_s = collect_stat<tag::stairs2>();
     size_t N = ltable_.size();
+    double num_s = collect_stat<tag::stairs2>();
     return num_s * 1.0 / (N - 1);
   }
 
