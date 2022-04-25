@@ -10,10 +10,17 @@
 #' @export
 mntd <- function(phy) {
 
+  # only defined for extant trees!
   if (inherits(phy, "matrix")) {
+    if (sum(phy[, 4] != -1)) {
+      stop("can only calculate mntd statistic for ultrametric tree")
+    }
     return(calc_mntd_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
+    if (!ape::is.ultrametric(phy)) {
+      stop("can only calculate mntd statistic for ultrametric tree")
+    }
     return(calc_mntd_cpp(phy))
   }
   stop("input object has to be phylo or ltable")
