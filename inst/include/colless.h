@@ -73,7 +73,8 @@ public:
     return num_pitchforks;
   }
 
-   double count_stairs() {
+  double count_stairs() {
+
     size_t N = ltable_.size();
     size_t num_s = collect_stat<tag::stairs>();
     return num_s * 1.0 / (N - 1);
