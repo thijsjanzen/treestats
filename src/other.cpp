@@ -5,6 +5,7 @@
 #include <array>
 #include <Rcpp.h>
 
+#include "dist_nodes.h"
 #include "util.h"
 #include "beta.h"
 #include "phylo2L.h"
@@ -102,52 +103,29 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   return out;
 }
 
-
-std::vector< std::vector< double >> dist_nodes(const Rcpp::List& phy) {
+// short util functions:
+edge_table phy_to_edge(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
-  Rcpp::NumericVector el   = phy["edge.length"];
-
-  int n = 1 + edge.nrow() / 2;
-  int m = n - 1;
-
-  // code below is from the Ape package
-  std::vector< size_t > e1(edge.nrow());
-  std::vector< size_t > e2(edge.nrow());
-
+  edge_table local_edge(edge.nrow());
   for (size_t i = 0; i < edge.nrow(); ++i) {
-    e1[i] = edge(i, 0) - 1;
-    e2[i] = edge(i, 1) - 1;
+    local_edge[i] = {static_cast<size_t>(edge(i, 0)),
+                     static_cast<size_t>(edge(i, 1))};
   }
+  return local_edge;
+}
 
-  int i, j, k, a, d, NM = n + m, ROOT;
-  double x;
-  size_t N = e1.size();
-  std::vector< std::vector<double>> D(NM, std::vector<double>(NM, 0.0));
-
-  ROOT = e1[0]; d = e2[0]; /* the 2 nodes of the 1st edge */
-  D[ROOT][d] = D[d][ROOT] = -el[0]; /* the 1st edge gives the 1st distance */
-
-  /* go down along the edge matrix
-   starting at the 2nd edge: */
-  for (i = 1; i < N; i++) {
-    a = e1[i]; d = e2[i]; x = el[i]; /* get the i-th nodes and branch length */
-  D[a][d] = D[d][a] = -x;
-  /* then go up along the edge matrix from the i-th edge
-   to visit the nodes already visited and update the distances: */
-  for (j = i - 1; j >= 0; j--) {
-    k = e2[j];
-    if (k == a) continue;
-    D[k][d] = D[d][k] = D[a][k] - x;
-  }
-  if (k != ROOT)
-    D[ROOT][d] = D[d][ROOT] = D[ROOT][a] - x;
-  }
-  return D;
+std::vector<double> phy_to_el(const Rcpp::List& phy) {
+  Rcpp::NumericVector el = phy["edge.length"];
+  std::vector<double> el_cpp(el.begin(), el.end());
+  return el_cpp;
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
-  std::vector< std::vector< double >> lapl_mat = dist_nodes(phy);
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+
+  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge, el);
   Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
 
   for (size_t i = 0; i < lapl_mat.size(); ++i) {
@@ -160,85 +138,35 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
   return res;
 }
 
-
 // [[Rcpp::export]]
 double calc_mpd_cpp(const Rcpp::List& phy) {
-  auto dist_mat = dist_nodes(phy);
-
-  std::vector< std::string> tip_labels = phy["tip.label"];
-  int n = tip_labels.size();
-  double mpd = 0.0;
-  size_t cnt = 0;
-
-
-  for (size_t i = 0; i <n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      mpd += std::abs(dist_mat[i][j]); cnt++;
-    }
-  }
-  mpd *= 1.0 / cnt;
-  return(mpd);
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+  return calc_mpd_stat(edge, el);
 }
-
 
 // [[Rcpp::export]]
 double calc_psv_cpp(const Rcpp::List& phy) {
-  auto dist_mat = dist_nodes(phy);
-
-  std::vector< std::string> tip_labels = phy["tip.label"];
-  int n = tip_labels.size();
-  double psv = 0.0;
-
-  for (size_t i = 0; i <n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      psv += 0.5 * std::abs(dist_mat[i][j]);
-    }
-  }
-  psv *= 1.0 / (n * (n - 1));
-  psv *= 2.0; // post hoc correction to match picante::psv output, because we
-              // wrongly measure distance to most common ancestor per node.
-  return(psv);
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+  return calc_psv_stat(edge, el);
 }
 
-
-
+// [[Rcpp::export]]
 double calc_J(const Rcpp::List& phy) {
-  auto dist_mat = dist_nodes(phy);
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+  auto mpd = calc_mpd_stat(edge, el);
+  int n = (el.size() + 2) * 0.5;
 
-  std::vector< std::string> tip_labels = phy["tip.label"];
-  int n = tip_labels.size();
-  double mpd = 0.0;
-  size_t cnt = 0;
-
-
-  for (size_t i = 0; i <n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      mpd += std::abs(dist_mat[i][j]); cnt++;
-    }
-  }
-  return(mpd * 1.0 / (n * n));
+  return mpd * 1.0 / n;
 }
-
-
 
 // [[Rcpp::export]]
 double calc_mntd_cpp(const Rcpp::List& phy) {
-  auto dist_mat = dist_nodes(phy);
-
-  std::vector< std::string> tip_labels = phy["tip.label"];
-  int n = tip_labels.size();
-
-  double mntd = 0.0;
-  for (size_t i = 0; i < n; ++i) {
-    dist_mat[i][i] = 1e6;
-    double min_val = std::abs(dist_mat[i][0]);
-    for (size_t j = 1; j < n; ++j) {
-      if (std::abs(dist_mat[i][j]) < min_val) min_val = std::abs(dist_mat[i][j]);
-    }
-    mntd += min_val;
-  }
-  mntd *= 1.0 / n;
-  return(mntd);
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+  return calc_mntd_stat(edge, el);
 }
 
 // [[Rcpp::export]]
@@ -247,32 +175,12 @@ double calc_mntd_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
     return calc_mntd_ltable(ltab);
 }
 
-
 // [[Rcpp::export]]
 double calc_var_mpd_cpp(const Rcpp::List& phy) {
-  auto dist_mat = dist_nodes(phy);
-  std::vector< std::string> tip_labels = phy["tip.label"];
-  int n = tip_labels.size();
-  double mpd = 0.0;
-  size_t cnt = 0;
-  for (size_t i = 0; i <n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      dist_mat[i][j] = std::abs(dist_mat[i][j]);
-      mpd += dist_mat[i][j]; cnt++;
-    }
-  }
-  mpd *= 1.0 / cnt;
-
-  double var_mpd = 0.0;
-  for (size_t i = 0; i <n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      var_mpd += (dist_mat[i][j] - mpd) * (dist_mat[i][j] - mpd);
-    }
-  }
-  var_mpd *= 1.0 / cnt;
-  return var_mpd;
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+  return calc_var_mpd_stat(edge, el);
 }
-
 
 // [[Rcpp::export]]
 double avgLadder_cpp(const std::vector<long>& tree_edge) {
