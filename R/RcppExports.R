@@ -200,8 +200,8 @@ calc_psv_cpp <- function(phy) {
     .Call('_treestats_calc_psv_cpp', PACKAGE = 'treestats', phy)
 }
 
-calc_J <- function(phy) {
-    .Call('_treestats_calc_J', PACKAGE = 'treestats', phy)
+calc_J_cpp <- function(phy) {
+    .Call('_treestats_calc_J_cpp', PACKAGE = 'treestats', phy)
 }
 
 calc_mntd_cpp <- function(phy) {

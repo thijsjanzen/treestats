@@ -153,7 +153,7 @@ double calc_psv_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double calc_J(const Rcpp::List& phy) {
+double calc_J_cpp(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
   auto mpd = calc_mpd_stat(edge, el);
