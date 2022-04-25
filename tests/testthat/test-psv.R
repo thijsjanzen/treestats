@@ -12,7 +12,8 @@ test_that("usage", {
   sample_mat <- matrix(data = 1, nrow = n, ncol = n)
   colnames(sample_mat) <- focal_tree$tip.label
 
-  a2 <- picante::psv(sample_mat, focal_tree)[1, 1]
+  a2 <- picante::psv(sample_mat, focal_tree,
+                     compute.var = FALSE, scale.vcv = FALSE)[1, 1]
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
