@@ -7,8 +7,16 @@
 
 #include <iostream>
 
-enum analysis_type {colless, ewColless, rogers, pitchforks, stairs2,
-                      IL};
+// these are tag structs.
+namespace tag {
+struct colless {};
+struct ewColless {};
+struct rogers {};
+struct pitchforks {};
+struct stairs {};
+struct stairs2 {};
+struct il_number{};
+}
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -19,52 +27,7 @@ public:
     num_tips = get_num_tips();
   }
 
-  template<typename ANAL_TYPE>
-  constexpr double update_stat(int L, int R, double stat) {
-
-    if constexpr (ANAL_TYPE == analysis_type::colless) {
-      return stat + std::abs(L + R);
-    }
-
-    if constexpr (ANAL_TYPE == analysis_type::ewColless) {
-      if (L + R > 2) {
-        stat += 1.0 * std::abs(L - R) / (L + R - 2);
-      }
-      return stat;
-    }
-
-    if constexpr (ANAL_TYPE == analysis_type::rogers) {
-      if (L != R) stat++;
-      return stat;
-    }
-
-    if constexpr (ANAL_TYPE == analysis_type::pitchforks) {
-      if (L + R == 3) stat++;
-      return stat;
-    }
-
-    if constexpr (ANAL_TYPE == analysis_type::stairs2) {
-      int min_l_r, max_l_r;
-      if (L < R) {
-        min_l_r = L; max_l_r = R;
-      } else {
-        min_l_r = R; max_l_r = L;
-      }
-      stat += 1.0 * min_l_r / max_l_r;
-      return stat;
-    }
-
-    if constexpr (ANAL_TYPE == analysis_type::IL) {
-      if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
-        stat++;
-      }
-      return stat;
-    }
-
-  }
-
-
-  template<typename ANAL_TYPE>
+  template <typename ANALYSIS_TYPE>
   double collect_stat() {
     double stat = 0.0;
     while(true) {
@@ -81,7 +44,8 @@ public:
       extant_tips[j_parent] = L + R;
       remove_from_dataset(j);
 
-      stat = update_stat<ANAL_TYPE>(L, R, stat);
+      ANALYSIS_TYPE tag;
+      stat = update_stat(L, R, stat, tag);
 
       if (ltable_.size() == 1) break;
     }
@@ -89,42 +53,42 @@ public:
   }
 
   size_t calc_colless() {
-    size_t colless_stat = collect_stat<analysis_type::colless>();
+    size_t colless_stat = collect_stat<tag::colless>();
     return colless_stat;
   }
 
   double calc_ew_colless() {
     int N = ltable_.size();
     if (N <= 2) return 0;
-    double ew_colless_stat = collect_stat<analysis_type::ewColless>();
+    double ew_colless_stat = collect_stat<tag::ewColless>();
     return ew_colless_stat * 1.0 / (N - 2);
   }
 
 
   size_t calc_rogers() {
-    size_t rogers_stat = collect_stat<analysis_type::rogers>();
+    size_t rogers_stat = collect_stat<tag::rogers>();
     return rogers_stat;
   }
 
   size_t count_pitchforks() {
-    size_t num_pitchforks = collect_stat<analysis_type::pitchforks>();
+    size_t num_pitchforks = collect_stat<tag::pitchforks>();
     return num_pitchforks;
   }
 
   double count_stairs() {
-    size_t num_s = collect_stat<analysis_type::rogers>();
+    size_t num_s = collect_stat<tag::stairs>();
     size_t N = ltable_.size();
     return num_s * 1.0 / (N - 1);
   }
 
   double count_stairs2() {
-    double num_s = collect_stat<analysis_type::stairs2>();
+    double num_s = collect_stat<tag::stairs2>();
     size_t N = ltable_.size();
     return num_s * 1.0 / (N - 1);
   }
 
   double count_IL() {
-    return collect_stat<analysis_type::IL>();
+    return collect_stat<tag::il_number>();
   }
 
   std::vector<double> collect_I() {
@@ -171,6 +135,50 @@ public:
   }
 
 private:
+
+  double update_stat(int L, int R, double stat, tag::colless tag) {
+    return stat + std::abs(L - R);
+  }
+
+  double update_stat(int L, int R, double stat, tag::ewColless tag) {
+    if (L + R > 2) {
+      stat += 1.0 * std::abs(L - R) / (L + R - 2);
+    }
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::rogers tag) {
+    if (L != R) stat++;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::pitchforks tag) {
+    if (L + R == 3) stat++;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::stairs tag) {
+    if (L != R) stat++;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::stairs2 tag) {
+    int min_l_r, max_l_r;
+    if (L < R) {
+      min_l_r = L; max_l_r = R;
+    } else {
+      min_l_r = R; max_l_r = L;
+    }
+    stat += 1.0 * min_l_r / max_l_r;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::il_number tag) {
+    if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
+      stat++;
+    }
+    return stat;
+  }
 
   size_t get_min_index() {
     auto min_val = std::min_element(ltable_.begin(), ltable_.end(),
