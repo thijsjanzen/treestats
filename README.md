@@ -33,8 +33,20 @@ The following summary statistics are included:
   - stairs2
   - Rogers J
   - Average Leaf Depth
+  - Variance Leaf Depth
   - I balance index
   - Laplacian spectrum properties
+  - Mean Nearest Taxon Distance
+  - Mean Pairwise Distance
+  - Variance Pairwise Distance
+  - Intensive Quadratic Entropy J
+  - Phylogenetic Species Variability
+  - Total Cophenetic index
+  - B1
+  - B2
+  - Max Width
+  - Max Depth
+  - Max Del Width
 
 ## Rcpp
 For all of these statistics, the package provides Rcpp versions that 
