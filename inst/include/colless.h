@@ -5,6 +5,8 @@
 #include <array>
 #include <numeric> // std::accumulate
 
+#include <iostream>
+
 // these are tag structs.
 namespace tag {
 struct colless {};
@@ -39,16 +41,15 @@ public:
 
       int L = extant_tips[j];
       int R = extant_tips[j_parent];
-      if (L != R) rogers_stat++;
       extant_tips[j_parent] = L + R;
       remove_from_dataset(j);
 
-     ANALYSIS_TYPE tag;
+      ANALYSIS_TYPE tag;
       stat = update_stat(L, R, stat, tag);
 
       if (ltable_.size() == 1) break;
     }
-    return rogers_stat;
+    return stat;
   }
 
   size_t calc_colless() {
@@ -63,6 +64,7 @@ public:
     return ew_colless_stat * 1.0 / (N - 2);
   }
 
+
   size_t calc_rogers() {
     size_t rogers_stat = collect_stat<tag::rogers>();
     return rogers_stat;
@@ -74,7 +76,6 @@ public:
   }
 
   double count_stairs() {
-
     size_t N = ltable_.size();
     size_t num_s = collect_stat<tag::stairs>();
     return num_s * 1.0 / (N - 1);
@@ -86,14 +87,12 @@ public:
     return num_s * 1.0 / (N - 1);
   }
 
-
-
   double count_IL() {
     return collect_stat<tag::il_number>();
   }
 
-size_t count_IL() {
-    size_t num_IL = 0;
+  std::vector<double> collect_I() {
+    std::vector<double> i_vals;
     while(true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
@@ -105,8 +104,15 @@ size_t count_IL() {
 
       int L = extant_tips[j];
       int R = extant_tips[j_parent];
-      if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
-        num_IL++;
+
+      int L_R = L + R;
+      if (L_R > 3) {
+        double avg_n = std::ceil(L_R * 0.5); // N / 2 + N % 2 (see Fusco 1995).
+        double I_val =  1.0 * (std::max(L, R) - avg_n) / ((L_R - 1) - avg_n);
+        if (L_R % 2 == 0) {
+          I_val *= 1.0 * (L_R - 1) / L_R;
+        }
+        i_vals.push_back(I_val);
       }
 
       extant_tips[j_parent] = L + R;
@@ -114,7 +120,7 @@ size_t count_IL() {
 
       if (ltable_.size() == 1) break;
     }
-    return num_IL;
+    return i_vals;
   }
 
   double correct_pda(double Ic) {
@@ -329,9 +335,6 @@ public:
     return s * 1.0 / tree.size();
   }
 
-
-
-
   std::vector<double> collect_I() {
     tree[0].update_num_tips();
     std::vector<double> i_vals;
@@ -352,8 +355,6 @@ public:
     }
     return i_vals;
   }
-
-
 
   int calc_rogers() {
     tree[0].update_num_tips();
