@@ -128,7 +128,6 @@ double calc_Ibased_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   return sum * 1.0 / I_vec.size();
 }
 
-
 // [[Rcpp::export]]
 size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   // non-ltable version uses sackin
@@ -136,7 +135,3 @@ size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   colless_stat_ltable c(local_ltab);
   return c.count_pitchforks();
 }
-
-
-
-

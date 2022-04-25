@@ -50,7 +50,6 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
   return s.calc_tot_coph();
 }
 
-
 // [[Rcpp::export]]
 double calc_blum_cpp(const std::vector<long>& tree_edge) {
   phylo_tree sackin_tree(tree_edge);

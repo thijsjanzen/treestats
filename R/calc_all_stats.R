@@ -70,6 +70,7 @@ calc_all_stats <- function(phylo) {
   stats$psv          <- treestats::psv(phylo)
   stats$vpd          <- treestats::var_pair_dist(phylo)
   stats$mntd         <- treestats::mntd(phylo)
+  stats$J            <- treestats::entropy_j(phylo)
 
   return(stats)
 }
