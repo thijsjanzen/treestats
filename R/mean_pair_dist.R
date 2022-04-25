@@ -8,7 +8,6 @@
 #' Systematics 33:475-505.
 #' @export
 mean_pair_dist <- function(phy) {
-
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }
