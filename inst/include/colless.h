@@ -5,6 +5,16 @@
 #include <array>
 #include <numeric> // std::accumulate
 
+// these are tag structs.
+namespace tag {
+struct colless {};
+struct ewColless {};
+struct rogers {};
+struct pitchforks {};
+struct stairs {};
+struct stairs2 {};
+struct il_number{};
+}
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -15,62 +25,9 @@ public:
     num_tips = get_num_tips();
   }
 
-  size_t calc_colless() {
-    size_t colless_stat = 0;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      colless_stat += std::abs(L - R);
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-    return colless_stat;
-  }
-
-double calc_ew_colless() {
-    double ew_colless_stat = 0;
-    int N = ltable_.size();
-    if (N <= 2) return 0;
-
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-
-      if (L + R > 2) {
-        ew_colless_stat += 1.0 * std::abs(L - R) / (L + R - 2);
-      }
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-    return ew_colless_stat * 1.0 / (N - 2);
-  }
-
-
-
-
-size_t calc_rogers() {
-    size_t rogers_stat = 0;
+  template <typename ANALYSIS_TYPE>
+  double collect_stat() {
+    double stat = 0.0;
     while(true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
@@ -86,126 +43,52 @@ size_t calc_rogers() {
       extant_tips[j_parent] = L + R;
       remove_from_dataset(j);
 
+     ANALYSIS_TYPE tag;
+      stat = update_stat(L, R, stat, tag);
+
       if (ltable_.size() == 1) break;
     }
     return rogers_stat;
   }
 
+  size_t calc_colless() {
+    size_t colless_stat = collect_stat<tag::colless>();
+    return colless_stat;
+  }
 
-  std::vector<double> collect_I() {
-    std::vector<double> i_vals;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
+  double calc_ew_colless() {
+    int N = ltable_.size();
+    if (N <= 2) return 0;
+    double ew_colless_stat = collect_stat<tag::ewColless>();
+    return ew_colless_stat * 1.0 / (N - 2);
+  }
 
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-
-      int L_R = L + R;
-      if (L_R > 3) {
-        double avg_n = std::ceil(L_R * 0.5); // N / 2 + N % 2 (see Fusco 1995).
-        double I_val =  1.0 * (std::max(L, R) - avg_n) / ((L_R - 1) - avg_n);
-        if (L_R % 2 == 0) {
-          I_val *= 1.0 * (L_R - 1) / L_R;
-        }
-        i_vals.push_back(I_val);
-      }
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-    return i_vals;
+  size_t calc_rogers() {
+    size_t rogers_stat = collect_stat<tag::rogers>();
+    return rogers_stat;
   }
 
   size_t count_pitchforks() {
-    size_t num_pitchforks = 0;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      if (L + R == 3) num_pitchforks++;
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
+    size_t num_pitchforks = collect_stat<tag::pitchforks>();
     return num_pitchforks;
   }
 
-
-
-  double count_stairs() {
-    size_t num_s = 0;
+   double count_stairs() {
     size_t N = ltable_.size();
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      if (L != R) num_s++;
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-
+    size_t num_s = collect_stat<tag::stairs>();
     return num_s * 1.0 / (N - 1);
   }
 
   double count_stairs2() {
-    double num_s = 0;
     size_t N = ltable_.size();
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-
-      int min_l_r, max_l_r;
-      if (L < R) {
-        min_l_r = L; max_l_r = R;
-      } else {
-        min_l_r = R; max_l_r = L;
-      }
-
-
-      num_s += 1.0 * min_l_r / max_l_r;
-
-      extant_tips[j_parent] = L + R;
-      remove_from_dataset(j);
-
-      if (ltable_.size() == 1) break;
-    }
-
+    double num_s = collect_stat<tag::stairs2>();
     return num_s * 1.0 / (N - 1);
+  }
+
+
+
+  double count_IL() {
+    return collect_stat<tag::il_number>();
   }
 
 size_t count_IL() {
@@ -245,6 +128,50 @@ size_t count_IL() {
   }
 
 private:
+
+  double update_stat(int L, int R, double stat, tag::colless tag) {
+    return stat + std::abs(L - R);
+  }
+
+  double update_stat(int L, int R, double stat, tag::ewColless tag) {
+    if (L + R > 2) {
+      stat += 1.0 * std::abs(L - R) / (L + R - 2);
+    }
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::rogers tag) {
+    if (L != R) stat++;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::pitchforks tag) {
+    if (L + R == 3) stat++;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::stairs tag) {
+    if (L != R) stat++;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::stairs2 tag) {
+    int min_l_r, max_l_r;
+    if (L < R) {
+      min_l_r = L; max_l_r = R;
+    } else {
+      min_l_r = R; max_l_r = L;
+    }
+    stat += 1.0 * min_l_r / max_l_r;
+    return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::il_number tag) {
+    if ((L == 1 && R > 1) ||  (L > 1 && R == 1)) {
+      stat++;
+    }
+    return stat;
+  }
 
   size_t get_min_index() {
     auto min_val = std::min_element(ltable_.begin(), ltable_.end(),
