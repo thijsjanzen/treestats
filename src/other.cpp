@@ -11,6 +11,7 @@
 #include "L2newick.h"
 #include "newick_to_edge.h"
 #include "avgladder.h"
+#include "mntd.h"
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -240,6 +241,12 @@ double calc_mntd_cpp(const Rcpp::List& phy) {
   return(mntd);
 }
 
+// [[Rcpp::export]]
+double calc_mntd_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+    auto ltab = convert_to_ltable(ltable_R);
+    return calc_mntd_ltable(ltab);
+}
+
 
 // [[Rcpp::export]]
 double calc_var_mpd_cpp(const Rcpp::List& phy) {
@@ -289,16 +296,9 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
   return newick_string;
 }
 
-
-
-
-
 // [[Rcpp::export]]
 double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto newick_str = l_to_newick(ltable_R, false);
   auto edge_table = newick_to_edge(newick_str);
   return avgLadder_cpp(edge_table);
 }
-
-
-
