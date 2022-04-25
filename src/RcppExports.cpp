@@ -10,17 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// branching_times_ltable_cpp
-std::vector<double> branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in);
-RcppExport SEXP _treestats_branching_times_ltable_cpp(SEXP mat_inSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type mat_in(mat_inSEXP);
-    rcpp_result_gen = Rcpp::wrap(branching_times_ltable_cpp(mat_in));
-    return rcpp_result_gen;
-END_RCPP
-}
 // branching_times_cpp
 std::vector< double > branching_times_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_branching_times_cpp(SEXP phySEXP) {
@@ -32,33 +21,117 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_beta_cpp
-double calc_beta_cpp(const Rcpp::List& phy, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
-RcppExport SEXP _treestats_calc_beta_cpp(SEXP phySEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
+// branching_times_ltable_cpp
+std::vector<double> branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in);
+RcppExport SEXP _treestats_branching_times_ltable_cpp(SEXP mat_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type mat_in(mat_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(branching_times_ltable_cpp(mat_in));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rho_complete_cpp
+double calc_rho_complete_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_rho_complete_cpp(SEXP phySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
-    Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP);
-    Rcpp::traits::input_parameter< double >::type abs_tol(abs_tolSEXP);
-    Rcpp::traits::input_parameter< double >::type rel_tol(rel_tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_beta_cpp(phy, upper_lim, algorithm, abs_tol, rel_tol));
+    rcpp_result_gen = Rcpp::wrap(calc_rho_complete_cpp(phy));
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_beta_ltable_cpp
-double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
-RcppExport SEXP _treestats_calc_beta_ltable_cpp(SEXP ltableSEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
+// calc_rho_cpp
+double calc_rho_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_rho_cpp(SEXP phySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable(ltableSEXP);
-    Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
-    Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP);
-    Rcpp::traits::input_parameter< double >::type abs_tol(abs_tolSEXP);
-    Rcpp::traits::input_parameter< double >::type rel_tol(rel_tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_beta_ltable_cpp(ltable, upper_lim, algorithm, abs_tol, rel_tol));
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rho_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rho_ltable_cpp
+double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab);
+RcppExport SEXP _treestats_calc_rho_ltable_cpp(SEXP ltabSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rho_ltable_cpp(ltab));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_phylodiv_cpp
+double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double extinct_acc);
+RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP extinct_accSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    Rcpp::traits::input_parameter< double >::type extinct_acc(extinct_accSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_cpp(phy, t, extinct_acc));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_gamma_cpp
+double calc_gamma_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_gamma_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_gamma_ltable_cpp
+double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
+RcppExport SEXP _treestats_calc_gamma_ltable_cpp(SEXP ltab_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_ltable_cpp(ltab_in));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_nltt_cpp
+double calc_nltt_cpp(const Rcpp::List& phy1, const Rcpp::List& phy2);
+RcppExport SEXP _treestats_calc_nltt_cpp(SEXP phy1SEXP, SEXP phy2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy1(phy1SEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy2(phy2SEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_nltt_cpp(phy1, phy2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_nltt_ltable_cpp
+double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1, const Rcpp::NumericMatrix& ltab2);
+RcppExport SEXP _treestats_calc_nltt_ltable_cpp(SEXP ltab1SEXP, SEXP ltab2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab1(ltab1SEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab2(ltab2SEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_nltt_ltable_cpp(ltab1, ltab2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_crown_age_cpp
+double calc_crown_age_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_crown_age_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_crown_age_cpp(phy));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -74,6 +147,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_colless_ltable_cpp
+double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R, std::string normalization);
+RcppExport SEXP _treestats_calc_colless_ltable_cpp(SEXP l_from_RSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_colless_ltable_cpp(l_from_R, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_eWcolless_cpp
 double calc_eWcolless_cpp(const std::vector<long>& parent_list);
 RcppExport SEXP _treestats_calc_eWcolless_cpp(SEXP parent_listSEXP) {
@@ -85,15 +170,102 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_colless_ltable_cpp
-double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R, std::string normalization);
-RcppExport SEXP _treestats_calc_colless_ltable_cpp(SEXP l_from_RSEXP, SEXP normalizationSEXP) {
+// calc_eWcolless_ltable_cpp
+double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_eWcolless_ltable_cpp(SEXP l_from_RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_colless_ltable_cpp(l_from_R, normalization));
+    rcpp_result_gen = Rcpp::wrap(calc_eWcolless_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ILnumber_cpp
+size_t ILnumber_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_ILnumber_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(ILnumber_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ILnumber_ltable_cpp
+size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_ILnumber_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(ILnumber_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stairs_cpp
+double stairs_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_stairs_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stairs_ltable_cpp
+double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_stairs_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stairs2_cpp
+double stairs2_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_stairs2_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs2_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stairs2_ltable_cpp
+double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_stairs2_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs2_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rogers_cpp
+int calc_rogers_cpp(const std::vector<long>& parent_list);
+RcppExport SEXP _treestats_calc_rogers_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rogers_cpp(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rogers_ltable_cpp
+double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_rogers_ltable_cpp(SEXP l_from_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rogers_ltable_cpp(l_from_R));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -119,25 +291,80 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_rogers_cpp
-int calc_rogers_cpp(const std::vector<long>& parent_list);
-RcppExport SEXP _treestats_calc_rogers_cpp(SEXP parent_listSEXP) {
+// pitchforks_ltable_cpp
+size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_pitchforks_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(pitchforks_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_del_width_cpp
+int calc_max_del_width_cpp(const std::vector<long>& parent_list);
+RcppExport SEXP _treestats_calc_max_del_width_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rogers_cpp(parent_list));
+    rcpp_result_gen = Rcpp::wrap(calc_max_del_width_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_rogers_ltable_cpp
-double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_rogers_ltable_cpp(SEXP l_from_RSEXP) {
+// calc_max_del_width_ltable_cpp
+double calc_max_del_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_max_del_width_ltable_cpp(SEXP l_from_RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rogers_ltable_cpp(l_from_R));
+    rcpp_result_gen = Rcpp::wrap(calc_max_del_width_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_width_cpp
+int calc_max_width_cpp(const std::vector<long>& parent_list);
+RcppExport SEXP _treestats_calc_max_width_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_width_cpp(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_width_ltable_cpp
+double calc_max_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_max_width_ltable_cpp(SEXP l_from_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_width_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_depth_cpp
+int calc_max_depth_cpp(const std::vector<long>& parent_list);
+RcppExport SEXP _treestats_calc_max_depth_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_depth_cpp(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_depth_ltable_cpp
+double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_max_depth_ltable_cpp(SEXP l_from_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_depth_ltable_cpp(l_from_R));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -218,251 +445,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_max_depth_cpp
-int calc_max_depth_cpp(const std::vector<long>& parent_list);
-RcppExport SEXP _treestats_calc_max_depth_cpp(SEXP parent_listSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_depth_cpp(parent_list));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_max_depth_ltable_cpp
-double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_max_depth_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_depth_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_max_width_cpp
-int calc_max_width_cpp(const std::vector<long>& parent_list);
-RcppExport SEXP _treestats_calc_max_width_cpp(SEXP parent_listSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_width_cpp(parent_list));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_max_width_ltable_cpp
-double calc_max_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_max_width_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_width_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_max_del_width_cpp
-int calc_max_del_width_cpp(const std::vector<long>& parent_list);
-RcppExport SEXP _treestats_calc_max_del_width_cpp(SEXP parent_listSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_del_width_cpp(parent_list));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_max_del_width_ltable_cpp
-double calc_max_del_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_max_del_width_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_del_width_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_eWcolless_ltable_cpp
-double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_eWcolless_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_eWcolless_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_blum_ltable_cpp
-double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
-RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_blum_ltable_cpp(ltab_in));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_blum_cpp
-double calc_blum_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_tot_coph_cpp
-double calc_tot_coph_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_calc_tot_coph_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_tot_coph_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_tot_coph_ltable_cpp
-double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab);
-RcppExport SEXP _treestats_calc_tot_coph_ltable_cpp(SEXP ltabSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_tot_coph_ltable_cpp(ltab));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_sackin_cpp
-double calc_sackin_cpp(const std::vector<long>& tree_edge, const Rcpp::String& normalization);
-RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(tree_edge, normalization));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_sackin_ltable_cpp
-double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab, const Rcpp::String& normalization);
-RcppExport SEXP _treestats_calc_sackin_ltable_cpp(SEXP ltabSEXP, SEXP normalizationSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_sackin_ltable_cpp(ltab, normalization));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_nltt_ltable_cpp
-double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1, const Rcpp::NumericMatrix& ltab2);
-RcppExport SEXP _treestats_calc_nltt_ltable_cpp(SEXP ltab1SEXP, SEXP ltab2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab1(ltab1SEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab2(ltab2SEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_nltt_ltable_cpp(ltab1, ltab2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_nltt_cpp
-double calc_nltt_cpp(const Rcpp::List& phy1, const Rcpp::List& phy2);
-RcppExport SEXP _treestats_calc_nltt_cpp(SEXP phy1SEXP, SEXP phy2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy1(phy1SEXP);
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy2(phy2SEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_nltt_cpp(phy1, phy2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_gamma_cpp
-double calc_gamma_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_gamma_cpp(SEXP phySEXP) {
+// calc_beta_cpp
+double calc_beta_cpp(const Rcpp::List& phy, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
+RcppExport SEXP _treestats_calc_beta_cpp(SEXP phySEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp(phy));
+    Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
+    Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP);
+    Rcpp::traits::input_parameter< double >::type abs_tol(abs_tolSEXP);
+    Rcpp::traits::input_parameter< double >::type rel_tol(rel_tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_beta_cpp(phy, upper_lim, algorithm, abs_tol, rel_tol));
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_gamma_ltable_cpp
-double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
-RcppExport SEXP _treestats_calc_gamma_ltable_cpp(SEXP ltab_inSEXP) {
+// calc_beta_ltable_cpp
+double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
+RcppExport SEXP _treestats_calc_beta_ltable_cpp(SEXP ltableSEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_gamma_ltable_cpp(ltab_in));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_phylodiv_cpp
-double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double extinct_acc);
-RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP extinct_accSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    Rcpp::traits::input_parameter< double >::type t(tSEXP);
-    Rcpp::traits::input_parameter< double >::type extinct_acc(extinct_accSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_cpp(phy, t, extinct_acc));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_rho_complete_cpp
-double calc_rho_complete_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_rho_complete_cpp(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rho_complete_cpp(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_rho_cpp
-double calc_rho_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_rho_cpp(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rho_cpp(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_rho_ltable_cpp
-double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab);
-RcppExport SEXP _treestats_calc_rho_ltable_cpp(SEXP ltabSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rho_ltable_cpp(ltab));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_crown_age_cpp
-double calc_crown_age_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_crown_age_cpp(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_crown_age_cpp(phy));
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable(ltableSEXP);
+    Rcpp::traits::input_parameter< double >::type upper_lim(upper_limSEXP);
+    Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP);
+    Rcpp::traits::input_parameter< double >::type abs_tol(abs_tolSEXP);
+    Rcpp::traits::input_parameter< double >::type rel_tol(rel_tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_beta_ltable_cpp(ltable, upper_lim, algorithm, abs_tol, rel_tol));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -554,6 +563,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// avgLadder_cpp
+double avgLadder_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_avgLadder_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(avgLadder_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
 // l_to_newick
 std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R, bool drop_extinct);
 RcppExport SEXP _treestats_l_to_newick(SEXP ltable_RSEXP, SEXP drop_extinctSEXP) {
@@ -566,25 +586,82 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// pitchforks_cpp
-size_t pitchforks_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_pitchforks_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(pitchforks_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// pitchforks_ltable_cpp
-size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_pitchforks_ltable_cpp(SEXP ltable_RSEXP) {
+// avgLadder_ltable_cpp
+double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_avgLadder_ltable_cpp(SEXP ltable_RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(pitchforks_ltable_cpp(ltable_R));
+    rcpp_result_gen = Rcpp::wrap(avgLadder_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_sackin_cpp
+double calc_sackin_cpp(const std::vector<long>& tree_edge, const Rcpp::String& normalization);
+RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(tree_edge, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_sackin_ltable_cpp
+double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab, const Rcpp::String& normalization);
+RcppExport SEXP _treestats_calc_sackin_ltable_cpp(SEXP ltabSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_sackin_ltable_cpp(ltab, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_tot_coph_cpp
+double calc_tot_coph_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_calc_tot_coph_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_tot_coph_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_tot_coph_ltable_cpp
+double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab);
+RcppExport SEXP _treestats_calc_tot_coph_ltable_cpp(SEXP ltabSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab(ltabSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_tot_coph_ltable_cpp(ltab));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_blum_cpp
+double calc_blum_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_blum_ltable_cpp
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
+RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_blum_ltable_cpp(ltab_in));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -610,107 +687,51 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ILnumber_cpp
-size_t ILnumber_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_ILnumber_cpp(SEXP tree_edgeSEXP) {
+// pitchforks_cpp
+size_t pitchforks_cpp(const std::vector<long>& tree_edge);
+RcppExport SEXP _treestats_pitchforks_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(ILnumber_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// avgLadder_cpp
-double avgLadder_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_avgLadder_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(avgLadder_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// avgLadder_ltable_cpp
-double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_avgLadder_ltable_cpp(SEXP ltable_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(avgLadder_ltable_cpp(ltable_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ILnumber_ltable_cpp
-size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_ILnumber_ltable_cpp(SEXP ltable_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(ILnumber_ltable_cpp(ltable_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stairs_cpp
-double stairs_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_stairs_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stairs2_cpp
-double stairs2_cpp(const std::vector<long>& tree_edge);
-RcppExport SEXP _treestats_stairs2_cpp(SEXP tree_edgeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs2_cpp(tree_edge));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stairs_ltable_cpp
-double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_stairs_ltable_cpp(SEXP ltable_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs_ltable_cpp(ltable_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stairs2_ltable_cpp
-double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_stairs2_ltable_cpp(SEXP ltable_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs2_ltable_cpp(ltable_R));
+    rcpp_result_gen = Rcpp::wrap(pitchforks_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_treestats_branching_times_ltable_cpp", (DL_FUNC) &_treestats_branching_times_ltable_cpp, 1},
     {"_treestats_branching_times_cpp", (DL_FUNC) &_treestats_branching_times_cpp, 1},
-    {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
-    {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
+    {"_treestats_branching_times_ltable_cpp", (DL_FUNC) &_treestats_branching_times_ltable_cpp, 1},
+    {"_treestats_calc_rho_complete_cpp", (DL_FUNC) &_treestats_calc_rho_complete_cpp, 1},
+    {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
+    {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
+    {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
+    {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
+    {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
+    {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
+    {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
+    {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
-    {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 1},
     {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
-    {"_treestats_calc_Ibased_cpp", (DL_FUNC) &_treestats_calc_Ibased_cpp, 1},
-    {"_treestats_calc_Ibased_ltable_cpp", (DL_FUNC) &_treestats_calc_Ibased_ltable_cpp, 1},
+    {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 1},
+    {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 1},
+    {"_treestats_ILnumber_cpp", (DL_FUNC) &_treestats_ILnumber_cpp, 1},
+    {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
+    {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
+    {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},
+    {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 1},
+    {"_treestats_stairs2_ltable_cpp", (DL_FUNC) &_treestats_stairs2_ltable_cpp, 1},
     {"_treestats_calc_rogers_cpp", (DL_FUNC) &_treestats_calc_rogers_cpp, 1},
     {"_treestats_calc_rogers_ltable_cpp", (DL_FUNC) &_treestats_calc_rogers_ltable_cpp, 1},
+    {"_treestats_calc_Ibased_cpp", (DL_FUNC) &_treestats_calc_Ibased_cpp, 1},
+    {"_treestats_calc_Ibased_ltable_cpp", (DL_FUNC) &_treestats_calc_Ibased_ltable_cpp, 1},
+    {"_treestats_pitchforks_ltable_cpp", (DL_FUNC) &_treestats_pitchforks_ltable_cpp, 1},
+    {"_treestats_calc_max_del_width_cpp", (DL_FUNC) &_treestats_calc_max_del_width_cpp, 1},
+    {"_treestats_calc_max_del_width_ltable_cpp", (DL_FUNC) &_treestats_calc_max_del_width_ltable_cpp, 1},
+    {"_treestats_calc_max_width_cpp", (DL_FUNC) &_treestats_calc_max_width_cpp, 1},
+    {"_treestats_calc_max_width_ltable_cpp", (DL_FUNC) &_treestats_calc_max_width_ltable_cpp, 1},
+    {"_treestats_calc_max_depth_cpp", (DL_FUNC) &_treestats_calc_max_depth_cpp, 1},
+    {"_treestats_calc_max_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_max_depth_ltable_cpp, 1},
     {"_treestats_calc_var_leaf_depth_cpp", (DL_FUNC) &_treestats_calc_var_leaf_depth_cpp, 1},
     {"_treestats_calc_var_leaf_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_var_leaf_depth_ltable_cpp, 1},
     {"_treestats_calc_sym_nodes_cpp", (DL_FUNC) &_treestats_calc_sym_nodes_cpp, 1},
@@ -718,28 +739,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_b1_ltable_cpp", (DL_FUNC) &_treestats_calc_b1_ltable_cpp, 1},
     {"_treestats_calc_b2_cpp", (DL_FUNC) &_treestats_calc_b2_cpp, 1},
     {"_treestats_calc_b2_ltable_cpp", (DL_FUNC) &_treestats_calc_b2_ltable_cpp, 1},
-    {"_treestats_calc_max_depth_cpp", (DL_FUNC) &_treestats_calc_max_depth_cpp, 1},
-    {"_treestats_calc_max_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_max_depth_ltable_cpp, 1},
-    {"_treestats_calc_max_width_cpp", (DL_FUNC) &_treestats_calc_max_width_cpp, 1},
-    {"_treestats_calc_max_width_ltable_cpp", (DL_FUNC) &_treestats_calc_max_width_ltable_cpp, 1},
-    {"_treestats_calc_max_del_width_cpp", (DL_FUNC) &_treestats_calc_max_del_width_cpp, 1},
-    {"_treestats_calc_max_del_width_ltable_cpp", (DL_FUNC) &_treestats_calc_max_del_width_ltable_cpp, 1},
-    {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 1},
-    {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 1},
-    {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
-    {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},
-    {"_treestats_calc_tot_coph_ltable_cpp", (DL_FUNC) &_treestats_calc_tot_coph_ltable_cpp, 1},
-    {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
-    {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
-    {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
-    {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
-    {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
-    {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
-    {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
-    {"_treestats_calc_rho_complete_cpp", (DL_FUNC) &_treestats_calc_rho_complete_cpp, 1},
-    {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
-    {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
-    {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
+    {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
+    {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 1},
@@ -748,19 +749,18 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_mntd_cpp", (DL_FUNC) &_treestats_calc_mntd_cpp, 1},
     {"_treestats_calc_mntd_ltable_cpp", (DL_FUNC) &_treestats_calc_mntd_ltable_cpp, 1},
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
+    {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
-    {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
-    {"_treestats_pitchforks_ltable_cpp", (DL_FUNC) &_treestats_pitchforks_ltable_cpp, 1},
+    {"_treestats_avgLadder_ltable_cpp", (DL_FUNC) &_treestats_avgLadder_ltable_cpp, 1},
+    {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
+    {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
+    {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},
+    {"_treestats_calc_tot_coph_ltable_cpp", (DL_FUNC) &_treestats_calc_tot_coph_ltable_cpp, 1},
+    {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 1},
+    {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 1},
     {"_treestats_cherries_cpp", (DL_FUNC) &_treestats_cherries_cpp, 1},
     {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
-    {"_treestats_ILnumber_cpp", (DL_FUNC) &_treestats_ILnumber_cpp, 1},
-    {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
-    {"_treestats_avgLadder_ltable_cpp", (DL_FUNC) &_treestats_avgLadder_ltable_cpp, 1},
-    {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
-    {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
-    {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 1},
-    {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},
-    {"_treestats_stairs2_ltable_cpp", (DL_FUNC) &_treestats_stairs2_ltable_cpp, 1},
+    {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
     {NULL, NULL, 0}
 };
 
