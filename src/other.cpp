@@ -10,6 +10,7 @@
 #include "beta.h"
 #include "phylo2L.h"
 #include "L2newick.h"
+#include "L2newick_ed.h"
 #include "newick_to_edge.h"
 #include "avgladder.h"
 #include "mntd.h"
