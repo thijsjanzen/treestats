@@ -205,6 +205,14 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
 }
 
 // [[Rcpp::export]]
+std::string l_to_newick_ed(const Rcpp::NumericMatrix& ltable_R, const double t,
+                        bool drop_extinct) {
+  auto ltable_cpp = convert_to_ltable(ltable_R);
+  auto newick_string = ltable_to_newick_ed(ltable_cpp, t, drop_extinct);
+  return newick_string;
+}
+
+// [[Rcpp::export]]
 double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto newick_str = l_to_newick(ltable_R, false);
   auto edge_table = newick_to_edge(newick_str);
