@@ -11,14 +11,3 @@ l_to_phylo_ed <- function(ltab, t, drop_extinct = TRUE) {
 
   return(phylo_tree)
 }
-
-#' Convert an L table to newick string
-#' @param ltab ltable
-#' @param t age of the tree
-#' @param drop_extinct should extinct species be dropped from the phylogeny?
-#' @return phylo object
-#' @export
-ltable_to_newick_ed <- function(ltab, t, drop_extinct = TRUE) {
-  newick_str <- l_to_newick_ed(ltab, t, drop_extinct)
-  return(newick_str)
-}
