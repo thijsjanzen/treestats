@@ -1,6 +1,7 @@
-#' Convert an L table to phylo object, only use it with PDD simulation
+#' Convert an reverse-timescale L table to phylo object,
+#' only use it with PDD simulation
 #' @param ltab ltable
-#' @param t age of the tree
+#' @param t simulation time when converting it to phylogeny
 #' @param drop_extinct should extinct species be dropped from the phylogeny?
 #' @return phylo object
 #' @export
