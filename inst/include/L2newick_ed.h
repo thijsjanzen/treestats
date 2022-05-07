@@ -22,10 +22,10 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
   for (auto& i : L) {
     bool is_extant = i[3] == -1;
     if (is_extant) {
+      i[3] = age;
       if (drop_extinct == true) {
         new_L.push_back(i);
       }
-      i[3] = age;
     }
   }
 
