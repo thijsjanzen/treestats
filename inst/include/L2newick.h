@@ -46,6 +46,8 @@ void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
 std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
                        bool drop_extinct) {
   auto L = ltable;
+  // keep a copy of the original ltable for later lookup purpose
+  const auto L_original = ltable;
   // first sort ltable
   //  L = L[order(abs(L[, 3])), 1:4]
   std::sort(L.begin(), L.end(), [&](const auto& a, const auto& b) {
@@ -78,8 +80,6 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     L = new_L;
   }
 
-  const auto L_original = L;
-
   L[0][0] = -1.0;
 
   std::vector< std::string > linlist_4(L.size());
@@ -104,8 +104,8 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       L[parentj][3] = L[j][0];
       remove_from_dataset(L, linlist_4, j);
     } else {
+      parentj = index_of_parent(L_original, parent);
       for (auto i = 0; i <= 2; ++i) {
-        parentj = index_of_parent(L_original, parent);
         L[j][i] = L_original[parentj][i];
       }
     }
