@@ -55,12 +55,7 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
       std::string spec2 = linlist_4[j] + ":" + d_to_s(bl2);
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
-      std::swap(linlist[j], linlist.back());
-      linlist.pop_back();
-    } else {
-      for (auto i = 0; i <= 2; ++i) {
-        L[j][i] = L[parentj][i];
-      }
+      remove_from_dataset(L, linlist_4, j);
     }
 
     if (linlist_4.size() == 1) {
