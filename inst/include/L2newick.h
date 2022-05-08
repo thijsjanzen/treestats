@@ -78,6 +78,8 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     L = new_L;
   }
 
+  const auto L_original = L;
+
   L[0][0] = -1.0;
 
   std::vector< std::string > linlist_4(L.size());
@@ -103,7 +105,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       remove_from_dataset(L, linlist_4, j);
     } else {
       for (auto i = 0; i <= 2; ++i) {
-        L[j][i] = L[parentj][i];
+        L[j][i] = L_original[parentj][i];
       }
     }
 
