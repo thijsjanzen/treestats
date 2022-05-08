@@ -105,6 +105,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       remove_from_dataset(L, linlist_4, j);
     } else {
       for (auto i = 0; i <= 2; ++i) {
+        parentj = index_of_parent(L_original, parent);
         L[j][i] = L_original[parentj][i];
       }
     }
