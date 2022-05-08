@@ -28,15 +28,6 @@ int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
   return index;
 }
 
-void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
-                         std::vector< std::string>& linlist,
-                         size_t index) {
-  std::swap(ltable[index], ltable.back());
-  ltable.pop_back();
-  std::swap(linlist[index], linlist.back());
-  linlist.pop_back();
-}
-
 std::string d_to_s(double d) {
   std::stringstream out;
   out << std::fixed << std::setprecision(15) << d;
@@ -101,7 +92,12 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       std::string spec2 = linlist_4[j] + ":" + d_to_s(bl2);
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
-      remove_from_dataset(L, linlist_4, j);
+      std::swap(linlist[j], linlist.back());
+      linlist.pop_back();
+    } else {
+      for (auto i = 0; i <= 2; ++i) {
+        L[j][i] = L[parentj][i];
+      }
     }
 
     if (linlist_4.size() == 1) {
