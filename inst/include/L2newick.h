@@ -100,8 +100,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       std::string spec2 = linlist_4[j] + ":" + d_to_s(bl2);
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
-      std::swap(linlist_4[j], linlist_4.back());
-      linlist_4.pop_back();
+      remove_from_dataset(L, linlist_4, j);
     } else {
       for (auto i = 0; i <= 2; ++i) {
         L[j][i] = L[parentj][i];
