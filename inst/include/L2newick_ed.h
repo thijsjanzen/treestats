@@ -10,6 +10,8 @@
 std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltable, const double t,
                        bool drop_extinct) {
   auto L = ltable;
+  // keep a copy of the original ltable for later lookup purpose
+  const auto L_original = ltable;
   // first sort ltable
   //  L = L[order(abs(L[, 3])), 1:4]
   std::sort(L.begin(), L.end(), [&](const auto& a, const auto& b) {
@@ -56,6 +58,11 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
       remove_from_dataset(L, linlist_4, j);
+    } else {
+      parentj = index_of_parent(L_original, parent);
+      for (auto i = 0; i <= 2; ++i) {
+        L[j][i] = L_original[parentj][i];
+      }
     }
 
     if (linlist_4.size() == 1) {
