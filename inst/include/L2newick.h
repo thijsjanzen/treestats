@@ -34,6 +34,14 @@ std::string d_to_s(double d) {
   return out.str();
 }
 
+void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
+                         std::vector< std::string>& linlist,
+                         size_t index) {
+  std::swap(ltable[index], ltable.back());
+  ltable.pop_back();
+  std::swap(linlist[index], linlist.back());
+  linlist.pop_back();
+}
 
 std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
                        bool drop_extinct) {
