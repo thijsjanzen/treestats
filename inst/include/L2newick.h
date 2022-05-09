@@ -19,7 +19,7 @@ int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
   int index = 0;
   bool found = false;
   for (; index < ltable.size(); ++index) {
-    if (ltable[index][2] == parent) {
+    if (std::abs(ltable[index][2] - parent) < 0.0000001) {
       found = true;
       break;
     }
@@ -59,14 +59,12 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     i[0] = age - i[0]; // L[, 1] = age - L[, 1]
     if (i[0] < 0) i[0] = 0;
 
-    // test i[3] == -1 but avoid precision issue
-    bool is_extant = ((i[3] + 1) < 0.000001);
+    // i[3] == -1
+    bool is_extant = (std::abs(i[3] + 1) < 0.0000001);
 
-    if (i[3] != -1) { // notmin1 = which(L[, 4] != -1)
+    if (!is_extant) { // notmin1 = which(L[, 4] != -1)
       // L[notmin1, 4] = age - L[notmin1, 4]
       i[3] = age - i[3];
-      // Avoid precision issue
-      if (i[3] < 0) i[3] = 0;
     } else {
       i[3] = age;
     }
@@ -78,11 +76,12 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     }
   }
 
-  // keep a copy of the original ltable for later lookup purpose
-  auto L_original = L;
-  L_original[0][0] = -1.0;
+  std::vector< std::array< double, 4>> L_original;
 
   if (drop_extinct == true) {
+    // keep a copy of the original ltable for later lookup purpose
+    L_original = L;
+    L_original[0][0] = -1.0;
     L = new_L;
   } else {
     // L[0][0] cannot be -1 when extinct lineages are dropped
