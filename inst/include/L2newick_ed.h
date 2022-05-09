@@ -10,8 +10,6 @@
 std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltable, const double t,
                        bool drop_extinct) {
   auto L = ltable;
-  // keep a copy of the original ltable for later lookup purpose
-  const auto L_original = ltable;
   // first sort ltable
   //  L = L[order(abs(L[, 3])), 1:4]
   std::sort(L.begin(), L.end(), [&](const auto& a, const auto& b) {
@@ -22,7 +20,8 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
   std::vector< std::array< double, 4>> new_L;
 
   for (auto& i : L) {
-    bool is_extant = i[3] < 0;
+    // test i[3] == -1 but avoid precision issue
+    bool is_extant = ((i[3] + 1) < 0.000001);
     if (is_extant) {
       i[3] = age;
       if (drop_extinct == true) {
@@ -30,12 +29,17 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
       }
     }
   }
+  
+  // keep a copy of the original ltable for later lookup purpose
+  auto L_original = L;
+  L_original[0][0] = -1.0;
 
   if (drop_extinct == true) {
     L = new_L;
+  } else {
+    // L[0][0] cannot be -1 when extinct lineages are dropped
+    L[0][0] = -1.0;
   }
-
-  L[0][0] = -1.0;
 
   std::vector< std::string > linlist_4(L.size());
   size_t index = 0;
