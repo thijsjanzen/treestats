@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-
+#include <cassert>
 
 size_t which_max_index(const std::vector< std::array< double, 4>>& ltable) {
   auto max_val = std::max_element(ltable.begin(), ltable.end(),
@@ -19,13 +19,19 @@ int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
   int index = 0;
   bool found = false;
   for (; index < ltable.size(); ++index) {
-    if (ltable[index][2] == parent) {
+    if (std::abs(ltable[index][2] - parent) < 0.0000001) {
       found = true;
       break;
     }
   }
   if (!found) index = -1;
   return index;
+}
+
+std::string d_to_s(double d) {
+  std::stringstream out;
+  out << std::fixed << std::setprecision(15) << d;
+  return out.str();
 }
 
 void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
@@ -36,13 +42,6 @@ void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
   std::swap(linlist[index], linlist.back());
   linlist.pop_back();
 }
-
-std::string d_to_s(double d) {
-  std::stringstream out;
-  out << std::fixed << std::setprecision(15) << d;
-  return out.str();
-}
-
 
 std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
                        bool drop_extinct) {
@@ -58,10 +57,12 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
 
   for (auto& i : L) {
     i[0] = age - i[0]; // L[, 1] = age - L[, 1]
+    if (i[0] < 0) i[0] = 0;
 
-    bool is_extant = i[3] == -1;
+    // i[3] == -1
+    bool is_extant = (std::abs(i[3] + 1) < 0.0000001);
 
-    if (i[3] != -1) { // notmin1 = which(L[, 4] != -1)
+    if (!is_extant) { // notmin1 = which(L[, 4] != -1)
       // L[notmin1, 4] = age - L[notmin1, 4]
       i[3] = age - i[3];
     } else {
@@ -75,11 +76,17 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     }
   }
 
-  if (drop_extinct == true) {
-    L = new_L;
-  }
+  std::vector< std::array< double, 4>> L_original;
 
-  L[0][0] = -1.0;
+  if (drop_extinct == true) {
+    // keep a copy of the original ltable for later lookup purpose
+    L_original = L;
+    L_original[0][0] = -1.0;
+    L = new_L;
+  } else {
+    // L[0][0] cannot be -1 when extinct lineages are dropped
+    L[0][0] = -1.0;
+  }
 
   std::vector< std::string > linlist_4(L.size());
   size_t index = 0;
@@ -89,19 +96,31 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     index++;
   }
 
+  if (linlist_4.size() != new_L.size()) {
+    throw std::invalid_argument("linlist_4.size() != new_L.size()");
+  }
+
   // verified correct for 4/5 tip phylogeny up until here.
   while(true) {
     auto j = which_max_index(L);
     int parent    = static_cast<int>(L[j][1]);
     int parentj   = index_of_parent(L, parent);
     if (parentj != -1) {
-      double bl = L[parentj][3] - L[j][0];
+      double bl = std::abs(L[parentj][3] - L[j][0]);
       std::string spec1 = linlist_4[parentj] + ":" + d_to_s(bl);
-      double bl2 = L[j][3] - L[j][0];
+      double bl2 = std::abs(L[j][3] - L[j][0]);
       std::string spec2 = linlist_4[j] + ":" + d_to_s(bl2);
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
       remove_from_dataset(L, linlist_4, j);
+    } else {
+      parentj = index_of_parent(L_original, parent);
+      if(parentj == -1) {
+        throw std::invalid_argument("Look up failed "+std::to_string(j)+std::to_string(parent));
+      }
+      for (int i = 0; i <= 2; ++i) {
+        L[j][i] = L_original[parentj][i];
+      }
     }
 
     if (linlist_4.size() == 1) {

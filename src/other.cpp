@@ -10,6 +10,7 @@
 #include "beta.h"
 #include "phylo2L.h"
 #include "L2newick.h"
+#include "L2newick_ed.h"
 #include "newick_to_edge.h"
 #include "avgladder.h"
 #include "mntd.h"
@@ -201,6 +202,14 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
                         bool drop_extinct) {
   auto ltable_cpp = convert_to_ltable(ltable_R);
   auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
+  return newick_string;
+}
+
+// [[Rcpp::export]]
+std::string l_to_newick_ed(const Rcpp::NumericMatrix& ltable_R, const double t,
+                        bool drop_extinct) {
+  auto ltable_cpp = convert_to_ltable(ltable_R);
+  auto newick_string = ltable_to_newick_ed(ltable_cpp, t, drop_extinct);
   return newick_string;
 }
 

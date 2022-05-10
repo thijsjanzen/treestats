@@ -224,6 +224,10 @@ l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
 
+l_to_newick_ed <- function(ltable_R, t, drop_extinct) {
+    .Call('_treestats_l_to_newick_ed', PACKAGE = 'treestats', ltable_R, t, drop_extinct)
+}
+
 avgLadder_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_avgLadder_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
