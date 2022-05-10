@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-
+#include <cassert>
 
 size_t which_max_index(const std::vector< std::array< double, 4>>& ltable) {
   auto max_val = std::max_element(ltable.begin(), ltable.end(),
@@ -96,6 +96,10 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     index++;
   }
 
+  if (linlist_4.size() != new_L.size()) {
+    throw std::invalid_argument("linlist_4.size() != new_L.size()");
+  }
+
   // verified correct for 4/5 tip phylogeny up until here.
   while(true) {
     auto j = which_max_index(L);
@@ -111,7 +115,10 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       remove_from_dataset(L, linlist_4, j);
     } else {
       parentj = index_of_parent(L_original, parent);
-      for (auto i = 0; i <= 2; ++i) {
+      if(parentj == -1) {
+        throw std::invalid_argument("Look up failed "+std::to_string(j)+std::to_string(parent));
+      }
+      for (int i = 0; i <= 2; ++i) {
         L[j][i] = L_original[parentj][i];
       }
     }
