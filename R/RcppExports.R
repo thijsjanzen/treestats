@@ -25,6 +25,18 @@ calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }
 
+calc_phylodiv_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_calc_phylodiv_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
+calc_mean_branch_length_cpp <- function(phy) {
+    .Call('_treestats_calc_mean_branch_length_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_mean_branch_length_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_calc_mean_branch_length_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
 calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
@@ -67,6 +79,14 @@ ILnumber_cpp <- function(tree_edge) {
 
 ILnumber_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_ILnumber_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
+calc_rquartet_cpp <- function(tree_edge, normalization) {
+    .Call('_treestats_calc_rquartet_cpp', PACKAGE = 'treestats', tree_edge, normalization)
+}
+
+calc_rquartet_ltable_cpp <- function(ltable_R, normalization) {
+    .Call('_treestats_calc_rquartet_ltable_cpp', PACKAGE = 'treestats', ltable_R, normalization)
 }
 
 stairs_cpp <- function(tree_edge) {

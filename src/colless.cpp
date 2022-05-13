@@ -69,7 +69,38 @@ size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   return c.count_IL();
 }
 
+// [[Rcpp::export]]
+double calc_rquartet_cpp(const std::vector<long>& tree_edge,
+                         std::string normalization) {
+  colless_tree::phylo_tree tree(tree_edge);
+  auto output = tree.calc_rquartet();
 
+  if (normalization == "yule") {
+    size_t n  = tree_edge.size() / 4 + 1;
+    output = tree.correct_rquartet_yule(output, n);
+  }
+  if (normalization == "pda") {
+    size_t n  = tree_edge.size() / 4 + 1;
+    output = tree.correct_rquartet_pda(output, n);
+  }
+  return output;
+}
+
+// [[Rcpp::export]]
+double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R,
+                                std::string normalization) {
+  auto local_ltab = convert_to_ltable(ltable_R);
+  colless_stat_ltable c(local_ltab);
+  auto output = c.count_rquartet();
+
+  if (normalization == "yule") {
+    output = c.correct_rquartet_yule(output);
+  }
+  if (normalization == "pda") {
+    output = c.correct_rquartet_pda(output);
+  }
+  return output;
+}
 
 // [[Rcpp::export]]
 double stairs_cpp(const std::vector<long>& tree_edge) {

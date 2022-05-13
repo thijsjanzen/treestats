@@ -9,6 +9,7 @@
 #include "gamma.h"
 #include "nltt.h"
 #include "crown_age.h"
+#include "util.h"
 
 
 using edge_table = std::vector< std::array< size_t, 2 >>;
@@ -103,6 +104,9 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
     double crown_age = calc_crown_age(edges, el); // ignore root edge
     phylo phylo_tree(edges, el);
 
+    // function below calculates [0, T], max_t is in [T, 0]
+    t = crown_age - t;
+
     return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
 
   } catch(std::exception &ex) {
@@ -111,6 +115,30 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
     ::Rf_error("c++ exception (unknown reason)");
   }
   return NA_REAL;
+}
+
+// [[Rcpp::export]]
+double calc_phylodiv_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+  auto local_ltab = convert_to_ltable(ltable_R);
+  return calculate_phy_div_ltable(local_ltab);
+}
+
+// [[Rcpp::export]]
+double calc_mean_branch_length_cpp(const Rcpp::List& phy) {
+  double sum_bl = calc_phylodiv_cpp(phy, 1e10, 0.0);
+  double num_nodes = phy["Nnode"];
+  double num_branches = num_nodes * 2;
+  std::cerr << sum_bl << " " << num_nodes << " " << num_branches << "\n";
+  return sum_bl * 1.0 / (num_branches);
+}
+
+// [[Rcpp::export]]
+double calc_mean_branch_length_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+  auto local_ltab = convert_to_ltable(ltable_R);
+  double sum_bl = calculate_phy_div_ltable(local_ltab);
+  double n = ltable_R.nrow();
+  double num_branches = n + n - 2;
+  return sum_bl * 1.0 / num_branches;
 }
 
 

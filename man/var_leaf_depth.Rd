@@ -2,7 +2,7 @@
 % Please edit documentation in R/var_leaf_depth.R
 \name{var_leaf_depth}
 \alias{var_leaf_depth}
-\title{Fast function using C++ to calculate maximum depth metric}
+\title{Fast function using C++ to calculate the variance of leaf depth statistic}
 \usage{
 var_leaf_depth(phy)
 }
@@ -10,11 +10,11 @@ var_leaf_depth(phy)
 \item{phy}{phylo object or ltable}
 }
 \value{
-Maximum depth (in number of edges)
+Variance of leaf depths
 }
 \description{
-The maximum depth metric, measures the maximal path (in edges),
-between the tips and the root.
+The variance of leaf depth statistic returns the variance
+of depths across all tips.
 }
 \references{
 T. M. Coronado, A. Mir, F. Rosselló, and L. Rotger.

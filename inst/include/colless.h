@@ -5,7 +5,7 @@
 #include <array>
 #include <numeric> // std::accumulate
 
-#include <iostream>
+#include "binom.h"
 
 // these are tag structs.
 namespace tag {
@@ -16,6 +16,7 @@ struct pitchforks {};
 struct stairs {};
 struct stairs2 {};
 struct il_number{};
+struct rquartet{};
 }
 
 using ltable = std::vector< std::array<double, 4>>;
@@ -91,6 +92,11 @@ public:
     return collect_stat<tag::il_number>();
   }
 
+  double count_rquartet() {
+    double rquart = collect_stat<tag::rquartet>();
+    return rquart;
+  }
+
   std::vector<double> collect_I() {
     std::vector<double> i_vals;
     while(true) {
@@ -132,6 +138,16 @@ public:
     static const double g = 0.577215664901532;
     auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
     return output;
+  }
+
+  double correct_rquartet_yule(double stat) {
+      auto expected = binom_coeff(num_tips, 4);
+      return stat * 1.0 / expected;
+  }
+
+  double correct_rquartet_pda(double stat) {
+    auto expected = 3.0 / 5.0 * binom_coeff(num_tips, 4);
+    return stat * 1.0 / expected;
   }
 
 private:
@@ -178,6 +194,10 @@ private:
       stat++;
     }
     return stat;
+  }
+
+  double update_stat(int L, int R, double stat, tag::rquartet tag) {
+      return stat + binom_coeff_2(L) * binom_coeff_2(R);
   }
 
   size_t get_min_index() {
@@ -367,6 +387,18 @@ public:
     return s;
   }
 
+  double calc_rquartet() {
+    tree[0].update_num_tips();
+    double s = 0.0;
+    for(const auto& i : tree) {
+      auto l = binom_coeff_2(i.L);  // choose_2
+      auto r = binom_coeff_2(i.R);  // choose_2
+      s += l * r;
+    }
+    return s;
+  }
+
+
   double correct_pda(double Ic, size_t num_tips) {
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
@@ -376,6 +408,16 @@ public:
     static const double g = 0.577215664901532;
     auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
     return output;
+  }
+
+  double correct_rquartet_yule(double stat, size_t num_tips) {
+    auto expected = binom_coeff(num_tips, 4);
+    return stat * 1.0 / expected;
+  }
+
+  double correct_rquartet_pda(double stat, size_t num_tips) {
+    auto expected = 3.0 / 5.0 * binom_coeff(num_tips, 4);
+    return stat * 1.0 / expected;
   }
 
 private:

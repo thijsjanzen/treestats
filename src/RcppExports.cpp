@@ -78,6 +78,39 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_phylodiv_ltable_cpp
+double calc_phylodiv_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_calc_phylodiv_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_mean_branch_length_cpp
+double calc_mean_branch_length_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_mean_branch_length_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_mean_branch_length_ltable_cpp
+double calc_mean_branch_length_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_calc_mean_branch_length_ltable_cpp(SEXP ltable_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_gamma_cpp
 double calc_gamma_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_gamma_cpp(SEXP phySEXP) {
@@ -200,6 +233,30 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
     rcpp_result_gen = Rcpp::wrap(ILnumber_ltable_cpp(ltable_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rquartet_cpp
+double calc_rquartet_cpp(const std::vector<long>& tree_edge, std::string normalization);
+RcppExport SEXP _treestats_calc_rquartet_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rquartet_cpp(tree_edge, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_rquartet_ltable_cpp
+double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R, std::string normalization);
+RcppExport SEXP _treestats_calc_rquartet_ltable_cpp(SEXP ltable_RSEXP, SEXP normalizationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rquartet_ltable_cpp(ltable_R, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -719,6 +776,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
     {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
+    {"_treestats_calc_phylodiv_ltable_cpp", (DL_FUNC) &_treestats_calc_phylodiv_ltable_cpp, 1},
+    {"_treestats_calc_mean_branch_length_cpp", (DL_FUNC) &_treestats_calc_mean_branch_length_cpp, 1},
+    {"_treestats_calc_mean_branch_length_ltable_cpp", (DL_FUNC) &_treestats_calc_mean_branch_length_ltable_cpp, 1},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
     {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
@@ -730,6 +790,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 1},
     {"_treestats_ILnumber_cpp", (DL_FUNC) &_treestats_ILnumber_cpp, 1},
     {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
+    {"_treestats_calc_rquartet_cpp", (DL_FUNC) &_treestats_calc_rquartet_cpp, 2},
+    {"_treestats_calc_rquartet_ltable_cpp", (DL_FUNC) &_treestats_calc_rquartet_ltable_cpp, 2},
     {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
     {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},
     {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 1},

@@ -21,7 +21,7 @@ calc_treebalance_stats <- function(phylo) {
 #  stats$maxDepth     <- treebalance::maxDepth(phylo)
 #  stats$maxWidth     <- treebalance::maxWidth(phylo)
 #  stats$rogers       <- treebalance::rogersI(phylo)
-  stats$rquarted     <- treebalance::rQuartetI(phylo)
+ # stats$rquarted     <- treebalance::rQuartetI(phylo)
  # stats$sackin       <- treebalance::sackinI(phylo)  # this is Sackin
  # stats$sshape1      <- treebalance::sShapeI(phylo)  # this is Blum
 #  stats$stairs1      <- treebalance::stairs1(phylo)  # this is stairs

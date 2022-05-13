@@ -4,13 +4,14 @@
 \alias{phylogenetic_diversity}
 \title{Calculates phylogenetic diversity at time point t}
 \usage{
-phylogenetic_diversity(phy, t = 1e+10, extinct_tol = NULL)
+phylogenetic_diversity(input_obj, t = 0, extinct_tol = NULL)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{input_obj}{phylo object or Ltable}
 
 \item{t}{time point at which to measure phylogenetic diversity, alternatively
-a vector of time points can also be provided.}
+a vector of time points can also be provided. Time is measured with 0 being
+the present.}
 
 \item{extinct_tol}{tolerance to determine if a lineage is extinct at time t.
 Default is 1/100 * smallest branch length of the tree.}

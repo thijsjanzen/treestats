@@ -1,6 +1,7 @@
 #ifndef phylo_div_h
 #define phylo_div_h
 
+#include "util.h"
 #include <vector>
 
 
@@ -48,8 +49,6 @@ void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
     edge_length[i] = everything[i].bl;
   }
 }
-
-
 
 struct phylo {
 
@@ -174,6 +173,16 @@ double calculate_phylogenetic_diversity(const phylo& phy,
     pd += it->bl;
   }
   return pd;
+}
+
+double calculate_phy_div_ltable(const ltable& ltab) {
+  double s = 0.0;
+  for (const auto& i : ltab) {
+    double end_t = 0.0;
+    if (i[3] > 0.0) end_t = i[3];
+    s += i[0] - end_t;
+  }
+  return s;
 }
 
 

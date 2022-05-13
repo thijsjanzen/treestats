@@ -7,7 +7,7 @@
 mean_branch_length(phy)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{phy}{phylo object or Ltable}
 }
 \value{
 mean branch length

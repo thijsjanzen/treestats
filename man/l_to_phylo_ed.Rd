@@ -2,14 +2,15 @@
 % Please edit documentation in R/L2phylo_ed.R
 \name{l_to_phylo_ed}
 \alias{l_to_phylo_ed}
-\title{Convert an L table to phylo object, only use it with PDD simulation}
+\title{Convert an reverse-timescale L table to phylo object,
+only use it with PDD simulation}
 \usage{
 l_to_phylo_ed(ltab, t, drop_extinct = TRUE)
 }
 \arguments{
 \item{ltab}{ltable}
 
-\item{t}{age of the tree}
+\item{t}{simulation time when converting it to phylogeny}
 
 \item{drop_extinct}{should extinct species be dropped from the phylogeny?}
 }
@@ -17,5 +18,6 @@ l_to_phylo_ed(ltab, t, drop_extinct = TRUE)
 phylo object
 }
 \description{
-Convert an L table to phylo object, only use it with PDD simulation
+Convert an reverse-timescale L table to phylo object,
+only use it with PDD simulation
 }

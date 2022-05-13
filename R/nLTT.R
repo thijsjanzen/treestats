@@ -10,6 +10,7 @@
 #' from the nLTT package.
 #' @param phy phylo object or ltable
 #' @param ref_tree reference tree to compare with (should be same type as phy)
+#' @references Janzen, T., Höhna, S. and Etienne, R.S. (2015), Approximate Bayesian Computation of diversification rates from molecular phylogenies: introducing a new efficient summary statistic, the nLTT. Methods Ecol Evol, 6: 566-575. https://doi.org/10.1111/2041-210X.12350
 #' @return number of lineages
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)

@@ -7,8 +7,9 @@
 #include <sstream>
 #include <L2newick.h>
 
-std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltable, const double t,
-                       bool drop_extinct) {
+std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltable,
+                                const double t,
+                                bool drop_extinct) {
   auto L = ltable;
   // first sort ltable
   //  L = L[order(abs(L[, 3])), 1:4]
@@ -29,7 +30,7 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
       }
     }
   }
-  
+
   // keep a copy of the original ltable for later lookup purpose
   auto L_original = L;
   L_original[0][0] = -1.0;

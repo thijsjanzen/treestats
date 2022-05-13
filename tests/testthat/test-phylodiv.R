@@ -44,8 +44,19 @@ test_that("usage", {
   div1 <- treestats::phylogenetic_diversity(focal_tree, 2)
   div2 <- treestats::phylogenetic_diversity(focal_tree, 2.01)
   testthat::expect_gt(div1, div2)
+})
 
+test_that("usage", {
+  set.seed(42)
+  focal_tree <- TreeSim::sim.bd.taxa(n = 50,
+                                     numbsim = 1,
+                                     lambda = 1, mu = 0.0)[[1]]
 
+  div1 <- treestats::phylogenetic_diversity(focal_tree)
+  div2 <- sum(focal_tree$edge.length)
+  testthat::expect_equal(div1, div2, tolerance = 1e-4)
 
-
+  ltab <- treestats::phylo_to_l(focal_tree)
+  div3 <- treestats::phylogenetic_diversity(ltab)
+  testthat::expect_equal(div3, div2)
 })

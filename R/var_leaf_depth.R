@@ -1,8 +1,8 @@
-#' Fast function using C++ to calculate maximum depth metric
-#' @description The maximum depth metric, measures the maximal path (in edges),
-#' between the tips and the root.
+#' Fast function using C++ to calculate the variance of leaf depth statistic
+#' @description The variance of leaf depth statistic returns the variance
+#' of depths across all tips.
 #' @param phy phylo object or ltable
-#' @return Maximum depth (in number of edges)
+#' @return Variance of leaf depths
 #' @references  T. M. Coronado, A. Mir, F. Rosselló, and L. Rotger.
 #' On Sackin's original proposal: the variance of the leaves' depths as a
 #' phylogenetic balance index. BMC Bioinformatics, 21(1), 2020.
