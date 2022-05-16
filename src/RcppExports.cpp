@@ -78,7 +78,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
 // calc_phylodiv_ltable_cpp
 double calc_phylodiv_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
 RcppExport SEXP _treestats_calc_phylodiv_ltable_cpp(SEXP ltable_RSEXP) {
@@ -112,7 +111,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
 // calc_gamma_cpp
 double calc_gamma_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_gamma_cpp(SEXP phySEXP) {
@@ -238,7 +236,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
 // calc_rquartet_cpp
 double calc_rquartet_cpp(const std::vector<long>& tree_edge, std::string normalization);
 RcppExport SEXP _treestats_calc_rquartet_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
@@ -263,7 +260,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
 // stairs_cpp
 double stairs_cpp(const std::vector<long>& tree_edge);
 RcppExport SEXP _treestats_stairs_cpp(SEXP tree_edgeSEXP) {
@@ -647,14 +643,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
 // l_to_newick_ed
 std::string l_to_newick_ed(const Rcpp::NumericMatrix& ltable_R, const double t, bool drop_extinct);
 RcppExport SEXP _treestats_l_to_newick_ed(SEXP ltable_RSEXP, SEXP tSEXP, SEXP drop_extinctSEXP) {
-
-// avgLadder_ltable_cpp
-double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_avgLadder_ltable_cpp(SEXP ltable_RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

@@ -16,7 +16,6 @@ test_that("usage", {
                          treestats::mean_branch_length(ltab))
 
 
-  testthat::skip("for larger trees, doesn't work yet")
 
   focal_tree <- TreeSim::sim.bd.taxa(n = 140,
                                      numbsim = 1,
@@ -27,7 +26,7 @@ test_that("usage", {
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(treestats::mean_branch_length(focal_tree),
+  testthat::expect_equal(a2,
                          treestats::mean_branch_length(ltab))
 
 
@@ -41,6 +40,6 @@ test_that("usage", {
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(treestats::mean_branch_length(focal_tree),
+  testthat::expect_equal(a2,
                          treestats::mean_branch_length(ltab))
 })

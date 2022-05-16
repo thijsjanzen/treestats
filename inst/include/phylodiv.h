@@ -152,7 +152,7 @@ std::vector< branch > create_branch_set(const phylo& phy,
     double limit = crown_age;
     if (max_t < limit) limit = max_t;
     for (int i = 0; i < tip_times.size(); ++i) {
-      if (limit - tip_times[i][1] > extinct_acc) {
+      if (std::abs(limit - tip_times[i][1]) > extinct_acc) {
         branchset = remove_from_branchset(branchset, tip_times[i][0]);
       }
     }
