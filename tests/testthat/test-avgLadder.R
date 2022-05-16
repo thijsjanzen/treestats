@@ -1,7 +1,6 @@
 context("ladders")
 
 test_that("usage", {
-  testthat::skip("skip while developing l2Phylo")
   set.seed(42)
   focal_tree <- TreeSim::sim.bd.taxa(n = 1000,
                                      numbsim = 1, lambda = 1, mu = 0)[[1]]

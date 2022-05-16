@@ -1,7 +1,6 @@
 context("L2phylo")
 
 test_that("usage", {
-  testthat::skip("development")
   set.seed(42)
   focal_tree <- TreeSim::sim.bd.taxa(n = 100,
                                      numbsim = 1,
@@ -53,7 +52,6 @@ test_that("usage", {
 
 test_that("newick", {
 
-  testthat::skip("development")
   set.seed(42)
   focal_tree <- TreeSim::sim.bd.age(age = 2, numbsim = 1, lambda = 1, mu = 0,
                                     mrca = TRUE)[[1]]
