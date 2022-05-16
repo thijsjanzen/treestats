@@ -92,10 +92,12 @@ public:
     return collect_stat<tag::il_number>();
   }
 
+
   double count_rquartet() {
     double rquart = collect_stat<tag::rquartet>();
     return rquart;
   }
+
 
   std::vector<double> collect_I() {
     std::vector<double> i_vals;

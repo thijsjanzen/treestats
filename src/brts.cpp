@@ -9,8 +9,8 @@
 #include "gamma.h"
 #include "nltt.h"
 #include "crown_age.h"
-#include "util.h"
 
+#include "util.h"
 
 using edge_table = std::vector< std::array< size_t, 2 >>;
 
@@ -104,6 +104,7 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
     double crown_age = calc_crown_age(edges, el); // ignore root edge
     phylo phylo_tree(edges, el);
 
+
     // function below calculates [0, T], max_t is in [T, 0]
     t = crown_age - t;
 
@@ -116,6 +117,7 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
   }
   return NA_REAL;
 }
+
 
 // [[Rcpp::export]]
 double calc_phylodiv_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
@@ -140,7 +142,6 @@ double calc_mean_branch_length_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   double num_branches = n + n - 2;
   return sum_bl * 1.0 / num_branches;
 }
-
 
 // [[Rcpp::export]]
 double calc_gamma_cpp(const Rcpp::List& phy) {

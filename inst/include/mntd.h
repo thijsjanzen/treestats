@@ -76,6 +76,7 @@ double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
 
   double psv = 0.0;
 
+
   for (size_t i = 0; i < n; ++i) {
     for (size_t j = 0; j < i; ++j) {
       psv += 0.5 * std::abs(dist_mat[i][j]);

@@ -69,6 +69,7 @@ size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   return c.count_IL();
 }
 
+
 // [[Rcpp::export]]
 double calc_rquartet_cpp(const std::vector<long>& tree_edge,
                          std::string normalization) {
