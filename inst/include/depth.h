@@ -94,6 +94,8 @@ struct node {
   int max_dist_to_tips;
   size_t L;
   size_t R;
+  std::vector<size_t> L_vec;
+  std::vector<size_t> R_vec;
 
   node() {
     depth = 0;
@@ -128,6 +130,40 @@ struct node {
       }
     }
     return;
+  }
+
+  std::vector<size_t> update_vecs() {
+
+    std::vector<size_t> L_R_vec;
+
+    if (!daughter1 && !daughter2) {
+
+      L_vec = {L};
+      R_vec = {R};
+
+      L_R_vec = {L, R};
+    }
+
+    if (daughter1 && !daughter2) {
+      L_vec = daughter1->update_vecs();
+      R_vec = {R};
+      L_R_vec.push_back(R);
+    }
+
+    if (daughter2 && !daughter1) {
+      R_vec = daughter2->update_vecs();
+      L_vec = {L};
+      L_R_vec.push_back(L);
+    }
+
+    if (daughter1 && daughter2) {
+      L_vec = daughter1->update_vecs();
+      R_vec = daughter2->update_vecs();
+      L_R_vec = L_vec;
+      L_R_vec.insert(L_R_vec.end(), R_vec.begin(), R_vec.end());
+    }
+
+    return L_R_vec;
   }
 
   size_t update_l_r() {
@@ -221,16 +257,43 @@ public :
     return var_depth;
   }
 
+  bool compare_depth_dist(std::vector<size_t>& v1,
+                          std::vector<size_t>& v2) {
+    if (v1.size() != v2.size()) return false;
+
+    std::sort(v1.begin(), v1.end());
+    std::sort(v2.begin(), v2.end());
+
+    std::cerr << "v1: ";
+    for (auto i : v1) {
+      std::cerr << i << " ";
+    } std::cerr << "\n";
+
+    std::cerr << "v2: ";
+    for (auto i : v2) {
+      std::cerr << i << " ";
+    } std::cerr << "\n";
+
+
+    for (size_t i = 0; i < v1.size(); ++i) {
+      if (v1[i] != v2[i]) return false;
+    }
+    return true;
+  }
+
   int calc_sym_nodes() {
     update_depth();
     tree[root_no].update_l_r();
+    tree[root_no].update_vecs();
     int num_sym_nodes = 0;
     for (size_t i = root_no; i < tree.size(); ++i) {
       if (tree[i].L == tree[i].R) {
-        num_sym_nodes++;
+        if (compare_depth_dist(tree[i].L_vec, tree[i].R_vec)) {
+          std::cerr << tree[i].L << " " << tree[i].R << " " << "\n";
+          num_sym_nodes++;
+        }
       }
     }
-
     return tree.size() - root_no - num_sym_nodes;
   }
 
