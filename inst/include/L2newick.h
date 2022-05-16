@@ -57,7 +57,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
 
   for (auto& i : L) {
     i[0] = age - i[0]; // L[, 1] = age - L[, 1]
-    if (i[0] < 0) i[0] = 0;
+    if (i[0] < 0.0) i[0] = 0.0;
 
     // i[3] == -1
     bool is_extant = (std::abs(i[3] + 1) < 0.0000001);
@@ -79,16 +79,18 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
   std::vector< std::array< double, 4>> L_original;
 
   if (drop_extinct == true) {
-    // keep a copy of the original ltable for later lookup purpose
+    // keep a copy of the original ltable for later look up purpose
     L_original = L;
-    L_original[0][0] = -1.0;
     L = new_L;
-  } else {
-    // L[0][0] cannot be -1 when extinct lineages are dropped
-    L[0][0] = -1.0;
   }
 
+  // L[0][0] cannot be -1 when extinct lineages are dropped
+  // but:
+  // L[1, 1] = -1
+  L[0][0] = -1.0;
+
   std::vector< std::string > linlist_4(L.size());
+
   size_t index = 0;
   for (const auto& i : L) {
     std::string add = "t" + std::to_string(abs(static_cast<int>(i[2])));
@@ -96,8 +98,8 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     index++;
   }
 
-  if (linlist_4.size() != new_L.size()) {
-    throw std::invalid_argument("linlist_4.size() != new_L.size()");
+  if (linlist_4.size() != L.size()) {
+    throw std::invalid_argument("linlist_4.size() != L.size()");
   }
 
   // verified correct for 4/5 tip phylogeny up until here.
@@ -116,7 +118,11 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     } else {
       parentj = index_of_parent(L_original, parent);
       if(parentj == -1) {
-        throw std::invalid_argument("Look up failed "+std::to_string(j)+std::to_string(parent));
+        throw std::invalid_argument("Look up failed "+
+                                     std::to_string(j) +
+                                     " " +
+                                     std::to_string(parent) +
+                                     " ");
       }
       for (int i = 0; i <= 2; ++i) {
         L[j][i] = L_original[parentj][i];
