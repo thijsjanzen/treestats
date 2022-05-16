@@ -124,7 +124,13 @@ struct node {
     } else {
       if (daughter1 && !daughter2) {
         daughter1->set_depth(depth);
-      } else {
+      }
+
+      if (daughter2 && !daughter1) {
+        daughter2->set_depth(depth);
+      }
+
+      if (daughter1 && daughter2) {
         daughter1->set_depth(depth);
         daughter2->set_depth(depth);
       }
@@ -137,31 +143,35 @@ struct node {
     std::vector<size_t> L_R_vec;
 
     if (!daughter1 && !daughter2) {
-
       L_vec = {L};
       R_vec = {R};
-
-      L_R_vec = {L, R};
     }
 
     if (daughter1 && !daughter2) {
       L_vec = daughter1->update_vecs();
+      L = std::accumulate(L_vec.begin(), L_vec.end(), 0.0) + depth;
       R_vec = {R};
-      L_R_vec.push_back(R);
     }
 
     if (daughter2 && !daughter1) {
       R_vec = daughter2->update_vecs();
+      R = std::accumulate(R_vec.begin(), R_vec.end(), 0.0) + depth;
       L_vec = {L};
-      L_R_vec.push_back(L);
     }
 
     if (daughter1 && daughter2) {
       L_vec = daughter1->update_vecs();
       R_vec = daughter2->update_vecs();
-      L_R_vec = L_vec;
-      L_R_vec.insert(L_R_vec.end(), R_vec.begin(), R_vec.end());
+      L = std::accumulate(L_vec.begin(), L_vec.end(), 0.0) + depth;
+      R = std::accumulate(R_vec.begin(), R_vec.end(), 0.0) + depth;
     }
+
+    L_R_vec = L_vec;
+    L_R_vec.insert(L_R_vec.end(), R_vec.begin(), R_vec.end());
+
+
+    L_R_vec.push_back(L);
+    L_R_vec.push_back(R);
 
     return L_R_vec;
   }
@@ -264,17 +274,6 @@ public :
     std::sort(v1.begin(), v1.end());
     std::sort(v2.begin(), v2.end());
 
-    std::cerr << "v1: ";
-    for (auto i : v1) {
-      std::cerr << i << " ";
-    } std::cerr << "\n";
-
-    std::cerr << "v2: ";
-    for (auto i : v2) {
-      std::cerr << i << " ";
-    } std::cerr << "\n";
-
-
     for (size_t i = 0; i < v1.size(); ++i) {
       if (v1[i] != v2[i]) return false;
     }
@@ -287,10 +286,20 @@ public :
     tree[root_no].update_vecs();
     int num_sym_nodes = 0;
     for (size_t i = root_no; i < tree.size(); ++i) {
+   /*   std::cerr << i << "\n";
+      std::cerr << "Lv: ";
+      for (auto k : tree[i].L_vec) std::cerr << k << " ";
+      std::cerr << "\n";
+      std::cerr << "Rv: ";
+      for (auto k : tree[i].R_vec) std::cerr << k << " ";
+      std::cerr << "\n";
+*/
+
       if (tree[i].L == tree[i].R) {
         if (compare_depth_dist(tree[i].L_vec, tree[i].R_vec)) {
-          std::cerr << tree[i].L << " " << tree[i].R << " " << "\n";
+         // std::cerr << i << " " << tree[i].L << " " << tree[i].R << "\n";
           num_sym_nodes++;
+      //    std::cerr << "symmetric node!\n";
         }
       }
     }
