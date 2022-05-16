@@ -90,8 +90,8 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
   if (std::abs(L[0][1]) < 0.0000001) {
     L[0][0] = -1.0;
   }
+  
   std::vector< std::string > linlist_4(L.size());
-
   size_t index = 0;
   for (const auto& i : L) {
     std::string add = "t" + std::to_string(abs(static_cast<int>(i[2])));
