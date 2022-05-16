@@ -82,12 +82,14 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     // keep a copy of the original ltable for later look up purpose
     L_original = L;
     L = new_L;
+    L_original[0][0] = 0.0;
   }
 
-  // L[0][0] cannot be -1 when extinct lineages are dropped
-  // but:
-  // L[1, 1] = -1
-  L[0][0] = -1.0;
+  // check whether L[1, ] is t1
+  // if yes, change L[1, 1] to 0
+  if (std::abs(L[0][1]) < 0.0000001) {
+    L[0][0] = 0.0;
+  }
 
   std::vector< std::string > linlist_4(L.size());
 
@@ -118,11 +120,19 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     } else {
       parentj = index_of_parent(L_original, parent);
       if(parentj == -1) {
+        std::string out_string;
+        for (auto &rows : L) {
+          for(auto &col : rows) {
+            out_string += std::to_string(col) + " ";
+          }
+          out_string += "\n";
+        }
         throw std::invalid_argument("Look up failed "+
                                      std::to_string(j) +
                                      " " +
                                      std::to_string(parent) +
-                                     " ");
+                                     "\n" +
+                                     out_string);
       }
       for (int i = 0; i <= 2; ++i) {
         L[j][i] = L_original[parentj][i];
