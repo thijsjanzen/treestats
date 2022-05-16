@@ -12,7 +12,7 @@ test_that("usage", {
 
   ca <- max(treestats::branching_times(focal_tree))
   pds <- treestats::phylogenetic_diversity(focal_tree,
-                                           t = seq(0, ca, length.out =  100))
+                                           t = seq(ca, 0, length.out =  100))
   testthat::expect_equal(length(pds), 100)
   for (i in 2:length(pds)) {
     testthat::expect_gt(pds[i], pds[i - 1])
@@ -22,7 +22,7 @@ test_that("usage", {
   brts <- ape::branching.times(focal_tree)
   tt <- (brts[1] - brts[2]) / 2
   div1 <- treestats::phylogenetic_diversity(focal_tree, tt)
-  div2 <- tt * 2
+  div2 <- (brts[1] - tt) * 2
   testthat::expect_equal(div1[[1]], div2[[1]])
 
   # now with extinct lineages
@@ -60,3 +60,4 @@ test_that("usage", {
   div3 <- treestats::phylogenetic_diversity(ltab)
   testthat::expect_equal(div3, div2)
 })
+

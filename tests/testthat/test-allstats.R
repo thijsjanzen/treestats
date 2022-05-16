@@ -6,6 +6,8 @@ test_that("usage", {
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
 
-  all_stats <- treestats::calc_all_stats(focal_tree)
+  testthat::expect_invisible(
+   all_stats <- treestats::calc_all_stats(focal_tree)
+  )
  # testthat::expect_equal(length(all_stats), 19)
 })

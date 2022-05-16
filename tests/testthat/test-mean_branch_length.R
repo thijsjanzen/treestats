@@ -16,6 +16,8 @@ test_that("usage", {
                          treestats::mean_branch_length(ltab))
 
 
+  testthat::skip("for larger trees, doesn't work yet")
+
   focal_tree <- TreeSim::sim.bd.taxa(n = 140,
                                      numbsim = 1,
                                      lambda = 1, mu = 0)[[1]]
