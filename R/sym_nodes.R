@@ -14,11 +14,10 @@
 sym_nodes <- function(phy) {
 
   if (inherits(phy, "matrix")) {
-    return(calc_var_leaf_depth_ltable_cpp(phy))
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-
-    warning("calc_sym_nodes is unfinished, my sometimes give the wrong results")
+  #  warning("calc_sym_nodes is unfinished, may sometimes give the wrong results")
     return(calc_sym_nodes_cpp(as.vector(t(phy$edge))))
   }
   stop("input object has to be phylo or ltable")
