@@ -18,11 +18,13 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
   });
 
   double age = t; // age = t
+  if (t <= 0.0) throw std::invalid_argument("tree age must be positive");
   std::vector< std::array< double, 4>> new_L;
 
   for (auto& i : L) {
     // test i[3] == -1 but avoid precision issue
-    bool is_extant = ((i[3] + 1) < 0.000001);
+    bool is_extant = (std::abs(i[3] + 1) < 0.0000001);
+    
     if (is_extant) {
       i[3] = age;
       if (drop_extinct == true) {
@@ -31,14 +33,18 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
     }
   }
 
-  // keep a copy of the original ltable for later lookup purpose
-  auto L_original = L;
-  L_original[0][0] = -1.0;
+  std::vector< std::array< double, 4>> L_original;
 
   if (drop_extinct == true) {
+    // keep a copy of the original ltable for later look up purpose
+    L_original = L;
     L = new_L;
-  } else {
-    // L[0][0] cannot be -1 when extinct lineages are dropped
+    L_original[0][0] = -1.0;
+  }
+
+  // check whether L[1, ] is t1
+  // if yes, change L[1, 1] to -1
+  if (std::abs(L[0][1]) < 0.0000001) {
     L[0][0] = -1.0;
   }
 
@@ -48,6 +54,10 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
     std::string add = "t" + std::to_string(abs(static_cast<int>(i[2])));
     linlist_4[index] = add;
     index++;
+  }
+
+    if (linlist_4.size() != L.size()) {
+    throw std::invalid_argument("linlist_4.size() != L.size()");
   }
 
   // verified correct for 4/5 tip phylogeny up until here.
@@ -65,6 +75,21 @@ std::string ltable_to_newick_ed(const std::vector< std::array< double, 4>>& ltab
       remove_from_dataset(L, linlist_4, j);
     } else {
       parentj = index_of_parent(L_original, parent);
+      if(parentj == -1) {
+        std::string out_string;
+        for (auto &rows : L) {
+          for(auto &col : rows) {
+            out_string += std::to_string(col) + " ";
+          }
+          out_string += "\n";
+        }
+        throw std::invalid_argument("Look up failed "+
+                                     std::to_string(j) +
+                                     " " +
+                                     std::to_string(parent) +
+                                     "\n" +
+                                     out_string);
+      }
       for (auto i = 0; i <= 2; ++i) {
         L[j][i] = L_original[parentj][i];
       }
