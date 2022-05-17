@@ -65,6 +65,7 @@ calc_all_stats <- function(phylo) {
   stats$stairs2      <- treestats::stairs2(phylo)
   stats$totCoph      <- treestats::tot_coph(phylo)
   stats$varLeafDepth <- treestats::var_leaf_depth(phylo)
+  stats$symNodes     <- treestats::sym_nodes(phylo)
 
   stats$mpd          <- treestats::mean_pair_dist(phylo)
   stats$psv          <- treestats::psv(phylo)
