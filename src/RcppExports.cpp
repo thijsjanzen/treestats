@@ -65,6 +65,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_phylodiv_0_cpp
+double calc_phylodiv_0_cpp(const std::vector<double>& edge_length);
+RcppExport SEXP _treestats_calc_phylodiv_0_cpp(SEXP edge_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type edge_length(edge_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_0_cpp(edge_length));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_phylodiv_cpp
 double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double extinct_acc);
 RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP extinct_accSEXP) {
@@ -90,13 +101,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_mean_branch_length_cpp
-double calc_mean_branch_length_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_mean_branch_length_cpp(SEXP phySEXP) {
+double calc_mean_branch_length_cpp(const std::vector<double>& edge_length);
+RcppExport SEXP _treestats_calc_mean_branch_length_cpp(SEXP edge_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_cpp(phy));
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type edge_length(edge_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_cpp(edge_length));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -775,6 +786,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_rho_complete_cpp", (DL_FUNC) &_treestats_calc_rho_complete_cpp, 1},
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
     {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
+    {"_treestats_calc_phylodiv_0_cpp", (DL_FUNC) &_treestats_calc_phylodiv_0_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
     {"_treestats_calc_phylodiv_ltable_cpp", (DL_FUNC) &_treestats_calc_phylodiv_ltable_cpp, 1},
     {"_treestats_calc_mean_branch_length_cpp", (DL_FUNC) &_treestats_calc_mean_branch_length_cpp, 1},

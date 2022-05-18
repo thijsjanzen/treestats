@@ -1,3 +1,14 @@
+#' @keywords internal
+calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
+  if (t == 0 && ape::is.ultrametric(phy)) {
+    return(calc_phylodiv_0_cpp(phy$edge.length))
+  } else {
+    return(calc_phylodiv_cpp(phy, t, extinct_tol))
+  }
+}
+
+
+
 #' Calculates phylogenetic diversity at time point t
 #' @description The phylogenetic diversity at time t is given by the total
 #' branch length of the tree reconstructed up until time point t. Time is
@@ -49,11 +60,11 @@ phylogenetic_diversity <- function(input_obj,
     }
 
     if (length(t) == 1) {
-      return(calc_phylodiv_cpp(input_obj, t, extinct_tol))
+      return(calc_phylogenetic_diversity(input_obj, t, extinct_tol))
     }
 
     fun_to_apply <- function(focal_time) {
-      return(calc_phylodiv_cpp(input_obj, focal_time, extinct_tol))
+      return(calc_phylogenetic_diversity(input_obj, focal_time, extinct_tol))
     }
 
     out <- lapply(t, fun_to_apply)

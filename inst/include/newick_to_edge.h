@@ -113,7 +113,7 @@ void reindex_clades(    const long                Nclades,            // (INPUT)
   }
 }
 
-std::vector< long > newick_to_edge(const std::string&    input) {
+std::vector< long > newick_to_edge(const std::string& input) {
   // estimate number of tips, nodes & edges for pre-allocation purposes
   const long estimated_Nclades = count_occurrences(input, ',') + count_occurrences(input, ')');
   const long estimated_Nedges  = estimated_Nclades - 1;

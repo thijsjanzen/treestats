@@ -21,6 +21,10 @@ calc_rho_ltable_cpp <- function(ltab) {
     .Call('_treestats_calc_rho_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
+calc_phylodiv_0_cpp <- function(edge_length) {
+    .Call('_treestats_calc_phylodiv_0_cpp', PACKAGE = 'treestats', edge_length)
+}
+
 calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }
@@ -29,8 +33,8 @@ calc_phylodiv_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_calc_phylodiv_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
-calc_mean_branch_length_cpp <- function(phy) {
-    .Call('_treestats_calc_mean_branch_length_cpp', PACKAGE = 'treestats', phy)
+calc_mean_branch_length_cpp <- function(edge_length) {
+    .Call('_treestats_calc_mean_branch_length_cpp', PACKAGE = 'treestats', edge_length)
 }
 
 calc_mean_branch_length_ltable_cpp <- function(ltable_R) {

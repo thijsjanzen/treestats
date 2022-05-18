@@ -82,7 +82,11 @@ double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
   return calc_rho(brts);
 }
 
-
+// [[Rcpp::export]]
+double calc_phylodiv_0_cpp(const std::vector<double>& edge_length) {
+  auto s = std::accumulate(edge_length.begin(), edge_length.end(), 0.0);
+  return s;
+}
 
 // [[Rcpp::export]]
 double calc_phylodiv_cpp(const Rcpp::List& phy,
@@ -103,7 +107,6 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 
     double crown_age = calc_crown_age(edges, el); // ignore root edge
     phylo phylo_tree(edges, el);
-
 
     // function below calculates [0, T], max_t is in [T, 0]
     t = crown_age - t;
@@ -126,14 +129,9 @@ double calc_phylodiv_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 // [[Rcpp::export]]
-double calc_mean_branch_length_cpp(const Rcpp::List& phy) {
-
-  std::vector<double> edge_length = phy["edge.length"];
+double calc_mean_branch_length_cpp(const std::vector<double>& edge_length) {
   auto sum_bl = std::accumulate(edge_length.begin(), edge_length.end(), 0.0);
-
-  double num_nodes = phy["Nnode"];
-  double num_branches = num_nodes * 2;
-  return sum_bl * 1.0 / (num_branches);
+  return sum_bl * 1.0 / (edge_length.size());
 }
 
 // [[Rcpp::export]]
