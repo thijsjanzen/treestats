@@ -4,7 +4,7 @@
 #' @export
 avgLadder <- function(input_obj) { # nolint
   if (inherits(input_obj, "matrix")) {
-    return(avgLadder_ltable_cpp(input_obj))
+    input_obj <- treestats::l_to_phylo(input_obj, drop_extinct = FALSE)
   }
   if (inherits(input_obj, "phylo")) {
     return(avgLadder_cpp(as.vector(t(input_obj$edge))))
