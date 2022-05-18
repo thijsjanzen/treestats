@@ -16,8 +16,7 @@ LinkingTo:
     nloptr
 Imports:
     ape,
-    nloptr,
-    treebalance
+    nloptr
 Suggests:
     TreeSim,
     TESS,
@@ -34,7 +33,8 @@ Suggests:
     RPANDA,
     ggplot2,
     tibble,
-    picante
+    picante,
+    treebalance
 SystemRequirements: C++14
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats/

@@ -33,5 +33,7 @@ treestats implementation slightly faster, although the bulk of computation
 occurs in estimating the eigen values, using the function eigen from base.
 }
 \references{
-Eric Lewitus, Helene Morlon, Characterizing and Comparing Phylogenies from their Laplacian Spectrum, Systematic Biology, Volume 65, Issue 3, May 2016, Pages 495–507, https://doi.org/10.1093/sysbio/syv116
+Eric Lewitus, Helene Morlon, Characterizing and Comparing
+Phylogenies from their Laplacian Spectrum, Systematic Biology, Volume 65,
+Issue 3, May 2016, Pages 495–507, https://doi.org/10.1093/sysbio/syv116
 }

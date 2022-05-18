@@ -60,4 +60,3 @@ test_that("usage", {
   div3 <- treestats::phylogenetic_diversity(ltab)
   testthat::expect_equal(div3, div2)
 })
-

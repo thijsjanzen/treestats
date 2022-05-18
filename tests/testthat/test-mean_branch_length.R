@@ -1,14 +1,14 @@
 context("mean_branch_length")
 
 test_that("usage", {
-  calc_mean_br_R <- function(focal_tree) {
+  calc_mean_br_r <- function(focal_tree) {
     return(mean(focal_tree$edge.length, na.rm = TRUE))
   }
 
   focal_tree <- ape::read.tree(text = "(1:4,2:4):0;")
 
   a1 <- treestats::mean_branch_length(focal_tree)
-  a2 <- calc_mean_br_R(focal_tree)
+  a2 <- calc_mean_br_r(focal_tree)
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
@@ -22,7 +22,7 @@ test_that("usage", {
                                      lambda = 1, mu = 0)[[1]]
 
   a1 <- treestats::mean_branch_length(focal_tree)
-  a2 <- calc_mean_br_R(focal_tree)
+  a2 <- calc_mean_br_r(focal_tree)
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
@@ -36,7 +36,7 @@ test_that("usage", {
                                      lambda = 1, mu = 0.2)[[1]]
 
   a1 <- treestats::mean_branch_length(focal_tree)
-  a2 <- calc_mean_br_R(focal_tree)
+  a2 <- calc_mean_br_r(focal_tree)
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)

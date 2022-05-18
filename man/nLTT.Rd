@@ -32,5 +32,8 @@ nLTT(simulated_tree, reference_tree)
 nLTT(simulated_tree, simulated_tree) # should be zero.
 }
 \references{
-Janzen, T., Höhna, S. and Etienne, R.S. (2015), Approximate Bayesian Computation of diversification rates from molecular phylogenies: introducing a new efficient summary statistic, the nLTT. Methods Ecol Evol, 6: 566-575. https://doi.org/10.1111/2041-210X.12350
+Janzen, T., Höhna, S. and Etienne, R.S. (2015), Approximate
+Bayesian Computation of diversification rates from molecular phylogenies:
+introducing a new efficient summary statistic, the nLTT. Methods Ecol Evol,
+6: 566-575. https://doi.org/10.1111/2041-210X.12350
 }

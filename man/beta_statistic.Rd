@@ -44,6 +44,7 @@ beta values larger than zero indicate trees more balanced than Yule trees.
 The lower bound of the beta splitting parameter is -2.
 }
 \examples{
+require(nodeSub)
 simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 brts <- branching_times(simulated_tree)
 balanced_tree <- nodeSub::create_balanced_tree(brts)

@@ -25,7 +25,9 @@
 #' Jones, Graham R. "Tree models for macroevolution and phylogenetic analysis."
 #' Systematic biology 60.6 (2011): 735-746.
 #' @export
-#' @examples simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+#' @examples
+#' require(nodeSub)
+#' simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 #' brts <- branching_times(simulated_tree)
 #' balanced_tree <- nodeSub::create_balanced_tree(brts)
 #' unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
