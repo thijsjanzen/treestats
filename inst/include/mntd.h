@@ -17,7 +17,17 @@ double calc_mntd_ltable(const ltable& ltable_) {
     if (i[3] != -1) {
       dist_to_nearest_taxon = i[0] + (i[0] - i[3]);
     }
+
+    if (daughter < 0 || daughter > dist.size()) {
+      throw std::out_of_range("daughter outside dist");
+    }
+
     dist[daughter] = dist_to_nearest_taxon;
+
+    if (parent < 0 || parent > dist.size()) {
+      throw std::out_of_range("parent outside dist");
+    }
+
     if (dist[parent] > 0) {
       if (dist_to_nearest_taxon < dist[parent]) {
         dist[parent] = dist_to_nearest_taxon;
