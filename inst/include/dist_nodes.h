@@ -7,7 +7,7 @@
 
 // The function below is lifted from the ape package.
 
-std::vector< std::vector< double >> dist_nodes(
+inline std::vector< std::vector< double >> dist_nodes(
     const std::vector< std::array< size_t, 2 >>& edge,
     const std::vector<double>& el) {
   //Rcpp::NumericMatrix edge = phy["edge"];

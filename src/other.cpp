@@ -104,40 +104,8 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   return out;
 }
 
-// short util functions:
-edge_table phy_to_edge(const Rcpp::List& phy) {
-  Rcpp::NumericMatrix edge = phy["edge"];
-  edge_table local_edge(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); ++i) {
-    local_edge[i] = {static_cast<size_t>(edge(i, 0)),
-                     static_cast<size_t>(edge(i, 1))};
-  }
-  return local_edge;
-}
 
-std::vector<double> phy_to_el(const Rcpp::List& phy) {
-  Rcpp::NumericVector el = phy["edge.length"];
-  std::vector<double> el_cpp(el.begin(), el.end());
-  return el_cpp;
-}
 
-// [[Rcpp::export]]
-Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-
-  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge, el);
-  Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
-
-  for (size_t i = 0; i < lapl_mat.size(); ++i) {
-    for (size_t j = 0; j < lapl_mat[i].size(); ++j) {
-      res(i, j) = lapl_mat[i][j];
-    }
-    res(i, i) = - std::accumulate(lapl_mat[i].begin(), lapl_mat[i].end(), 0.0);
-  }
-
-  return res;
-}
 
 // [[Rcpp::export]]
 double calc_mpd_cpp(const Rcpp::List& phy) {

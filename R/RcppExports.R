@@ -181,6 +181,17 @@ calc_b2_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_b2_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+#' @param phy phy
+#' @return numericmatrix
+#' @export
+prep_lapl_spec <- function(phy) {
+    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+
+laplacian_eigen_vals <- function(phy) {
+    .Call('_treestats_laplacian_eigen_vals', PACKAGE = 'treestats', phy)
+}
+
 calc_beta_cpp <- function(phy, upper_lim, algorithm, abs_tol, rel_tol) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim, algorithm, abs_tol, rel_tol)
 }
@@ -210,10 +221,6 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
 #' plot(reconstructed_tree)
 phylo_to_l <- function(phy) {
     .Call('_treestats_phylo_to_l', PACKAGE = 'treestats', phy)
-}
-
-prep_lapl_spec <- function(phy) {
-    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
 calc_mpd_cpp <- function(phy) {

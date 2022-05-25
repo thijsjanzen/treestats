@@ -50,7 +50,8 @@ calc_all_stats <- function(phylo) {
 
   stats$laplac_spectrum_a  <- temp_stats$asymmetry
   stats$laplac_spectrum_p  <- temp_stats$peakedness
-  stats$laplac_sepctrum_e  <- log(temp_stats$principal_eigenvalue)
+  stats$laplac_spectrum_e  <- log(temp_stats$principal_eigenvalue)
+  stats$laplac_spectrum_g  <- temp_stats$eigengap
 
   stats$B1           <- treestats::b1(phylo)
   stats$B2           <- treestats::b2(phylo)

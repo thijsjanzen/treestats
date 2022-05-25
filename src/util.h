@@ -20,4 +20,22 @@ inline ltable convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
   return out;
 }
 
+
+// short util functions:
+inline edge_table phy_to_edge(const Rcpp::List& phy) {
+  Rcpp::NumericMatrix edge = phy["edge"];
+  edge_table local_edge(edge.nrow());
+  for (size_t i = 0; i < edge.nrow(); ++i) {
+    local_edge[i] = {static_cast<size_t>(edge(i, 0)),
+                     static_cast<size_t>(edge(i, 1))};
+  }
+  return local_edge;
+}
+
+inline std::vector<double> phy_to_el(const Rcpp::List& phy) {
+  Rcpp::NumericVector el = phy["edge.length"];
+  std::vector<double> el_cpp(el.begin(), el.end());
+  return el_cpp;
+}
+
 #endif
