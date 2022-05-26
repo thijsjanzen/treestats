@@ -21,7 +21,7 @@ l_to_phylo_ed <- function(ltab, t, drop_extinct = TRUE) {
 #' @export
 l_to_newick_ed <- function(ltab, t, drop_extinct = TRUE) {
 
-  newick_str <- l_to_newick_ed(ltab, t, drop_extinct)
+  newick_str <- l_to_newick_ed_cpp(ltab, t, drop_extinct)
 
   return(newick_str)
 }

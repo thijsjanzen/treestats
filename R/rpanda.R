@@ -67,7 +67,7 @@ calc_lapl_spectrum <- function(phy) {
 }
 
 
-
+#' alternative version, using Rcpp::Eigen
 #' @param phy phy
 #' @return list with five components: 1) eigenvalues the vector of eigen
 #' values, 2) principal_eigenvalue the largest eigenvalueof the spectral

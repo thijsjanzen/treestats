@@ -4,14 +4,14 @@
 \alias{l_to_newick_ed}
 \title{Convert an reverse-timescale L table to newick format string}
 \usage{
-l_to_newick_ed(ltable_R, t, drop_extinct)
+l_to_newick_ed(ltab, t, drop_extinct = TRUE)
 }
 \arguments{
+\item{ltab}{ltable}
+
 \item{t}{simulation time when converting it to phylogeny}
 
 \item{drop_extinct}{should extinct species be dropped from the phylogeny?}
-
-\item{ltab}{ltable}
 }
 \value{
 newick string

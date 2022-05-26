@@ -181,6 +181,7 @@ calc_b2_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_b2_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+#' function to create laplacian matrix
 #' @param phy phy
 #' @return numericmatrix
 #' @export
@@ -255,8 +256,8 @@ l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
 
-l_to_newick_ed <- function(ltable_R, t, drop_extinct) {
-    .Call('_treestats_l_to_newick_ed', PACKAGE = 'treestats', ltable_R, t, drop_extinct)
+l_to_newick_ed_cpp <- function(ltable_R, t, drop_extinct) {
+    .Call('_treestats_l_to_newick_ed_cpp', PACKAGE = 'treestats', ltable_R, t, drop_extinct)
 }
 
 avgLadder_ltable_cpp <- function(ltable_R) {

@@ -6,6 +6,7 @@
 
 // [[Rcpp::depends(RcppEigen)]]
 
+//' function to create laplacian matrix
 //' @param phy phy
 //' @return numericmatrix
 //' @export
