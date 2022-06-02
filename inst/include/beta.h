@@ -41,7 +41,6 @@ public:
       ll[i] = calc_log_prob(i, sn[ index ], beta);
     }
     double sumll = std::accumulate(ll.begin(), ll.end(), 0.f);
-  // std::cerr << beta << " " << sumll << "\n";
     return sumll;
   }
 
@@ -72,7 +71,8 @@ private:
     }
 
     std::vector< size_t > matches(2);
-    auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
+    auto match1 = std::lower_bound(edge.begin(), edge.end(), label,
+                                   [&](const auto& a, size_t val){
       return a[0] < val;
     });
 
@@ -91,7 +91,6 @@ private:
     }
 
     size_t s = 0;
-    //for (size_t j = 0; j < matches.size(); ++j) {
     for (auto i : matches) {
       s += get_num_tips(i, root_label);
     }
@@ -117,7 +116,6 @@ private:
         lr[1] = get_num_tips(edge[j][1], root_label);
 
         if (lr[0] > lr[1]) {
-          //std::swap(lr[0], lr[1]);
           size_t temp = lr[1];
           lr[1] = lr[0];
           lr[0] = temp;

@@ -69,7 +69,7 @@ double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   double mpd = 0.0;
   size_t cnt = 0;
 
-  for (size_t i = 0; i <n; ++i) {
+  for (size_t i = 0; i < n; ++i) {
     for (size_t j = 0; j < i; ++j) {
       mpd += std::abs(dist_mat[i][j]); cnt++;
     }

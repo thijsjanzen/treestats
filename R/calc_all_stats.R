@@ -29,8 +29,8 @@ calc_all_stats <- function(phylo) {
   stats <- list()
 
   stats$gamma              <- treestats::gamma_statistic(phylo)
-  stats$sackin             <- treestats::sackin(phylo)
-  stats$colless            <- treestats::colless(phylo)
+  stats$sackin             <- treestats::sackin(phylo, normalization = "yule")
+  stats$colless            <- treestats::colless(phylo, normalization = "yule")
   stats$beta               <- treestats::beta_statistic(phylo)
   stats$blum               <- treestats::blum(phylo)
   stats$crown_age          <- treestats::crown_age(phylo)
@@ -46,12 +46,21 @@ calc_all_stats <- function(phylo) {
   stats$pitchforks         <- treestats::pitchforks(phylo)
   stats$stairs             <- treestats::stairs(phylo)
 
-  temp_stats <- treestats::calc_lapl_spectrum(phylo)
+  temp_stats <- tryCatch(expr = {treestats::calc_lapl_spectrum(phylo) },
+                         error = function(e) {return(NA) })
 
-  stats$laplac_spectrum_a  <- temp_stats$asymmetry
-  stats$laplac_spectrum_p  <- temp_stats$peakedness
-  stats$laplac_spectrum_e  <- log(temp_stats$principal_eigenvalue)
-  stats$laplac_spectrum_g  <- temp_stats$eigengap[[1]]
+  if (length(temp_stats) == 5) {
+    stats$laplac_spectrum_a  <- temp_stats$asymmetry
+    stats$laplac_spectrum_p  <- temp_stats$peakedness
+    stats$laplac_spectrum_e  <- log(temp_stats$principal_eigenvalue)
+    stats$laplac_spectrum_g  <- temp_stats$eigengap[[1]]
+  } else {
+    stats$laplac_spectrum_a  <- NA
+    stats$laplac_spectrum_p  <- NA
+    stats$laplac_spectrum_e  <- NA
+    stats$laplac_spectrum_g  <- NA
+  }
+
 
   stats$B1           <- treestats::b1(phylo)
   stats$B2           <- treestats::b2(phylo)
@@ -64,15 +73,22 @@ calc_all_stats <- function(phylo) {
   stats$maxWidth     <- treestats::max_width(phylo)
   stats$rogers       <- treestats::rogers(phylo)
   stats$stairs2      <- treestats::stairs2(phylo)
-  stats$totCoph      <- treestats::tot_coph(phylo)
+  stats$totCoph      <- tryCatch(expr = {treestats::tot_coph(phylo)},
+                                 error = function(e) {return(NA)})
+
   stats$varLeafDepth <- treestats::var_leaf_depth(phylo)
   stats$symNodes     <- treestats::sym_nodes(phylo)
 
-  stats$mpd          <- treestats::mean_pair_dist(phylo)
-  stats$psv          <- treestats::psv(phylo)
-  stats$vpd          <- treestats::var_pair_dist(phylo)
-  stats$mntd         <- treestats::mntd(phylo)
-  stats$J            <- treestats::entropy_j(phylo)
+  stats$mpd          <- tryCatch(expr = {treestats::mean_pair_dist(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$psv          <- tryCatch(expr = {treestats::psv(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$vpd          <- tryCatch(expr = {treestats::var_pair_dist(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$mntd         <- tryCatch(expr = {treestats::mntd(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$J            <- tryCatch(expr = {treestats::entropy_j(phylo)},
+                                 error = function(e) {return(NA)})
 
   return(stats)
-}
+  }

@@ -189,10 +189,6 @@ prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
-laplacian_eigen_vals <- function(phy) {
-    .Call('_treestats_laplacian_eigen_vals', PACKAGE = 'treestats', phy)
-}
-
 calc_beta_cpp <- function(phy, upper_lim, algorithm, abs_tol, rel_tol) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim, algorithm, abs_tol, rel_tol)
 }

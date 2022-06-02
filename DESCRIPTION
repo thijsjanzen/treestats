@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Collection of Phylogenetic Tree Statistics
-Version: 0.8.0
+Version: 0.8.1
 Author: Thijs Janzen
 Maintainer: Thijs Janzen <thijsjanzen@gmail.com>
 Description: Collection of phylogenetic tree statistics, collated from several packages. Some of these functions have been ported to c++ to improve speed.
@@ -13,8 +13,7 @@ Depends:
     Rcpp
 LinkingTo: 
     Rcpp,
-    nloptr,
-    RcppEigen
+    nloptr
 Imports:
     ape,
     nloptr
