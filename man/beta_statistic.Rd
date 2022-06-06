@@ -49,9 +49,9 @@ simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 brts <- branching_times(simulated_tree)
 balanced_tree <- nodeSub::create_balanced_tree(brts)
 unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-beta_statistic(balanced_tree) # should be approximately -2
+beta_statistic(balanced_tree) # should be approximately 10
 beta_statistic(simulated_tree) # should be near 0
-beta_statistic(unbalanced_tree) # should be approximately 10
+beta_statistic(unbalanced_tree) # should be approximately -2
 }
 \references{
 Aldous, David. "Probability distributions on cladograms." Random
