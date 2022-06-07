@@ -21,6 +21,10 @@ calc_rho_ltable_cpp <- function(ltab) {
     .Call('_treestats_calc_rho_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
+calc_phylodiv_0_cpp <- function(edge_length) {
+    .Call('_treestats_calc_phylodiv_0_cpp', PACKAGE = 'treestats', edge_length)
+}
+
 calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }
@@ -29,8 +33,8 @@ calc_phylodiv_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_calc_phylodiv_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
-calc_mean_branch_length_cpp <- function(phy) {
-    .Call('_treestats_calc_mean_branch_length_cpp', PACKAGE = 'treestats', phy)
+calc_mean_branch_length_cpp <- function(edge_length) {
+    .Call('_treestats_calc_mean_branch_length_cpp', PACKAGE = 'treestats', edge_length)
 }
 
 calc_mean_branch_length_ltable_cpp <- function(ltable_R) {
@@ -177,6 +181,14 @@ calc_b2_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_b2_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+#' function to create laplacian matrix
+#' @param phy phy
+#' @return numericmatrix
+#' @export
+prep_lapl_spec <- function(phy) {
+    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+
 calc_beta_cpp <- function(phy, upper_lim, algorithm, abs_tol, rel_tol) {
     .Call('_treestats_calc_beta_cpp', PACKAGE = 'treestats', phy, upper_lim, algorithm, abs_tol, rel_tol)
 }
@@ -206,10 +218,6 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
 #' plot(reconstructed_tree)
 phylo_to_l <- function(phy) {
     .Call('_treestats_phylo_to_l', PACKAGE = 'treestats', phy)
-}
-
-prep_lapl_spec <- function(phy) {
-    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
 calc_mpd_cpp <- function(phy) {
@@ -244,8 +252,8 @@ l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
 
-l_to_newick_ed <- function(ltable_R, t, drop_extinct) {
-    .Call('_treestats_l_to_newick_ed', PACKAGE = 'treestats', ltable_R, t, drop_extinct)
+l_to_newick_ed_cpp <- function(ltable_R, t, drop_extinct) {
+    .Call('_treestats_l_to_newick_ed_cpp', PACKAGE = 'treestats', ltable_R, t, drop_extinct)
 }
 
 avgLadder_ltable_cpp <- function(ltable_R) {

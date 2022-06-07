@@ -10,10 +10,9 @@
 
 using ltable = std::vector< std::array<double, 4>>;
 
-
 class betastat {
 public:
-  betastat(const std::vector< std::array< size_t, 2 >> e) : edge(e) {
+  betastat(const std::vector< std::array< int, 2 >> e) : edge(e) {
     tiplist = std::vector<int>(edge.size() + 2, -1);
     update_lr_matrix();
   }
@@ -41,15 +40,14 @@ public:
       ll[i] = calc_log_prob(i, sn[ index ], beta);
     }
     double sumll = std::accumulate(ll.begin(), ll.end(), 0.f);
-  // std::cerr << beta << " " << sumll << "\n";
     return sumll;
   }
 
 private:
-  std::vector< std::array<size_t, 2>> lr_;
-  std::vector< std::array<size_t, 2>> edge;
-  size_t max_n_;
-  std::vector< size_t > n_;
+  std::vector< std::array<int, 2>> lr_;
+  std::vector< std::array<int, 2>> edge;
+  int max_n_;
+  std::vector< int > n_;
 
   std::vector< int > tiplist;
 
@@ -57,9 +55,10 @@ private:
   std::vector<double> brts_;
 
 
-  size_t get_num_tips(size_t label, size_t root_label) {
-    if (label >= tiplist.size()) {
-      throw std::out_of_range("label > tiplist.size()");
+  int get_num_tips(const int& label,
+                   const int& root_label) {
+    if (label >= tiplist.size() || label < 0) {
+      throw std::out_of_range("label outside tiplist.size()");
     }
 
     if (label < root_label) {
@@ -67,12 +66,13 @@ private:
       return 1;
     }
 
-    if (tiplist[label] > 0) {
+    if (tiplist[label] > 0) { // tiplist is populated with -1
       return(tiplist[label]);
     }
 
-    std::vector< size_t > matches(2);
-    auto match1 = std::lower_bound(edge.begin(), edge.end(), label, [&](const auto& a, size_t val){
+    std::vector< int > matches(2);
+    auto match1 = std::lower_bound(edge.begin(), edge.end(), label,
+                                   [&](const auto& a, int val){
       return a[0] < val;
     });
 
@@ -90,9 +90,8 @@ private:
       throw "can't find matches";
     }
 
-    size_t s = 0;
-    //for (size_t j = 0; j < matches.size(); ++j) {
-    for (auto i : matches) {
+    int s = 0;
+    for (const auto& i : matches) {
       s += get_num_tips(i, root_label);
     }
     tiplist[label] = s;
@@ -102,25 +101,21 @@ private:
 
   void update_lr_matrix() {
 
-    size_t root_label = edge[0][0];
+    auto root_label = edge[0][0];
 
     std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
       return a[0] < b[0];
     });
 
-
     for (size_t i = 0; i < edge.size(); ++i) {
       if (i + 1 < edge.size()) {
         auto j = i + 1;
-        std::array< size_t, 2> lr;
+        std::array< int, 2> lr;
         lr[0] = get_num_tips(edge[i][1], root_label);
         lr[1] = get_num_tips(edge[j][1], root_label);
 
         if (lr[0] > lr[1]) {
-          //std::swap(lr[0], lr[1]);
-          size_t temp = lr[1];
-          lr[1] = lr[0];
-          lr[0] = temp;
+          std::swap(lr[0], lr[1]);
         }
         size_t total_num_lin = lr[0] + lr[1];
         n_.push_back(total_num_lin);
@@ -133,13 +128,13 @@ private:
   }
 
 
-  double calc_i_n_b(size_t i, size_t n, double b) const {
+  double calc_i_n_b(int i, int n, double b) const {
     double nom = std::tgamma(1.f*(i + 1 + b)) * std::tgamma(1.f*(n - i + 1 + b));
     double denom = std::tgamma(1.f*(i + 1)) * std::tgamma(1.f*(n - i + 1));
     return(nom / denom);
   }
 
-  double calc_i_n_b_l(size_t i, size_t n, double b) const {
+  double calc_i_n_b_l(int i, int n, double b) const {
     return lgamma(i + 1 + b) + lgamma(n - i + 1 + b) -
       lgamma(i + 1) - lgamma(n - i + 1);
   }
@@ -148,25 +143,31 @@ private:
     std::vector<double> sn(max_n_ + 1, 0.0);
     std::vector<double> xn(max_n_ + 1, 0.0);
 
+    if (sn.size() < 4) {
+      throw std::out_of_range("get_n too small tree");
+    }
+
     xn[2] = 1.0;
     xn[3] = 0.5;
 
     sn[2] = expf(calc_i_n_b_l(1, 2, b));
     sn[3] = expf(calc_i_n_b_l(1, 3, b)) + expf(calc_i_n_b_l(2, 3, b));
 
-    for (size_t n = 3; n < max_n_; ++n) {
+    if (max_n_ >= 3) {
+      for (size_t n = 3; n < max_n_; ++n) {
 
-      auto term1 = n + 2 + 2 * b;
-      auto term2 = 2 * (n + b) * xn[n];
+        auto term1 = n + 2 + 2 * b;
+        auto term2 = 2 * (n + b) * xn[n];
 
-      xn[n + 1] = ((n + b) * (n + 1) * xn[n]) / (n * term1 + term2);
-      sn[n + 1] =  (1.0 / (n + 1) ) * (term1 + term2 / n) * sn[n];
+        xn[n + 1] = ((n + b) * (n + 1) * xn[n]) / (n * term1 + term2);
+        sn[n + 1] =  (1.0 / (n + 1) ) * (term1 + term2 / n) * sn[n];
+      }
     }
 
     return sn;
   }
 
-  double calc_log_prob(size_t index, double sn, double beta) const {
+  double calc_log_prob(int index, double sn, double beta) const {
     double l = lr_[index][0];
     double r = lr_[index][1];
     return lgamma(beta + l + 1) + lgamma(beta + r + 1) -
@@ -195,11 +196,11 @@ private:
   }
 
 
-  size_t get_total_num_lin(int sp,
+  int get_total_num_lin(int sp,
                            double bt) {
 
     int index = find_species_in_ltable(sp);
-    size_t total_tips = 0;
+    int total_tips = 0;
     if (index >= 0) {
       if (lt_[index][3] == -1) {
         total_tips = 1;
@@ -230,7 +231,7 @@ private:
   void update_lr_matrix_ltable() {
     max_n_ = 0;
     for (auto br : brts_) {
-      std::array<size_t, 2> lr = {0, 0};
+      std::array<int, 2> lr = {0, 0};
       std::vector< size_t > indices = get_indices(br);
       if (indices.size() == 2) {
         lr[0] = get_total_num_lin(lt_[indices[0]][2], br);

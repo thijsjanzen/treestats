@@ -8,7 +8,7 @@ mean_branch_length <- function(phy) {
     return(calc_mean_branch_length_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
-    return(calc_mean_branch_length_cpp(phy))
+    return(calc_mean_branch_length_cpp(as.vector(phy$edge.length)))
   }
 
   stop("input object has to be phylo or ltable")

@@ -17,7 +17,17 @@ double calc_mntd_ltable(const ltable& ltable_) {
     if (i[3] != -1) {
       dist_to_nearest_taxon = i[0] + (i[0] - i[3]);
     }
+
+    if (daughter < 0 || daughter > dist.size()) {
+      throw std::out_of_range("daughter outside dist");
+    }
+
     dist[daughter] = dist_to_nearest_taxon;
+
+    if (parent < 0 || parent > dist.size()) {
+      throw std::out_of_range("parent outside dist");
+    }
+
     if (dist[parent] > 0) {
       if (dist_to_nearest_taxon < dist[parent]) {
         dist[parent] = dist_to_nearest_taxon;
@@ -59,7 +69,7 @@ double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   double mpd = 0.0;
   size_t cnt = 0;
 
-  for (size_t i = 0; i <n; ++i) {
+  for (size_t i = 0; i < n; ++i) {
     for (size_t j = 0; j < i; ++j) {
       mpd += std::abs(dist_mat[i][j]); cnt++;
     }

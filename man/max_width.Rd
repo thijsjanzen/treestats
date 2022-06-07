@@ -16,8 +16,8 @@ maximum width
 Calculates the maximum width, this is calculated by first
 collecting the depth of each node and tip across the entire tree, where the
 depth represents the distance (in nodes) to the root. Then, the width
-represents the number of occurrences of each possible depth. The maximal width
-then returns the maximum number of such occurences.
+represents the number of occurrences of each possible depth. The maximal
+width then returns the maximum number of such occurences.
 }
 \references{
 C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease

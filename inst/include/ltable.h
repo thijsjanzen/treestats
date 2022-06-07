@@ -114,7 +114,6 @@ namespace ltab {
       return b1;
     }
 
-
     double calc_var_leaf_depth() {
       std::vector< int > depths = collect_depths();
 

@@ -2,20 +2,20 @@
 #' @param phylo phylo object
 #' @return list with statistics
 #' @export
-#' @description this function applies all available tree statistics to a
+#' @description this function applies all tree statistics available in
+#' this package to a
 #' single tree, being:
 #' \itemize{
 #'   \item{gamma}
-#'   \item{sackin}
-#'   \item{colless}
-#'   \item{beta}
-#'   \item{blum}
+#'   \item{sackin (yule corrected)}
+#'   \item{colless (yule corrected)}
+#'   \item{Aldous' beta statistic}
+#'   \item{Blum}
 #'   \item{crown age}
 #'   \item{tree height}
 #'   \item{pigot's rho}
 #'   \item{mean branch length}
 #'   \item{number of lineages}
-#'   \item{laplacian spectrum}
 #'   \item{nLTT with empty tree}
 #'   \item{phylogenetic diversity}
 #'   \item{avgLadder index}
@@ -23,14 +23,43 @@
 #'   \item{ILnumber}
 #'   \item{pitchforks}
 #'   \item{stairs}
+#'   \item{stairs2}
+#'   \item{laplacian spectrum}
+#'   \item{B1}
+#'   \item{B2}
+#'   \item{area per pair (aPP) }
+#'   \item{average leaf depth (aLD)}
+#'   \item{I statistic}
+#'   \item{ewColless}
+#'   \item{max Delta Width (maxDelW)}
+#'   \item{maximum of Depth}
+#'   \item{variance of Depth}
+#'   \item{maximum Width}
+#'   \item{Rogers}
+#'   \item{total Cophenetic distance}
+#'   \item{symmetry Nodes}
+#'   \item{mean of pairwise distance (mpd)}
+#'   \item{variance of pairwise distance (vpd)}
+#'   \item{Phylogenetic Species Variability (psv)}
+#'   \item{mean nearest taxon distance (mntd)}
+#'   \item{J statistic of entropy}
+#'   \item{rquartet index}
 #' }
+#'
+#' For the Laplacian spectrum properties, four properties of the eigenvalue
+#' distribution are returned: 1) asymmetry, 2) peakedness, 3) log(principal
+#' eigenvalue) and 4) eigengap.
+#' Please notice that for some very small or very large trees, some of the
+#' statistics can not be calculated. The function will report an NA for this
+#' statistic, but will to break, to facilitate batch analysis of large numbers
+#' of trees.
 calc_all_stats <- function(phylo) {
 
   stats <- list()
 
   stats$gamma              <- treestats::gamma_statistic(phylo)
-  stats$sackin             <- treestats::sackin(phylo)
-  stats$colless            <- treestats::colless(phylo)
+  stats$sackin             <- treestats::sackin(phylo, normalization = "yule")
+  stats$colless            <- treestats::colless(phylo, normalization = "yule")
   stats$beta               <- treestats::beta_statistic(phylo)
   stats$blum               <- treestats::blum(phylo)
   stats$crown_age          <- treestats::crown_age(phylo)
@@ -46,11 +75,21 @@ calc_all_stats <- function(phylo) {
   stats$pitchforks         <- treestats::pitchforks(phylo)
   stats$stairs             <- treestats::stairs(phylo)
 
-  temp_stats <- treestats::calc_lapl_spectrum(phylo)
+  temp_stats <- tryCatch(expr = {treestats::calc_lapl_spectrum(phylo) },
+                         error = function(e) {return(NA) })
 
-  stats$laplac_spectrum_a  <- temp_stats$asymmetry
-  stats$laplac_spectrum_p  <- temp_stats$peakedness
-  stats$laplac_sepctrum_e  <- log(temp_stats$principal_eigenvalue)
+  if (length(temp_stats) == 5) {
+    stats$laplac_spectrum_a  <- temp_stats$asymmetry
+    stats$laplac_spectrum_p  <- temp_stats$peakedness
+    stats$laplac_spectrum_e  <- log(temp_stats$principal_eigenvalue)
+    stats$laplac_spectrum_g  <- temp_stats$eigengap[[1]]
+  } else {
+    stats$laplac_spectrum_a  <- NA
+    stats$laplac_spectrum_p  <- NA
+    stats$laplac_spectrum_e  <- NA
+    stats$laplac_spectrum_g  <- NA
+  }
+
 
   stats$B1           <- treestats::b1(phylo)
   stats$B2           <- treestats::b2(phylo)
@@ -63,15 +102,24 @@ calc_all_stats <- function(phylo) {
   stats$maxWidth     <- treestats::max_width(phylo)
   stats$rogers       <- treestats::rogers(phylo)
   stats$stairs2      <- treestats::stairs2(phylo)
-  stats$totCoph      <- treestats::tot_coph(phylo)
+  stats$totCoph      <- tryCatch(expr = {treestats::tot_coph(phylo)},
+                                 error = function(e) {return(NA)})
+
   stats$varLeafDepth <- treestats::var_leaf_depth(phylo)
   stats$symNodes     <- treestats::sym_nodes(phylo)
 
-  stats$mpd          <- treestats::mean_pair_dist(phylo)
-  stats$psv          <- treestats::psv(phylo)
-  stats$vpd          <- treestats::var_pair_dist(phylo)
-  stats$mntd         <- treestats::mntd(phylo)
-  stats$J            <- treestats::entropy_j(phylo)
+  stats$mpd          <- tryCatch(expr = {treestats::mean_pair_dist(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$psv          <- tryCatch(expr = {treestats::psv(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$vpd          <- tryCatch(expr = {treestats::var_pair_dist(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$mntd         <- tryCatch(expr = {treestats::mntd(phylo)},
+                                 error = function(e) {return(NA)})
+  stats$J            <- tryCatch(expr = {treestats::entropy_j(phylo)},
+                                 error = function(e) {return(NA)})
+
+  stats$rquartet     <- treestats::rquartet(phylo)
 
   return(stats)
-}
+  }

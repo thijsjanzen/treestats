@@ -13,20 +13,20 @@ calc_all_stats(phylo)
 list with statistics
 }
 \description{
-this function applies all available tree statistics to a
+this function applies all tree statistics available in
+this package to a
 single tree, being:
 \itemize{
   \item{gamma}
-  \item{sackin}
-  \item{colless}
-  \item{beta}
-  \item{blum}
+  \item{sackin (yule corrected)}
+  \item{colless (yule corrected)}
+  \item{Aldous' beta statistic}
+  \item{Blum}
   \item{crown age}
   \item{tree height}
   \item{pigot's rho}
   \item{mean branch length}
   \item{number of lineages}
-  \item{laplacian spectrum}
   \item{nLTT with empty tree}
   \item{phylogenetic diversity}
   \item{avgLadder index}
@@ -34,5 +34,34 @@ single tree, being:
   \item{ILnumber}
   \item{pitchforks}
   \item{stairs}
+  \item{stairs2}
+  \item{laplacian spectrum}
+  \item{B1}
+  \item{B2}
+  \item{area per pair (aPP) }
+  \item{average leaf depth (aLD)}
+  \item{I statistic}
+  \item{ewColless}
+  \item{max Delta Width (maxDelW)}
+  \item{maximum of Depth}
+  \item{variance of Depth}
+  \item{maximum Width}
+  \item{Rogers}
+  \item{total Cophenetic distance}
+  \item{symmetry Nodes}
+  \item{mean of pairwise distance (mpd)}
+  \item{variance of pairwise distance (vpd)}
+  \item{Phylogenetic Species Variability (psv)}
+  \item{mean nearest taxon distance (mntd)}
+  \item{J statistic of entropy}
+  \item{rquartet index}
 }
+
+For the Laplacian spectrum properties, four properties of the eigenvalue
+distribution are returned: 1) asymmetry, 2) peakedness, 3) log(principal
+eigenvalue) and 4) eigengap.
+Please notice that for some very small or very large trees, some of the
+statistics can not be calculated. The function will report an NA for this
+statistic, but will to break, to facilitate batch analysis of large numbers
+of trees.
 }

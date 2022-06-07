@@ -65,6 +65,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_phylodiv_0_cpp
+double calc_phylodiv_0_cpp(const std::vector<double>& edge_length);
+RcppExport SEXP _treestats_calc_phylodiv_0_cpp(SEXP edge_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type edge_length(edge_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_phylodiv_0_cpp(edge_length));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_phylodiv_cpp
 double calc_phylodiv_cpp(const Rcpp::List& phy, double t, double extinct_acc);
 RcppExport SEXP _treestats_calc_phylodiv_cpp(SEXP phySEXP, SEXP tSEXP, SEXP extinct_accSEXP) {
@@ -90,13 +101,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_mean_branch_length_cpp
-double calc_mean_branch_length_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_mean_branch_length_cpp(SEXP phySEXP) {
+double calc_mean_branch_length_cpp(const std::vector<double>& edge_length);
+RcppExport SEXP _treestats_calc_mean_branch_length_cpp(SEXP edge_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_cpp(phy));
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type edge_length(edge_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_cpp(edge_length));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -502,6 +513,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// prep_lapl_spec
+Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy);
+RcppExport SEXP _treestats_prep_lapl_spec(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(prep_lapl_spec(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_beta_cpp
 double calc_beta_cpp(const Rcpp::List& phy, double upper_lim, std::string algorithm, double abs_tol, double rel_tol);
 RcppExport SEXP _treestats_calc_beta_cpp(SEXP phySEXP, SEXP upper_limSEXP, SEXP algorithmSEXP, SEXP abs_tolSEXP, SEXP rel_tolSEXP) {
@@ -540,17 +562,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
     rcpp_result_gen = Rcpp::wrap(phylo_to_l(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
-// prep_lapl_spec
-Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy);
-RcppExport SEXP _treestats_prep_lapl_spec(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(prep_lapl_spec(phy));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -643,16 +654,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// l_to_newick_ed
-std::string l_to_newick_ed(const Rcpp::NumericMatrix& ltable_R, const double t, bool drop_extinct);
-RcppExport SEXP _treestats_l_to_newick_ed(SEXP ltable_RSEXP, SEXP tSEXP, SEXP drop_extinctSEXP) {
+// l_to_newick_ed_cpp
+std::string l_to_newick_ed_cpp(const Rcpp::NumericMatrix& ltable_R, const double t, bool drop_extinct);
+RcppExport SEXP _treestats_l_to_newick_ed_cpp(SEXP ltable_RSEXP, SEXP tSEXP, SEXP drop_extinctSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
     Rcpp::traits::input_parameter< const double >::type t(tSEXP);
     Rcpp::traits::input_parameter< bool >::type drop_extinct(drop_extinctSEXP);
-    rcpp_result_gen = Rcpp::wrap(l_to_newick_ed(ltable_R, t, drop_extinct));
+    rcpp_result_gen = Rcpp::wrap(l_to_newick_ed_cpp(ltable_R, t, drop_extinct));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -775,6 +786,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_rho_complete_cpp", (DL_FUNC) &_treestats_calc_rho_complete_cpp, 1},
     {"_treestats_calc_rho_cpp", (DL_FUNC) &_treestats_calc_rho_cpp, 1},
     {"_treestats_calc_rho_ltable_cpp", (DL_FUNC) &_treestats_calc_rho_ltable_cpp, 1},
+    {"_treestats_calc_phylodiv_0_cpp", (DL_FUNC) &_treestats_calc_phylodiv_0_cpp, 1},
     {"_treestats_calc_phylodiv_cpp", (DL_FUNC) &_treestats_calc_phylodiv_cpp, 3},
     {"_treestats_calc_phylodiv_ltable_cpp", (DL_FUNC) &_treestats_calc_phylodiv_ltable_cpp, 1},
     {"_treestats_calc_mean_branch_length_cpp", (DL_FUNC) &_treestats_calc_mean_branch_length_cpp, 1},
@@ -814,10 +826,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_b1_ltable_cpp", (DL_FUNC) &_treestats_calc_b1_ltable_cpp, 1},
     {"_treestats_calc_b2_cpp", (DL_FUNC) &_treestats_calc_b2_cpp, 1},
     {"_treestats_calc_b2_ltable_cpp", (DL_FUNC) &_treestats_calc_b2_ltable_cpp, 1},
+    {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
-    {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 1},
     {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 1},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 1},
@@ -826,7 +838,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
     {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
-    {"_treestats_l_to_newick_ed", (DL_FUNC) &_treestats_l_to_newick_ed, 3},
+    {"_treestats_l_to_newick_ed_cpp", (DL_FUNC) &_treestats_l_to_newick_ed_cpp, 3},
     {"_treestats_avgLadder_ltable_cpp", (DL_FUNC) &_treestats_avgLadder_ltable_cpp, 1},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},

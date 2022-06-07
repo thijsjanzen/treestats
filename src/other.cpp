@@ -24,11 +24,18 @@ double calc_beta_cpp(const Rcpp::List& phy,
 
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
-    edge_table local_edge(edge.nrow());
-    for (size_t i = 0; i < edge.nrow(); ++i) {
-      local_edge[i] = {static_cast<size_t>(edge(i, 0)),
-                       static_cast<size_t>(edge(i, 1))};
+    if (edge.nrow() == 2) {
+      Rcpp::warning("Trees with only two tips have undefined beta");
+      return NA_REAL;
     }
+
+
+    std::vector< std::array< int, 2 >> local_edge(edge.nrow());
+    for (size_t i = 0; i < edge.nrow(); ++i) {
+      local_edge[i] = {static_cast<int>(edge(i, 0)),
+                       static_cast<int>(edge(i, 1))};
+    }
+
 
     return calc_beta(local_edge, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
   } catch(std::exception &ex) {
@@ -104,40 +111,8 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   return out;
 }
 
-// short util functions:
-edge_table phy_to_edge(const Rcpp::List& phy) {
-  Rcpp::NumericMatrix edge = phy["edge"];
-  edge_table local_edge(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); ++i) {
-    local_edge[i] = {static_cast<size_t>(edge(i, 0)),
-                     static_cast<size_t>(edge(i, 1))};
-  }
-  return local_edge;
-}
 
-std::vector<double> phy_to_el(const Rcpp::List& phy) {
-  Rcpp::NumericVector el = phy["edge.length"];
-  std::vector<double> el_cpp(el.begin(), el.end());
-  return el_cpp;
-}
 
-// [[Rcpp::export]]
-Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-
-  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge, el);
-  Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
-
-  for (size_t i = 0; i < lapl_mat.size(); ++i) {
-    for (size_t j = 0; j < lapl_mat[i].size(); ++j) {
-      res(i, j) = lapl_mat[i][j];
-    }
-    res(i, i) = - std::accumulate(lapl_mat[i].begin(), lapl_mat[i].end(), 0.0);
-  }
-
-  return res;
-}
 
 // [[Rcpp::export]]
 double calc_mpd_cpp(const Rcpp::List& phy) {
@@ -206,8 +181,9 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
 }
 
 // [[Rcpp::export]]
-std::string l_to_newick_ed(const Rcpp::NumericMatrix& ltable_R, const double t,
-                        bool drop_extinct) {
+std::string l_to_newick_ed_cpp(const Rcpp::NumericMatrix& ltable_R,
+                           const double t,
+                           bool drop_extinct) {
   auto ltable_cpp = convert_to_ltable(ltable_R);
   auto newick_string = ltable_to_newick_ed(ltable_cpp, t, drop_extinct);
   return newick_string;

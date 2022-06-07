@@ -21,14 +21,16 @@ mean_i <- function(phy) {
 
   if (inherits(phy, "matrix")) {
     if (length(phy[, 1]) < 4) {
-      stop("I statistic is only available for trees with at least 4 tips.")
+      warning("I statistic is only available for trees with at least 4 tips.")
+      return(NA)
     }
     return(calc_Ibased_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
 
     if (length(phy$tip.label) < 4) {
-      stop("I statistic is only available for trees with at least 4 tips.")
+      warning("I statistic is only available for trees with at least 4 tips.")
+      return(NA)
     }
 
     return(calc_Ibased_cpp(as.vector(t(phy$edge))))
