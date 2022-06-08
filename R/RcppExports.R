@@ -256,10 +256,6 @@ l_to_newick_ed_cpp <- function(ltable_R, t, drop_extinct) {
     .Call('_treestats_l_to_newick_ed_cpp', PACKAGE = 'treestats', ltable_R, t, drop_extinct)
 }
 
-avgLadder_ltable_cpp <- function(ltable_R) {
-    .Call('_treestats_avgLadder_ltable_cpp', PACKAGE = 'treestats', ltable_R)
-}
-
 calc_sackin_cpp <- function(tree_edge, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }

@@ -11,7 +11,6 @@
 #include "phylo2L.h"
 #include "L2newick.h"
 #include "L2newick_ed.h"
-#include "newick_to_edge.h"
 #include "avgladder.h"
 #include "mntd.h"
 
@@ -187,11 +186,4 @@ std::string l_to_newick_ed_cpp(const Rcpp::NumericMatrix& ltable_R,
   auto ltable_cpp = convert_to_ltable(ltable_R);
   auto newick_string = ltable_to_newick_ed(ltable_cpp, t, drop_extinct);
   return newick_string;
-}
-
-// [[Rcpp::export]]
-double avgLadder_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
-  auto newick_str = l_to_newick(ltable_R, false);
-  auto edge_table = newick_to_edge(newick_str);
-  return avgLadder_cpp(edge_table);
 }
