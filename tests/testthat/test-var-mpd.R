@@ -9,8 +9,6 @@ test_that("usage", {
   a1 <- treestats::var_pair_dist(focal_tree)
 
   n <- length(focal_tree$tip.label)
-  sample_mat <- matrix(data = 1, nrow = n, ncol = n)
-  colnames(sample_mat) <- focal_tree$tip.label
 
   a2 <- cophenetic(focal_tree)
   a2 <- a2[lower.tri(a2)]
