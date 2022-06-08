@@ -15,7 +15,9 @@ Rogers index
 \description{
 The Rogers index is calculated as the total number of internal
 nodes that are unbalanced, e.g. for which both daughter nodes lead to a
-different number of extant tips.
+different number of extant tips. in other words, the number of nodes where
+L != R (where L(R) is the number of extant tips of the Left (Right) daughter
+node).
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)

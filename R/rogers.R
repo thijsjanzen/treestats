@@ -1,7 +1,9 @@
 #' Fast function using C++ to calculate the Rogers J index of (im)balance.
 #' @description The Rogers index is calculated as the total number of internal
 #' nodes that are unbalanced, e.g. for which both daughter nodes lead to a
-#' different number of extant tips.
+#' different number of extant tips. in other words, the number of nodes where
+#' L != R (where L(R) is the number of extant tips of the Left (Right) daughter
+#' node).
 #' @param phy phylo object or ltable
 #' @return Rogers index
 #' @references  J. S. Rogers. Central Moments and Probability Distributions of
@@ -15,7 +17,6 @@
 #' rogers(balanced_tree)
 #' rogers(unbalanced_tree) # should be higher
 rogers <- function(phy) {
-
   if (inherits(phy, "matrix")) {
     return(calc_rogers_ltable_cpp(phy))
   }

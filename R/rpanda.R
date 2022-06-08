@@ -10,6 +10,7 @@ integr <- function(x, f) {
   return(integral)
 }
 
+
 #' @keywords internal
 skew_ness <- function(x) {
   n <- length(x)
@@ -43,12 +44,45 @@ skew_ness <- function(x) {
 #' @export
 calc_lapl_spectrum <- function(phy) {
 
+  # prep code:
+  sigma = 0.1
+  gKernel <- function(x) 1/(sigma * sqrt(2 * pi)) * exp(-(x^2)/2 *
+                                                          sigma^2)
+
+  kernelG <- function(x, mean = 0, sd = 1) dnorm(x, mean = mean,
+                                                 sd = sd)
+
+  dens_rpanda <- function(x,
+                          bw = bw.nrd0,
+                          kernel = kernelG,
+                          n = 4096,
+                          from = min(x) - 3 * sd, to = max(x) + 3 * sd,
+                          adjust = 1,
+                          ...) {
+    if (has.na <- any(is.na(x))) {
+      x <- na.omit(x)
+      if (length(x) == 0)
+        stop("no finite or non-missing data!")
+    }
+    sd <- (if (is.numeric(bw))
+      bw[1]
+      else bw(x)) * adjust
+    X <- seq(from, to, len = n)
+    M <- outer(X, x, kernel, sd = sd, ...)
+    structure(list(x = X, y = rowMeans(M), bw = sd, call = match.call(),
+                   n = length(x), data.name = deparse(substitute(x)),
+                   has.na = has.na), class = "density")
+  }
+
+
+
   lapl_mat <- prep_lapl_spec(phy)
 
   e <- eigen(lapl_mat, symmetric = TRUE, only.values = TRUE)
 
   x <- subset(e$values, e$values >= 1)
-  d <- stats::density(log(x))
+  # d <- stats::density(log(x))
+  d <- dens_rpanda(log(x))
   dsc <- d$y / (integr(d$x, d$y))
   principal_eigenvalue <- max(x)
   skewness <- skew_ness(x)
