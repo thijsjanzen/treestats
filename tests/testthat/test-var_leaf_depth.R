@@ -8,6 +8,9 @@ test_that("usage", {
 
   a1 <- treestats::var_leaf_depth(focal_tree)
   a2 <- treebalance::varLeafDepI(focal_tree)
+  a2 <- a2 * (100) / (100 - 1)  # treebalance uses n, we use n - 1
+
+
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)
@@ -22,6 +25,8 @@ test_that("usage", {
 
   a1 <- treestats::var_leaf_depth(focal_tree)
   a2 <- treebalance::varLeafDepI(focal_tree)
+  a2 <- a2 * (100) / (100 - 1)  # treebalance uses n, we use n - 1
+
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)

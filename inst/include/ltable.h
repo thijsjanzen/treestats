@@ -124,7 +124,7 @@ namespace ltab {
       for (const auto& i : depths) {
         var_depth += (i - average_depth) * (i - average_depth);
       }
-      var_depth *= inv_tree_size;
+      var_depth *= 1.0 / (depths.size() - 1);
       return var_depth;
     }
 
