@@ -71,7 +71,7 @@ calc_all_stats <- function(phylo) {
   stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
   stats$avgLadder          <- treestats::avgLadder(phylo) #nolint
   stats$cherries           <- treestats::cherries(phylo)
-  stats$ILnumber           <- treestats::ILnumber(phylo) #nolint
+  stats$il_number           <- treestats::ILnumber(phylo) #nolint
   stats$pitchforks         <- treestats::pitchforks(phylo)
   stats$stairs             <- treestats::stairs(phylo)
 
@@ -91,22 +91,22 @@ calc_all_stats <- function(phylo) {
   }
 
 
-  stats$B1           <- treestats::b1(phylo)
-  stats$B2           <- treestats::b2(phylo)
-  stats$aPP          <- treestats::area_per_pair(phylo)
-  stats$aLD          <- treestats::average_leaf_depth(phylo)
-  stats$Ibased       <- treestats::mean_i(phylo)
-  stats$ewColless    <- treestats::ew_colless(phylo)
-  stats$maxDelW      <- treestats::max_del_width(phylo)
-  stats$maxDepth     <- treestats::max_depth(phylo)
-  stats$maxWidth     <- treestats::max_width(phylo)
+  stats$b1           <- treestats::b1(phylo)
+  stats$b2           <- treestats::b2(phylo)
+  stats$area_per_pair          <- treestats::area_per_pair(phylo)
+  stats$average_leaf_depth          <- treestats::average_leaf_depth(phylo)
+  stats$i_stat       <- treestats::mean_i(phylo)
+  stats$ew_colless    <- treestats::ew_colless(phylo)
+  stats$max_del_width      <- treestats::max_del_width(phylo)
+  stats$max_depth     <- treestats::max_depth(phylo)
+  stats$max_width     <- treestats::max_width(phylo)
   stats$rogers       <- treestats::rogers(phylo)
   stats$stairs2      <- treestats::stairs2(phylo)
-  stats$totCoph      <- tryCatch(expr = {treestats::tot_coph(phylo)},
+  stats$tot_coph      <- tryCatch(expr = {treestats::tot_coph(phylo)},
                                  error = function(e) {return(NA)})
 
-  stats$varLeafDepth <- treestats::var_leaf_depth(phylo)
-  stats$symNodes     <- treestats::sym_nodes(phylo)
+  stats$var_depth <- treestats::var_leaf_depth(phylo)
+  stats$symmetry_nodes     <- treestats::sym_nodes(phylo)
 
   stats$mpd          <- tryCatch(expr = {treestats::mean_pair_dist(phylo)},
                                  error = function(e) {return(NA)})
@@ -116,7 +116,7 @@ calc_all_stats <- function(phylo) {
                                  error = function(e) {return(NA)})
   stats$mntd         <- tryCatch(expr = {treestats::mntd(phylo)},
                                  error = function(e) {return(NA)})
-  stats$J            <- tryCatch(expr = {treestats::entropy_j(phylo)},
+  stats$j_stat       <- tryCatch(expr = {treestats::entropy_j(phylo)},
                                  error = function(e) {return(NA)})
 
   stats$rquartet     <- treestats::rquartet(phylo)
