@@ -48,9 +48,7 @@ test_that("usage", {
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 50,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0.0)[[1]]
+  focal_tree <- ape::rphylo(n = 50, birth = 1, death = 0)
 
   div1 <- treestats::phylogenetic_diversity(focal_tree)
   div2 <- sum(focal_tree$edge.length)

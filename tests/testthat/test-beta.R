@@ -2,9 +2,7 @@ context("beta")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0)[[1]]
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
   beta_treestats <- treestats::beta_statistic(focal_tree)
   beta_ref       <- apTreeshape::maxlik.betasplit(
@@ -53,18 +51,14 @@ test_that("usage", {
 
 # abuse
 test_that("abuse", {
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-  numbsim = 1,
-  lambda = 1, mu = 0.5)[[1]]
+  focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0.5, fossils = TRUE)
 
   testthat::expect_error(
     # throws error, because beta can only be calculated on extant tree
     treestats::beta_statistic(focal_tree)
   )
 
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0)[[1]]
+  focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
   testthat::expect_output(
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),

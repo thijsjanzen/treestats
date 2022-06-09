@@ -26,8 +26,7 @@ test_that("usage stairs1", {
 
 test_that("usage stairs2", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 30,
-                                     numbsim = 1, lambda = 1, mu = 0)[[1]]
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
   c1 <- treestats::stairs2(focal_tree)
   c2 <- phyloTop::stairs(focal_tree)[[2]]
@@ -37,8 +36,7 @@ test_that("usage stairs2", {
   testthat::expect_equal(c1, c3)
 
 
-  focal_tree <- TreeSim::sim.bd.taxa(n = 30,
-                                     numbsim = 1, lambda = 1, mu = 0.5)[[1]]
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5, fossils = TRUE)
 
   c1 <- treestats::stairs2(focal_tree)
   c2 <- phyloTop::stairs(focal_tree)[[2]]

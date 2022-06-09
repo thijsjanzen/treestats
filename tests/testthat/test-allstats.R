@@ -2,9 +2,7 @@ context("all_Stats")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0)[[1]]
+  focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
   testthat::expect_invisible(
    all_stats <- treestats::calc_all_stats(focal_tree)

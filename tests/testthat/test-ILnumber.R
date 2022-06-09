@@ -2,8 +2,7 @@ context("IL number")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 30,
-                                     numbsim = 1, lambda = 1, mu = 0)[[1]]
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
   c1 <- treestats::ILnumber(focal_tree)
   c2 <- phyloTop::ILnumber(focal_tree)
@@ -13,8 +12,8 @@ test_that("usage", {
   testthat::expect_equal(c1, c3)
 
 
-  focal_tree <- TreeSim::sim.bd.taxa(n = 30,
-                                     numbsim = 1, lambda = 1, mu = 0.5)[[1]]
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5,
+                            fossils = TRUE)
 
   c1 <- treestats::ILnumber(focal_tree)
   c2 <- phyloTop::ILnumber(focal_tree)

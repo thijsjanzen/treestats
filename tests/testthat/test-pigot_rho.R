@@ -10,9 +10,7 @@ test_that("usage", {
 
   set.seed(42)
   # BD tree, expected increase in diversification
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0.0)[[1]]
+  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
   rho <- treestats::pigot_rho(focal_tree)
   testthat::expect_gt(rho, 0)
 
@@ -26,9 +24,8 @@ test_that("usage", {
 
 
   # and we can do with extinct trees as well
-  focal_tree <- TreeSim::sim.bd.taxa(n = 100,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0.2, complete = TRUE)[[1]]
+  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2,
+                            fossils = TRUE)
   rho4 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
   extant_tree <- geiger::drop.extinct(focal_tree)
   rho5 <- treestats::pigot_rho(extant_tree)
@@ -36,9 +33,7 @@ test_that("usage", {
 
 
   # lastly, we do large tree:
-  focal_tree <- TreeSim::sim.bd.taxa(n = 500,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0.0)[[1]]
+  focal_tree <- ape::rphylo(n = 500, birth = 1, death = 0)
   rho <- treestats::pigot_rho(focal_tree)
   testthat::expect_lt(rho, 0)
 })

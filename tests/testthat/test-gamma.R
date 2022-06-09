@@ -21,9 +21,7 @@ test_that("usage", {
   }
 
   set.seed(42)
-  bd_tree <- TreeSim::sim.bd.taxa(n = 101,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0)[[1]]
+  bd_tree <- ape::rphylo(n = 101, birth = 1, death = 0)
 
   check_gamma(bd_tree)
 

@@ -23,7 +23,7 @@ std::vector< double > branching_times(const std::vector< std::array< size_t, 2>>
 
   auto edge_index = edge[edge_length.size() - 1][0] - n - 1;
 
-  double depth = xx[edge_index] +  edge_length.back();
+  double depth = xx[edge_index] + edge_length.back();
   for (auto& i : xx) {
     i = depth - i;
   }

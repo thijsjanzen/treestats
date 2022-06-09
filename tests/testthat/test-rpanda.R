@@ -6,9 +6,7 @@ test_that("usage", {
 
   if (requireNamespace("RPANDA")) {
     set.seed(42)
-    focal_tree <- TreeSim::sim.bd.taxa(n = 10,
-                                       numbsim = 1,
-                                       lambda = 1, mu = 0)[[1]]
+    focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
     ref <- RPANDA::spectR(focal_tree)
     stat <- treestats::calc_lapl_spectrum(focal_tree)
