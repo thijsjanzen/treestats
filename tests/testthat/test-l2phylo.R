@@ -63,4 +63,18 @@ test_that("newick", {
   v1 <- as.vector(unlist(treestats::calc_all_stats(focal_tree)))
   v2 <- as.vector(unlist(treestats::calc_all_stats(tree_2)))
   testthat::expect_equal(v1, v2, tolerance = 1e-3)
+
+  focal_tree <- TreeSim::sim.bd.age(age = 2, numbsim = 1, lambda = 1,
+                                    mu = 0.2,
+                                    mrca = TRUE)[[1]]
+
+  ltable_1 <- treestats::phylo_to_l(focal_tree)
+
+  newick_str <- treestats::ltable_to_newick(ltable_1)
+  tree_2 <- ape::read.tree(text = newick_str)
+  tree_2 <- geiger::drop.extinct(tree_2)
+  focal_tree <- geiger::drop.extinct(focal_tree)
+  v1 <- as.vector(unlist(treestats::calc_all_stats(focal_tree)))
+  v2 <- as.vector(unlist(treestats::calc_all_stats(tree_2)))
+  testthat::expect_equal(v1, v2, tolerance = 1e-3)
 })
