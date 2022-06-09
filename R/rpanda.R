@@ -49,18 +49,19 @@ calc_lapl_spectrum <- function(phy) {
   gKernel <- function(x) 1/(sigma * sqrt(2 * pi)) * exp(-(x^2)/2 *
                                                           sigma^2)
 
-  kernelG <- function(x, mean = 0, sd = 1) dnorm(x, mean = mean,
-                                                 sd = sd)
+  kernelG <- function(x, mean = 0, sd = 1) {
+    return(stats::dnorm(x, mean = mean, sd = sd))
+  }
 
   dens_rpanda <- function(x,
-                          bw = bw.nrd0,
+                          bw = stats::bw.nrd0,
                           kernel = kernelG,
                           n = 4096,
                           from = min(x) - 3 * sd, to = max(x) + 3 * sd,
                           adjust = 1,
                           ...) {
     if (has.na <- any(is.na(x))) {
-      x <- na.omit(x)
+      x <- stats::na.omit(x)
       if (length(x) == 0)
         stop("no finite or non-missing data!")
     }
