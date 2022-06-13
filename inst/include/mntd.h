@@ -3,111 +3,102 @@
 
 #include <vector>
 #include <array>
+#include <numeric>
 #include "dist_nodes.h"
 
 using ltable = std::vector< std::array<double, 4>>;
 
-
-template <typename T>
 struct lower_tri {
   lower_tri(size_t n) : n_(n) {
-    data_.resize( (n_ * (n_ - 1)) * 0.5);
+    data_ = std::vector<double>((n_ * (n_ - 1)) * 0.5, 0.0);
   }
 
-  void set_val(int i, int j, T val) {
+  int get_linear_index(int i, int j) {
+    int index = i > j ? i * (i - 1) * 0.5 + j :
+                        j * (j - 1) * 0.5 + i;
+
+    if (index < 0) index = 0;
+    return index;
+  }
+
+
+  void set_val(int i, int j, double val) {
     if (i == j) return; // do nothing, these values don't exist.
 
-    if (i < j) data_[i * n_ + j] = val;
-    if (i > j) data_[j * n_ + i] = val;
-  }
+    auto local_index = get_linear_index(i, j);
 
-  /*T get_val(int i, int j) {
-    if (i == j) return static_cast<T>(0.0);
-
-    if (i < j) return data_[i * n_ + j];
-
-    return data_[j * n_ + i];
-  }*/
-
-  T get_val(int i, int j) {
-
-   /* T out = 0.0;
-
-    if (i < j) out = data_[i * n_ + j];
-    if (j > i) out = data_[j * n_ + i];
-
-    std::cerr << i << " " << j << " " << out << "\n";*/
-
-    if (i == j) {
-      std::cerr << i << " " << j << " " << -5.0 << "\n";
+    if (local_index < 0 || local_index > data_.size()) {
+      throw "local_index outside data_";
     }
 
-    if (i < j) {
-      std::cerr << i << " " << j << " " << i * n_ + j << "\n";
-      return data_[i * n_ + j];
-    }
+  //  std::cerr << local_index << " " << val << "\n";
 
-    std::cerr << i << " " << j << " " << j * n_ + i << "\n";
-
-    return data_[j * n_ + i];
+    data_[local_index] = val;
   }
 
-  std::vector<T> data_;
+  double get_val(int i, int j) {
+    if (i == j) return 0.0;
+
+    auto local_index = get_linear_index(i, j);
+//
+    if (local_index < 0 || local_index > data_.size()) {
+      throw "local_index outside data_";
+    }
+ //   std::cerr << i << " " << j << " " << local_index << " " << data_[local_index] << "\n";
+    return data_[local_index];
+  }
+
+  double get_sum_tips() {
+    return std::accumulate(data_.begin(), data_.begin() + n_ - 1, 0.0);
+  }
+
+  std::vector<double> data_;
   size_t n_;
 };
 
-lower_tri<double> dist_nodes_tri(const std::vector< std::array< size_t, 2 >>& edge,
+lower_tri dist_nodes_tri(const std::vector< std::array< size_t, 2 >>& edge,
                          const std::vector<double>& el) {
   int n = 1 + edge.size() / 2;
   int m = n - 1;
   auto nm = n + m;
   static double max_s = 46340; // floor(sqrt(2^31 - 1))
   if (nm > max_s) {
-    // std::cerr << n << " " << m << " " << nm << " " << max_s << "\n";
     throw std::runtime_error("tree too big");
   }
   // code below is from the Ape package
-  std::vector< size_t > e1(edge.size());
-  std::vector< size_t > e2(edge.size());
-
-  for (size_t i = 0; i < edge.size(); ++i) {
-    e1[i] = edge[i][0] - 1;
-    e2[i] = edge[i][1] - 1;
-  }
-
   int i, j, k, a, d, NM = n + m, ROOT;
   double x;
-  size_t N = e1.size();
-  lower_tri<double> D(NM);
+  size_t N = edge.size();
+  lower_tri D(NM);
 
-  ROOT = e1[0]; d = e2[0]; /* the 2 nodes of the 1st edge */
+  ROOT = edge[0][0] - 1;
+  d    = edge[0][1] - 1; /* the 2 nodes of the 1st edge */
 
   D.set_val(d, ROOT, el[0]);
- // D.set_val(ROOT, d, -el[0]);
 
   /* go down along the edge matrix
    starting at the 2nd edge: */
   for (i = 1; i < N; i++) {
-      a = e1[i]; d = e2[i]; x = el[i]; /* get the i-th nodes and branch length */
-    //D(a, d) = D(d, a) = -x;
+      a = edge[i][0] - 1;
+      d = edge[i][1] - 1;
+      x = el[i]; /* get the i-th nodes and branch length */
       D.set_val(a, d, x);
-    /* then go up along the edge matrix from the i-th edge
-     to visit the nodes already visited and update the distances: */
-    for (j = i - 1; j >= 0; j--) {
-      k = e2[j];
-      if (k == a) continue;
+      /* then go up along the edge matrix from the i-th edge
+       to visit the nodes already visited and update the distances: */
+      for (j = i - 1; j >= 0; j--) {
+        k = edge[j][1] - 1;
+        if (k == a) continue;
 
-      double val_to_set = D.get_val(a, k) + x;
-      D.set_val(k, d, val_to_set);
-    }
-    if (k != ROOT) {
-      double val_to_set = D.get_val(ROOT, a) + x;
-      D.set_val(ROOT, d, val_to_set);
-    }
+        double val_to_set = D.get_val(a, k) + x;
+        D.set_val(k, d, val_to_set);
+      }
+      if (k != ROOT) {
+        double val_to_set = D.get_val(ROOT, a) + x;
+        D.set_val(ROOT, d, val_to_set);
+      }
   }
   return D;
 }
-
 
 double calc_mntd_ltable(const ltable& ltable_) {
   std::vector<double> dist(ltable_.size() + 1, -1);
@@ -164,53 +155,28 @@ double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
 }
 
 double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
-                     const std::vector<double>& el) {
-  int n = (el.size() + 2) * 0.5;
-  auto dist_mat = dist_nodes(edge, el);
-
-  double mpd = 0.0;
-  size_t cnt = 0;
-
-  for (size_t i = 0; i < n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      mpd += dist_mat[i][j]; cnt++;
-    }
-  }
-  mpd *= 1.0 / cnt;
-  return mpd;
-}
-
-double calc_mpd_stat_tri(const std::vector< std::array< size_t, 2 >>& edge,
                          const std::vector<double>& el) {
-  int n = (el.size() + 2) * 0.5;
   auto dist_mat = dist_nodes_tri(edge, el);
-  double mpd = 0.0;
-  size_t cnt = 0;
-  std::cerr << "starting collection\n";
-  for (size_t i = 0; i < n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      mpd += dist_mat.get_val(i, j); cnt++;
-    }
-  }
-
-  mpd *= 1.0 / cnt;
+  //int n = (el.size() + 2) * 0.5;
+  //int max_pos = n * (n - 1) * 0.5;
+  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
+  double mpd = std::accumulate(dist_mat.data_.begin(),
+                             dist_mat.data_.begin() + max_pos, 0.0);
+  mpd *= 1.0 / max_pos;
   return mpd;
 }
 
 double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
                      const std::vector<double>& el) {
 
-  auto dist_mat = dist_nodes(edge, el);
+  auto dist_mat = dist_nodes_tri(edge, el);
   int n = (el.size() + 2) * 0.5;
+  int max_pos = n * (n - 1) * 0.5;
 
-  double psv = 0.0;
+  double psv = 0.5 * std::accumulate(dist_mat.data_.begin(),
+                                     dist_mat.data_.end() + max_pos,
+                                     0.0);
 
-
-  for (size_t i = 0; i < n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      psv += 0.5 * dist_mat[i][j];
-    }
-  }
   psv *= 1.0 / (n * (n - 1));
   psv *= 2.0; // post hoc correction to match picante::psv output, because we
   // wrongly measure distance to most common ancestor per node.

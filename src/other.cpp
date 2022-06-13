@@ -135,16 +135,6 @@ Rcpp::NumericMatrix test_dist_tri(const Rcpp::List& phy) {
 //' @param phy phylo object
 //' @export
 // [[Rcpp::export]]
-double calc_mpd_tri_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return calc_mpd_stat_tri(edge, el);
-}
-
-//' testing function
-//' @param phy phylo object
-//' @export
-// [[Rcpp::export]]
 double calc_mpd_cpp(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);

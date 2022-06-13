@@ -6,6 +6,7 @@ test_that("usage", {
 
   a1 <- treestats::max_width(focal_tree)
   a2 <- treebalance::maxWidth(focal_tree)
+
   testthat::expect_equal(a1, a2)
 
   ltab <- treestats::phylo_to_l(focal_tree)

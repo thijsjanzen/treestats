@@ -576,17 +576,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_mpd_tri_cpp
-double calc_mpd_tri_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_mpd_tri_cpp(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_mpd_tri_cpp(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_mpd_cpp
 double calc_mpd_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_mpd_cpp(SEXP phySEXP) {
@@ -842,7 +831,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_test_dist_tri", (DL_FUNC) &_treestats_test_dist_tri, 1},
-    {"_treestats_calc_mpd_tri_cpp", (DL_FUNC) &_treestats_calc_mpd_tri_cpp, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 1},
     {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 1},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 1},
