@@ -4,7 +4,6 @@
 #include <vector>
 #include <array>
 #include <numeric>
-#include "dist_nodes.h"
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -21,7 +20,6 @@ struct lower_tri {
     return index;
   }
 
-
   void set_val(int i, int j, double val) {
     if (i == j) return; // do nothing, these values don't exist.
 
@@ -31,8 +29,6 @@ struct lower_tri {
       throw "local_index outside data_";
     }
 
-  //  std::cerr << local_index << " " << val << "\n";
-
     data_[local_index] = val;
   }
 
@@ -40,12 +36,11 @@ struct lower_tri {
     if (i == j) return 0.0;
 
     auto local_index = get_linear_index(i, j);
-//
+
     if (local_index < 0 || local_index > data_.size()) {
       throw "local_index outside data_";
     }
- //   std::cerr << i << " " << j << " " << local_index << " " << data_[local_index] << "\n";
-    return data_[local_index];
+     return data_[local_index];
   }
 
   double get_sum_tips() {
@@ -137,22 +132,24 @@ double calc_mntd_ltable(const ltable& ltable_) {
 
 double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                       const std::vector<double>& el) {
-  auto dist_mat = dist_nodes(edge, el);
+  auto dist_mat = dist_nodes_tri(edge, el);
 
   int n = (el.size() + 2) * 0.5;
 
   double mntd = 0.0;
   for (size_t i = 0; i < n; ++i) {
-    dist_mat[i][i] = 1e6;
-    double min_val = dist_mat[i][0];
-    for (size_t j = 1; j < n; ++j) {
-      if (dist_mat[i][j] < min_val) min_val = dist_mat[i][j];
+    double min_val = 1e6;
+    for (size_t j = 0; j < n; ++j) {
+      if (j != i) {
+        if (dist_mat.get_val(i, j) < min_val) min_val = dist_mat.get_val(i, j);
+      }
     }
     mntd += min_val;
   }
   mntd *= 1.0 / n;
   return(mntd);
 }
+
 
 double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                          const std::vector<double>& el) {
@@ -171,11 +168,9 @@ double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
 
   auto dist_mat = dist_nodes_tri(edge, el);
   int n = (el.size() + 2) * 0.5;
-  int max_pos = n * (n - 1) * 0.5;
-
-  double psv = 0.5 * std::accumulate(dist_mat.data_.begin(),
-                                     dist_mat.data_.end() + max_pos,
-                                     0.0);
+  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
+  auto psv = 0.5 * std::accumulate(dist_mat.data_.begin(),
+                              dist_mat.data_.begin() + max_pos, 0.0);
 
   psv *= 1.0 / (n * (n - 1));
   psv *= 2.0; // post hoc correction to match picante::psv output, because we
@@ -185,26 +180,21 @@ double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
 
 double calc_var_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                          const std::vector<double>& el) {
-  auto dist_mat = dist_nodes(edge, el);
-  int n = (el.size() + 2) * 0.5;
+  auto dist_mat = dist_nodes_tri(edge, el);
 
-  double mpd = 0.0;
-  size_t cnt = 0;
-  for (size_t i = 0; i < n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      mpd += dist_mat[i][j]; cnt++;
-    }
-  }
-  mpd *= 1.0 / cnt;
+  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
 
-  double var_mpd = 0.0;
-  for (size_t i = 0; i <n; ++i) {
-    for (size_t j = 0; j < i; ++j) {
-      var_mpd += (dist_mat[i][j] - mpd) * (dist_mat[i][j] - mpd);
-    }
+  double s = 0.0;
+  double s2 = 0.0;
+
+  for (auto it = dist_mat.data_.begin(); it != dist_mat.data_.begin() + max_pos; ++it) {
+    s  += (*it);
+    s2 += (*it) * (*it);
   }
-  var_mpd *= 1.0 / cnt;
-  return var_mpd;
+
+  double inv_max_pos = 1.0 / max_pos;
+
+  return (s2 - (s * s) * inv_max_pos) * inv_max_pos;
 }
 
 #endif

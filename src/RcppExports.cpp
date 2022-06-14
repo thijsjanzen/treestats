@@ -66,12 +66,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_phylodiv_0_cpp
-double calc_phylodiv_0_cpp(const std::vector<double>& edge_length);
+double calc_phylodiv_0_cpp(const Rcpp::NumericVector& edge_length);
 RcppExport SEXP _treestats_calc_phylodiv_0_cpp(SEXP edge_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<double>& >::type edge_length(edge_lengthSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type edge_length(edge_lengthSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_phylodiv_0_cpp(edge_length));
     return rcpp_result_gen;
 END_RCPP
@@ -101,12 +101,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_mean_branch_length_cpp
-double calc_mean_branch_length_cpp(const std::vector<double>& edge_length);
+double calc_mean_branch_length_cpp(const Rcpp::NumericVector& edge_length);
 RcppExport SEXP _treestats_calc_mean_branch_length_cpp(SEXP edge_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<double>& >::type edge_length(edge_lengthSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type edge_length(edge_lengthSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_mean_branch_length_cpp(edge_length));
     return rcpp_result_gen;
 END_RCPP

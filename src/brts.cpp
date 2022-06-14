@@ -83,9 +83,8 @@ double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 }
 
 // [[Rcpp::export]]
-double calc_phylodiv_0_cpp(const std::vector<double>& edge_length) {
-  auto s = std::accumulate(edge_length.begin(), edge_length.end(), 0.0);
-  return s;
+double calc_phylodiv_0_cpp(const Rcpp::NumericVector& edge_length) {
+  return std::accumulate(edge_length.begin(), edge_length.end(), 0.0);
 }
 
 // [[Rcpp::export]]
@@ -129,7 +128,7 @@ double calc_phylodiv_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 // [[Rcpp::export]]
-double calc_mean_branch_length_cpp(const std::vector<double>& edge_length) {
+double calc_mean_branch_length_cpp(const Rcpp::NumericVector& edge_length) {
   auto sum_bl = std::accumulate(edge_length.begin(), edge_length.end(), 0.0);
   return sum_bl * 1.0 / (edge_length.size());
 }

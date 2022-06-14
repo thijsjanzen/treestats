@@ -227,9 +227,6 @@ test_dist_tri <- function(phy) {
     .Call('_treestats_test_dist_tri', PACKAGE = 'treestats', phy)
 }
 
-#' testing function
-#' @param phy phylo object
-#' @export
 calc_mpd_cpp <- function(phy) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', phy)
 }
