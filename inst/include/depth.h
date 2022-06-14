@@ -251,14 +251,18 @@ public :
 
   double var_leaf_depth() {
     update_depth();
-    double average_depth = 0;
+    double average_depth = 0.0;
 
     int n = root_no - 1;
-
     for (size_t i = 1; i < root_no; ++i) {
       average_depth += tree[i].depth;
+
+  //    std::cerr << tree[i].depth << "\n";
     }
+
     average_depth *= 1.0 / (n);
+  //  std::cerr << average_depth << " " << root_no - 1 << "\n";
+
     double var_depth = 0.0;
     for (size_t i = 1; i < root_no; ++i) {
       var_depth += (tree[i].depth - average_depth) * (tree[i].depth - average_depth);
