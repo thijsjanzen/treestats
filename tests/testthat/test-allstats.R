@@ -10,7 +10,7 @@ test_that("usage", {
   )
   testthat::expect_equal(length(all_stats), 46)
 
-
+  testthat::skip("only do manually, takes very long")
   focal_tree <- ape::rphylo(n = 23171, birth = 1, death = 0)
   testthat::expect_invisible(
     all_stats <- treestats::calc_all_stats(focal_tree)

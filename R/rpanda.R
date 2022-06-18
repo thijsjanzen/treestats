@@ -45,17 +45,17 @@ skew_ness <- function(x) {
 calc_lapl_spectrum <- function(phy) {
 
   # prep code:
-  sigma = 0.1
-  gKernel <- function(x) 1/(sigma * sqrt(2 * pi)) * exp(-(x^2)/2 *
-                                                          sigma^2)
+  sigma <- 0.1
+  g_kernel <- function(x) 1 / (sigma * sqrt(2 * pi)) * exp( -(x ^ 2) / 2 *
+                                                            sigma ^ 2)
 
-  kernelG <- function(x, mean = 0, sd = 1) {
+  kernel_g <- function(x, mean = 0, sd = 1) {
     return(stats::dnorm(x, mean = mean, sd = sd))
   }
 
   dens_rpanda <- function(x,
                           bw = stats::bw.nrd0,
-                          kernel = kernelG,
+                          kernel = kernel_g,
                           n = 4096,
                           from = min(x) - 3 * sd, to = max(x) + 3 * sd,
                           adjust = 1,
@@ -68,9 +68,9 @@ calc_lapl_spectrum <- function(phy) {
     sd <- (if (is.numeric(bw))
       bw[1]
       else bw(x)) * adjust
-    X <- seq(from, to, len = n)
-    M <- outer(X, x, kernel, sd = sd, ...)
-    structure(list(x = X, y = rowMeans(M), bw = sd, call = match.call(),
+    xx <- seq(from, to, len = n)
+    mat <- outer(xx, x, kernel, sd = sd, ...)
+    structure(list(x = xx, y = rowMeans(mat), bw = sd, call = match.call(),
                    n = length(x), data.name = deparse(substitute(x)),
                    has.na = has.na), class = "density")
   }
@@ -80,21 +80,20 @@ calc_lapl_spectrum <- function(phy) {
   e <- eigen(lapl_mat, symmetric = TRUE, only.values = TRUE)
 
   x <- subset(e$values, e$values >= 1)
-  # d <- stats::density(log(x))
   d <- dens_rpanda(log(x))
   dsc <- d$y / (integr(d$x, d$y))
   principal_eigenvalue <- max(x)
   skewness <- skew_ness(x)
   peak_height <- max(dsc)
   gaps <- abs(diff(x))
-  gapMat <- as.matrix(gaps)  #nolint
-  modalities <- seq_along(gapMat)
-  gapMatCol <- cbind(modalities, gapMat)  #nolint
-  eigenGap <- subset(gapMatCol, gapMatCol[, 2] == max(gapMatCol[, 2]))  #nolint
+  gap_mat <- as.matrix(gaps)  #nolint
+  modalities <- seq_along(gap_mat)
+  gap_mat_col <- cbind(modalities, gap_mat)  #nolint
+  eigen_gap <- subset(gap_mat_col, gap_mat_col[, 2] == max(gap_mat_col[, 2]))
   res <- list(eigenvalues = x,
               principal_eigenvalue = principal_eigenvalue,
               asymmetry = skewness,
               peakedness = peak_height,
-              eigengap = eigenGap[, 1])
+              eigengap = eigen_gap[, 1])
   return(res)
 }

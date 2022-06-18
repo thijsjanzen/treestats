@@ -18,8 +18,9 @@ test_that("usage", {
   testthat::expect_equal(a1_2$eigenvalue, a2_2, tolerance = 1e-4)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(treestats::eigen_vector(focal_tree, weight = TRUE)$eigenvalue,
-                         treestats::eigen_vector(ltab, weight = TRUE)$eigenvalue)
+  testthat::expect_equal(
+                  treestats::eigen_vector(focal_tree, weight = TRUE)$eigenvalue,
+                  treestats::eigen_vector(ltab, weight = TRUE)$eigenvalue)
 
   focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
@@ -38,6 +39,7 @@ test_that("usage", {
   testthat::expect_equal(a1_2$eigenvalue, a2_2, tolerance = 1e-4)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(treestats::eigen_vector(focal_tree, weight = TRUE)$eigenvalue,
-                         treestats::eigen_vector(ltab,       weight = TRUE)$eigenvalue)
+  testthat::expect_equal(
+     treestats::eigen_vector(focal_tree, weight = TRUE)$eigenvalue,
+     treestats::eigen_vector(ltab,       weight = TRUE)$eigenvalue)
 })

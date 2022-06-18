@@ -19,16 +19,19 @@ eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
                                   phy$edge.length,
                                   weight)
 
-    EV <- RSpectra::eigs_sym(adj_matrix, k = 1, which = "LM", opts = list(retvec = TRUE))
-    evector <- abs(EV$vectors[,1])
+    ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
+                             which = "LM",
+                             opts = list(retvec = TRUE))
+    evector <- abs(ev$vectors[, 1])
 
-    evalue <- abs(EV$values[1])
+    evalue <- abs(ev$values[1])
 
     if (scale) {
-      evector = evalue / max(evector)
+      evector <- evalue / max(evector)
     }
 
-    return(list(eigenvector = evector, eigenvalue = evalue))
+    return(list(eigenvector = evector,
+                eigenvalue = evalue))
   }
 
   stop("input object has to be phylo or ltable")
