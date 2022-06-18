@@ -55,6 +55,11 @@ single tree, being:
   \item{mean nearest taxon distance (mntd)}
   \item{J statistic of entropy}
   \item{rquartet index}
+  \item{Wiener index}
+  \item{max betweenness}
+  \item{max closeness}
+  \item{diameter, without branch lenghts}
+  \item{maximum eigen vector value}
 }
 
 For the Laplacian spectrum properties, four properties of the eigenvalue

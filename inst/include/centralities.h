@@ -129,7 +129,6 @@ double sum_weighed_heights(const edge& e,
     auto curRow = e[ind];
 
     if (curRow[1] - 1 < 0 || curRow[1] - 1 > Tab.size()) {
-      std::cerr << curRow[1] << "\n";
       throw "curRow[1] in weighed_heights out of range";
     }
     if (curRow[0] - 1 < 0 || curRow[0] - 1 > Tab.size()) {
