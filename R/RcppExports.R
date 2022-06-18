@@ -61,6 +61,26 @@ calc_crown_age_cpp <- function(phy) {
     .Call('_treestats_calc_crown_age_cpp', PACKAGE = 'treestats', phy)
 }
 
+calc_wiener_cpp <- function(phy, normalize, weight) {
+    .Call('_treestats_calc_wiener_cpp', PACKAGE = 'treestats', phy, normalize, weight)
+}
+
+calc_max_betweenness_cpp <- function(phy) {
+    .Call('_treestats_calc_max_betweenness_cpp', PACKAGE = 'treestats', phy)
+}
+
+calc_max_closeness_cpp <- function(phy, weight) {
+    .Call('_treestats_calc_max_closeness_cpp', PACKAGE = 'treestats', phy, weight)
+}
+
+calc_diameter_cpp <- function(phy, weight) {
+    .Call('_treestats_calc_diameter_cpp', PACKAGE = 'treestats', phy, weight)
+}
+
+get_adj_mat_cpp <- function(parent_list, bl, weight) {
+    .Call('_treestats_get_adj_mat_cpp', PACKAGE = 'treestats', parent_list, bl, weight)
+}
+
 calc_colless_cpp <- function(parent_list, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', parent_list, normalization)
 }

@@ -179,6 +179,67 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_wiener_cpp
+double calc_wiener_cpp(const Rcpp::List& phy, bool normalize, bool weight);
+RcppExport SEXP _treestats_calc_wiener_cpp(SEXP phySEXP, SEXP normalizeSEXP, SEXP weightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< bool >::type normalize(normalizeSEXP);
+    Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_wiener_cpp(phy, normalize, weight));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_betweenness_cpp
+double calc_max_betweenness_cpp(const Rcpp::List& phy);
+RcppExport SEXP _treestats_calc_max_betweenness_cpp(SEXP phySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_betweenness_cpp(phy));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_closeness_cpp
+double calc_max_closeness_cpp(const Rcpp::List& phy, bool weight);
+RcppExport SEXP _treestats_calc_max_closeness_cpp(SEXP phySEXP, SEXP weightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_closeness_cpp(phy, weight));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_diameter_cpp
+double calc_diameter_cpp(const Rcpp::List& phy, bool weight);
+RcppExport SEXP _treestats_calc_diameter_cpp(SEXP phySEXP, SEXP weightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_diameter_cpp(phy, weight));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_adj_mat_cpp
+Rcpp::NumericMatrix get_adj_mat_cpp(const std::vector<long>& parent_list, const std::vector<double>& bl, bool weight);
+RcppExport SEXP _treestats_get_adj_mat_cpp(SEXP parent_listSEXP, SEXP blSEXP, SEXP weightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type bl(blSEXP);
+    Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_adj_mat_cpp(parent_list, bl, weight));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_colless_cpp
 double calc_colless_cpp(const std::vector<long>& parent_list, std::string normalization);
 RcppExport SEXP _treestats_calc_colless_cpp(SEXP parent_listSEXP, SEXP normalizationSEXP) {
@@ -796,6 +857,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
+    {"_treestats_calc_wiener_cpp", (DL_FUNC) &_treestats_calc_wiener_cpp, 3},
+    {"_treestats_calc_max_betweenness_cpp", (DL_FUNC) &_treestats_calc_max_betweenness_cpp, 1},
+    {"_treestats_calc_max_closeness_cpp", (DL_FUNC) &_treestats_calc_max_closeness_cpp, 2},
+    {"_treestats_calc_diameter_cpp", (DL_FUNC) &_treestats_calc_diameter_cpp, 2},
+    {"_treestats_get_adj_mat_cpp", (DL_FUNC) &_treestats_get_adj_mat_cpp, 3},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
     {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
     {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 1},

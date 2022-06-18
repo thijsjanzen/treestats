@@ -44,6 +44,11 @@
 #'   \item{mean nearest taxon distance (mntd)}
 #'   \item{J statistic of entropy}
 #'   \item{rquartet index}
+#'   \item{Wiener index}
+#'   \item{max betweenness}
+#'   \item{max closeness}
+#'   \item{diameter, without branch lenghts}
+#'   \item{maximum eigen vector value}
 #' }
 #'
 #' For the Laplacian spectrum properties, four properties of the eigenvalue
@@ -120,6 +125,13 @@ calc_all_stats <- function(phylo) {
                                  error = function(e) {return(NA)})
 
   stats$rquartet     <- treestats::rquartet(phylo)
+
+
+  stats$wiener          <- treestats::wiener(phylo)
+  stats$max_betweenness <- treestats::max_betweenness(phylo)
+  stats$max_closeness   <- treestats::max_closeness(phylo, weight = TRUE)
+  stats$diameter        <- treestats::diameter(phylo, weight = FALSE)
+  stats$eigenvector     <- max(treestats::eigen_vector(phylo)$eigenvector)
 
   return(stats)
   }
