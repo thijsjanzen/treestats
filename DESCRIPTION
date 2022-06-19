@@ -31,7 +31,6 @@ Suggests:
     nLTT,
     castor,
     adephylo,
-    RPANDA,
     ggplot2,
     tibble,
     picante,
