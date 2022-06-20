@@ -17,7 +17,8 @@ LinkingTo:
 Imports:
     ape,
     nloptr,
-    RSpectra
+    RSpectra,
+    Matrix
 Suggests:
     TreeSim,
     TESS,

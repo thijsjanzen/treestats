@@ -219,6 +219,7 @@ double diameter(const edge& e,
   auto depths = computeLRSizes(e, el, weight, true);
   double diam = 0.0;
   for (const auto& i : depths) {
+    assert(i.size() == 2);
     auto local_depth = i[0] + i[1];
     if (local_depth > diam) diam = local_depth;
   }

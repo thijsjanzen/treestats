@@ -1,15 +1,14 @@
 #' Fast function using C++ to calculate the diameter
 #' @description The Diameter of a tree is defined as the maximum length of a
-#' shortest path. When taking branch lenghts into account, this is typically
-#' twice the crown age. When not taking branch lengths into account, this may
-#' be linked to max_depth
+#' shortest path. When taking branch lengths into account, this is equal to
+#' twice the crown age.
 #' @param phy phylo object or ltable
 #' @param weight if TRUE, uses branch lengths.
 #' @return Diameter
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
-diameter <- function(phy, weight = TRUE) {
+diameter <- function(phy, weight = FALSE) {
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)

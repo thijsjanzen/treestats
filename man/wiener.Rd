@@ -18,7 +18,7 @@ nodes, e.g. by choose(n, 2), where n is the number of nodes.}
 Wiener index
 }
 \description{
-The Wiener index is defined asthe sum of all shortest path
+The Wiener index is defined as the sum of all shortest path
 lengths between pairs of nodes in a tree.
 }
 \references{

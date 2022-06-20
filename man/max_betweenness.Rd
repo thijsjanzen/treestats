@@ -14,7 +14,7 @@ Maximum Betweenness
 }
 \description{
 Betweenness centrality associates with each node v, the two
-nodes v, w, for which the shortest path between v and w runs through v, if
+nodes u, w, for which the shortest path between u and w runs through v, if
 the tree were re-rooted at node v. Then, we report the node with maximum
 betweenness centrality.
 }
