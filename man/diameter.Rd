@@ -4,7 +4,7 @@
 \alias{diameter}
 \title{Fast function using C++ to calculate the diameter}
 \usage{
-diameter(phy, weight = TRUE)
+diameter(phy, weight = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
@@ -16,9 +16,8 @@ Diameter
 }
 \description{
 The Diameter of a tree is defined as the maximum length of a
-shortest path. When taking branch lenghts into account, this is typically
-twice the crown age. When not taking branch lengths into account, this may
-be linked to max_depth
+shortest path. When taking branch lengths into account, this is equal to
+twice the crown age.
 }
 \references{
 Chindelevitch, Leonid, et al. "Network science inspires novel

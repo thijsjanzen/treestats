@@ -11,7 +11,7 @@
 max_betweenness <- function(phy) {
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    return(calc_max_betweenness_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
     return(calc_max_betweenness_cpp(phy))

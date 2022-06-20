@@ -11,7 +11,7 @@
 diameter <- function(phy, weight = FALSE) {
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
+    return(calc_diameter_ltable_cpp(phy, weight))
   }
   if (inherits(phy, "phylo")) {
     return(calc_diameter_cpp(phy, weight))

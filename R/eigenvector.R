@@ -17,8 +17,8 @@ eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
   if (inherits(phy, "phylo")) {
     adj_matrix <- get_adj_mat_cpp(phy,
                                   weight)
-
-    adj_matrix <- as(adj_matrix, "dgCMatrix")
+    require(Matrix)
+    adj_matrix <- methods::as(adj_matrix, "dgCMatrix")
 
     ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
                              which = "LM",

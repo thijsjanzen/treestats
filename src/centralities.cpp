@@ -24,6 +24,12 @@ double calc_max_betweenness_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
+double calc_max_betweenness_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  return max_betweenness_ltable(l_in_cpp);
+}
+
+// [[Rcpp::export]]
 double calc_max_closeness_cpp(const Rcpp::List& phy, bool weight) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
@@ -54,6 +60,14 @@ double calc_diameter_cpp(const Rcpp::List& phy, bool weight) {
   }
   return NA_REAL;
 }
+
+// [[Rcpp::export]]
+double calc_diameter_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
+                                bool weight) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  return diameter_ltable(l_in_cpp, weight);
+}
+
 
 // [[Rcpp::export]]
 Rcpp::NumericMatrix get_adj_mat_cpp(const Rcpp::List& phy,

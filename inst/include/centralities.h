@@ -8,6 +8,7 @@
 #include "binom.h"
 
 using edge = std::vector< std::array< size_t, 2 >>;
+using ltable = std::vector< std::array< double, 4>>;
 
 // first sum:
 std::vector< std::array< double, 2 >> computeLRSizes(const edge& e,
@@ -225,6 +226,181 @@ double diameter(const edge& e,
   }
   return diam;
 }
+
+
+// LTABLE associated code
+
+
+
+class LRsizes {
+public:
+  LRsizes(const ltable& l_in) : ltable_(l_in) {
+    extant_tips = std::vector<int>(l_in.size(), 2);
+    dist_to_tips = std::vector<double>(l_in.size(), 0.0);
+    num_tips = get_num_tips();
+  }
+
+  std::vector<std::array<double, 2>> collect_stat_noW() {
+    std::vector<std::array<double, 2>> stat;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      stat.push_back({L-1.0, R-1.0});
+
+      if (ltable_.size() == 1) break;
+    }
+    return stat;
+  }
+
+  std::vector< std::array<double, 2>> collect_stat_W() {
+    std::vector<std::array<double, 2>> stat;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      double cur_t = ltable_[j][0];
+
+      double L = dist_to_tips[j] + cur_t;
+      double R = dist_to_tips[j_parent] + cur_t;
+      dist_to_tips[j_parent] = std::max(L, R);
+      remove_from_dataset(j);
+      stat.push_back({L, R});
+
+      if (ltable_.size() == 1) break;
+    }
+    return stat;
+  }
+
+  std::vector<std::array<double, 2>> collect_diameter_noW() {
+    std::vector<std::array<double, 2>> stat;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      auto a = L / 2.0;
+      auto b = R / 2.0;
+
+      stat.push_back({a, b});
+
+      if (ltable_.size() == 1) break;
+    }
+    return stat;
+  }
+
+  std::vector<std::array<double, 2>> collect_diameter_W() {
+    std::vector<std::array<double, 2>> stat(ltable_.size() - 1);
+    for (size_t i = 1; i < ltable_.size(); ++i) {
+      stat[i] = {ltable_[i][0], ltable_[i][0]};
+    }
+    return stat;
+  }
+
+
+  int index_of_parent(int parent) {
+    int index = 0;
+    bool found = false;
+    for (; index < ltable_.size(); ++index) {
+      if (ltable_[index][2] == parent) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) index = -1;
+    return index;
+  }
+
+  size_t get_min_index() {
+    auto min_val = std::min_element(ltable_.begin(), ltable_.end(),
+                                    [&](const auto& a, const auto& b) {
+                                      return a[0] < b[0];
+                                    });
+    return std::distance(ltable_.begin(), min_val);
+  }
+
+
+  void remove_from_dataset(size_t index) {
+    std::swap(extant_tips[index], extant_tips.back());
+    extant_tips.pop_back();
+    std::swap(ltable_[index], ltable_.back());
+    ltable_.pop_back();
+  }
+
+  size_t get_num_tips() {
+    return ltable_.size();
+  }
+
+  ltable ltable_;
+  std::vector< int > extant_tips;
+  std::vector<double> dist_to_tips;
+  size_t num_tips;
+};
+
+double max_betweenness_ltable(const ltable& ltab_) {
+  LRsizes left_right(ltab_);
+  auto sub_tree_sizes = left_right.collect_stat_noW();
+
+  std::vector<double> q(sub_tree_sizes.size());
+  size_t cnt = 0;
+  for (const auto& i : sub_tree_sizes) {
+    q[cnt] = i[0] + i[1];
+    cnt++;
+  }
+  auto n = q.size();
+
+  double max_betweenness = -1.0;
+  for (size_t i = 0; i < sub_tree_sizes.size(); ++i) {
+    auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] + q[i] * (2 * n - q[i]);
+    if (local_b > max_betweenness) max_betweenness = local_b;
+  }
+  return max_betweenness;
+}
+
+double diameter_ltable(const ltable& ltab_,
+                       bool weight) {
+  LRsizes left_right(ltab_);
+
+  std::vector< std::array<double, 2 >> depths;
+
+  if (weight) {
+    depths = left_right.collect_diameter_W();
+  } else {
+    depths = left_right.collect_diameter_noW();
+  }
+
+  double diam = 0.0;
+  for (const auto& i : depths) {
+    auto local_depth = i[0] + i[1];
+    if (local_depth > diam) diam = local_depth;
+  }
+  return diam;
+}
+
 
 
 
