@@ -47,6 +47,11 @@ The following summary statistics are included:
   - Max Width
   - Max Depth
   - Max Del Width
+  - Max Betweenness
+  - Max Closeness
+  - Wiener Index
+  - Diameter
+  - Eigen Vector
 
 ## Rcpp
 For all of these statistics, the package provides Rcpp versions that 
