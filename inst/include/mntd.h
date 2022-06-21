@@ -158,7 +158,7 @@ double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   //int max_pos = n * (n - 1) * 0.5;
   int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
   double mpd = std::accumulate(dist_mat.data_.begin(),
-                             dist_mat.data_.begin() + max_pos, 0.0);
+                               dist_mat.data_.begin() + max_pos, 0.0);
   mpd *= 1.0 / max_pos;
   return mpd;
 }

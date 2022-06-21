@@ -15,10 +15,10 @@ eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    adj_matrix <- get_adj_mat_cpp(phy,
-                                  weight)
-    require(Matrix)
-    adj_matrix <- methods::as(adj_matrix, "dgCMatrix")
+    edge_for_mat <- rbind(phy$edge, cbind(phy$edge[,2], phy$edge[, 1]))
+    adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
+                                       j = edge_for_mat[, 2],
+                                       x = rep(1, length(edge_for_mat[, 1])))
 
     ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
                              which = "LM",
