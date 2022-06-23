@@ -16,9 +16,18 @@ eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
   }
   if (inherits(phy, "phylo")) {
     edge_for_mat <- rbind(phy$edge, cbind(phy$edge[,2], phy$edge[, 1]))
-    adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
+
+    adj_matrix <- c()
+    if (weight) {
+      adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
+                                         j = edge_for_mat[, 2],
+                                         x = c(phy$edge.length,
+                                                   phy$edge.length))
+    } else {
+      adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
                                        j = edge_for_mat[, 2],
                                        x = rep(1, length(edge_for_mat[, 1])))
+    }
 
     ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
                              which = "LM",
