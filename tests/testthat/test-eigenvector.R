@@ -43,3 +43,4 @@ test_that("usage", {
      treestats::eigen_vector(focal_tree, weight = TRUE)$eigenvalue,
      treestats::eigen_vector(ltab,       weight = TRUE)$eigenvalue)
 })
+

@@ -8,17 +8,27 @@
 #' width, starting with the first width. The maximum difference is then
 #' returned.
 #' @param phy phylogeny or ltable
+#' @param normalization "none" or "tips", in which case the resulting statistic
+#' is divided by the number of tips in the tree.
 #' @return maximum difference of widths
 #' @references C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
 #' transmission patterns. Evolution, Medicine, and Public Health,
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018..
 #' @export
-max_del_width <- function(phy) {
+max_del_width <- function(phy, normalization = "none") {
 
   if (inherits(phy, "matrix")) {
-    return(calc_max_del_width_ltable_cpp(phy))
+    max_dw_stat <- calc_max_del_width_ltable_cpp(phy)
+    if (normalization == "tips") {
+      max_dw_stat <- max_dw_stat / length(phy[, 1])
+    }
+    return(max_dw_stat)
   }
   if (inherits(phy, "phylo")) {
-    return(calc_max_del_width_cpp(as.vector(t(phy$edge))))
+    max_dw_stat <- calc_max_del_width_cpp(as.vector(t(phy$edge)))
+    if (normalization == "tips") {
+      max_dw_stat <- max_dw_stat / length(phy$tip.label)
+    }
+    return(max_dw_stat)
   }
 }

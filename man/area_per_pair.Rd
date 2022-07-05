@@ -4,10 +4,13 @@
 \alias{area_per_pair}
 \title{Fast function using C++ to calculate the area per pair index}
 \usage{
-area_per_pair(phy)
+area_per_pair(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "yule", in which case the acquired result
+is divided by the expectation for the Yule model.}
 }
 \value{
 Total cophenetic index
@@ -15,7 +18,10 @@ Total cophenetic index
 \description{
 The area per pair index calculates the sum of the number of
 edges on the path between all two leaves. Instead, the area per pair index
-can also be derived from the sackin and total cophenetic index.
+(APP) can also be derived from the Sackin (S) and total cophenetic index
+(TC):
+\eqn{APP=\frac{2}{n}\cdot S-\frac{4}{n(n-1)}\cdot TC}
+    {APP=2/n*S-4/(n(n-1))*TC}
 }
 \references{
 T. Araújo Lima, F. M. D. Marquitti, and M. A. M. de Aguiar.

@@ -4,10 +4,14 @@
 \alias{b1}
 \title{Fast function using C++ to calculate the B1 metric}
 \usage{
-b1(phy)
+b1(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the resulting
+statistic is divided by the number of tips in the tree, as a crude way of
+normalization.}
 }
 \value{
 Maximum depth (in number of edges)

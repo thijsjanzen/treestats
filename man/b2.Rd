@@ -4,10 +4,14 @@
 \alias{b2}
 \title{Fast function using C++ to calculate the B2 metric}
 \usage{
-b2(phy)
+b2(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "yule", when "yule" is chosen, the statistic
+is divided by the Yule expectation, following from theorem 3.7 in Bienvenu
+2020.}
 }
 \value{
 Maximum depth (in number of edges)
@@ -20,4 +24,7 @@ all tips, divided by 2^depth: sum Ni / 2^Ni
 \references{
 K.-T. Shao and R. R. Sokal. Tree Balance.
 Systematic Zoology, 39(3):266, 1990. doi: 10.2307/2992186.
+Bienvenu, François, Gabriel Cardona, and Celine Scornavacca.
+"Revisiting Shao and Sokal’s $$ B_2 $$ B 2 index of phylogenetic balance."
+Journal of Mathematical Biology 83.5 (2021): 1-43.
 }

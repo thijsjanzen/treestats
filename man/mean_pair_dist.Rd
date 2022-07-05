@@ -4,10 +4,14 @@
 \alias{mean_pair_dist}
 \title{Fast function using C++ to calculate the mean pairwise distance.}
 \usage{
-mean_pair_dist(phy)
+mean_pair_dist(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the obtained mean
+pairwise distance is normalized by the factor 2log(n), where n is the number
+of tips.}
 }
 \value{
 Mean pairwise distance

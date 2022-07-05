@@ -4,10 +4,13 @@
 \alias{max_width}
 \title{Fast function using C++ to calculate the maximum width of branch depth.}
 \usage{
-max_width(phy)
+max_width(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
+
+\item{normalization}{"none" or "tips", in which case the resulting statistic
+is divided by the number of tips in the tree.}
 }
 \value{
 maximum width
@@ -22,5 +25,5 @@ width then returns the maximum number of such occurences.
 \references{
 C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
 transmission patterns. Evolution, Medicine, and Public Health,
-2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018..
+2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 }

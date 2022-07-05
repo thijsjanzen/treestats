@@ -5,10 +5,13 @@
 \title{Fast function using C++ to calculate the maximum difference of widths of a
 phylogenetic tree}
 \usage{
-max_del_width(phy)
+max_del_width(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
+
+\item{normalization}{"none" or "tips", in which case the resulting statistic
+is divided by the number of tips in the tree.}
 }
 \value{
 maximum difference of widths

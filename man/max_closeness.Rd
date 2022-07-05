@@ -4,12 +4,16 @@
 \alias{max_closeness}
 \title{Fast function using C++ to calculate maximum closeness}
 \usage{
-max_closeness(phy, weight = TRUE)
+max_closeness(phy, weight = TRUE, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
 
 \item{weight}{if TRUE, uses branch lengths.}
+
+\item{normalization}{"none" or "tips", in which case an arbitrary post-hoc
+correction is performed by dividing by the expectation of n log(n), where n
+is the number of tips.}
 }
 \value{
 Maximum Closeness

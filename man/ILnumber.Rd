@@ -5,10 +5,13 @@
 \title{Calculate ILnumber, from the phyloTop package. The ILnumber is the number
 of internal nodes with a single tip child.}
 \usage{
-ILnumber(input_obj)
+ILnumber(input_obj, normalization = "none")
 }
 \arguments{
 \item{input_obj}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the result is normalized
+by dividing by N - 2, where N is the number of tips.}
 }
 \value{
 ILnumber
