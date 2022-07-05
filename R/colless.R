@@ -6,7 +6,7 @@
 #' where a correction is made for tree size, under either a yule expectation,
 #' or a pda expectation.
 #' @param phy phylo object or ltable
-#' @param normalization A character string equals to NULL (default) for no
+#' @param normalization A character string equals to "none" (default) for no
 #' normalization or one of "pda" or "yule".
 #' @return colless index
 #' @references  Colless D H. 1982. Review of: Phylogenetics: The Theory and
@@ -35,7 +35,8 @@ colless <- function(phy,
 #' @description The equal weights Colless index is calculated as the sum of
 #' \eqn{abs(L - R) / (L + R - 2)} over all nodes where L + R > 2,
 #' where L (or R) is the number of extant tips associated with the L (or R)
-#' daughter branch at that node.  Higher values indicate higher imbalance.
+#' daughter branch at that node.  Maximal imbalance is associated with a value
+#' of 1.0. The ew_colless index is not sensitive to tree size.
 #' @param phy phylo object or ltable
 #' @return colless index
 #' @references  A. O. Mooers and S. B. Heard. Inferring Evolutionary Process

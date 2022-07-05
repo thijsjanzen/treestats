@@ -4,10 +4,13 @@
 \alias{var_leaf_depth}
 \title{Fast function using C++ to calculate the variance of leaf depth statistic}
 \usage{
-var_leaf_depth(phy)
+var_leaf_depth(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "yule", when "yule" is chosen, the statistic
+is divided by the Yule expectation}
 }
 \value{
 Variance of leaf depths

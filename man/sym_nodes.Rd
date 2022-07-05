@@ -2,12 +2,16 @@
 % Please edit documentation in R/sym_nodes.R
 \name{sym_nodes}
 \alias{sym_nodes}
-\title{Fast function using C++ to calculate sym nodes metric}
+\title{Fast function using C++ to calculate the symmetry nodes metric}
 \usage{
-sym_nodes(phy)
+sym_nodes(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the resulting statistic
+is divided by the number of tips - 2 (e.g. the maximum value of the symmetry
+nodes index for a tree).}
 }
 \value{
 Maximum depth (in number of edges)

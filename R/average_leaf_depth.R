@@ -2,24 +2,39 @@
 #' is a normalized version of the Sackin index, normalized by the number of
 #' tips.
 #' @param phy phylo object or ltable
-#' @return gamma statistic
+#' @param normalization "none" or "yule", in which case the statistic is
+#' divided by the expectation under the yule model, following Remark 1 in
+#' Coronado et al. 2020.
+#' @return average leaf depth statistic
 #' @export
-#' @references K.-T. Shao and R. R. Sokal. Tree balance. Systematic Zoology,
+#' @references M. Coronado, T., Mir, A., Rosselló, F. et al. On Sackin’s
+#' original proposal: the variance of the leaves’ depths as a phylogenetic
+#' balance index. BMC Bioinformatics 21, 154 (2020).
+#' https://doi.org/10.1186/s12859-020-3405-1
+#' K.-T. Shao and R. R. Sokal. Tree balance. Systematic Zoology,
 #' 39(3):266, 1990. doi: 10.2307/2992186.
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' average_leaf_depth(simulated_tree)
-average_leaf_depth <- function(phy) {
+average_leaf_depth <- function(phy, normalization = "none") {
 
   if (inherits(phy, "phylo")) {
     n <- length(phy$tip.label)
-    return(calc_sackin_cpp(as.vector(t(phy$edge)),
-                           normalization = "none") / n)
+    ald <- calc_sackin_cpp(as.vector(t(phy$edge))) / n
+    if (normalization == "yule") {
+      expectation <- 2 * log(n)
+      ald <- ald / expectation
+    }
+    return(ald)
   }
 
   if (inherits(phy, "matrix")) {
     n <- length(phy[, 1])
-    return(calc_sackin_ltable_cpp(phy,
-                                  normalization = "none") / n)
+    ald <- calc_sackin_ltable_cpp(phy) / n
+    if (normalization == "yule") {
+      expectation <- 2 * log(n)
+      ald <- ald / expectation
+    }
+    return(ald)
   }
 
   stop("input object has to be phylo or ltable")

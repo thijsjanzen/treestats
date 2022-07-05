@@ -4,10 +4,13 @@
 \alias{tot_coph}
 \title{Fast function using C++ to calculate the total cophenetic index.}
 \usage{
-tot_coph(phy)
+tot_coph(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "yule", when "yule" is chosen, the statistic
+is divided by the Yule expectation}
 }
 \value{
 Total cophenetic index

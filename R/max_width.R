@@ -5,17 +5,27 @@
 #' represents the number of occurrences of each possible depth. The maximal
 #' width then returns the maximum number of such occurences.
 #' @param phy phylogeny or ltable
+#' @param normalization "none" or "tips", in which case the resulting statistic
+#' is divided by the number of tips in the tree.
 #' @return maximum width
 #' @references C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
 #' transmission patterns. Evolution, Medicine, and Public Health,
-#' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018..
+#' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 #' @export
-max_width <- function(phy) {
+max_width <- function(phy, normalization = "none") {
 
   if (inherits(phy, "matrix")) {
-    return(calc_max_width_ltable_cpp(phy))
+    max_w_stat <- calc_max_width_ltable_cpp(phy)
+    if (normalization == "tips") {
+      max_w_stat <- max_w_stat / length(phy[, 1])
+    }
+    return(max_w_stat)
   }
   if (inherits(phy, "phylo")) {
-    return(calc_max_width_cpp(as.vector(t(phy$edge))))
+    max_w_stat <- calc_max_width_cpp(as.vector(t(phy$edge)))
+    if (normalization == "tips") {
+      max_w_stat <- max_w_stat / length(phy$tip.label)
+    }
+    return(max_w_stat)
   }
 }

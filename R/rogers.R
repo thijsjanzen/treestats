@@ -5,6 +5,9 @@
 #' L != R (where L(R) is the number of extant tips of the Left (Right) daughter
 #' node).
 #' @param phy phylo object or ltable
+#' @param normalization "none" or "tips", in which case the resulting statistic
+#' is divided by the number of tips - 2 (e.g. the maximum value of the rogers
+#' index for a tree).
 #' @return Rogers index
 #' @references  J. S. Rogers. Central Moments and Probability Distributions of
 #' Three Measures of Phylogenetic Tree Imbalance. Systematic Biology,
@@ -16,12 +19,20 @@
 #' unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
 #' rogers(balanced_tree)
 #' rogers(unbalanced_tree) # should be higher
-rogers <- function(phy) {
+rogers <- function(phy, normalization = "none") {
   if (inherits(phy, "matrix")) {
-    return(calc_rogers_ltable_cpp(phy))
+    rogers_stat <- calc_rogers_ltable_cpp(phy)
+    if (normalization == "tips") {
+      rogers_stat <- rogers_stat / (length(phy[, 1]) - 2)
+    }
+    return(rogers_stat)
   }
   if (inherits(phy, "phylo")) {
-    return(calc_rogers_cpp(as.vector(t(phy$edge))))
+    rogers_stat <- calc_rogers_cpp(as.vector(t(phy$edge)))
+    if (normalization == "tips") {
+      rogers_stat <- rogers_stat / (length(phy$tip.label) - 2)
+    }
+    return(rogers_stat)
   }
   stop("input object has to be phylo or ltable")
 }

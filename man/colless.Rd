@@ -9,7 +9,7 @@ colless(phy, normalization = "none")
 \arguments{
 \item{phy}{phylo object or ltable}
 
-\item{normalization}{A character string equals to NULL (default) for no
+\item{normalization}{A character string equals to "none" (default) for no
 normalization or one of "pda" or "yule".}
 }
 \value{

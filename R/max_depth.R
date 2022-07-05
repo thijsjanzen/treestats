@@ -2,18 +2,28 @@
 #' @description The maximum depth metric, measures the maximal path (in edges),
 #' between the tips and the root.
 #' @param phy phylo object or ltable
+#' @param normalization "none" or "tips", in which case the resulting statistic
+#' is divided by the number of tips in the tree.
 #' @return Maximum depth (in number of edges)
 #' @references  C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
 #' transmission patterns. Evolution, Medicine, and Public Health,
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 #' @export
-max_depth <- function(phy) {
+max_depth <- function(phy, normalization = "none") {
 
   if (inherits(phy, "matrix")) {
-    return(calc_max_depth_ltable_cpp(phy))
+    max_d_stat <- calc_max_depth_ltable_cpp(phy)
+    if (normalization == "tips") {
+      max_d_stat <- max_d_stat / length(phy[, 1])
+    }
+    return(max_d_stat)
   }
   if (inherits(phy, "phylo")) {
-    return(calc_max_depth_cpp(as.vector(t(phy$edge))))
+    max_d_stat <- calc_max_depth_cpp(as.vector(t(phy$edge)))
+    if (normalization == "tips") {
+      max_d_stat <- max_d_stat / length(phy$tip.label)
+    }
+    return(max_d_stat)
   }
   stop("input object has to be phylo or ltable")
 }

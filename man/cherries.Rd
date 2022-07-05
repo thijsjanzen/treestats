@@ -5,10 +5,14 @@
 \title{Calculate number of cherries, from the phyloTop package. A cherry is a pair
 of sister tips.}
 \usage{
-cherries(input_obj)
+cherries(input_obj, normalization = "none")
 }
 \arguments{
 \item{input_obj}{phylo object or ltable}
+
+\item{normalization}{"none", "yule", or "pda", the found number of
+cherries is divided by the expected number, following
+McKenzie & Steel 2000.}
 }
 \value{
 number of cherries
@@ -16,4 +20,8 @@ number of cherries
 \description{
 Calculate number of cherries, from the phyloTop package. A cherry is a pair
 of sister tips.
+}
+\references{
+McKenzie, Andy, and Mike Steel. "Distributions of cherries for
+two models of trees." Mathematical biosciences 164.1 (2000): 81-92.
 }

@@ -4,10 +4,14 @@
 \alias{rogers}
 \title{Fast function using C++ to calculate the Rogers J index of (im)balance.}
 \usage{
-rogers(phy)
+rogers(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the resulting statistic
+is divided by the number of tips - 2 (e.g. the maximum value of the rogers
+index for a tree).}
 }
 \value{
 Rogers index
