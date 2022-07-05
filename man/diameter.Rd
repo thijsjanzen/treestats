@@ -4,12 +4,16 @@
 \alias{diameter}
 \title{Fast function using C++ to calculate the diameter}
 \usage{
-diameter(phy, weight = FALSE)
+diameter(phy, weight = FALSE, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
 
 \item{weight}{if TRUE, uses branch lengths.}
+
+\item{normalization}{"none" or "minmax", where the found value is rescaled
+using the minimum and maximum diameter value expected for a tree of n tips,
+where the minimum is n and the maximum is given by 2log_2(n).}
 }
 \value{
 Diameter

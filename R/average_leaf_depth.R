@@ -19,7 +19,7 @@ average_leaf_depth <- function(phy, normalization = "none") {
 
   if (inherits(phy, "phylo")) {
     n <- length(phy$tip.label)
-    ald <- calc_sackin_cpp(as.vector(t(phy$edge))) / n
+    ald <- calc_sackin_cpp(as.vector(t(phy$edge)), "none") / n
     if (normalization == "yule") {
       expectation <- 2 * log(n)
       ald <- ald / expectation
@@ -29,7 +29,7 @@ average_leaf_depth <- function(phy, normalization = "none") {
 
   if (inherits(phy, "matrix")) {
     n <- length(phy[, 1])
-    ald <- calc_sackin_ltable_cpp(phy) / n
+    ald <- calc_sackin_ltable_cpp(phy, "none") / n
     if (normalization == "yule") {
       expectation <- 2 * log(n)
       ald <- ald / expectation

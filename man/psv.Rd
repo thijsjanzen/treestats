@@ -4,10 +4,14 @@
 \alias{psv}
 \title{Fast function using C++ to calculate Phylogenetic Species Variability.}
 \usage{
-psv(phy)
+psv(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the obtained mean
+pairwise distance is normalized by the factor 2log(n), where n is the number
+of tips.}
 }
 \value{
 Phylogenetic Species Variability

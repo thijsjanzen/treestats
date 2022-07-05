@@ -5,10 +5,14 @@
 \title{Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
 with three tips.}
 \usage{
-pitchforks(input_obj)
+pitchforks(input_obj, normalization = "none")
 }
 \arguments{
 \item{input_obj}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", in which case the found number of
+pitchforks is divided by the expected number, following
+McKenzie & Steel 2000.}
 }
 \value{
 number of pitchforks

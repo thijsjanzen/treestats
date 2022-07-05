@@ -4,10 +4,14 @@
 \alias{max_betweenness}
 \title{Fast function using C++ to calculate maximum betweenness centrality.}
 \usage{
-max_betweenness(phy)
+max_betweenness(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "tips", if tips is chosen, the obtained
+maximum betweenness is normalized by the total amount of node pair
+combinations considered, e.g. (n-2)*(n-1), where n is the number of tips.}
 }
 \value{
 Maximum Betweenness

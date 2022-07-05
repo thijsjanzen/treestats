@@ -4,10 +4,13 @@
 \alias{calc_all_stats}
 \title{function to apply all available tree statistics to a single tree}
 \usage{
-calc_all_stats(phylo)
+calc_all_stats(phylo, normalize = FALSE)
 }
 \arguments{
 \item{phylo}{phylo object}
+
+\item{normalize}{if set to TRUE, results are normalized (if possible) under
+either the  Yule expectation (if available), or the number of tips}
 }
 \value{
 list with statistics
