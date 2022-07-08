@@ -167,10 +167,10 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                normalization =
                                                  ifelse(normalize,
                                                         "yule", "none"))
-  stats$symmetry_nodes  <- treestats::symmetry_nodes(phylo,
-                                                     normalization =
-                                                     ifelse(normalize,
-                                                            "tips", "none"))
+  stats$symmetry_nodes  <- treestats::sym_nodes(phylo,
+                                                normalization =
+                                                  ifelse(normalize,
+                                                    "tips", "none"))
 
   stats$mpd          <- tryCatch(expr = {
                           treestats::mean_pair_dist(phylo,

@@ -1,61 +1,63 @@
 context("colless")
 
 test_that("usage", {
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+  if (requireNamespace("apTreeshape")) {
+    set.seed(42)
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 
-  colless <- treestats::colless(focal_tree)
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
-  testthat::expect_equal(colless, colless_check)
-
-
-
-  colless <- treestats::colless(focal_tree, normalization = "yule")
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
-                                      norm = "yule")
-  testthat::expect_equal(colless, colless_check, tol = 1e-5)
-
-  colless <- treestats::colless(focal_tree, normalization = "pda")
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
-                                      norm = "pda")
-  testthat::expect_equal(colless, colless_check, tol = 1e-5)
+    colless <- treestats::colless(focal_tree)
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
+    testthat::expect_equal(colless, colless_check)
 
 
-  # now, using ltable:
-  ffocal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-  focal_ltab <- treestats::phylo_to_l(focal_tree)
 
-  colless <- treestats::colless(focal_ltab)
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
-  testthat::expect_equal(colless, colless_check)
+    colless <- treestats::colless(focal_tree, normalization = "yule")
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
+                                          norm = "yule")
+    testthat::expect_equal(colless, colless_check, tol = 1e-5)
 
-  colless <- treestats::colless(focal_ltab, normalization = "yule")
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
-                                        norm = "yule")
-  testthat::expect_equal(colless, colless_check, tol = 1e-5)
-
-  colless <- treestats::colless(focal_ltab, normalization = "pda")
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
-                                        norm = "pda")
-  testthat::expect_equal(colless, colless_check, tol = 1e-5)
+    colless <- treestats::colless(focal_tree, normalization = "pda")
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
+                                          norm = "pda")
+    testthat::expect_equal(colless, colless_check, tol = 1e-5)
 
 
-  ## with extinct lineages:
-  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
+    # now, using ltable:
+    ffocal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+    focal_ltab <- treestats::phylo_to_l(focal_tree)
 
-  colless <- treestats::colless(focal_tree)
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
-  testthat::expect_equal(colless, colless_check)
+    colless <- treestats::colless(focal_ltab)
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
+    testthat::expect_equal(colless, colless_check)
 
-  colless <- treestats::colless(focal_tree, normalization = "yule")
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
-                                        norm = "yule")
-  testthat::expect_equal(colless, colless_check, tol = 1e-5)
+    colless <- treestats::colless(focal_ltab, normalization = "yule")
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
+                                          norm = "yule")
+    testthat::expect_equal(colless, colless_check, tol = 1e-5)
 
-  colless <- treestats::colless(focal_tree, normalization = "pda")
-  colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
-                                        norm = "pda")
-  testthat::expect_equal(colless, colless_check, tol = 1e-5)
+    colless <- treestats::colless(focal_ltab, normalization = "pda")
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
+                                          norm = "pda")
+    testthat::expect_equal(colless, colless_check, tol = 1e-5)
+
+
+    ## with extinct lineages:
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
+
+    colless <- treestats::colless(focal_tree)
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree))
+    testthat::expect_equal(colless, colless_check)
+
+    colless <- treestats::colless(focal_tree, normalization = "yule")
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
+                                          norm = "yule")
+    testthat::expect_equal(colless, colless_check, tol = 1e-5)
+
+    colless <- treestats::colless(focal_tree, normalization = "pda")
+    colless_check <- apTreeshape::colless(apTreeshape::as.treeshape(focal_tree),
+                                          norm = "pda")
+    testthat::expect_equal(colless, colless_check, tol = 1e-5)
+  }
 })
 
 test_that("abuse", {
