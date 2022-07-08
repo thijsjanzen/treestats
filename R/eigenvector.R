@@ -15,7 +15,7 @@ eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    edge_for_mat <- rbind(phy$edge, cbind(phy$edge[,2], phy$edge[, 1]))
+    edge_for_mat <- rbind(phy$edge, cbind(phy$edge[, 2], phy$edge[, 1]))
 
     adj_matrix <- c()
     if (weight) {

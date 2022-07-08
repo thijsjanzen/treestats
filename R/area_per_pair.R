@@ -25,10 +25,10 @@ area_per_pair <- function(phy, normalization = "none") {
             4 / (n * (n - 1)) * treestats::tot_coph(phy)
 
   if (normalization == "yule") {
-    H_n <- sum(1/(1:n))
+    h_n <- sum(1 / (1:n))
     a <- (n + 1) / (n - 1)
 
-    expected_value <- 4 * ((H_n - 1) * a - 1)
+    expected_value <- 4 * ((h_n - 1) * a - 1)
     result <- result / expected_value
   }
 

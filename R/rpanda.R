@@ -46,8 +46,9 @@ calc_lapl_spectrum <- function(phy) {
 
   # prep code:
   sigma <- 0.1
-  g_kernel <- function(x) 1 / (sigma * sqrt(2 * pi)) * exp( -(x ^ 2) / 2 *
-                                                            sigma ^ 2)
+  g_kernel <- function(x) {
+    1 / (sigma * sqrt(2 * pi)) * exp( -(x ^ 2) / 2 * sigma ^ 2)
+  }
 
   kernel_g <- function(x, mean = 0, sd = 1) {
     return(stats::dnorm(x, mean = mean, sd = sd))

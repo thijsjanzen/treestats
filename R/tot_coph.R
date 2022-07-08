@@ -15,8 +15,8 @@ tot_coph <- function(phy, normalization = "none") {
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)
     if (normalization == "yule") {
       n <- length(phy[, 1])
-      H_n <- sum(1/(1:n))
-      yule_expected <-  n * (n + 1) - 2 * n * H_n
+      h_n <- sum(1 / (1:n))
+      yule_expected <-  n * (n + 1) - 2 * n * h_n
       tot_coph_stat <- tot_coph_stat / yule_expected
     }
     return(tot_coph_stat)
@@ -25,8 +25,8 @@ tot_coph <- function(phy, normalization = "none") {
     tot_coph_stat <- calc_tot_coph_cpp(as.vector(t(phy$edge)))
     if (normalization == "yule") {
       n <- length(phy$tip.label)
-      H_n <- sum(1/(1:n))
-      yule_expected <-  n * (n + 1) - 2 * n * H_n
+      h_n <- sum(1 / (1:n))
+      yule_expected <-  n * (n + 1) - 2 * n * h_n
       tot_coph_stat <- tot_coph_stat / yule_expected
     }
     return(tot_coph_stat)

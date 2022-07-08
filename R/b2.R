@@ -19,7 +19,7 @@ b2 <- function(phy, normalization = "none") {
     b2_stat <- calc_b2_ltable_cpp(phy)
     if (normalization == "yule") {
       n <- length(phy[, 1])
-      expectation <- sum(1/(1:n))
+      expectation <- sum(1 / (1:n))
       b2_stat <- b2_stat / expectation
     }
     return(b2_stat)
@@ -28,7 +28,7 @@ b2 <- function(phy, normalization = "none") {
     b2_stat <- calc_b2_cpp(as.vector(t(phy$edge)))
     if (normalization == "yule") {
       n <- length(phy$tip.label)
-      expectation <- sum(1/(1:n))
+      expectation <- sum(1 / (1:n))
       b2_stat <- b2_stat / expectation
     }
     return(b2_stat)
