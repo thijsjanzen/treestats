@@ -65,7 +65,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_github("rspatial/terra")
-          remotes::install_github("hmorlon/PANDA")
+          # remotes::install_github("hmorlon/PANDA")
           remotes::install_github("thijsjanzen/nodeSub")
         shell: Rscript {0}
 
