@@ -27,6 +27,5 @@ test_that("usage", {
 
 test_that("abuse", {
   ctree <- ape::read.tree(text = "c(A:1,B:1,C:1,D:1);")
-  testthat::expect_error(treestats::rquartet(ctree),
-    "Tree must be binary, for non binary trees use treebalance::rQuartetI")
+  testthat::expect_error(treestats::rquartet(ctree))
 })

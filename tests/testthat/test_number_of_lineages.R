@@ -11,6 +11,6 @@ test_that("usage", {
 
   testthat::expect_error(
     treestats::number_of_lineages(num_lin),
-    "object \"phy\" is not of class \"phylo\""
+    "input object has to be phylo or ltable"
   )
 })
