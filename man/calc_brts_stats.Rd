@@ -5,7 +5,7 @@
 \title{function to apply all tree statistics related to branching times
 to a single tree.}
 \usage{
-calc_brts_stats(phylo, normalize = FALSE)
+calc_brts_stats(phylo)
 }
 \arguments{
 \item{phylo}{phylo object}

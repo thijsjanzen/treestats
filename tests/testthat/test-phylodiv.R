@@ -2,9 +2,10 @@ context("phylodiv")
 
 test_that("usage", {
   set.seed(42)
-  focal_tree <- TreeSim::sim.bd.taxa(n = 3,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0)[[1]]
+ # focal_tree <- TreeSim::sim.bd.taxa(n = 3,
+ #                                    numbsim = 1,
+#                                     lambda = 1, mu = 0)[[1]]
+  focal_tree <- ape::rphylo(n = 3, birth = 1, death = 0)
 
   div1 <- treestats::phylogenetic_diversity(focal_tree)
   div2 <- sum(focal_tree$edge.length)
@@ -20,7 +21,7 @@ test_that("usage", {
 
   # now check sub time
   brts <- ape::branching.times(focal_tree)
-  tt <- (brts[1] - brts[2]) / 2
+  tt <- (brts[1] + brts[2]) / 2
   div1 <- treestats::phylogenetic_diversity(focal_tree, tt)
   div2 <- (brts[1] - tt) * 2
   testthat::expect_equal(div1[[1]], div2[[1]])
@@ -46,7 +47,7 @@ test_that("usage", {
   testthat::expect_gt(div1, div2)
 })
 
-test_that("usage", {
+test_that("usage 2", {
   set.seed(42)
   focal_tree <- ape::rphylo(n = 50, birth = 1, death = 0)
 
@@ -57,4 +58,23 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   div3 <- treestats::phylogenetic_diversity(ltab)
   testthat::expect_equal(div3, div2)
+})
+
+test_that("ltab", {
+  set.seed(42)
+  focal_tree <- ape::rphylo(n = 3, birth = 1, death = 0)
+
+  focal_ltab <- treestats::phylo_to_l(focal_tree)
+
+  div1 <- treestats::phylogenetic_diversity(focal_ltab)
+
+  testthat::expect_error(treestats::phylogenetic_diversity(focal_ltab,
+                                                           t = 1))
+
+  testthat::expect_error(treestats::phylogenetic_diversity(focal_ltab,
+                                                           t = c(0.0, 1.0)))
+
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.3, fossils = TRUE)
+  focal_ltab <- treestats::phylo_to_l(focal_tree)
+  testthat::expect_error(treestats::phylogenetic_diversity(focal_ltab))
 })

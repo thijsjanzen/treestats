@@ -41,17 +41,9 @@ phylogenetic_diversity <- function(input_obj,
       }
 
       return(calc_phylodiv_ltable_cpp(input_obj))
+    } else {
+      stop("Ltable implemenation can only be used for a single time point, t = 0")
     }
-
-    fun_to_apply <- function(focal_time) {
-      if (focal_time != 0) {
-        stop("Ltable implemenation can only be used for t = present = 0")
-      }
-      return(calc_phylodiv_ltable_cpp(input_obj))
-    }
-
-    out <- lapply(t, fun_to_apply)
-    return(unlist(out))
   }
 
   if (inherits(input_obj, "phylo")) {
