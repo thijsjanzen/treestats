@@ -34,5 +34,8 @@ test_that("usage", {
     age1 <- treestats::crown_age(focal_tree)
     age2 <- max(adephylo::distRoot(focal_tree))
     testthat::expect_equal(age1, age2)
+
+    age3 <- treestats::crown_age(treestats::phylo_to_l(focal_tree))
+    testthat::expect_equal(age3, age1)
   }
 })

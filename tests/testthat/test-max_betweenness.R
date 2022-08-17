@@ -39,6 +39,9 @@ test_that("normalization", {
   c1 <- treestats::max_betweenness(focal_tree)
   c2 <- treestats::max_betweenness(focal_tree, normalization = "tips")
   testthat::expect_lt(c2, c1)
+  c3 <- treestats::max_betweenness(treestats::phylo_to_l(focal_tree),
+                             normalization = "tips")
+  testthat::expect_equal(c2, c3)
 
   stats1 <- c()
   stats2 <- c()

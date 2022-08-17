@@ -32,7 +32,6 @@ test_that("usage", {
 })
 
 
-
 test_that("normalization", {
   set.seed(42)
   focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
@@ -40,6 +39,10 @@ test_that("normalization", {
   c1 <- treestats::var_leaf_depth(focal_tree)
   c2 <- treestats::var_leaf_depth(focal_tree, normalization = "yule")
   testthat::expect_lt(c2, c1)
+  focal_ltab <- treestats::phylo_to_l(focal_tree)
+  c3 <- treestats::var_leaf_depth(focal_ltab, normalization = "yule")
+  testthat::expect_equal(c2, c3)
+
 
   stats1 <- c()
   stats2 <- c()
