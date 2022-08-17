@@ -40,9 +40,15 @@ beta_statistic <- function(phy,
                            abs_tol = 1e-4,
                            rel_tol = 1e-6) {
 
-  apply_function_phy_ltable(phy,
-                            calc_beta_cpp,
-                            calc_beta_ltable_cpp,
-                            only_extant = TRUE,
-                            upper_lim, algorithm, abs_tol, rel_tol)
+  if (inherits(phy, "matrix")) {
+    beta_stat <- calc_beta_ltable_cpp(phy, upper_lim,
+                                      algorithm, abs_tol, rel_tol)
+    return(beta_stat)
+  }
+  if (inherits(phy, "phylo")) {
+    beta_stat <- calc_beta_cpp(phy, upper_lim,
+                               algorithm, abs_tol, rel_tol)
+    return(beta_stat)
+  }
+  stop("input object has to be phylo or ltable")
 }

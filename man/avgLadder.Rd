@@ -2,7 +2,8 @@
 % Please edit documentation in R/avgLadder.R
 \name{avgLadder}
 \alias{avgLadder}
-\title{Calculate the avgLadder index, from the phyloTop package}
+\title{Calculate the avgLadder index, from the phyloTop package.
+Higher values indicate more unbalanced trees.}
 \usage{
 avgLadder(input_obj)
 }
@@ -13,5 +14,6 @@ avgLadder(input_obj)
 average number of ladders
 }
 \description{
-Calculate the avgLadder index, from the phyloTop package
+Calculate the avgLadder index, from the phyloTop package.
+Higher values indicate more unbalanced trees.
 }

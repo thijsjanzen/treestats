@@ -1,4 +1,5 @@
-#' Calculate the avgLadder index, from the phyloTop package
+#' Calculate the avgLadder index, from the phyloTop package.
+#' Higher values indicate more unbalanced trees.
 #' @param input_obj phylo object or ltable
 #' @return average number of ladders
 #' @export

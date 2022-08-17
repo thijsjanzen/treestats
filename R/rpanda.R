@@ -44,12 +44,6 @@ skew_ness <- function(x) {
 #' @export
 calc_lapl_spectrum <- function(phy) {
 
-  # prep code:
-  sigma <- 0.1
-  g_kernel <- function(x) {
-    1 / (sigma * sqrt(2 * pi)) * exp( -(x ^ 2) / 2 * sigma ^ 2)
-  }
-
   kernel_g <- function(x, mean = 0, sd = 1) {
     return(stats::dnorm(x, mean = mean, sd = sd))
   }
@@ -61,7 +55,7 @@ calc_lapl_spectrum <- function(phy) {
                           from = min(x) - 3 * sd, to = max(x) + 3 * sd,
                           adjust = 1,
                           ...) {
-    if (has.na <- any(is.na(x))) {
+    if (has_na <- any(is.na(x))) {
       x <- stats::na.omit(x)
       if (length(x) == 0)
         stop("no finite or non-missing data!")
@@ -73,7 +67,7 @@ calc_lapl_spectrum <- function(phy) {
     mat <- outer(xx, x, kernel, sd = sd, ...)
     structure(list(x = xx, y = rowMeans(mat), bw = sd, call = match.call(),
                    n = length(x), data.name = deparse(substitute(x)),
-                   has.na = has.na), class = "density")
+                   has.na = has_na), class = "density")
   }
 
   lapl_mat <- -prep_lapl_spec(phy)

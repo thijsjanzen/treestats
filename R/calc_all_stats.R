@@ -9,13 +9,13 @@
 #' single tree, being:
 #' \itemize{
 #'   \item{gamma}
-#'   \item{sackin (yule corrected)}
-#'   \item{colless (yule corrected)}
+#'   \item{Sackin}
+#'   \item{Colless}
 #'   \item{Aldous' beta statistic}
 #'   \item{Blum}
 #'   \item{crown age}
 #'   \item{tree height}
-#'   \item{pigot's rho}
+#'   \item{Pigot's rho}
 #'   \item{mean branch length}
 #'   \item{number of lineages}
 #'   \item{nLTT with empty tree}
@@ -100,8 +100,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                              "tips", "none"))
   stats$stairs             <- treestats::stairs(phylo)
 
-  temp_stats <- tryCatch(expr = {treestats::calc_lapl_spectrum(phylo) },
-                         error = function(e) {return(NA) })
+  temp_stats <- tryCatch(expr = {treestats::calc_lapl_spectrum(phylo) }, #nolint
+                         error = function(e) {return(NA) }) #nolint
 
   if (length(temp_stats) == 5) {
     stats$laplac_spectrum_a  <- temp_stats$asymmetry
@@ -121,7 +121,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                         ifelse(normalize,
                                                "tips", "none"))
 
-  stats$b2           <- treestats::b1(phylo,
+  stats$b2           <- treestats::b2(phylo,
                                       normalization =
                                         ifelse(normalize,
                                                "yule", "none"))
@@ -161,7 +161,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                               normalization =
                                                 ifelse(normalize,
                                                        "yule", "none"))},
-                                  error = function(e) {return(NA)})
+                                  error = function(e) {return(NA)}) #nolint
 
   stats$var_depth <- treestats::var_leaf_depth(phylo,
                                                normalization =
@@ -177,18 +177,18 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                     normalization =
                                                      ifelse(normalize,
                                                             "tips", "none"))},
-                                 error = function(e) {return(NA)})
-  stats$psv          <- tryCatch(expr = {treestats::psv(phylo,
+                                 error = function(e) {return(NA)}) #nolint
+  stats$psv          <- tryCatch(expr = {treestats::psv(phylo, #nolint
                                                         normalization =
                                                         ifelse(normalize,
                                                               "tips", "none"))},
-                                 error = function(e) {return(NA)})
-  stats$vpd          <- tryCatch(expr = {treestats::var_pair_dist(phylo)},
-                                 error = function(e) {return(NA)})
-  stats$mntd         <- tryCatch(expr = {treestats::mntd(phylo)},
-                                 error = function(e) {return(NA)})
-  stats$j_stat       <- tryCatch(expr = {treestats::entropy_j(phylo)},
-                                 error = function(e) {return(NA)})
+                                 error = function(e) {return(NA)}) #nolint
+  stats$vpd          <- tryCatch(expr = {treestats::var_pair_dist(phylo)},  #nolint
+                                 error = function(e) {return(NA)})     #nolint
+  stats$mntd         <- tryCatch(expr = {treestats::mntd(phylo)},      #nolint
+                                 error = function(e) {return(NA)})     #nolint
+  stats$j_stat       <- tryCatch(expr = {treestats::entropy_j(phylo)}, #nolint
+                                 error = function(e) {return(NA)})     #nolint
 
   stats$rquartet     <- treestats::rquartet(phylo,
                                             normalization =

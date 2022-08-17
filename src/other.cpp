@@ -27,13 +27,11 @@ double calc_beta_cpp(const Rcpp::List& phy,
       return NA_REAL;
     }
 
-
     std::vector< std::array< int, 2 >> local_edge(edge.nrow());
     for (size_t i = 0; i < edge.nrow(); ++i) {
       local_edge[i] = {static_cast<int>(edge(i, 0)),
                        static_cast<int>(edge(i, 1))};
     }
-
 
     return calc_beta(local_edge, -2.0, upper_lim, algorithm, abs_tol, rel_tol);
   } catch(std::exception &ex) {

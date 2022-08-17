@@ -21,13 +21,13 @@ this package to a
 single tree, being:
 \itemize{
   \item{gamma}
-  \item{sackin (yule corrected)}
-  \item{colless (yule corrected)}
+  \item{Sackin}
+  \item{Colless}
   \item{Aldous' beta statistic}
   \item{Blum}
   \item{crown age}
   \item{tree height}
-  \item{pigot's rho}
+  \item{Pigot's rho}
   \item{mean branch length}
   \item{number of lineages}
   \item{nLTT with empty tree}

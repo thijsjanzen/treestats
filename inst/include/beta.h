@@ -27,9 +27,6 @@ public:
     update_lr_matrix_ltable();
   };
 
-
-
-
   double calc_likelihood(double beta) const {
     std::vector< double > sn = get_sn(beta);
     std::vector< double > ll(lr_.size());
@@ -53,7 +50,6 @@ private:
 
   const ltable lt_;
   std::vector<double> brts_;
-
 
   int get_num_tips(const int& label,
                    const int& root_label) {
@@ -286,6 +282,8 @@ double calc_beta(const T& edge,
 
   nlopt_opt opt;
   bool algo_set = false;
+  double init_val = -1.9;
+
   if (algorithm == "subplex") {
     opt = nlopt_create(NLOPT_LN_SBPLX, static_cast<unsigned int>(1));
     algo_set = true;
@@ -297,7 +295,9 @@ double calc_beta(const T& edge,
   if (algorithm == "COBYLA") {
     opt = nlopt_create(NLOPT_LN_COBYLA, static_cast<unsigned int>(1));
     algo_set = true;
+    init_val = 0.01;
   }
+
   if (!algo_set) {
      throw "no algorithm chosen";
   }
@@ -315,7 +315,7 @@ double calc_beta(const T& edge,
   nlopt_set_ftol_abs(opt, abs_tol);
 
 
-  std::vector<double> x = {0};
+  std::vector<double> x = {init_val};
   double minf;
 
   auto nloptresult = nlopt_optimize(opt, &(x[0]), &minf);

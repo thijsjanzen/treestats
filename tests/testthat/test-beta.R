@@ -54,13 +54,6 @@ test_that("usage", {
 
 # abuse
 test_that("abuse", {
-  focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0.5, fossils = TRUE)
-
-  testthat::expect_error(
-    # throws error, because beta can only be calculated on extant tree
-    treestats::beta_statistic(focal_tree)
-  )
-
   focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
   testthat::expect_output(
