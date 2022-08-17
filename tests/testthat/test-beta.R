@@ -49,6 +49,15 @@ test_that("usage", {
 
     comp_methods(bal_tree)
     comp_methods(focal_tree)
+
+
+
+    # ltable
+    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
+    beta_treestats <- treestats::beta_statistic(focal_tree)
+    focal_ltable <- treestats::phylo_to_l(focal_tree)
+    beta_ltable  <- treestats::beta_statistic(focal_ltable)
+    testthat::expect_equal(beta_ltable, beta_treestats, tolerance = 0.1)
   }
 })
 
