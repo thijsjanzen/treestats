@@ -10,33 +10,36 @@
 #' @export
 cherries <- function(input_obj, normalization = "none") {
 
-  if (inherits(input_obj, "matrix")) {
+  num_cherries <- 0
 
+  if (inherits(input_obj, "matrix")) {
     num_cherries <- cherries_ltable_cpp(input_obj)
-    if (normalization == "yule") {
-      n <- length(input_obj[, 1])
-      expected_num_cherries <- n / 3
-      num_cherries <- num_cherries / expected_num_cherries
-    }
-    if (normalization == "pda") {
-      n <- length(input_obj[, 1])
-      expected_num_cherries <- n / 4
-      num_cherries <- num_cherries / expected_num_cherries
-    }
-    return(num_cherries)
   }
   if (inherits(input_obj, "phylo")) {
     num_cherries <- cherries_cpp(as.vector(t(input_obj$edge)))
-    if (normalization == "yule") {
-      n <- length(input_obj$tip.label)
-      expected_num_cherries <- n / 3
-      num_cherries <- num_cherries / expected_num_cherries
-    }
-    if (normalization == "pda") {
-      n <- length(input_obj$tip.label)
-      expected_num_cherries <- n / 4
-      num_cherries <- num_cherries / expected_num_cherries
-    }
-    return(num_cherries)
   }
+
+  if (normalization == "yule") {
+    if (inherits(input_obj, "matrix")) {
+      n <- length(input_obj[, 1])
+    }
+    if (inherits(input_obj, "phylo")) {
+      n <- length(input_obj$tip.label)
+    }
+    expected_num_cherries <- n / 3
+    num_cherries <- num_cherries / expected_num_cherries
+  }
+
+  if (normalization == "pda") {
+    if (inherits(input_obj, "matrix")) {
+      n <- length(input_obj[, 1])
+    }
+    if (inherits(input_obj, "phylo")) {
+      n <- length(input_obj$tip.label)
+    }
+    expected_num_cherries <- n / 4
+    num_cherries <- num_cherries / expected_num_cherries
+  }
+
+  return(num_cherries)
 }

@@ -16,7 +16,7 @@ test_that("usage", {
     testthat::expect_equal(a1, a2 / n)
 
     ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::mean_pair_dist(focal_tree),
-                           treestats::mean_pair_dist(ltab))
+    testthat::expect_equal(treestats::entropy_j(focal_tree),
+                           treestats::entropy_j(ltab))
   }
 })

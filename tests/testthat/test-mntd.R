@@ -23,4 +23,9 @@ test_that("usage", {
   testthat::expect_error(
     treestats::mntd(focal_tree),
     "can only calculate mntd statistic for ultrametric tree")
+
+  focal_ltab <- treestats::phylo_to_l(focal_tree)
+  testthat::expect_error(
+    treestats::mntd(focal_ltab),
+    "can only calculate mntd statistic for ultrametric tree")
 })

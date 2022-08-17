@@ -24,3 +24,8 @@ test_that("usage", {
                          treestats::rquartet(ltab))
 
 })
+
+test_that("abuse", {
+  ctree <- ape::read.tree(text = "c(A:1,B:1,C:1);")
+  testthat::expect_error(treestats::rquartet(ctree))
+})

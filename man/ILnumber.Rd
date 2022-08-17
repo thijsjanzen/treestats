@@ -2,10 +2,7 @@
 % Please edit documentation in R/ILnumber.R
 \name{ILnumber}
 \alias{ILnumber}
-\title{Calculate ILnumber, from the phyloTop package.
-The ILnumber is the number of internal nodes with a
-single tip child. Higher values typically indicate a tree that
-is more unbalanced.}
+\title{Calculate ILnumber, from the phyloTop package.}
 \usage{
 ILnumber(input_obj, normalization = "none")
 }
@@ -19,7 +16,6 @@ by dividing by N - 2, where N is the number of tips.}
 ILnumber
 }
 \description{
-Calculate ILnumber, from the phyloTop package.
 The ILnumber is the number of internal nodes with a
 single tip child. Higher values typically indicate a tree that
 is more unbalanced.

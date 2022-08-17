@@ -23,3 +23,34 @@ test_that("usage", {
     testthat::expect_equal(c1, c3)
   }
 })
+
+test_that("normalisation", {
+  set.seed(42)
+  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
+
+  c1 <- treestats::cherries(focal_tree)
+  c2 <- treestats::cherries(focal_tree, normalization = "yule")
+  c3 <- treestats::cherries(focal_tree, normalization = "pda")
+  testthat::expect_lt(c2, c1)
+  testthat::expect_lt(c3, c1)
+
+  stats1 <- c()
+  stats2 <- c()
+  stats3 <- c()
+  for (n in seq(100, 200, by = 10)) {
+    focal_tree <- ape::rphylo(n = n, birth = 1, death = 0)
+    stats1 <- c(stats1, treestats::cherries(focal_tree))
+    stats2 <- c(stats2, treestats::cherries(focal_tree,
+                                            normalization = "yule"))
+    stats3 <- c(stats3, treestats::cherries(focal_tree,
+                                            normalization = "pda"))
+  }
+
+  a1 <- cor(stats1, seq(100, 200, by = 10))
+  a2 <- cor(stats2, seq(100, 200, by = 10))
+  a3 <- cor(stats3, seq(100, 200, by = 10))
+
+  testthat::expect_lt(a2, a1)
+  testthat::expect_equal(a2, a3)
+})
+
