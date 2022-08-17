@@ -60,6 +60,9 @@
 #' statistics can not be calculated. The function will report an NA for this
 #' statistic, but will to break, to facilitate batch analysis of large numbers
 #' of trees.
+#' @rawNamespace import(Rcpp)
+#' @rawNamespace import(nloptr)
+#' @rawNamespace useDynLib(treestats)
 calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats <- list()

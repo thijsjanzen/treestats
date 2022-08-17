@@ -21,6 +21,9 @@ test_that("usage", {
   testthat::expect_equal(treestats::diameter(focal_tree, weight = TRUE),
                          treestats::diameter(ltab, weight = TRUE))
 
+  testthat::expect_equal(treestats::diameter(focal_tree, weight = FALSE),
+                         treestats::diameter(ltab, weight = FALSE))
+
   focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
   a1_1 <- treestats::diameter(focal_tree, weight = TRUE)
@@ -39,4 +42,7 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(treestats::diameter(focal_tree, weight = TRUE),
                          treestats::diameter(ltab,       weight = TRUE))
+
+  testthat::expect_equal(treestats::diameter(focal_tree, weight = FALSE),
+                         treestats::diameter(ltab,       weight = FALSE))
 })

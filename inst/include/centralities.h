@@ -150,17 +150,12 @@ double min_farness(const edge& local_edge,
                    bool weight = false) {
   auto sub_tree_sizes = computeLRSizes(local_edge, el);
 
- // std::cerr << "LRSizes done\n"; std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
   std::vector<double> sizes(sub_tree_sizes.size());
   size_t cnt = 0;
   for (const auto& i : sub_tree_sizes) {
     sizes[cnt] = i[0] + i[1];
     cnt++;
   }
-
- // std::cerr << "sizes collected\n"; std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
 
   int n = 1 + static_cast<int>(local_edge.size()) * 0.5;;
   int N = 2 * n - 1;
@@ -178,7 +173,6 @@ double min_farness(const edge& local_edge,
     farness[n] = std::accumulate(sizes.begin(), sizes.end(), 0.0);
   }
 
-//  std::cerr << "starting ind loop\n"; std::this_thread::sleep_for(std::chrono::milliseconds(300));
   for (size_t ind = 0; ind < local_edge.size(); ++ind) {
     auto curRow = local_edge[ind];
     auto kid = curRow[1];
@@ -202,8 +196,6 @@ double min_farness(const edge& local_edge,
 
     farness[kid - 1] = farness[curRow[0] - 1] + (N - 2 * subSize) * W;
   }
-
-//  std::cerr << "starting min_element\n"; std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   return *std::min_element(farness.begin(), farness.end());
 }
@@ -289,6 +281,7 @@ public:
 
   std::vector<std::array<double, 2>> collect_diameter_noW() {
     std::vector<std::array<double, 2>> stat;
+    std::vector<int> depth_tips(ltable_.size(), 1);
     while(true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
@@ -298,15 +291,12 @@ public:
       }
       auto j_parent = index_of_parent(parent);
 
-      int L = extant_tips[j];
-      int R = extant_tips[j_parent];
-      extant_tips[j_parent] = L + R;
+      int L = depth_tips[j];
+      int R = depth_tips[j_parent];
+      depth_tips[j_parent] = 1 + std::max(L, R);
       remove_from_dataset(j);
 
-      auto a = L / 2.0;
-      auto b = R / 2.0;
-
-      stat.push_back({a, b});
+      stat.push_back({static_cast<double>(L), static_cast<double>(R)});
 
       if (ltable_.size() == 1) break;
     }
@@ -316,7 +306,7 @@ public:
   std::vector<std::array<double, 2>> collect_diameter_W() {
     std::vector<std::array<double, 2>> stat(ltable_.size() - 1);
     for (size_t i = 1; i < ltable_.size(); ++i) {
-      stat[i] = {ltable_[i][0], ltable_[i][0]};
+      stat[i - 1] = {ltable_[i][0], ltable_[i][0]};
     }
     return stat;
   }
@@ -358,6 +348,7 @@ public:
   ltable ltable_;
   std::vector< int > extant_tips;
   std::vector<double> dist_to_tips;
+  std::vector<int> depth_tips;
   size_t num_tips;
 };
 

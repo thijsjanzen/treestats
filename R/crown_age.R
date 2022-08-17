@@ -9,13 +9,17 @@
 #' @return crown age
 #' @export
 tree_height <- function(phy) {
-  crown_age_of_tree <- crown_age(phy)
-  root_length <- 0
-  if (!is.null(phy$root.edge)) {
-    root_length <- phy$root.edge
+
+  if (inherits(phy, "phylo")) {
+    crown_age_of_tree <- crown_age(phy)
+    root_length <- 0
+    if (!is.null(phy$root.edge)) {
+      root_length <- phy$root.edge
+    }
+    tree_height <- crown_age_of_tree + root_length
+    return(tree_height)
   }
-  tree_height <- crown_age_of_tree + root_length
-  return(tree_height)
+  stop("input object has to be of class phylo")
 }
 
 #' Calculates the crown age of a tree using C++.
@@ -23,9 +27,17 @@ tree_height <- function(phy) {
 #' fairly straightforward, and the function beautier::get_crown_age does
 #' a great job at it. However, in a non-ultrametric tree, that function no
 #' longer works. This function provides a functioning alternative
-#' @param phy phylo object
+#' @param phy phylo object or ltable
 #' @return crown age
 #' @export
 crown_age <- function(phy) {
-  return(apply_function_phy(phy, calc_crown_age_cpp))
+
+  if (inherits(phy, "matrix")) {
+    return(phy[1, 1])
+  }
+
+  if (inherits(phy, "phylo")) {
+    return(calc_crown_age_cpp(phy))
+  }
+  stop("input object has to be phylo or ltable")
 }

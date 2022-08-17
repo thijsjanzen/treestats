@@ -33,32 +33,14 @@ double calc_max_betweenness_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 double calc_max_closeness_cpp(const Rcpp::List& phy, bool weight) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
-  try {
-    return max_closeness(edge, el, weight);
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch (const char* msg) {
-    Rcpp::Rcout << msg << std::endl;
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
-  }
-  return NA_REAL;
+  return max_closeness(edge, el, weight);
 }
 
 // [[Rcpp::export]]
 double calc_diameter_cpp(const Rcpp::List& phy, bool weight) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
-  try {
-    return diameter(edge, el, weight);
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  } catch (const char* msg) {
-    Rcpp::Rcout << msg << std::endl;
-  } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
-  }
-  return NA_REAL;
+  return diameter(edge, el, weight);
 }
 
 // [[Rcpp::export]]

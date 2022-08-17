@@ -23,6 +23,10 @@ test_that("usage", {
   testthat::expect_equal(treestats::tot_coph(focal_tree),
                          treestats::tot_coph(ltab))
 
+  testthat::expect_equal(treestats::tot_coph(focal_tree,
+                                             normalization = "yule"),
+                         treestats::tot_coph(ltab,
+                                             normalization = "yule"))
 })
 
 

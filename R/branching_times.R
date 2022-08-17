@@ -3,8 +3,13 @@
 #' @return vector of branching times
 #' @export
 branching_times <- function(phy) {
-  apply_function_phy_ltable(phy,
-                            branching_times_cpp,
-                            branching_times_ltable_cpp,
-                            only_extant = FALSE)
+
+  if (inherits(phy, "matrix")) {
+    return(branching_times_ltable_cpp(phy))
+  }
+
+  if (inherits(phy, "phylo")) {
+    return(branching_times_cpp(phy))
+  }
+  stop("input object has to be phylo or ltable")
 }
