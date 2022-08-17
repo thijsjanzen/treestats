@@ -12,7 +12,7 @@
 #'   \item{nLTT with empty tree}
 #' }
 #'
-calc_brts_stats <- function(phylo, normalize = FALSE) {
+calc_brts_stats <- function(phylo) {
 
   stats <- list()
 

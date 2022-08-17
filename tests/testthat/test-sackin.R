@@ -30,5 +30,9 @@ test_that("usage", {
   testthat::expect_equal(treestats::sackin(focal_tree, normalization = "pda"),
                          treestats::sackin(ltab, normalization = "pda"))
 
+  if (requireNamespace("treebalance")) {
+    sackin_check <- treebalance::sackinI(focal_tree)
+    testthat::expect_equal(sackin, sackin_check)
+  }
 
 })
