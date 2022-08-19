@@ -45,3 +45,27 @@ test_that("usage stairs2", {
   c3 <- treestats::stairs2(treestats::phylo_to_l(focal_tree))
   testthat::expect_equal(c1, c3)
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::stairs(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::stairs(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::stairs2(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::stairs2(list()),
+    "input object has to be phylo or ltable"
+  )
+})

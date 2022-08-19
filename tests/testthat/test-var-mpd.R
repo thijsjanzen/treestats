@@ -19,3 +19,16 @@ test_that("usage", {
   testthat::expect_equal(treestats::var_pair_dist(focal_tree),
                          treestats::var_pair_dist(ltab))
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::var_pair_dist(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::var_pair_dist(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+

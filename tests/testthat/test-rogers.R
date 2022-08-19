@@ -49,3 +49,15 @@ test_that("normalization", {
   testthat::expect_lt(a2, 0.2)
 })
 
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::rogers(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::rogers(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+

@@ -41,7 +41,16 @@ test_that("normalisation", {
 
   testthat::expect_lt(a2, a1)
   testthat::expect_lt(a2, 0.4)
-
 })
 
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::psv(10),
+    "input object has to be phylo or ltable"
+  )
 
+  testthat::expect_error(
+    treestats::psv(list()),
+    "input object has to be phylo or ltable"
+  )
+})

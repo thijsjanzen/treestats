@@ -21,4 +21,6 @@ pitchforks <- function(input_obj, normalization = "none") {
     }
     return(pitch_stat)
   }
+
+  stop("input object has to be phylo or ltable")
 }

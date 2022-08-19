@@ -24,4 +24,6 @@ ILnumber <- function(input_obj, normalization = "none") { # nolint
     }
     return(il_stat)
   }
+
+  stop("input object has to be phylo or ltable")
 }

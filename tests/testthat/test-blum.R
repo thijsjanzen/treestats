@@ -25,3 +25,15 @@ test_that("usage", {
   blum2 <- treestats::blum(ltab)
   testthat::expect_equal(blum1, blum2)
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::blum(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::blum(list()),
+    "input object has to be phylo or ltable"
+  )
+})

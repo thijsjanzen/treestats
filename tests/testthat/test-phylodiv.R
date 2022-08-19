@@ -78,3 +78,16 @@ test_that("ltab", {
   focal_ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_error(treestats::phylogenetic_diversity(focal_ltab))
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::phylogenetic_diversity(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::phylogenetic_diversity(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+

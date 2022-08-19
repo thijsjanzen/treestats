@@ -10,4 +10,5 @@ avgLadder <- function(input_obj) { # nolint
   if (inherits(input_obj, "phylo")) {
     return(avgLadder_cpp(as.vector(t(input_obj$edge))))
   }
+  stop("input object has to be phylo or ltable")
 }

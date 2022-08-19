@@ -43,3 +43,15 @@ test_that("usage", {
   testthat::expect_equal(treestats::wiener(focal_tree, weight = TRUE),
                          treestats::wiener(ltab,       weight = TRUE))
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::wiener(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::wiener(list()),
+    "input object has to be phylo or ltable"
+  )
+})

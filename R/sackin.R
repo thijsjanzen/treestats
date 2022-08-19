@@ -23,4 +23,5 @@ sackin <- function(phy, normalization = "none") {
   if (inherits(phy, "phylo")) {
     return(calc_sackin_cpp(as.vector(t(phy$edge)), normalization))
   }
+  stop("input object has to be phylo or ltable")
 }

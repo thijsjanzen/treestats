@@ -56,3 +56,15 @@ test_that("normalization", {
 
   testthat::expect_lt(a2, a1)
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::max_betweenness(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::max_betweenness(list()),
+    "input object has to be phylo or ltable"
+  )
+})

@@ -25,3 +25,15 @@ test_that("usage", {
   testthat::expect_equal(treestats::max_width(focal_tree),
                          treestats::max_width(ltab))
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::max_width(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::max_width(list()),
+    "input object has to be phylo or ltable"
+  )
+})

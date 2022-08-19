@@ -16,3 +16,4 @@ test_that("usage", {
   )
   testthat::expect_equal(length(all_stats), 24)
 })
+

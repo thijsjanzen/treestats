@@ -43,3 +43,15 @@ test_that("usage", {
      treestats::eigen_vector(focal_tree, weight = TRUE)$eigenvalue,
      treestats::eigen_vector(ltab,       weight = TRUE)$eigenvalue)
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::eigen_vector(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::eigen_vector(list()),
+    "input object has to be phylo or ltable"
+  )
+})

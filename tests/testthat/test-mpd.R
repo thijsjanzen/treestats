@@ -44,3 +44,15 @@ test_that("normalization", {
   testthat::expect_lt(a2, 0.3)
 })
 
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::mean_pair_dist(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::mean_pair_dist(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+

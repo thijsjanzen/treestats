@@ -16,6 +16,7 @@ stairs <- function(input_obj) {
   if (inherits(input_obj, "phylo")) {
     return(stairs_cpp(as.vector(t(input_obj$edge))))
   }
+  stop("input object has to be phylo or ltable")
 }
 
 
@@ -38,4 +39,5 @@ stairs2 <- function(input_obj) {
   if (inherits(input_obj, "phylo")) {
     return(stairs2_cpp(as.vector(t(input_obj$edge))))
   }
+  stop("input object has to be phylo or ltable")
 }

@@ -44,6 +44,13 @@ skew_ness <- function(x) {
 #' @export
 calc_lapl_spectrum <- function(phy) {
 
+  if (inherits(phy, "matrix")) {
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
+  }
+  if (!inherits(phy, "phylo")) {
+    stop("input object has to be phylo or ltable")
+  }
+
   kernel_g <- function(x, mean = 0, sd = 1) {
     return(stats::dnorm(x, mean = mean, sd = sd))
   }

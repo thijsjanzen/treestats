@@ -29,3 +29,16 @@ test_that("abuse", {
   ctree <- ape::read.tree(text = "c(A:1,B:1,C:1,D:1);")
   testthat::expect_error(treestats::rquartet(ctree))
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::rquartet(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::rquartet(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+

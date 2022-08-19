@@ -69,3 +69,15 @@ test_that("abuse", {
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "no algorithm chosen")
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::beta_statistic(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::beta_statistic(list()),
+    "input object has to be phylo or ltable"
+  )
+})

@@ -37,3 +37,15 @@ test_that("abuse", {
   testthat::expect_warning(treestats::mean_i(focal_ltab),
               "I statistic is only available for trees with at least 4 tips.")
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::mean_i(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::mean_i(list()),
+    "input object has to be phylo or ltable"
+  )
+})

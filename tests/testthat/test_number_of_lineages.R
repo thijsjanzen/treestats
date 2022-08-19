@@ -8,9 +8,16 @@ test_that("usage", {
   num_lin <- treestats::number_of_lineages(focal_tree)
 
   testthat::expect_equal(num_lin, 100)
+})
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::number_of_lineages(10),
+    "input object has to be phylo or ltable"
+  )
 
   testthat::expect_error(
-    treestats::number_of_lineages(num_lin),
+    treestats::number_of_lineages(list()),
     "input object has to be phylo or ltable"
   )
 })

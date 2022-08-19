@@ -62,4 +62,6 @@ phylogenetic_diversity <- function(input_obj,
     out <- lapply(t, fun_to_apply)
     return(unlist(out))
   }
+
+  stop("input object has to be phylo or ltable")
 }

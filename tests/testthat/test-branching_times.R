@@ -33,3 +33,15 @@ test_that("usage", {
   a3 <- treestats::branching_times(l1)
   testthat::expect_true(all.equal(a2, a3))
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::branching_times(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::branching_times(list()),
+    "input object has to be phylo or ltable"
+  )
+})

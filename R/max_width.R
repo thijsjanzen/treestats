@@ -28,4 +28,6 @@ max_width <- function(phy, normalization = "none") {
     }
     return(max_w_stat)
   }
+
+  stop("input object has to be phylo or ltable")
 }

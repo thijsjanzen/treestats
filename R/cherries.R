@@ -14,9 +14,10 @@ cherries <- function(input_obj, normalization = "none") {
 
   if (inherits(input_obj, "matrix")) {
     num_cherries <- cherries_ltable_cpp(input_obj)
-  }
-  if (inherits(input_obj, "phylo")) {
+  } else if (inherits(input_obj, "phylo")) {
     num_cherries <- cherries_cpp(as.vector(t(input_obj$edge)))
+  } else {
+    stop("input object has to be phylo or ltable")
   }
 
   if (normalization == "yule") {

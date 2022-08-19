@@ -35,5 +35,17 @@ test_that("usage", {
     sackin_check <- treebalance::sackinI(focal_tree)
     testthat::expect_equal(sackin, sackin_check)
   }
-
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::sackin(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::sackin(list()),
+    "input object has to be phylo or ltable"
+  )
+})
+

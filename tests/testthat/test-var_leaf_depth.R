@@ -60,3 +60,14 @@ test_that("normalization", {
   testthat::expect_lt(a2, 0.2)
 })
 
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::var_leaf_depth(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::var_leaf_depth(list()),
+    "input object has to be phylo or ltable"
+  )
+})

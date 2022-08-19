@@ -27,3 +27,15 @@ test_that("usage", {
     testthat::expect_equal(colless, colless_check)
   }
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::ew_colless(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::ew_colless(list()),
+    "input object has to be phylo or ltable"
+  )
+})

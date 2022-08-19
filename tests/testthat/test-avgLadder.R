@@ -25,3 +25,15 @@ test_that("usage", {
     testthat::expect_equal(c1, c3)
   }
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::avgLadder(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::avgLadder(list()),
+    "input object has to be phylo or ltable"
+  )
+})

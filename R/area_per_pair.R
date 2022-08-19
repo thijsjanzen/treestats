@@ -15,11 +15,13 @@
 #' @export
 area_per_pair <- function(phy, normalization = "none") {
   n <- 0
+
   if (inherits(phy, "matrix")) {
     n <- length(phy[, 1])
-  }
-  if (inherits(phy, "phylo")) {
+  } else if (inherits(phy, "phylo")) {
     n <- length(phy$tip.label)
+  } else {
+    stop("input object has to be phylo or ltable")
   }
   result <- 2 / n * treestats::sackin(phy) -
             4 / (n * (n - 1)) * treestats::tot_coph(phy)

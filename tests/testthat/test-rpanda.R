@@ -19,3 +19,15 @@ test_that("usage", {
     testthat::expect_equal(ref$eigengap, stat$eigengap)
   }
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::calc_lapl_spectrum(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::calc_lapl_spectrum(list()),
+    "input object has to be phylo or ltable"
+  )
+})

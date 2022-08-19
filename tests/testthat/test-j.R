@@ -20,3 +20,15 @@ test_that("usage", {
                            treestats::entropy_j(ltab))
   }
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::entropy_j(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::entropy_j(list()),
+    "input object has to be phylo or ltable"
+  )
+})

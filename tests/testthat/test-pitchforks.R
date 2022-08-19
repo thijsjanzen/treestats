@@ -21,3 +21,15 @@ test_that("usage", {
   c3 <- treestats::pitchforks(treestats::phylo_to_l(focal_tree))
   testthat::expect_equal(c1, c3)
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::pitchforks(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::pitchforks(list()),
+    "input object has to be phylo or ltable"
+  )
+})

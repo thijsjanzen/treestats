@@ -29,3 +29,15 @@ test_that("usage", {
     treestats::mntd(focal_ltab),
     "can only calculate mntd statistic for ultrametric tree")
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::mntd(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::mntd(list()),
+    "input object has to be phylo or ltable"
+  )
+})

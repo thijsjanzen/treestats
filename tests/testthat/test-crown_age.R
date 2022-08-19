@@ -39,3 +39,16 @@ test_that("usage", {
     testthat::expect_equal(age3, age1)
   }
 })
+
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::crown_age(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::crown_age(list()),
+    "input object has to be phylo or ltable"
+  )
+})

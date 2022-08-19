@@ -24,4 +24,5 @@ blum <- function(phy) {
   if (inherits(phy, "phylo")) {
     return(calc_blum_cpp(as.vector(t(phy$edge))))
   }
+  stop("input object has to be phylo or ltable")
 }

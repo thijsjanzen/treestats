@@ -26,3 +26,15 @@ test_that("usage", {
                            treestats::max_del_width(ltab))
   }
 })
+
+test_that("wrong_object", {
+  testthat::expect_error(
+    treestats::max_del_width(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    treestats::max_del_width(list()),
+    "input object has to be phylo or ltable"
+  )
+})
