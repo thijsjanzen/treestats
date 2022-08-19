@@ -10,9 +10,8 @@ test_that("usage", {
   )
   testthat::expect_equal(length(all_stats), 46)
 
-  testthat::skip("only do manually, takes very long")
   focal_tree <- ape::rphylo(n = 23171, birth = 1, death = 0)
-  testthat::expect_invisible(
+  testthat::expect_warning(
     all_stats <- treestats::calc_all_stats(focal_tree)
   )
   testthat::expect_true(is.na(all_stats$laplac_spectrum_a))
@@ -25,4 +24,6 @@ test_that("usage", {
   testthat::expect_true(is.na(all_stats$psv))
   testthat::expect_true(is.na(all_stats$vpd))
   testthat::expect_true(is.na(all_stats$j_stat))
+  testthat::expect_true(is.na(all_stats$tot_coph))
+  testthat::expect_true(is.na(all_stats$area_per_pair))
 })

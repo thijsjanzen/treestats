@@ -15,11 +15,25 @@ mntd <- function(phy) {
     if (sum(phy[, 4] != -1)) {
       stop("can only calculate mntd statistic for ultrametric tree")
     }
+    n <- length(phy[, 1])
+    m <- n - 1
+    nm <- n + m;
+    if (nm > 46340) { # sqrt(2^31 - 1)
+      warning("tree too big");
+      return(NA)
+    }
     return(calc_mntd_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
     if (!ape::is.ultrametric(phy)) {
       stop("can only calculate mntd statistic for ultrametric tree")
+    }
+    n <- length(phy$tip.label)
+    m <- phy$Nnode
+    nm <- n + m;
+    if (nm > 46340) { # sqrt(2^31 - 1)
+      warning("tree too big");
+      return(NA)
     }
     return(calc_mntd_cpp(phy))
   }

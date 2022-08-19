@@ -13,6 +13,13 @@ var_pair_dist <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
+    n <- length(phy$tip.label)
+    m <- phy$Nnode
+    nm <- n + m;
+    if (nm > 46340) { # sqrt(2^31 - 1)
+      warning("tree too big");
+      return(NA)
+    }
     return(calc_var_mpd_cpp(phy))
   }
   stop("input object has to be phylo or ltable")

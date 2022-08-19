@@ -22,6 +22,13 @@ psv <- function(phy, normalization = "none") {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
+    n <- length(phy$tip.label)
+    m <- phy$Nnode
+    nm <- n + m;
+    if (nm > 46340) { # sqrt(2^31 - 1)
+      warning("tree too big");
+      return(NA)
+    }
     psv_stat <- calc_psv_cpp(phy)
     if (normalization == "tips") {
       n <- length(phy$tip.label)
