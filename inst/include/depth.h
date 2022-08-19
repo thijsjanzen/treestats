@@ -62,28 +62,6 @@ private:
   std::vector< node > tree;
 };
 
-class depth_tracker {
-public :
-  depth_tracker(const std::vector< long >& tree_edge) {
-
-    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
-    tree.resize(tree_edge.size());
-
-    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
-
-      int index    = static_cast<int>(tree_edge[i]);
-      int d1_index = static_cast<int>(tree_edge[i + 1]);
-
-      node new_node;
-      if (d1_index > root_no) { // pointing towards other node
-        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
-      }
-    }
-  }
-
-private:
-  std::vector< node > tree;
-};
 }
 
 namespace width {
