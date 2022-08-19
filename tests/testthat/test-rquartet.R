@@ -25,14 +25,6 @@ test_that("usage", {
 
 })
 
-test_that("abuse", {
-  if (requireNamespace("phytools")) {
-    ctree <- phytools::starTree(species = c(1, 2, 3, 4, 5, 6))
-  testthat::expect_error(treestats::rquartet(ctree),
-      "Tree must be binary, for non binary trees use treebalance::rQuartetI")
-  }
-})
-
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::rquartet(10),
