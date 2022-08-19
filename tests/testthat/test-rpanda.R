@@ -1,7 +1,7 @@
 context("rpanda")
 
 test_that("usage", {
-  skip_on_cran() # RPANDA uses iGraph for the Laplacian spectrum
+  testthat::skip_on_cran() # RPANDA uses iGraph for the Laplacian spectrum
                  # this can cause BLAS issues
 
   if (requireNamespace("RPANDA")) {
@@ -17,6 +17,12 @@ test_that("usage", {
     testthat::expect_equal(ref$peakedness, stat$peakedness, tolerance = 0.01)
     testthat::expect_equal(ref$principal_eigenvalue, stat$principal_eigenvalue)
     testthat::expect_equal(ref$eigengap, stat$eigengap)
+
+
+    stat2 <- treestats::calc_lapl_spectrum(
+      phy = treestats::phylo_to_l(focal_tree)
+    )
+    testthat::expect_true(all.equal(stat, stat2))
   }
 })
 

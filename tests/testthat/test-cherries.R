@@ -34,6 +34,16 @@ test_that("normalisation", {
   testthat::expect_lt(c2, c1)
   testthat::expect_lt(c3, c1)
 
+  focal_ltab <- treestats::phylo_to_l(focal_tree)
+
+  c4 <- treestats::cherries(focal_ltab)
+  c5 <- treestats::cherries(focal_ltab, normalization = "yule")
+  c6 <- treestats::cherries(focal_ltab, normalization = "pda")
+
+  testthat::expect_equal(c1, c4)
+  testthat::expect_equal(c2, c5)
+  testthat::expect_equal(c3, c6)
+
   stats1 <- c()
   stats2 <- c()
   stats3 <- c()

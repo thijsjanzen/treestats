@@ -37,7 +37,7 @@ eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
     evalue <- abs(ev$values[1])
 
     if (scale) {
-      evector <- evalue / max(evector)
+      evector <- evector / max(evector)
     }
 
     return(list(eigenvector = evector,

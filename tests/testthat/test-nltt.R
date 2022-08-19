@@ -2,16 +2,15 @@ context("nltt")
 
 test_that("usage", {
   set.seed(42)
-  tree1 <- TreeSim::sim.bd.taxa(n = 100, numbsim = 1, lambda = 1, mu = 0)[[1]]
-  tree2 <- TreeSim::sim.bd.taxa(n = 100, numbsim = 1, lambda = 0.5, mu = 0)[[1]]
+  tree1 <- ape::rphylo(n = 100, birth = 1, death = 0)
+  tree2 <- ape::rphylo(n = 100, birth = 0.5, death = 0)
 
   nltt <- treestats::nLTT(tree1, tree2)
   nltt_check <- nLTT::nLTTstat(tree1, tree2)
   testthat::expect_equal(nltt, nltt_check)
 
-  empty_tree <- TreeSim::sim.bd.taxa(n = 2,
-                                     numbsim = 1,
-                                     lambda = 1, mu = 0)[[1]]
+
+  empty_tree <- ape::rphylo(n = 2, birth = 1, death = 0)
   nltt_base <- treestats::nLTT_base(tree1)
   nltt_base2 <- treestats::nLTT(tree1, empty_tree)
   nltt_base3 <-  nLTT::nLTTstat(tree1, empty_tree)
@@ -30,4 +29,18 @@ test_that("usage", {
   ltab2 <- treestats::phylo_to_l(tree2)
   nltt3 <- treestats::nLTT(ltab1, ltab2)
   testthat::expect_equal(nltt3, nltt)
+})
+
+test_that("wrong_object", {
+  set.seed(42)
+  tree1 <- ape::rphylo(n = 10, birth = 1, death = 0)
+  testthat::expect_error(
+    treestats::nLTT(10, tree1),
+    "input needs to be phylo or ltable object"
+  )
+
+  testthat::expect_error(
+    treestats::nLTT(list(), tree1),
+    "input needs to be phylo or ltable object"
+  )
 })

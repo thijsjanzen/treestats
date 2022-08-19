@@ -35,6 +35,9 @@ test_that("normalisation", {
   c1 <- treestats::b2(focal_tree)
   c2 <- treestats::b2(focal_tree, normalization = "yule")
   testthat::expect_lt(c2, c1)
+  c3 <- treestats::b2(treestats::phylo_to_l(focal_tree),
+                                    normalization = "tips")
+  testthat::expect_equal(c2, c3)
 
   stats1 <- c()
   stats2 <- c()

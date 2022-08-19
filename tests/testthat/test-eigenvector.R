@@ -6,9 +6,11 @@ test_that("usage", {
 
   a1_1 <- treestats::eigen_vector(focal_tree, weight = TRUE, scale = FALSE)
   a1_2 <- treestats::eigen_vector(focal_tree, weight = FALSE, scale = FALSE)
+
+
+
   # because treeCentrality is not available on CRAN, we precompute reference
   # values:
-
   a2_1 <- 3.585569  # treeCentrality::computeEigenvector(focal_tree
   #                                      weight = TRUE))
   a2_2 <- 2.609486  # treeCentrality::computeEigenvector(focal_tree
@@ -16,6 +18,10 @@ test_that("usage", {
 
   testthat::expect_equal(a1_1$eigenvalue, a2_1, tolerance = 1e-4)
   testthat::expect_equal(a1_2$eigenvalue, a2_2, tolerance = 1e-4)
+  a1_3 <- treestats::eigen_vector(focal_tree, weight = TRUE, scale = TRUE)
+  testthat::expect_equal(a1_1$eigenvalue,
+                         a1_3$eigenvalue)
+  testthat::expect_equal(max(a1_3$eigenvector), 1)
 
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(
