@@ -26,9 +26,11 @@ test_that("usage", {
 })
 
 test_that("abuse", {
-  ctree <- ape::read.tree(text = "c(A:1,B:1,C:1,D:1);")
+  if (requireNamespace("phytools")) {
+    ctree <- phytools::starTree(species = c(1, 2, 3, 4, 5, 6))
   testthat::expect_error(treestats::rquartet(ctree),
       "Tree must be binary, for non binary trees use treebalance::rQuartetI")
+  }
 })
 
 test_that("wrong_object", {
@@ -42,4 +44,3 @@ test_that("wrong_object", {
     "input object has to be phylo or ltable"
   )
 })
-
