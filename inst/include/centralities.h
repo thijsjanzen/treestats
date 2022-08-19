@@ -255,30 +255,6 @@ public:
     return stat;
   }
 
-  std::vector< std::array<double, 2>> collect_stat_W() {
-    std::vector<std::array<double, 2>> stat;
-    while(true) {
-      auto j = get_min_index();
-      auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
-        j++;
-        parent = ltable_[j][1];
-      }
-      auto j_parent = index_of_parent(parent);
-
-      double cur_t = ltable_[j][0];
-
-      double L = dist_to_tips[j] + cur_t;
-      double R = dist_to_tips[j_parent] + cur_t;
-      dist_to_tips[j_parent] = std::max(L, R);
-      remove_from_dataset(j);
-      stat.push_back({L, R});
-
-      if (ltable_.size() == 1) break;
-    }
-    return stat;
-  }
-
   std::vector<std::array<double, 2>> collect_diameter_noW() {
     std::vector<std::array<double, 2>> stat;
     std::vector<int> depth_tips(ltable_.size(), 1);

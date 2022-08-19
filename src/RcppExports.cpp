@@ -250,18 +250,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// get_adj_mat_cpp
-Rcpp::NumericMatrix get_adj_mat_cpp(const Rcpp::List& phy, bool weight);
-RcppExport SEXP _treestats_get_adj_mat_cpp(SEXP phySEXP, SEXP weightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_adj_mat_cpp(phy, weight));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_colless_cpp
 double calc_colless_cpp(const std::vector<long>& parent_list, std::string normalization);
 RcppExport SEXP _treestats_calc_colless_cpp(SEXP parent_listSEXP, SEXP normalizationSEXP) {
@@ -648,17 +636,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// test_dist_tri
-Rcpp::NumericMatrix test_dist_tri(const Rcpp::List& phy);
-RcppExport SEXP _treestats_test_dist_tri(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(test_dist_tri(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_mpd_cpp
 double calc_mpd_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_calc_mpd_cpp(SEXP phySEXP) {
@@ -885,7 +862,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_max_closeness_cpp", (DL_FUNC) &_treestats_calc_max_closeness_cpp, 2},
     {"_treestats_calc_diameter_cpp", (DL_FUNC) &_treestats_calc_diameter_cpp, 2},
     {"_treestats_calc_diameter_ltable_cpp", (DL_FUNC) &_treestats_calc_diameter_ltable_cpp, 2},
-    {"_treestats_get_adj_mat_cpp", (DL_FUNC) &_treestats_get_adj_mat_cpp, 2},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
     {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
     {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 1},
@@ -920,7 +896,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
-    {"_treestats_test_dist_tri", (DL_FUNC) &_treestats_test_dist_tri, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 1},
     {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 1},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 1},

@@ -107,28 +107,6 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
   return out;
 }
 
-//' testing function
-//' @param phy phylo object
-//' @export
-// [[Rcpp::export]]
-Rcpp::NumericMatrix test_dist_tri(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  auto tri_mat = dist_nodes_tri(edge, el);
-  int n = 1 + edge.size() / 2;
-  int m = n - 1;
-  int mn = n + m;
-  Rcpp::NumericMatrix out(mn, mn);
-  for (size_t i = 0; i < mn; ++i) {
-    for (size_t j = 0; j < mn; ++j) {
-      out(i, j) = tri_mat.get_val(i, j);
-    }
-  }
-
-  return out;
-}
-
-
 // [[Rcpp::export]]
 double calc_mpd_cpp(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);

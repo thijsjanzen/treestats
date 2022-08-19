@@ -90,7 +90,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
   if (std::abs(L[0][1]) < 0.0000001) {
     L[0][0] = -1.0;
   }
-  
+
   std::vector< std::string > linlist_4(L.size());
   size_t index = 0;
   for (const auto& i : L) {
@@ -119,19 +119,8 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     } else {
       parentj = index_of_parent(L_original, parent);
       if(parentj == -1) {
-        std::string out_string;
-        for (auto &rows : L) {
-          for(auto &col : rows) {
-            out_string += std::to_string(col) + " ";
-          }
-          out_string += "\n";
-        }
-        throw std::invalid_argument("Look up failed "+
-                                     std::to_string(j) +
-                                     " " +
-                                     std::to_string(parent) +
-                                     "\n" +
-                                     out_string);
+        throw std::invalid_argument("Look up failed "+ std::to_string(j) +
+                                     " " + std::to_string(parent) + "\n");
       }
       for (int i = 0; i <= 2; ++i) {
         L[j][i] = L_original[parentj][i];

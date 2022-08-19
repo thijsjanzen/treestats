@@ -85,10 +85,6 @@ calc_diameter_ltable_cpp <- function(l_from_R, weight) {
     .Call('_treestats_calc_diameter_ltable_cpp', PACKAGE = 'treestats', l_from_R, weight)
 }
 
-get_adj_mat_cpp <- function(phy, weight) {
-    .Call('_treestats_get_adj_mat_cpp', PACKAGE = 'treestats', phy, weight)
-}
-
 calc_colless_cpp <- function(parent_list, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', parent_list, normalization)
 }
@@ -246,13 +242,6 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
 #' plot(reconstructed_tree)
 phylo_to_l <- function(phy) {
     .Call('_treestats_phylo_to_l', PACKAGE = 'treestats', phy)
-}
-
-#' testing function
-#' @param phy phylo object
-#' @export
-test_dist_tri <- function(phy) {
-    .Call('_treestats_test_dist_tri', PACKAGE = 'treestats', phy)
 }
 
 calc_mpd_cpp <- function(phy) {
