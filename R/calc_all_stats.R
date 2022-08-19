@@ -209,10 +209,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                       ifelse(normalize,
                                                              "tips", "none"))
 
-  stats$diameter        <- treestats::diameter(phylo,
-                                               normalization =
-                                                 ifelse(normalize,
-                                                        "minmax", "none"))
+  stats$diameter        <- treestats::diameter(phylo)
   stats$eigenvector     <- max(treestats::eigen_vector(phylo)$eigenvector)
 
   return(stats)

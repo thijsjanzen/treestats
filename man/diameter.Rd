@@ -4,7 +4,7 @@
 \alias{diameter}
 \title{Fast function using C++ to calculate the diameter}
 \usage{
-diameter(phy, weight = FALSE, normalization = "none")
+diameter(phy, weight = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
@@ -21,5 +21,5 @@ twice the crown age.
 }
 \references{
 Chindelevitch, Leonid, et al. "Network science inspires novel
-tree shape statistics." Plos one 16.12 (2021): e0259877.
+tree shape statistics." PloS one 16.12 (2021): e0259877.
 }

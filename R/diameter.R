@@ -6,9 +6,10 @@
 #' @param weight if TRUE, uses branch lengths.
 #' @return Diameter
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
-#' tree shape statistics." Plos one 16.12 (2021): e0259877.
+#' tree shape statistics." PloS one 16.12 (2021): e0259877.
 #' @export
-diameter <- function(phy, weight = FALSE, normalization = "none") {
+diameter <- function(phy,
+                     weight = FALSE) {
 
   if (inherits(phy, "matrix")) {
     diam_stat <- calc_diameter_ltable_cpp(phy, weight)
