@@ -19,8 +19,7 @@ entropy_j <- function(phy) {
     m <- phy$Nnode
     nm <- n + m;
     if (nm > 46340) { # sqrt(2^31 - 1)
-      warning("tree too big");
-      return(NA)
+      stop("tree too big");
     }
     return(calc_J_cpp(phy))
   }

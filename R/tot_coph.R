@@ -16,8 +16,7 @@ tot_coph <- function(phy, normalization = "none") {
     m <- n - 1
     nm <- n + m;
     if (nm > 46340) { # sqrt(2^31 - 1)
-      warning("tree too big");
-      return(NA)
+      stop("tree too big");
     }
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)
     if (normalization == "yule") {
@@ -33,8 +32,7 @@ tot_coph <- function(phy, normalization = "none") {
     m <- phy$Nnode
     nm <- n + m;
     if (nm > 46340) { # sqrt(2^31 - 1)
-      warning("tree too big");
-      return(NA)
+      stop("tree too big");
     }
     tot_coph_stat <- calc_tot_coph_cpp(as.vector(t(phy$edge)))
     if (normalization == "yule") {

@@ -50,6 +50,12 @@ calc_lapl_spectrum <- function(phy) {
   if (!inherits(phy, "phylo")) {
     stop("input object has to be phylo or ltable")
   }
+  n <- length(phy$tip.label)
+  m <- n - 1
+  nm <- n + m;
+  if (nm > 46340) { # sqrt(2^31 - 1)
+    stop("tree too big");
+  }
 
   kernel_g <- function(x, mean = 0, sd = 1) {
     return(stats::dnorm(x, mean = mean, sd = sd))

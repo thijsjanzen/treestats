@@ -19,8 +19,7 @@ mean_pair_dist <- function(phy, normalization = "none") {
     m <- phy$Nnode
     nm <- n + m;
     if (nm > 46340) { # sqrt(2^31 - 1)
-      warning("tree too big");
-      return(NA)
+      stop("tree too big");
     }
     mpd <- calc_mpd_cpp(phy)
     if (normalization == "tips") {
