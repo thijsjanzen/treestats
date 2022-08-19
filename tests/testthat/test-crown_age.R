@@ -56,11 +56,11 @@ test_that("wrong_object", {
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::tree_height(10),
-    "input object has to be phylo or ltable"
+    "input object has to be of class phylo"
   )
 
   testthat::expect_error(
     treestats::tree_height(list()),
-    "input object has to be phylo or ltable"
+    "input object has to be of class phylo"
   )
 })
