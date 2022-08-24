@@ -24,4 +24,3 @@ test_that("usage", {
   testthat::expect_true(is.na(all_stats$area_per_pair))
   testthat::expect_true(is.na(all_stats$tot_coph))
 })
-

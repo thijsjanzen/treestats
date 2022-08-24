@@ -38,7 +38,8 @@ test_that("normalization", {
   for (n in seq(100, 200, by = 10)) {
     focal_tree <- ape::rphylo(n = n, birth = 1, death = 0)
     stats1 <- c(stats1, treestats::sym_nodes(focal_tree))
-    stats2 <- c(stats2, treestats::sym_nodes(focal_tree, normalization = "tips"))
+    stats2 <- c(stats2, treestats::sym_nodes(focal_tree,
+                                             normalization = "tips"))
   }
 
   a1 <- cor(stats1, seq(100, 200, by = 10))

@@ -15,9 +15,9 @@ var_pair_dist <- function(phy) {
   if (inherits(phy, "phylo")) {
     n <- length(phy$tip.label)
     m <- phy$Nnode
-    nm <- n + m;
-    if (nm > 46340) { # sqrt(2^31 - 1)
-      stop("tree too big");
+    nm <- n + m
+    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
+      stop("tree too big")
     }
     return(calc_var_mpd_cpp(phy))
   }

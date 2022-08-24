@@ -48,4 +48,3 @@ test_that("wrong_object", {
     "input object has to be phylo or ltable"
   )
 })
-

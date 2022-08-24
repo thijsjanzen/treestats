@@ -42,7 +42,7 @@ phylogenetic_diversity <- function(input_obj,
 
       return(calc_phylodiv_ltable_cpp(input_obj))
     } else {
-      stop("Ltable implemenation can only be used for a single time point, t = 0")
+       stop("Ltable implemenation can only be used for a single time point, t = 0") #nolint
     }
   }
 

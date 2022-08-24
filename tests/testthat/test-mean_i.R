@@ -30,7 +30,7 @@ test_that("usage", {
 test_that("abuse", {
   set.seed(42)
   focal_tree <- ape::rphylo(n = 3, birth = 1, death = 0)
-  testthat::expect_warning( treestats::mean_i(focal_tree),
+  testthat::expect_warning(treestats::mean_i(focal_tree),
               "I statistic is only available for trees with at least 4 tips.")
 
   focal_ltab <- treestats::phylo_to_l(focal_tree)

@@ -25,8 +25,8 @@ area_per_pair <- function(phy, normalization = "none") {
   }
 
   m <- n - 1
-  if (n + m > 46340) { # sqrt(2^31 - 1)
-    warning("tree too big");
+  if (n + m > 46340) { # sqrt(2^31 - 1) #nolint
+    warning("tree too big")
     return(NA)
   }
 

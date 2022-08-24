@@ -17,9 +17,9 @@ mntd <- function(phy) {
     }
     n <- length(phy[, 1])
     m <- n - 1
-    nm <- n + m;
-    if (nm > 46340) { # sqrt(2^31 - 1)
-      warning("tree too big");
+    nm <- n + m
+    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
+      warning("tree too big")
       return(NA)
     }
     return(calc_mntd_ltable_cpp(phy))
@@ -30,9 +30,9 @@ mntd <- function(phy) {
     }
     n <- length(phy$tip.label)
     m <- phy$Nnode
-    nm <- n + m;
-    if (nm > 46340) { # sqrt(2^31 - 1)
-      warning("tree too big");
+    nm <- n + m
+    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
+      warning("tree too big")
       return(NA)
     }
     return(calc_mntd_cpp(phy))
