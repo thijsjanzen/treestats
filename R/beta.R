@@ -28,7 +28,7 @@
 #' @examples
 
 #' simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-#' if (requireNamespace(nodeSub)) {
+#' if (requireNamespace("nodeSub")) {
 #'   brts <- branching_times(simulated_tree)
 #'   balanced_tree <- nodeSub::create_balanced_tree(brts)
 #'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
