@@ -42,7 +42,7 @@ skew_ness <- function(x) {
 #' Phylogenies from their Laplacian Spectrum, Systematic Biology, Volume 65,
 #' Issue 3, May 2016, Pages 495–507, https://doi.org/10.1093/sysbio/syv116
 #' @export
-calc_lapl_spectrum <- function(phy) {
+laplacian_spectrum <- function(phy) {
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)

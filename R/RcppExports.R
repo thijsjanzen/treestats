@@ -21,10 +21,6 @@ calc_rho_ltable_cpp <- function(ltab) {
     .Call('_treestats_calc_rho_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
-calc_phylodiv_0_cpp <- function(edge_length) {
-    .Call('_treestats_calc_phylodiv_0_cpp', PACKAGE = 'treestats', edge_length)
-}
-
 calc_phylodiv_cpp <- function(phy, t, extinct_acc) {
     .Call('_treestats_calc_phylodiv_cpp', PACKAGE = 'treestats', phy, t, extinct_acc)
 }

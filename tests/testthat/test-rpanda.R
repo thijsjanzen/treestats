@@ -9,7 +9,7 @@ test_that("usage", {
     focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
     ref <- RPANDA::spectR(focal_tree)
-    stat <- treestats::calc_lapl_spectrum(focal_tree)
+    stat <- treestats::laplacian_spectrum(focal_tree)
 
     diff_eig <- sum(ref$eigenvalues - stat$eigenvalues)
     testthat::expect_equal(0, diff_eig)
@@ -19,7 +19,7 @@ test_that("usage", {
     testthat::expect_equal(ref$eigengap, stat$eigengap)
 
 
-    stat2 <- treestats::calc_lapl_spectrum(
+    stat2 <- treestats::laplacian_spectrum(
       phy = treestats::phylo_to_l(focal_tree)
     )
     testthat::expect_true(all.equal(stat, stat2))
@@ -28,12 +28,12 @@ test_that("usage", {
 
 test_that("wrong_object", {
   testthat::expect_error(
-    treestats::calc_lapl_spectrum(10),
+    treestats::laplacian_spectrum(10),
     "input object has to be phylo or ltable"
   )
 
   testthat::expect_error(
-    treestats::calc_lapl_spectrum(list()),
+    treestats::laplacian_spectrum(list()),
     "input object has to be phylo or ltable"
   )
 })

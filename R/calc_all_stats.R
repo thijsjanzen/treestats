@@ -103,7 +103,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                              "tips", "none"))
   stats$stairs             <- treestats::stairs(phylo)
 
-  temp_stats <- tryCatch(expr = {treestats::calc_lapl_spectrum(phylo) }, #nolint
+  temp_stats <- tryCatch(expr = {treestats::laplacian_spectrum(phylo) }, #nolint
                          error = function(e) {return(NA) }) #nolint
 
   if (length(temp_stats) == 5) {

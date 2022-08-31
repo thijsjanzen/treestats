@@ -83,11 +83,6 @@ double calc_rho_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 }
 
 // [[Rcpp::export]]
-double calc_phylodiv_0_cpp(const Rcpp::NumericVector& edge_length) {
-  return std::accumulate(edge_length.begin(), edge_length.end(), 0.0);
-}
-
-// [[Rcpp::export]]
 double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
                          double extinct_acc) {
