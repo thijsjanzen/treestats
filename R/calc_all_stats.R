@@ -78,7 +78,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                           "yule", "none"))
 
   stats$beta               <- treestats::beta_statistic(phylo)
-  stats$blum               <- treestats::blum(phylo)
+  stats$blum               <- treestats::blum(phylo, normalize = normalize)
   stats$crown_age          <- treestats::crown_age(phylo)
   stats$tree_height        <- treestats::tree_height(phylo)
   stats$pigot_rho          <- treestats::pigot_rho(phylo)

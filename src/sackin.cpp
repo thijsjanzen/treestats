@@ -51,15 +51,18 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 }
 
 // [[Rcpp::export]]
-double calc_blum_cpp(const std::vector<long>& tree_edge) {
+double calc_blum_cpp(const std::vector<long>& tree_edge,
+                     bool normalize) {
   phylo_tree sackin_tree(tree_edge);
-  return sackin_tree.calc_blum();
+  size_t n  = tree_edge.size() / 4 + 1;
+  return sackin_tree.calc_blum(normalize, n);
 }
 // [[Rcpp::export]]
-double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
+                            bool normalize) {
   auto local_ltab = convert_to_ltable(ltab_in);
   ltab::stat s(local_ltab);
-  return s.calc_blum();
+  return s.calc_blum(normalize);
 }
 
 
