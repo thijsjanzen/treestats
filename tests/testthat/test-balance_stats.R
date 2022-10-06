@@ -14,7 +14,7 @@ test_that("usage", {
     all_stats <- treestats::calc_balance_stats(focal_tree,
                                                normalize = TRUE)
   )
-  testthat::expect_equal(length(all_stats), 24)
+  testthat::expect_equal(length(all_stats), 26)
 
   focal_tree <- ape::rphylo(n = 23171, birth = 1, death = 0)
   testthat::expect_warning(
