@@ -49,7 +49,8 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
 
   stats$beta               <- treestats::beta_statistic(phylo)
   stats$blum               <- treestats::blum(phylo)
-  stats$avgLadder          <- treestats::avgLadder(phylo) #nolint
+  stats$avg_ladder          <- treestats::avg_ladder(phylo) #nolint
+  stats$max_ladder          <- treestats::max_ladder(phylo) #nolint
   stats$cherries           <- treestats::cherries(phylo,
                                                   normalization =
                                                     ifelse(normalize,
@@ -125,6 +126,9 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                             normalization =
                                               ifelse(normalize,
                                                      "yule", "none"))
+
+  stats$imbal_steps <- treestats::imbal_steps(phylo,
+                                              normalize = normalize)
 
   return(stats)
 }

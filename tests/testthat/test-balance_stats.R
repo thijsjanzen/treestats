@@ -8,7 +8,7 @@ test_that("usage", {
   testthat::expect_invisible(
     all_stats <- treestats::calc_balance_stats(focal_tree)
   )
-  testthat::expect_equal(length(all_stats), 24)
+  testthat::expect_equal(length(all_stats), 26)
 
   testthat::expect_invisible(
     all_stats <- treestats::calc_balance_stats(focal_tree,

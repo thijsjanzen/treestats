@@ -16,7 +16,6 @@
 #'   \item{crown age}
 #'   \item{tree height}
 #'   \item{Pigot's rho}
-#'   \item{mean branch length}
 #'   \item{number of lineages}
 #'   \item{nLTT with empty tree}
 #'   \item{phylogenetic diversity}
@@ -51,6 +50,13 @@
 #'   \item{max closeness}
 #'   \item{diameter, without branch lenghts}
 #'   \item{maximum eigen vector value}
+#'   \item{mean branch length}
+#'   \item{variance of branch length}
+#'   \item{mean external branch length}
+#'   \item{variance of external branch length}
+#'   \item{mean internal branch length}
+#'   \item{variance of internal branch length}
+#'   \item{number of imbalancing steps}
 #' }
 #'
 #' For the Laplacian spectrum properties, four properties of the eigenvalue
@@ -82,7 +88,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$crown_age          <- treestats::crown_age(phylo)
   stats$tree_height        <- treestats::tree_height(phylo)
   stats$pigot_rho          <- treestats::pigot_rho(phylo)
-  stats$mean_branch_length <- treestats::mean_branch_length(phylo)
+
   stats$number_of_lineages <- treestats::number_of_lineages(phylo)
   stats$nltt_base          <- treestats::nLTT_base(phylo)
   stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
@@ -214,6 +220,16 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$diameter        <- treestats::diameter(phylo)
   stats$eigenvector     <- max(treestats::eigen_vector(phylo)$eigenvector)
+
+
+  stats$mean_branch_length <- treestats::mean_branch_length(phylo)
+  stats$var_branch_length  <- treestats::var_branch_length(phylo)
+
+  stats$mean_branch_length_int <- treestats::mean_branch_length_int(phylo)
+  stats$mean_branch_length_ext <- treestats::mean_branch_length_ext(phylo)
+  stats$var_branch_length_int <- treestats::var_branch_length_int(phylo)
+  stats$var_branch_length_ext <- treestats::var_branch_length_ext(phylo)
+
 
   return(stats)
 }

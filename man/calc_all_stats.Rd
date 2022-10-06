@@ -28,7 +28,6 @@ single tree, being:
   \item{crown age}
   \item{tree height}
   \item{Pigot's rho}
-  \item{mean branch length}
   \item{number of lineages}
   \item{nLTT with empty tree}
   \item{phylogenetic diversity}
@@ -63,6 +62,13 @@ single tree, being:
   \item{max closeness}
   \item{diameter, without branch lenghts}
   \item{maximum eigen vector value}
+  \item{mean branch length}
+  \item{variance of branch length}
+  \item{mean external branch length}
+  \item{variance of external branch length}
+  \item{mean internal branch length}
+  \item{variance of internal branch length}
+  \item{number of imbalancing steps}
 }
 
 For the Laplacian spectrum properties, four properties of the eigenvalue
