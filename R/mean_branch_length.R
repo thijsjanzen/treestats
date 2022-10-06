@@ -23,7 +23,7 @@ var_branch_length <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    return(var(phy$edge.length))
+    return(stats::var(phy$edge.length))
   }
 
   stop("input object has to be phylo or ltable")
@@ -44,7 +44,7 @@ var_branch_length_int <- function(phy) {
 
     int_branches <- phy$edge.length[ phy$edge[, 2] >= root_no]
 
-    return(var(int_branches))
+    return(stats::var(int_branches))
   }
 
   stop("input object has to be phylo or ltable")
@@ -85,7 +85,7 @@ var_branch_length_ext <- function(phy) {
 
     ext_branches <- phy$edge.length[ phy$edge[, 2] < root_no]
 
-    return(var(ext_branches))
+    return(stats::var(ext_branches))
   }
 
   stop("input object has to be phylo or ltable")
