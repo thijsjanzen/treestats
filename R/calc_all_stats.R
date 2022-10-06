@@ -86,7 +86,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$number_of_lineages <- treestats::number_of_lineages(phylo)
   stats$nltt_base          <- treestats::nLTT_base(phylo)
   stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
-  stats$avgLadder          <- treestats::avgLadder(phylo) #nolint
+  stats$avg_ladder         <- treestats::avg_ladder(phylo) #nolint
+  stats$max_ladder         <- treestats::max_ladder(phylo)
   stats$cherries           <- treestats::cherries(phylo,
                                                   normalization =
                                                     ifelse(normalize,
@@ -118,6 +119,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$laplac_spectrum_g  <- NA
   }
 
+  stats$imbal_steps  <- treestats::imbal_steps(phylo,
+                                               normalize = normalize)
 
   stats$b1           <- treestats::b1(phylo,
                                       normalization =

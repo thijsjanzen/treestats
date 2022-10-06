@@ -21,17 +21,21 @@
 #' colless(balanced_tree)
 #' colless(intermediate_tree) # should be intermediate value
 #' colless(unbalanced_tree) # should be highest colless value
-make_unbalanced_tree4 <- function(init_tree, unbal_steps) {
+make_unbalanced_tree5 <- function(init_tree, unbal_steps) {
   ltab <- treestats::phylo_to_l(init_tree)
 
-  # we start attaching directly to 2
-  to_sample_from <- which(ltab[, 2] != 2 & ltab[, 3] != -1 & ltab[, 3] != 2)
+  # we start attaching directly to -1
+  to_sample_from <- which(ltab[, 2] != -1 &
+                          ltab[, 3] != -1 &
+                          ltab[, 3] != 2)
   steps_taken <- 0
   while (steps_taken < unbal_steps) {
     focal_step <- sample(to_sample_from, 1)
     if (length(to_sample_from) == 1) focal_step <- to_sample_from
-    ltab[focal_step, 2] <- 2
-    to_sample_from <- which(ltab[, 2] != 2 & ltab[, 3] != -1 & ltab[, 3] != 2)
+    ltab[focal_step, 2] <- -1
+    to_sample_from <- which(ltab[, 2] != -1 &
+                              ltab[, 3] != -1 &
+                              ltab[, 3] != 2)
     if (length(to_sample_from) < 1) break
     steps_taken <- steps_taken + 1
   }

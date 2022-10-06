@@ -5,7 +5,8 @@
 #include <array>
 
 
-double calc_ladder(const std::vector< long >& tree_edge) {
+double calc_ladder(const std::vector< long >& tree_edge,
+                   bool return_max) {
   struct node_entry {
     std::array< int, 2> daughters;
     size_t daughter_index = 0;
@@ -42,7 +43,7 @@ double calc_ladder(const std::vector< long >& tree_edge) {
   }
 
 
-  double mean_val = 0.0;
+  double store_val = 0.0;
   int count_val = 0;
 
   for (size_t i = 0; i < edge_mat.size(); ++i) {
@@ -72,14 +73,18 @@ double calc_ladder(const std::vector< long >& tree_edge) {
     }
 
     if (tips[i] > 1)  {
-      mean_val += tips[i];
+      if (return_max == true) {
+        if (tips[i] > store_val) store_val = tips[i];
+      } else {
+        store_val += tips[i];
+      }
       count_val++;
     }
   }
 
-  if (count_val > 0) mean_val *= 1.0 / count_val;
+  if (count_val > 0 && return_max == false) store_val *= 1.0 / count_val;
 
-  return mean_val; // * 1.0 / count_val;
+  return store_val; // * 1.0 / count_val;
 }
 
 

@@ -268,6 +268,10 @@ avgLadder_cpp <- function(tree_edge) {
     .Call('_treestats_avgLadder_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
+max_ladder_cpp <- function(tree_edge) {
+    .Call('_treestats_max_ladder_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
 l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }

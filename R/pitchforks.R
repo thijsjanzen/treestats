@@ -2,8 +2,7 @@
 #' with three tips.
 #' @param input_obj phylo object or ltable
 #' @param normalization "none" or "tips", in which case the found number of
-#' pitchforks is divided by the expected number, following
-#' McKenzie & Steel 2000.
+#' pitchforks is divided by the expected number.
 #' @return number of pitchforks
 #' @export
 pitchforks <- function(input_obj, normalization = "none") {

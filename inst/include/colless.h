@@ -65,7 +65,6 @@ public:
     return ew_colless_stat * 1.0 / (N - 2);
   }
 
-
   size_t calc_rogers() {
     size_t rogers_stat = collect_stat<tag::rogers>();
     return rogers_stat;
@@ -91,7 +90,6 @@ public:
   double count_IL() {
     return collect_stat<tag::il_number>();
   }
-
 
   double count_rquartet() {
     double rquart = collect_stat<tag::rquartet>();

@@ -4,12 +4,14 @@
 \alias{make_unbalanced_tree}
 \title{this function increasingly increases the imbalance of a tree}
 \usage{
-make_unbalanced_tree(init_tree, unbal_steps)
+make_unbalanced_tree(init_tree, unbal_steps, method = "random")
 }
 \arguments{
 \item{init_tree}{starting tree to work with}
 
 \item{unbal_steps}{number of imbalance generating steps}
+
+\item{method}{choice of 'random', 'youngest' and 'terminal'}
 }
 \value{
 phylo object
@@ -24,6 +26,12 @@ balanced tree, and a fully unbalanced tree.
 Please note that the algorithm will try to increase imbalance, until a fully
 caterpillar like tree is reached, which may occur before unbal_steps is
 reached.
+Three methods are available: "youngest", reattaches branches in order of age,
+starting with the branch originating from the most recent branching event
+and working itself through the tree. "Random" picks a random branch to
+reattach. "Terminal" also picks a random branch, but only from terminal
+branches (e.g. branches that don't have any daughter lineages, which is
+maximized in a fully imbalanced tree).
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 16, birth = 1, death = 0)
