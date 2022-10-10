@@ -28,7 +28,8 @@
 #' colless(balanced_tree)
 #' colless(intermediate_tree) # should be intermediate value
 #' colless(unbalanced_tree) # should be highest colless value
-make_unbalanced_tree <- function(init_tree, unbal_steps,
+make_unbalanced_tree <- function(init_tree,
+                                 unbal_steps,
                                  method = "random") {
   ltab <- treestats::phylo_to_l(init_tree)
 
@@ -48,7 +49,6 @@ make_unbalanced_tree <- function(init_tree, unbal_steps,
   if (method == "terminal-youngest") {
     ltab <- make_unbalanced_tree_terminal_youngest(ltab, unbal_steps)
   }
-
 
   output_phy <- treestats::l_to_phylo(ltab)
   return(output_phy)
