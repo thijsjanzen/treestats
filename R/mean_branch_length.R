@@ -40,7 +40,7 @@ var_branch_length_int <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- phy$edge[1, 1]
+    root_no <- min(phy$edge[, 1])
 
     int_branches <- phy$edge.length[ phy$edge[, 2] >= root_no]
 
@@ -60,7 +60,7 @@ mean_branch_length_int <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- phy$edge[1, 1]
+    root_no <- min(phy$edge[, 1])
 
     int_branches <- phy$edge.length[ phy$edge[, 2] >= root_no]
 
@@ -81,7 +81,7 @@ var_branch_length_ext <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- phy$edge[1, 1]
+    root_no <- min(phy$edge[, 1])
 
     ext_branches <- phy$edge.length[ phy$edge[, 2] < root_no]
 
@@ -101,7 +101,7 @@ mean_branch_length_ext <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- phy$edge[1, 1]
+    root_no <- min(phy$edge[, 1])
 
     ext_branches <- phy$edge.length[ phy$edge[, 2] < root_no]
 
