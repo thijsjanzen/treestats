@@ -25,10 +25,12 @@ An alternative implementation can be found in the Castor R package.
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 brts <- branching_times(simulated_tree)
-balanced_tree <- nodeSub::create_balanced_tree(brts)
-unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-blum(balanced_tree)
-blum(unbalanced_tree) # should be higher
+if (requireNamespace("nodeSub")) {
+  balanced_tree <- nodeSub::create_balanced_tree(brts)
+  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+  blum(balanced_tree)
+  blum(unbalanced_tree) # should be higher
+}
 }
 \references{
 M. G. B. Blum and O. Francois (2006). Which random processes

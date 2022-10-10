@@ -22,12 +22,14 @@
 #' @examples
 #' simulated_tree <- ape::rphylo(n = 16, birth = 1, death = 0)
 #' brts <- branching_times(simulated_tree)
-#' balanced_tree <- nodeSub::create_balanced_tree(brts)
-#' unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#' intermediate_tree <- make_unbalanced_tree(balanced_tree, 8)
-#' colless(balanced_tree)
-#' colless(intermediate_tree) # should be intermediate value
-#' colless(unbalanced_tree) # should be highest colless value
+#' if (requireNamespace("nodeSub")) {
+#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
+#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+#'   intermediate_tree <- make_unbalanced_tree(balanced_tree, 8)
+#'   colless(balanced_tree)
+#'   colless(intermediate_tree) # should be intermediate value
+#'   colless(unbalanced_tree) # should be highest colless value
+#' }
 make_unbalanced_tree <- function(init_tree,
                                  unbal_steps,
                                  method = "random") {

@@ -11,10 +11,12 @@
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' brts <- branching_times(simulated_tree)
-#' balanced_tree <- nodeSub::create_balanced_tree(brts)
-#' unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#' sackin(balanced_tree)
-#' sackin(unbalanced_tree) # should be much higher
+#' if (requireNamespace("nodeSub")) {
+#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
+#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+#'   sackin(balanced_tree)
+#'   sackin(unbalanced_tree) # should be much higher
+#' }
 sackin <- function(phy, normalization = "none") {
 
   if (inherits(phy, "matrix")) {
