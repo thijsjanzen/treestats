@@ -69,6 +69,7 @@ single tree, being:
   \item{mean internal branch length}
   \item{variance of internal branch length}
   \item{number of imbalancing steps}
+  \item{j_one statistic}
 }
 
 For the Laplacian spectrum properties, four properties of the eigenvalue

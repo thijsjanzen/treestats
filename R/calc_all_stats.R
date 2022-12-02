@@ -57,6 +57,7 @@
 #'   \item{mean internal branch length}
 #'   \item{variance of internal branch length}
 #'   \item{number of imbalancing steps}
+#'   \item{j_one statistic}
 #' }
 #'
 #' For the Laplacian spectrum properties, four properties of the eigenvalue
@@ -127,6 +128,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$imbal_steps  <- treestats::imbal_steps(phylo,
                                                normalize = normalize)
+
+  stats$j_one        <- treestats::j_one(phylo)
 
   stats$b1           <- treestats::b1(phylo,
                                       normalization =
