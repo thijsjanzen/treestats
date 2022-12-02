@@ -43,5 +43,6 @@ this package to a single tree, being:
   \item{total Cophenetic distance}
   \item{symmetry Nodes}
   \item{rquartet index}
+  \item{j_one statistic}
 }
 }

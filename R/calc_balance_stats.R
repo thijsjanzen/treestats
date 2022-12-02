@@ -31,6 +31,7 @@
 #'   \item{total Cophenetic distance}
 #'   \item{symmetry Nodes}
 #'   \item{rquartet index}
+#'   \item{j_one statistic}
 #' }
 #'
 
@@ -129,6 +130,8 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
 
   stats$imbal_steps <- treestats::imbal_steps(phylo,
                                               normalize = normalize)
+
+  stats$j_one       <- treestats::j_one(phylo)
 
   return(stats)
 }
