@@ -1,7 +1,7 @@
 context("pitchforks")
 
 test_that("usage", {
-  if (requireNamespace("pitchforks")) {
+  if (requireNamespace("phyloTop")) {
     set.seed(42)
     focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
