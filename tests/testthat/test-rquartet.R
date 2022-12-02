@@ -26,6 +26,14 @@ test_that("usage", {
   }
 })
 
+test_that("polytomy", {
+  focal_tree <- ape::read.tree(text = "(t1:1.5,(t2:1,t3:1,t4:1):0.5);")
+  testthat::expect_error(
+    treestats::rquartet(focal_tree),
+    "Tree must be binary, for non binary trees use treebalance::rQuartetI"
+  )
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::rquartet(10),

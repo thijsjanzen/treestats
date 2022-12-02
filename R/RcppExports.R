@@ -137,6 +137,14 @@ calc_rogers_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_rogers_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_j_one_cpp <- function(parent_list) {
+    .Call('_treestats_calc_j_one_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_j_one_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_j_one_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_Ibased_cpp <- function(parent_list) {
     .Call('_treestats_calc_Ibased_cpp', PACKAGE = 'treestats', parent_list)
 }

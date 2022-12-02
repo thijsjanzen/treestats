@@ -129,6 +129,33 @@ public:
     return i_vals;
   }
 
+  double collect_j_one() {
+    double stat = 0.0;
+    double sum_nj = 0.0;
+    while(true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {// we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      double l_r = L + R;
+      sum_nj += l_r;
+      stat += -L * std::log(1.0 * L / l_r) - R * std::log(1.0 * R / l_r);
+
+      if (ltable_.size() == 1) break;
+    }
+    stat *= 1.0 / (sum_nj * std::log(2));
+    return stat;
+  }
+
   double correct_pda(double Ic) {
    double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
@@ -384,6 +411,21 @@ public:
       int r = i.R;
       l != r ? s++ : 0;
     }
+    return s;
+  }
+
+  double calc_j_one() {
+    tree[0].update_num_tips();
+    double s = 0.0;
+    double norm_j = 0.0;
+    for (const auto& i : tree) {
+      int l = i.L;
+      int r = i.R;
+      int n_j = l + r;
+      norm_j += n_j;
+      s += -l * std::log(1.0 * l / n_j) - r * std::log(1.0 * r / n_j);
+    }
+    s *= 1.0 / (norm_j * std::log(2));
     return s;
   }
 
