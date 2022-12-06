@@ -1,6 +1,6 @@
 #' @keywords internal
 calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
-  if (t == 0 && ape::is.ultrametric(phy)) {
+  if (t == 0 && ape::is.ultrametric(phy, option = 2)) {
     return(sum(phy$edge.length)) # no need to pass to Rcpp
   } else {
     return(calc_phylodiv_cpp(phy, t, extinct_tol))
@@ -56,7 +56,9 @@ phylogenetic_diversity <- function(input_obj,
     }
 
     fun_to_apply <- function(focal_time) {
-      return(calc_phylogenetic_diversity(input_obj, focal_time, extinct_tol))
+      return(calc_phylogenetic_diversity(input_obj,
+                                         focal_time,
+                                         extinct_tol))
     }
 
     out <- lapply(t, fun_to_apply)
