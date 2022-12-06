@@ -14,7 +14,8 @@ mean_branch_length <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-#' Calculates the variation of branch lengths of a tree, including extinct branches.
+#' Calculates the variation of branch lengths of a tree,
+#' including extinct branches.
 #' @param phy phylo object or Ltable
 #' @return variation of branch lengths
 #' @export
@@ -42,7 +43,7 @@ var_branch_length_int <- function(phy) {
   if (inherits(phy, "phylo")) {
     root_no <- min(phy$edge[, 1])
 
-    int_branches <- phy$edge.length[ phy$edge[, 2] >= root_no]
+    int_branches <- phy$edge.length[phy$edge[, 2] >= root_no]
 
     return(stats::var(int_branches))
   }
@@ -62,7 +63,7 @@ mean_branch_length_int <- function(phy) {
   if (inherits(phy, "phylo")) {
     root_no <- min(phy$edge[, 1])
 
-    int_branches <- phy$edge.length[ phy$edge[, 2] >= root_no]
+    int_branches <- phy$edge.length[phy$edge[, 2] >= root_no]
 
     return(mean(int_branches))
   }
@@ -83,7 +84,7 @@ var_branch_length_ext <- function(phy) {
   if (inherits(phy, "phylo")) {
     root_no <- min(phy$edge[, 1])
 
-    ext_branches <- phy$edge.length[ phy$edge[, 2] < root_no]
+    ext_branches <- phy$edge.length[phy$edge[, 2] < root_no]
 
     return(stats::var(ext_branches))
   }
@@ -103,11 +104,10 @@ mean_branch_length_ext <- function(phy) {
   if (inherits(phy, "phylo")) {
     root_no <- min(phy$edge[, 1])
 
-    ext_branches <- phy$edge.length[ phy$edge[, 2] < root_no]
+    ext_branches <- phy$edge.length[phy$edge[, 2] < root_no]
 
     return(mean(ext_branches))
   }
 
   stop("input object has to be phylo or ltable")
 }
-

@@ -83,9 +83,10 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                                     ifelse(normalize,
                                                            "yule", "none"))
 
-  stats$average_leaf_depth  <- treestats::average_leaf_depth(phylo,
-                                                             normalization = ifelse(normalize,
-                                                                                    "yule", "none"))
+  stats$average_leaf_depth  <-
+        treestats::average_leaf_depth(phylo,
+                                      normalization = ifelse(normalize,
+                                                             "yule", "none"))
 
   stats$i_stat       <- treestats::mean_i(phylo)
   stats$ew_colless    <- treestats::ew_colless(phylo)

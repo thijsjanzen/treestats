@@ -39,7 +39,7 @@ imbal_steps <- function(input_obj,
   }
 
   if (normalize == TRUE) {
-    max_num_steps <- tree_size #- log(tree_size, 2) - 1
+    max_num_steps <- tree_size
     steps_taken <- steps_taken / max_num_steps
   }
 

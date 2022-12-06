@@ -101,7 +101,7 @@ make_unbalanced_tree_terminal <- function(ltab,
                                           unbal_steps) {
 
   ltab <- cbind(ltab, 0)
-  for (i in 1:length(ltab[, 1])) {
+  for (i in seq_along(ltab[, 1])) {
     ref <- ltab[i, 3]
     ltab[i, 5] <- length(which(ltab[, 2] == ref))
   }
@@ -129,11 +129,11 @@ make_unbalanced_tree_terminal <- function(ltab,
 }
 
 #' @keywords internal
-make_unbalanced_tree_terminal_youngest <- function(ltab,
+make_unbalanced_tree_terminal_youngest <- function(ltab,   #noLint
                                           unbal_steps) {
 
   ltab <- cbind(ltab, 0)
-  for (i in 1:length(ltab[, 1])) {
+  for (i in seq_along(ltab[, 1])) {
     ref <- ltab[i, 3]
     ltab[i, 5] <- length(which(ltab[, 2] == ref))
   }

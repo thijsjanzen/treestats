@@ -18,5 +18,8 @@ at each node with two children, the Shannon Entropy is the sum of
 p_i log_2(p_i) over the two children i, and p_i is the
 }
 \references{
-Jeanne Lemant, Cécile Le Sueur, Veselin Manojlović, Robert Noble, Robust, Universal Tree Balance Indices, Systematic Biology, Volume 71, Issue 5, September 2022, Pages 1210–1224, https://doi.org/10.1093/sysbio/syac027
+Jeanne Lemant, Cécile Le Sueur, Veselin Manojlović, Robert Noble,
+Robust, Universal Tree Balance Indices, Systematic Biology, Volume 71,
+Issue 5, September 2022, Pages 1210–1224,
+https://doi.org/10.1093/sysbio/syac027
 }
