@@ -20,7 +20,6 @@ The following summary statistics are included:
   - Crown age
   - Tree height
   - Pigot's Rho
-  - Mean branch length
   - Number of lineages
   - Laplacian spectrum
   - nLTT
@@ -52,6 +51,13 @@ The following summary statistics are included:
   - Wiener Index
   - Diameter
   - Eigen Vector
+  - Mean branch length
+  - Variation branch length
+  - Mean branch length internal branches
+  - Variation branch length internal branches
+  - Mean branch length terminal branches
+  - Variation branch length terminal branches
+  - J one
 
 ## Rcpp
 For all of these statistics, the package provides Rcpp versions that 
