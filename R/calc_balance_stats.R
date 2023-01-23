@@ -48,7 +48,9 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                                    ifelse(normalize,
                                                           "yule", "none"))
 
-  stats$beta               <- treestats::beta_statistic(phylo)
+  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo) }, #nolint
+                                  error = function(e) {return(NA) }) #nolint
+
   stats$blum               <- treestats::blum(phylo)
   stats$avg_ladder          <- treestats::avg_ladder(phylo) #nolint
   stats$max_ladder          <- treestats::max_ladder(phylo) #nolint
@@ -133,6 +135,8 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                               normalize = normalize)
 
   stats$j_one       <- treestats::j_one(phylo)
+
+  stats$diameter    <- treestats::diameter(phylo)
 
   return(stats)
 }

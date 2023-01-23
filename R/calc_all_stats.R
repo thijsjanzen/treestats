@@ -84,7 +84,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                    ifelse(normalize,
                                                           "yule", "none"))
 
-  stats$beta               <- treestats::beta_statistic(phylo)
+  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo) }, #nolint
+                                  error = function(e) {return(NA) }) #nolint
+
   stats$blum               <- treestats::blum(phylo, normalize = normalize)
   stats$crown_age          <- treestats::crown_age(phylo)
   stats$tree_height        <- treestats::tree_height(phylo)
@@ -232,7 +234,6 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$mean_branch_length_ext <- treestats::mean_branch_length_ext(phylo)
   stats$var_branch_length_int <- treestats::var_branch_length_int(phylo)
   stats$var_branch_length_ext <- treestats::var_branch_length_ext(phylo)
-
 
   return(stats)
 }
