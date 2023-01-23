@@ -39,6 +39,10 @@ make_unbalanced_tree <- function(init_tree,
     ltab <- make_unbalanced_tree_youngest(ltab, unbal_steps)
   }
 
+  if (method == "oldest") {
+    ltab <- make_unbalanced_tree_oldest(ltab, unbal_steps)
+  }
+
   if (method == "random") {
     ltab <- make_unbalanced_tree_random(ltab, unbal_steps)
   }
@@ -47,9 +51,12 @@ make_unbalanced_tree <- function(init_tree,
     ltab <- make_unbalanced_tree_terminal(ltab, unbal_steps)
   }
 
-
   if (method == "terminal-youngest") {
     ltab <- make_unbalanced_tree_terminal_youngest(ltab, unbal_steps)
+  }
+
+  if (method == "terminal-oldest") {
+    ltab <- make_unbalanced_tree_terminal_oldest(ltab, unbal_steps)
   }
 
   output_phy <- treestats::l_to_phylo(ltab)
@@ -57,38 +64,81 @@ make_unbalanced_tree <- function(init_tree,
 }
 
 
+get_attractor <- function(ltab) {
+  attractor <- 2
+  num_two   <- length(which(ltab[, 3] > 0))
+  num_one   <- length(which(ltab[, 3] < 0))
+
+  if (num_one > num_two) {
+    attractor <- -1
+  }
+  return(attractor)
+}
+
 #' @keywords internal
 make_unbalanced_tree_youngest <- function(ltab,
                                           unbal_steps) {
-  to_sample_from <- which(ltab[, 2] != 2 &
-                            ltab[, 3] != -1 &
-                            ltab[, 3] != 2)
+
+  attractor <- get_attractor(ltab)
+
+  to_sample_from <- which(ltab[, 2] != attractor &
+                          ltab[, 3] != -1 &
+                          ltab[, 3] != 2)
   steps_taken <- 0
   while (steps_taken < unbal_steps) {
     ages <- ltab[to_sample_from, 1]
     focal_step <- to_sample_from[which.min(ages)]
-    ltab[focal_step, 2] <- 2
-    to_sample_from <- which(ltab[, 2] != 2 & ltab[, 3] != -1 & ltab[, 3] != 2)
+    ltab[focal_step, 2] <- attractor
+    to_sample_from <- which(ltab[, 2] != attractor &
+                            ltab[, 3] != -1 &
+                            ltab[, 3] != 2)
     if (length(to_sample_from) < 1) break
     steps_taken <- steps_taken + 1
   }
   return(ltab)
 }
 
+
+#' @keywords internal
+make_unbalanced_tree_oldest <- function(ltab,
+                                          unbal_steps) {
+  attractor <- get_attractor(ltab)
+
+  to_sample_from <- which(ltab[, 2] != attractor &
+                          ltab[, 3] != -1 &
+                          ltab[, 3] != 2)
+  steps_taken <- 0
+  while (steps_taken < unbal_steps) {
+    ages <- ltab[to_sample_from, 1]
+    focal_step <- to_sample_from[which.max(ages)]
+    ltab[focal_step, 2] <- attractor
+    to_sample_from <- which(ltab[, 2] != attractor &
+                            ltab[, 3] != -1 &
+                            ltab[, 3] != 2)
+    if (length(to_sample_from) < 1) break
+    steps_taken <- steps_taken + 1
+  }
+  return(ltab)
+}
+
+
 #' @keywords internal
 make_unbalanced_tree_random <- function(ltab,
                                         unbal_steps) {
-  to_sample_from <- which(ltab[, 2] != 2 &
-                            ltab[, 3] != -1 &
-                            ltab[, 3] != 2)
+
+  attractor <- get_attractor(ltab)
+
+  to_sample_from <- which(ltab[, 2] != attractor &
+                          ltab[, 3] != -1 &
+                          ltab[, 3] != 2)
   steps_taken <- 0
   while (steps_taken < unbal_steps) {
     focal_step <- sample(to_sample_from, 1)
     if (length(to_sample_from) == 1) focal_step <- to_sample_from
-    ltab[focal_step, 2] <- 2
-    to_sample_from <- which(ltab[, 2] != 2 &
-                              ltab[, 3] != -1 &
-                              ltab[, 3] != 2)
+    ltab[focal_step, 2] <- attractor
+    to_sample_from <- which(ltab[, 2] != attractor &
+                            ltab[, 3] != -1 &
+                            ltab[, 3] != 2)
     if (length(to_sample_from) < 1) break
     steps_taken <- steps_taken + 1
   }
@@ -99,6 +149,7 @@ make_unbalanced_tree_random <- function(ltab,
 #' @keywords internal
 make_unbalanced_tree_terminal <- function(ltab,
                                           unbal_steps) {
+  attractor <- get_attractor(ltab)
 
   ltab <- cbind(ltab, 0)
   for (i in seq_along(ltab[, 1])) {
@@ -108,19 +159,54 @@ make_unbalanced_tree_terminal <- function(ltab,
 
   for (n in 1:unbal_steps) {
     to_sample <- which(ltab[, 5] ==  0 &
-                         ltab[, 3] !=  2 &
-                         ltab[, 2] != -1)
+                       ltab[, 3] !=  2 &
+                       ltab[, 3] != -1 &
+                       ltab[, 2] != attractor)
+    if (length(to_sample) < 1) {
+      break
+    }
 
     focal_spec <- sample(to_sample, 1)
     if (length(to_sample) == 1) focal_spec <- to_sample
+
     parent_spec <- abs(ltab[focal_spec, 2])
     ltab[parent_spec, 5] <- ltab[parent_spec, 5] - 1
     if (ltab[parent_spec, 5] < 0) {
       cat(focal_spec, parent_spec, "\n")
     }
-    ltab[focal_spec, 2] <- -1
-    ltab[1, 5] <- ltab[1, 5] + 1
-    if (length(to_sample) == 1) {
+    ltab[focal_spec, 2] <- attractor
+    ltab[abs(attractor), 5] <- ltab[abs(attractor), 5] + 1
+  }
+
+  return(ltab)
+}
+
+#' @keywords internal
+make_unbalanced_tree_terminal_youngest <- function(ltab,   #nolint
+                                          unbal_steps) {
+
+  attractor <- get_attractor(ltab)
+
+  ltab <- cbind(ltab, 0)
+  for (i in seq_along(ltab[, 1])) {
+    ref <- ltab[i, 3]
+    ltab[i, 5] <- length(which(ltab[, 2] == ref))
+  }
+
+  for (n in 1:unbal_steps) {
+    to_sample <- which(ltab[, 5] ==  0 &
+                       ltab[, 3] !=  2 &
+                       ltab[, 3] != -1 &
+                       ltab[, 2] != attractor)
+
+    ages <- ltab[to_sample, 1]
+    focal_spec <- to_sample[which.min(ages)]
+
+    parent_spec <- abs(ltab[focal_spec, 2])
+    ltab[parent_spec, 5] <- ltab[parent_spec, 5] - 1
+    ltab[focal_spec, 2] <- attractor
+    ltab[abs(attractor), 5] <- ltab[abs(attractor), 5] + 1
+    if (length(to_sample) < 1) {
       break
     }
   }
@@ -129,8 +215,10 @@ make_unbalanced_tree_terminal <- function(ltab,
 }
 
 #' @keywords internal
-make_unbalanced_tree_terminal_youngest <- function(ltab,   #noLint
-                                          unbal_steps) {
+make_unbalanced_tree_terminal_oldest <- function(ltab,   #nolint
+                                                   unbal_steps) {
+
+  attractor <- get_attractor(ltab)
 
   ltab <- cbind(ltab, 0)
   for (i in seq_along(ltab[, 1])) {
@@ -140,17 +228,18 @@ make_unbalanced_tree_terminal_youngest <- function(ltab,   #noLint
 
   for (n in 1:unbal_steps) {
     to_sample <- which(ltab[, 5] ==  0 &
-                         ltab[, 3] !=  2 &
-                         ltab[, 2] != -1)
+                       ltab[, 3] !=  2 &
+                       ltab[, 3] != -1 &
+                       ltab[, 2] != attractor)
 
     ages <- ltab[to_sample, 1]
-    focal_spec <- to_sample[which.min(ages)]
+    focal_spec <- to_sample[which.max(ages)]
 
     parent_spec <- abs(ltab[focal_spec, 2])
     ltab[parent_spec, 5] <- ltab[parent_spec, 5] - 1
-    ltab[focal_spec, 2] <- -1
-    ltab[1, 5] <- ltab[1, 5] + 1
-    if (length(to_sample) == 1) {
+    ltab[focal_spec, 2] <- attractor
+    ltab[abs(attractor), 5] <- ltab[abs(attractor), 5] + 1
+    if (length(to_sample) < 1) {
       break
     }
   }
