@@ -10,6 +10,11 @@
 #'   \item{pigot's rho}
 #'   \item{mean branch length}
 #'   \item{nLTT with empty tree}
+#'   \item{var branch length}
+#'   \item{mean internal branch length}
+#'   \item{mean external branch length}
+#'   \item{var internal branch length}
+#'   \item{var external branch length}
 #' }
 #'
 calc_brts_stats <- function(phylo) {

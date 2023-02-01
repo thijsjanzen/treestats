@@ -131,8 +131,8 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                               ifelse(normalize,
                                                      "yule", "none"))
 
-  stats$imbal_steps <- treestats::imbal_steps(phylo,
-                                              normalize = normalize)
+ # stats$imbal_steps <- treestats::imbal_steps(phylo,
+#                                              normalize = normalize)
 
   stats$j_one       <- treestats::j_one(phylo)
 
