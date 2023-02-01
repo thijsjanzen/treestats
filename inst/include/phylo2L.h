@@ -43,23 +43,18 @@ std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodes
     size_t j = get_min_index(L, 2);
     size_t daughter = L[j][2];
     size_t parent   = L[j][1];
-
     if (parent_in_nodesindex(nodesindex, parent)) {
 
-      size_t cnt = 0;
+      // L[which(L[, 2] == parent), 2] = daughter
       for (auto& index : L) {
         if (index[1] == parent) {
           index[1] = daughter;
-          cnt++;
-        }
-        if (cnt > 1) {
-          break;
         }
       }
 
       bool match_found = false;
       for (auto& i : L) {
-        if (i[2] == parent) {
+        if (i[2] == parent) { // can only have one parent.
           i[5] = L[j][5];
           i[2] = daughter;
           remove_from_L(L, j);
@@ -128,6 +123,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     if (brt_preL[i] < min_brt_preL) {
       min_brt_preL = brt_preL[i];
     }
+   // std::cerr << i << " " << brt_preL[i] << " " << index << "\n";
   }
 
   if (min_brt_preL == 0.0) {
@@ -155,6 +151,14 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
 
+ /* for (auto i : pre_Ltable) {
+    for (auto j : i) {
+      std::cerr << j << " ";
+    }
+    std::cerr << "\n";
+  }*/
+
+
   std::vector<double> eeindicator(edge_length.size(), 0);
 
   std::vector< size_t > extant_species_index;
@@ -168,7 +172,6 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
       if (index < pre_Ltable.size()) {
         eeindicator[index] = -1;
       }
-
     }
   }
 
