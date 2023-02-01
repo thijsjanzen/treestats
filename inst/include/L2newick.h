@@ -19,7 +19,7 @@ int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
   int index = 0;
   bool found = false;
   for (; index < ltable.size(); ++index) {
-    if (std::abs(ltable[index][2] - parent) < 0.0000001) {
+   if (std::abs(ltable[index][2] - parent) < 0.0000001) {
       found = true;
       break;
     }
@@ -76,11 +76,11 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     }
   }
 
-  std::vector< std::array< double, 4>> L_original;
+  std::vector< std::array< double, 4>> L_original = L;
 
   if (drop_extinct == true) {
     // keep a copy of the original ltable for later look up purpose
-    L_original = L;
+ //   L_original = L;
     L = new_L;
     L_original[0][0] = -1.0;
   }
@@ -108,7 +108,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
     auto j = which_max_index(L);
     int parent    = static_cast<int>(L[j][1]);
     int parentj   = index_of_parent(L, parent);
-    if (parentj != -1) {
+    if (parentj != -1) { // -1 means not found
       double bl = std::abs(L[parentj][3] - L[j][0]);
       std::string spec1 = linlist_4[parentj] + ":" + d_to_s(bl);
       double bl2 = std::abs(L[j][3] - L[j][0]);
