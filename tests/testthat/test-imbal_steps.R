@@ -6,30 +6,30 @@ test_that("usage", {
     brts <- treestats::branching_times(focal_tree)
     if (requireNamespace("nodeSub")) {
       focal_tree <- nodeSub::create_balanced_tree(brts)
-      a1 <- treestats::imbal_steps(focal_tree)
-      a2 <- 32 - log(32, 2) - 2
+      a1 <- treestats::imbalance_steps(focal_tree)
+      a2 <- 32 - log(32, 2) - 1
       testthat::expect_equal(a1, a2)
 
       ltab <- treestats::phylo_to_l(focal_tree)
-      testthat::expect_equal(treestats::imbal_steps(focal_tree),
-                             treestats::imbal_steps(ltab))
+      testthat::expect_equal(treestats::imbalance_steps(focal_tree),
+                             treestats::imbalance_steps(ltab))
 
       # normalization
-      a1 <- treestats::imbal_steps(focal_tree,
+      a1 <- treestats::imbalance_steps(focal_tree,
                                    normalize = TRUE)
-      testthat::expect_equal(a1, a2 / 32)
+      testthat::expect_equal(a1, 1.0)
     }
 })
 
 
 test_that("wrong_object", {
   testthat::expect_error(
-    treestats::imbal_steps(10),
+    treestats::imbalance_steps(10),
     "input object has to be phylo or ltable"
   )
 
   testthat::expect_error(
-    treestats::imbal_steps(list()),
+    treestats::imbalance_steps(list()),
     "input object has to be phylo or ltable"
   )
 })

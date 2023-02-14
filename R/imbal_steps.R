@@ -7,8 +7,8 @@
 #' size
 #' @return required number of moves
 #' @export
-imbal_steps <- function(input_obj,
-                        normalize = FALSE) {
+imbalance_steps <- function(input_obj,
+                            normalize = FALSE) {
 
   if (inherits(input_obj, "phylo")) {
     input_obj <- treestats::phylo_to_l(input_obj)
@@ -20,27 +20,25 @@ imbal_steps <- function(input_obj,
 
   ltab <- input_obj
 
-  to_sample_from <- which(ltab[, 2] != 2 &
-                            ltab[, 3] != -1 &
-                            ltab[, 3] != 2)
+  parent1 <- length(which(ltab[, 2] == -1)) - 1
+  parent2 <- length(which(ltab[, 2] == 2))
 
-  tree_size <- length(ltab[, 1])
-
-  expected_max_depth <- tree_size - 1
-
-  steps_taken <- 0
-  while (treestats::max_depth(ltab) < expected_max_depth) {
-    ages <- ltab[to_sample_from, 1]
-    focal_step <- to_sample_from[which.min(ages)]
-    ltab[focal_step, 2] <- 2
-    to_sample_from <- which(ltab[, 2] != 2 & ltab[, 3] != -1 & ltab[, 3] != 2)
-    if (length(to_sample_from) < 1) break
-    steps_taken <- steps_taken + 1
+  target_parent <- -1
+  donor_parent <- 2
+  if (parent2 > parent1) {
+    target_parent <- 2
+    donor_parent <- -1
   }
 
+  to_sample_from <- which(ltab[, 2] != target_parent &
+                            ltab[, 3] != -1 & # not the root
+                            ltab[, 3] != donor_parent)
+
+  steps_taken <- length(to_sample_from)
   if (normalize == TRUE) {
-    max_num_steps <- tree_size
-    steps_taken <- steps_taken / max_num_steps
+    tree_size <- length(ltab[, 1])
+    max_expected <- tree_size - log2(tree_size) - 1
+    steps_taken <- steps_taken / max_expected
   }
 
   return(steps_taken)
