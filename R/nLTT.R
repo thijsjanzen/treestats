@@ -28,6 +28,9 @@ nLTT <- function(phy, # nolint
   }
 
   if (inherits(phy, "matrix")) {
+    if (inherits(ref_tree, "phylo")) {
+       ref_tree <- treestats::phylo_to_l(ref_tree)
+    }
     return(calc_nltt_ltable_cpp(phy, ref_tree))
   }
 

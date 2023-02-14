@@ -10,6 +10,10 @@
 #' @export
 tree_height <- function(phy) {
 
+  if (inherits(phy, "matrix")) {
+    return(phy[1, 1])
+  }
+
   if (inherits(phy, "phylo")) {
     crown_age_of_tree <- crown_age(phy)
     root_length <- 0

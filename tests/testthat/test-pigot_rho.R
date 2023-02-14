@@ -3,10 +3,12 @@ context("pigot_rho")
 test_that("usage", {
   set.seed(42)
 
-  # DDD tree expected to slow down diversification
-  focal_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
-  rho <- treestats::pigot_rho(focal_tree)
-  testthat::expect_lt(rho, 0)
+  if (requireNamespace("DDD")) {
+    # DDD tree expected to slow down diversification
+    focal_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
+    rho <- treestats::pigot_rho(focal_tree)
+    testthat::expect_lt(rho, 0)
+  }
 
   set.seed(42)
   # BD tree, expected increase in diversification
@@ -22,20 +24,15 @@ test_that("usage", {
   rho3 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
   testthat::expect_equal(rho, rho3)
 
-
-  # and we can do with extinct trees as well
-  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2,
-                            fossils = TRUE)
-  rho4 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
-  extant_tree <- geiger::drop.extinct(focal_tree)
-  rho5 <- treestats::pigot_rho(extant_tree)
-  testthat::expect_false(rho4 == rho5)
-
-
-  # lastly, we do large tree:
-  focal_tree <- ape::rphylo(n = 500, birth = 1, death = 0)
-  rho <- treestats::pigot_rho(focal_tree)
-  testthat::expect_lt(rho, 0)
+  if (requireNamespace("geiger")) {
+    # and we can do with extinct trees as well
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2,
+                              fossils = TRUE)
+    rho4 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
+    extant_tree <- geiger::drop.extinct(focal_tree)
+    rho5 <- treestats::pigot_rho(extant_tree)
+    testthat::expect_false(rho4 == rho5)
+  }
 })
 
 test_that("wrong_object", {

@@ -151,13 +151,16 @@ public:
     return 1.0 * (Is - 2.0 * n * sum_count) / n;
   }
 
-  double calc_blum() {
+  double calc_blum(bool normalize, size_t n) {
     tree[0].get_acc_num_tips();
     double s = 0;
     for(const auto& i : tree) {
       if (i.num_extant_tips > 1) {
         s += log(1.0 * i.num_extant_tips - 1);
       }
+    }
+    if (normalize) {
+      s *= 1.0 / n;
     }
     return s;
   }

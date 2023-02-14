@@ -30,7 +30,6 @@ area_per_pair <- function(phy, normalization = "none") {
     return(NA)
   }
 
-
   result <- 2 / n * treestats::sackin(phy) -
             4 / (n * (n - 1)) * treestats::tot_coph(phy)
 

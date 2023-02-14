@@ -137,6 +137,14 @@ calc_rogers_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_rogers_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_j_one_cpp <- function(parent_list) {
+    .Call('_treestats_calc_j_one_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_j_one_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_j_one_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_Ibased_cpp <- function(parent_list) {
     .Call('_treestats_calc_Ibased_cpp', PACKAGE = 'treestats', parent_list)
 }
@@ -268,6 +276,10 @@ avgLadder_cpp <- function(tree_edge) {
     .Call('_treestats_avgLadder_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
+max_ladder_cpp <- function(tree_edge) {
+    .Call('_treestats_max_ladder_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
 l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
@@ -292,12 +304,12 @@ calc_tot_coph_ltable_cpp <- function(ltab) {
     .Call('_treestats_calc_tot_coph_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
-calc_blum_cpp <- function(tree_edge) {
-    .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge)
+calc_blum_cpp <- function(tree_edge, normalize) {
+    .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge, normalize)
 }
 
-calc_blum_ltable_cpp <- function(ltab_in) {
-    .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in)
+calc_blum_ltable_cpp <- function(ltab_in, normalize) {
+    .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in, normalize)
 }
 
 cherries_cpp <- function(tree_edge) {

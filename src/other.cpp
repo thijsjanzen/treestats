@@ -154,7 +154,7 @@ double calc_var_mpd_cpp(const Rcpp::List& phy) {
 // [[Rcpp::export]]
 double avgLadder_cpp(const std::vector<long>& tree_edge) {
   try {
-  return calc_ladder(tree_edge);
+  return calc_ladder(tree_edge, false);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch (const char* msg) {
@@ -164,6 +164,24 @@ double avgLadder_cpp(const std::vector<long>& tree_edge) {
   }
   return NA_REAL;
 }
+
+// [[Rcpp::export]]
+double max_ladder_cpp(const std::vector<long>& tree_edge) {
+  try {
+    return calc_ladder(tree_edge, true);
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  } catch (const char* msg) {
+    Rcpp::Rcout << msg << std::endl;
+  } catch(...) {
+    ::Rf_error("c++ exception (unknown reason)");
+  }
+  return NA_REAL;
+}
+
+
+
+
 
 // [[Rcpp::export]]
 std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,

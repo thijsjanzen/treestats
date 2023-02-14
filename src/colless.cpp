@@ -144,6 +144,20 @@ double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
+double calc_j_one_cpp(const std::vector<long>& parent_list) {
+  colless_tree::phylo_tree colless_tree(parent_list);
+  return colless_tree.calc_j_one();
+}
+
+// [[Rcpp::export]]
+double calc_j_one_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  colless_stat_ltable s(l_in_cpp);
+  return s.collect_j_one();
+}
+
+
+// [[Rcpp::export]]
 double calc_Ibased_cpp(const std::vector<long>& parent_list) {
   colless_tree::phylo_tree colless_tree(parent_list);
   auto I_vec = colless_tree.collect_I();

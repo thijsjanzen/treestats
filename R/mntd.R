@@ -25,7 +25,7 @@ mntd <- function(phy) {
     return(calc_mntd_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
-    if (!ape::is.ultrametric(phy)) {
+    if (!ape::is.ultrametric(phy, option = 2)) {
       stop("can only calculate mntd statistic for ultrametric tree")
     }
     n <- length(phy$tip.label)

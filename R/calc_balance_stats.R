@@ -31,6 +31,7 @@
 #'   \item{total Cophenetic distance}
 #'   \item{symmetry Nodes}
 #'   \item{rquartet index}
+#'   \item{j_one statistic}
 #' }
 #'
 
@@ -47,18 +48,21 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                                    ifelse(normalize,
                                                           "yule", "none"))
 
-  stats$beta               <- treestats::beta_statistic(phylo)
+  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo) }, #nolint
+                                  error = function(e) {return(NA) }) #nolint
+
   stats$blum               <- treestats::blum(phylo)
-  stats$avgLadder          <- treestats::avgLadder(phylo) #nolint
+  stats$avg_ladder          <- treestats::avg_ladder(phylo) #nolint
+  stats$max_ladder          <- treestats::max_ladder(phylo) #nolint
   stats$cherries           <- treestats::cherries(phylo,
                                                   normalization =
                                                     ifelse(normalize,
                                                            "yule", "none"))
 
-    stats$il_number           <- treestats::ILnumber(phylo,
-                                                     normalization =
-                                                       ifelse(normalize,
-                                                              "tips", "none"))
+  stats$il_number           <- treestats::ILnumber(phylo,
+                                                   normalization =
+                                                     ifelse(normalize,
+                                                            "tips", "none"))
 
   stats$pitchforks         <- treestats::pitchforks(phylo,
                                                     normalization =
@@ -81,9 +85,10 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                                     ifelse(normalize,
                                                            "yule", "none"))
 
-  stats$average_leaf_depth  <- treestats::average_leaf_depth(phylo,
-                                        normalization = ifelse(normalize,
-                                                               "yule", "none"))
+  stats$average_leaf_depth  <-
+        treestats::average_leaf_depth(phylo,
+                                      normalization = ifelse(normalize,
+                                                             "yule", "none"))
 
   stats$i_stat       <- treestats::mean_i(phylo)
   stats$ew_colless    <- treestats::ew_colless(phylo)
@@ -125,6 +130,13 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                             normalization =
                                               ifelse(normalize,
                                                      "yule", "none"))
+
+  stats$imbalance_steps <- treestats::imbalance_steps(phylo,
+                                              normalize = normalize)
+
+  stats$j_one       <- treestats::j_one(phylo)
+
+  stats$diameter    <- treestats::diameter(phylo)
 
   return(stats)
 }

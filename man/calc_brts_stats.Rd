@@ -21,5 +21,10 @@ branching times to a single tree, being:
   \item{pigot's rho}
   \item{mean branch length}
   \item{nLTT with empty tree}
+  \item{var branch length}
+  \item{mean internal branch length}
+  \item{mean external branch length}
+  \item{var internal branch length}
+  \item{var external branch length}
 }
 }

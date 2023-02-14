@@ -66,16 +66,17 @@ double wiener(const edge& e,
               bool weight = false) {
 
   auto sub_tree_sizes = computeLRSizes(e, el);
-  std::vector<double> q(sub_tree_sizes.size());
+  std::vector<double> q(sub_tree_sizes.size(), 0.0);
   size_t cnt = 0;
   for (const auto& i : sub_tree_sizes) {
     q[cnt] = i[0] + i[1] + 1;
     cnt++;
   }
+
   int n = static_cast<int>(q.size());
   int N = 2 * n + 1;
 
-  double W;
+  double W = 0.0;
   if (weight) {
     W = 0.0;
     for (size_t i = 0; i < e.size(); ++i) {

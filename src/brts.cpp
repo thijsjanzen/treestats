@@ -20,18 +20,24 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
   std::vector< double > edge_length = phy["edge.length"];
   Rcpp::NumericMatrix edge = phy["edge"];
 
+
+
   size_t Nnode = phy["Nnode"];
 
   edge_table edge_cpp(edge.nrow());
+
+  size_t n = 1e6;
+
   for (size_t i = 0; i < edge.nrow(); ++i) {
     std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
                                          static_cast<size_t>(edge(i, 1))};
     edge_cpp[i] = row_entry;
+    if (row_entry[0] < n) n = row_entry[0];
   }
 
   sort_edge_and_edgelength(edge_cpp, edge_length);
 
-  return branching_times(edge_cpp, edge_length, Nnode);
+  return branching_times(edge_cpp, edge_length, Nnode, n - 1);
 }
 
 // [[Rcpp::export]]

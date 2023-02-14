@@ -1,5 +1,6 @@
-#' Calculate number of cherries, from the phyloTop package. A cherry is a pair
-#' of sister tips.
+#' Cherry index
+#' @description Calculate the number of cherries, from the phyloTop package.
+#' A cherry is a pair of sister tips.
 #' @param input_obj phylo object or ltable
 #' @param normalization "none", "yule", or "pda", the found number of
 #' cherries is divided by the expected number, following

@@ -9,13 +9,13 @@ test_that("usage", {
   a1_3 <- treestats::wiener(focal_tree, normalize = TRUE, weight = FALSE)
   # because treeCentrality is not available on CRAN, we precompute reference
   # values:
-  a2_1 <- 120552.3 # treeCentrality::computeWienerIndex(focal_tree,
-                   #                                    weight = TRUE)
-  a2_2 <- 217028   # treeCentrality::computeWienerIndex(focal_tree,
-                   #                                    weight = FALSE)
-  a2_3 <- 11.01609 # treeCentrality::computeWienerIndex(focal_tree,
-                   #                                    norm = TRUE,
-                   #                                    weight = FALSE)
+  a2_1 <- 120552.3 # treeCentrality::computeWienerIndex(focal_tree, #noLint
+                   #                                    weight = TRUE)  #noLint
+  a2_2 <- 217028   # treeCentrality::computeWienerIndex(focal_tree,  #noLint
+                   #                                    weight = FALSE) #noLint
+  a2_3 <- 11.01609 # treeCentrality::computeWienerIndex(focal_tree, #noLint
+                   #                                    norm = TRUE, #noLint
+                   #                                    weight = FALSE) #noLint
 
   testthat::expect_equal(a1_1, a2_1, tolerance = 0.01)
   testthat::expect_equal(a1_2, a2_2)

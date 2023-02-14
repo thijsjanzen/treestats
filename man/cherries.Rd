@@ -2,8 +2,7 @@
 % Please edit documentation in R/cherries.R
 \name{cherries}
 \alias{cherries}
-\title{Calculate number of cherries, from the phyloTop package. A cherry is a pair
-of sister tips.}
+\title{Cherry index}
 \usage{
 cherries(input_obj, normalization = "none")
 }
@@ -18,8 +17,8 @@ McKenzie & Steel 2000.}
 number of cherries
 }
 \description{
-Calculate number of cherries, from the phyloTop package. A cherry is a pair
-of sister tips.
+Calculate the number of cherries, from the phyloTop package.
+A cherry is a pair of sister tips.
 }
 \references{
 McKenzie, Andy, and Mike Steel. "Distributions of cherries for

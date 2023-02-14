@@ -26,10 +26,12 @@ node).
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 brts <- branching_times(simulated_tree)
-balanced_tree <- nodeSub::create_balanced_tree(brts)
-unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-rogers(balanced_tree)
-rogers(unbalanced_tree) # should be higher
+if (requireNamespace("nodeSub")) {
+  balanced_tree <- nodeSub::create_balanced_tree(brts)
+  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+  rogers(balanced_tree)
+  rogers(unbalanced_tree) # should be higher
+}
 }
 \references{
 J. S. Rogers. Central Moments and Probability Distributions of

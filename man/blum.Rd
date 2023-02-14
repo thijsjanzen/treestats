@@ -4,28 +4,33 @@
 \alias{blum}
 \title{Fast function using C++ to calculate the Blum index of (im)balance.}
 \usage{
-blum(phy)
+blum(phy, normalize = FALSE)
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
+
+\item{normalize}{because the Blum index sums over all nodes, the resulting
+statistic tends to be correlated with the number of extant tips.
+Normalization can be performed by dividing by the number of extant tips.}
 }
 \value{
 Blum index of imbalance
 }
 \description{
-The Blum index of imbalance calculates the sum of
-\eqn{log(N-1)} over all internal nodes, where N represents the total number
-of extant tips connected to that node. The Blum statistic thus is only
-available for ultrametric, reconstructed trees. An alternative
-implementation can be found in the Castor R package.
+The Blum index of imbalance (also known as the s-shape
+statistic) calculates the sum of \eqn{log(N-1)} over all internal nodes,
+where N represents the total number of extant tips connected to that node.
+An alternative implementation can be found in the Castor R package.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 brts <- branching_times(simulated_tree)
-balanced_tree <- nodeSub::create_balanced_tree(brts)
-unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-blum(balanced_tree)
-blum(unbalanced_tree) # should be higher
+if (requireNamespace("nodeSub")) {
+  balanced_tree <- nodeSub::create_balanced_tree(brts)
+  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+  blum(balanced_tree)
+  blum(unbalanced_tree) # should be higher
+}
 }
 \references{
 M. G. B. Blum and O. Francois (2006). Which random processes
