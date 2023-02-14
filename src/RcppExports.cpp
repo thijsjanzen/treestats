@@ -747,19 +747,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// l_to_newick_ed_cpp
-std::string l_to_newick_ed_cpp(const Rcpp::NumericMatrix& ltable_R, const double t, bool drop_extinct);
-RcppExport SEXP _treestats_l_to_newick_ed_cpp(SEXP ltable_RSEXP, SEXP tSEXP, SEXP drop_extinctSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    Rcpp::traits::input_parameter< const double >::type t(tSEXP);
-    Rcpp::traits::input_parameter< bool >::type drop_extinct(drop_extinctSEXP);
-    rcpp_result_gen = Rcpp::wrap(l_to_newick_ed_cpp(ltable_R, t, drop_extinct));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_sackin_cpp
 double calc_sackin_cpp(const std::vector<long>& tree_edge, const Rcpp::String& normalization);
 RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
@@ -930,7 +917,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
     {"_treestats_max_ladder_cpp", (DL_FUNC) &_treestats_max_ladder_cpp, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
-    {"_treestats_l_to_newick_ed_cpp", (DL_FUNC) &_treestats_l_to_newick_ed_cpp, 3},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
     {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},
