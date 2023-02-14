@@ -18,7 +18,6 @@
 #include <array>
 #include <Rcpp.h>
 
-
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "beta.h"        // NOLINT [build/include_subdir]
 #include "phylo2L.h"     // NOLINT [build/include_subdir]
@@ -190,23 +189,10 @@ double max_ladder_cpp(const std::vector<long>& tree_edge) {
   return NA_REAL;
 }
 
-
-
-
-
 // [[Rcpp::export]]
 std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
                         bool drop_extinct) {
   auto ltable_cpp = convert_to_ltable(ltable_R);
   auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
-  return newick_string;
-}
-
-// [[Rcpp::export]]
-std::string l_to_newick_ed_cpp(const Rcpp::NumericMatrix& ltable_R,
-                           const double t,
-                           bool drop_extinct) {
-  auto ltable_cpp = convert_to_ltable(ltable_R);
-  auto newick_string = ltable_to_newick_ed(ltable_cpp, t, drop_extinct);
   return newick_string;
 }
