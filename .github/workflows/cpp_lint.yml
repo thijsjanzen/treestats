@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+name: Cpp-lint-check
+
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+      - run: pip install cpplint
+      - run: cpplint --quiet --exclude="src/RcppExports.cpp" src/*.cpp src/*.h
+
+  cppcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt-get install cppcheck
+      - run: cppcheck -i src/RcppExports.cpp --quiet --enable=warning --error-exitcode=1 .
