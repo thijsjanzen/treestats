@@ -24,7 +24,7 @@
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
   int nnode = phy["Nnode"];
-  if (1 + 2 * nnode >= 46340) { // floor(sqrt(2^31 - 1))
+  if (1 + 2 * nnode >= 46340) {   // floor(sqrt(2^31 - 1))
     throw std::runtime_error("tree too big to calculate laplacian spectrum");
   }
 

@@ -42,7 +42,6 @@ double calc_colless_cpp(const std::vector<long>& parent_list,
 // [[Rcpp::export]]
 double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                 std::string normalization) {
-
   auto l_in_cpp = convert_to_ltable(l_from_R);
   colless_stat_ltable s(l_in_cpp);
   double output = static_cast<double>(s.calc_colless());

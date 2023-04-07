@@ -28,11 +28,8 @@ using edge_table = std::vector< std::array< size_t, 2 >>;
 
 // [[Rcpp::export]]
 std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
-
   std::vector< double > edge_length = phy["edge.length"];
   Rcpp::NumericMatrix edge = phy["edge"];
-
-
 
   size_t Nnode = phy["Nnode"];
 
@@ -53,7 +50,8 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-std::vector<double> branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
+std::vector<double>
+  branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
   std::vector<double> out(mat_in.nrow() - 1);
   for (size_t i = 1; i < mat_in.nrow(); ++i) {
     out[i - 1] = mat_in(i, 0);
@@ -83,7 +81,6 @@ double calc_rho_complete_cpp(const Rcpp::List& phy) {
 
 // [[Rcpp::export]]
 double calc_rho_cpp(const Rcpp::List& phy) {
-
   size_t num_nodes = static_cast<size_t>(phy["Nnode"]);
 
   if (num_nodes < 200) {
@@ -105,7 +102,6 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
                          double extinct_acc) {
   try {
-
     Rcpp::NumericMatrix edge = phy["edge"];
     Rcpp::NumericVector edge_length = phy["edge.length"];
 
@@ -117,14 +113,16 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
       edges[i] = to_add;
     }
 
-    double crown_age = calc_crown_age(edges, el); // ignore root edge
+    double crown_age = calc_crown_age(edges, el);  // ignore root edge
     phylo phylo_tree(edges, el);
 
     // function below calculates [0, T], max_t is in [T, 0]
     t = crown_age - t;
 
-    return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
-
+    return calculate_phylogenetic_diversity(phylo_tree,
+                                            t,
+                                            crown_age,
+                                            extinct_acc);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch(...) {
@@ -171,7 +169,6 @@ double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
 // [[Rcpp::export]]
 double calc_nltt_cpp(const Rcpp::List& phy1,
                      const Rcpp::List& phy2) {
-
   std::vector<double> brts_one = branching_times_cpp(phy1);
   std::vector<double> brts_two = branching_times_cpp(phy2);
   std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());

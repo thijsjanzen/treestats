@@ -18,22 +18,13 @@
 #include <array>
 #include <Rcpp.h>
 
-<<<<<<< Updated upstream
-#include "util.h"
-#include "beta.h"
-#include "phylo2L.h"
-#include "L2newick.h"
-#include "L2newick_ed.h"
-#include "avgladder.h"
-#include "mntd.h"
-=======
+
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "beta.h"        // NOLINT [build/include_subdir]
 #include "phylo2L.h"     // NOLINT [build/include_subdir]
 #include "L2newick.h"    // NOLINT [build/include_subdir]
 #include "avgladder.h"   // NOLINT [build/include_subdir]
 #include "mntd.h"        // NOLINT [build/include_subdir]
->>>>>>> Stashed changes
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -41,7 +32,6 @@ double calc_beta_cpp(const Rcpp::List& phy,
                      std::string algorithm,
                      double abs_tol,
                      double rel_tol) {
-
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
     if (edge.nrow() == 2) {
@@ -73,7 +63,6 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
                          std::string algorithm,
                          double abs_tol,
                          double rel_tol) {
-
   try {
     std::vector< std::array< double, 4 >> ltab(ltable.nrow());
     for (size_t i = 0; i < ltable.nrow(); ++i) {

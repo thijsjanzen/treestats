@@ -25,7 +25,6 @@
 // [[Rcpp::export]]
 double calc_sackin_cpp(const std::vector<long>& tree_edge,
                        const Rcpp::String& normalization) {
-
   phylo_tree sackin_tree(tree_edge);
   double output = static_cast<double>(sackin_tree.calc_sackin());
 

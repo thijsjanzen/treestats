@@ -77,7 +77,6 @@ double calc_var_leaf_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 int calc_sym_nodes_cpp(const std::vector<long>& parent_list) {
-
   width::depth_tracker tree(parent_list);
   return tree.calc_sym_nodes();
 }
