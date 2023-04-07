@@ -33,7 +33,7 @@ double calc_ladder(const std::vector< long >& tree_edge,
   std::vector< node_entry > edge_mat(max_node_val + 1 - root_no);
   std::vector< int > tips(edge_mat.size(), 0);
 
-  for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
+  for (size_t i = 0; i < tree_edge.size(); i += 2) {
     int node_lab = tree_edge[i] - root_no;
 
     int other_lab = tree_edge[i + 1] - root_no;
@@ -57,7 +57,6 @@ double calc_ladder(const std::vector< long >& tree_edge,
   int count_val = 0;
 
   for (size_t i = 0; i < edge_mat.size(); ++i) {
-
     auto daughter1 = edge_mat[i].daughters[0];
     auto daughter2 = edge_mat[i].daughters[1];
 
@@ -94,5 +93,5 @@ double calc_ladder(const std::vector< long >& tree_edge,
 
   if (count_val > 0 && return_max == false) store_val *= 1.0 / count_val;
 
-  return store_val; // * 1.0 / count_val;
+  return store_val;  // * 1.0 / count_val;
 }

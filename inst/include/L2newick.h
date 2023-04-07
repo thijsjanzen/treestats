@@ -31,7 +31,7 @@ int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
   int index = 0;
   bool found = false;
   for (; index < ltable.size(); ++index) {
-   if (std::abs(ltable[index][2] - parent) < 0.0000001) {
+    if (std::abs(ltable[index][2] - parent) < 0.0000001) {
       found = true;
       break;
     }
@@ -130,7 +130,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       remove_from_dataset(L, linlist_4, j);
     } else {
       parentj = index_of_parent(L_original, parent);
-      if(parentj == -1) {
+      if (parentj == -1) {
         throw std::invalid_argument("Look up failed "+ std::to_string(j) +
                                      " " + std::to_string(parent) + "\n");
       }
