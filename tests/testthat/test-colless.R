@@ -21,7 +21,6 @@ test_that("usage", {
                                           norm = "pda")
     testthat::expect_equal(colless, colless_check, tol = 1e-5)
 
-
     # now, using ltable:
     ffocal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
     focal_ltab <- treestats::phylo_to_l(focal_tree)

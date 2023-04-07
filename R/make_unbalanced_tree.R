@@ -16,7 +16,8 @@
 #' maximized in a fully imbalanced tree).
 #' @param init_tree starting tree to work with
 #' @param unbal_steps number of imbalance generating steps
-#' @param method choice of 'random', 'youngest' and 'terminal'
+#' @param group_method choice of "any" and "terminal"
+#' @param selection_method choice of "random", "youngest" and "oldest"
 #' @return phylo object
 #' @export
 #' @examples
@@ -32,30 +33,31 @@
 #' }
 make_unbalanced_tree <- function(init_tree,
                                  unbal_steps,
-                                 method = "random") {
+                                 group_method = "any",
+                                 selection_method = "random") {
   ltab <- treestats::phylo_to_l(init_tree)
 
-  if (method == "youngest") {
+  if (group_method == "any" && selection_method == "youngest") {
     ltab <- make_unbalanced_tree_youngest(ltab, unbal_steps)
   }
 
-  if (method == "oldest") {
+  if (group_method == "any" && selection_method == "oldest") {
     ltab <- make_unbalanced_tree_oldest(ltab, unbal_steps)
   }
 
-  if (method == "random") {
+  if (group_method == "any" && selection_method == "random") {
     ltab <- make_unbalanced_tree_random(ltab, unbal_steps)
   }
 
-  if (method == "terminal-random") {
+  if (group_method == "terminal" && selection_method == "random") {
     ltab <- make_unbalanced_tree_terminal(ltab, unbal_steps)
   }
 
-  if (method == "terminal-youngest") {
+  if (group_method == "terminal" && selection_method == "youngest") {
     ltab <- make_unbalanced_tree_terminal_youngest(ltab, unbal_steps)
   }
 
-  if (method == "terminal-oldest") {
+  if (group_method == "terminal" && selection_method == "oldest") {
     ltab <- make_unbalanced_tree_terminal_oldest(ltab, unbal_steps)
   }
 

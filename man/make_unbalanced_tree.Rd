@@ -4,14 +4,21 @@
 \alias{make_unbalanced_tree}
 \title{this function increasingly increases the imbalance of a tree}
 \usage{
-make_unbalanced_tree(init_tree, unbal_steps, method = "random")
+make_unbalanced_tree(
+  init_tree,
+  unbal_steps,
+  group_method = "any",
+  selection_method = "random"
+)
 }
 \arguments{
 \item{init_tree}{starting tree to work with}
 
 \item{unbal_steps}{number of imbalance generating steps}
 
-\item{method}{choice of 'random', 'youngest' and 'terminal'}
+\item{group_method}{choice of "any" and "terminal"}
+
+\item{selection_method}{choice of "random", "youngest" and "oldest"}
 }
 \value{
 phylo object

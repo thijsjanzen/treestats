@@ -1,5 +1,5 @@
 #' maximum ladder index
-#' @description Calculate the maximum ladder index.
+#' @description Calculate the maximum ladder index, from the phyloTop package.
 #' Higher values indicate more unbalanced trees. To calculate the maximum ladder
 #' index, first all potential ladders in the tree are calculated. A ladder is
 #' defined as a sequence of nodes where one of the daughter branches is a

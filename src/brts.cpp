@@ -1,16 +1,28 @@
-/// BRTS based statistics
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+//
+// /// BRTS based statistics
 
 #include <vector>
 #include <array>
 #include <Rcpp.h>
 
-#include "branching_times.h"
-#include "pigot_rho.h"
-#include "gamma.h"
-#include "nltt.h"
-#include "crown_age.h"
+#include "branching_times.h" // NOLINT [build/include_subdir]
+#include "pigot_rho.h"       // NOLINT [build/include_subdir]
+#include "gamma.h"           // NOLINT [build/include_subdir]
+#include "nltt.h"            // NOLINT [build/include_subdir]
+#include "crown_age.h"       // NOLINT [build/include_subdir]
 
-#include "util.h"
+#include "util.h"            // NOLINT [build/include_subdir]
 
 using edge_table = std::vector< std::array< size_t, 2 >>;
 
