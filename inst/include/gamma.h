@@ -1,5 +1,15 @@
-#ifndef gamma_h
-#define gamma_h
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <numeric>
@@ -34,5 +44,3 @@ double calc_gamma(std::vector<double> brts_) {
   double mult_total = 1.0 / total;
   return prefactor * sqrt(n - 2) * (double_sum * 1.0 / (n - 2) - total * 0.5) * mult_total;
 }
-
-#endif
