@@ -37,12 +37,9 @@ size_t find_daughters(const ltable& ltab_in,
 size_t calc_cherries_ltable(const ltable& ltab_in) {
   size_t num_cherries = 0;
   for (const auto& i : ltab_in) {
- //   if (i[3] != -1) continue;  // non-extant species can not be a cherry
-
     auto parent = i[1];
 
     if (parent == 0) continue;
-  //  if (ltab_in[std::abs(parent)][3] != -1) continue;
     auto bt = i[0];
 
     size_t num_daughter_branches = find_daughters(ltab_in, parent, bt);

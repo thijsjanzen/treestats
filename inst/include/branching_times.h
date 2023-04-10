@@ -14,18 +14,19 @@
 #include <vector>
 #include <array>
 
-std::vector< double > branching_times(const std::vector< std::array< size_t, 2>>& edge,
-                                      const std::vector<double>& edge_length,
-                                      size_t Nnode,
-                                      size_t n) {
+std::vector< double > branching_times(
+    const std::vector< std::array< size_t, 2>>& edge,
+    const std::vector<double>& edge_length,
+    size_t Nnode,
+    size_t n) {
   std::vector<double> xx(Nnode, 0.0);
 
- for (size_t i = 0; i < edge_length.size(); ++i) {
-   if (edge[i][1] > n) {
-     auto target_index = edge[i][1] - n - 1; // e2[i] - n, -2 because -1 of R,
-                                             // and -1 of n (R->CPP conversion)
-     auto source_index = edge[i][0] - n - 1; // e1[i] - n
-     xx [ target_index ] = xx[ source_index ] + edge_length[i];
+  for (size_t i = 0; i < edge_length.size(); ++i) {
+    if (edge[i][1] > n) {
+      auto target_index = edge[i][1] - n - 1;  // e2[i] - n, -2 because -1 of R,
+                                               // and -1 of n (R->CPP conversion)
+      auto source_index = edge[i][0] - n - 1;  // e1[i] - n
+      xx[target_index] = xx[source_index] + edge_length[i];
    }
  }
 

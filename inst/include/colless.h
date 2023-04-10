@@ -13,9 +13,10 @@
 
 #include <vector>
 #include <array>
-#include <numeric> // std::accumulate
+#include <numeric>  // std::accumulate
+#include <utility>  // swap
 
-#include "binom.h"
+#include "binom.h"  // NOLINT [build/include_subdir]
 
 // these are tag structs.
 namespace tag {
@@ -32,8 +33,8 @@ struct rquartet{};
 using ltable = std::vector< std::array<double, 4>>;
 
 class colless_stat_ltable {
-public:
-  colless_stat_ltable(const ltable& l_in) : ltable_(l_in) {
+ public:
+  explicit colless_stat_ltable(const ltable& l_in) : ltable_(l_in) {
     extant_tips = std::vector<int>(l_in.size(), 1);
     num_tips = get_num_tips();
   }
@@ -41,10 +42,10 @@ public:
   template <typename ANALYSIS_TYPE>
   double collect_stat() {
     double stat = 0.0;
-    while(true) {
+    while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
+      if (parent == 0) {  // we hit the root!
         j++;
         parent = ltable_[j][1];
       }
@@ -109,10 +110,10 @@ public:
 
   std::vector<double> collect_I() {
     std::vector<double> i_vals;
-    while(true) {
+    while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
+      if (parent == 0) {  // we hit the root!
         j++;
         parent = ltable_[j][1];
       }
@@ -123,7 +124,7 @@ public:
 
       int L_R = L + R;
       if (L_R > 3) {
-        double avg_n = std::ceil(L_R * 0.5); // N / 2 + N % 2 (see Fusco 1995).
+        double avg_n = std::ceil(L_R * 0.5);  // N / 2 + N % 2 (see Fusco 1995).
         double I_val =  1.0 * (std::max(L, R) - avg_n) / ((L_R - 1) - avg_n);
         if (L_R % 2 == 0) {
           I_val *= 1.0 * (L_R - 1) / L_R;
@@ -142,10 +143,10 @@ public:
   double collect_j_one() {
     double stat = 0.0;
     double sum_nj = 0.0;
-    while(true) {
+    while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
+      if (parent == 0) {  // we hit the root!
         j++;
         parent = ltable_[j][1];
       }
@@ -167,13 +168,15 @@ public:
   }
 
   double correct_pda(double Ic) {
-   double denom = powf(num_tips, 1.5f);
+    double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
   }
 
   double correct_yule(double Ic) {
     static const double g = 0.577215664901532;
-    auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
+    auto output = (Ic -
+                   num_tips * log(num_tips) -
+                   num_tips * (g - 1 - log(2))) / num_tips;
     return output;
   }
 
@@ -187,8 +190,7 @@ public:
     return stat * 1.0 / expected;
   }
 
-private:
-
+ private:
   double update_stat(int L, int R, double stat, tag::colless tag) {
     return stat + std::abs(L - R);
   }
@@ -266,7 +268,7 @@ private:
   }
 
   size_t get_num_tips() {
-   return ltable_.size();
+    return ltable_.size();
   }
 
   ltable ltable_;
@@ -304,10 +306,8 @@ struct node {
   }
 
   size_t update_num_tips() {
-
     if (daughter1 && !daughter2) {
       L = daughter1->update_num_tips();
-
     }
     if (daughter1 && daughter2) {
       L =  daughter1->update_num_tips();
@@ -320,23 +320,24 @@ struct node {
 
 
 class phylo_tree {
-public:
+ public:
 
   phylo_tree(const std::vector< int >& tree_edge) {
-
-    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
+    int root_no = 2 +
+                static_cast<int>(0.25 * tree_edge.size()); // this holds always.
 
     tree.resize(tree_edge.size() / 2 - root_no + 2);
 
     for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
-
       int index    = static_cast<int>(tree_edge[i]) - root_no;
       int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
 
       if (d1_index < 0) {
         tree[index].R == 0 ? tree[index].R = 1 : tree[index].L = 1;
       } else {
-        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
+        !tree[index].daughter1 ?
+          tree[index].daughter1 = &tree[d1_index] :
+          tree[index].daughter2 = &tree[d1_index];
       }
     }
   }
@@ -356,7 +357,7 @@ public:
   double calc_eWcolless() {
     tree[0].update_num_tips();
     double s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       int l = i.L;
       int r = i.R;
       double l_r = l + r;
@@ -371,7 +372,7 @@ public:
   double calc_stairs() {
     tree[0].update_num_tips();
     int s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       if (i.L != i.R) s++;
     }
     return s * 1.0 / tree.size();
@@ -380,7 +381,7 @@ public:
   double calc_stairs2() {
     tree[0].update_num_tips();
     double s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       int min_l_r, max_l_r;
       if (i.L < i.R) {
         min_l_r = i.L; max_l_r = i.R;
@@ -403,7 +404,6 @@ public:
         double avg_n = std::ceil(nv * 0.5);
         auto n1 = l; if (r > l) n1 = r;
         double I_val =  1.0 * (n1 - avg_n) / ((nv - 1) - avg_n);
-
         if (nv % 2 == 0) {
           I_val *= 1.0 * (nv - 1) / nv;
         }
@@ -416,7 +416,7 @@ public:
   int calc_rogers() {
     tree[0].update_num_tips();
     int s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       int l = i.L;
       int r = i.R;
       l != r ? s++ : 0;
@@ -442,7 +442,7 @@ public:
   double calc_rquartet() {
     tree[0].update_num_tips();
     double s = 0.0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       auto l = binom_coeff_2(i.L);  // choose_2
       auto r = binom_coeff_2(i.R);  // choose_2
       s += l * r;
@@ -458,7 +458,9 @@ public:
 
   double correct_yule(double Ic, size_t num_tips) {
     static const double g = 0.577215664901532;
-    auto output = (Ic - num_tips * log(num_tips) - num_tips * (g - 1 - log(2))) / num_tips;
+    auto output = (Ic -
+                   num_tips * log(num_tips) -
+                   num_tips * (g - 1 - log(2))) / num_tips;
     return output;
   }
 

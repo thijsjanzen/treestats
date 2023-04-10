@@ -11,6 +11,9 @@
 //
 #pragma once
 
+#include <algorithm>   // std::sort
+#include <vector>
+
 namespace depth {
 
 
@@ -24,7 +27,6 @@ struct node {
   }
 
   size_t get_depth() {
-
     if (!daughter1 && !daughter2) {
       depth = 1;
     } else {
@@ -41,20 +43,20 @@ struct node {
 };
 
 class phylo_tree {
-public:
-
-  phylo_tree(const std::vector< int >& tree_edge) {
-
-    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
+ public:
+  explicit phylo_tree(const std::vector< int >& tree_edge) {
+    // this holds always:
+    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     tree.resize(tree_edge.size() / 2);
 
-    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
-
-      int index    = static_cast<int>(tree_edge[i]) - root_no;
+    for (size_t i = 0; i < tree_edge.size(); i += 2) {
+      int index    = static_cast<int>(tree_edge[i])     - root_no;
       int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
 
       if (d1_index > 0) {
-        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
+        !tree[index].daughter1 ?
+          tree[index].daughter1 = &tree[d1_index] :
+          tree[index].daughter2 = &tree[d1_index];
       }
     }
   }
@@ -68,11 +70,11 @@ public:
     return md;
   }
 
-private:
+ private:
   std::vector< node > tree;
 };
 
-}
+} // namespace depth
 
 namespace width {
 struct node {
@@ -124,7 +126,6 @@ struct node {
   }
 
   size_t update_l_r() {
-
     if (!daughter1 && !daughter2) {
       L = depth;
       R = depth;
@@ -143,9 +144,7 @@ struct node {
   }
 
   std::vector<size_t> update_vecs() {
-
     std::vector<size_t> L_R_vec;
-
     if (!daughter1 && !daughter2) {
       L_vec = {L};
       R_vec = {R};
@@ -173,7 +172,6 @@ struct node {
     L_R_vec = L_vec;
     L_R_vec.insert(L_R_vec.end(), R_vec.begin(), R_vec.end());
 
-
     L_R_vec.push_back(L);
     L_R_vec.push_back(R);
 
@@ -182,17 +180,18 @@ struct node {
 };
 
 class depth_tracker {
-public :
+ public :
   depth_tracker(const std::vector< int >& tree_edge) {
-
-    root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
+    root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     auto max_num = *std::max_element(tree_edge.begin(), tree_edge.end());
     tree.resize(max_num + 1);
 
-    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
+    for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]);
       int d1_index = static_cast<int>(tree_edge[i + 1]);
-      !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
+      !tree[index].daughter1 ?
+       tree[index].daughter1 = &tree[d1_index] :
+       tree[index].daughter2 = &tree[d1_index];
     }
   }
 
@@ -200,7 +199,7 @@ public :
     update_depth();
     std::vector<int> depths(tree.size(), 0);
     for (auto i = tree.begin() + 1; i < tree.end(); ++i) {
-      depths[ (*i).depth ] ++;
+      depths[ (*i).depth ]++;
     }
     return *std::max_element(depths.begin(), depths.end());
   }
@@ -209,7 +208,7 @@ public :
     update_depth();
     std::vector<int> depths(tree.size(), 0);
     for (auto i = tree.begin() + 1; i < tree.end(); ++i) {
-      depths[ (*i).depth ] ++;
+      depths[ (*i).depth ]++;
     }
     std::vector<int> dW(depths.size() - 1);
     for (size_t i = 1; i < depths.size(); ++i) {
@@ -240,20 +239,17 @@ public :
   double var_leaf_depth() {
     update_depth();
     double average_depth = 0.0;
-
     int n = root_no - 1;
     for (size_t i = 1; i < root_no; ++i) {
       average_depth += tree[i].depth;
-
-  //    std::cerr << tree[i].depth << "\n";
     }
 
     average_depth *= 1.0 / (n);
-  //  std::cerr << average_depth << " " << root_no - 1 << "\n";
 
     double var_depth = 0.0;
     for (size_t i = 1; i < root_no; ++i) {
-      var_depth += (tree[i].depth - average_depth) * (tree[i].depth - average_depth);
+      var_depth += (tree[i].depth - average_depth) *
+                   (tree[i].depth - average_depth);
     }
     var_depth *= 1.0 / (n - 1);
     return var_depth;
@@ -275,7 +271,7 @@ public :
     return tree.size() - root_no - num_sym_nodes;
   }
 
-private:
+ private:
   void update_depth() {
     tree[root_no].set_depth(-1);
   }
@@ -296,5 +292,5 @@ private:
   int root_no;
 };
 
-}
+} // namespace width
 

@@ -20,15 +20,12 @@
 inline std::vector< std::vector< double >> dist_nodes(
     const std::vector< std::array< size_t, 2 >>& edge,
     const std::vector<double>& el) {
-  //Rcpp::NumericMatrix edge = phy["edge"];
-  //Rcpp::NumericVector el   = phy["edge.length"];
 
   int n = 1 + edge.size() / 2;
   int m = n - 1;
   auto nm = n + m;
   static double max_s = 46340; // floor(sqrt(2^31 - 1))
   if (nm > max_s) {
-     // std::cerr << n << " " << m << " " << nm << " " << max_s << "\n";
      throw std::runtime_error("tree too big");
   }
   // code below is from the Ape package

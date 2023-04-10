@@ -25,5 +25,5 @@ inline int binom_coeff(const int& n, const int& k) {
 }
 
 inline int binom_coeff_2(int n) {
-   return (n - 1) * n * 0.5;
+  return (n - 1) * n * 0.5;
 }

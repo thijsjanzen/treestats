@@ -11,7 +11,11 @@
 //
 #pragma once
 
-#include "phylodiv.h"
+#include <functional>  // std::greater
+#include <algorithm>   // std::sort
+#include <vector>
+
+#include "phylodiv.h"  // NOLINT [build/include_subdir]
 
 
 double get_total_bl(const std::vector< std::array<size_t, 2>>& edge,
@@ -26,7 +30,7 @@ double get_total_bl(const std::vector< std::array<size_t, 2>>& edge,
     }
   }
   double bl = el[tip_index];
-  while(edge[tip_index][0] != root_label) {
+  while (edge[tip_index][0] != root_label) {
     tip_label = edge[tip_index][0];
     for (tip_index = 0; tip_index < edge.size(); ++tip_index) {
       if (edge[tip_index][1] == tip_label) {
@@ -49,21 +53,18 @@ void update_dist_to_root(std::vector<double>& dist_to_root,
   return;
 }
 
-
 double calc_crown_age(std::vector< std::array<size_t, 2>> edge,
                       std::vector<double> el) {
-
   sort_edge_and_edgelength(edge, el);
 
   int focal_index = 1;
   size_t root_label = edge[0][0];
 
-
   std::vector<double> dist_to_root;
   update_dist_to_root(dist_to_root, focal_index, edge, el);
   update_dist_to_root(dist_to_root, focal_index, edge, el);
 
-  while(dist_to_root[1] != dist_to_root[0] && focal_index < root_label) {
+  while (dist_to_root[1] != dist_to_root[0] && focal_index < root_label) {
     update_dist_to_root(dist_to_root, focal_index, edge, el);
   }
   return dist_to_root[0];

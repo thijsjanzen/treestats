@@ -19,7 +19,9 @@
 #include <algorithm>
 #include <utility>
 #include <string>
+#include <vector>
 #include <Rcpp.h>
+
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -328,7 +330,5 @@ double calc_beta(const T& edge,
 
   nlopt_destroy(opt);
 
-  double beta = x[0];
- // double ll = minf;
-  return beta;
+  return x[0];  // beta
 }
