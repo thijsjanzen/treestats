@@ -14,8 +14,9 @@
 #include <vector>
 #include <algorithm>
 #include <array>
+#include <string>
 
-#include "binom.h"
+#include "binom.h" // NOLINT [build/include_subdir]
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -58,9 +59,6 @@ double calc_sackin(const ltable& ltable_,
   return s;
 }
 
-
-
-
 struct node {
   node* daughter1 = nullptr;
   node* daughter2 = nullptr;
@@ -71,14 +69,14 @@ struct node {
   }
 
   size_t get_acc_num_tips() {
-
     if (!daughter1 && !daughter2) {
       num_extant_tips = 2;
     } else {
       if (daughter1 && !daughter2) {
         num_extant_tips = 1 + daughter1->get_acc_num_tips();
       } else {
-        num_extant_tips = daughter1->get_acc_num_tips() + daughter2->get_acc_num_tips();
+        num_extant_tips = daughter1->get_acc_num_tips() +
+                          daughter2->get_acc_num_tips();
       }
     }
     return num_extant_tips;
@@ -87,19 +85,18 @@ struct node {
 
 class phylo_tree {
 public:
-
-  phylo_tree(const std::vector< int >& tree_edge) {
-
-    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
+  explicit phylo_tree(const std::vector< int >& tree_edge) {
+    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     tree.resize(tree_edge.size() / 2);
 
-    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
-
+    for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]) - root_no;
       int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
 
       if (d1_index > 0) {
-        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
+        !tree[index].daughter1 ?
+         tree[index].daughter1 = &tree[d1_index] :
+         tree[index].daughter2 = &tree[d1_index];
       }
     }
   }
@@ -107,7 +104,7 @@ public:
   int calc_sackin() {
     tree[0].get_acc_num_tips();
     int s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       s += i.num_extant_tips;
     }
     return s;
@@ -127,7 +124,7 @@ public:
   size_t count_pitchforks() {
     tree[0].get_acc_num_tips();
     size_t num_pitchforks = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       if (i.num_extant_tips == 3) {
         num_pitchforks++;
       }
@@ -138,7 +135,7 @@ public:
   size_t count_cherries() {
     tree[0].get_acc_num_tips();
     size_t num_cherries = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       if (i.num_extant_tips == 2) {
         num_cherries++;
       }
@@ -164,7 +161,7 @@ public:
   double calc_blum(bool normalize, size_t n) {
     tree[0].get_acc_num_tips();
     double s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       if (i.num_extant_tips > 1) {
         s += log(1.0 * i.num_extant_tips - 1);
       }
@@ -175,6 +172,6 @@ public:
     return s;
   }
 
-private:
+ private:
   std::vector< node > tree;
 };

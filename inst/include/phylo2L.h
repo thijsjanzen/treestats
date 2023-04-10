@@ -19,6 +19,7 @@
 
 #include <thread>
 #include <chrono>
+#include <utility>
 
 std::vector< double > branching_times_cpp(const Rcpp::List& phy);
 
@@ -44,12 +45,12 @@ void remove_from_L(std::vector< std::array<double, 6>>& L,
 }
 
 
-std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodesindex,
-                                              std::vector< std::array<double, 6>> L) {
-
+std::vector< std::array<double, 6>> get_realL(
+    const std::vector< size_t >& nodesindex,
+    std::vector< std::array<double, 6>> L) {
   std::vector< std::array<double, 6>> realL;
 
-  while(true) {
+  while (true) {
     size_t j = get_min_index(L, 2);
     size_t daughter = L[j][2];
     size_t parent   = L[j][1];
@@ -133,7 +134,6 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     if (brt_preL[i] < min_brt_preL) {
       min_brt_preL = brt_preL[i];
     }
-   // std::cerr << i << " " << brt_preL[i] << " " << index << "\n";
   }
 
   if (min_brt_preL == 0.0) {
@@ -160,14 +160,6 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][3] = edge_length[i];
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
-
- /* for (auto i : pre_Ltable) {
-    for (auto j : i) {
-      std::cerr << j << " ";
-    }
-    std::cerr << "\n";
-  }*/
-
 
   std::vector<double> eeindicator(edge_length.size(), 0);
 
@@ -212,8 +204,9 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][5] = eeindicator[i];
   }
 
-  std::sort(pre_Ltable.begin(), pre_Ltable.end(), [&](const std::array< double, 6>& v1,
-                             const std::array< double, 6>& v2) {
+  std::sort(pre_Ltable.begin(), pre_Ltable.end(),
+            [&](const std::array< double, 6>& v1,
+                const std::array< double, 6>& v2) {
     return(v1[0] > v2[0]); // sort decreasing
   });
 

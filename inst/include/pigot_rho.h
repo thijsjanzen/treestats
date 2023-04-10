@@ -11,7 +11,9 @@
 //
 #pragma once
 
-#include "phylodiv.h"
+#include <functional>
+
+#include "phylodiv.h"   // NOLINT [build/include_subdir]
 
 double calc_rho(const std::vector<double>& brts) {
   size_t n1 = 2;
@@ -32,14 +34,12 @@ double calc_rho(const std::vector<double>& brts) {
 
 
 struct rho {
-
   rho (const phylo& phy, double crown_age) {
     branchset = create_branch_set(phy, 1e12, crown_age, 1e-6);
     crown_age_ = crown_age;
     mid_point_ = crown_age_ * 0.5;
     extant_lineages = count_extant_lineages(phy);
   }
-
 
   size_t num_lineages(double t) {
     size_t num_lin = 0;
@@ -50,7 +50,6 @@ struct rho {
   }
 
   double calc_pigot_rho() {
-
     size_t n1 = 2;
     size_t n2 = num_lineages(mid_point_);
     size_t n3 = extant_lineages;
@@ -69,7 +68,7 @@ struct rho {
     return extant_lin;
   }
 
-private:
+ private:
   std::vector< branch > branchset;
   double crown_age_;
   double mid_point_;

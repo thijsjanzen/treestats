@@ -11,12 +11,12 @@
 //
 #pragma once
 
-#include "util.h"
-#include <vector>
 
+#include <algorithm>
+#include <vector>
+#include "util.h"   // NOLINT [build/include_subdir]
 
 struct branch {
-
   branch(double bd, int pl, int lab, double ext, double branch_length) :
   start_date(bd),
   parent_label(pl),
@@ -47,7 +47,7 @@ void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
   for (size_t i = 0; i < edge.size(); ++i) {
     everything[i].bl = edge_length[i];
     everything[i].ed = edge[i];
- }
+  }
 
   std::sort(everything.begin(), everything.end(),
             [&](auto a, auto b)
@@ -61,13 +61,11 @@ void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
 }
 
 struct phylo {
-
   std::vector< std::array<size_t, 2>> edge;
   std::vector< double > edge_length;
 
   phylo(const std::vector< std::array<size_t, 2>> e,
         const std::vector<double> el) : edge(e), edge_length(el) {
-
     // sort the tree!
     sort_edge_and_edgelength(edge, edge_length);
   }
@@ -76,7 +74,6 @@ struct phylo {
 
 double get_start_date(const std::vector<branch>& branchset,
                      int parent_label) {
-
   for (const auto& i : branchset) {
     if (i.label == parent_label) {
       return(i.end_date);
@@ -98,7 +95,6 @@ bool has_no_daughters(const std::vector<branch>& bs,
 
 std::vector< branch > remove_from_branchset(std::vector<branch> bs,
                                             size_t label) {
-
   size_t index = 0;
   for (; index < bs.size(); ++index) {
     if (bs[index].label == label)
@@ -119,12 +115,10 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
   return bs;
 }
 
-
 std::vector< branch > create_branch_set(const phylo& phy,
                                         double max_t,
                                         double crown_age,
                                         double extinct_acc) {
-
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
 
@@ -148,7 +142,7 @@ std::vector< branch > create_branch_set(const phylo& phy,
       end_date = max_t;
       bl = end_date - start_date;
     }
-    if (own_label < crown ) {
+    if (own_label < crown) {
       if (end_date < crown_age && end_date < max_t) {
         tip_times.push_back({static_cast<double>(own_label), end_date});
       }
