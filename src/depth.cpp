@@ -21,7 +21,7 @@
 #include "ltable.h" // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
-int calc_max_del_width_cpp(const std::vector<long>& parent_list) {
+int calc_max_del_width_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker tree(parent_list);
   return tree.calc_max_del_width();
 }
@@ -36,7 +36,7 @@ double calc_max_del_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 
 // [[Rcpp::export]]
-int calc_max_width_cpp(const std::vector<long>& parent_list) {
+int calc_max_width_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker tree(parent_list);
   return tree.calc_max_width();
 }
@@ -49,7 +49,7 @@ double calc_max_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
-int calc_max_depth_cpp(const std::vector<long>& parent_list) {
+int calc_max_depth_cpp(const std::vector<int>& parent_list) {
   depth::phylo_tree local_tree(parent_list);
   return local_tree.max_depth();
 }
@@ -63,7 +63,7 @@ double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 
 // [[Rcpp::export]]
-double calc_var_leaf_depth_cpp(const std::vector<long>& parent_list) {
+double calc_var_leaf_depth_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker local_tree(parent_list);
   return local_tree.var_leaf_depth();
 }
@@ -76,13 +76,13 @@ double calc_var_leaf_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
-int calc_sym_nodes_cpp(const std::vector<long>& parent_list) {
+int calc_sym_nodes_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker tree(parent_list);
   return tree.calc_sym_nodes();
 }
 
 // [[Rcpp::export]]
-double calc_b1_cpp(const std::vector<long>& parent_list) {
+double calc_b1_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker tree(parent_list);
   return tree.calc_b1();
 }
@@ -95,7 +95,7 @@ double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
-double calc_b2_cpp(const std::vector<long>& parent_list) {
+double calc_b2_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker tree(parent_list);
   return tree.calc_b2();
 }

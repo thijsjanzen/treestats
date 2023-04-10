@@ -23,7 +23,7 @@
 
 
 // [[Rcpp::export]]
-double calc_colless_cpp(const std::vector<long>& parent_list,
+double calc_colless_cpp(const std::vector<int>& parent_list,
                         std::string normalization) {
   colless_tree::phylo_tree colless_tree(parent_list);
   double output = static_cast<double>(colless_tree.calc_colless());
@@ -56,7 +56,7 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
 }
 
 // [[Rcpp::export]]
-double calc_eWcolless_cpp(const std::vector<long>& parent_list) {
+double calc_eWcolless_cpp(const std::vector<int>& parent_list) {
   colless_tree::phylo_tree colless_tree(parent_list);
   return colless_tree.calc_eWcolless();
 }
@@ -70,7 +70,7 @@ double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
-size_t ILnumber_cpp(const std::vector<long>& tree_edge) {
+size_t ILnumber_cpp(const std::vector<int>& tree_edge) {
   return calc_IL(tree_edge);
 }
 
@@ -83,7 +83,7 @@ size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 
 
 // [[Rcpp::export]]
-double calc_rquartet_cpp(const std::vector<long>& tree_edge,
+double calc_rquartet_cpp(const std::vector<int>& tree_edge,
                          std::string normalization) {
   colless_tree::phylo_tree tree(tree_edge);
   auto output = tree.calc_rquartet();
@@ -116,7 +116,7 @@ double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R,
 }
 
 // [[Rcpp::export]]
-double stairs_cpp(const std::vector<long>& tree_edge) {
+double stairs_cpp(const std::vector<int>& tree_edge) {
   colless_tree::phylo_tree tree(tree_edge);
   return tree.calc_stairs();
 }
@@ -129,7 +129,7 @@ double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 // [[Rcpp::export]]
-double stairs2_cpp(const std::vector<long>& tree_edge) {
+double stairs2_cpp(const std::vector<int>& tree_edge) {
   colless_tree::phylo_tree tree(tree_edge);
   return tree.calc_stairs2();
 }
@@ -143,7 +143,7 @@ double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 
 
 // [[Rcpp::export]]
-int calc_rogers_cpp(const std::vector<long>& parent_list) {
+int calc_rogers_cpp(const std::vector<int>& parent_list) {
   colless_tree::phylo_tree colless_tree(parent_list);
   return colless_tree.calc_rogers();
 }
@@ -156,7 +156,7 @@ double calc_rogers_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
-double calc_j_one_cpp(const std::vector<long>& parent_list) {
+double calc_j_one_cpp(const std::vector<int>& parent_list) {
   colless_tree::phylo_tree colless_tree(parent_list);
   return colless_tree.calc_j_one();
 }
@@ -170,7 +170,7 @@ double calc_j_one_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 
 // [[Rcpp::export]]
-double calc_Ibased_cpp(const std::vector<long>& parent_list) {
+double calc_Ibased_cpp(const std::vector<int>& parent_list) {
   colless_tree::phylo_tree colless_tree(parent_list);
   auto I_vec = colless_tree.collect_I();
   auto sum = std::accumulate(I_vec.begin(), I_vec.end(), 0.0);

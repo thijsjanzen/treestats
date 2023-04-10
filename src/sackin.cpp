@@ -23,7 +23,7 @@
 #include "cherries.h" // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
-double calc_sackin_cpp(const std::vector<long>& tree_edge,
+double calc_sackin_cpp(const std::vector<int>& tree_edge,
                        const Rcpp::String& normalization) {
   phylo_tree sackin_tree(tree_edge);
   double output = static_cast<double>(sackin_tree.calc_sackin());
@@ -50,7 +50,7 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 
 
 // [[Rcpp::export]]
-double calc_tot_coph_cpp(const std::vector<long>& tree_edge) {
+double calc_tot_coph_cpp(const std::vector<int>& tree_edge) {
   phylo_tree sackin_tree(tree_edge);
   return sackin_tree.calc_tot_coph();
 }
@@ -63,7 +63,7 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 }
 
 // [[Rcpp::export]]
-double calc_blum_cpp(const std::vector<long>& tree_edge,
+double calc_blum_cpp(const std::vector<int>& tree_edge,
                      bool normalize) {
   phylo_tree sackin_tree(tree_edge);
   size_t n  = tree_edge.size() / 4 + 1;
@@ -79,7 +79,7 @@ double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
 
 
 // [[Rcpp::export]]
-size_t cherries_cpp(const std::vector<long>& tree_edge) {
+size_t cherries_cpp(const std::vector<int>& tree_edge) {
   phylo_tree sackin_tree(tree_edge);
   return sackin_tree.count_cherries();
 }
@@ -91,7 +91,7 @@ size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 // [[Rcpp::export]]
-size_t pitchforks_cpp(const std::vector<long>& tree_edge) {
+size_t pitchforks_cpp(const std::vector<int>& tree_edge) {
   // ltable version uses colless
   phylo_tree sackin_tree(tree_edge);
   return sackin_tree.count_pitchforks();

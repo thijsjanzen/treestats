@@ -13,7 +13,7 @@
 #pragma once
 #include <vector>
 
-size_t calc_IL(const std::vector< long >& tree_edge) {
+size_t calc_IL(const std::vector< int >& tree_edge) {
   int root_no = 2 + tree_edge.size() * 0.25;
   std::vector< int > nodes(tree_edge.size() / 2, 0);
 

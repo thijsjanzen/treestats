@@ -162,7 +162,7 @@ double calc_var_mpd_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double avgLadder_cpp(const std::vector<long>& tree_edge) {
+double avgLadder_cpp(const std::vector<int>& tree_edge) {
   try {
   return calc_ladder(tree_edge, false);
   } catch(std::exception &ex) {
@@ -176,7 +176,7 @@ double avgLadder_cpp(const std::vector<long>& tree_edge) {
 }
 
 // [[Rcpp::export]]
-double max_ladder_cpp(const std::vector<long>& tree_edge) {
+double max_ladder_cpp(const std::vector<int>& tree_edge) {
   try {
     return calc_ladder(tree_edge, true);
   } catch(std::exception &ex) {

@@ -15,7 +15,7 @@
 #include <array>
 
 
-double calc_ladder(const std::vector< long >& tree_edge,
+double calc_ladder(const std::vector< int >& tree_edge,
                    bool return_max) {
   struct node_entry {
     std::array< int, 2> daughters;
@@ -27,7 +27,7 @@ double calc_ladder(const std::vector< long >& tree_edge,
     }
   };
 
-  long max_node_val = *std::max_element(tree_edge.begin(), tree_edge.end());
+  int max_node_val = *std::max_element(tree_edge.begin(), tree_edge.end());
   int root_no = 2 + 0.25 * tree_edge.size();
 
   std::vector< node_entry > edge_mat(max_node_val + 1 - root_no);

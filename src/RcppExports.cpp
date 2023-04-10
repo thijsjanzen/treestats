@@ -240,12 +240,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_colless_cpp
-double calc_colless_cpp(const std::vector<long>& parent_list, std::string normalization);
+double calc_colless_cpp(const std::vector<int>& parent_list, std::string normalization);
 RcppExport SEXP _treestats_calc_colless_cpp(SEXP parent_listSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_colless_cpp(parent_list, normalization));
     return rcpp_result_gen;
@@ -264,12 +264,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_eWcolless_cpp
-double calc_eWcolless_cpp(const std::vector<long>& parent_list);
+double calc_eWcolless_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_eWcolless_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_eWcolless_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -286,12 +286,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // ILnumber_cpp
-size_t ILnumber_cpp(const std::vector<long>& tree_edge);
+size_t ILnumber_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_ILnumber_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(ILnumber_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
@@ -308,12 +308,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_rquartet_cpp
-double calc_rquartet_cpp(const std::vector<long>& tree_edge, std::string normalization);
+double calc_rquartet_cpp(const std::vector<int>& tree_edge, std::string normalization);
 RcppExport SEXP _treestats_calc_rquartet_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_rquartet_cpp(tree_edge, normalization));
     return rcpp_result_gen;
@@ -332,12 +332,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // stairs_cpp
-double stairs_cpp(const std::vector<long>& tree_edge);
+double stairs_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_stairs_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(stairs_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
@@ -354,12 +354,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // stairs2_cpp
-double stairs2_cpp(const std::vector<long>& tree_edge);
+double stairs2_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_stairs2_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(stairs2_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
@@ -376,12 +376,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_rogers_cpp
-int calc_rogers_cpp(const std::vector<long>& parent_list);
+int calc_rogers_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_rogers_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_rogers_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -398,12 +398,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_j_one_cpp
-double calc_j_one_cpp(const std::vector<long>& parent_list);
+double calc_j_one_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_j_one_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_j_one_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -420,12 +420,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_Ibased_cpp
-double calc_Ibased_cpp(const std::vector<long>& parent_list);
+double calc_Ibased_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_Ibased_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_Ibased_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -453,12 +453,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_max_del_width_cpp
-int calc_max_del_width_cpp(const std::vector<long>& parent_list);
+int calc_max_del_width_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_max_del_width_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_max_del_width_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -475,12 +475,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_max_width_cpp
-int calc_max_width_cpp(const std::vector<long>& parent_list);
+int calc_max_width_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_max_width_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_max_width_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -497,12 +497,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_max_depth_cpp
-int calc_max_depth_cpp(const std::vector<long>& parent_list);
+int calc_max_depth_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_max_depth_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_max_depth_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -519,12 +519,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_var_leaf_depth_cpp
-double calc_var_leaf_depth_cpp(const std::vector<long>& parent_list);
+double calc_var_leaf_depth_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_var_leaf_depth_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_var_leaf_depth_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -541,23 +541,23 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_sym_nodes_cpp
-int calc_sym_nodes_cpp(const std::vector<long>& parent_list);
+int calc_sym_nodes_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_sym_nodes_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_sym_nodes_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_b1_cpp
-double calc_b1_cpp(const std::vector<long>& parent_list);
+double calc_b1_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_b1_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_b1_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -574,12 +574,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_b2_cpp
-double calc_b2_cpp(const std::vector<long>& parent_list);
+double calc_b2_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_b2_cpp(SEXP parent_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_b2_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
@@ -714,23 +714,23 @@ BEGIN_RCPP
 END_RCPP
 }
 // avgLadder_cpp
-double avgLadder_cpp(const std::vector<long>& tree_edge);
+double avgLadder_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_avgLadder_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(avgLadder_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
 }
 // max_ladder_cpp
-double max_ladder_cpp(const std::vector<long>& tree_edge);
+double max_ladder_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_max_ladder_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(max_ladder_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
@@ -748,12 +748,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_sackin_cpp
-double calc_sackin_cpp(const std::vector<long>& tree_edge, const Rcpp::String& normalization);
+double calc_sackin_cpp(const std::vector<int>& tree_edge, const Rcpp::String& normalization);
 RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     Rcpp::traits::input_parameter< const Rcpp::String& >::type normalization(normalizationSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_sackin_cpp(tree_edge, normalization));
     return rcpp_result_gen;
@@ -772,12 +772,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_tot_coph_cpp
-double calc_tot_coph_cpp(const std::vector<long>& tree_edge);
+double calc_tot_coph_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_calc_tot_coph_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_tot_coph_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
@@ -794,12 +794,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_blum_cpp
-double calc_blum_cpp(const std::vector<long>& tree_edge, bool normalize);
+double calc_blum_cpp(const std::vector<int>& tree_edge, bool normalize);
 RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     Rcpp::traits::input_parameter< bool >::type normalize(normalizeSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge, normalize));
     return rcpp_result_gen;
@@ -818,12 +818,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // cherries_cpp
-size_t cherries_cpp(const std::vector<long>& tree_edge);
+size_t cherries_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_cherries_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(cherries_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
@@ -840,12 +840,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // pitchforks_cpp
-size_t pitchforks_cpp(const std::vector<long>& tree_edge);
+size_t pitchforks_cpp(const std::vector<int>& tree_edge);
 RcppExport SEXP _treestats_pitchforks_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<long>& >::type tree_edge(tree_edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     rcpp_result_gen = Rcpp::wrap(pitchforks_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP

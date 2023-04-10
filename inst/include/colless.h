@@ -322,7 +322,7 @@ struct node {
 class phylo_tree {
 public:
 
-  phylo_tree(const std::vector< long >& tree_edge) {
+  phylo_tree(const std::vector< int >& tree_edge) {
 
     int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
 
