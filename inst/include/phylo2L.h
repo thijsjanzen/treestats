@@ -215,7 +215,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   std::vector< std::array<double, 6>> realL = get_realL(nodesindex,
                                                         pre_Ltable);
 
-  std::vector< std::array< double, 4> > L( realL.size());
+  std::vector< std::array< double, 4> > L(realL.size());
 
   for (size_t i = 0; i < realL.size(); ++i) {
     L[i][0] = realL[i][0];

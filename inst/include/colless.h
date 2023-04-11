@@ -292,11 +292,6 @@ struct node {
     L = R = 0;
   }
 
-  void set_both_internal(node& d1, node& d2) {
-    daughter1 = &d1;
-    daughter2 = &d2;
-  }
-
   void set_both_extant() {
     L = R = 1;
   }
@@ -401,7 +396,8 @@ class phylo_tree {
       int nv = l + r;
       if (nv > 3) {
         double avg_n = std::ceil(nv * 0.5);
-        auto n1 = l; if (r > l) n1 = r;
+        auto n1 = l;
+        if (r > l) {n1 = r;}
         double I_val =  1.0 * (n1 - avg_n) / ((nv - 1) - avg_n);
         if (nv % 2 == 0) {
           I_val *= 1.0 * (nv - 1) / nv;

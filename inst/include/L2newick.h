@@ -46,13 +46,13 @@ std::string d_to_s(double d) {
   return out.str();
 }
 
-void remove_from_dataset(std::vector< std::array< double, 4>>& ltable,
-                         std::vector< std::string>& linlist,
+void remove_from_dataset(std::vector< std::array< double, 4>>* ltable,
+                         std::vector< std::string>* linlist,
                          size_t index) {
-  std::swap(ltable[index], ltable.back());
-  ltable.pop_back();
-  std::swap(linlist[index], linlist.back());
-  linlist.pop_back();
+  std::swap((*ltable)[index], (*ltable).back());
+  (*ltable).pop_back();
+  std::swap((*linlist)[index], (*linlist).back());
+  (*linlist).pop_back();
 }
 
 std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
@@ -127,7 +127,7 @@ std::string ltable_to_newick(const std::vector< std::array< double, 4>>& ltable,
       std::string spec2 = linlist_4[j] + ":" + d_to_s(bl2);
       linlist_4[parentj] = "(" + spec1 + "," + spec2 + ")";
       L[parentj][3] = L[j][0];
-      remove_from_dataset(L, linlist_4, j);
+      remove_from_dataset(&L, &linlist_4, j);
     } else {
       parentj = index_of_parent(L_original, parent);
       if (parentj == -1) {

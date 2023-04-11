@@ -43,11 +43,11 @@ double get_total_bl(const std::vector< std::array<size_t, 2>>& edge,
 }
 
 void update_dist_to_root(std::vector<double>* dist_to_root,
-                         int& focal_index,
+                         int* focal_index,
                          const std::vector< std::array<size_t, 2>>& edge,
                          const std::vector<double>& el) {
-  double bl = get_total_bl(edge, el, focal_index);
-  focal_index++;
+  double bl = get_total_bl(edge, el, *focal_index);
+  (*focal_index)++;
   (*dist_to_root).push_back(bl);
   std::sort((*dist_to_root).begin(), (*dist_to_root).end(),
             std::greater<double>());
@@ -56,17 +56,17 @@ void update_dist_to_root(std::vector<double>* dist_to_root,
 
 double calc_crown_age(std::vector< std::array<size_t, 2>> edge,
                       std::vector<double> el) {
-  sort_edge_and_edgelength(edge, el);
+  sort_edge_and_edgelength(&edge, &el);
 
   int focal_index = 1;
   size_t root_label = edge[0][0];
 
   std::vector<double> dist_to_root;
-  update_dist_to_root(&dist_to_root, focal_index, edge, el);
-  update_dist_to_root(&dist_to_root, focal_index, edge, el);
+  update_dist_to_root(&dist_to_root, &focal_index, edge, el);
+  update_dist_to_root(&dist_to_root, &focal_index, edge, el);
 
   while (dist_to_root[1] != dist_to_root[0] && focal_index < root_label) {
-    update_dist_to_root(&dist_to_root, focal_index, edge, el);
+    update_dist_to_root(&dist_to_root, &focal_index, edge, el);
   }
   return dist_to_root[0];
 }
