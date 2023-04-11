@@ -395,9 +395,8 @@ class phylo_tree {
       int nv = l + r;
       if (nv > 3) {
         double avg_n = std::ceil(nv * 0.5);
-        auto n1 = l;
 
-        n1 = r > l ? r : 0;
+        auto n1 = r > l ? r : l;
 
         double I_val =  1.0 * (n1 - avg_n) / ((nv - 1) - avg_n);
         if (nv % 2 == 0) {
