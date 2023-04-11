@@ -281,7 +281,6 @@ class colless_stat_ltable {
 
 namespace colless_tree {
 
-
 struct node {
   node* daughter1 = nullptr;
   node* daughter2 = nullptr;
@@ -296,8 +295,8 @@ struct node {
     L = R = 1;
   }
 
-  void set_one_extant(node& d1) {
-    daughter1 = &d1;
+  void set_one_extant(node* d1) {
+    daughter1 = d1;
     R = 1;
   }
 
@@ -397,7 +396,9 @@ class phylo_tree {
       if (nv > 3) {
         double avg_n = std::ceil(nv * 0.5);
         auto n1 = l;
-        if (r > l) {n1 = r;}
+
+        n1 = r > l ? r : 0;
+
         double I_val =  1.0 * (n1 - avg_n) / ((nv - 1) - avg_n);
         if (nv % 2 == 0) {
           I_val *= 1.0 * (nv - 1) / nv;
