@@ -12,6 +12,7 @@
 #pragma once
 
 #include <functional>
+#include <vector>
 
 #include "phylodiv.h"   // NOLINT [build/include_subdir]
 
@@ -34,7 +35,7 @@ double calc_rho(const std::vector<double>& brts) {
 
 
 struct rho {
-  rho (const phylo& phy, double crown_age) {
+  rho(const phylo& phy, double crown_age) {
     branchset = create_branch_set(phy, 1e12, crown_age, 1e-6);
     crown_age_ = crown_age;
     mid_point_ = crown_age_ * 0.5;

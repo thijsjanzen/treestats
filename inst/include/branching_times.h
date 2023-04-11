@@ -24,11 +24,11 @@ std::vector< double > branching_times(
   for (size_t i = 0; i < edge_length.size(); ++i) {
     if (edge[i][1] > n) {
       auto target_index = edge[i][1] - n - 1;  // e2[i] - n, -2 because -1 of R,
-                                               // and -1 of n (R->CPP conversion)
+                                              // and -1 of n (R->CPP conversion)
       auto source_index = edge[i][0] - n - 1;  // e1[i] - n
       xx[target_index] = xx[source_index] + edge_length[i];
-   }
- }
+    }
+  }
 
   auto edge_index = edge[edge_length.size() - 1][0] - n - 1;
 

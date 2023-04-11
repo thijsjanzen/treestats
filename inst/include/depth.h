@@ -74,7 +74,7 @@ class phylo_tree {
   std::vector< node > tree;
 };
 
-} // namespace depth
+}   // namespace depth
 
 namespace width {
 struct node {
@@ -181,7 +181,7 @@ struct node {
 
 class depth_tracker {
  public :
-  depth_tracker(const std::vector< int >& tree_edge) {
+  explicit depth_tracker(const std::vector< int >& tree_edge) {
     root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     auto max_num = *std::max_element(tree_edge.begin(), tree_edge.end());
     tree.resize(max_num + 1);
@@ -262,7 +262,8 @@ class depth_tracker {
     int num_sym_nodes = 0;
     for (size_t i = root_no; i < tree.size(); ++i) {
       if (tree[i].L == tree[i].R) {
-        if (compare_depth_dist(tree[i].L_vec, tree[i].R_vec)) {
+        if (compare_depth_dist(&tree[i].L_vec,
+                               &tree[i].R_vec)) {
           num_sym_nodes++;
         }
       }
@@ -276,15 +277,15 @@ class depth_tracker {
     tree[root_no].set_depth(-1);
   }
 
-  bool compare_depth_dist(std::vector<size_t>& v1,
-                          std::vector<size_t>& v2) {
-    if (v1.size() != v2.size()) return false;
+  bool compare_depth_dist(std::vector<size_t>* v1,
+                          std::vector<size_t>* v2) {
+    if ((*v1).size() != (*v2).size()) return false;
 
-    std::sort(v1.begin(), v1.end());
-    std::sort(v2.begin(), v2.end());
+    std::sort((*v1).begin(), (*v1).end());
+    std::sort((*v2).begin(), (*v2).end());
 
-    for (size_t i = 0; i < v1.size(); ++i) {
-      if (v1[i] != v2[i]) return false;
+    for (size_t i = 0; i < (*v1).size(); ++i) {
+      if ((*v1)[i] != (*v2)[i]) return false;
     }
     return true;
   }
@@ -292,5 +293,5 @@ class depth_tracker {
   int root_no;
 };
 
-} // namespace width
+}   // namespace width
 

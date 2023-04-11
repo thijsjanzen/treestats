@@ -15,6 +15,7 @@
 #include <array>
 #include <numeric>  // std::accumulate
 #include <utility>  // swap
+#include <algorithm>  // std::min_element
 
 #include "binom.h"  // NOLINT [build/include_subdir]
 
@@ -291,7 +292,7 @@ struct node {
     L = R = 0;
   }
 
-  void set_both_internal(node& d1, node& d2){
+  void set_both_internal(node& d1, node& d2) {
     daughter1 = &d1;
     daughter2 = &d2;
   }
@@ -321,14 +322,12 @@ struct node {
 
 class phylo_tree {
  public:
-
-  phylo_tree(const std::vector< int >& tree_edge) {
-    int root_no = 2 +
-                static_cast<int>(0.25 * tree_edge.size()); // this holds always.
+  explicit phylo_tree(const std::vector< int >& tree_edge) {
+    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
 
     tree.resize(tree_edge.size() / 2 - root_no + 2);
 
-    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
+    for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]) - root_no;
       int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
 
@@ -345,7 +344,7 @@ class phylo_tree {
   int calc_colless() {
     tree[0].update_num_tips();
     int s = 0;
-    for(const auto& i : tree) {
+    for (const auto& i : tree) {
       int l = i.L;
       int r = i.R;
       l - r < 0 ? s -= l - r : s+= l - r;
@@ -407,6 +406,7 @@ class phylo_tree {
         if (nv % 2 == 0) {
           I_val *= 1.0 * (nv - 1) / nv;
         }
+
         i_vals.push_back(I_val);
       }
     }
@@ -474,8 +474,8 @@ class phylo_tree {
     return stat * 1.0 / expected;
   }
 
-private:
+ private:
   std::vector< node > tree;
 };
 
-}
+}  // namespace colless_tree

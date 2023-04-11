@@ -28,7 +28,7 @@ class stat {
   size_t find_parent(const ltable& ltable_,
                      int focal_id,
                      int start_index) {
-    for(int i = start_index; i >= 0; i--) {
+    for (int i = start_index; i >= 0; i--) {
       if (static_cast<int>(ltable_[i][2]) == focal_id) {
         return i;
       }

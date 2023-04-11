@@ -20,7 +20,7 @@ const double prefactor = 2 * sqrt(3);
 double calc_gamma(std::vector<double> brts_) {
   double n = brts_.size() + 1;
 
-  auto h = brts_[0];   //*std::max_element(brts_.begin(), brts_.end());
+  auto h = brts_[0];   // *std::max_element(brts_.begin(), brts_.end());
 
   for (auto& i : brts_) {
     i =  h - i;

@@ -84,7 +84,7 @@ struct node {
 };
 
 class phylo_tree {
-public:
+ public:
   explicit phylo_tree(const std::vector< int >& tree_edge) {
     int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     tree.resize(tree_edge.size() / 2);
