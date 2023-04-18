@@ -33,8 +33,6 @@ double calc_max_del_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   return s.max_del_width();
 }
 
-
-
 // [[Rcpp::export]]
 int calc_max_width_cpp(const std::vector<int>& parent_list) {
   width::depth_tracker tree(parent_list);

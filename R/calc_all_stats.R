@@ -128,8 +128,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$laplac_spectrum_g  <- NA
   }
 
-  stats$imbalance_steps  <- treestats::imbalance_steps(phylo,
-                                                       normalize = normalize)
+  #stats$imbalance_steps  <- treestats::imbalance_steps(phylo,
+  #                                                     normalize = normalize)
 
   stats$j_one        <- treestats::j_one(phylo)
 
