@@ -1,4 +1,4 @@
-context("all_Stats")
+context("all_statistics")
 
 test_that("usage", {
   testthat::skip_on_cran() # these tests take very long

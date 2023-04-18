@@ -34,7 +34,6 @@
 #'   \item{j_one statistic}
 #' }
 #'
-
 calc_balance_stats <- function(phylo, normalize = FALSE) {
 
   stats <- list()
