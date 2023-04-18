@@ -70,7 +70,7 @@ swap_deepest <- function(ltab) {
       new_ltab[daughters, 2] <- main_attractor
     }
 
-    new_ltab <- renumber(new_ltab)
+    new_ltab <- renumber_ltable(new_ltab)
 
   } else {
     finalized <- TRUE
