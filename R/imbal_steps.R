@@ -20,25 +20,17 @@ imbalance_steps <- function(input_obj,
 
   ltab <- rebase_ltable(input_obj)
 
-  num_parent1 <- length(which(ltab[, 3] < 0)) - 1
-  num_parent2 <- length(which(ltab[, 3] > 0)) - 1
-
-  target_parent <- ltab[1, 3]
-  donor_parent  <- ltab[2, 3]
-  if (num_parent2 > num_parent1) {
-    target_parent <- ltab[2, 3]
-    donor_parent <- ltab[1, 3]
-  }
+  attractor <- get_attractor(ltab)
 
 
-  to_sample_from <- which(ltab[, 2] != target_parent &
-                          ltab[, 3] != donor_parent &
-                          ltab[, 3] != target_parent)
+  to_sample_from <- which(ltab[, 2] != attractor &
+                          ltab[, 3] != -1 &
+                          ltab[, 3] != 2)
 
   steps_taken <- length(to_sample_from)
   if (normalize == TRUE) {
     tree_size <- length(ltab[, 1])
-    max_expected <- floor(tree_size - log2(tree_size) - 1)
+    max_expected <- tree_size - ceiling(log2(tree_size)) - 1
 
     if (steps_taken > max_expected) {
       cat("error!")

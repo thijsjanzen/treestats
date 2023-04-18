@@ -95,8 +95,8 @@ get_attractor <- function(ltab) {
   attractor <- 2
   # determine attractor based on number of direct daughters,
   # more daughters = less required movements.
-  num_two   <- length(which(ltab[, 2] == 2))
   num_one   <- length(which(ltab[, 2] == -1))
+  num_two   <- length(which(ltab[, 2] == 2))
 
   if (num_one > num_two) {
     attractor <- -1
@@ -154,8 +154,7 @@ make_unbalanced_tree_oldest <- function(ltab,
 #' @keywords internal
 make_unbalanced_tree_random <- function(ltab,
                                         unbal_steps) {
-
-  attractor2 <- get_attractor(ltab)
+  attractor <- get_attractor(ltab)
 
   to_sample_from <- which(ltab[, 2] != attractor &
                           ltab[, 3] != -1 &
