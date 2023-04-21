@@ -785,6 +785,7 @@ class colless_tree
 
 
 public:
+  // takes any other tree_t
   template <typename NRHS>
   explicit colless_tree(const tree_t<NRHS>& rhs) 
   : tree(tree_cast<colless_node_t>(rhs)) {
@@ -793,7 +794,8 @@ public:
 
 
   explicit colless_tree(const std::vector<int>& tree_edge) 
-  : colless_tree(make_tree<colless_node_t>(tree_edge)) {
+  : tree(make_tree<colless_node_t>(tree_edge)) {
+    update_num_tips(&tree[0]);
   }
 
 
