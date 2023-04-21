@@ -56,7 +56,6 @@ public:
     return s;
   }
 
-
   double calc_eWcolless() {
     tree[0].update_num_tips();
     double s = 0;
@@ -756,11 +755,11 @@ tree_t<NODE> make_tree(const std::vector<int> tree_edge) {
 template <typename NLHS, typename NRHS>
 tree_t<NLHS> tree_cast(const tree_t<NRHS>& rhs) {
   auto lhs = tree_t<NLHS>(rhs.size());
-  auto lhs_first = lhs.begin();
-  auto rhs_first = rhs.begin();
+  auto* lhs_first = lhs.data();
+  auto* rhs_first = rhs.data();
   for (size_t i = 0; i < rhs.size(); ++i) {
-    lhs.daughter1 = lhs_first + std::distance(rhs_first, &rhs[i].daughter1);
-    lhs.daughter2 = lhs_first + std::distance(rhs_first, &rhs[i].daugther2);
+    lhs[i].daughter1 = (rhs[i].daughter1) ? lhs_first + std::distance<const NRHS*>(rhs_first, rhs[i].daughter1) : nullptr;
+    lhs[i].daughter2 = (rhs[i].daughter2) ? lhs_first + std::distance<const NRHS*>(rhs_first, rhs[i].daughter2) : nullptr;
   }
   return lhs;
 }
@@ -786,9 +785,15 @@ class colless_tree
 
 
 public:
-  explicit colless_tree(const std::vector<int>& tree_edge) 
-  : tree(make_tree<colless_node_t>(tree_edge)) {
+  template <typename NRHS>
+  explicit colless_tree(const tree_t<NRHS>& rhs) 
+  : tree(tree_cast<colless_node_t>(rhs)) {
     update_num_tips(&tree[0]);
+  }
+
+
+  explicit colless_tree(const std::vector<int>& tree_edge) 
+  : colless_tree(make_tree<colless_node_t>(tree_edge)) {
   }
 
 
@@ -921,7 +926,6 @@ public:
 
 
 }   // namespace solution5
-
 
 using solution4::colless_tree;
 
