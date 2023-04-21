@@ -24,3 +24,4 @@ public:
 
   std::vector< NODE > tree;
 };
+
