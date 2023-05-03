@@ -94,9 +94,9 @@ laplacian_spectrum <- function(phy) {
   skewness <- skew_ness(x)
   peak_height <- max(dsc)
   gaps <- abs(diff(x))
-  gap_mat <- as.matrix(gaps)  #nolint
+  gap_mat <- as.matrix(gaps)  # nolint
   modalities <- seq_along(gap_mat)
-  gap_mat_col <- cbind(modalities, gap_mat)  #nolint
+  gap_mat_col <- cbind(modalities, gap_mat)  # nolint
   eigen_gap <- subset(gap_mat_col, gap_mat_col[, 2] == max(gap_mat_col[, 2]))
   res <- list(eigenvalues = x,
               principal_eigenvalue = principal_eigenvalue,

@@ -142,21 +142,36 @@ double calc_mntd_ltable(const ltable& ltable_) {
 
 double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                       const std::vector<double>& el) {
-  auto dist_mat = dist_nodes_tri(edge, el);
+  size_t root_no = edge[0][0];
 
-  int n = (el.size() + 2) * 0.5;
-
-  double mntd = 0.0;
-  for (size_t i = 0; i < n; ++i) {
-    double min_val = 1e6;
-    for (size_t j = 0; j < n; ++j) {
-      if (j != i) {
-        if (dist_mat.get_val(i, j) < min_val) min_val = dist_mat.get_val(i, j);
-      }
-    }
-    mntd += min_val;
+  size_t max_num = 0;
+  for (const auto& i : edge) {
+    if (i[0] > max_num) max_num = i[0];
   }
-  mntd *= 1.0 / n;
+
+  std::vector<double> node_heights(max_num + 1, 0);
+  for (size_t i = 0; i < edge.size(); ++i) {
+    node_heights[edge[i][1]] = node_heights[edge[i][0]] + el[i];
+  }
+
+  // first N entries are distance from root to tips.
+  double crown_age = *std::max_element(node_heights.begin(),
+                                       node_heights.begin() + root_no);
+
+  for (auto& i : node_heights) {
+    i = crown_age - i;
+  }
+
+  // and now we calculate mntd, this is always the distance
+  // to the parent root * 2.
+  double mntd = 0.0;
+  for (const auto& i : edge) {
+    if (i[1] < root_no) { // we now have a tip
+      mntd += node_heights[i[0]] * 2;
+    }
+  }
+
+  mntd *= 1.0 / (root_no - 1);
   return(mntd);
 }
 

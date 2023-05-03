@@ -24,6 +24,7 @@
 #include "L2newick.h"    // NOLINT [build/include_subdir]
 #include "avgladder.h"   // NOLINT [build/include_subdir]
 #include "mntd.h"        // NOLINT [build/include_subdir]
+#include "mpd.h"         // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -122,6 +123,14 @@ double calc_mpd_cpp(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
   return calc_mpd_stat(edge, el);
+}
+
+// [[Rcpp::export]]
+double calc_mpd_cpp2(const std::vector<int>& edge,
+                     const std::vector<double>& el) {
+  mpd_tree::phylo_tree focal_tree(edge, el);
+  auto mpd = focal_tree.calculate_mpd();
+  return mpd;
 }
 
 // [[Rcpp::export]]
