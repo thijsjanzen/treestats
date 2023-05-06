@@ -1,3 +1,17 @@
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+#pragma once
+#include <vector>
+
 namespace mpd_tree {
 
 
@@ -32,7 +46,7 @@ struct node {
 };
 
 class phylo_tree {
-public:
+ public:
   explicit phylo_tree(const std::vector< int >& tree_edge,
                       const std::vector<double>& edge_length) {
     int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
@@ -43,19 +57,20 @@ public:
     for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]) - root_no;
       int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
+      int el_index = i / 2;
 
       if (d1_index < 0) {
-        tree[index].L == 0 ? tree[index].L = 1 : tree[index].R = 1;
+        tree[index].R == 0 ? tree[index].R = 1 : tree[index].L = 1;
       } else {
         !tree[index].daughter1 ?
          tree[index].daughter1 = &tree[d1_index] :
          tree[index].daughter2 = &tree[d1_index];
       }
 
-      int el_index = i / 2;
+      tree[index].bl_R < 0 ?
+        tree[index].bl_R = edge_length[el_index] :
+        tree[index].bl_L = edge_length[el_index];
 
-      tree[index].bl_L < 0.0 ? tree[index].bl_L = edge_length[el_index] :
-                               tree[index].bl_R = edge_length[el_index];
     }
 
     tree[0].update_num_tips();
@@ -70,7 +85,8 @@ public:
       auto L_bl = i.bl_L;
       auto R_bl = i.bl_R;
 
-      std::cerr << l << " " << L_bl << " " << r << " " << R_bl << "\n";
+      std::cerr << l << " " << L_bl << "\n";
+      std::cerr << r << " " << R_bl << "\n";
 
       mpd += L_bl * (l * (N - l));
       mpd += R_bl * (r * (N - r));
@@ -82,13 +98,13 @@ public:
     return(mpd);
   }
 
-private:
+ private:
   std::vector< node > tree;
   int tree_size = 0;
 };
 
 
-} // namespace mpd_tree
+}  // namespace mpd_tree
 
 
 
