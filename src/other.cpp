@@ -119,14 +119,7 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double calc_mpd_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return calc_mpd_stat(edge, el);
-}
-
-// [[Rcpp::export]]
-double calc_mpd_cpp2(const std::vector<int>& edge,
+double calc_mpd_cpp(const std::vector<int>& edge,
                      const std::vector<double>& el) {
   mpd_tree::phylo_tree focal_tree(edge, el);
   auto mpd = focal_tree.calculate_mpd();
@@ -141,10 +134,10 @@ double calc_psv_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double calc_J_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  auto mpd = calc_mpd_stat(edge, el);
+double calc_J_cpp(const std::vector<int>& edge,
+                  const std::vector<double>& el) {
+  mpd_tree::phylo_tree focal_tree(edge, el);
+  auto mpd = focal_tree.calculate_mpd();
   int n = (el.size() + 2) * 0.5;
 
   return mpd * 1.0 / n;

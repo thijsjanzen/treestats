@@ -175,17 +175,6 @@ double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   return(mntd);
 }
 
-
-double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
-                         const std::vector<double>& el) {
-  auto dist_mat = dist_nodes_tri(edge, el);
-  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
-  double mpd = std::accumulate(dist_mat.data_.begin(),
-                               dist_mat.data_.begin() + max_pos, 0.0);
-  mpd *= 1.0 / max_pos;
-  return mpd;
-}
-
 double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
                      const std::vector<double>& el) {
   auto dist_mat = dist_nodes_tri(edge, el);

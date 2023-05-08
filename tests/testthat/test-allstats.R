@@ -20,10 +20,8 @@ test_that("usage", {
   testthat::expect_true(is.na(all_stats$laplac_spectrum_g))
 
   testthat::expect_true(is.na(all_stats$mntd))
-  testthat::expect_true(is.na(all_stats$mpd))
   testthat::expect_true(is.na(all_stats$psv))
   testthat::expect_true(is.na(all_stats$vpd))
-  testthat::expect_true(is.na(all_stats$j_stat))
   testthat::expect_true(is.na(all_stats$tot_coph))
   testthat::expect_true(is.na(all_stats$area_per_pair))
 })
