@@ -40,6 +40,15 @@ double calc_colless_cpp(const std::vector<int>& parent_list,
 }
 
 // [[Rcpp::export]]
+double calc_colless_test_cpp(const std::vector<int>& parent_list,
+                        std::string normalization) {
+  colless_tree_test::phylo_tree colless_tree(parent_list);
+  double output = static_cast<double>(colless_tree.calc_colless());
+
+  return output;
+}
+
+// [[Rcpp::export]]
 double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                 std::string normalization) {
   auto l_in_cpp = convert_to_ltable(l_from_R);

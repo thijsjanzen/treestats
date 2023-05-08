@@ -166,7 +166,7 @@ double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   // to the parent root * 2.
   double mntd = 0.0;
   for (const auto& i : edge) {
-    if (i[1] < root_no) { // we now have a tip
+    if (i[1] < root_no) {  // we now have a tip
       mntd += node_heights[i[0]] * 2;
     }
   }

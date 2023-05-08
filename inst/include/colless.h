@@ -475,3 +475,66 @@ class phylo_tree {
 };
 
 }  // namespace colless_tree
+
+
+namespace colless_tree_test {
+
+struct node {
+  node* daughter1 = nullptr;
+  node* daughter2 = nullptr;
+  size_t L = 0;
+  size_t R = 0;
+
+  node() {
+    L = R = 0;
+  }
+
+  void update_faster() {
+    if (daughter1 && !daughter2) {
+      L = daughter1->L + daughter1->R;
+    } else if (daughter1 && daughter2) {
+      L = daughter1->L + daughter1->R;
+      R = daughter2->L + daughter2->R;
+    }
+  }
+};
+
+
+class phylo_tree {
+public:
+  explicit phylo_tree(const std::vector< int >& tree_edge) {
+    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
+
+    tree.resize(tree_edge.size() / 2 - root_no + 2);
+
+    for (size_t i = 0; i < tree_edge.size(); i += 2) {
+      int index    = static_cast<int>(tree_edge[i]) - root_no;
+      int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
+
+      if (d1_index < 0) {
+        tree[index].R == 0 ? tree[index].R = 1 : tree[index].L = 1;
+      } else {
+        !tree[index].daughter1 ?
+        tree[index].daughter1 = &tree[d1_index] :
+        tree[index].daughter2 = &tree[d1_index];
+      }
+    }
+  }
+
+  int calc_colless() {
+    int s = 0;
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).update_faster();
+      int l = (*i).L;
+      int r = (*i).R;
+      l - r < 0 ? s -= l - r : s+= l - r;
+    }
+
+    return s;
+  }
+private:
+  std::vector< node > tree;
+};
+
+} // namespace colless_tree_test
+
