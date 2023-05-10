@@ -176,7 +176,7 @@ public:
   }
 
   int size() {
-    return tree.size();
+    return tree.size(); //(tree.size() + 2) * 0.5;
   }
 };
 
