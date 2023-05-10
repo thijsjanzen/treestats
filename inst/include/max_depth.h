@@ -1,5 +1,19 @@
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+
 #pragma once
-#include "phylotree.h"
+#include <algorithm>
+#include <vector>
+#include "phylotree.h"   // NOLINT [build/include_subdir]
 
 namespace max_depth {
 class max_depth_tree {
@@ -25,7 +39,7 @@ class max_depth_tree {
 
   phylo_tree_t<node_t> tree;
 
-public:
+ public:
   explicit max_depth_tree(const std::vector< int >& tree_edge)
     : tree(make_phylo_tree<node_t>(tree_edge)) {
   }

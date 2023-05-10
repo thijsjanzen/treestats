@@ -16,8 +16,8 @@
 #include <array>
 #include <string>
 
-#include "binom.h" // NOLINT [build/include_subdir]
-#include "phylotree.h"
+#include "binom.h"        // NOLINT [build/include_subdir]
+#include "phylotree.h"   // NOLINT [build/include_subdir]
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -61,8 +61,7 @@ double calc_sackin(const ltable& ltable_,
 }
 
 namespace sackin {
- class sackin_tree
- {
+class sackin_tree {
   struct node_t {
     node_t* daughter1 = nullptr;
     node_t* daughter2 = nullptr;
@@ -76,16 +75,16 @@ namespace sackin {
           num_extant_tips = 1 + daughter1->num_extant_tips;
         } else {
           num_extant_tips = daughter1->num_extant_tips +
-                            daughter2->num_extant_tips;
+            daughter2->num_extant_tips;
         }
       }
-     return num_extant_tips;
+      return num_extant_tips;
     }
   };
 
   phylo_tree_t<node_t> tree;
 
-public:
+ public:
   explicit sackin_tree(const std::vector< int >& tree_edge)
     : tree(make_phylo_tree<node_t>(tree_edge)) {
   }
@@ -143,23 +142,23 @@ public:
 }  // end namespace sackin
 
 namespace correction {
-  double correct_pda(size_t n,
-                     double Is) {
-    double denom = powf(n, 1.5f);
-    return 1.0 * Is / denom;
-  }
+double correct_pda(size_t n,
+                   double Is) {
+  double denom = powf(n, 1.5f);
+  return 1.0 * Is / denom;
+}
 
-  double correct_yule(size_t n,
-                      double Is) {
-    double sum_count = 0.0;
-    for (size_t j = 2; j <= n; ++j) {
-      sum_count += 1.0 / j;
-    }
-    return 1.0 * (Is - 2.0 * n * sum_count) / n;
+double correct_yule(size_t n,
+                    double Is) {
+  double sum_count = 0.0;
+  for (size_t j = 2; j <= n; ++j) {
+    sum_count += 1.0 / j;
   }
+  return 1.0 * (Is - 2.0 * n * sum_count) / n;
+}
 
-  double correct_blum(size_t n,
-                      double Is) {
-    return Is * 1.0 / n;             
-  }
+double correct_blum(size_t n,
+                    double Is) {
+  return Is * 1.0 / n;
+}
 }   // end namespace correction

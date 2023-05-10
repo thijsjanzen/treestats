@@ -17,8 +17,8 @@
 #include <utility>  // swap
 #include <algorithm>  // std::min_element
 
-#include "binom.h"  // NOLINT [build/include_subdir]
-#include "phylotree.h"
+#include "binom.h"       // NOLINT [build/include_subdir]
+#include "phylotree.h"   // NOLINT [build/include_subdir]
 
 double calc_colless(int L, int R) {
   return(std::abs(L - R));
@@ -87,12 +87,9 @@ double calc_pitchforks(int L, int R) {
   return 0.0;
 }
 
-
-
 namespace colless_tree {
 
-class colless_tree
-{
+class colless_tree {
   struct node_t {
     node_t* daughter1 = nullptr;
     node_t* daughter2 = nullptr;
@@ -113,7 +110,7 @@ class colless_tree
 
   phylo_tree_t<node_t> tree;
 
-public:
+ public:
   explicit colless_tree(const std::vector< int >& tree_edge)
     : tree(make_phylo_tree<node_t>(tree_edge)) {
   }
@@ -151,18 +148,16 @@ public:
   }
 
   int size() {
-    return tree.size(); //(tree.size() + 2) * 0.5;
+    return tree.size();
   }
 };
 
-}  // end namespace colless_tree
-
-
+}    // end namespace colless_tree
 
 using ltable = std::vector< std::array<double, 4>>;
 
 class colless_stat_ltable {
-public:
+ public:
   explicit colless_stat_ltable(const ltable& l_in) : ltable_(l_in) {
     extant_tips = std::vector<int>(l_in.size(), 1);
     num_tips = get_num_tips();
@@ -288,9 +283,9 @@ public:
   size_t size() {
     return num_tips;
   }
-  
 
-private:
+
+ private:
   size_t get_min_index() {
     auto min_val = std::min_element(ltable_.begin(), ltable_.end(),
                                     [&](const auto& a, const auto& b) {
@@ -353,4 +348,4 @@ double correct_pda(double Ic, size_t num_tips) {
     auto expected = 3.0 / 5.0 * binom_coeff(num_tips, 4);
     return stat * 1.0 / expected;
   }
-}
+}   // namespace correction

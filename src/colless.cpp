@@ -132,7 +132,7 @@ double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 double stairs2_cpp(const std::vector<int>& tree_edge) {
   colless_tree::colless_tree focal_tree(tree_edge);
   double s = focal_tree.calc_stat(&calc_stairs2);
-  return s * 1.0 / focal_tree.size(); 
+  return s * 1.0 / focal_tree.size();
 }
 
 // [[Rcpp::export]]

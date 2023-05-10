@@ -13,11 +13,11 @@
 
 #include <algorithm>   // std::sort
 #include <vector>
-#include "phylotree.h"
+#include "phylotree.h"  // NOLINT [build/include_subdir]
 
 namespace width {
-  class width_tree {
 
+class width_tree {
   struct node_t {
     node_t* daughter1 = nullptr;
     node_t* daughter2 = nullptr;
@@ -49,14 +49,14 @@ namespace width {
   phylo_tree_t<node_t> tree;
   int root_no;
 
-public:
+ public:
   explicit width_tree(const std::vector< int >& tree_edge)
     : tree(make_phylo_tree<node_t>(tree_edge, true)) {
-      root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
-      tree[root_no].set_depth(-1);
+    root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
+    tree[root_no].set_depth(-1);
   }
 
- int calc_max_width() {
+  int calc_max_width() {
     std::vector<int> depths(tree.size(), 0);
     for (auto i = tree.begin() + 1; i < tree.end(); ++i) {
       depths[ (*i).depth ]++;
@@ -64,7 +64,7 @@ public:
     return *std::max_element(depths.begin(), depths.end());
   }
 
-int calc_max_del_width() {
+  int calc_max_del_width() {
     std::vector<int> depths(tree.size(), 0);
     for (auto i = tree.begin() + 1; i < tree.end(); ++i) {
       depths[ (*i).depth ]++;
@@ -97,7 +97,7 @@ int calc_max_del_width() {
     double var_depth = 0.0;
     for (size_t i = 1; i < root_no; ++i) {
       var_depth += (tree[i].depth - average_depth) *
-                   (tree[i].depth - average_depth);
+        (tree[i].depth - average_depth);
     }
     var_depth *= 1.0 / (n - 1);
     return var_depth;

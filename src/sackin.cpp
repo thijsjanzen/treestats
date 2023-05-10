@@ -67,7 +67,6 @@ double calc_blum_cpp(const std::vector<int>& tree_edge,
                      bool normalize) {
   sackin::sackin_tree sackin_tree(tree_edge);
   double output = sackin_tree.calc_blum();
-  
   if (normalize)  {
     size_t n  = tree_edge.size() / 4 + 1;
     output = correction::correct_blum(n, output);

@@ -1,3 +1,14 @@
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
 #pragma once
 #include <vector>
 
@@ -12,7 +23,8 @@ auto make_phylo_tree(const std::vector<int>& tree_edge,
   // this holds always:
   int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
   int tree_size = tree_edge.size() / 2 - root_no + 2;
-  if (full_tree) tree_size = 1 + *std::max_element(tree_edge.begin(), tree_edge.end());
+  if (full_tree) tree_size = 1 + *std::max_element(tree_edge.begin(),
+                                                   tree_edge.end());
   auto tree = phylo_tree_t<NODE>(tree_size);
 
   for (size_t i = 0; i < tree_edge.size(); i += 2) {
@@ -28,7 +40,7 @@ auto make_phylo_tree(const std::vector<int>& tree_edge,
       !tree[index].daughter1 ?
        tree[index].daughter1 = &tree[d1_index] :
        tree[index].daughter2 = &tree[d1_index];
-    } 
+    }
   }
   return tree;
 }
