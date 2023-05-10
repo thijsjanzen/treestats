@@ -24,12 +24,6 @@ area_per_pair <- function(phy, normalization = "none") {
     stop("input object has to be phylo or ltable")
   }
 
-  m <- n - 1
-  if (n + m > 46340) { # sqrt(2^31 - 1) #nolint
-    warning("tree too big")
-    return(NA)
-  }
-
   result <- 2 / n * treestats::sackin(phy) -
             4 / (n * (n - 1)) * treestats::tot_coph(phy)
 

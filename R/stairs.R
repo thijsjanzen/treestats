@@ -19,28 +19,6 @@ stairs <- function(input_obj) {
   stop("input object has to be phylo or ltable")
 }
 
-
-#' Calculates the staircase-ness measure, from the phyloTop package. The
-#' staircase-ness reflects the number of subtrees that are imbalanced, e.g.
-#' subtrees where the left child has more extant tips than the right child, or
-#' vice versa.
-#' @param input_obj phylo object or ltable
-#' @return number of stairs
-#' @references Norström, Melissa M., et al. "Phylotempo: a set of r scripts for
-#' assessing and visualizing temporal clustering in genealogies inferred from
-#' serially sampled viral sequences." Evolutionary Bioinformatics 8 (2012):
-#' EBO-S9738.
-#' @export
-stairs_test <- function(input_obj) {
-  if (inherits(input_obj, "matrix")) {
-    return(stairs_ltable_cpp(input_obj))
-  }
-  if (inherits(input_obj, "phylo")) {
-    return(stairs_test_cpp(as.vector(t(input_obj$edge))))
-  }
-  stop("input object has to be phylo or ltable")
-}
-
 #' Calculates the stairs2 measure, from the phyloTop package. The
 #' stairs2 reflects the imbalance at each node, where it represents the average
 #' across measure at each node, the measure being min(l, r) / max(l, r), where
