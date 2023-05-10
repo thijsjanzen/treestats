@@ -88,31 +88,6 @@ double calc_pitchforks(int L, int R) {
 }
 
 
-// correction functions:
-namespace correction {
-double correct_pda(double Ic, size_t num_tips) {
-    double denom = powf(num_tips, 1.5f);
-    return 1.0 * Ic / denom;
-  }
-
-  double correct_yule(double Ic, size_t num_tips) {
-    static const double g = 0.577215664901532;
-    auto output = (Ic -
-                   num_tips * log(num_tips) -
-                   num_tips * (g - 1 - log(2))) / num_tips;
-    return output;
-  }
-
-  double correct_rquartet_yule(double stat, size_t num_tips) {
-    auto expected = binom_coeff(num_tips, 4);
-    return stat * 1.0 / expected;
-  }
-
-  double correct_rquartet_pda(double stat, size_t num_tips) {
-    auto expected = 3.0 / 5.0 * binom_coeff(num_tips, 4);
-    return stat * 1.0 / expected;
-  }
-}
 
 namespace colless_tree {
 
@@ -181,6 +156,8 @@ public:
 };
 
 }  // end namespace colless_tree
+
+
 
 using ltable = std::vector< std::array<double, 4>>;
 
@@ -351,3 +328,29 @@ private:
   size_t num_tips;
 };
 
+
+// correction functions:
+namespace correction {
+double correct_pda(double Ic, size_t num_tips) {
+    double denom = powf(num_tips, 1.5f);
+    return 1.0 * Ic / denom;
+  }
+
+  double correct_yule(double Ic, size_t num_tips) {
+    static const double g = 0.577215664901532;
+    auto output = (Ic -
+                   num_tips * log(num_tips) -
+                   num_tips * (g - 1 - log(2))) / num_tips;
+    return output;
+  }
+
+  double correct_rquartet_yule(double stat, size_t num_tips) {
+    auto expected = binom_coeff(num_tips, 4);
+    return stat * 1.0 / expected;
+  }
+
+  double correct_rquartet_pda(double stat, size_t num_tips) {
+    auto expected = 3.0 / 5.0 * binom_coeff(num_tips, 4);
+    return stat * 1.0 / expected;
+  }
+}

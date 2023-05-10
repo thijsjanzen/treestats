@@ -1,12 +1,12 @@
 #' Fast function using C++ to calculate the B1 metric
-#' @description Balance metric that uses the Shannon-Wiener statistic of
-#' information content. The b2 measure is given by the sum over the depths of
-#' all tips, divided by 2^depth: sum Ni / 2^Ni
+#' @description Balance metric (in the case of a binary tree), which measures
+#' the sum across all internal nodes of one over the maximum depth of all
+#' attached tips to that node.
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "tips", in which case the resulting
 #' statistic is divided by the number of tips in the tree, as a crude way of
 #' normalization.
-#' @return Maximum depth (in number of edges)
+#' @return B1 statistic
 #' @references  K.-T. Shao and R. R. Sokal. Tree Balance.
 #' Systematic Zoology, 39(3):266, 1990. doi: 10.2307/2992186.
 #' @export
