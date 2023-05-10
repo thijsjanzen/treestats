@@ -52,4 +52,4 @@ class b1_tree {
   }
 };
 
-} // namespace b1_tree
+}   // namespace b1_tree
