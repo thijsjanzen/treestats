@@ -251,18 +251,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_colless_test_cpp
-double calc_colless_test_cpp(const std::vector<int>& parent_list, std::string normalization);
-RcppExport SEXP _treestats_calc_colless_test_cpp(SEXP parent_listSEXP, SEXP normalizationSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
-    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_colless_test_cpp(parent_list, normalization));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_colless_ltable_cpp
 double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R, std::string normalization);
 RcppExport SEXP _treestats_calc_colless_ltable_cpp(SEXP l_from_RSEXP, SEXP normalizationSEXP) {
@@ -887,7 +875,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_diameter_cpp", (DL_FUNC) &_treestats_calc_diameter_cpp, 2},
     {"_treestats_calc_diameter_ltable_cpp", (DL_FUNC) &_treestats_calc_diameter_ltable_cpp, 2},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
-    {"_treestats_calc_colless_test_cpp", (DL_FUNC) &_treestats_calc_colless_test_cpp, 2},
     {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
     {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 1},
     {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 1},

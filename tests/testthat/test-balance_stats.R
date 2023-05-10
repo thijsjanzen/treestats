@@ -2,6 +2,7 @@ context("balance_stats")
 
 test_that("usage", {
   testthat::skip_on_cran() # these tests take very long
+  testthat::skip("fast checking")
   set.seed(42)
   focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 

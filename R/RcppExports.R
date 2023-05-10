@@ -85,10 +85,6 @@ calc_colless_cpp <- function(parent_list, normalization) {
     .Call('_treestats_calc_colless_cpp', PACKAGE = 'treestats', parent_list, normalization)
 }
 
-calc_colless_test_cpp <- function(parent_list, normalization) {
-    .Call('_treestats_calc_colless_test_cpp', PACKAGE = 'treestats', parent_list, normalization)
-}
-
 calc_colless_ltable_cpp <- function(l_from_R, normalization) {
     .Call('_treestats_calc_colless_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
 }
