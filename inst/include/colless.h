@@ -112,7 +112,7 @@ class colless_tree {
 
  public:
   explicit colless_tree(const std::vector< int >& tree_edge)
-    : tree(make_phylo_tree<node_t>(tree_edge)) {
+    : tree(make_phylo_tree<node_t, false>(tree_edge)) {
   }
 
   double calc_stat(double (*calculation)(int, int)) {

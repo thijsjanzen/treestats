@@ -51,7 +51,7 @@ class width_tree {
 
  public:
   explicit width_tree(const std::vector< int >& tree_edge)
-    : tree(make_phylo_tree<node_t>(tree_edge, true)) {
+    : tree(make_phylo_tree<node_t, true>(tree_edge)) {
     root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     tree[root_no].set_depth(-1);
   }

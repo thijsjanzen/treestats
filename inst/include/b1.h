@@ -39,7 +39,7 @@ class b1_tree {
 
  public:
   explicit b1_tree(const std::vector< int >& tree_edge)
-    : tree(make_phylo_tree<node_t>(tree_edge)) {
+    : tree(make_phylo_tree<node_t, false>(tree_edge)) {
   }
 
   double calc_b1() {
