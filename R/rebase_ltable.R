@@ -4,6 +4,7 @@
 #' @return modified ltable
 #' @export
 rebase_ltable <- function(ltable) {
+  if (length(ltable[, 1]) == 2) return(ltable)
   while (TRUE) {
     res <- swap_deepest(ltable)
     ltable <- res$ltab
