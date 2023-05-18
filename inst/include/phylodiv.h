@@ -1,12 +1,22 @@
-#ifndef phylo_div_h
-#define phylo_div_h
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 
-#include "util.h"
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
+
+
+#include <algorithm>
 #include <vector>
-
+#include "util.h"   // NOLINT [build/include_subdir]
 
 struct branch {
-
   branch(double bd, int pl, int lab, double ext, double branch_length) :
   start_date(bd),
   parent_label(pl),
@@ -22,22 +32,22 @@ struct branch {
   double bl;
 };
 
-void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
-                              std::vector<double>& edge_length) {
+void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
+                              std::vector<double>* edge_length) {
   struct entry {
     std::array<size_t, 2> ed;
     double bl;
   };
 
-  if (edge.size() != edge_length.size()) {
+  if ((*edge).size() != (*edge_length).size()) {
     throw std::runtime_error("size mismatch");
   }
 
-  std::vector<entry> everything(edge.size());
-  for (size_t i = 0; i < edge.size(); ++i) {
-    everything[i].bl = edge_length[i];
-    everything[i].ed = edge[i];
- }
+  std::vector<entry> everything((*edge).size());
+  for (size_t i = 0; i < (*edge).size(); ++i) {
+    everything[i].bl = (*edge_length)[i];
+    everything[i].ed = (*edge)[i];
+  }
 
   std::sort(everything.begin(), everything.end(),
             [&](auto a, auto b)
@@ -45,28 +55,26 @@ void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>& edge,
 
   // now place back
   for (size_t i = 0; i < everything.size(); ++i) {
-    edge[i] = everything[i].ed;
-    edge_length[i] = everything[i].bl;
+    (*edge)[i] = everything[i].ed;
+    (*edge_length)[i] = everything[i].bl;
   }
+  return;
 }
 
 struct phylo {
-
   std::vector< std::array<size_t, 2>> edge;
   std::vector< double > edge_length;
 
   phylo(const std::vector< std::array<size_t, 2>> e,
         const std::vector<double> el) : edge(e), edge_length(el) {
-
     // sort the tree!
-    sort_edge_and_edgelength(edge, edge_length);
+    sort_edge_and_edgelength(&edge, &edge_length);
   }
 };
 
 
 double get_start_date(const std::vector<branch>& branchset,
                      int parent_label) {
-
   for (const auto& i : branchset) {
     if (i.label == parent_label) {
       return(i.end_date);
@@ -88,7 +96,6 @@ bool has_no_daughters(const std::vector<branch>& bs,
 
 std::vector< branch > remove_from_branchset(std::vector<branch> bs,
                                             size_t label) {
-
   size_t index = 0;
   for (; index < bs.size(); ++index) {
     if (bs[index].label == label)
@@ -109,12 +116,10 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
   return bs;
 }
 
-
 std::vector< branch > create_branch_set(const phylo& phy,
                                         double max_t,
                                         double crown_age,
                                         double extinct_acc) {
-
   std::vector< branch > branchset;
   size_t crown = phy.edge[0][0];
 
@@ -138,7 +143,7 @@ std::vector< branch > create_branch_set(const phylo& phy,
       end_date = max_t;
       bl = end_date - start_date;
     }
-    if (own_label < crown ) {
+    if (own_label < crown) {
       if (end_date < crown_age && end_date < max_t) {
         tip_times.push_back({static_cast<double>(own_label), end_date});
       }
@@ -184,6 +189,3 @@ double calculate_phy_div_ltable(const ltable& ltab) {
   }
   return s;
 }
-
-
-#endif

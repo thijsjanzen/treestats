@@ -1,11 +1,21 @@
-#ifndef AVGLADDER_H
-#define AVGLADDER_H
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <array>
 
 
-double calc_ladder(const std::vector< long >& tree_edge,
+double calc_ladder(const std::vector< int >& tree_edge,
                    bool return_max) {
   struct node_entry {
     std::array< int, 2> daughters;
@@ -17,13 +27,13 @@ double calc_ladder(const std::vector< long >& tree_edge,
     }
   };
 
-  long max_node_val = *std::max_element(tree_edge.begin(), tree_edge.end());
+  int max_node_val = *std::max_element(tree_edge.begin(), tree_edge.end());
   int root_no = 2 + 0.25 * tree_edge.size();
 
   std::vector< node_entry > edge_mat(max_node_val + 1 - root_no);
   std::vector< int > tips(edge_mat.size(), 0);
 
-  for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
+  for (size_t i = 0; i < tree_edge.size(); i += 2) {
     int node_lab = tree_edge[i] - root_no;
 
     int other_lab = tree_edge[i + 1] - root_no;
@@ -47,7 +57,6 @@ double calc_ladder(const std::vector< long >& tree_edge,
   int count_val = 0;
 
   for (size_t i = 0; i < edge_mat.size(); ++i) {
-
     auto daughter1 = edge_mat[i].daughters[0];
     auto daughter2 = edge_mat[i].daughters[1];
 
@@ -84,8 +93,5 @@ double calc_ladder(const std::vector< long >& tree_edge,
 
   if (count_val > 0 && return_max == false) store_val *= 1.0 / count_val;
 
-  return store_val; // * 1.0 / count_val;
+  return store_val;  // * 1.0 / count_val;
 }
-
-
-#endif

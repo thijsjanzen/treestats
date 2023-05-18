@@ -1,28 +1,40 @@
-// SACKIN BASED
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+//
+//
+// SACKIN BASED Summary statistics
 
 #include <vector>
 #include <array>
 #include <Rcpp.h>
 
-#include "util.h"
-#include "sackin.h"
-#include "ltable.h"
-#include "cherries.h"
+#include "util.h"     // NOLINT [build/include_subdir]
+#include "sackin.h"   // NOLINT [build/include_subdir]
+#include "ltable.h"   // NOLINT [build/include_subdir]
+#include "cherries.h" // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
-double calc_sackin_cpp(const std::vector<long>& tree_edge,
+double calc_sackin_cpp(const std::vector<int>& tree_edge,
                        const Rcpp::String& normalization) {
-
-  phylo_tree sackin_tree(tree_edge);
+  sackin::sackin_tree sackin_tree(tree_edge);
   double output = static_cast<double>(sackin_tree.calc_sackin());
 
   if (normalization == "yule") {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = sackin_tree.correct_yule(n, output);
+    output = correction::correct_yule(n, output);
   }
   if (normalization == "pda") {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = sackin_tree.correct_pda(n, output);
+    output = correction::correct_pda(n, output);
   }
 
   return output;
@@ -38,8 +50,8 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 
 
 // [[Rcpp::export]]
-double calc_tot_coph_cpp(const std::vector<long>& tree_edge) {
-  phylo_tree sackin_tree(tree_edge);
+double calc_tot_coph_cpp(const std::vector<int>& tree_edge) {
+  sackin::sackin_tree sackin_tree(tree_edge);
   return sackin_tree.calc_tot_coph();
 }
 
@@ -51,11 +63,15 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 }
 
 // [[Rcpp::export]]
-double calc_blum_cpp(const std::vector<long>& tree_edge,
+double calc_blum_cpp(const std::vector<int>& tree_edge,
                      bool normalize) {
-  phylo_tree sackin_tree(tree_edge);
-  size_t n  = tree_edge.size() / 4 + 1;
-  return sackin_tree.calc_blum(normalize, n);
+  sackin::sackin_tree sackin_tree(tree_edge);
+  double output = sackin_tree.calc_blum();
+  if (normalize)  {
+    size_t n  = tree_edge.size() / 4 + 1;
+    output = correction::correct_blum(n, output);
+  }
+  return output;
 }
 // [[Rcpp::export]]
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
@@ -67,8 +83,8 @@ double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
 
 
 // [[Rcpp::export]]
-size_t cherries_cpp(const std::vector<long>& tree_edge) {
-  phylo_tree sackin_tree(tree_edge);
+size_t cherries_cpp(const std::vector<int>& tree_edge) {
+  sackin::sackin_tree sackin_tree(tree_edge);
   return sackin_tree.count_cherries();
 }
 
@@ -79,9 +95,9 @@ size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 // [[Rcpp::export]]
-size_t pitchforks_cpp(const std::vector<long>& tree_edge) {
+size_t pitchforks_cpp(const std::vector<int>& tree_edge) {
   // ltable version uses colless
-  phylo_tree sackin_tree(tree_edge);
+  sackin::sackin_tree sackin_tree(tree_edge);
   return sackin_tree.count_pitchforks();
 }
 

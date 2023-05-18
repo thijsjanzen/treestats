@@ -16,7 +16,8 @@
 #' maximized in a fully imbalanced tree).
 #' @param init_tree starting tree to work with
 #' @param unbal_steps number of imbalance generating steps
-#' @param method choice of 'random', 'youngest' and 'terminal'
+#' @param group_method choice of "any" and "terminal"
+#' @param selection_method choice of "random", "youngest" and "oldest"
 #' @return phylo object
 #' @export
 #' @examples
@@ -32,42 +33,70 @@
 #' }
 make_unbalanced_tree <- function(init_tree,
                                  unbal_steps,
-                                 method = "random") {
-  ltab <- treestats::phylo_to_l(init_tree)
-
-  if (method == "youngest") {
-    ltab <- make_unbalanced_tree_youngest(ltab, unbal_steps)
+                                 group_method = "any",
+                                 selection_method = "random") {
+  if (!group_method %in% c("any", "terminal")) {
+    stop("group method unknown, pick from 'any' and 'terminal'")
+  }
+  if (!selection_method %in% c("youngest", "oldest", "random")) {
+    stop("selection method unknown, pick from 'youngest', 'oldest' or 'random")
   }
 
-  if (method == "oldest") {
-    ltab <- make_unbalanced_tree_oldest(ltab, unbal_steps)
+  ltab_in <- treestats::phylo_to_l(init_tree)
+  ltab_in <- rebase_ltable(ltab_in)
+  ltab_out <- NULL
+
+  if (group_method == "any") {
+    ltab_out <- make_any(ltab_in, unbal_steps, selection_method)
   }
 
-  if (method == "random") {
-    ltab <- make_unbalanced_tree_random(ltab, unbal_steps)
+  if (group_method == "terminal") {
+    ltab_out <- make_terminal(ltab_in, unbal_steps, selection_method)
   }
 
-  if (method == "terminal-random") {
-    ltab <- make_unbalanced_tree_terminal(ltab, unbal_steps)
+  if (is.null(ltab_out)) {
+    stop("error imbalancing tree")
   }
 
-  if (method == "terminal-youngest") {
-    ltab <- make_unbalanced_tree_terminal_youngest(ltab, unbal_steps)
+  phy_out <- treestats::l_to_phylo(ltab_out)
+  return(phy_out)
+}
+
+#' @keywords internal
+make_any <- function(ltab_in, unbal_steps, selection_method) {
+  ltab_out <- c()
+  if (selection_method == "youngest") {
+    ltab_out <- make_unbalanced_tree_youngest(ltab_in, unbal_steps)
+  } else if (selection_method == "oldest") {
+    ltab_out <- make_unbalanced_tree_oldest(ltab_in, unbal_steps)
+  } else if (selection_method == "random") {
+    ltab_out <- make_unbalanced_tree_random(ltab_in, unbal_steps)
   }
 
-  if (method == "terminal-oldest") {
-    ltab <- make_unbalanced_tree_terminal_oldest(ltab, unbal_steps)
-  }
+  return(ltab_out)
+}
 
-  output_phy <- treestats::l_to_phylo(ltab)
-  return(output_phy)
+#' @keywords internal
+make_terminal <- function(ltab_in, unbal_steps, selection_method) {
+  ltab_out <- NULL
+  if (selection_method == "random") {
+    ltab_out <- make_unbalanced_tree_terminal(ltab_in, unbal_steps)
+  } else if (selection_method == "youngest") {
+    ltab_out <- make_unbalanced_tree_terminal_youngest(ltab_in, unbal_steps)
+  } else if (selection_method == "oldest") {
+    ltab_out <- make_unbalanced_tree_terminal_oldest(ltab_in, unbal_steps)
+  }
+  return(ltab_out)
 }
 
 
+#' @keywords internal
 get_attractor <- function(ltab) {
   attractor <- 2
-  num_two   <- length(which(ltab[, 3] > 0))
-  num_one   <- length(which(ltab[, 3] < 0))
+  # determine attractor based on number of direct daughters,
+  # more daughters = less required movements.
+  num_one   <- length(which(ltab[, 2] == -1))
+  num_two   <- length(which(ltab[, 2] == 2))
 
   if (num_one > num_two) {
     attractor <- -1
@@ -125,22 +154,23 @@ make_unbalanced_tree_oldest <- function(ltab,
 #' @keywords internal
 make_unbalanced_tree_random <- function(ltab,
                                         unbal_steps) {
-
   attractor <- get_attractor(ltab)
 
   to_sample_from <- which(ltab[, 2] != attractor &
                           ltab[, 3] != -1 &
                           ltab[, 3] != 2)
-  steps_taken <- 0
-  while (steps_taken < unbal_steps) {
-    focal_step <- sample(to_sample_from, 1)
-    if (length(to_sample_from) == 1) focal_step <- to_sample_from
-    ltab[focal_step, 2] <- attractor
-    to_sample_from <- which(ltab[, 2] != attractor &
-                            ltab[, 3] != -1 &
-                            ltab[, 3] != 2)
-    if (length(to_sample_from) < 1) break
-    steps_taken <- steps_taken + 1
+
+  if (length(to_sample_from) >= 1) {
+    for (steps_taken in 1:unbal_steps) {
+      focal_step <- DDD::sample2(to_sample_from, 1)
+      if (length(to_sample_from) == 1) focal_step <- to_sample_from
+      ltab[focal_step, 2] <- attractor
+      to_sample_from <- which(ltab[, 2] != attractor &
+                              ltab[, 3] != -1 &
+                              ltab[, 3] != 2)
+
+      if (length(to_sample_from) < 1) break
+    }
   }
   return(ltab)
 }
@@ -166,7 +196,7 @@ make_unbalanced_tree_terminal <- function(ltab,
       break
     }
 
-    focal_spec <- sample(to_sample, 1)
+    focal_spec <- DDD::sample2(to_sample, 1)
     if (length(to_sample) == 1) focal_spec <- to_sample
 
     parent_spec <- abs(ltab[focal_spec, 2])

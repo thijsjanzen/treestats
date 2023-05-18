@@ -1,5 +1,15 @@
-#ifndef mntd_h
-#define mntd_h
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <array>
@@ -8,7 +18,7 @@
 using ltable = std::vector< std::array<double, 4>>;
 
 struct lower_tri {
-  lower_tri(size_t n) : n_(n) {
+  explicit lower_tri(size_t n) : n_(n) {
     data_ = std::vector<double>((n_ * (n_ - 1)) * 0.5, 0.0);
   }
 
@@ -21,7 +31,7 @@ struct lower_tri {
   }
 
   void set_val(int i, int j, double val) {
-    if (i == j) return; // do nothing, these values don't exist.
+    if (i == j) return;   // do nothing, these values don't exist.
 
     auto local_index = get_linear_index(i, j);
 
@@ -56,7 +66,7 @@ lower_tri dist_nodes_tri(const std::vector< std::array< size_t, 2 >>& edge,
   int n = 1 + edge.size() / 2;
   int m = n - 1;
   auto nm = n + m;
-  static double max_s = 46340; // floor(sqrt(2^31 - 1))
+  static double max_s = 46340;   // floor(sqrt(2^31 - 1))
   if (nm > max_s) {
     throw std::runtime_error("tree too big");
   }
@@ -132,40 +142,41 @@ double calc_mntd_ltable(const ltable& ltable_) {
 
 double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                       const std::vector<double>& el) {
-  auto dist_mat = dist_nodes_tri(edge, el);
+  size_t root_no = edge[0][0];
 
-  int n = (el.size() + 2) * 0.5;
-
-  double mntd = 0.0;
-  for (size_t i = 0; i < n; ++i) {
-    double min_val = 1e6;
-    for (size_t j = 0; j < n; ++j) {
-      if (j != i) {
-        if (dist_mat.get_val(i, j) < min_val) min_val = dist_mat.get_val(i, j);
-      }
-    }
-    mntd += min_val;
+  size_t max_num = 0;
+  for (const auto& i : edge) {
+    if (i[0] > max_num) max_num = i[0];
   }
-  mntd *= 1.0 / n;
+
+  std::vector<double> node_heights(max_num + 1, 0);
+  for (size_t i = 0; i < edge.size(); ++i) {
+    node_heights[edge[i][1]] = node_heights[edge[i][0]] + el[i];
+  }
+
+  // first N entries are distance from root to tips.
+  double crown_age = *std::max_element(node_heights.begin(),
+                                       node_heights.begin() + root_no);
+
+  for (auto& i : node_heights) {
+    i = crown_age - i;
+  }
+
+  // and now we calculate mntd, this is always the distance
+  // to the parent root * 2.
+  double mntd = 0.0;
+  for (const auto& i : edge) {
+    if (i[1] < root_no) {  // we now have a tip
+      mntd += node_heights[i[0]] * 2;
+    }
+  }
+
+  mntd *= 1.0 / (root_no - 1);
   return(mntd);
-}
-
-
-double calc_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
-                         const std::vector<double>& el) {
-  auto dist_mat = dist_nodes_tri(edge, el);
-  //int n = (el.size() + 2) * 0.5;
-  //int max_pos = n * (n - 1) * 0.5;
-  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
-  double mpd = std::accumulate(dist_mat.data_.begin(),
-                               dist_mat.data_.begin() + max_pos, 0.0);
-  mpd *= 1.0 / max_pos;
-  return mpd;
 }
 
 double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
                      const std::vector<double>& el) {
-
   auto dist_mat = dist_nodes_tri(edge, el);
   int n = (el.size() + 2) * 0.5;
   int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
@@ -173,8 +184,8 @@ double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
                               dist_mat.data_.begin() + max_pos, 0.0);
 
   psv *= 1.0 / (n * (n - 1));
-  psv *= 2.0; // post hoc correction to match picante::psv output, because we
-  // wrongly measure distance to most common ancestor per node.
+  psv *= 2.0;   // post hoc correction to match picante::psv output, because we
+                // wrongly measure distance to most common ancestor per node.
   return(psv);
 }
 
@@ -187,7 +198,9 @@ double calc_var_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   double s = 0.0;
   double s2 = 0.0;
 
-  for (auto it = dist_mat.data_.begin(); it != dist_mat.data_.begin() + max_pos; ++it) {
+  for (auto it = dist_mat.data_.begin();
+            it != dist_mat.data_.begin() + max_pos;
+            ++it) {
     s  += (*it);
     s2 += (*it) * (*it);
   }
@@ -196,5 +209,3 @@ double calc_var_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
 
   return (s2 - (s * s) * inv_max_pos) * inv_max_pos;
 }
-
-#endif

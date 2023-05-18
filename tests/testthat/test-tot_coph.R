@@ -14,7 +14,7 @@ test_that("usage", {
                            treestats::tot_coph(ltab))
 
     # with extinct species:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.9, fossils = TRUE)
 
     a1 <- treestats::tot_coph(focal_tree)
     a2 <- treebalance::totCophI(focal_tree)

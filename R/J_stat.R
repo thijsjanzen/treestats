@@ -15,13 +15,9 @@ entropy_j <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    n <- length(phy$tip.label)
-    m <- phy$Nnode
-    nm <- n + m
-    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
-      stop("tree too big")
-    }
-    return(calc_J_cpp(phy))
+
+    return(calc_J_cpp(as.vector(t(phy$edge)),
+                      phy$edge.length))
   }
   stop("input object has to be phylo or ltable")
 }

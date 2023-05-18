@@ -1,5 +1,15 @@
-#ifndef phylo_to_l_h
-#define phylo_to_l_h
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <Rcpp.h>
 #include <vector>
@@ -7,8 +17,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include <thread>
-#include <chrono>
+#include <utility>
 
 std::vector< double > branching_times_cpp(const Rcpp::List& phy);
 
@@ -23,29 +32,27 @@ size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
 
 bool parent_in_nodesindex(const std::vector< size_t >& nodesindex,
                           size_t parent) {
- return std::binary_search(nodesindex.begin(), nodesindex.end(), parent);
+  return std::binary_search(nodesindex.begin(), nodesindex.end(), parent);
 }
 
 
-void remove_from_L(std::vector< std::array<double, 6>>& L,
+void remove_from_L(std::vector< std::array<double, 6>>* L,
                    size_t j) {
-  std::swap(L[j], L.back());
-  L.pop_back();
+  std::swap((*L)[j], (*L).back());
+  (*L).pop_back();
 }
 
 
-std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodesindex,
-                                              std::vector< std::array<double, 6>> L) {
-
+std::vector< std::array<double, 6>> get_realL(
+    const std::vector< size_t >& nodesindex,
+    std::vector< std::array<double, 6>> L) {
   std::vector< std::array<double, 6>> realL;
 
-  while(true) {
+  while (true) {
     size_t j = get_min_index(L, 2);
     size_t daughter = L[j][2];
     size_t parent   = L[j][1];
     if (parent_in_nodesindex(nodesindex, parent)) {
-
-      // L[which(L[, 2] == parent), 2] = daughter
       for (auto& index : L) {
         if (index[1] == parent) {
           index[1] = daughter;
@@ -54,22 +61,22 @@ std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodes
 
       bool match_found = false;
       for (auto& i : L) {
-        if (i[2] == parent) { // can only have one parent.
+        if (i[2] == parent) {   // can only have one parent.
           i[5] = L[j][5];
           i[2] = daughter;
-          remove_from_L(L, j);
+          remove_from_L(&L, j);
           match_found = true;
           break;
         }
       }
       if (!match_found) {
         realL.push_back(L[j]);
-        remove_from_L(L, j);
+        remove_from_L(&L, j);
       }
 
     } else {
       realL.push_back(L[j]);
-      remove_from_L(L, j);
+      remove_from_L(&L, j);
     }
 
     if (L.empty()) {
@@ -79,7 +86,7 @@ std::vector< std::array<double, 6>> get_realL(const std::vector< size_t >& nodes
 
   std::sort(realL.begin(), realL.end(), [&](const std::array< double, 6>& v1,
                         const std::array< double, 6>& v2) {
-    return(v1[0] > v2[0]); // sort decreasing
+    return(v1[0] > v2[0]);   // sort decreasing
   });
 
   return realL;
@@ -118,12 +125,11 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   long double min_brt_preL = 1e10;
 
   for (size_t i = 0; i < edge.nrow(); ++i) {
-    auto index = edge(i, 0) - num_tips - 1; // -1 because 0 indexing
+    auto index = edge(i, 0) - num_tips - 1;   // -1 because 0 indexing
     brt_preL[i] = brts[index];
     if (brt_preL[i] < min_brt_preL) {
       min_brt_preL = brt_preL[i];
     }
-   // std::cerr << i << " " << brt_preL[i] << " " << index << "\n";
   }
 
   if (min_brt_preL == 0.0) {
@@ -151,19 +157,10 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
 
- /* for (auto i : pre_Ltable) {
-    for (auto j : i) {
-      std::cerr << j << " ";
-    }
-    std::cerr << "\n";
-  }*/
-
-
   std::vector<double> eeindicator(edge_length.size(), 0);
 
   std::vector< size_t > extant_species_index;
   for (size_t i = 0; i < pre_Ltable.size(); ++i) {
-
     if (pre_Ltable[i][4] <= 1e-6) {
       extant_species_index.push_back(pre_Ltable[i][2]);
 
@@ -202,9 +199,10 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][5] = eeindicator[i];
   }
 
-  std::sort(pre_Ltable.begin(), pre_Ltable.end(), [&](const std::array< double, 6>& v1,
-                             const std::array< double, 6>& v2) {
-    return(v1[0] > v2[0]); // sort decreasing
+  std::sort(pre_Ltable.begin(), pre_Ltable.end(),
+            [&](const std::array< double, 6>& v1,
+                const std::array< double, 6>& v2) {
+    return(v1[0] > v2[0]);   // sort decreasing
   });
 
 
@@ -217,7 +215,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   std::vector< std::array<double, 6>> realL = get_realL(nodesindex,
                                                         pre_Ltable);
 
-  std::vector< std::array< double, 4> > L( realL.size() );
+  std::vector< std::array< double, 4> > L(realL.size());
 
   for (size_t i = 0; i < realL.size(); ++i) {
     L[i][0] = realL[i][0];
@@ -254,8 +252,3 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
   return L;
 }
-
-
-
-
-#endif

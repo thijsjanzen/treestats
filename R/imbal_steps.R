@@ -3,8 +3,10 @@
 #' tree into a fully imbalanced (caterpillar) tree. Higher value indicates a
 #' more balanced tree.
 #' @param input_obj phylo object or ltable
-#' @param normalize if true, the number of steps taken is divided by the tree
-#' size
+#' @param normalize if true, the number of steps taken is normalized by tree
+#' size, by dividing by the maximum number of moves required to move from a
+#' fully balanced to a fully imbalanced tree, which is N - log2(N) - 1, where
+#' N is the number of extant tips.
 #' @return required number of moves
 #' @export
 imbalance_steps <- function(input_obj,
@@ -18,26 +20,18 @@ imbalance_steps <- function(input_obj,
     stop("input object has to be phylo or ltable")
   }
 
-  ltab <- input_obj
+  ltab <- rebase_ltable(input_obj)
 
-  parent1 <- length(which(ltab[, 2] == -1)) - 1
-  parent2 <- length(which(ltab[, 2] == 2))
+  attractor <- get_attractor(ltab)
 
-  target_parent <- -1
-  donor_parent <- 2
-  if (parent2 > parent1) {
-    target_parent <- 2
-    donor_parent <- -1
-  }
-
-  to_sample_from <- which(ltab[, 2] != target_parent &
-                            ltab[, 3] != -1 & # not the root
-                            ltab[, 3] != donor_parent)
+  to_sample_from <- which(ltab[, 2] != attractor &
+                          ltab[, 3] != -1 &
+                          ltab[, 3] != 2)
 
   steps_taken <- length(to_sample_from)
   if (normalize == TRUE) {
     tree_size <- length(ltab[, 1])
-    max_expected <- tree_size - log2(tree_size) - 1
+    max_expected <- tree_size - ceiling(log2(tree_size)) - 1
     steps_taken <- steps_taken / max_expected
   }
 

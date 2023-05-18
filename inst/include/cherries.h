@@ -1,5 +1,15 @@
-#ifndef CHERRIES_H
-#define CHERRIES_H
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <array>
@@ -27,12 +37,9 @@ size_t find_daughters(const ltable& ltab_in,
 size_t calc_cherries_ltable(const ltable& ltab_in) {
   size_t num_cherries = 0;
   for (const auto& i : ltab_in) {
- //   if (i[3] != -1) continue;  // non-extant species can not be a cherry
-
     auto parent = i[1];
 
     if (parent == 0) continue;
-  //  if (ltab_in[std::abs(parent)][3] != -1) continue;
     auto bt = i[0];
 
     size_t num_daughter_branches = find_daughters(ltab_in, parent, bt);
@@ -44,10 +51,3 @@ size_t calc_cherries_ltable(const ltable& ltab_in) {
   }
   return num_cherries;
 }
-
-
-
-#endif
-
-
-

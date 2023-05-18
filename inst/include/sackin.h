@@ -1,16 +1,28 @@
-#ifndef sackin_h
-#define sackin_h
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <algorithm>
 #include <array>
+#include <string>
 
-#include "binom.h"
+#include "binom.h"        // NOLINT [build/include_subdir]
+#include "phylotree.h"   // NOLINT [build/include_subdir]
 
 using ltable = std::vector< std::array<double, 4>>;
 
 double calc_sackin(const ltable& ltable_,
-                     std::string normalization) {
+                   std::string normalization) {
   std::vector< int > s_values(ltable_.size(), 0);
   s_values[0] = 1;
   s_values[1] = 1;
@@ -48,65 +60,47 @@ double calc_sackin(const ltable& ltable_,
   return s;
 }
 
+namespace sackin {
+class sackin_tree {
+  struct node_t {
+    node_t* daughter1 = nullptr;
+    node_t* daughter2 = nullptr;
+    size_t num_extant_tips = 0;
 
-
-
-struct node {
-  node* daughter1 = nullptr;
-  node* daughter2 = nullptr;
-  size_t num_extant_tips;
-
-  node() {
-    num_extant_tips = 0;
-  }
-
-  size_t get_acc_num_tips() {
-
-    if (!daughter1 && !daughter2) {
-      num_extant_tips = 2;
-    } else {
-      if (daughter1 && !daughter2) {
-        num_extant_tips = 1 + daughter1->get_acc_num_tips();
+    size_t get_acc_num_tips() {
+      if (!daughter1 && !daughter2) {
+        num_extant_tips = 2;
       } else {
-        num_extant_tips = daughter1->get_acc_num_tips() + daughter2->get_acc_num_tips();
+        if (daughter1 && !daughter2) {
+          num_extant_tips = 1 + daughter1->num_extant_tips;
+        } else {
+          num_extant_tips = daughter1->num_extant_tips +
+            daughter2->num_extant_tips;
+        }
       }
+      return num_extant_tips;
     }
-    return num_extant_tips;
-  }
-};
+  };
 
-class phylo_tree {
-public:
+  phylo_tree_t<node_t> tree;
 
-  phylo_tree(const std::vector< long >& tree_edge) {
-
-    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size()); // this holds always.
-    tree.resize(tree_edge.size() / 2);
-
-    for (size_t i = 0; i < tree_edge.size(); i += 2 ) {
-
-      int index    = static_cast<int>(tree_edge[i]) - root_no;
-      int d1_index = static_cast<int>(tree_edge[i + 1]) - root_no;
-
-      if (d1_index > 0) {
-        !tree[index].daughter1 ? tree[index].daughter1 = &tree[d1_index] : tree[index].daughter2 = &tree[d1_index];
-      }
-    }
+ public:
+  explicit sackin_tree(const std::vector< int >& tree_edge)
+    : tree(make_phylo_tree<node_t, false>(tree_edge)) {
   }
 
-  int calc_sackin() {
-    tree[0].get_acc_num_tips();
-    int s = 0;
-    for(const auto& i : tree) {
-      s += i.num_extant_tips;
+  double calc_sackin() {
+    double s = 0.0;
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      s += (*i).get_acc_num_tips();
     }
     return s;
   }
 
   double calc_tot_coph() {
-    tree[0].get_acc_num_tips();
     double tot_coph = 0.0;
-    for (size_t i = 1; i < tree.size(); ++i) {
+    for (size_t i = tree.size() - 1; i >=  1; --i) {
+      tree[i].get_acc_num_tips();
       if (tree[i].num_extant_tips > 0) {
         tot_coph += binom_coeff(tree[i].num_extant_tips, 2);
       }
@@ -115,10 +109,9 @@ public:
   }
 
   size_t count_pitchforks() {
-    tree[0].get_acc_num_tips();
     size_t num_pitchforks = 0;
-    for(const auto& i : tree) {
-      if (i.num_extant_tips == 3) {
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      if ((*i).get_acc_num_tips() == 3) {
         num_pitchforks++;
       }
     }
@@ -126,48 +119,46 @@ public:
   }
 
   size_t count_cherries() {
-    tree[0].get_acc_num_tips();
     size_t num_cherries = 0;
-    for(const auto& i : tree) {
-      if (i.num_extant_tips == 2) {
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      if ((*i).get_acc_num_tips() == 2) {
         num_cherries++;
       }
     }
     return num_cherries;
   }
 
-  double correct_pda(size_t n,
-                     double Is) {
-    double denom = powf(n, 1.5f);
-    return 1.0 * Is / denom;
-  }
-
-  double correct_yule(size_t n,
-                      double Is) {
-    double sum_count = 0.0;
-    for (size_t j = 2; j <= n; ++j) {
-      sum_count += 1.0 / j;
-    }
-    return 1.0 * (Is - 2.0 * n * sum_count) / n;
-  }
-
-  double calc_blum(bool normalize, size_t n) {
-    tree[0].get_acc_num_tips();
+  double calc_blum() {
     double s = 0;
-    for(const auto& i : tree) {
-      if (i.num_extant_tips > 1) {
-        s += log(1.0 * i.num_extant_tips - 1);
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      if ((*i).get_acc_num_tips() > 1) {
+        s += log(1.0 * (*i).num_extant_tips - 1);
       }
-    }
-    if (normalize) {
-      s *= 1.0 / n;
     }
     return s;
   }
-
-private:
-  std::vector< node > tree;
 };
 
+}  // end namespace sackin
 
-#endif
+namespace correction {
+double correct_pda(size_t n,
+                   double Is) {
+  double denom = powf(n, 1.5f);
+  return 1.0 * Is / denom;
+}
+
+double correct_yule(size_t n,
+                    double Is) {
+  double sum_count = 0.0;
+  for (size_t j = 2; j <= n; ++j) {
+    sum_count += 1.0 / j;
+  }
+  return 1.0 * (Is - 2.0 * n * sum_count) / n;
+}
+
+double correct_blum(size_t n,
+                    double Is) {
+  return Is * 1.0 / n;
+}
+}   // end namespace correction

@@ -1,5 +1,15 @@
-#ifndef DIST_NODES_H
-#define DIST_NODES_H
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <array>
@@ -10,15 +20,12 @@
 inline std::vector< std::vector< double >> dist_nodes(
     const std::vector< std::array< size_t, 2 >>& edge,
     const std::vector<double>& el) {
-  //Rcpp::NumericMatrix edge = phy["edge"];
-  //Rcpp::NumericVector el   = phy["edge.length"];
 
   int n = 1 + edge.size() / 2;
   int m = n - 1;
   auto nm = n + m;
-  static double max_s = 46340; // floor(sqrt(2^31 - 1))
+  static double max_s = 46340;   // floor(sqrt(2^31 - 1))
   if (nm > max_s) {
-     // std::cerr << n << " " << m << " " << nm << " " << max_s << "\n";
      throw std::runtime_error("tree too big");
   }
   // code below is from the Ape package
@@ -55,5 +62,3 @@ inline std::vector< std::vector< double >> dist_nodes(
   }
   return D;
 }
-
-#endif

@@ -1,26 +1,35 @@
-/// BRTS based statistics
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+//
+// /// BRTS based statistics
 
 #include <vector>
 #include <array>
 #include <Rcpp.h>
 
-#include "branching_times.h"
-#include "pigot_rho.h"
-#include "gamma.h"
-#include "nltt.h"
-#include "crown_age.h"
+#include "branching_times.h" // NOLINT [build/include_subdir]
+#include "pigot_rho.h"       // NOLINT [build/include_subdir]
+#include "gamma.h"           // NOLINT [build/include_subdir]
+#include "nltt.h"            // NOLINT [build/include_subdir]
+#include "crown_age.h"       // NOLINT [build/include_subdir]
 
-#include "util.h"
+#include "util.h"            // NOLINT [build/include_subdir]
 
 using edge_table = std::vector< std::array< size_t, 2 >>;
 
 // [[Rcpp::export]]
 std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
-
   std::vector< double > edge_length = phy["edge.length"];
   Rcpp::NumericMatrix edge = phy["edge"];
-
-
 
   size_t Nnode = phy["Nnode"];
 
@@ -35,13 +44,14 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
     if (row_entry[0] < n) n = row_entry[0];
   }
 
-  sort_edge_and_edgelength(edge_cpp, edge_length);
+  sort_edge_and_edgelength(&edge_cpp, &edge_length);
 
   return branching_times(edge_cpp, edge_length, Nnode, n - 1);
 }
 
 // [[Rcpp::export]]
-std::vector<double> branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
+std::vector<double>
+  branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
   std::vector<double> out(mat_in.nrow() - 1);
   for (size_t i = 1; i < mat_in.nrow(); ++i) {
     out[i - 1] = mat_in(i, 0);
@@ -71,7 +81,6 @@ double calc_rho_complete_cpp(const Rcpp::List& phy) {
 
 // [[Rcpp::export]]
 double calc_rho_cpp(const Rcpp::List& phy) {
-
   size_t num_nodes = static_cast<size_t>(phy["Nnode"]);
 
   if (num_nodes < 200) {
@@ -93,7 +102,6 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
                          double extinct_acc) {
   try {
-
     Rcpp::NumericMatrix edge = phy["edge"];
     Rcpp::NumericVector edge_length = phy["edge.length"];
 
@@ -105,14 +113,16 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
       edges[i] = to_add;
     }
 
-    double crown_age = calc_crown_age(edges, el); // ignore root edge
+    double crown_age = calc_crown_age(edges, el);  // ignore root edge
     phylo phylo_tree(edges, el);
 
     // function below calculates [0, T], max_t is in [T, 0]
     t = crown_age - t;
 
-    return calculate_phylogenetic_diversity(phylo_tree, t, crown_age, extinct_acc);
-
+    return calculate_phylogenetic_diversity(phylo_tree,
+                                            t,
+                                            crown_age,
+                                            extinct_acc);
   } catch(std::exception &ex) {
     forward_exception_to_r(ex);
   } catch(...) {
@@ -159,7 +169,6 @@ double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
 // [[Rcpp::export]]
 double calc_nltt_cpp(const Rcpp::List& phy1,
                      const Rcpp::List& phy2) {
-
   std::vector<double> brts_one = branching_times_cpp(phy1);
   std::vector<double> brts_two = branching_times_cpp(phy2);
   std::sort(brts_one.begin(), brts_one.end(), std::greater<double>());

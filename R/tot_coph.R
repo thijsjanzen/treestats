@@ -10,14 +10,7 @@
 #' doi: 10.1016/j.mbs.2012.10.005.
 #' @export
 tot_coph <- function(phy, normalization = "none") {
-
   if (inherits(phy, "matrix")) {
-    n <- length(phy[, 1])
-    m <- n - 1
-    nm <- n + m
-    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
-      stop("tree too big")
-    }
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)
     if (normalization == "yule") {
       n <- length(phy[, 1])
@@ -28,12 +21,6 @@ tot_coph <- function(phy, normalization = "none") {
     return(tot_coph_stat)
   }
   if (inherits(phy, "phylo")) {
-    n <- length(phy$tip.label)
-    m <- phy$Nnode
-    nm <- n + m
-    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
-      stop("tree too big")
-    }
     tot_coph_stat <- calc_tot_coph_cpp(as.vector(t(phy$edge)))
     if (normalization == "yule") {
       n <- length(phy$tip.label)

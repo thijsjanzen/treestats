@@ -1,16 +1,30 @@
-/// INDEP
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+//
+//
+/// other statistics
 
 
 #include <vector>
 #include <array>
 #include <Rcpp.h>
 
-#include "util.h"
-#include "beta.h"
-#include "phylo2L.h"
-#include "L2newick.h"
-#include "avgladder.h"
-#include "mntd.h"
+#include "util.h"        // NOLINT [build/include_subdir]
+#include "beta.h"        // NOLINT [build/include_subdir]
+#include "phylo2L.h"     // NOLINT [build/include_subdir]
+#include "L2newick.h"    // NOLINT [build/include_subdir]
+#include "avgladder.h"   // NOLINT [build/include_subdir]
+#include "mntd.h"        // NOLINT [build/include_subdir]
+#include "mpd.h"         // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
 double calc_beta_cpp(const Rcpp::List& phy,
@@ -18,7 +32,6 @@ double calc_beta_cpp(const Rcpp::List& phy,
                      std::string algorithm,
                      double abs_tol,
                      double rel_tol) {
-
   try {
     Rcpp::NumericMatrix edge = phy["edge"];
     if (edge.nrow() == 2) {
@@ -50,7 +63,6 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
                          std::string algorithm,
                          double abs_tol,
                          double rel_tol) {
-
   try {
     std::vector< std::array< double, 4 >> ltab(ltable.nrow());
     for (size_t i = 0; i < ltable.nrow(); ++i) {
@@ -107,10 +119,11 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double calc_mpd_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return calc_mpd_stat(edge, el);
+double calc_mpd_cpp(const std::vector<int>& edge,
+                     const std::vector<double>& el) {
+  mpd_tree::phylo_tree focal_tree(edge, el);
+  auto mpd = focal_tree.calculate_mpd();
+  return mpd;
 }
 
 // [[Rcpp::export]]
@@ -121,10 +134,10 @@ double calc_psv_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double calc_J_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  auto mpd = calc_mpd_stat(edge, el);
+double calc_J_cpp(const std::vector<int>& edge,
+                  const std::vector<double>& el) {
+  mpd_tree::phylo_tree focal_tree(edge, el);
+  auto mpd = focal_tree.calculate_mpd();
   int n = (el.size() + 2) * 0.5;
 
   return mpd * 1.0 / n;
@@ -151,7 +164,7 @@ double calc_var_mpd_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double avgLadder_cpp(const std::vector<long>& tree_edge) {
+double avgLadder_cpp(const std::vector<int>& tree_edge) {
   try {
   return calc_ladder(tree_edge, false);
   } catch(std::exception &ex) {
@@ -165,7 +178,7 @@ double avgLadder_cpp(const std::vector<long>& tree_edge) {
 }
 
 // [[Rcpp::export]]
-double max_ladder_cpp(const std::vector<long>& tree_edge) {
+double max_ladder_cpp(const std::vector<int>& tree_edge) {
   try {
     return calc_ladder(tree_edge, true);
   } catch(std::exception &ex) {

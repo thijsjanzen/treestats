@@ -14,12 +14,12 @@ statistic is divided by the number of tips in the tree, as a crude way of
 normalization.}
 }
 \value{
-Maximum depth (in number of edges)
+B1 statistic
 }
 \description{
-Balance metric that uses the Shannon-Wiener statistic of
-information content. The b2 measure is given by the sum over the depths of
-all tips, divided by 2^depth: sum Ni / 2^Ni
+Balance metric (in the case of a binary tree), which measures
+the sum across all internal nodes of one over the maximum depth of all
+attached tips to that node.
 }
 \references{
 K.-T. Shao and R. R. Sokal. Tree Balance.

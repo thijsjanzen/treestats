@@ -17,7 +17,7 @@ rquartet <- function(phy, normalization = "none") {
     return(3 * calc_rquartet_ltable_cpp(phy, normalization))
   }
   if (inherits(phy, "phylo")) {
-    if (!ape::is.binary(phy)) {
+    if (phy$Nnode + 1 != length(phy$tip.label)) {
   stop("Tree must be binary, for non binary trees use treebalance::rQuartetI")
     }
     return(3 * calc_rquartet_cpp(as.vector(t(phy$edge)), normalization))

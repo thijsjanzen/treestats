@@ -1,22 +1,34 @@
-#ifndef CENTRALITIES_H
-#define CENTRALITIES_H
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <vector>
 #include <array>
 #include <numeric>
+#include <algorithm>   // min element
+#include <utility>     // swap
 
-#include "binom.h"
+#include "binom.h"  // NOLINT [build/include_subdir]
 
 using edge = std::vector< std::array< size_t, 2 >>;
 using ltable = std::vector< std::array< double, 4>>;
 
 // first sum:
-std::vector< std::array< double, 2 >> computeLRSizes(const edge& e,
-                                                     const std::vector<double>& el,
-                                                     bool use_branch_length = false,
-                                                     bool use_max = false) {
-
-  int n = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5); // num tips
+std::vector< std::array<double, 2>> computeLRSizes(
+    const edge& e,
+    const std::vector<double>& el,
+    bool use_branch_length = false,
+    bool use_max = false) {
+  int n = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5);  // num tips
   int N = 2 * n - 1;
 
   std::vector< std::array< double, 2 >> Tab(n - 1, { -1, -1 });
@@ -41,10 +53,14 @@ std::vector< std::array< double, 2 >> computeLRSizes(const edge& e,
 
     double new_val;
     if (use_max) {
-      new_val = curRow[1] > 0 ? W + std::max(Tab[curRow[1]][0], Tab[curRow[1]][1]) : W;
+      new_val = curRow[1] > 0 ?
+                    W + std::max(Tab[curRow[1]][0], Tab[curRow[1]][1]) :
+                    W;
     } else {
       // use sum
-      new_val = curRow[1] > 0 ? W + Tab[curRow[1]][0] + Tab[curRow[1]][1] : W;
+      new_val = curRow[1] > 0 ?
+                    W + Tab[curRow[1]][0] + Tab[curRow[1]][1] :
+                    W;
     }
 
     int x = curRow[0];
@@ -59,12 +75,10 @@ std::vector< std::array< double, 2 >> computeLRSizes(const edge& e,
   return Tab;
 }
 
-
 double wiener(const edge& e,
               const std::vector<double>& el,
               bool normalize = false,
               bool weight = false) {
-
   auto sub_tree_sizes = computeLRSizes(e, el);
   std::vector<double> q(sub_tree_sizes.size(), 0.0);
   size_t cnt = 0;
@@ -86,8 +100,7 @@ double wiener(const edge& e,
 
       W += curQ * (N - curQ) * el[i];
     }
-  }
-  else {
+  } else {
     W = (N - 1) * (n + 1);
     for (const auto& i : q) {
       W += i * (N - i);
@@ -104,7 +117,6 @@ double wiener(const edge& e,
 
 double max_betweenness(const edge& e,
                        const std::vector<double>& el) {
-
   auto sub_tree_sizes = computeLRSizes(e, el);
   std::vector<double> q(sub_tree_sizes.size());
   size_t cnt = 0;
@@ -116,7 +128,8 @@ double max_betweenness(const edge& e,
 
   double max_betweenness = -1.0;
   for (size_t i = 0; i < sub_tree_sizes.size(); ++i) {
-    auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] + q[i] * (2 * n - q[i]);
+    auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] +
+                   q[i] * (2 * n - q[i]);
     if (local_b > max_betweenness) max_betweenness = local_b;
   }
   return max_betweenness;
@@ -169,8 +182,7 @@ double min_farness(const edge& local_edge,
 
   if (weight) {
     farness[n] = sum_weighed_heights(local_edge, el);
-  }
-  else {
+  } else {
     farness[n] = std::accumulate(sizes.begin(), sizes.end(), 0.0);
   }
 
@@ -222,12 +234,9 @@ double diameter(const edge& e,
 
 
 // LTABLE associated code
-
-
-
 class LRsizes {
-public:
-  LRsizes(const ltable& l_in) : ltable_(l_in) {
+ public:
+  explicit LRsizes(const ltable& l_in) : ltable_(l_in) {
     extant_tips = std::vector<int>(l_in.size(), 2);
     dist_to_tips = std::vector<double>(l_in.size(), 0.0);
     num_tips = get_num_tips();
@@ -235,10 +244,10 @@ public:
 
   std::vector<std::array<double, 2>> collect_stat_noW() {
     std::vector<std::array<double, 2>> stat;
-    while(true) {
+    while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
+      if (parent == 0) {  // we hit the root!
         j++;
         parent = ltable_[j][1];
       }
@@ -259,10 +268,10 @@ public:
   std::vector<std::array<double, 2>> collect_diameter_noW() {
     std::vector<std::array<double, 2>> stat;
     std::vector<int> depth_tips(ltable_.size(), 1);
-    while(true) {
+    while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
-      if (parent == 0) {// we hit the root!
+      if (parent == 0) {    // we hit the root!
         j++;
         parent = ltable_[j][1];
       }
@@ -287,7 +296,6 @@ public:
     }
     return stat;
   }
-
 
   int index_of_parent(int parent) {
     int index = 0;
@@ -343,7 +351,8 @@ double max_betweenness_ltable(const ltable& ltab_) {
 
   double max_betweenness = -1.0;
   for (size_t i = 0; i < sub_tree_sizes.size(); ++i) {
-    auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] + q[i] * (2 * n - q[i]);
+    auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] +
+                   q[i] * (2 * n - q[i]);
     if (local_b > max_betweenness) max_betweenness = local_b;
   }
   return max_betweenness;
@@ -368,9 +377,3 @@ double diameter_ltable(const ltable& ltab_,
   }
   return diam;
 }
-
-
-
-
-
-#endif /* CENTRALITIES_H */

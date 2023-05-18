@@ -1,5 +1,15 @@
-#ifndef beta_h
-#define beta_h
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+#pragma once
 
 #include <random>
 #include <cmath>
@@ -7,25 +17,30 @@
 #include <unordered_map>
 #include <nloptrAPI.h>
 #include <algorithm>
+#include <utility>
+#include <string>
+#include <vector>
+#include <Rcpp.h>
+
 
 using ltable = std::vector< std::array<double, 4>>;
 
 class betastat {
-public:
-  betastat(const std::vector< std::array< int, 2 >> e) : edge(e) {
+ public:
+  explicit betastat(const std::vector< std::array< int, 2 >> e) : edge(e) {
     tiplist = std::vector<int>(edge.size() + 2, -1);
     update_lr_matrix();
   }
 
-  betastat(const ltable& lt_in) : lt_(lt_in) {
+  explicit betastat(const ltable& lt_in) : lt_(lt_in) {
     for (auto i : lt_) {
       brts_.push_back(i[0]);
     }
     std::sort(brts_.begin(), brts_.end());
-    brts_.erase( std::unique(brts_.begin(), brts_.end()),
+    brts_.erase(std::unique(brts_.begin(), brts_.end()),
                  brts_.end());
     update_lr_matrix_ltable();
-  };
+  }
 
   double calc_likelihood(double beta) const {
     std::vector< double > sn = get_sn(beta);
@@ -40,7 +55,7 @@ public:
     return sumll;
   }
 
-private:
+ private:
   std::vector< std::array<int, 2>> lr_;
   std::vector< std::array<int, 2>> edge;
   int max_n_;
@@ -62,7 +77,7 @@ private:
       return 1;
     }
 
-    if (tiplist[label] > 0) { // tiplist is populated with -1
+    if (tiplist[label] > 0) {   // tiplist is populated with -1
       return(tiplist[label]);
     }
 
@@ -96,7 +111,6 @@ private:
 
 
   void update_lr_matrix() {
-
     auto root_label = edge[0][0];
 
     std::sort(edge.begin(), edge.end(), [&](const auto& a, const auto& b) {
@@ -125,8 +139,10 @@ private:
 
 
   double calc_i_n_b(int i, int n, double b) const {
-    double nom = std::tgamma(1.f*(i + 1 + b)) * std::tgamma(1.f*(n - i + 1 + b));
-    double denom = std::tgamma(1.f*(i + 1)) * std::tgamma(1.f*(n - i + 1));
+    double nom   = std::tgamma(1.f*(i + 1 + b)) *
+                   std::tgamma(1.f*(n - i + 1 + b));
+    double denom = std::tgamma(1.f*(i + 1)) *
+                   std::tgamma(1.f*(n - i + 1));
     return(nom / denom);
   }
 
@@ -151,10 +167,8 @@ private:
 
     if (max_n_ >= 3) {
       for (size_t n = 3; n < max_n_; ++n) {
-
         auto term1 = n + 2 + 2 * b;
         auto term2 = 2 * (n + b) * xn[n];
-
         xn[n + 1] = ((n + b) * (n + 1) * xn[n]) / (n * term1 + term2);
         sn[n + 1] =  (1.0 / (n + 1) ) * (term1 + term2 / n) * sn[n];
       }
@@ -191,10 +205,8 @@ private:
     return(output);
   }
 
-
   int get_total_num_lin(int sp,
                            double bt) {
-
     int index = find_species_in_ltable(sp);
     int total_tips = 0;
     if (index >= 0) {
@@ -234,7 +246,6 @@ private:
         lr[1] = get_total_num_lin(lt_[indices[1]][2], br);
       }
       if (indices.size() == 1) {
-
         lr[0] = get_total_num_lin(lt_[indices[0]][2], br);
         lr[1] = get_total_num_lin(lt_[indices[0]][1], br);
       }
@@ -253,10 +264,8 @@ private:
 };
 
 struct nlopt_f_data {
-
-  nlopt_f_data(const betastat& b_in) : b(b_in) {
+  explicit nlopt_f_data(const betastat& b_in) : b(b_in) {
   }
-
   const betastat b;
 };
 
@@ -264,8 +273,6 @@ double objective(unsigned int n, const double* x, double*, void* func_data) {
   auto psd = reinterpret_cast<nlopt_f_data*>(func_data);
   return(-psd->b.calc_likelihood(x[0]));
 }
-
-
 
 template< class T>
 double calc_beta(const T& edge,
@@ -278,7 +285,6 @@ double calc_beta(const T& edge,
   // now we do optimization
 
   nlopt_f_data optim_data(beta_calc);
-
 
   nlopt_opt opt;
   bool algo_set = false;
@@ -302,7 +308,6 @@ double calc_beta(const T& edge,
      throw "no algorithm chosen";
   }
 
-
   double llim[1] = {static_cast<double>(lower_lim)};
   double ulim[1] = {static_cast<double>(upper_lim)};
 
@@ -313,7 +318,6 @@ double calc_beta(const T& edge,
 
   nlopt_set_xtol_rel(opt, rel_tol);
   nlopt_set_ftol_abs(opt, abs_tol);
-
 
   std::vector<double> x = {init_val};
   double minf;
@@ -326,13 +330,5 @@ double calc_beta(const T& edge,
 
   nlopt_destroy(opt);
 
-  double beta = x[0];
- // double ll = minf;
-  return beta;
+  return x[0];  // beta
 }
-
-
-
-
-#endif /* statistics_h */
-
