@@ -33,6 +33,11 @@ test_that("usage", {
     rho5 <- treestats::pigot_rho(extant_tree)
     testthat::expect_false(rho4 == rho5)
   }
+
+  # use very small tree to trigger use of complete method:
+  focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+  rho <- treestats::pigot_rho(focal_tree)
+  testthat::expect_gt(rho, 0)
 })
 
 test_that("wrong_object", {

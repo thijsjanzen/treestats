@@ -54,10 +54,6 @@ make_unbalanced_tree <- function(init_tree,
     ltab_out <- make_terminal(ltab_in, unbal_steps, selection_method)
   }
 
-  if (is.null(ltab_out)) {
-    stop("error imbalancing tree")
-  }
-
   phy_out <- treestats::l_to_phylo(ltab_out)
   return(phy_out)
 }
@@ -201,9 +197,6 @@ make_unbalanced_tree_terminal <- function(ltab,
 
     parent_spec <- abs(ltab[focal_spec, 2])
     ltab[parent_spec, 5] <- ltab[parent_spec, 5] - 1
-    if (ltab[parent_spec, 5] < 0) {
-      cat(focal_spec, parent_spec, "\n")
-    }
     ltab[focal_spec, 2] <- attractor
     ltab[abs(attractor), 5] <- ltab[abs(attractor), 5] + 1
   }
