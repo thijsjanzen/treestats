@@ -127,10 +127,14 @@ double calc_mpd_cpp(const std::vector<int>& edge,
 }
 
 // [[Rcpp::export]]
-double calc_psv_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return calc_psv_stat(edge, el);
+double calc_psv_cpp(const std::vector<int>& edge,
+                    const std::vector<double>& el) {
+  //auto edge = phy_to_edge(phy);
+  //auto el   = phy_to_el(phy);
+  //return calc_psv_stat(edge, el);
+  mpd_tree::phylo_tree focal_tree(edge, el);
+  auto mpd = focal_tree.calculate_mpd();
+  return mpd * 0.5;
 }
 
 // [[Rcpp::export]]

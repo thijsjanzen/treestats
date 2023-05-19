@@ -252,8 +252,8 @@ calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }
 
-calc_psv_cpp <- function(phy) {
-    .Call('_treestats_calc_psv_cpp', PACKAGE = 'treestats', phy)
+calc_psv_cpp <- function(edge, el) {
+    .Call('_treestats_calc_psv_cpp', PACKAGE = 'treestats', edge, el)
 }
 
 calc_J_cpp <- function(edge, el) {

@@ -189,23 +189,20 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                   ifelse(normalize,
                                                     "tips", "none"))
 
-  stats$mpd          <- tryCatch(expr = {
-                          treestats::mean_pair_dist(phylo,
+  stats$mpd          <- treestats::mean_pair_dist(phylo,
                                                     normalization =
                                                      ifelse(normalize,
-                                                            "tips", "none"))},
-                                 error = function(e) {return(NA)}) #nolint
-  stats$psv          <- tryCatch(expr = {treestats::psv(phylo, #nolint
+                                                            "tips", "none"))
+
+  stats$psv          <- treestats::psv(phylo, #nolint
                                                         normalization =
                                                         ifelse(normalize,
-                                                              "tips", "none"))},
-                                 error = function(e) {return(NA)}) #nolint
+                                                              "tips", "none"))
   stats$vpd          <- tryCatch(expr = {treestats::var_pair_dist(phylo)},  #nolint
                                  error = function(e) {return(NA)})     #nolint
-  stats$mntd         <- tryCatch(expr = {treestats::mntd(phylo)},      #nolint
-                                 error = function(e) {return(NA)})     #nolint
-  stats$j_stat       <- tryCatch(expr = {treestats::entropy_j(phylo)}, #nolint
-                                 error = function(e) {return(NA)})     #nolint
+  stats$mntd         <- treestats::mntd(phylo)
+
+  stats$j_stat       <- treestats::entropy_j(phylo)
 
   stats$rquartet     <- treestats::rquartet(phylo,
                                             normalization =

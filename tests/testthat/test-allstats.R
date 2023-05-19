@@ -11,7 +11,7 @@ test_that("usage", {
   testthat::expect_equal(length(all_stats), 54)
 
   focal_tree <- ape::rphylo(n = 23175, birth = 1, death = 0)
-  testthat::expect_warning(
+  testthat::expect_silent(
     all_stats <- treestats::calc_all_stats(focal_tree)
   )
   testthat::expect_true(is.na(all_stats$laplac_spectrum_a))
@@ -19,7 +19,5 @@ test_that("usage", {
   testthat::expect_true(is.na(all_stats$laplac_spectrum_e))
   testthat::expect_true(is.na(all_stats$laplac_spectrum_g))
 
-  testthat::expect_true(is.na(all_stats$mntd))
-  testthat::expect_true(is.na(all_stats$psv))
   testthat::expect_true(is.na(all_stats$vpd))
 })

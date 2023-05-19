@@ -109,12 +109,10 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                             ifelse(normalize,
                                                    "tips", "none"))
   stats$stairs2      <- treestats::stairs2(phylo)
-  stats$tot_coph      <- tryCatch(expr = {
-    treestats::tot_coph(phylo,
-                        normalization =
-                          ifelse(normalize,
-                                 "yule", "none"))},
-    error = function(e) {return(NA)}) #nolint
+  stats$tot_coph      <- treestats::tot_coph(phylo,
+                                             normalization =
+                                                ifelse(normalize,
+                                                       "yule", "none"))
 
   stats$var_depth <- treestats::var_leaf_depth(phylo,
                                                normalization =

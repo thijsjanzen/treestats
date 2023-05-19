@@ -175,20 +175,6 @@ double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   return(mntd);
 }
 
-double calc_psv_stat(const std::vector< std::array< size_t, 2 >>& edge,
-                     const std::vector<double>& el) {
-  auto dist_mat = dist_nodes_tri(edge, el);
-  int n = (el.size() + 2) * 0.5;
-  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
-  auto psv = 0.5 * std::accumulate(dist_mat.data_.begin(),
-                              dist_mat.data_.begin() + max_pos, 0.0);
-
-  psv *= 1.0 / (n * (n - 1));
-  psv *= 2.0;   // post hoc correction to match picante::psv output, because we
-                // wrongly measure distance to most common ancestor per node.
-  return(psv);
-}
-
 double calc_var_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                          const std::vector<double>& el) {
   auto dist_mat = dist_nodes_tri(edge, el);
