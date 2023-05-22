@@ -21,6 +21,18 @@ test_that("usage", {
     }
 })
 
+test_that("abuse", {
+  tree1 <- ape::rphylo(n = 2, birth = 1, death = 0)
+  testthat::expect_message(
+    treestats::imbalance_steps(tree1, normalize = TRUE)
+  )
+
+  testthat::expect_message(
+    treestats::imbalance_steps(treestats::phylo_to_l(tree1),
+                                     normalize = TRUE)
+  )
+})
+
 
 test_that("wrong_object", {
   testthat::expect_error(

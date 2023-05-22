@@ -19,6 +19,10 @@ imbalance_steps <- function(input_obj,
   if (!inherits(input_obj, "matrix")) {
     stop("input object has to be phylo or ltable")
   }
+  if (length(input_obj[, 1]) == 2) {
+    message("Balance of a tree with two tips is undefined")
+    return(NA)
+  }
 
   ltab <- rebase_ltable(input_obj)
 

@@ -14,6 +14,7 @@ tot_coph <- function(phy, normalization = "none") {
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)
     if (normalization == "yule") {
       n <- length(phy[, 1])
+      if (n == 2) warning("normalization not valid for trees of size 2")
       h_n <- sum(1 / (1:n))
       yule_expected <-  n * (n + 1) - 2 * n * h_n
       tot_coph_stat <- tot_coph_stat / yule_expected
@@ -24,6 +25,7 @@ tot_coph <- function(phy, normalization = "none") {
     tot_coph_stat <- calc_tot_coph_cpp(as.vector(t(phy$edge)))
     if (normalization == "yule") {
       n <- length(phy$tip.label)
+      if (n == 2) warning("normalization not valid for trees of size 2")
       h_n <- sum(1 / (1:n))
       yule_expected <-  n * (n + 1) - 2 * n * h_n
       tot_coph_stat <- tot_coph_stat / yule_expected

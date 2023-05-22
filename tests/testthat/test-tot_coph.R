@@ -55,6 +55,19 @@ test_that("normalization", {
   testthat::expect_lt(a2, 0.2)
 })
 
+test_that("abuse", {
+  tree1 <- ape::rphylo(n = 2, birth = 1, death = 0)
+  testthat::expect_warning(
+    treestats::tot_coph(tree1,  normalization = "yule"),
+    "normalization not valid for trees of size 2"
+  )
+
+  testthat::expect_warning(
+    treestats::tot_coph(treestats::phylo_to_l(tree1),  normalization = "yule"),
+    "normalization not valid for trees of size 2"
+  )
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::tot_coph(10),
