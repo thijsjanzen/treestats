@@ -84,10 +84,10 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                    ifelse(normalize,
                                                           "yule", "none"))
 
-  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo) }, #nolint
+  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo)}, #nolint
                                   error = function(e) {return(NA) }) #nolint
 
-  stats$blum               <- treestats::blum(phylo, normalize = normalize)
+  stats$blum               <- treestats::blum(phylo, normalization = normalize)
   stats$crown_age          <- treestats::crown_age(phylo)
   stats$tree_height        <- treestats::tree_height(phylo)
   stats$pigot_rho          <- treestats::pigot_rho(phylo)
@@ -129,7 +129,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   }
 
   stats$imbalance_steps  <- treestats::imbalance_steps(phylo,
-                                                       normalize = normalize)
+                                                       normalization =
+                                                         normalize)
 
   stats$j_one        <- treestats::j_one(phylo)
 
@@ -208,7 +209,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                                      "yule", "none"))
 
 
-  stats$wiener          <- treestats::wiener(phylo, normalize = normalize)
+  stats$wiener          <- treestats::wiener(phylo, normalization = normalize)
   stats$max_betweenness <- treestats::max_betweenness(phylo,
                                                       normalization =
                                                         ifelse(normalize,

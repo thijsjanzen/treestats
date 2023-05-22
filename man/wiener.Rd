@@ -4,12 +4,12 @@
 \alias{wiener}
 \title{Fast function using C++ to calculate the Wiener index}
 \usage{
-wiener(phy, normalize = FALSE, weight = TRUE)
+wiener(phy, normalization = FALSE, weight = TRUE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
 
-\item{normalize}{if TRUE, the Wiener index is normalized by the number of
+\item{normalization}{if TRUE, the Wiener index is normalized by the number of
 nodes, e.g. by choose(n, 2), where n is the number of nodes.}
 
 \item{weight}{if TRUE, branch lenghts are used.}

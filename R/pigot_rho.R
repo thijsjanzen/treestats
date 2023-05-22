@@ -41,6 +41,5 @@ pigot_rho <- function(phy,
     }
   }
 
-
   stop("input object has to be phylo or ltable")
 }

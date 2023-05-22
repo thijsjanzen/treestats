@@ -42,11 +42,11 @@ test_that("normalisation", {
   set.seed(42)
   focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
-  c1 <- treestats::blum(focal_tree, normalize = FALSE)
-  c2 <- treestats::blum(focal_tree, normalize = TRUE)
+  c1 <- treestats::blum(focal_tree, normalization = FALSE)
+  c2 <- treestats::blum(focal_tree, normalization = TRUE)
   testthat::expect_lt(c2, c1)
   c3 <- treestats::blum(treestats::phylo_to_l(focal_tree),
-                        normalize = TRUE)
+                        normalization = TRUE)
   testthat::expect_equal(c2, c3)
 
   stats1 <- c()
@@ -54,7 +54,7 @@ test_that("normalisation", {
   for (n in seq(100, 200, by = 10)) {
     focal_tree <- ape::rphylo(n = n, birth = 1, death = 0)
     stats1 <- c(stats1, treestats::blum(focal_tree))
-    stats2 <- c(stats2, treestats::blum(focal_tree, normalize = TRUE))
+    stats2 <- c(stats2, treestats::blum(focal_tree, normalization = TRUE))
   }
 
   a1 <- cor(stats1, seq(100, 200, by = 10))

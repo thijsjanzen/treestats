@@ -4,9 +4,10 @@
 #' where N represents the total number of extant tips connected to that node.
 #' An alternative implementation can be found in the Castor R package.
 #' @param phy phylogeny or ltable
-#' @param normalize because the Blum index sums over all nodes, the resulting
-#' statistic tends to be correlated with the number of extant tips.
-#' Normalization can be performed by dividing by the number of extant tips.
+#' @param normalization because the Blum index sums over all nodes,
+#' the resulting statistic tends to be correlated with the number of extant
+#' tips. Normalization can be performed by dividing by the number of extant
+#' tips.
 #' @return Blum index of imbalance
 #' @references M. G. B. Blum and O. Francois (2006). Which random processes
 #' describe the Tree of Life? A large-scale study of phylogenetic tree
@@ -21,13 +22,13 @@
 #'   blum(unbalanced_tree) # should be higher
 #' }
 blum <- function(phy,
-                 normalize = FALSE) {
+                 normalization = FALSE) {
 
   if (inherits(phy, "matrix")) {
-    return(calc_blum_ltable_cpp(phy, normalize))
+    return(calc_blum_ltable_cpp(phy, normalization))
   }
   if (inherits(phy, "phylo")) {
-    return(calc_blum_cpp(as.vector(t(phy$edge)), normalize))
+    return(calc_blum_cpp(as.vector(t(phy$edge)), normalization))
   }
   stop("input object has to be phylo or ltable")
 }

@@ -50,7 +50,9 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
   stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo) }, #nolint
                                   error = function(e) {return(NA) }) #nolint
 
-  stats$blum               <- treestats::blum(phylo)
+  stats$blum               <- treestats::blum(phylo,
+                                              normalization = normalize)
+
   stats$avg_ladder          <- treestats::avg_ladder(phylo) #nolint
   stats$max_ladder          <- treestats::max_ladder(phylo) #nolint
   stats$cherries           <- treestats::cherries(phylo,
@@ -129,7 +131,7 @@ calc_balance_stats <- function(phylo, normalize = FALSE) {
                                                      "yule", "none"))
 
   stats$imbalance_steps <- treestats::imbalance_steps(phylo,
-                                                      normalize = normalize)
+                                                      normalization = normalize)
 
   stats$j_one       <- treestats::j_one(phylo)
 

@@ -6,7 +6,7 @@ test_that("usage", {
 
   a1_1 <- treestats::wiener(focal_tree, weight = TRUE)
   a1_2 <- treestats::wiener(focal_tree, weight = FALSE)
-  a1_3 <- treestats::wiener(focal_tree, normalize = TRUE, weight = FALSE)
+  a1_3 <- treestats::wiener(focal_tree, normalization = TRUE, weight = FALSE)
   # because treeCentrality is not available on CRAN, we precompute reference
   # values:
   a2_1 <- 120552.3 # treeCentrality::computeWienerIndex(focal_tree, #noLint

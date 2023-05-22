@@ -4,12 +4,12 @@
 \alias{imbalance_steps}
 \title{imbalance steps index}
 \usage{
-imbalance_steps(input_obj, normalize = FALSE)
+imbalance_steps(input_obj, normalization = FALSE)
 }
 \arguments{
 \item{input_obj}{phylo object or ltable}
 
-\item{normalize}{if true, the number of steps taken is normalized by tree
+\item{normalization}{if true, the number of steps taken is normalized by tree
 size, by dividing by the maximum number of moves required to move from a
 fully balanced to a fully imbalanced tree, which is N - log2(N) - 1, where
 N is the number of extant tips.}
