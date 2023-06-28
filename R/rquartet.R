@@ -18,7 +18,7 @@ rquartet <- function(phy, normalization = "none") {
       answ <- answ / (choose(length(phy[, 1]), 4))
     }
     if (normalization == "pda" || normalization == "PDA") {
-      answ <- answ / (0.2 * choose(length(phy[, 1]), 4))
+      answ <- answ / (5 * choose(length(phy[, 1]), 4))
     }
     return(answ)
   }
