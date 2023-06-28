@@ -14,9 +14,6 @@
 #include <vector>
 
 inline double binom_coeff(const int& n, const int& k) {
-  if (n == k) return(0);
-
-  if (n < 100) {
     std::vector<int> aSolutions(k);
     aSolutions[0] = n - k + 1;
 
@@ -25,19 +22,11 @@ inline double binom_coeff(const int& n, const int& k) {
     }
 
     return aSolutions[k - 1];
-  } else {
-    double s = 0.0;
-    for (size_t i = 1; i < k; ++i) {
-      s += std::log(static_cast<double>(n - i + 1));
-      s -= log(i);
-    }
-    return(exp(s));
-  }
 }
 
-inline double log_binom_coeff(const int n, const int k) {
+inline double log_binom_coeff_four(const int n) {
   double s = 0.0;
-  for (size_t i = 1; i < k; ++i) {
+  for (size_t i = 1; i < 4; ++i) {
     s += std::log(static_cast<double>(n - i + 1));
     s -= log(i);
   }

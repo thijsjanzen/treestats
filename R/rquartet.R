@@ -31,7 +31,7 @@ rquartet <- function(phy, normalization = "none") {
       answ <- answ / (choose(length(phy$tip.label), 4))
     }
     if (normalization == "pda" || normalization == "PDA") {
-      answ <- answ / (0.2 * choose(length(phy$tip.label), 4))
+      answ <- answ / (5 * choose(length(phy$tip.label), 4))
     }
     return(answ)
   }
