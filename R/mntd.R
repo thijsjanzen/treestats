@@ -1,7 +1,6 @@
-#' Fast function using C++ to calculate the Mean Nearest Taxon distance
-#' @description After calculating all pairwise distances between all tips,
-#' this function takes the mean value per tip, and then calculates the average
-#' value across all tips.
+#' Mean Nearest Taxon distance
+#' @description Per tip, evaluates the shortest distance to another tip,
+#' then takes the average across all tips.
 #' @param phy phylo object or ltable
 #' @return Mean Nearest Taxon Distance.
 #' @references  Webb, C., D. Ackerly, M. McPeek, and M. Donoghue. 2002.

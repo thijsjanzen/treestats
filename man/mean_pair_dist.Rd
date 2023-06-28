@@ -2,8 +2,7 @@
 % Please edit documentation in R/mean_pair_dist.R
 \name{mean_pair_dist}
 \alias{mean_pair_dist}
-\title{Fast function using C++ to calculate the mean pairwise distance, using the
-fast algorithm by Constantinos, Sandel & Cheliotis (2012).}
+\title{Mean Pairwise distance}
 \usage{
 mean_pair_dist(phy, normalization = "none")
 }
@@ -18,8 +17,8 @@ where n is the number of tips.}
 Mean pairwise distance
 }
 \description{
-The mean pairwise distance calculates the average distance
-between all combinations of tips.
+Fast function using C++ to calculate the mean pairwise distance,
+using the fast algorithm by Constantinos, Sandel & Cheliotis (2012).
 }
 \references{
 Webb, C., D. Ackerly, M. McPeek, and M. Donoghue. 2002.
