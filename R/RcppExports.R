@@ -105,12 +105,12 @@ ILnumber_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_ILnumber_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
-calc_rquartet_cpp <- function(tree_edge, normalization) {
-    .Call('_treestats_calc_rquartet_cpp', PACKAGE = 'treestats', tree_edge, normalization)
+calc_rquartet_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_rquartet_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-calc_rquartet_ltable_cpp <- function(ltable_R, normalization) {
-    .Call('_treestats_calc_rquartet_ltable_cpp', PACKAGE = 'treestats', ltable_R, normalization)
+calc_rquartet_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_calc_rquartet_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
 stairs_cpp <- function(tree_edge) {

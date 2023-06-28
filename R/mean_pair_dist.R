@@ -1,7 +1,6 @@
-#' Fast function using C++ to calculate the mean pairwise distance, using the
-#' fast algorithm by Constantinos, Sandel & Cheliotis (2012).
-#' @description The mean pairwise distance calculates the average distance
-#' between all combinations of tips.
+#' Mean Pairwise distance
+#' @description Fast function using C++ to calculate the mean pairwise distance,
+#' using the fast algorithm by Constantinos, Sandel & Cheliotis (2012).
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "tips", in which case the obtained mean
 #' pairwise distance is normalized by the factor 2log(n),

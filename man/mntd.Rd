@@ -2,7 +2,7 @@
 % Please edit documentation in R/mntd.R
 \name{mntd}
 \alias{mntd}
-\title{Fast function using C++ to calculate the Mean Nearest Taxon distance}
+\title{Mean Nearest Taxon distance}
 \usage{
 mntd(phy)
 }
@@ -13,9 +13,8 @@ mntd(phy)
 Mean Nearest Taxon Distance.
 }
 \description{
-After calculating all pairwise distances between all tips,
-this function takes the mean value per tip, and then calculates the average
-value across all tips.
+Per tip, evaluates the shortest distance to another tip,
+then takes the average across all tips.
 }
 \references{
 Webb, C., D. Ackerly, M. McPeek, and M. Donoghue. 2002.

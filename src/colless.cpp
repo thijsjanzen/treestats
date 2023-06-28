@@ -82,36 +82,16 @@ size_t ILnumber_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 // [[Rcpp::export]]
-double calc_rquartet_cpp(const std::vector<int>& tree_edge,
-                         std::string normalization) {
+double calc_rquartet_cpp(const std::vector<int>& tree_edge) {
   colless_tree::colless_tree focal_tree(tree_edge);
-  auto output = focal_tree.calc_stat(&calc_rquartet);
-
-  if (normalization == "yule") {
-    size_t n  = tree_edge.size() / 4 + 1;
-    output = correction::correct_rquartet_yule(output, n);
-  }
-  if (normalization == "pda") {
-    size_t n  = tree_edge.size() / 4 + 1;
-    output = correction::correct_rquartet_pda(output, n);
-  }
-  return output;
+  return 3.0 * focal_tree.calc_stat(&calc_rquartet);
 }
 
 // [[Rcpp::export]]
-double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R,
-                                std::string normalization) {
+double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto local_ltab = convert_to_ltable(ltable_R);
   colless_stat_ltable c(local_ltab);
-  auto output = c.count_rquartet();
-
-  if (normalization == "yule") {
-    output = correction::correct_rquartet_yule(output, c.size());
-  }
-  if (normalization == "pda") {
-    output = correction::correct_rquartet_pda(output, c.size());
-  }
-  return output;
+  return 3.0 * c.count_rquartet();
 }
 
 // [[Rcpp::export]]
