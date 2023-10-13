@@ -5,7 +5,7 @@
 #' treebalance::rquartedI, which can also take polytomies into account.
 #' @param phy phylo object or ltable
 #' @param normalization The index can be normalized by the expectation under
-#' the Yule ("yule") or PDA ("pda") model.
+#' the Yule ("yule") or PDA model ("pda").
 #' @return rquartet index
 #' @references  T. M. Coronado, A. Mir, F. Rosselló, and G. Valiente. A balance
 #' index for phylogenetic trees based on rooted quartets. Journal of

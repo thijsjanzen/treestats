@@ -236,7 +236,8 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
 #' extant.
 #' @param phy phylo object
 #' @export
-#' @examples simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
+#' @examples
+#' simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
 #' ltable <- phylo_to_l(simulated_tree)
 #' reconstructed_tree <- DDD::L2phylo(ltable)
 #' par(mfrow=c(1, 2))
