@@ -20,8 +20,8 @@ The area per pair index calculates the sum of the number of
 edges on the path between all two leaves. Instead, the area per pair index
 (APP) can also be derived from the Sackin (S) and total cophenetic index
 (TC):
-\eqn{APP=\frac{2}{n}\cdot S-\frac{4}{n(n-1)}\cdot TC}
-    {APP=2/n*S-4/(n(n-1))*TC}
+\eqn{ APP = \frac{2}{n}\cdot S - \frac{4}{n(n-1)}\cdot TC}
+\eqn{APP = 2/n * S - 4/(n(n-1)) * TC}
 }
 \references{
 T. Araújo Lima, F. M. D. Marquitti, and M. A. M. de Aguiar.

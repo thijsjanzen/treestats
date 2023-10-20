@@ -1,6 +1,6 @@
 #' Fast function using C++ to calculate eigen vector centrality
 #' @description Eigen vector centrality associates with each node v the positive
-#' value e(v), such that: sum_{e~v} w(uv) * e(u) = lambda * e(v). Thus,
+#' value e(v), such that: \eqn{sum_{e~v} w(uv) * e(u) = \lambda * e(v)}. Thus,
 #' e(v) is the Perron-Frobenius eigenvector of the adjacency matrix of the tree.
 #' @param phy phylo object or ltable
 #' @param weight if TRUE, uses branch lengths.
