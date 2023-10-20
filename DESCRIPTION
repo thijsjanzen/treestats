@@ -25,7 +25,6 @@ Suggests:
     phyloTop,
     testthat,
     phytools,
-    apTreeshape,
     DDD,
     geiger,
     nodeSub,
