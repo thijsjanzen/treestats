@@ -35,6 +35,9 @@ test_that("usage", {
   }
 
   if (requireNamespace("treebalance")) {
+    set.seed(42)
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+
     sackin <- treestats::sackin(focal_tree)
     sackin_check <- treebalance::sackinI(focal_tree)
     testthat::expect_equal(sackin, sackin_check)
