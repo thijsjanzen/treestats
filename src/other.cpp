@@ -94,7 +94,8 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
 //' extant.
 //' @param phy phylo object
 //' @export
-//' @examples simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
+//' @examples
+//' simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
 //' ltable <- phylo_to_l(simulated_tree)
 //' reconstructed_tree <- DDD::L2phylo(ltable)
 //' par(mfrow=c(1, 2))
@@ -127,10 +128,11 @@ double calc_mpd_cpp(const std::vector<int>& edge,
 }
 
 // [[Rcpp::export]]
-double calc_psv_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return calc_psv_stat(edge, el);
+double calc_psv_cpp(const std::vector<int>& edge,
+                    const std::vector<double>& el) {
+  mpd_tree::phylo_tree focal_tree(edge, el);
+  auto mpd = focal_tree.calculate_mpd();
+  return mpd * 0.5;
 }
 
 // [[Rcpp::export]]

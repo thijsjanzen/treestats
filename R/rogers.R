@@ -22,16 +22,18 @@
 #'   rogers(unbalanced_tree) # should be higher
 #' }
 rogers <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+
   if (inherits(phy, "matrix")) {
     rogers_stat <- calc_rogers_ltable_cpp(phy)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       rogers_stat <- rogers_stat / (length(phy[, 1]) - 2)
     }
     return(rogers_stat)
   }
   if (inherits(phy, "phylo")) {
     rogers_stat <- calc_rogers_cpp(as.vector(t(phy$edge)))
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       rogers_stat <- rogers_stat / (length(phy$tip.label) - 2)
     }
     return(rogers_stat)

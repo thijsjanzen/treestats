@@ -29,13 +29,6 @@ class sym_node_tree {
 
     void set_depth(size_t parent_depth) {
       depth = 1 + parent_depth;
-      if (daughter1 && !daughter2) {
-        daughter1->set_depth(depth);
-      }
-
-      if (daughter2 && !daughter1) {
-        daughter2->set_depth(depth);
-      }
 
       if (daughter1 && daughter2) {
         daughter1->set_depth(depth);
@@ -46,19 +39,8 @@ class sym_node_tree {
     }
 
     size_t update_l_r() {
-      if (!daughter1 && !daughter2) {
-        L = depth;
-        R = depth;
-      }
-
-      if (daughter1 && !daughter2) {
-        L = daughter1->update_l_r();
-        R = depth;
-      }
-      if (daughter1 && daughter2) {
-        L =  daughter1->update_l_r();
-        R =  daughter2->update_l_r();
-      }
+      L = daughter1 ? daughter1->update_l_r() : depth;
+      R = daughter2 ? daughter2->update_l_r() : depth;
 
       return L + R;
     }
@@ -68,18 +50,6 @@ class sym_node_tree {
       if (!daughter1 && !daughter2) {
         L_vec = {L};
         R_vec = {R};
-      }
-
-      if (daughter1 && !daughter2) {
-        L_vec = daughter1->update_vecs();
-        L = std::accumulate(L_vec.begin(), L_vec.end(), 0.0) + depth;
-        R_vec = {R};
-      }
-
-      if (daughter2 && !daughter1) {
-        R_vec = daughter2->update_vecs();
-        R = std::accumulate(R_vec.begin(), R_vec.end(), 0.0) + depth;
-        L_vec = {L};
       }
 
       if (daughter1 && daughter2) {

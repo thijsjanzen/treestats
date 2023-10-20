@@ -19,19 +19,15 @@
 #' Biological Reviews 92.2 (2017): 698-715.
 #' @export
 psv <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    n <- length(phy$tip.label)
-    m <- phy$Nnode
-    nm <- n + m
-    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
-      stop("tree too big")
-    }
-    psv_stat <- calc_psv_cpp(phy)
-    if (normalization == "tips") {
+    psv_stat <- calc_psv_cpp(as.vector(t(phy$edge)),
+                             phy$edge.length)
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       psv_stat <- psv_stat / (2 * log(n))
     }

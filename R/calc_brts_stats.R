@@ -21,17 +21,17 @@ calc_brts_stats <- function(phylo) {
 
   stats <- list()
 
-  stats$gamma              <- treestats::gamma_statistic(phylo)
-  stats$pigot_rho          <- treestats::pigot_rho(phylo)
-  stats$nltt_base          <- treestats::nLTT_base(phylo)
+  stats$gamma                  <- treestats::gamma_statistic(phylo)
+  stats$pigot_rho              <- treestats::pigot_rho(phylo)
+  stats$nltt_base              <- treestats::nLTT_base(phylo)
 
-  stats$mean_branch_length <- treestats::mean_branch_length(phylo)
-  stats$var_branch_length  <- treestats::var_branch_length(phylo)
+  stats$mean_branch_length     <- treestats::mean_branch_length(phylo)
+  stats$var_branch_length      <- treestats::var_branch_length(phylo)
 
   stats$mean_branch_length_int <- treestats::mean_branch_length_int(phylo)
   stats$mean_branch_length_ext <- treestats::mean_branch_length_ext(phylo)
-  stats$var_branch_length_int <- treestats::var_branch_length_int(phylo)
-  stats$var_branch_length_ext <- treestats::var_branch_length_ext(phylo)
+  stats$var_branch_length_int  <- treestats::var_branch_length_int(phylo)
+  stats$var_branch_length_ext  <- treestats::var_branch_length_ext(phylo)
 
   return(stats)
 }

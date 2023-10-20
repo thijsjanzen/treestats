@@ -68,6 +68,12 @@ test_that("abuse", {
   testthat::expect_output(
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "no algorithm chosen")
+
+  focal_tree <- ape::rphylo(n = 2, birth = 1, death = 0)
+
+  testthat::expect_warning(
+    treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
+    "Trees with only two tips have undefined beta")
 })
 
 test_that("wrong_object", {

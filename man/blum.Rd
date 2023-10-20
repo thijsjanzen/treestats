@@ -4,14 +4,15 @@
 \alias{blum}
 \title{Fast function using C++ to calculate the Blum index of (im)balance.}
 \usage{
-blum(phy, normalize = FALSE)
+blum(phy, normalization = FALSE)
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
 
-\item{normalize}{because the Blum index sums over all nodes, the resulting
-statistic tends to be correlated with the number of extant tips.
-Normalization can be performed by dividing by the number of extant tips.}
+\item{normalization}{because the Blum index sums over all nodes,
+the resulting statistic tends to be correlated with the number of extant
+tips. Normalization can be performed by dividing by the number of extant
+tips.}
 }
 \value{
 Blum index of imbalance

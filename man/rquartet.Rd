@@ -10,7 +10,7 @@ rquartet(phy, normalization = "none")
 \item{phy}{phylo object or ltable}
 
 \item{normalization}{The index can be normalized by the expectation under
-the Yule or PDA model.}
+the Yule ("yule") or PDA model ("pda").}
 }
 \value{
 rquartet index

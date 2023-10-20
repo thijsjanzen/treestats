@@ -12,10 +12,11 @@
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
 max_betweenness <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     betweenness_stat <- calc_max_betweenness_ltable_cpp(phy)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy[, 1])
       betweenness_stat <- betweenness_stat / ((n - 2) * (n - 1))
     }
@@ -23,7 +24,7 @@ max_betweenness <- function(phy, normalization = "none") {
   }
   if (inherits(phy, "phylo")) {
     betweenness_stat <- calc_max_betweenness_cpp(phy)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       betweenness_stat <- betweenness_stat / ((n - 2) * (n - 1))
     }

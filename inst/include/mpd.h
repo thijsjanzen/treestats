@@ -14,7 +14,8 @@
 
 namespace mpd_tree {
 
-
+// here, we don't use phylo_tree.h, because we also need to
+// track edge lengths. Code is very similar though.
 struct mpd_node {
   mpd_node* daughterL = nullptr;
   mpd_node* daughterR = nullptr;

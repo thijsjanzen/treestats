@@ -105,12 +105,12 @@ ILnumber_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_ILnumber_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
-calc_rquartet_cpp <- function(tree_edge, normalization) {
-    .Call('_treestats_calc_rquartet_cpp', PACKAGE = 'treestats', tree_edge, normalization)
+calc_rquartet_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_rquartet_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-calc_rquartet_ltable_cpp <- function(ltable_R, normalization) {
-    .Call('_treestats_calc_rquartet_ltable_cpp', PACKAGE = 'treestats', ltable_R, normalization)
+calc_rquartet_ltable_cpp <- function(ltable_R) {
+    .Call('_treestats_calc_rquartet_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
 stairs_cpp <- function(tree_edge) {
@@ -236,7 +236,8 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
 #' extant.
 #' @param phy phylo object
 #' @export
-#' @examples simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
+#' @examples
+#' simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
 #' ltable <- phylo_to_l(simulated_tree)
 #' reconstructed_tree <- DDD::L2phylo(ltable)
 #' par(mfrow=c(1, 2))
@@ -252,8 +253,8 @@ calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }
 
-calc_psv_cpp <- function(phy) {
-    .Call('_treestats_calc_psv_cpp', PACKAGE = 'treestats', phy)
+calc_psv_cpp <- function(edge, el) {
+    .Call('_treestats_calc_psv_cpp', PACKAGE = 'treestats', edge, el)
 }
 
 calc_J_cpp <- function(edge, el) {

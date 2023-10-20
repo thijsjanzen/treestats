@@ -13,6 +13,19 @@ test_that("usage", {
     testthat::expect_equal(treestats::rquartet(focal_tree),
                            treestats::rquartet(ltab))
 
+    # normalization
+    a3 <- treestats::rquartet(focal_tree, normalization = "yule")
+    a4 <- treestats::rquartet(ltab, normalization = "yule")
+    testthat::expect_equal(a3, a4)
+    testthat::expect_lt(a3, a1)
+    testthat::expect_lt(a3, 2)
+
+    a3 <- treestats::rquartet(focal_tree, normalization = "pda")
+    a4 <- treestats::rquartet(ltab, normalization = "pda")
+    testthat::expect_equal(a3, a4)
+    testthat::expect_lt(a3, a1)
+    testthat::expect_lt(a3, 2)
+
     # with extinct species:
     focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 

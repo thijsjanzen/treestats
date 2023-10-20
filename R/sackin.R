@@ -18,6 +18,7 @@
 #'   sackin(unbalanced_tree) # should be much higher
 #' }
 sackin <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     return(calc_sackin_ltable_cpp(phy, normalization))

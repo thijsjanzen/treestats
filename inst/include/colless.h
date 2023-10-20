@@ -340,12 +340,14 @@ double correct_pda(double Ic, size_t num_tips) {
   }
 
   double correct_rquartet_yule(double stat, size_t num_tips) {
-    auto expected = binom_coeff(num_tips, 4);
-    return stat * 1.0 / expected;
+    double expected = log_binom_coeff_four(num_tips);
+    double new_val = std::log(stat) - expected;
+    return exp(new_val);
   }
 
   double correct_rquartet_pda(double stat, size_t num_tips) {
-    auto expected = 3.0 / 5.0 * binom_coeff(num_tips, 4);
-    return stat * 1.0 / expected;
+    double expected = log_binom_coeff_four(num_tips);
+    double new_val = std::log(stat) - expected + log(5);
+    return exp(new_val);
   }
 }   // namespace correction

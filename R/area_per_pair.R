@@ -14,6 +14,8 @@
 #' arXiv:2008.12867, 2020.
 #' @export
 area_per_pair <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+
   n <- 0
 
   if (inherits(phy, "matrix")) {

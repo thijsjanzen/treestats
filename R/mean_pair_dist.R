@@ -1,7 +1,6 @@
-#' Fast function using C++ to calculate the mean pairwise distance, using the
-#' fast algorithm by Constantinos, Sandel & Cheliotis (2012).
-#' @description The mean pairwise distance calculates the average distance
-#' between all combinations of tips.
+#' Mean Pairwise distance
+#' @description Fast function using C++ to calculate the mean pairwise distance,
+#' using the fast algorithm by Constantinos, Sandel & Cheliotis (2012).
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "tips", in which case the obtained mean
 #' pairwise distance is normalized by the factor 2log(n),
@@ -16,13 +15,15 @@
 #' September 10-12, 2012. Proceedings 12. Springer Berlin Heidelberg, 2012.
 #' @export
 mean_pair_dist <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
     mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
                          phy$edge.length)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       mpd <- mpd / (2 * log(n))
     }

@@ -29,13 +29,6 @@ class width_tree {
 
     void set_depth(size_t parent_depth) {
       depth = 1 + parent_depth;
-      if (daughter1 && !daughter2) {
-        daughter1->set_depth(depth);
-      }
-
-      if (daughter2 && !daughter1) {
-        daughter2->set_depth(depth);
-      }
 
       if (daughter1 && daughter2) {
         daughter1->set_depth(depth);

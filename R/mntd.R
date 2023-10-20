@@ -1,7 +1,6 @@
-#' Fast function using C++ to calculate the Mean Nearest Taxon distance
-#' @description After calculating all pairwise distances between all tips,
-#' this function takes the mean value per tip, and then calculates the average
-#' value across all tips.
+#' Mean Nearest Taxon distance
+#' @description Per tip, evaluates the shortest distance to another tip,
+#' then takes the average across all tips.
 #' @param phy phylo object or ltable
 #' @return Mean Nearest Taxon Distance.
 #' @references  Webb, C., D. Ackerly, M. McPeek, and M. Donoghue. 2002.
@@ -15,25 +14,11 @@ mntd <- function(phy) {
     if (sum(phy[, 4] != -1)) {
       stop("can only calculate mntd statistic for ultrametric tree")
     }
-    n <- length(phy[, 1])
-    m <- n - 1
-    nm <- n + m
-    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
-      warning("tree too big")
-      return(NA)
-    }
     return(calc_mntd_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
     if (!ape::is.ultrametric(phy, option = 2)) {
       stop("can only calculate mntd statistic for ultrametric tree")
-    }
-    n <- length(phy$tip.label)
-    m <- phy$Nnode
-    nm <- n + m
-    if (nm > 46340) { # sqrt(2^31 - 1) #nolint
-      warning("tree too big")
-      return(NA)
     }
     return(calc_mntd_cpp(phy))
   }

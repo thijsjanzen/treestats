@@ -9,7 +9,9 @@
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
-eigen_vector <- function(phy, weight = TRUE, scale = FALSE) {
+eigen_vector <- function(phy,
+                         weight = TRUE,
+                         scale = FALSE) {
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)

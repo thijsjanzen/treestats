@@ -308,26 +308,24 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_rquartet_cpp
-double calc_rquartet_cpp(const std::vector<int>& tree_edge, std::string normalization);
-RcppExport SEXP _treestats_calc_rquartet_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
+double calc_rquartet_cpp(const std::vector<int>& tree_edge);
+RcppExport SEXP _treestats_calc_rquartet_cpp(SEXP tree_edgeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rquartet_cpp(tree_edge, normalization));
+    rcpp_result_gen = Rcpp::wrap(calc_rquartet_cpp(tree_edge));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_rquartet_ltable_cpp
-double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R, std::string normalization);
-RcppExport SEXP _treestats_calc_rquartet_ltable_cpp(SEXP ltable_RSEXP, SEXP normalizationSEXP) {
+double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
+RcppExport SEXP _treestats_calc_rquartet_ltable_cpp(SEXP ltable_RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_rquartet_ltable_cpp(ltable_R, normalization));
+    rcpp_result_gen = Rcpp::wrap(calc_rquartet_ltable_cpp(ltable_R));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -660,13 +658,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_psv_cpp
-double calc_psv_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_psv_cpp(SEXP phySEXP) {
+double calc_psv_cpp(const std::vector<int>& edge, const std::vector<double>& el);
+RcppExport SEXP _treestats_calc_psv_cpp(SEXP edgeSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_psv_cpp(phy));
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_psv_cpp(edge, el));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -880,8 +879,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 1},
     {"_treestats_ILnumber_cpp", (DL_FUNC) &_treestats_ILnumber_cpp, 1},
     {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
-    {"_treestats_calc_rquartet_cpp", (DL_FUNC) &_treestats_calc_rquartet_cpp, 2},
-    {"_treestats_calc_rquartet_ltable_cpp", (DL_FUNC) &_treestats_calc_rquartet_ltable_cpp, 2},
+    {"_treestats_calc_rquartet_cpp", (DL_FUNC) &_treestats_calc_rquartet_cpp, 1},
+    {"_treestats_calc_rquartet_ltable_cpp", (DL_FUNC) &_treestats_calc_rquartet_ltable_cpp, 1},
     {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
     {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},
     {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 1},
@@ -911,7 +910,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_ltable_cpp", (DL_FUNC) &_treestats_calc_beta_ltable_cpp, 5},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 2},
-    {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 1},
+    {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 2},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 2},
     {"_treestats_calc_mntd_cpp", (DL_FUNC) &_treestats_calc_mntd_cpp, 1},
     {"_treestats_calc_mntd_ltable_cpp", (DL_FUNC) &_treestats_calc_mntd_ltable_cpp, 1},

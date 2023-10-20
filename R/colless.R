@@ -22,6 +22,7 @@
 #' }
 colless <- function(phy,
                     normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     return(calc_colless_ltable_cpp(phy, normalization))
