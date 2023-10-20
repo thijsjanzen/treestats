@@ -14,7 +14,7 @@
 rquartet <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
-  if (!inherits(phy, "matrix") || !inherits(phy, "phylo")) {
+  if (!inherits(phy, "matrix") && !inherits(phy, "phylo")) {
     stop("input object has to be phylo or ltable")
   }
 
