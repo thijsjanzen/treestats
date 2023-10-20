@@ -12,6 +12,7 @@
 #' J Math Chem 2, 267–277 (1988)
 #' @export
 wiener <- function(phy, normalization = FALSE, weight = TRUE) {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)

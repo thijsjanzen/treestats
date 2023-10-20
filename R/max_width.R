@@ -13,17 +13,18 @@
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 #' @export
 max_width <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     max_w_stat <- calc_max_width_ltable_cpp(phy)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       max_w_stat <- max_w_stat / length(phy[, 1])
     }
     return(max_w_stat)
   }
   if (inherits(phy, "phylo")) {
     max_w_stat <- calc_max_width_cpp(as.vector(t(phy$edge)))
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       max_w_stat <- max_w_stat / length(phy$tip.label)
     }
     return(max_w_stat)

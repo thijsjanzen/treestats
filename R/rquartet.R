@@ -12,6 +12,8 @@
 #' Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w.
 #' @export
 rquartet <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+
   if (inherits(phy, "matrix")) {
     answ <- calc_rquartet_ltable_cpp(phy)
     if (normalization == "yule" || normalization == "Yule") {

@@ -15,10 +15,11 @@
 #' Journal of Mathematical Biology 83.5 (2021): 1-43.
 #' @export
 b2 <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     b2_stat <- calc_b2_ltable_cpp(phy)
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy[, 1])
       expectation <- sum(1 / (1:n))
       b2_stat <- b2_stat / expectation
@@ -27,7 +28,7 @@ b2 <- function(phy, normalization = "none") {
   }
   if (inherits(phy, "phylo")) {
     b2_stat <- calc_b2_cpp(as.vector(t(phy$edge)))
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy$tip.label)
       expectation <- sum(1 / (1:n))
       b2_stat <- b2_stat / expectation

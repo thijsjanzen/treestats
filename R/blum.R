@@ -23,6 +23,7 @@
 #' }
 blum <- function(phy,
                  normalization = FALSE) {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     return(calc_blum_ltable_cpp(phy, normalization))

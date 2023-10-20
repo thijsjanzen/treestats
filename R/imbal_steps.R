@@ -11,6 +11,7 @@
 #' @export
 imbalance_steps <- function(input_obj,
                             normalization = FALSE) {
+  normalization <- check_normalization_key(normalization, TRUE)
 
   if (inherits(input_obj, "phylo")) {
     input_obj <- treestats::phylo_to_l(input_obj)

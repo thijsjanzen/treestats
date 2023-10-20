@@ -10,9 +10,11 @@
 #' doi: 10.1016/j.mbs.2012.10.005.
 #' @export
 tot_coph <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+
   if (inherits(phy, "matrix")) {
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy[, 1])
       if (n == 2) warning("normalization not valid for trees of size 2")
       h_n <- sum(1 / (1:n))
@@ -23,7 +25,7 @@ tot_coph <- function(phy, normalization = "none") {
   }
   if (inherits(phy, "phylo")) {
     tot_coph_stat <- calc_tot_coph_cpp(as.vector(t(phy$edge)))
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy$tip.label)
       if (n == 2) warning("normalization not valid for trees of size 2")
       h_n <- sum(1 / (1:n))

@@ -15,13 +15,15 @@
 #' September 10-12, 2012. Proceedings 12. Springer Berlin Heidelberg, 2012.
 #' @export
 mean_pair_dist <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
     mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
                          phy$edge.length)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       mpd <- mpd / (2 * log(n))
     }

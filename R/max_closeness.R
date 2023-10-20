@@ -15,13 +15,14 @@
 #' p. 2090–2095.
 #' @export
 max_closeness <- function(phy, weight = TRUE, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     closeness_stat <- calc_max_closeness_cpp(phy, weight)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$edge)
       expectation <- 1.0 / (n * log(n))
       closeness_stat <- closeness_stat / expectation

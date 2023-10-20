@@ -15,13 +15,14 @@
 #' doi:https://doi.org/10.1016/j.mbs.2021.108690
 #' @export
 sym_nodes <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     sym_nodes_stat <- calc_sym_nodes_cpp(as.vector(t(phy$edge)))
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       sym_nodes_stat <- sym_nodes_stat / (length(phy$tip.label) - 2)
     }
     return(sym_nodes_stat)

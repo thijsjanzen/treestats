@@ -12,9 +12,11 @@
 #'
 #' @export
 ILnumber <- function(input_obj, normalization = "none") { # nolint
+  normalization <- check_normalization_key(normalization)
+
   if (inherits(input_obj, "matrix")) {
     il_stat <- ILnumber_ltable_cpp(input_obj)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(input_obj[, 1])
       il_stat <- il_stat / (n - 2)
     }
@@ -22,7 +24,7 @@ ILnumber <- function(input_obj, normalization = "none") { # nolint
   }
   if (inherits(input_obj, "phylo")) {
     il_stat <- ILnumber_cpp(as.vector(t(input_obj$edge)))
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(input_obj$tip.label)
       il_stat <- il_stat / (n - 2)
     }

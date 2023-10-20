@@ -10,6 +10,7 @@
 #' two models of trees." Mathematical biosciences 164.1 (2000): 81-92.
 #' @export
 cherries <- function(input_obj, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   num_cherries <- 0
 

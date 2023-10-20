@@ -19,6 +19,7 @@
 #' Biological Reviews 92.2 (2017): 698-715.
 #' @export
 psv <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
@@ -26,7 +27,7 @@ psv <- function(phy, normalization = "none") {
   if (inherits(phy, "phylo")) {
     psv_stat <- calc_psv_cpp(as.vector(t(phy$edge)),
                              phy$edge.length)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       psv_stat <- psv_stat / (2 * log(n))
     }

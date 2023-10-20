@@ -11,10 +11,11 @@
 #' doi: 10.1186/s12859-020-3405-1.
 #' @export
 var_leaf_depth <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     var_leaf_depth_stat <- calc_var_leaf_depth_ltable_cpp(phy)
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy[, 1])
       yule_expected <-  2 * log(n)
       var_leaf_depth_stat <- var_leaf_depth_stat / yule_expected
@@ -23,7 +24,7 @@ var_leaf_depth <- function(phy, normalization = "none") {
   }
   if (inherits(phy, "phylo")) {
     var_leaf_depth_stat <- calc_var_leaf_depth_cpp(as.vector(t(phy$edge)))
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy$tip.label)
       yule_expected <-  2 * log(n)
       var_leaf_depth_stat <- var_leaf_depth_stat / yule_expected

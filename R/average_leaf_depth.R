@@ -16,11 +16,12 @@
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' average_leaf_depth(simulated_tree)
 average_leaf_depth <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "phylo")) {
     n <- length(phy$tip.label)
     ald <- calc_sackin_cpp(as.vector(t(phy$edge)), "none") / n
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       expectation <- 2 * log(n)
       ald <- ald / expectation
     }
@@ -30,7 +31,7 @@ average_leaf_depth <- function(phy, normalization = "none") {
   if (inherits(phy, "matrix")) {
     n <- length(phy[, 1])
     ald <- calc_sackin_ltable_cpp(phy, "none") / n
-    if (normalization == "yule") {
+    if (normalization == "yule" || normalization == TRUE) {
       expectation <- 2 * log(n)
       ald <- ald / expectation
     }

@@ -11,10 +11,10 @@
 #' Systematic Zoology, 39(3):266, 1990. doi: 10.2307/2992186.
 #' @export
 b1 <- function(phy, normalization = "none") {
-
+  normalization <- check_normalization_key(normalization)
   if (inherits(phy, "matrix")) {
     b1_stat <- calc_b1_ltable_cpp(phy)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy[, 1])
       b1_stat <- b1_stat / n
     }
@@ -22,7 +22,7 @@ b1 <- function(phy, normalization = "none") {
   }
   if (inherits(phy, "phylo")) {
     b1_stat <- calc_b1_cpp(as.vector(t(phy$edge)))
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       b1_stat <- b1_stat / n
     }

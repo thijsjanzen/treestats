@@ -10,17 +10,18 @@
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 #' @export
 max_depth <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
     max_d_stat <- calc_max_depth_ltable_cpp(phy)
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       max_d_stat <- max_d_stat / length(phy[, 1])
     }
     return(max_d_stat)
   }
   if (inherits(phy, "phylo")) {
     max_d_stat <- calc_max_depth_cpp(as.vector(t(phy$edge)))
-    if (normalization == "tips") {
+    if (normalization == "tips" || normalization == TRUE) {
       max_d_stat <- max_d_stat / length(phy$tip.label)
     }
     return(max_d_stat)
