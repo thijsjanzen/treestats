@@ -14,28 +14,32 @@
 rquartet <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  if (!inherits(phy, "matrix") && !inherits(phy, "phylo")) {
+    stop("input object has to be phylo or ltable")
+  }
+
   if (inherits(phy, "matrix")) {
     answ <- calc_rquartet_ltable_cpp(phy)
-    if (normalization == "yule" || normalization == "Yule") {
-      answ <- answ / (choose(length(phy[, 1]), 4))
-    }
-    if (normalization == "pda" || normalization == "PDA") {
-      answ <- answ / (5 * choose(length(phy[, 1]), 4))
-    }
-    return(answ)
   }
   if (inherits(phy, "phylo")) {
     if (phy$Nnode + 1 != length(phy$tip.label)) {
   stop("Tree must be binary, for non binary trees use treebalance::rQuartetI")
     }
     answ <- calc_rquartet_cpp(as.vector(t(phy$edge)))
-    if (normalization == "yule" || normalization == "Yule") {
-      answ <- answ / (choose(length(phy$tip.label), 4))
-    }
-    if (normalization == "pda" || normalization == "PDA") {
-      answ <- answ / (5 * choose(length(phy$tip.label), 4))
-    }
-    return(answ)
   }
-  stop("input object has to be phylo or ltable")
+
+  if (normalization == "yule") {
+    ntips <- ifelse(inherits(phy, "matrix"),
+                    length(phy[, 1]),
+                    length(phy$tip.label))
+    answ <- answ / (choose(ntips, 4))
+  }
+  if (normalization == "pda") {
+    ntips <- ifelse(inherits(phy, "matrix"),
+                    length(phy[, 1]),
+                    length(phy$tip.label))
+    answ <- answ / (5 * choose(ntips, 4))
+  }
+
+  return(answ)
 }

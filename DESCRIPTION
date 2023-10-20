@@ -25,7 +25,6 @@ Suggests:
     phyloTop,
     testthat,
     phytools,
-    apTreeshape,
     DDD,
     geiger,
     nodeSub,
@@ -36,7 +35,8 @@ Suggests:
     tibble,
     picante,
     treebalance,
-    RPANDA
+    RPANDA,
+    lintr
 SystemRequirements: C++14
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats/

@@ -20,7 +20,7 @@ rebase_ltable <- function(ltable) {
 renumber_ltable <- function(ltab) {
   temp_new_ltab <- ltab
 
-  for (i in  1:length(temp_new_ltab[, 1])) {
+  for (i in  seq_along(temp_new_ltab[, 1])) {
     current_label <- ltab[i, 3]
     if (abs(current_label) != i) {
       new_label <- i * sign(ltab[i, 3])
