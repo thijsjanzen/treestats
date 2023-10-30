@@ -22,7 +22,7 @@ using edge_table = std::vector< std::array< size_t, 2 >>;
 inline ltable convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
   ltable out(mat_in.nrow());
 
-  for (size_t i = 0; i < mat_in.nrow(); ++i) {
+  for (int i = 0; i < mat_in.nrow(); ++i) {
     std::array<double, 4> row_entry = {mat_in(i, 0), mat_in(i, 1),
                                        mat_in(i, 2), mat_in(i, 3) };
     out[i] = row_entry;
@@ -34,7 +34,7 @@ inline ltable convert_to_ltable(const Rcpp::NumericMatrix& mat_in) {
 inline edge_table phy_to_edge(const Rcpp::List& phy) {
   Rcpp::NumericMatrix edge = phy["edge"];
   edge_table local_edge(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); ++i) {
+  for (int i = 0; i < edge.nrow(); ++i) {
     local_edge[i] = {static_cast<size_t>(edge(i, 0)),
                      static_cast<size_t>(edge(i, 1))};
   }

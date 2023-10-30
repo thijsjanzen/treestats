@@ -40,7 +40,7 @@ double calc_beta_cpp(const Rcpp::List& phy,
     }
 
     std::vector< std::array< int, 2 >> local_edge(edge.nrow());
-    for (size_t i = 0; i < edge.nrow(); ++i) {
+    for (int i = 0; i < edge.nrow(); ++i) {
       local_edge[i] = {static_cast<int>(edge(i, 0)),
                        static_cast<int>(edge(i, 1))};
     }
@@ -65,7 +65,7 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
                          double rel_tol) {
   try {
     std::vector< std::array< double, 4 >> ltab(ltable.nrow());
-    for (size_t i = 0; i < ltable.nrow(); ++i) {
+    for (int i = 0; i < ltable.nrow(); ++i) {
       std::array< double, 4> row_entry = {ltable(i, 0), ltable(i, 1),
                                           ltable(i, 2), ltable(i, 3)};
       ltab[i] = row_entry;

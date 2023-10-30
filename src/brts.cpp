@@ -37,7 +37,7 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
 
   size_t n = 1e6;
 
-  for (size_t i = 0; i < edge.nrow(); ++i) {
+  for (int i = 0; i < edge.nrow(); ++i) {
     std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
                                          static_cast<size_t>(edge(i, 1))};
     edge_cpp[i] = row_entry;
@@ -53,7 +53,7 @@ std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
 std::vector<double>
   branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
   std::vector<double> out(mat_in.nrow() - 1);
-  for (size_t i = 1; i < mat_in.nrow(); ++i) {
+  for (int i = 1; i < mat_in.nrow(); ++i) {
     out[i - 1] = mat_in(i, 0);
   }
   return out;
@@ -66,7 +66,7 @@ double calc_rho_complete_cpp(const Rcpp::List& phy) {
 
   std::vector<double> el(edge_length.begin(), edge_length.end());
   edge_table edges(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); i++) {
+  for (int i = 0; i < edge.nrow(); i++) {
     std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
                                     static_cast<size_t>(edge(i, 1))};
     edges[i] = to_add;
@@ -107,7 +107,7 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
 
     std::vector<double> el(edge_length.begin(), edge_length.end());
     edge_table edges(edge.nrow());
-    for (size_t i = 0; i < edge.nrow(); i++) {
+    for (int i = 0; i < edge.nrow(); i++) {
       std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
                                    static_cast<size_t>(edge(i, 1))};
       edges[i] = to_add;
@@ -212,7 +212,7 @@ double calc_crown_age_cpp(const Rcpp::List& phy) {
 
   std::vector<double> el(edge_length.begin(), edge_length.end());
   edge_table edges(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); i++) {
+  for (int i = 0; i < edge.nrow(); i++) {
     std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
                                     static_cast<size_t>(edge(i, 1))};
     edges[i] = to_add;
