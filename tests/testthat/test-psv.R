@@ -1,4 +1,4 @@
-context("mean nearest taxon distance")
+context("psv")
 
 test_that("usage", {
   if (requireNamespace("picante")) {

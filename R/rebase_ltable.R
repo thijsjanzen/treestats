@@ -5,21 +5,21 @@
 #' @export
 rebase_ltable <- function(ltable) {
   if (length(ltable[, 1]) == 2) return(ltable)
- # prev_main_attractor <- c()
+  prev_main_attractor <- c()
   while (TRUE) {
     res <- swap_deepest(ltable)
     ltable <- res$ltab
- #   prev_main_attractor <- c(prev_main_attractor,
-#                             res$main_attractor)
-#    if (length(prev_main_attractor) > 5) {
-#      end <- length(prev_main_attractor)
+    prev_main_attractor <- c(prev_main_attractor,
+                             res$main_attractor)
+    if (length(prev_main_attractor) > 5) {
+      end <- length(prev_main_attractor)
 
-#      prev_main_attractor <- prev_main_attractor[(end-5):end]
-#    }
+      prev_main_attractor <- prev_main_attractor[(end - 5):end]
+    }
 
-  #  if (sd(prev_main_attractor) == 0) {
-  #    stop("Stuck in endless loop, possibly due to polytomies")
-  #  }
+    if (sd(prev_main_attractor) == 0 && length(prev_main_attractor) > 3) {
+      stop("Stuck in endless loop, possibly due to polytomies")
+    }
   #  prev_main_attractor <- res$main_attractor
     if (res$stop) break
   }
@@ -70,6 +70,7 @@ swap_deepest <- function(ltab) {
 
   new_ltab <- ltab
   finalized <- FALSE
+  # cat(main_attractor, focal_index, "\n")
 
   if (!focal_index %in% c(1, 2)) {
     parent <- ltab[focal_index, 2]
