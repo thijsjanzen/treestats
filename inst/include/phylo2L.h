@@ -46,6 +46,7 @@ void remove_from_L(std::vector< std::array<double, 6>>* L,
 std::vector< std::array<double, 6>> get_realL(
     const std::vector< size_t >& nodesindex,
     std::vector< std::array<double, 6>> L) {
+
   std::vector< std::array<double, 6>> realL;
 
   while (true) {
@@ -61,7 +62,8 @@ std::vector< std::array<double, 6>> get_realL(
 
       bool match_found = false;
       for (auto& i : L) {
-        if (i[2] == parent) {   // can only have one parent.
+        if (i[2] == parent) {   // can only have one parent.  
+
           i[5] = L[j][5];
           i[2] = daughter;
           remove_from_L(&L, j);
@@ -84,11 +86,16 @@ std::vector< std::array<double, 6>> get_realL(
     }
   }
 
+  
+
   std::sort(realL.begin(), realL.end(), [&](const std::array< double, 6>& v1,
                         const std::array< double, 6>& v2) {
-    return(v1[0] > v2[0]);   // sort decreasing
-  });
-
+    if (std::abs(v1[0] - v2[0]) > 1e-6) {
+      return v1[0] > v2[0]; // sort decreasing by time
+    } else {
+      return v1[2] < v2[2]; // or increasing by id
+    };   
+    });
   return realL;
 }
 
@@ -107,7 +114,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   std::vector< double > brts = branching_times_cpp(phy);
 
   auto min_brts = *std::min_element(brts.begin(), brts.end());
-  if (min_brts < 0) {
+  if (min_brts < 0.0) {
     for (auto& i : brts) {
       i += fabs(min_brts);
     }
@@ -121,8 +128,8 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
   size_t num_tips = tiplabel.size();
 
-  std::vector< long double > brt_preL(edge.nrow());
-  long double min_brt_preL = 1e10;
+  std::vector< double > brt_preL(edge.nrow());
+  double min_brt_preL = 1e10;
 
   for (size_t i = 0; i < edge.nrow(); ++i) {
     auto index = edge(i, 0) - num_tips - 1;   // -1 because 0 indexing
@@ -133,7 +140,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   }
 
   if (min_brt_preL == 0.0) {
-    long double correction = 0.0;
+    double correction = 0.0;
     for (size_t i = 0; i < edge_length.size(); ++i) {
       if (brt_preL[i] == 0.0) {
         if (edge_length[i] > correction) {
@@ -156,6 +163,10 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][3] = edge_length[i];
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
+
+  
+ 
+ // all identical up to here (23-11-2023)
 
   std::vector<double> eeindicator(edge_length.size(), 0);
 
@@ -199,11 +210,18 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][5] = eeindicator[i];
   }
 
+  // verified identical
+
   std::sort(pre_Ltable.begin(), pre_Ltable.end(),
             [&](const std::array< double, 6>& v1,
                 const std::array< double, 6>& v2) {
     return(v1[0] > v2[0]);   // sort decreasing
   });
+
+
+// still identical, although differently sorted
+
+  
 
 
   std::vector< size_t > nodesindex(edge.nrow());
@@ -212,6 +230,9 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   }
 
   std::sort(nodesindex.begin(), nodesindex.end());
+  nodesindex.erase( std::unique(nodesindex.begin(), nodesindex.end()),
+                    nodesindex.end());
+
   std::vector< std::array<double, 6>> realL = get_realL(nodesindex,
                                                         pre_Ltable);
 
@@ -240,8 +261,8 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
   for (size_t i = 1; i < L.size(); ++i) {
     if (L[i - 1][2] < 0) {
-      auto ref = fabs(L[i - 1][2]);
-      for (auto & j : L) {
+      auto ref = std::abs(L[i - 1][2]);
+      for (auto& j : L) {
         if (j[1] == ref) {
           j[1] = L[i - 1][2];
           j[2] *= -1;
