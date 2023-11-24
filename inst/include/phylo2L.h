@@ -62,7 +62,7 @@ std::vector< std::array<double, 6>> get_realL(
 
       bool match_found = false;
       for (auto& i : L) {
-        if (i[2] == parent) {   // can only have one parent.  
+        if (i[2] == parent) {   // can only have one parent.
 
           i[5] = L[j][5];
           i[2] = daughter;
@@ -86,7 +86,7 @@ std::vector< std::array<double, 6>> get_realL(
     }
   }
 
-  
+
 
   std::sort(realL.begin(), realL.end(), [&](const std::array< double, 6>& v1,
                         const std::array< double, 6>& v2) {
@@ -94,7 +94,7 @@ std::vector< std::array<double, 6>> get_realL(
       return v1[0] > v2[0]; // sort decreasing by time
     } else {
       return v1[2] < v2[2]; // or increasing by id
-    };   
+    };
     });
   return realL;
 }
@@ -131,7 +131,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   std::vector< double > brt_preL(edge.nrow());
   double min_brt_preL = 1e10;
 
-  for (size_t i = 0; i < edge.nrow(); ++i) {
+  for (int i = 0; i < edge.nrow(); ++i) {
     auto index = edge(i, 0) - num_tips - 1;   // -1 because 0 indexing
     brt_preL[i] = brts[index];
     if (brt_preL[i] < min_brt_preL) {
@@ -141,7 +141,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
   if (min_brt_preL == 0.0) {
     double correction = 0.0;
-    for (size_t i = 0; i < edge_length.size(); ++i) {
+    for (int i = 0; i < edge_length.size(); ++i) {
       if (brt_preL[i] == 0.0) {
         if (edge_length[i] > correction) {
           correction = edge_length[i];
@@ -164,8 +164,8 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
 
-  
- 
+
+
  // all identical up to here (23-11-2023)
 
   std::vector<double> eeindicator(edge_length.size(), 0);
@@ -221,11 +221,11 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
 
 // still identical, although differently sorted
 
-  
+
 
 
   std::vector< size_t > nodesindex(edge.nrow());
-  for (size_t i = 0; i < edge.nrow(); ++i) {
+  for (int i = 0; i < edge.nrow(); ++i) {
     nodesindex[i] = static_cast<size_t>(edge(i, 0));
   }
 

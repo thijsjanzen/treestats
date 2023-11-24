@@ -4,6 +4,7 @@ test_that("usage", {
   if (requireNamespace("geiger") &&
       requireNamespace("DDD")) {
     set.seed(42)
+
     focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 
     ltable_1 <- treestats::phylo_to_l(focal_tree)

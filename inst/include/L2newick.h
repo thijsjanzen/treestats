@@ -30,13 +30,15 @@ int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
                     int parent) {
   int index = 0;
   bool found = false;
-  for (; index < ltable.size(); ++index) {
+  for (; index < static_cast<int>(ltable.size()); ++index) {
     if (std::abs(ltable[index][2] - parent) < 0.0000001) {
       found = true;
       break;
     }
   }
-  if (!found) index = -1;
+  if (!found) {
+    index = -1;
+  }
   return index;
 }
 

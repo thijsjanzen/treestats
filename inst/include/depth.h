@@ -40,7 +40,7 @@ class width_tree {
   };
 
   phylo_tree_t<node_t> tree;
-  int root_no;
+  size_t root_no;
 
  public:
   explicit width_tree(const std::vector< int >& tree_edge)

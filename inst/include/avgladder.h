@@ -38,7 +38,7 @@ double calc_ladder(const std::vector< int >& tree_edge,
 
     int other_lab = tree_edge[i + 1] - root_no;
 
-    if (node_lab > edge_mat.size() || node_lab < 0) {
+    if (node_lab > static_cast<int>(edge_mat.size()) || node_lab < 0) {
       throw std::out_of_range("node_lab > edge_mat.size()");
     }
 
@@ -60,10 +60,10 @@ double calc_ladder(const std::vector< int >& tree_edge,
     auto daughter1 = edge_mat[i].daughters[0];
     auto daughter2 = edge_mat[i].daughters[1];
 
-    if (daughter1 > 0 && daughter1 >  tips.size()) {
+    if (daughter1 > 0 && daughter1 > static_cast<int>(tips.size())) {
       throw std::out_of_range("daughter1 > tips.size()");
     }
-    if (daughter2 > 0 && daughter2 > tips.size()) {
+    if (daughter2 > 0 && daughter2 > static_cast<int>(tips.size())) {
       throw std::out_of_range("daughter2 > tips.size()");
     }
 

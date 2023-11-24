@@ -294,8 +294,8 @@ class colless_stat_ltable {
     return std::distance(ltable_.begin(), min_val);
   }
 
-  int index_of_parent(int parent) {
-    int index = 0;
+  size_t index_of_parent(int parent) {
+    size_t index = 0;
     bool found = false;
     for (; index < ltable_.size(); ++index) {
       if (ltable_[index][2] == parent) {
@@ -303,7 +303,9 @@ class colless_stat_ltable {
         break;
       }
     }
-    if (!found) index = -1;
+    if (!found) {
+      throw "can't find parent\n";
+    }
     return index;
   }
 

@@ -68,7 +68,8 @@ class betastat {
 
   int get_num_tips(const int& label,
                    const int& root_label) {
-    if (label >= tiplist.size() || label < 0) {
+    if (label >= static_cast<int>(tiplist.size()) ||
+        label < 0) {
       throw std::out_of_range("label outside tiplist.size()");
     }
 
@@ -166,7 +167,7 @@ class betastat {
     sn[3] = expf(calc_i_n_b_l(1, 3, b)) + expf(calc_i_n_b_l(2, 3, b));
 
     if (max_n_ >= 3) {
-      for (size_t n = 3; n < max_n_; ++n) {
+      for (int n = 3; n < max_n_; ++n) {
         auto term1 = n + 2 + 2 * b;
         auto term2 = 2 * (n + b) * xn[n];
         xn[n + 1] = ((n + b) * (n + 1) * xn[n]) / (n * term1 + term2);
@@ -253,7 +254,7 @@ class betastat {
       if (lr[0] > lr[1]) {
         std::swap(lr[0], lr[1]);
       }
-      size_t total_num_lin = lr[0] + lr[1];
+      int total_num_lin = lr[0] + lr[1];
       if (total_num_lin > max_n_) max_n_ = total_num_lin;
       n_.push_back(total_num_lin);
       lr_.push_back(lr);

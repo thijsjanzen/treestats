@@ -35,7 +35,7 @@ struct lower_tri {
 
     auto local_index = get_linear_index(i, j);
 
-    if (local_index < 0 || local_index > data_.size()) {
+    if (local_index < 0 || local_index > static_cast<int>(data_.size())) {
       throw "local_index outside data_";
     }
 
@@ -47,7 +47,7 @@ struct lower_tri {
 
     auto local_index = get_linear_index(i, j);
 
-    if (local_index < 0 || local_index > data_.size()) {
+    if (local_index < 0 || local_index > static_cast<int>(data_.size())) {
       throw "local_index outside data_";
     }
      return data_[local_index];
@@ -71,7 +71,7 @@ lower_tri dist_nodes_tri(const std::vector< std::array< size_t, 2 >>& edge,
     throw std::runtime_error("tree too big");
   }
   // code below is from the Ape package
-  int i, j, k, a, d, NM = n + m, ROOT;
+  int j, k = 0, a, d, NM = n + m, ROOT;
   double x;
   size_t N = edge.size();
   lower_tri D(NM);
@@ -83,7 +83,7 @@ lower_tri dist_nodes_tri(const std::vector< std::array< size_t, 2 >>& edge,
 
   /* go down along the edge matrix
    starting at the 2nd edge: */
-  for (i = 1; i < N; i++) {
+  for (size_t i = 1; i < N; i++) {
       a = edge[i][0] - 1;
       d = edge[i][1] - 1;
       x = el[i]; /* get the i-th nodes and branch length */

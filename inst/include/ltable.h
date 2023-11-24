@@ -34,7 +34,7 @@ class stat {
       }
     }
 
-    if (start_index != ltable_.size()) {
+    if (start_index != static_cast<int>(ltable_.size())) {
       return find_parent(ltable_, focal_id, ltable_.size());
     } else {
       throw "out of bounds";
@@ -149,7 +149,7 @@ class stat {
 
   std::vector< int > collect_widths() {
     std::vector< int > current_depths(ltable_.size() + 1, 0);
-    for (int i = 1; i < ltable_.size(); ++i) {
+    for (size_t i = 1; i < ltable_.size(); ++i) {
       int parent  = std::abs(ltable_[i][1]);
       int self_id = std::abs(ltable_[i][2]);
       current_depths.push_back(current_depths[parent]);

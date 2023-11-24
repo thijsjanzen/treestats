@@ -43,7 +43,7 @@ double get_total_bl(const std::vector< std::array<size_t, 2>>& edge,
 }
 
 void update_dist_to_root(std::vector<double>* dist_to_root,
-                         int* focal_index,
+                         size_t* focal_index,
                          const std::vector< std::array<size_t, 2>>& edge,
                          const std::vector<double>& el) {
   double bl = get_total_bl(edge, el, *focal_index);
@@ -58,7 +58,7 @@ double calc_crown_age(std::vector< std::array<size_t, 2>> edge,
                       std::vector<double> el) {
   sort_edge_and_edgelength(&edge, &el);
 
-  int focal_index = 1;
+  size_t focal_index = 1;
   size_t root_label = edge[0][0];
 
   std::vector<double> dist_to_root;

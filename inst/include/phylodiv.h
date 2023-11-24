@@ -84,7 +84,7 @@ double get_start_date(const std::vector<branch>& branchset,
 }
 
 bool has_no_daughters(const std::vector<branch>& bs,
-                      size_t parent_label) {
+                      int parent_label) {
   // find any branches that share this parent
   for (const auto& i : bs) {
     if (i.parent_label == parent_label) {
@@ -95,7 +95,7 @@ bool has_no_daughters(const std::vector<branch>& bs,
 }
 
 std::vector< branch > remove_from_branchset(std::vector<branch> bs,
-                                            size_t label) {
+                                            int label) {
   size_t index = 0;
   for (; index < bs.size(); ++index) {
     if (bs[index].label == label)
@@ -104,7 +104,7 @@ std::vector< branch > remove_from_branchset(std::vector<branch> bs,
   if (index >= bs.size()) {
     throw std::runtime_error("index >= bs.size");
   }
-  size_t parent_label = bs[index].parent_label;
+  auto parent_label = bs[index].parent_label;
   // remove focal branch
   bs[index] = bs.back();
   bs.pop_back();
@@ -156,7 +156,7 @@ std::vector< branch > create_branch_set(const phylo& phy,
   if (!tip_times.empty()) {
     double limit = crown_age;
     if (max_t < limit) limit = max_t;
-    for (int i = 0; i < tip_times.size(); ++i) {
+    for (size_t i = 0; i < tip_times.size(); ++i) {
       if (std::abs(limit - tip_times[i][1]) > extinct_acc) {
         branchset = remove_from_branchset(branchset, tip_times[i][0]);
       }

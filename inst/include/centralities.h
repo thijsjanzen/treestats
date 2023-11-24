@@ -40,7 +40,7 @@ std::vector< std::array<double, 2>> computeLRSizes(
                static_cast<int>(e[ind][1]) - n - 1 };
 
 
-    if (ind < 0 || ind >= el.size()) {
+    if (ind < 0 || ind >= static_cast<int>(el.size())) {
       throw "ind out of range el";
     }
 
@@ -64,7 +64,7 @@ std::vector< std::array<double, 2>> computeLRSizes(
     }
 
     int x = curRow[0];
-    if (curRow[0] < 0 || curRow[0] >= Tab.size()) {
+    if (curRow[0] < 0 || curRow[0] >= static_cast<int>(Tab.size())) {
       throw "curRow[0] out of range Tab";
     }
     int y = Tab[curRow[0]][0] < 0 ? 0 : 1;
@@ -149,7 +149,7 @@ double sum_weighed_heights(const edge& e,
     if (curRow[0] - 1 < 0 || curRow[0] - 1 > Tab.size()) {
       throw "curRow[0] in weighed_heights out of range";
     }
-    if (ind < 0 || ind >= el.size()) {
+    if (ind < 0 || ind >= static_cast<int>(el.size())) {
       throw "ind out of range in weighed_heights";
     }
 
@@ -171,7 +171,7 @@ double min_farness(const edge& local_edge,
     cnt++;
   }
 
-  int n = 1 + static_cast<int>(local_edge.size()) * 0.5;;
+  size_t n = 1 + static_cast<int>(local_edge.size()) * 0.5;;
   int N = 2 * n - 1;
 
   std::vector<double> farness(N);
@@ -252,6 +252,9 @@ class LRsizes {
         parent = ltable_[j][1];
       }
       auto j_parent = index_of_parent(parent);
+      if (j_parent < 0) {
+        Rcpp::stop("out of bounds");
+      }
 
       int L = extant_tips[j];
       int R = extant_tips[j_parent];
@@ -300,7 +303,7 @@ class LRsizes {
   int index_of_parent(int parent) {
     int index = 0;
     bool found = false;
-    for (; index < ltable_.size(); ++index) {
+    for (; index < static_cast<int>(ltable_.size()); ++index) {
       if (ltable_[index][2] == parent) {
         found = true;
         break;
