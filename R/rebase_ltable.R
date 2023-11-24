@@ -20,7 +20,7 @@ rebase_ltable <- function(ltable) {
     if (sd(prev_main_attractor) == 0 && length(prev_main_attractor) > 3) {
       stop("Stuck in endless loop, possibly due to polytomies")
     }
-  #  prev_main_attractor <- res$main_attractor
+
     if (res$stop) break
   }
 
@@ -70,7 +70,6 @@ swap_deepest <- function(ltab) {
 
   new_ltab <- ltab
   finalized <- FALSE
-  # cat(main_attractor, focal_index, "\n")
 
   if (!focal_index %in% c(1, 2)) {
     parent <- ltab[focal_index, 2]
