@@ -90,11 +90,7 @@ std::vector< std::array<double, 6>> get_realL(
 
   std::sort(realL.begin(), realL.end(), [&](const std::array< double, 6>& v1,
                         const std::array< double, 6>& v2) {
-    if (std::abs(v1[0] - v2[0]) > 1e-6) {
-      return v1[0] > v2[0]; // sort decreasing by time
-    } else {
-      return v1[2] < v2[2]; // or increasing by id
-    };
+      return v1[0] == v2[0] ? v1[2] < v2[2] : v1[0] > v2[0];
     });
   return realL;
 }
