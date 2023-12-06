@@ -63,7 +63,6 @@ std::vector< std::array<double, 6>> get_realL(
       bool match_found = false;
       for (auto& i : L) {
         if (i[2] == parent) {   // can only have one parent.
-
           i[5] = L[j][5];
           i[2] = daughter;
           remove_from_L(&L, j);
@@ -160,10 +159,7 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
     pre_Ltable[i][4] = brt_preL[i] - edge_length[i];
   }
 
-
-
- // all identical up to here (23-11-2023)
-
+  // all identical up to here (23-11-2023)
   std::vector<double> eeindicator(edge_length.size(), 0);
 
   std::vector< size_t > extant_species_index;
@@ -226,8 +222,8 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   }
 
   std::sort(nodesindex.begin(), nodesindex.end());
-  nodesindex.erase( std::unique(nodesindex.begin(), nodesindex.end()),
-                    nodesindex.end());
+  nodesindex.erase(std::unique(nodesindex.begin(), nodesindex.end()),
+                   nodesindex.end());
 
   std::vector< std::array<double, 6>> realL = get_realL(nodesindex,
                                                         pre_Ltable);
