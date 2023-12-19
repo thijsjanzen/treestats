@@ -85,8 +85,6 @@ std::vector< std::array<double, 6>> get_realL(
     }
   }
 
-
-
   std::sort(realL.begin(), realL.end(), [&](const std::array< double, 6>& v1,
                         const std::array< double, 6>& v2) {
       return v1[0] == v2[0] ? v1[2] < v2[2] : v1[0] > v2[0];
@@ -209,12 +207,6 @@ std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
                 const std::array< double, 6>& v2) {
     return(v1[0] > v2[0]);   // sort decreasing
   });
-
-
-// still identical, although differently sorted
-
-
-
 
   std::vector< size_t > nodesindex(edge.nrow());
   for (int i = 0; i < edge.nrow(); ++i) {

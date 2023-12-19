@@ -37,6 +37,5 @@ Suggests:
     treebalance,
     RPANDA,
     lintr
-SystemRequirements: C++14
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats/
