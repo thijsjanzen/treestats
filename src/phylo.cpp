@@ -70,7 +70,7 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
 }
 
 //' xxxx
-//' @param phy phylo object
+//' @param ltable_R ltable_R object
 //' @export
 // [[Rcpp::export]]
 int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R) {

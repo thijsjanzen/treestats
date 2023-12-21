@@ -7,7 +7,7 @@
 imbalance_steps_cpp(ltable_R)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{ltable_R}{ltable_R object}
 }
 \description{
 xxxx

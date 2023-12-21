@@ -286,7 +286,7 @@ l_to_newick <- function(ltable_R, drop_extinct) {
 }
 
 #' xxxx
-#' @param phy phylo object
+#' @param ltable_R ltable_R object
 #' @export
 imbalance_steps_cpp <- function(ltable_R) {
     .Call('_treestats_imbalance_steps_cpp', PACKAGE = 'treestats', ltable_R)
