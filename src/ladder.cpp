@@ -16,7 +16,7 @@
 #include <array>
 #include <Rcpp.h>
 
-#include "util.h"
+#include "util.h"        // NOLINT [build/include_subdir]
 #include "avgladder.h"   // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]

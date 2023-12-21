@@ -18,7 +18,7 @@
 #include <array>
 #include <Rcpp.h>
 
-#include "util.h"
+#include "util.h"        // NOLINT [build/include_subdir]
 #include "mpd.h"         // NOLINT [build/include_subdir]
 #include "mntd.h"        // NOLINT [build/include_subdir]
 

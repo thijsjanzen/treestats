@@ -21,7 +21,7 @@
 #include "phylo2L.h"     // NOLINT [build/include_subdir]
 #include "L2newick.h"    // NOLINT [build/include_subdir]
 
-#include "imbalance_steps.h"
+#include "imbalance_steps.h"  // NOLINT [build/include_subdir]
 
 
 //' Function to generate an ltable from a phy object. This function is a C++
