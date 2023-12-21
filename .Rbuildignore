@@ -1,2 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.github
+^\.gitignore
+^\.RData
+^\.Rhistory
+
+^articles$
+^docs$
