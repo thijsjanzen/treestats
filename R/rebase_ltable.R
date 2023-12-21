@@ -17,7 +17,8 @@ rebase_ltable <- function(ltable) {
       prev_main_attractor <- prev_main_attractor[(end - 5):end]
     }
 
-    if (stats::sd(prev_main_attractor) == 0 && length(prev_main_attractor) > 3) {
+    if (stats::sd(prev_main_attractor) == 0 &&
+        length(prev_main_attractor) > 3) {
       stop("Stuck in endless loop, possibly due to polytomies")
     }
 

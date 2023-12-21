@@ -20,4 +20,3 @@ ltable_to_newick <- function(ltab, drop_extinct = TRUE) {
   newick_str <- l_to_newick(ltab, drop_extinct)
   return(newick_str)
 }
-
