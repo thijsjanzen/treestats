@@ -1,7 +1,20 @@
+// Copyright 2022 - 2023 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+
 #pragma once
 
 #include <vector>
 #include <array>
+
 #include "L2newick.h"  // NOLINT [build/include_subdir]
 
 using ltable = std::vector< std::array<double, 4>>;
@@ -85,7 +98,7 @@ void renumber_ltable(ltable* ltab) {
   for (size_t i = 0; i < temp_new_ltab.size(); ++i) {
     auto current_label = (*ltab)[i][2];
     if (abs(current_label) != (i + 1)) {
-      int new_label = i;
+      int new_label = i + 1; // +1 to adhere to R counting
       if (current_label < 0) new_label *= -1;
       temp_new_ltab[i][2] = new_label;
       auto daughters = find_daughters((*ltab), current_label, i);
@@ -95,7 +108,7 @@ void renumber_ltable(ltable* ltab) {
         }
       }
 
-      auto other_instances = find_others((*ltab), i, i);
+      auto other_instances = find_others((*ltab), i + 1, i);
       if (!other_instances.empty()) {
         for (const auto& j : other_instances) {
           temp_new_ltab[j][1] = current_label;
@@ -169,7 +182,8 @@ void rebase_ltable(ltable* ltab) {
   while (!stop) {
     *ltab = swap_deepest(*ltab, &current_main_attractor, &stop);
     prev_main_attractor[cnt % prev_main_attractor.size()] =
-    current_main_attractor;
+                                                    current_main_attractor;
+   // std::cerr << current_main_attractor << "\n";
     cnt++;
     if (cnt > 3 && all_identical(prev_main_attractor)) {
       throw "Stuck in endless loop, possibly due to polytomies";
@@ -183,11 +197,13 @@ void rebase_ltable(ltable* ltab) {
 int number_of_steps(ltable ltab, bool normalization) {
   rebase_ltable(&ltab);
 
-  auto attractor = get_attractor(ltab);
+  // TODO: something is wrong with the renumbering...
 
+  auto attractor = get_attractor(ltab);
+  //std::cerr << attractor << "\n";
   int cnt_steps = 0;
-  for (const auto& i : ltab) {
-    if (i[1] != attractor && std::abs(i[2]) > 2) cnt_steps++;
+  for (size_t i = 2; i < ltab.size(); ++i) {
+    if (ltab[i][1] != attractor) cnt_steps++;
   }
 
   if (normalization) {
@@ -198,4 +214,4 @@ int number_of_steps(ltable ltab, bool normalization) {
 
   return cnt_steps;
 }
-} // namespace imbal_steps
+}   // namespace imbal_steps

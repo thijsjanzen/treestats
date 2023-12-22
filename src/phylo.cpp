@@ -23,7 +23,6 @@
 
 #include "imbalance_steps.h"  // NOLINT [build/include_subdir]
 
-
 //' Function to generate an ltable from a phy object. This function is a C++
 //' implementation of the function DDD::phylo2L. An L table summarises a
 //' phylogeny in a table with four columns, being: 1) time at which a species

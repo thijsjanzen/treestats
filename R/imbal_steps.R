@@ -28,6 +28,7 @@ imbalance_steps <- function(input_obj,
   ltab <- rebase_ltable(input_obj)
 
   attractor <- get_attractor(ltab)
+  #cat(attractor, "\n")
 
   to_sample_from <- which(ltab[, 2] != attractor &
                           ltab[, 3] != -1 &
