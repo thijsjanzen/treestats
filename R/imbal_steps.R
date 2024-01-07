@@ -25,18 +25,10 @@ imbalance_steps <- function(input_obj,
     return(NA)
   }
 
-  ltab <- rebase_ltable(input_obj)
+  steps_taken <- imbalance_steps_cpp(input_obj)
 
-  attractor <- get_attractor(ltab)
-  #cat(attractor, "\n")
-
-  to_sample_from <- which(ltab[, 2] != attractor &
-                          ltab[, 3] != -1 &
-                          ltab[, 3] != 2)
-
-  steps_taken <- length(to_sample_from)
   if (normalization == TRUE) {
-    tree_size <- length(ltab[, 1])
+    tree_size <- length(input_obj[, 1])
     max_expected <- tree_size - ceiling(log2(tree_size)) - 1
     steps_taken <- steps_taken / max_expected
   }

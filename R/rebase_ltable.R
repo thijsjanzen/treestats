@@ -9,7 +9,6 @@ rebase_ltable <- function(ltable) {
   while (TRUE) {
     res <- swap_deepest(ltable)
     ltable <- res$ltab
-    #cat(res$main_attractor, "\n")
     prev_main_attractor <- c(prev_main_attractor,
                              res$main_attractor)
     if (length(prev_main_attractor) > 5) {

@@ -5,5 +5,7 @@
 ^\.RData
 ^\.Rhistory
 
+^.vscode
+
 ^articles$
 ^docs$
