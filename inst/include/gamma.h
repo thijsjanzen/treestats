@@ -49,8 +49,7 @@ double calc_gamma(std::vector<double> brts_) {
 
 double calc_gamma2(const std::vector<int>& t_edge,
                    const std::vector<double>& edge_length) {
-
-  auto Nnode = edge_length.size() / 2 ;
+  auto Nnode = edge_length.size() / 2;
   auto n = Nnode + 1;
   auto n_1 = n + 1;
 
@@ -59,7 +58,7 @@ double calc_gamma2(const std::vector<int>& t_edge,
   for (size_t i = 0; i < t_edge.size(); i += 2) {
     auto j = i / 2;
     if (t_edge[i + 1] > n) {
-      xx [ t_edge[i + 1] - n_1] = xx[ t_edge[i] - n_1 ] + edge_length[j];
+      xx [t_edge[i + 1] - n_1] = xx[t_edge[i] - n_1] + edge_length[j];
     }
   }
 

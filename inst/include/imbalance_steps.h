@@ -195,7 +195,6 @@ void rebase_ltable(ltable* ltab) {
 }
 
 int number_of_steps(ltable ltab, bool normalization) {
-
   rebase_ltable(&ltab);
   auto attractor = get_attractor(ltab);
 

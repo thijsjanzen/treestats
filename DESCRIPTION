@@ -1,10 +1,16 @@
 Package: treestats
 Type: Package
 Title: Collection of Phylogenetic Tree Statistics
-Version: 0.9.7
-Author: Thijs Janzen
+Version: 0.9.8
+Authors@R: c(person(given = "Thijs",
+        family = "Janzen",
+        email = "thijsjanzen@gmail.com",
+        role = c("cre", "aut"),
+        comment = c(ORCID = "0000-0002-4162-1140")))
 Maintainer: Thijs Janzen <thijsjanzen@gmail.com>
-Description: Collection of phylogenetic tree statistics, collated from several packages. Some of these functions have been ported to c++ to improve speed.
+Description: Collection of phylogenetic tree statistics,
+             collated from several packages.
+             Some of these functions have been ported to c++ to improve speed.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -38,4 +44,4 @@ Suggests:
     RPANDA,
     lintr
 BugReports: https://github.com/thijsjanzen/treestats/issues
-URL: https://github.com/thijsjanzen/treestats/
+URL: https://github.com/thijsjanzen/treestats
