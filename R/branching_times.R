@@ -12,7 +12,14 @@ branching_times <- function(phy) {
   }
 
   if (inherits(phy, "phylo")) {
-    return(branching_times_cpp(phy))
+    answ <- branching_times_cpp(phy)
+    n <- length(phy$tip.label)
+    if (is.null(phy$node.label)) {
+       names(answ) <- (n + 1):(n + phy$Nnode)
+    } else {
+       names(answ) <- phy$node.label
+    }
+    return(answ)
   }
   stop("input object has to be phylo or ltable")
 }

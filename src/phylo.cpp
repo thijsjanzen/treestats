@@ -47,7 +47,6 @@
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
    const size_t ncol = 4;
    std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
-
    size_t nrow = ltab.size();
    Rcpp::NumericMatrix out(nrow, ncol);
 
@@ -59,7 +58,6 @@ Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
    return out;
 }
 
-
 // [[Rcpp::export]]
 std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
                         bool drop_extinct) {
@@ -68,14 +66,12 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
    return newick_string;
 }
 
-//' xxxx
-//' @param ltable_R ltable_R object
-//' @export
 // [[Rcpp::export]]
-int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R) {
+int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R,
+                        bool normalization) {
    try {
       auto ltable_cpp = convert_to_ltable(ltable_R);
-      return imbal_steps::number_of_steps(ltable_cpp, false);
+      return imbal_steps::number_of_steps(ltable_cpp, normalization);
    } catch(std::exception &ex) {
       forward_exception_to_r(ex);
    } catch (const char* msg) {

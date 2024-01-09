@@ -152,6 +152,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_gamma_cpp2
+double calc_gamma_cpp2(const std::vector<int>& edge, const std::vector<double>& el);
+RcppExport SEXP _treestats_calc_gamma_cpp2(SEXP edgeSEXP, SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp2(edge, el));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_gamma_ltable_cpp
 double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in);
 RcppExport SEXP _treestats_calc_gamma_ltable_cpp(SEXP ltab_inSEXP) {
@@ -749,13 +761,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // imbalance_steps_cpp
-int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_imbalance_steps_cpp(SEXP ltable_RSEXP) {
+int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R, bool normalization);
+RcppExport SEXP _treestats_imbalance_steps_cpp(SEXP ltable_RSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(imbalance_steps_cpp(ltable_R));
+    Rcpp::traits::input_parameter< bool >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(imbalance_steps_cpp(ltable_R, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -876,6 +889,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_mean_branch_length_cpp", (DL_FUNC) &_treestats_calc_mean_branch_length_cpp, 1},
     {"_treestats_calc_mean_branch_length_ltable_cpp", (DL_FUNC) &_treestats_calc_mean_branch_length_ltable_cpp, 1},
     {"_treestats_calc_gamma_cpp", (DL_FUNC) &_treestats_calc_gamma_cpp, 1},
+    {"_treestats_calc_gamma_cpp2", (DL_FUNC) &_treestats_calc_gamma_cpp2, 2},
     {"_treestats_calc_gamma_ltable_cpp", (DL_FUNC) &_treestats_calc_gamma_ltable_cpp, 1},
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
@@ -929,7 +943,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_mntd_ltable_cpp", (DL_FUNC) &_treestats_calc_mntd_ltable_cpp, 1},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
-    {"_treestats_imbalance_steps_cpp", (DL_FUNC) &_treestats_imbalance_steps_cpp, 1},
+    {"_treestats_imbalance_steps_cpp", (DL_FUNC) &_treestats_imbalance_steps_cpp, 2},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
     {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},

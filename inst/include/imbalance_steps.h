@@ -98,7 +98,7 @@ void renumber_ltable(ltable* ltab) {
   for (size_t i = 0; i < temp_new_ltab.size(); ++i) {
     auto current_label = (*ltab)[i][2];
     if (abs(current_label) != (i + 1)) {
-      int new_label = i + 1; // +1 to adhere to R counting
+      int new_label = i + 1;   // +1 to adhere to R counting
       if (current_label < 0) new_label *= -1;
       temp_new_ltab[i][2] = new_label;
       auto daughters = find_daughters((*ltab), current_label, i);
@@ -183,7 +183,7 @@ void rebase_ltable(ltable* ltab) {
     *ltab = swap_deepest(*ltab, &current_main_attractor, &stop);
     prev_main_attractor[cnt % prev_main_attractor.size()] =
                                                     current_main_attractor;
-   // std::cerr << current_main_attractor << "\n";
+
     cnt++;
     if (cnt > 3 && all_identical(prev_main_attractor)) {
       throw "Stuck in endless loop, possibly due to polytomies";
@@ -195,12 +195,10 @@ void rebase_ltable(ltable* ltab) {
 }
 
 int number_of_steps(ltable ltab, bool normalization) {
+
   rebase_ltable(&ltab);
-
-  // TODO: something is wrong with the renumbering...
-
   auto attractor = get_attractor(ltab);
-  //std::cerr << attractor << "\n";
+
   int cnt_steps = 0;
   for (size_t i = 2; i < ltab.size(); ++i) {
     if (ltab[i][1] != attractor) cnt_steps++;

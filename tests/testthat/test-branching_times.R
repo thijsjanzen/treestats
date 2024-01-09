@@ -7,9 +7,7 @@ test_that("usage", {
   a1 <- ape::branching.times(focal_tree)
   a2 <- treestats::branching_times(focal_tree)
 
-  diff_brts <- abs(sort(a1) - sort(a2))
-  mean_diff <- mean(diff_brts)
-  testthat::expect_lt(mean_diff, 1e-6)
+  testthat::expect_equal(a1, a2)
 
   # again, but with extinct lineages:
   set.seed(42)
@@ -31,7 +29,7 @@ test_that("usage", {
   # using ltable
   l1 <- treestats::phylo_to_l(focal_tree)
   a3 <- treestats::branching_times(l1)
-  testthat::expect_true(all.equal(a2, a3))
+  testthat::expect_true(sum(a2 - a3) == 0)
 })
 
 test_that("wrong_object", {

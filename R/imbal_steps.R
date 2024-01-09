@@ -25,13 +25,8 @@ imbalance_steps <- function(input_obj,
     return(NA)
   }
 
-  steps_taken <- imbalance_steps_cpp(input_obj)
-
-  if (normalization == TRUE) {
-    tree_size <- length(input_obj[, 1])
-    max_expected <- tree_size - ceiling(log2(tree_size)) - 1
-    steps_taken <- steps_taken / max_expected
-  }
+  steps_taken <- imbalance_steps_cpp(input_obj,
+                                     normalization)
 
   return(steps_taken)
 }

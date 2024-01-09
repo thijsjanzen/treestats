@@ -24,18 +24,6 @@ inline double binom_coeff(const int& n, const int& k) {
     return aSolutions[k - 1];
 }
 
-inline double log_binom_coeff_four(const int n) {
-  double s = 0.0;
-  for (size_t i = 1; i < 4; ++i) {
-    s += std::log(static_cast<double>(n - i + 1));
-    s -= log(i);
-  }
-  return(s);
-}
-
-
-
-
 inline double binom_coeff_2(int n) {
   double n_d = static_cast<double>(n);
   return (n_d - 1) * n_d * 0.5;

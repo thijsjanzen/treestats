@@ -328,7 +328,7 @@ class colless_stat_ltable {
 
 // correction functions:
 namespace correction {
-double correct_pda(double Ic, size_t num_tips) {
+double correct_pda(double Ic, size_t num_tips) {  // colless corrections
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
   }
@@ -339,17 +339,5 @@ double correct_pda(double Ic, size_t num_tips) {
                    num_tips * log(num_tips) -
                    num_tips * (g - 1 - log(2))) / num_tips;
     return output;
-  }
-
-  double correct_rquartet_yule(double stat, size_t num_tips) {
-    double expected = log_binom_coeff_four(num_tips);
-    double new_val = std::log(stat) - expected;
-    return exp(new_val);
-  }
-
-  double correct_rquartet_pda(double stat, size_t num_tips) {
-    double expected = log_binom_coeff_four(num_tips);
-    double new_val = std::log(stat) - expected + log(5);
-    return exp(new_val);
   }
 }   // namespace correction

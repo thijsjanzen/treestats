@@ -49,6 +49,10 @@ calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
 
+calc_gamma_cpp2 <- function(edge, el) {
+    .Call('_treestats_calc_gamma_cpp2', PACKAGE = 'treestats', edge, el)
+}
+
 calc_gamma_ltable_cpp <- function(ltab_in) {
     .Call('_treestats_calc_gamma_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
@@ -285,11 +289,8 @@ l_to_newick <- function(ltable_R, drop_extinct) {
     .Call('_treestats_l_to_newick', PACKAGE = 'treestats', ltable_R, drop_extinct)
 }
 
-#' xxxx
-#' @param ltable_R ltable_R object
-#' @export
-imbalance_steps_cpp <- function(ltable_R) {
-    .Call('_treestats_imbalance_steps_cpp', PACKAGE = 'treestats', ltable_R)
+imbalance_steps_cpp <- function(ltable_R, normalization) {
+    .Call('_treestats_imbalance_steps_cpp', PACKAGE = 'treestats', ltable_R, normalization)
 }
 
 calc_sackin_cpp <- function(tree_edge, normalization) {

@@ -160,6 +160,13 @@ double calc_gamma_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
+double calc_gamma_cpp2(const std::vector<int>& edge,
+                       const std::vector<double>& el) {
+  return calc_gamma2(edge, el);
+}
+
+
+// [[Rcpp::export]]
 double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {
   std::vector<double> brts = branching_times_ltable_cpp(ltab_in);
   return calc_gamma(brts);
