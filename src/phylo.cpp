@@ -45,24 +45,24 @@
 //' plot(reconstructed_tree)
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
- const size_t ncol = 4;
- std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
- size_t nrow = ltab.size();
- Rcpp::NumericMatrix out(nrow, ncol);
+    const size_t ncol = 4;
+    std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
+    size_t nrow = ltab.size();
+    Rcpp::NumericMatrix out(nrow, ncol);
     for (size_t i = 0; i < ltab.size(); ++i) {
-    for (size_t j = 0; j < ncol; ++j) {
-       out(i, j) = ltab[i][j];
+        for (size_t j = 0; j < ncol; ++j) {
+            out(i, j) = ltab[i][j];
+        }
     }
- }
- return out;
+    return out;
 }
 
 // [[Rcpp::export]]
 std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
-                      bool drop_extinct) {
-   auto ltable_cpp = convert_to_ltable(ltable_R);
-   auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
-   return newick_string;
+                        bool drop_extinct) {
+    auto ltable_cpp = convert_to_ltable(ltable_R);
+    auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
+    return newick_string;
 }
 
 // [[Rcpp::export]]
