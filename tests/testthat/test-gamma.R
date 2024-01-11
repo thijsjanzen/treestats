@@ -4,7 +4,6 @@ context("gamma")
 
 test_that("usage", {
   if (requireNamespace("castor") &&
-      requireNamespace("phytools") &&
       requireNamespace("DDD")) {
     check_gamma <- function(focal_tree) {
       gammast <- treestats::gamma_statistic(focal_tree)
