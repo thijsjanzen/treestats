@@ -117,15 +117,15 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                          error = function(e) {return(NA) }) #nolint
 
   if (length(temp_stats) == 5) {
-    stats$laplac_spectrum_a  <- temp_stats$asymmetry
-    stats$laplac_spectrum_p  <- temp_stats$peakedness
-    stats$laplac_spectrum_e  <- log(temp_stats$principal_eigenvalue)
-    stats$laplac_spectrum_g  <- temp_stats$eigengap[[1]]
+    stats$laplace_spectrum_a  <- temp_stats$asymmetry
+    stats$laplace_spectrum_p  <- temp_stats$peakedness
+    stats$laplace_spectrum_e  <- log(temp_stats$principal_eigenvalue)
+    stats$laplace_spectrum_g  <- temp_stats$eigengap[[1]]
   } else {
-    stats$laplac_spectrum_a  <- NA
-    stats$laplac_spectrum_p  <- NA
-    stats$laplac_spectrum_e  <- NA
-    stats$laplac_spectrum_g  <- NA
+    stats$laplace_spectrum_a  <- NA
+    stats$laplace_spectrum_p  <- NA
+    stats$laplace_spectrum_e  <- NA
+    stats$laplace_spectrum_g  <- NA
   }
 
   stats$imbalance_steps  <-
