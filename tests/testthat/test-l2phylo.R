@@ -49,11 +49,9 @@ test_that("usage", {
 })
 
 test_that("newick", {
-  if (requireNamespace("TreeSim") &&
-      requireNamespace("geiger")) {
+  if (requireNamespace("geiger")) {
     set.seed(42)
-    focal_tree <- TreeSim::sim.bd.age(age = 2, numbsim = 1, lambda = 1, mu = 0,
-                                      mrca = TRUE)[[1]]
+    focal_tree <- ape::rbdtree(birth = 1, death = 0, Tmax = 5)
 
     ltable_1 <- treestats::phylo_to_l(focal_tree)
 
@@ -63,9 +61,8 @@ test_that("newick", {
     v2 <- as.vector(unlist(treestats::calc_all_stats(tree_2)))
     testthat::expect_equal(v1, v2, tolerance = 1e-3)
 
-    focal_tree <- TreeSim::sim.bd.age(age = 2, numbsim = 1, lambda = 1,
-                                      mu = 0.2,
-                                      mrca = TRUE)[[1]]
+    focal_tree <- ape::rphylo(n = 100,
+                              birth = 1, death = 0.2, T0 = 2, fossils = TRUE)
 
     ltable_1 <- treestats::phylo_to_l(focal_tree)
 

@@ -10,15 +10,12 @@ test_that("usage", {
       gammast <- treestats::gamma_statistic(focal_tree)
       gammast_check <- ape::gammaStat(focal_tree)
       gammast_check2 <- castor::gamma_statistic(focal_tree)
-      gammast_check3 <- phytools::ltt(focal_tree, plot = FALSE,
-                                      gamma = TRUE)$gamma
 
       ltab <- treestats::phylo_to_l(focal_tree)
       gammast_check4 <- treestats::gamma_statistic(ltab)
 
       testthat::expect_equal(gammast, gammast_check, tolerance = 1e-4)
       testthat::expect_equal(gammast, gammast_check2, tolerance = 1e-4)
-      testthat::expect_equal(gammast, gammast_check3, tolerance = 1e-4)
       testthat::expect_equal(gammast, gammast_check4, tolerance = 1e-4)
     }
 

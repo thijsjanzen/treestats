@@ -31,11 +31,8 @@ Imports:
     RSpectra,
     Matrix
 Suggests:
-    TreeSim,
-    TESS,
     phyloTop,
     testthat,
-    phytools,
     DDD,
     geiger,
     nodeSub,
