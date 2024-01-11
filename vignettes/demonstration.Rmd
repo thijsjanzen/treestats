@@ -1,0 +1,65 @@
+---
+title: "demonstration"
+author: "Thijs Janzen"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width = 6)
+knitr::opts_chunk$set(fig.height = 6)
+library(treestats)
+```
+
+# Using treestats
+
+The treestats package provides an easy to use interface to calculate summary
+statistics on phylogenetic trees. To obtain a list of all supported summary 
+statistics use:
+
+```{r list}
+list_statistics()
+```
+
+If your favourite summary statistic is missing, please let the maintainer know,
+treestats is a dynamic package always under development, and the maintainers are
+always looking for new statistics!
+
+Given a phylogenetic tree, you can now use of the available functions to
+calculate your summary statistic of choice. Let's take for instance the Colless
+statistic (and we generate a dummy tree):
+
+```{r colless}
+phy <- ape::rphylo(n = 100, birth = 1, death = 0.1)
+
+treestats::colless(phy)
+```
+
+Looking at the documentation of the colless statistic (`?colless`), we find that
+the function also includes options to normalize for size: either 'pda' or
+'yule':
+```{r colless2}
+treestats::colless(phy, normalization = "yule")
+```
+
+## Multiple statistics
+The treestats package supports calculating many statistics in one go. For this,
+several functions have been set up aptly. Firstly, the function 
+`calc_all_stats` will calculate all statistics:
+```{r all_stats}
+all_stats <- calc_all_stats(phy)
+```
+
+This generates a named list, which can be very useful to find your focal
+statistics, but often a conversion into a vector may be more interesting (we
+use unlist and omit `as.vector` to retain the names):
+```{r all_stats2} 
+unlist(all_stats)
+```
+
+Similarly, we can also blanket apply all balance associated summary statistics:
+```{r all_stats3}
+balance_stats <- calc_balance_stats(phy)
+unlist(balance_stats)
+```
