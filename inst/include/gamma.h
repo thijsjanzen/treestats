@@ -1,4 +1,4 @@
-// Copyright 2022 - 2023 Thijs Janzen
+// Copyright 2022 - 2024 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -58,7 +58,7 @@ double calc_gamma2(const std::vector<int>& t_edge,
   for (size_t i = 0; i < t_edge.size(); i += 2) {
     auto j = i / 2;
     if (t_edge[i + 1] > n) {
-      xx [t_edge[i + 1] - n_1] = xx[t_edge[i] - n_1] + edge_length[j];
+      xx[t_edge[i + 1] - n_1] = xx[t_edge[i] - n_1] + edge_length[j];
     }
   }
 

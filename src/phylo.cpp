@@ -1,4 +1,4 @@
-// Copyright 2022 - 2023 Thijs Janzen
+// Copyright 2022 - 2024 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -45,22 +45,21 @@
 //' plot(reconstructed_tree)
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
-   const size_t ncol = 4;
-   std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
-   size_t nrow = ltab.size();
-   Rcpp::NumericMatrix out(nrow, ncol);
-
-   for (size_t i = 0; i < ltab.size(); ++i) {
-      for (size_t j = 0; j < ncol; ++j) {
-         out(i, j) = ltab[i][j];
-      }
-   }
-   return out;
+ const size_t ncol = 4;
+ std::vector< std::array< double, ncol> > ltab = phylo_to_l_cpp(phy);
+ size_t nrow = ltab.size();
+ Rcpp::NumericMatrix out(nrow, ncol);
+    for (size_t i = 0; i < ltab.size(); ++i) {
+    for (size_t j = 0; j < ncol; ++j) {
+       out(i, j) = ltab[i][j];
+    }
+ }
+ return out;
 }
 
 // [[Rcpp::export]]
 std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
-                        bool drop_extinct) {
+                      bool drop_extinct) {
    auto ltable_cpp = convert_to_ltable(ltable_R);
    auto newick_string = ltable_to_newick(ltable_cpp, drop_extinct);
    return newick_string;
@@ -69,15 +68,15 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
 // [[Rcpp::export]]
 int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R,
                         bool normalization) {
-   try {
-      auto ltable_cpp = convert_to_ltable(ltable_R);
-      return imbal_steps::number_of_steps(ltable_cpp, normalization);
-   } catch(std::exception &ex) {
-      forward_exception_to_r(ex);
-   } catch (const char* msg) {
-      Rcpp::Rcout << msg << std::endl;
-   } catch(...) {
-      ::Rf_error("c++ exception (unknown reason)");
-   }
-   return NA_REAL;
+    try {
+       auto ltable_cpp = convert_to_ltable(ltable_R);
+       return imbal_steps::number_of_steps(ltable_cpp, normalization);
+    } catch(std::exception &ex) {
+       forward_exception_to_r(ex);
+    } catch (const char* msg) {
+       Rcpp::Rcout << msg << std::endl;
+    } catch(...) {
+       ::Rf_error("c++ exception (unknown reason)");
+    }
+    return NA_REAL;
 }

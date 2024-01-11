@@ -1,4 +1,4 @@
-// Copyright 2022 - 2023 Thijs Janzen
+// Copyright 2022 - 2024 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +16,6 @@
 #include <Rcpp.h>
 
 // The function below is lifted from the ape package.
-
 inline std::vector< std::vector< double >> dist_nodes(
     const std::vector< std::array< size_t, 2 >>& edge,
     const std::vector<double>& el) {
