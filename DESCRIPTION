@@ -48,6 +48,7 @@ Suggests:
     treebalance,
     RPANDA,
     lintr,
+    rmarkdown,
     knitr
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats
