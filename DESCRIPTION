@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Collection of Phylogenetic Tree Statistics
-Version: 0.9.8
+Version: 1.0.0
 Authors@R: c(person(given = "Thijs",
         family = "Janzen",
         email = "thijsjanzen@gmail.com",
@@ -13,7 +13,6 @@ Description: Collection of phylogenetic tree statistics,
              Some of these functions have been ported to c++ to improve speed.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.2.3
 Depends:
     Rcpp

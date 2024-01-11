@@ -6,6 +6,7 @@
 ^\.Rhistory
 
 ^.vscode
+^.DS_Store
 
 ^articles$
 ^docs$
