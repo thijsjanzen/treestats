@@ -47,6 +47,8 @@ Suggests:
     picante,
     treebalance,
     RPANDA,
-    lintr
+    lintr,
+    knitr
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats
+VignetteBuilder: knitr
