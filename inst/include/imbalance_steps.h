@@ -97,7 +97,7 @@ void renumber_ltable(ltable* ltab) {
 
   for (size_t i = 0; i < temp_new_ltab.size(); ++i) {
     auto current_label = (*ltab)[i][2];
-    if (abs(current_label) != (i + 1)) {
+    if (std::abs(current_label) != (i + 1)) {
       int new_label = i + 1;   // +1 to adhere to R counting
       if (current_label < 0) new_label *= -1;
       temp_new_ltab[i][2] = new_label;

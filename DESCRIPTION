@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
-Title: Phylogenetic Tree Statistics (and other tools)
-Version: 1.0.1
+Title: Phylogenetic Tree Statistics
+Version: 1.0.3
 Authors@R: c(person(given = "Thijs",
         family = "Janzen",
         email = "thijsjanzen@gmail.com",
@@ -9,13 +9,13 @@ Authors@R: c(person(given = "Thijs",
         comment = c(ORCID = "0000-0002-4162-1140")))
 Maintainer: Thijs Janzen <thijsjanzen@gmail.com>
 Description: Collection of phylogenetic tree statistics,
-             collected throughout the literature. All functions have been
-             written to maximize computation speed. 
-             The package includes umbrella functions to calculate all
-             statistics, all balance statistics, or all branching time related
-             statistics. Furthermore, the treestats package supports summary
-             statistic calculations on Ltables, provides speed-improved coding
-             of branching times, Ltable conversion and includes algorithms to
+             collected throughout the literature. All functions have been 
+             written to maximize computation speed. The package includes 
+             umbrella functions to calculate all statistics, all balance 
+             associated statistics, or all branching time related statistics. 
+             Furthermore, the 'treestats' package supports summary statistic 
+             calculations on Ltables, provides speed-improved coding of 
+             branching times, Ltable conversion and includes algorithms to
              create intermediately balanced trees. 
 License: GPL-3
 Encoding: UTF-8

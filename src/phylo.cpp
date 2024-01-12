@@ -23,7 +23,8 @@
 
 #include "imbalance_steps.h"  // NOLINT [build/include_subdir]
 
-//' Function to generate an ltable from a phy object. This function is a C++
+//' Function to generate an ltable from a phy object.
+//' @description This function is a C++
 //' implementation of the function DDD::phylo2L. An L table summarises a
 //' phylogeny in a table with four columns, being: 1) time at which a species
 //' is born, 2) label of the parent of the species, where positive and negative
@@ -33,16 +34,19 @@
 //' indicates the time of extinction of a species, or -1 if the species is
 //' extant.
 //' @param phy phylo object
+//' @return ltable (see description)
 //' @export
 //' @examples
 //' simulated_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
 //' ltable <- phylo_to_l(simulated_tree)
 //' reconstructed_tree <- DDD::L2phylo(ltable)
-//' par(mfrow=c(1, 2))
+//' old_par <- par()
+//' par(mfrow = c(1, 2))
 //' # trees should be more or less similar, although labels may not match, and
 //' # rotations might cause (initial) visual mismatches
 //' plot(simulated_tree)
 //' plot(reconstructed_tree)
+//' par(old_par)
 // [[Rcpp::export]]
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy) {
     const size_t ncol = 4;
