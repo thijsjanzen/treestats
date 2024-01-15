@@ -6,11 +6,11 @@
   Collection of phylogenetic tree statistics
 }
 \description{
-  The treestats package contains a collection of phylogenetic tree statistics,
+  The 'treestats' package contains a collection of phylogenetic tree statistics,
   implemented in C++ to ensure high speed.
 }
 \details{
-  Given a phylogenetic tree as a phylo object, the treestats package provides
+  Given a phylogenetic tree as a phylo object, the 'treestats' package provides
   a wide range of individual functions returning the relevant statistic. In
   addition, there are three functions available that calculate a collection
   of statistics at once: calc_all_statistics (which calculates all currently

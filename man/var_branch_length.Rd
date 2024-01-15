@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{var_branch_length}
 \alias{var_branch_length}
-\title{Calculates the variation of branch lengths of a tree,
+\title{Calculates the variance of branch lengths of a tree,
 including extinct branches.}
 \usage{
 var_branch_length(phy)
@@ -11,9 +11,9 @@ var_branch_length(phy)
 \item{phy}{phylo object or Ltable}
 }
 \value{
-variation of branch lengths
+variance of branch lengths
 }
 \description{
-Calculates the variation of branch lengths of a tree,
+Calculates the variance of branch lengths of a tree,
 including extinct branches.
 }

@@ -14,10 +14,10 @@ mean_branch_length <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-#' Calculates the variation of branch lengths of a tree,
+#' Calculates the variance of branch lengths of a tree,
 #' including extinct branches.
 #' @param phy phylo object or Ltable
-#' @return variation of branch lengths
+#' @return variance of branch lengths
 #' @export
 var_branch_length <- function(phy) {
   if (inherits(phy, "matrix")) {
@@ -31,10 +31,10 @@ var_branch_length <- function(phy) {
 }
 
 
-#' Calculates the variation of internal branch lengths of a tree, e.g. of
+#' Calculates the variance of internal branch lengths of a tree, e.g. of
 #' branches not leading to a tip.
 #' @param phy phylo object or Ltable
-#' @return variation of internal branch lengths
+#' @return variance of internal branch lengths
 #' @export
 var_branch_length_int <- function(phy) {
   if (inherits(phy, "matrix")) {
@@ -72,10 +72,10 @@ mean_branch_length_int <- function(phy) {
 }
 
 
-#' Calculates the variation of external branch lengths of a tree, e.g. of
+#' Calculates the variance of external branch lengths of a tree, e.g. of
 #' branches leading to a tip.
 #' @param phy phylo object or Ltable
-#' @return variation of external branch lengths
+#' @return variance of external branch lengths
 #' @export
 var_branch_length_ext <- function(phy) {
   if (inherits(phy, "matrix")) {

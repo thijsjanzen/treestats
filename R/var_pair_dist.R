@@ -1,8 +1,8 @@
-#' Fast function using C++ to calculate the variation of all pairwise distances.
+#' Fast function using C++ to calculate the variance of all pairwise distances.
 #' @description After calculating all pairwise distances between all tips,
 #' this function takes the variance across these values.
 #' @param phy phylo object or ltable
-#' @return Mean pairwise distance
+#' @return Variance in pairwise distance
 #' @references  Webb, C., D. Ackerly, M. McPeek, and M. Donoghue. 2002.
 #' Phylogenies and community ecology. Annual Review of Ecology and
 #' Systematics 33:475-505.
