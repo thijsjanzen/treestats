@@ -26,12 +26,13 @@ int get_attractor(const ltable& ltab) {
   int cnt_clade_1 = 0;
   int cnt_clade_2 = 0;
   for (const auto& i : ltab) {
-    if (i[2] < 0) {
+    if (i[1] == -1) {
       cnt_clade_1++;
-    } else {
+    } else if (i[1] == 2) {
       cnt_clade_2++;
     }
   }
+
   if (cnt_clade_1 > cnt_clade_2) attractor = -1;
 
   return attractor;
@@ -196,6 +197,7 @@ void rebase_ltable(ltable* ltab) {
 
 int number_of_steps(ltable ltab, bool normalization) {
   rebase_ltable(&ltab);
+
   auto attractor = get_attractor(ltab);
 
   int cnt_steps = 0;
