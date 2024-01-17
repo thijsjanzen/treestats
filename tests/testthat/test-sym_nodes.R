@@ -1,4 +1,4 @@
-context("symNodes")
+context("sym_nodes")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
