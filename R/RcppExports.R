@@ -9,10 +9,6 @@ calc_beta_ltable_cpp <- function(ltable, upper_lim, algorithm, abs_tol, rel_tol)
     .Call('_treestats_calc_beta_ltable_cpp', PACKAGE = 'treestats', ltable, upper_lim, algorithm, abs_tol, rel_tol)
 }
 
-branching_times_cpp <- function(phy) {
-    .Call('_treestats_branching_times_cpp', PACKAGE = 'treestats', phy)
-}
-
 branching_times_ltable_cpp <- function(mat_in) {
     .Call('_treestats_branching_times_ltable_cpp', PACKAGE = 'treestats', mat_in)
 }
