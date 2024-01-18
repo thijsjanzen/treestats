@@ -27,6 +27,11 @@
 
 
 // [[Rcpp::export]]
+std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
+  return branching_times_phy(phy);
+}
+
+// [[Rcpp::export]]
 std::vector<double>
   branching_times_ltable_cpp(const Rcpp::NumericMatrix& mat_in) {
   std::vector<double> out(mat_in.nrow() - 1);

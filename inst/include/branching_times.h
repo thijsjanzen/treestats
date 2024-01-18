@@ -42,11 +42,9 @@ inline std::vector< double > branching_times(
   return xx;
 }
 
+inline std::vector< double > branching_times_phy(const Rcpp::List& phy) {
+  using edge_table = std::vector< std::array< size_t, 2 >>;
 
-using edge_table = std::vector< std::array< size_t, 2 >>;
-
-// [[Rcpp::export]]
-inline std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
   std::vector< double > edge_length = phy["edge.length"];
   Rcpp::NumericMatrix edge = phy["edge"];
 

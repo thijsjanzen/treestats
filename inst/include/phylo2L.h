@@ -104,7 +104,7 @@ inline size_t find_index(const std::vector< std::array<double, 6>>& pre_Ltable,
 }
 
 inline std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
-  std::vector< double > brts = branching_times_cpp(phy);
+  std::vector< double > brts = branching_times_phy(phy);
 
   auto min_brts = *std::min_element(brts.begin(), brts.end());
   if (min_brts < 0.0) {
