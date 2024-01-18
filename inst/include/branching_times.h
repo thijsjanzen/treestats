@@ -46,6 +46,11 @@ inline std::vector< double > branching_times_phy(const Rcpp::List& phy) {
   using edge_table = std::vector< std::array< size_t, 2 >>;
 
   std::vector< double > edge_length = phy["edge.length"];
+
+  if (edge_length.empty()) {
+    throw "phy is empty";
+  }
+
   Rcpp::NumericMatrix edge = phy["edge"];
 
   size_t Nnode = phy["Nnode"];

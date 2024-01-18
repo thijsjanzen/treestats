@@ -104,8 +104,11 @@ inline size_t find_index(const std::vector< std::array<double, 6>>& pre_Ltable,
 }
 
 inline std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
-  std::vector< double > brts = branching_times_phy(phy);
+  std::cerr << "hello\n";
+  std::cerr << phy.size() << "\n";
 
+  std::vector< double > brts = branching_times_phy(phy);
+  std::cerr << brts.size() << "\n";
   auto min_brts = *std::min_element(brts.begin(), brts.end());
   if (min_brts < 0.0) {
     for (auto& i : brts) {
@@ -114,6 +117,7 @@ inline std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& ph
   }
 
   size_t num_species = static_cast<size_t>(phy["Nnode"]) + 1;
+  std::cerr << num_species << "\n";
 
   Rcpp::StringVector tiplabel = phy["tip.label"];
   Rcpp::NumericMatrix edge    = phy["edge"];
