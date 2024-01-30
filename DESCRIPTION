@@ -17,7 +17,7 @@ Description: Collection of phylogenetic tree statistics,
              calculations on Ltables, provides speed-improved coding of 
              branching times, Ltable conversion and includes algorithms to
              create intermediately balanced trees. Full description can be
-             found in Janzen (2023) <doi:10.1101/2024.01.24.576848>
+             found in Janzen (2023) <doi:10.1101/2024.01.24.576848>.
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.2.3
