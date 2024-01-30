@@ -2,7 +2,8 @@
 # Version 1.0.5
 - Squashed a bug in imbalance_steps that would incorrectly calculate for smaller
 trees
-- Added biorXiv link to DESCRIPTION
+- Added bioRxiv link to DESCRIPTION
+- Added CITATION file
 
 # Version 1.0.4
 - Corrected wording of variation in branch length statistics to correclty
