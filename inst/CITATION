@@ -1,0 +1,8 @@
+bibentry(bibtype = "Article",
+         title = "Phylogenetic tree statistics: a systematic overview using the new R package 'treestats'.",
+         author = c(person("Thijs", "Janzen"), person("Rampal S.", "Etienne")),
+         journal = "bioRxiv",
+         year = 2024,
+         doi = "10.1101/2024.01.24.576848",
+         header = "To cite treestats in a publication please use:",
+         textVersion = "Janzen, T and Etienne, R.S. (2024) Phylogenetic tree statistics: a systematic overview using the new R package 'treestats'. bioRxiv 2024.01.24.576848; doi: https://doi.org/10.1101/2024.01.24.576848.", footer = "As treestats is continually evolving you may also want to cite its version number (found with 'library(help = treestats)' or 'packageVersion(\"treestats\")').")

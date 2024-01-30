@@ -33,6 +33,8 @@
 Maintainer: Thijs Janzen <thijsjanzen@gmail.com>
 }
 \references{
-  TBA
+Phylogenetic tree statistics: a systematic overview using the new R package
+'treestats' Thijs Janzen, Rampal S. Etienne bioRxiv 2024.01.24.576848;
+doi: https://doi.org/10.1101/2024.01.24.576848
 }
 
