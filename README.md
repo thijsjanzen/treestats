@@ -69,8 +69,8 @@ functions have been improved as well:
   - DDD::phylo2L
   - DDD::L2phylo
 
-![treestats_speed_18052023](https://github.com/thijsjanzen/treestats/assets/19486664/5faec829-e29b-4d6e-9fd3-72d5844327cc)
-  
+![speed_03022024](https://github.com/thijsjanzen/treestats/assets/19486664/23058e0e-50fd-41f7-9b22-433456939499)
+
 ## C++ Library
 For the Rcpp improved summary statistics (excluding the RPANDA and DDD functions, 
 as these are only partially captured in Rcpp), tree independent C++ code is provided 
