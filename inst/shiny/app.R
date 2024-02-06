@@ -6,19 +6,24 @@
 #
 #    https://shiny.posit.co/
 #
-library(tidyverse)
+library(ape)
+library(ggplot2)
+library(shiny)
+library(nlme)
 
-tree_data <- readr::read_tsv("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/emp_stats.txt")
+tree_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/emp_stats.txt",
+                        header = TRUE)
 available_stats <- colnames(tree_data)[2:55]
 
 phy_tree <- ape::read.tree("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/phy_tree.txt")
 
-sim_data <- readr::read_tsv("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/sim_stats.txt")
+sim_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/sim_stats.txt",
+                       header = TRUE)
 
 
-library(shiny)
 
-sidebarPanel2 <- function (..., out = NULL, width = 4)
+
+sidebarPanel2 <- function(..., out = NULL, width = 4)
 {
   div(class = paste0("col-sm-", width),
       tags$form(class = "well", ...),
@@ -72,14 +77,10 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   output$distPlot <- renderPlot({
-    x <- tree_data %>%
-      select(input$x_axis)
-    y <- tree_data %>%
-      select(input$y_axis)
-    s <- tree_data %>%
-      select(number_of_lineages)
-    tt <- tree_data %>%
-      select(Taxa)
+    x <- tree_data[which(colnames(tree_data) == input$x_axis)]
+    y <- tree_data[which(colnames(tree_data) == input$y_axis)]
+    s <- tree_data$number_of_lineages
+    tt <- tree_data$Taxa
 
     to_plot <- cbind(x, y, s, tt)
 
@@ -139,14 +140,10 @@ server <- function(input, output) {
   })
 
   output$corPlot <- renderPlot({
-    x <- unlist(tree_data %>%
-                  select(input$x_axis))
-    y <- unlist(tree_data %>%
-                  select(input$y_axis))
-    z <- unlist(tree_data %>%
-                  select(number_of_lineages))
-    tt <- unlist(tree_data %>%
-                   select(Taxa))
+    x <- unlist(tree_data[which(colnames(tree_data) == input$x_axis)])
+    y <- unlist(tree_data[which(colnames(tree_data) == input$y_axis)])
+    s <- tree_data$number_of_lineages
+    tt <- tree_data$Taxa
 
     sp <- tree_data$Family
     bm <- ape::corBrownian(value = 1, phy = phy_tree, form =~ sp)
@@ -158,9 +155,10 @@ server <- function(input, output) {
     yvals <- a2$residuals
     to_plot <- cbind(xvals, yvals, z, tt)
     colnames(to_plot) <- c("x", "y", "Size", "Taxa")
-    to_plot <- as_tibble(to_plot)
-    to_plot <- to_plot %>%
-      mutate_at(1:3, as.numeric)
+    to_plot <- as.data.frame(to_plot)
+    to_plot$x <- as.numeric(to_plot$x)
+    to_plot$y <- as.numeric(to_plot$y)
+    to_plot$Size <- as.numeric(to_plot$Size)
 
     local_cor <- paste0("Pearson correlation = ", round(cor(xvals, yvals), 2))
 
@@ -214,26 +212,25 @@ server <- function(input, output) {
   })
 
   output$simPlot <- renderPlot({
-    x <- unlist(sim_data %>%
-                  select(input$x_axis))
-    y <- unlist(sim_data %>%
-                  select(input$y_axis))
-    used_model <- sim_data %>%
-      select(model)
+
+    x <- unlist(sim_data[which(colnames(sim_data) == input$x_axis)])
+    y <- unlist(sim_data[which(colnames(sim_data) == input$y_axis)])
+    used_model <- sim_data$model
 
     to_plot <- cbind(x, y, used_model)
     colnames(to_plot) <- c("x", "y", "model")
+    to_plot <- as.data.frame(to_plot)
+    to_plot$x <- as.numeric(to_plot$x)
+    to_plot$y <- as.numeric(to_plot$y)
     local_cor <- paste0("Pearson correlation = ", round(cor(x, y), 2))
     ggplot(to_plot, aes(x = x, y = y, col = as.factor(model))) +
       geom_point(size = 2) +
       stat_smooth(method = "lm", col = "#416894", fill = "#416894") +
       scale_color_brewer(type = "div", palette = 3) +
-      #scale_color_manual(values = c("#416894", "#D0C4DF", "#80CED7", "#63C7B2")) +
       xlab(input$x_axis) +
       ylab(input$y_axis) +
       labs(col = "Diversification\nModel") +
       theme_classic() +
-    #  theme(legend.position = "left") +
       ggtitle(local_cor) +
       theme(legend.text = element_text(size=14),
             legend.title = element_text(size=16),
@@ -241,11 +238,9 @@ server <- function(input, output) {
             axis.title.y = element_text(size=16),
             plot.title = element_text(size = 16, face = "bold")) +
       guides(colour = guide_legend(override.aes = list(size=3)))
-
   })
 }
 
 # Run the application
 shinyApp(ui = ui, server = server)
-
 
