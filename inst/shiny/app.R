@@ -142,7 +142,7 @@ server <- function(input, output) {
   output$corPlot <- renderPlot({
     x <- unlist(tree_data[which(colnames(tree_data) == input$x_axis)])
     y <- unlist(tree_data[which(colnames(tree_data) == input$y_axis)])
-    s <- tree_data$number_of_lineages
+    z <- tree_data$number_of_lineages
     tt <- tree_data$Taxa
 
     sp <- tree_data$Family
