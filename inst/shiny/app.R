@@ -11,7 +11,7 @@ library(tidyverse)
 tree_data <- readr::read_tsv("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/emp_stats.txt")
 available_stats <- colnames(tree_data)[2:55]
 
-phy_tree <- readRDS("https://github.com/thijsjanzen/treestats/raw/shiny2/data/pruned_tree.rds")
+phy_tree <- ape::read.tree("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/phy_tree.txt")
 
 sim_data <- readr::read_tsv("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/sim_stats.txt")
 
