@@ -1,4 +1,4 @@
-#' this function increasingly increases the imbalance of a tree
+#' Stepwise increase the imbalance of a tree
 #' @description the goal of this function is to increasingly imbalance a tree,
 #' by changing the topology, one move at a time. It does so by re-attaching
 #' terminal branches to the root lineage, through the ltable. In effect, this

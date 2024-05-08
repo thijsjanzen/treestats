@@ -2,7 +2,7 @@
 % Please edit documentation in R/average_leaf_depth.R
 \name{average_leaf_depth}
 \alias{average_leaf_depth}
-\title{Calculate the average leaf depth statistic. The average leaf depth statistic
+\title{Average leaf depth statistic. The average leaf depth statistic
 is a normalized version of the Sackin index, normalized by the number of
 tips.}
 \usage{
@@ -19,7 +19,7 @@ Coronado et al. 2020.}
 average leaf depth statistic
 }
 \description{
-Calculate the average leaf depth statistic. The average leaf depth statistic
+Average leaf depth statistic. The average leaf depth statistic
 is a normalized version of the Sackin index, normalized by the number of
 tips.
 }

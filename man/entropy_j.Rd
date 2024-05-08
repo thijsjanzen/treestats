@@ -2,8 +2,7 @@
 % Please edit documentation in R/J_stat.R
 \name{entropy_j}
 \alias{entropy_j}
-\title{Fast function using C++ to calculate the intensive quadratic entropy
-statistic J.}
+\title{Intensive quadratic entropy statistic J.}
 \usage{
 entropy_j(phy)
 }

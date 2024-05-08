@@ -2,7 +2,7 @@
 % Please edit documentation in R/colless.R
 \name{colless}
 \alias{colless}
-\title{Fast function using C++ to calculate the Colless index of (im)balance.}
+\title{Colless index of (im)balance.}
 \usage{
 colless(phy, normalization = "none")
 }

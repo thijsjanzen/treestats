@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the maximum width of branch depth.
+#' Maximum width of branch depths.
 #' @description Calculates the maximum width, this is calculated by first
 #' collecting the depth of each node and tip across the entire tree, where the
 #' depth represents the distance (in nodes) to the root. Then, the width

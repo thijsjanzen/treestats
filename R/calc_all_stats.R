@@ -1,4 +1,4 @@
-#' function to apply all available tree statistics to a single tree
+#' Apply all available tree statistics to a single tree
 #' @param phylo phylo object
 #' @param normalize if set to TRUE, results are normalized (if possible) under
 #' either the  Yule expectation (if available), or the number of tips
@@ -58,6 +58,7 @@
 #'   \item variance of internal branch length
 #'   \item number of imbalancing steps
 #'   \item j_one statistic
+#'   \item treeness statistic
 #' }
 #'
 #' For the Laplacian spectrum properties, four properties of the eigenvalue
@@ -230,6 +231,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$mean_branch_length_ext <- treestats::mean_branch_length_ext(phylo)
   stats$var_branch_length_int <- treestats::var_branch_length_int(phylo)
   stats$var_branch_length_ext <- treestats::var_branch_length_ext(phylo)
+
+  stats$treeness <- treestats::treeness(phylo)
 
   return(stats)
 }

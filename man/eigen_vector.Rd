@@ -2,7 +2,7 @@
 % Please edit documentation in R/eigenvector.R
 \name{eigen_vector}
 \alias{eigen_vector}
-\title{Fast function using C++ to calculate eigen vector centrality}
+\title{Eigen vector centrality}
 \usage{
 eigen_vector(phy, weight = TRUE, scale = FALSE)
 }

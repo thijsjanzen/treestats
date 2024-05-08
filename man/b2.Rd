@@ -2,7 +2,7 @@
 % Please edit documentation in R/b2.R
 \name{b2}
 \alias{b2}
-\title{Fast function using C++ to calculate the B2 metric}
+\title{B2 metric}
 \usage{
 b2(phy, normalization = "none")
 }

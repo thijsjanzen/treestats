@@ -2,7 +2,7 @@
 % Please edit documentation in R/sackin.R
 \name{sackin}
 \alias{sackin}
-\title{Fast function using C++ to calculate the sackin index of (im)balance.}
+\title{Sackin index of (im)balance.}
 \usage{
 sackin(phy, normalization = "none")
 }

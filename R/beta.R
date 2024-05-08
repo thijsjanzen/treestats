@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Aldous beta statistic.
+#' Aldous' beta statistic.
 #' @description The Beta statistic fits a beta splitting model to each node,
 #' assuming that the number of extant descendents of each daughter branch is
 #' split following a beta distribution, such that the number of extant

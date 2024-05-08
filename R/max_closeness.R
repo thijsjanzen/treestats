@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate maximum closeness
+#' Maximum closeness
 #' @description Closeness is defined as 1 / Farness, where Farness is the sum
 #' of distances from a node to all the other nodes in the tree. Here, we return
 #' the node with maximum closeness.

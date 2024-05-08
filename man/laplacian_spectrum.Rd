@@ -2,7 +2,7 @@
 % Please edit documentation in R/rpanda.R
 \name{laplacian_spectrum}
 \alias{laplacian_spectrum}
-\title{function to calculate the laplacian spectrum, from RPANDA}
+\title{Laplacian spectrum statistics, from RPANDA}
 \usage{
 laplacian_spectrum(phy)
 }

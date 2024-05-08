@@ -2,7 +2,7 @@
 % Please edit documentation in R/area_per_pair.R
 \name{area_per_pair}
 \alias{area_per_pair}
-\title{Fast function using C++ to calculate the area per pair index}
+\title{Area per pair index}
 \usage{
 area_per_pair(phy, normalization = "none")
 }

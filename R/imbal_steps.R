@@ -1,4 +1,4 @@
-#' imbalance steps index
+#' Imbalance steps index
 #' @description Calculates the number of moves required to transform the focal
 #' tree into a fully imbalanced (caterpillar) tree. Higher value indicates a
 #' more balanced tree.

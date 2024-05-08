@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_balance_stats.R
 \name{calc_balance_stats}
 \alias{calc_balance_stats}
-\title{function to apply all balance statistics to a single tree}
+\title{Apply all balance statistics to a single tree}
 \usage{
 calc_balance_stats(phylo, normalize = FALSE)
 }

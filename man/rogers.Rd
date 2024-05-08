@@ -2,7 +2,7 @@
 % Please edit documentation in R/rogers.R
 \name{rogers}
 \alias{rogers}
-\title{Fast function using C++ to calculate the Rogers J index of (im)balance.}
+\title{Rogers J index of (im)balance.}
 \usage{
 rogers(phy, normalization = "none")
 }

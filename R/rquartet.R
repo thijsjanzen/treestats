@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the rquartet index.
+#' Rquartet index.
 #' @description The rquartet index counts the number of potential fully
 #' balanced rooted subtrees of 4 tips in the tree. The function in treestats
 #' assumes a bifurcating tree. For trees with polytomies, we refer the user to

@@ -1,4 +1,4 @@
-#' function to apply all balance statistics to a single tree
+#' Apply all balance statistics to a single tree
 #' @param phylo phylo object
 #' @param normalize if set to TRUE, results are normalized (if possible) under
 #' either the  Yule expectation (if available), or the number of tips

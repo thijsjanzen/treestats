@@ -2,7 +2,7 @@
 % Please edit documentation in R/pigot_rho.R
 \name{pigot_rho}
 \alias{pigot_rho}
-\title{calculate Pigot's rho}
+\title{Pigot's rho}
 \usage{
 pigot_rho(phy, extant_tree = TRUE)
 }

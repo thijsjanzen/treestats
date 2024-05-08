@@ -2,7 +2,7 @@
 % Please edit documentation in R/beta.R
 \name{beta_statistic}
 \alias{beta_statistic}
-\title{Fast function using C++ to calculate the Aldous beta statistic.}
+\title{Aldous' beta statistic.}
 \usage{
 beta_statistic(
   phy,

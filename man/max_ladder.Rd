@@ -2,7 +2,7 @@
 % Please edit documentation in R/max_ladder.R
 \name{max_ladder}
 \alias{max_ladder}
-\title{maximum ladder index}
+\title{Maximum ladder index}
 \usage{
 max_ladder(input_obj)
 }

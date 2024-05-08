@@ -2,7 +2,7 @@
 % Please edit documentation in R/sym_nodes.R
 \name{sym_nodes}
 \alias{sym_nodes}
-\title{Fast function using C++ to calculate the symmetry nodes metric}
+\title{Symmetry nodes metric}
 \usage{
 sym_nodes(phy, normalization = "none")
 }

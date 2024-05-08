@@ -2,8 +2,7 @@
 % Please edit documentation in R/nLTT.R
 \name{nLTT_base}
 \alias{nLTT_base}
-\title{Calculates the nLTT statistic using a reference 'empty' tree with only
-two lineages.}
+\title{Reference nLTT statistic}
 \usage{
 nLTT_base(phy)
 }

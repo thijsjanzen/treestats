@@ -2,7 +2,7 @@
 % Please edit documentation in R/number_of_lineages.R
 \name{number_of_lineages}
 \alias{number_of_lineages}
-\title{Calculate the number of tips of a tree, including extinct tips.}
+\title{Number of tips of a tree, including extinct tips.}
 \usage{
 number_of_lineages(phy)
 }
@@ -13,5 +13,5 @@ number_of_lineages(phy)
 number of lineages
 }
 \description{
-Calculate the number of tips of a tree, including extinct tips.
+Number of tips of a tree, including extinct tips.
 }

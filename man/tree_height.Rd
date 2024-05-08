@@ -2,7 +2,7 @@
 % Please edit documentation in R/crown_age.R
 \name{tree_height}
 \alias{tree_height}
-\title{Calculates the height of a tree using C++.}
+\title{Height of a tree.}
 \usage{
 tree_height(phy)
 }

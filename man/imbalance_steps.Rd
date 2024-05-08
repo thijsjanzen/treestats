@@ -2,7 +2,7 @@
 % Please edit documentation in R/imbal_steps.R
 \name{imbalance_steps}
 \alias{imbalance_steps}
-\title{imbalance steps index}
+\title{Imbalance steps index}
 \usage{
 imbalance_steps(input_obj, normalization = FALSE)
 }

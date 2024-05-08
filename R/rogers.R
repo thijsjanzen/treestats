@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Rogers J index of (im)balance.
+#' Rogers J index of (im)balance.
 #' @description The Rogers index is calculated as the total number of internal
 #' nodes that are unbalanced, e.g. for which both daughter nodes lead to a
 #' different number of extant tips. in other words, the number of nodes where

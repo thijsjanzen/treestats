@@ -2,7 +2,7 @@
 % Please edit documentation in R/max_width.R
 \name{max_width}
 \alias{max_width}
-\title{Fast function using C++ to calculate the maximum width of branch depth.}
+\title{Maximum width of branch depths.}
 \usage{
 max_width(phy, normalization = "none")
 }

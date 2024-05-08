@@ -17,7 +17,7 @@ skew_ness <- function(x) {
   return((sum((x - mean(x)) ^ 3) / n) / (sum((x - mean(x)) ^ 2) / n) ^ (3 / 2))
 }
 
-#' function to calculate the laplacian spectrum, from RPANDA
+#' Laplacian spectrum statistics, from RPANDA
 #' @description Computes the distribution of eigenvalues for the modified graph
 #' Laplacian of a phylogenetic tree, and several summary statistics of this
 #' distribution. The modified graph Laplacian of a phylogeny is given by the

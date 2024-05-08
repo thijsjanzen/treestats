@@ -2,7 +2,7 @@
 % Please edit documentation in R/gamma.R
 \name{gamma_statistic}
 \alias{gamma_statistic}
-\title{Calculate the gamma statistic, using a fast implementation in C++.}
+\title{Gamma statistic}
 \usage{
 gamma_statistic(phy)
 }

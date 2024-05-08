@@ -2,7 +2,7 @@
 % Please edit documentation in R/diameter.R
 \name{diameter}
 \alias{diameter}
-\title{Fast function using C++ to calculate the diameter}
+\title{Diameter statistic}
 \usage{
 diameter(phy, weight = FALSE)
 }

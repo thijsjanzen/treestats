@@ -2,7 +2,7 @@
 % Please edit documentation in R/psv.R
 \name{psv}
 \alias{psv}
-\title{Fast function using C++ to calculate Phylogenetic Species Variability.}
+\title{Phylogenetic Species Variability.}
 \usage{
 psv(phy, normalization = "none")
 }

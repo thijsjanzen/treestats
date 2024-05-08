@@ -1,4 +1,4 @@
-#' Calculates the height of a tree using C++.
+#' Height of a tree.
 #' @description In a reconstructed tree, obtaining the tree height is fairly
 #' straightforward, and the function beautier::get_crown_age does a great job
 #' at it. However, in a non-ultrametric tree, that function no longer works.
@@ -26,7 +26,7 @@ tree_height <- function(phy) {
   stop("input object has to be of class phylo")
 }
 
-#' Calculates the crown age of a tree using C++.
+#' Crown age of a tree.
 #' @description In a reconstructed tree, obtaining the crown age is
 #' fairly straightforward, and the function beautier::get_crown_age does
 #' a great job at it. However, in a non-ultrametric tree, that function no

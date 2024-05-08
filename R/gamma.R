@@ -1,4 +1,4 @@
-#' Calculate the gamma statistic, using a fast implementation in C++.
+#' Gamma statistic
 #' @description The gamma statistic measures the relative position of
 #' internal nodes within a reconstructed phylogeny. Under the Yule process,
 #' the gamma values of a reconstructed tree follow a standard normal

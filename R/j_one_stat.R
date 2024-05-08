@@ -1,4 +1,4 @@
-#' function to calculate the J^1 index.
+#' J^1 index.
 #' @description The J^1 index calculates the Shannon Entropy of a tree, where
 #' at each node with two children, the Shannon Entropy is the sum of
 #' p_i log_2(p_i) over the two children i, and p_i is L / (L + R), where L and

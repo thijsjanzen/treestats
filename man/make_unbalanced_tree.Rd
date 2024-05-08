@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_unbalanced_tree.R
 \name{make_unbalanced_tree}
 \alias{make_unbalanced_tree}
-\title{this function increasingly increases the imbalance of a tree}
+\title{Stepwise increase the imbalance of a tree}
 \usage{
 make_unbalanced_tree(
   init_tree,

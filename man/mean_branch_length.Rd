@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{mean_branch_length}
 \alias{mean_branch_length}
-\title{Calculates the mean branch length of a tree, including extinct branches.}
+\title{Mean branch length of a tree, including extinct branches.}
 \usage{
 mean_branch_length(phy)
 }
@@ -13,5 +13,5 @@ mean_branch_length(phy)
 mean branch length
 }
 \description{
-Calculates the mean branch length of a tree, including extinct branches.
+Mean branch length of a tree, including extinct branches.
 }

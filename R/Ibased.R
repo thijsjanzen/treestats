@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the mean I value.
+#' Mean I statistic.
 #' @description The mean I value is defined for all nodes with at least 4 tips
 #' connected, such that different topologies can be formed. Then, for each node,
 #' I = (nm - nt/2) / (nt - 1 - nt/2), where nt is the total number of tips

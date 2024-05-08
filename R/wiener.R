@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Wiener index
+#' Wiener index
 #' @description The Wiener index is defined as the sum of all shortest path
 #' lengths between pairs of nodes in a tree.
 #' @param phy phylo object or ltable
