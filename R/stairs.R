@@ -1,8 +1,8 @@
 #' Stairs index
-#' @description Calculates the staircase-ness measure, from the phyloTop package. The
-#' staircase-ness reflects the number of subtrees that are imbalanced, e.g.
-#' subtrees where the left child has more extant tips than the right child, or
-#' vice versa.
+#' @description Calculates the staircase-ness measure, from the phyloTop
+#' package. The staircase-ness reflects the number of subtrees that are
+#' imbalanced, e.g. subtrees where the left child has more extant tips than the
+#' right child, or vice versa.
 #' @param input_obj phylo object or ltable
 #' @return number of stairs
 #' @references Norström, Melissa M., et al. "Phylotempo: a set of r scripts for
