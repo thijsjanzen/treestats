@@ -1,4 +1,4 @@
-context("util")
+context("util-functions")
 
 test_that("usage", {
   set.seed(42)
