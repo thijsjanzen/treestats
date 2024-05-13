@@ -8,9 +8,18 @@ test_that("usage", {
   vv1 <- treestats::treeness(dd_tree1)
   testthat::expect_lt(vv, 0.5)
 
+  dd_tree1_ltab <- treestats::phylo_to_l(dd_tree1)
+  vv1_ltab <- treestats::treeness(dd_tree1_ltab)
+  testthat::expect_equal(vv1, vv1_ltab)
+
+
   dd_tree2 <- DDD::dd_sim(pars = c(0.3, 0, 100), age = 20)$tas
   vv2 <- treestats::treeness(dd_tree2)
   testthat::expect_gt(vv2, vv1)
+
+  dd_tree2_ltab <- treestats::phylo_to_l(dd_tree2)
+  vv2_ltab <- treestats::treeness(dd_tree2_ltab)
+  testthat::expect_equal(vv2, vv2_ltab)
 })
 
 test_that("wrong_object", {
