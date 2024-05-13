@@ -14,7 +14,7 @@
 #include <vector>
 #include <array>
 
-#include "util.h"
+#include "util.h"   // NOLINT [build/include_subdir]
 
 inline std::vector< double > branching_times(
     const std::vector< std::array< size_t, 2>>& edge,
