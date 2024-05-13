@@ -5,21 +5,21 @@ test_that("usage", {
   # DDD tree has all speciation events at the beginning
   # expect very low stemminess
   dd_tree1 <- DDD::dd_sim(pars = c(1, 0, 10), age = 20)$tas
-  vv1 <- treestats::treeness(dd_tree1)
-  testthat::expect_lt(vv, 0.5)
+  treeness_1 <- treestats::treeness(dd_tree1)
+  testthat::expect_lt(treeness_1, 0.5)
 
   dd_tree1_ltab <- treestats::phylo_to_l(dd_tree1)
-  vv1_ltab <- treestats::treeness(dd_tree1_ltab)
-  testthat::expect_equal(vv1, vv1_ltab)
+  treeness1_ltab <- treestats::treeness(dd_tree1_ltab)
+  testthat::expect_equal(treeness_1, treeness1_ltab)
 
 
   dd_tree2 <- DDD::dd_sim(pars = c(0.3, 0, 100), age = 20)$tas
-  vv2 <- treestats::treeness(dd_tree2)
-  testthat::expect_gt(vv2, vv1)
+  treeness_2 <- treestats::treeness(dd_tree2)
+  testthat::expect_gt(treeness_2, treeness_1)
 
   dd_tree2_ltab <- treestats::phylo_to_l(dd_tree2)
-  vv2_ltab <- treestats::treeness(dd_tree2_ltab)
-  testthat::expect_equal(vv2, vv2_ltab)
+  treeness_2_ltab <- treestats::treeness(dd_tree2_ltab)
+  testthat::expect_equal(treeness_2, treeness_2_ltab)
 })
 
 test_that("wrong_object", {
