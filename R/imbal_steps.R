@@ -27,6 +27,5 @@ imbalance_steps <- function(input_obj,
 
   steps_taken <- imbalance_steps_cpp(input_obj,
                                      normalization)
-
   return(steps_taken)
 }
