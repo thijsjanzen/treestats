@@ -14,7 +14,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: codecov/codecov-action@v4.4.1
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-r@v2
         with:
