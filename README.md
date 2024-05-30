@@ -60,7 +60,7 @@ The following summary statistics are included:
   - Mean branch length terminal branches
   - Variation branch length terminal branches
   - J one
-  - tree_ness
+  - treeness
 
 ## Rcpp
 For all of these statistics, the package provides Rcpp versions that 
