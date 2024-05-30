@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Colless index of (im)balance.
+#' Colless index of (im)balance.
 #' @description The Colless index is calculated as the sum of
 #' \eqn{abs(L - R)} over all nodes, where L (or R) is the number of extant tips
 #' associated with the L (or R) daughter branch at that node.  Higher values

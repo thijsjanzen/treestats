@@ -2,8 +2,7 @@
 % Please edit documentation in R/max_del_width.R
 \name{max_del_width}
 \alias{max_del_width}
-\title{Fast function using C++ to calculate the maximum difference of widths of a
-phylogenetic tree}
+\title{Maximum difference of widths of a phylogenetic tree}
 \usage{
 max_del_width(phy, normalization = "none")
 }

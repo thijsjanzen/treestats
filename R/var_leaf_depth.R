@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the variance of leaf depth statistic
+#' Variance of leaf depth statistic
 #' @description The variance of leaf depth statistic returns the variance
 #' of depths across all tips.
 #' @param phy phylo object or ltable

@@ -1,4 +1,4 @@
-#' Calculate the number of tips of a tree, including extinct tips.
+#' Number of tips of a tree, including extinct tips.
 #' @param phy phylo object
 #' @return number of lineages
 #' @export

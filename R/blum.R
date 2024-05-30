@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Blum index of (im)balance.
+#' Blum index of (im)balance.
 #' @description The Blum index of imbalance (also known as the s-shape
 #' statistic) calculates the sum of \eqn{log(N-1)} over all internal nodes,
 #' where N represents the total number of extant tips connected to that node.

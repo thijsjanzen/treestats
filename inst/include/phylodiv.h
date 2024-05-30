@@ -32,34 +32,6 @@ struct branch {
   double bl;
 };
 
-void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
-                              std::vector<double>* edge_length) {
-  struct entry {
-    std::array<size_t, 2> ed;
-    double bl;
-  };
-
-  if ((*edge).size() != (*edge_length).size()) {
-    throw std::runtime_error("size mismatch");
-  }
-
-  std::vector<entry> everything((*edge).size());
-  for (size_t i = 0; i < (*edge).size(); ++i) {
-    everything[i].bl = (*edge_length)[i];
-    everything[i].ed = (*edge)[i];
-  }
-
-  std::sort(everything.begin(), everything.end(),
-            [&](auto a, auto b)
-            {return a.ed[0] < b.ed[0];});
-
-  // now place back
-  for (size_t i = 0; i < everything.size(); ++i) {
-    (*edge)[i] = everything[i].ed;
-    (*edge_length)[i] = everything[i].bl;
-  }
-  return;
-}
 
 struct phylo {
   std::vector< std::array<size_t, 2>> edge;

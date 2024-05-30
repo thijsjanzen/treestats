@@ -17,6 +17,7 @@
 #include <Rcpp.h>
 
 #include "branching_times.h" // NOLINT [build/include_subdir]
+#include "phylo2L.h"
 #include "pigot_rho.h"       // NOLINT [build/include_subdir]
 #include "gamma.h"           // NOLINT [build/include_subdir]
 #include "nltt.h"            // NOLINT [build/include_subdir]
@@ -24,29 +25,10 @@
 
 #include "util.h"            // NOLINT [build/include_subdir]
 
-using edge_table = std::vector< std::array< size_t, 2 >>;
 
 // [[Rcpp::export]]
 std::vector< double > branching_times_cpp(const Rcpp::List& phy) {
-  std::vector< double > edge_length = phy["edge.length"];
-  Rcpp::NumericMatrix edge = phy["edge"];
-
-  size_t Nnode = phy["Nnode"];
-
-  edge_table edge_cpp(edge.nrow());
-
-  size_t n = 1e6;
-
-  for (int i = 0; i < edge.nrow(); ++i) {
-    std::array< size_t, 2 > row_entry = {static_cast<size_t>(edge(i, 0)),
-                                         static_cast<size_t>(edge(i, 1))};
-    edge_cpp[i] = row_entry;
-    if (row_entry[0] < n) n = row_entry[0];
-  }
-
-  sort_edge_and_edgelength(&edge_cpp, &edge_length);
-
-  return branching_times(edge_cpp, edge_length, Nnode, n - 1);
+  return branching_times_phy(phy);
 }
 
 // [[Rcpp::export]]

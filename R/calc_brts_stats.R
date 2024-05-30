@@ -1,5 +1,4 @@
-#' function to apply all tree statistics related to branching times
-#' to a single tree.
+#' Apply all tree statistics related to branching times to a single tree.
 #' @param phylo phylo object
 #' @return list with statistics
 #' @export

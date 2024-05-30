@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the symmetry nodes metric
+#' Symmetry nodes metric
 #' @description Balance metric that returns the total number of internal nodes
 #' that are not-symmetric (confusingly enough). A node is considered symmetric
 #' when both daughter trees have the same topology, measured as having the

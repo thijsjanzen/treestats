@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate maximum depth metric
+#' Maximum depth metric
 #' @description The maximum depth metric, measures the maximal path (in edges),
 #' between the tips and the root.
 #' @param phy phylo object or ltable

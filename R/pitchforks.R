@@ -1,5 +1,7 @@
-#' Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
-#' with three tips.
+#' Number of pitchforks
+#' @description
+#' Pitchforks are a clade with three tips, as introduced in the phyloTop
+#' package.
 #' @param input_obj phylo object or ltable
 #' @param normalization "none" or "tips", in which case the found number of
 #' pitchforks is divided by the expected number.

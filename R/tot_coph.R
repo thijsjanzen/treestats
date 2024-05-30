@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the total cophenetic index.
+#' Total cophenetic index.
 #' @description The total cophenetic index is the sum of the depth of the last
 #' common ancestor of all pairs of leaves.
 #' @param phy phylo object or ltable

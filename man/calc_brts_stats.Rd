@@ -2,8 +2,7 @@
 % Please edit documentation in R/calc_brts_stats.R
 \name{calc_brts_stats}
 \alias{calc_brts_stats}
-\title{function to apply all tree statistics related to branching times
-to a single tree.}
+\title{Apply all tree statistics related to branching times to a single tree.}
 \usage{
 calc_brts_stats(phylo)
 }

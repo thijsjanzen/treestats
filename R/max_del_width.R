@@ -1,5 +1,4 @@
-#' Fast function using C++ to calculate the maximum difference of widths of a
-#' phylogenetic tree
+#' Maximum difference of widths of a phylogenetic tree
 #' @description Calculates the maximum difference of widths of a phylogenetic
 #' tree. First, the widths are calculated by collecting the depth of each node
 #' and tip across the entire tree, where the depth represents the distance

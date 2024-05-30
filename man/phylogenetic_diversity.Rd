@@ -2,7 +2,7 @@
 % Please edit documentation in R/phylogenetic_diversity.R
 \name{phylogenetic_diversity}
 \alias{phylogenetic_diversity}
-\title{Calculates phylogenetic diversity at time point t}
+\title{Phylogenetic diversity at time point t}
 \usage{
 phylogenetic_diversity(input_obj, t = 0, extinct_tol = NULL)
 }

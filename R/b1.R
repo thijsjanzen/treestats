@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the B1 metric
+#' B1 metric
 #' @description Balance metric (in the case of a binary tree), which measures
 #' the sum across all internal nodes of one over the maximum depth of all
 #' attached tips to that node.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/max_closeness.R
 \name{max_closeness}
 \alias{max_closeness}
-\title{Fast function using C++ to calculate maximum closeness}
+\title{Maximum closeness}
 \usage{
 max_closeness(phy, weight = TRUE, normalization = "none")
 }

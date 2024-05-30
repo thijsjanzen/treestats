@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{mean_branch_length_int}
 \alias{mean_branch_length_int}
-\title{Calculates the variation of internal branch lengths of a tree, e.g. of
+\title{Mean length of internal branches of a tree, e.g. of
 branches not leading to a tip.}
 \usage{
 mean_branch_length_int(phy)
@@ -11,9 +11,9 @@ mean_branch_length_int(phy)
 \item{phy}{phylo object or Ltable}
 }
 \value{
-variation of internal branch lengths
+mean of internal branch lengths
 }
 \description{
-Calculates the variation of internal branch lengths of a tree, e.g. of
+Mean length of internal branches of a tree, e.g. of
 branches not leading to a tip.
 }

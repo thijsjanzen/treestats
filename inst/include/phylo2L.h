@@ -19,9 +19,9 @@
 
 #include <utility>
 
-std::vector< double > branching_times_cpp(const Rcpp::List& phy);
+#include "branching_times.h"   // NOLINT [build/include_subdir]
 
-size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
+inline size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
                      size_t col_index) {
   auto min_entry = std::min_element(localtab.cbegin(), localtab.cend(),
                                     [&](const auto& a, const auto& b) {
@@ -30,20 +30,20 @@ size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
   return std::distance(localtab.cbegin(), min_entry);
 }
 
-bool parent_in_nodesindex(const std::vector< size_t >& nodesindex,
+inline bool parent_in_nodesindex(const std::vector< size_t >& nodesindex,
                           size_t parent) {
   return std::binary_search(nodesindex.begin(), nodesindex.end(), parent);
 }
 
 
-void remove_from_L(std::vector< std::array<double, 6>>* L,
+inline void remove_from_L(std::vector< std::array<double, 6>>* L,
                    size_t j) {
   std::swap((*L)[j], (*L).back());
   (*L).pop_back();
 }
 
 
-std::vector< std::array<double, 6>> get_realL(
+inline std::vector< std::array<double, 6>> get_realL(
     const std::vector< size_t >& nodesindex,
     std::vector< std::array<double, 6>> L) {
 
@@ -92,7 +92,7 @@ std::vector< std::array<double, 6>> get_realL(
   return realL;
 }
 
-size_t find_index(const std::vector< std::array<double, 6>>& pre_Ltable,
+inline size_t find_index(const std::vector< std::array<double, 6>>& pre_Ltable,
                   double ref) {
   size_t index = 0;
   for (; index != pre_Ltable.size(); ++index) {
@@ -103,8 +103,9 @@ size_t find_index(const std::vector< std::array<double, 6>>& pre_Ltable,
   return index;
 }
 
-std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
-  std::vector< double > brts = branching_times_cpp(phy);
+inline
+  std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
+  std::vector< double > brts = branching_times_phy(phy);
 
   auto min_brts = *std::min_element(brts.begin(), brts.end());
   if (min_brts < 0.0) {

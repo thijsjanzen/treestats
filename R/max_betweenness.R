@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate maximum betweenness centrality.
+#' Maximum betweenness centrality.
 #' @description Betweenness centrality associates with each node v, the two
 #' nodes u, w, for which the shortest path between u and w runs through v, if
 #' the tree were re-rooted at node v. Then, we report the node with maximum

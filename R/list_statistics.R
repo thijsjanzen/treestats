@@ -18,7 +18,8 @@ list_statistics <- function(only_balance_stats = FALSE) {
                       "wiener", "max_betweenness", "max_closeness", "diameter",
                       "eigenvector", "mean_branch_length", "var_branch_length",
                       "mean_branch_length_int", "mean_branch_length_ext",
-                      "var_branch_length_int", "var_branch_length_ext")
+                      "var_branch_length_int", "var_branch_length_ext",
+                      "treeness")
 
   bal_stats <- c("sackin", "colless", "beta", "blum", "avg_ladder",
                  "max_ladder", "cherries", "il_number", "pitchforks", "stairs",

@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the area per pair index
+#' Area per pair index
 #' @description The area per pair index calculates the sum of the number of
 #' edges on the path between all two leaves. Instead, the area per pair index
 #' (APP) can also be derived from the Sackin (S) and total cophenetic index

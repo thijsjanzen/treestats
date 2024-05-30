@@ -2,7 +2,7 @@
 % Please edit documentation in R/j_one_stat.R
 \name{j_one}
 \alias{j_one}
-\title{function to calculate the J^1 index.}
+\title{J^1 index.}
 \usage{
 j_one(input_obj)
 }

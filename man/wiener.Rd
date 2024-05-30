@@ -2,7 +2,7 @@
 % Please edit documentation in R/wiener.R
 \name{wiener}
 \alias{wiener}
-\title{Fast function using C++ to calculate the Wiener index}
+\title{Wiener index}
 \usage{
 wiener(phy, normalization = FALSE, weight = TRUE)
 }

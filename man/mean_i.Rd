@@ -2,7 +2,7 @@
 % Please edit documentation in R/Ibased.R
 \name{mean_i}
 \alias{mean_i}
-\title{Fast function using C++ to calculate the mean I value.}
+\title{Mean I statistic.}
 \usage{
 mean_i(phy)
 }

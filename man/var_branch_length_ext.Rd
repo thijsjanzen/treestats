@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{var_branch_length_ext}
 \alias{var_branch_length_ext}
-\title{Calculates the variance of external branch lengths of a tree, e.g. of
+\title{Variance of external branch lengths of a tree, e.g. of
 branches leading to a tip.}
 \usage{
 var_branch_length_ext(phy)
@@ -14,6 +14,6 @@ var_branch_length_ext(phy)
 variance of external branch lengths
 }
 \description{
-Calculates the variance of external branch lengths of a tree, e.g. of
+Variance of external branch lengths of a tree, e.g. of
 branches leading to a tip.
 }

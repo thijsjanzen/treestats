@@ -1,4 +1,4 @@
-#' Calculate ILnumber
+#' ILnumber
 #' @description The ILnumber is the number of internal nodes with a
 #' single tip child. Higher values typically indicate a tree that
 #' is more unbalanced.

@@ -13,14 +13,15 @@ test_that("usage", {
   m_br_ext <- treestats::mean_branch_length_ext(focal_tree)
   testthat::expect_equal(m_br_ext, 1.5)
 
-  m_br_int <- treestats::mean_branch_length_ext(focal_tree)
+  m_br_int <- treestats::mean_branch_length_int(focal_tree)
   testthat::expect_equal(m_br_ext, 1.5)
 
   v_br_ext <-   treestats::var_branch_length_ext(focal_tree)
   testthat::expect_equal(v_br_ext, 1 / 3)
 
-  v_br_int <-   treestats::var_branch_length_ext(focal_tree)
-  testthat::expect_equal(v_br_int, 1 / 3)
+  v_br_int <-   treestats::var_branch_length_int(focal_tree)
+  testthat::expect_equal(v_br_int, 1 / 2)
+
 
   ltab <- treestats::phylo_to_l(focal_tree)
 
@@ -33,14 +34,14 @@ test_that("usage", {
   m_br_ext <- treestats::mean_branch_length_ext(ltab)
   testthat::expect_equal(m_br_ext, 1.5)
 
-  m_br_int <- treestats::mean_branch_length_ext(ltab)
+  m_br_int <- treestats::mean_branch_length_int(ltab)
   testthat::expect_equal(m_br_ext, 1.5)
 
   v_br_ext <-   treestats::var_branch_length_ext(ltab)
   testthat::expect_equal(v_br_ext, 1 / 3)
 
-  v_br_int <-   treestats::var_branch_length_ext(ltab)
-  testthat::expect_equal(v_br_int, 1 / 3)
+  v_br_int <-   treestats::var_branch_length_int(ltab)
+  testthat::expect_equal(v_br_int, 1 / 2)
 })
 
 test_that("wrong_object", {

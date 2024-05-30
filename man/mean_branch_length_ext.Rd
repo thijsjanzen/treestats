@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{mean_branch_length_ext}
 \alias{mean_branch_length_ext}
-\title{Calculates the mean of external branch lengths of a tree, e.g. of
+\title{Mean length of external branch lengths of a tree, e.g. of
 branches leading to a tip.}
 \usage{
 mean_branch_length_ext(phy)
@@ -14,6 +14,6 @@ mean_branch_length_ext(phy)
 mean of external branch lengths
 }
 \description{
-Calculates the mean of external branch lengths of a tree, e.g. of
+Mean length of external branch lengths of a tree, e.g. of
 branches leading to a tip.
 }

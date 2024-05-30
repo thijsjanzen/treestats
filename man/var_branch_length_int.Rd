@@ -2,8 +2,8 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{var_branch_length_int}
 \alias{var_branch_length_int}
-\title{Calculates the variance of internal branch lengths of a tree, e.g. of
-branches not leading to a tip.}
+\title{Variance of internal branch lengths of a tree, e.g. of branches not leading
+to a tip.}
 \usage{
 var_branch_length_int(phy)
 }
@@ -14,6 +14,6 @@ var_branch_length_int(phy)
 variance of internal branch lengths
 }
 \description{
-Calculates the variance of internal branch lengths of a tree, e.g. of
-branches not leading to a tip.
+Variance of internal branch lengths of a tree, e.g. of branches not leading
+to a tip.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/blum.R
 \name{blum}
 \alias{blum}
-\title{Fast function using C++ to calculate the Blum index of (im)balance.}
+\title{Blum index of (im)balance.}
 \usage{
 blum(phy, normalization = FALSE)
 }

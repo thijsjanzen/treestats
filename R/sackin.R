@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the sackin index of (im)balance.
+#' Sackin index of (im)balance.
 #' @description The Sackin index is calculated as the sum of ancestors for each
 #' of the tips. Higher values indicate higher imbalance. Two normalizations
 #' are available, where a correction is made for tree size, under either a

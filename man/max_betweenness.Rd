@@ -2,7 +2,7 @@
 % Please edit documentation in R/max_betweenness.R
 \name{max_betweenness}
 \alias{max_betweenness}
-\title{Fast function using C++ to calculate maximum betweenness centrality.}
+\title{Maximum betweenness centrality.}
 \usage{
 max_betweenness(phy, normalization = "none")
 }

@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate Phylogenetic Species Variability.
+#' Phylogenetic Species Variability.
 #' @description The phylogenetic species variability is bounded in [0, 1]. The
 #' psv quantifies how phylogenetic relatedness decrease the variance of a
 #' (neutral) trait shared by all species in the tree. As species become more

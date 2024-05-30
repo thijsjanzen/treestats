@@ -2,8 +2,7 @@
 % Please edit documentation in R/pitchforks.R
 \name{pitchforks}
 \alias{pitchforks}
-\title{Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
-with three tips.}
+\title{Number of pitchforks}
 \usage{
 pitchforks(input_obj, normalization = "none")
 }
@@ -17,6 +16,6 @@ pitchforks is divided by the expected number.}
 number of pitchforks
 }
 \description{
-Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
-with three tips.
+Pitchforks are a clade with three tips, as introduced in the phyloTop
+package.
 }
