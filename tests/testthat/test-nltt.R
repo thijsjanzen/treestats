@@ -29,6 +29,13 @@ test_that("usage", {
   ltab2 <- treestats::phylo_to_l(tree2)
   nltt3 <- treestats::nLTT(ltab1, ltab2)
   testthat::expect_equal(nltt3, nltt)
+
+  # mixed ltable:
+  nltt4 <- treestats::nLTT(ltab1, tree2)
+  testthat::expect_equal(nltt4, nltt)
+
+  nltt5 <- treestats::nLTT(tree1, ltab2)
+  testthat::expect_equal(nltt5, nltt)
 })
 
 test_that("wrong_object", {

@@ -40,7 +40,6 @@ test_that("usage", {
 })
 
 test_that("polytomy", {
-  testthat::skip_on_ci()
   testthat::skip_on_cran()
   focal_tree <- ape::read.tree(text = "(t1:1.5,(t2:1,t3:1,t4:1):0.5);")
   testthat::expect_error(

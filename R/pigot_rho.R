@@ -34,11 +34,7 @@ pigot_rho <- function(phy,
   }
 
   if (inherits(phy, "phylo")) {
-    if (phy$Nnode < 200) {
-      return(calc_rho_complete_cpp(phy))
-    } else {
-      return(calc_rho_cpp(phy))
-    }
+    return(calc_rho_cpp(phy))
   }
 
   stop("input object has to be phylo or ltable")

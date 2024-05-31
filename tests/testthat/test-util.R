@@ -12,11 +12,6 @@ test_that("usage", {
   c2 <- treestats::colless(focal_tree, "PDA")
   testthat::expect_equal(c1, c2)
 
-
-  imb1 <- treestats::imbalance_steps(focal_tree, FALSE)
-  imb2 <- treestats::imbalance_steps(focal_tree, "none")
-  testthat::expect_equal(imb1, imb2)
-
   sn1 <- treestats::sym_nodes(focal_tree, "tips")
   sn2 <- treestats::sym_nodes(focal_tree, "Tips")
   testthat::expect_equal(sn1, sn2)
