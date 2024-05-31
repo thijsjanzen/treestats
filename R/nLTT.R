@@ -24,6 +24,10 @@ nLTT <- function(phy, # nolint
                  ref_tree) {
 
   if (inherits(phy, "phylo")) {
+    if (inherits(ref_tree, "matrix")) {
+      return(nLTT(ref_tree, phy))
+    }
+
     return(calc_nltt_cpp(phy, ref_tree))
   }
 

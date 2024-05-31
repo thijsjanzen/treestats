@@ -9,6 +9,11 @@ test_that("usage", {
     age2 <- max(adephylo::distRoot(focal_tree))
     testthat::expect_equal(age1, age2)
 
+    # now with ltable:
+    age3 <- treestats::tree_height(treestats::phylo_to_l(focal_tree))
+    testthat::expect_equal(age3, age2)
+
+
     # now, more challenging, with extinct lineages:
     focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.3, fossils = TRUE)
 
