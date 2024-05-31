@@ -7,7 +7,7 @@
 
 Branch|CodeCov
 ---|---
-master|[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/master/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats)
+main|[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats)
 develop|[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/develop/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats)
 
 ## Description
