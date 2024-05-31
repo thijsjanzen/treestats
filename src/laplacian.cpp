@@ -23,7 +23,6 @@
 //' @export
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
-
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
 
