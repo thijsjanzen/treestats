@@ -44,5 +44,6 @@ this package to a single tree, being:
   \item{symmetry Nodes}
   \item{rquartet index}
   \item{j_one statistic}
+  \item{diameter}
 }
 }

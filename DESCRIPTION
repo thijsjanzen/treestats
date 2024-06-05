@@ -20,7 +20,7 @@ Description: Collection of phylogenetic tree statistics,
              found in Janzen (2023) <doi:10.1101/2024.01.24.576848>.
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends:
     Rcpp
 LinkingTo: 

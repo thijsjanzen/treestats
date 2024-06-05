@@ -75,20 +75,19 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats <- list()
 
-  stats$gamma              <- treestats::gamma_statistic(phylo)
-  stats$sackin             <- treestats::sackin(phylo,
-                                                normalization =
-                                                  ifelse(normalize,
-                                                         "yule", "none"))
-  stats$colless            <- treestats::colless(phylo,
-                                                 normalization =
-                                                   ifelse(normalize,
-                                                          "yule", "none"))
+  stats$gamma              <- try_stat(phylo, treestats::gamma_statistic)
 
-  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo)}, #nolint
-                                  error = function(e) {return(NA) }) #nolint
+  stats$sackin             <- try_stat(phylo, treestats::sackin,
+                                      normalize, c("yule", "none"))
 
-  stats$blum               <- treestats::blum(phylo, normalization = normalize)
+  stats$colless            <- try_stat(phylo, treestats::colless,
+                                         normalize, c("yule", "none"))
+
+  stats$beta               <- try_stat(phylo, treestats::beta_statistic)
+
+  stats$blum               <- try_stat(phylo, treestats::blum,
+                                       normalize, c(TRUE, FALSE))
+
   stats$crown_age          <- treestats::crown_age(phylo)
   stats$tree_height        <- treestats::tree_height(phylo)
   stats$pigot_rho          <- treestats::pigot_rho(phylo)
@@ -96,23 +95,20 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$number_of_lineages <- treestats::number_of_lineages(phylo)
   stats$nltt_base          <- treestats::nLTT_base(phylo)
   stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
-  stats$avg_ladder         <- treestats::avg_ladder(phylo) #nolint
-  stats$max_ladder         <- treestats::max_ladder(phylo)
-  stats$cherries           <- treestats::cherries(phylo,
-                                                  normalization =
-                                                    ifelse(normalize,
-                                                           "yule", "none"))
 
-  stats$il_number           <- treestats::ILnumber(phylo,
-                                                   normalization =
-                                                     ifelse(normalize,
-                                                            "tips", "none"))
+  stats$avg_ladder         <- try_stat(phylo, treestats::avg_ladder)
+  stats$max_ladder         <- try_stat(phylo, treestats::max_ladder)
 
-  stats$pitchforks         <- treestats::pitchforks(phylo,
-                                                    normalization =
-                                                      ifelse(normalize,
-                                                             "tips", "none"))
-  stats$stairs             <- treestats::stairs(phylo)
+  stats$cherries           <- try_stat(phylo, treestats::cherries,
+                                     normalize, c("yule", "none"))
+
+  stats$il_number          <- try_stat(phylo, treestats::ILnumber,
+                                       normalize, c("tips", "none"))
+
+  stats$pitchforks         <- try_stat(phylo, treestats::pitchforks,
+                                       normalize, c("tips", "none"))
+
+  stats$stairs              <- try_stat(phylo, treestats::stairs)
 
   temp_stats <- tryCatch(expr = {treestats::laplacian_spectrum(phylo) }, #nolint
                          error = function(e) {return(NA) }) #nolint
@@ -133,95 +129,75 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     treestats::imbalance_steps(phylo,
                                normalization = normalize)
 
-  stats$j_one        <- treestats::j_one(phylo)
+  stats$j_one              <- try_stat(phylo, treestats::j_one)
 
-  stats$b1           <- treestats::b1(phylo,
-                                      normalization =
-                                        ifelse(normalize,
-                                               "tips", "none"))
+  stats$b1                 <- try_stat(phylo, treestats::b1,
+                                       normalize, c("tips", "none"))
 
-  stats$b2           <- treestats::b2(phylo,
-                                      normalization =
-                                        ifelse(normalize,
-                                               "yule", "none"))
+  stats$b2                 <- try_stat(phylo, treestats::b2,
+                                       normalize, c("yule", "none"))
 
-  stats$area_per_pair <- treestats::area_per_pair(phylo,
-                                                  normalization =
-                                                    ifelse(normalize,
-                                                           "yule", "none"))
+  stats$area_per_pair      <- try_stat(phylo, treestats::area_per_pair,
+                                       normalize, c("yule", "none"))
 
-  stats$average_leaf_depth  <- treestats::average_leaf_depth(phylo,
-                                      normalization = ifelse(normalize,
-                                                             "yule", "none"))
+  stats$average_leaf_depth <- try_stat(phylo, treestats::average_leaf_depth,
+                                       normalize, c("yule", "none"))
 
-  stats$i_stat       <- treestats::mean_i(phylo)
-  stats$ew_colless    <- treestats::ew_colless(phylo)
-  stats$max_del_width <- treestats::max_del_width(phylo,
-                                                  normalization =
-                                                   ifelse(normalize,
-                                                          "tips", "none"))
+  stats$i_stat             <- try_stat(phylo, treestats::mean_i)
 
+  stats$ew_colless         <- try_stat(phylo, treestats::ew_colless)
 
-  stats$max_depth     <- treestats::max_depth(phylo,
-                                              normalization =
-                                                ifelse(normalize,
-                                                       "tips", "none"))
-  stats$max_width     <- treestats::max_width(phylo,
-                                              normalization =
-                                                ifelse(normalize,
-                                                       "tips", "none"))
-  stats$rogers       <- treestats::rogers(phylo,
-                                          normalization =
-                                            ifelse(normalize,
-                                                   "tips", "none"))
-  stats$stairs2      <- treestats::stairs2(phylo)
-  stats$tot_coph      <-  treestats::tot_coph(phylo,
-                                              normalization =
-                                                ifelse(normalize,
-                                                       "yule", "none"))
+  stats$max_del_width      <- try_stat(phylo, treestats::max_del_width,
+                                       normalize, c("tips", "none"))
 
-  stats$var_depth <- treestats::var_leaf_depth(phylo,
-                                               normalization =
-                                                 ifelse(normalize,
-                                                        "yule", "none"))
-  stats$symmetry_nodes  <- treestats::sym_nodes(phylo,
-                                                normalization =
-                                                  ifelse(normalize,
-                                                    "tips", "none"))
+  stats$max_depth          <- try_stat(phylo, treestats::max_depth,
+                                       normalize, c("tips", "none"))
 
-  stats$mpd          <- treestats::mean_pair_dist(phylo,
-                                                    normalization =
-                                                     ifelse(normalize,
-                                                            "tips", "none"))
+  stats$max_width          <- try_stat(phylo, treestats::max_width,
+                                       normalize, c("tips", "none"))
 
-  stats$psv          <- treestats::psv(phylo, #nolint
-                                                        normalization =
-                                                        ifelse(normalize,
-                                                              "tips", "none"))
-  stats$vpd          <- tryCatch(expr = {treestats::var_pair_dist(phylo)},  #nolint
-                                 error = function(e) {return(NA)})     #nolint
-  stats$mntd         <- treestats::mntd(phylo)
-
-  stats$j_stat       <- treestats::entropy_j(phylo)
-
-  stats$rquartet     <- treestats::rquartet(phylo,
-                                            normalization =
-                                              ifelse(normalize,
-                                                     "yule", "none"))
+  stats$rogers             <- try_stat(phylo, treestats::rogers,
+                                       normalize, c("tips", "none"))
 
 
-  stats$wiener          <- treestats::wiener(phylo, normalization = normalize)
-  stats$max_betweenness <- treestats::max_betweenness(phylo,
-                                                      normalization =
-                                                        ifelse(normalize,
-                                                               "tips", "none"))
-  stats$max_closeness   <- treestats::max_closeness(phylo,
-                                                    normalization =
-                                                      ifelse(normalize,
-                                                             "tips", "none"))
+  stats$stairs2            <- try_stat(phylo, treestats::stairs2)
 
-  stats$diameter        <- treestats::diameter(phylo)
-  stats$eigenvector     <- max(treestats::eigen_vector(phylo)$eigenvector)
+  stats$tot_coph           <- try_stat(phylo, treestats::tot_coph,
+                                       normalize, c("yule", "none"))
+
+  stats$var_depth          <- try_stat(phylo, treestats::var_depth,
+                                       normalize, c("yule", "none"))
+
+  stats$symmetry_nodes     <- try_stat(phylo, treestats::sym_nodes,
+                                       normalize, c("tips", "none"))
+
+  stats$mpd                <- try_stat(phylo, treestats::mean_pair_dist,
+                                       normalize, c("tips", "none"))
+
+  stats$psv                <- try_stat(phylo, treestats::psv,
+                                       normalize, c("tips", "none"))
+
+  stats$vpd                <- try_stat(phylo, treestats::var_pair_dist)
+
+  stats$mntd               <- try_stat(phylo, treestats::mntd)
+
+  stats$j_stat             <- try_stat(phylo, treestats::entropy_j)
+
+  stats$rquartet           <- try_stat(phylo, treestats::rquartet,
+                                       normalize, c("yule", "none"))
+
+  stats$wiener             <- try_stat(phylo, treestats::wiener, normalize)
+
+  stats$max_betweenness    <- try_stat(phylo, treestats::max_betweenness,
+                                       normalize, c("tips", "none"))
+
+  stats$max_closeness      <- try_stat(phylo, treestats::max_closeness,
+                                       normalize, c("tips", "none"))
+
+  stats$diameter           <- try_stat(phylo, treestats::diameter)
+
+  stats$eigenvector        <- try_stat(phylo,
+                                       function(x) {return(max(treestats::eigen_vector(x)$eigenvector))}) #nolint
 
 
   stats$mean_branch_length <- treestats::mean_branch_length(phylo)
@@ -235,4 +211,25 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$treeness <- treestats::treeness(phylo)
 
   return(stats)
+}
+
+#' @keywords internal
+try_stat <- function(phylo,
+                     func,
+                     normalize = FALSE,
+                     norm_res = c(TRUE, FALSE)) {
+  res <- NA
+  if (normalize) {
+    res <- tryCatch(expr = {
+                            func(phylo,
+                                 normalization =
+                                   ifelse(normalize,
+                                          norm_res[1], norm_res[2]))
+                           },
+                    error = function(e) {return(NA)})     #nolint
+  } else {
+    res <- tryCatch(expr = {func(phylo)},  #nolint
+                    error = function(e) {return(NA)})     #nolint
+  }
+  return(res)
 }

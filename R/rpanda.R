@@ -87,6 +87,8 @@ laplacian_spectrum <- function(phy) {
                    has.na = has_na), class = "density")
   }
 
+  phy <- ape::reorder.phylo(phy)
+
   lapl_mat <- -prep_lapl_spec(phy)
 
   e <- eigen(lapl_mat, symmetric = TRUE, only.values = TRUE)

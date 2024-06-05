@@ -3,12 +3,13 @@
 #' @return list with statistics
 #' @export
 #' @description this function applies all tree statistics based on
-#' branching times to a single tree, being:
+#' branching times to a single tree (more or less ignoring topology), being:
 #' \itemize{
 #'   \item{gamma}
 #'   \item{pigot's rho}
 #'   \item{mean branch length}
 #'   \item{nLTT with empty tree}
+#'   \item{treeness}
 #'   \item{var branch length}
 #'   \item{mean internal branch length}
 #'   \item{mean external branch length}
@@ -20,9 +21,11 @@ calc_brts_stats <- function(phylo) {
 
   stats <- list()
 
-  stats$gamma                  <- treestats::gamma_statistic(phylo)
+  stats$gamma                  <- try_stat(phylo, treestats::gamma_statistic)
   stats$pigot_rho              <- treestats::pigot_rho(phylo)
   stats$nltt_base              <- treestats::nLTT_base(phylo)
+
+  stats$treeness               <- treestats::treeness(phylo)
 
   stats$mean_branch_length     <- treestats::mean_branch_length(phylo)
   stats$var_branch_length      <- treestats::var_branch_length(phylo)

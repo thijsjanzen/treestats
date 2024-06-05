@@ -26,7 +26,11 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);
 
-  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge, el);
+  auto num_nodes = phy["Nnode"];
+  Rcpp::StringVector tips = phy["tip.label"];
+  auto num_tips = tips.size();
+
+  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge, el, num_tips, num_nodes);
   Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
 
   for (size_t i = 0; i < lapl_mat.size(); ++i) {

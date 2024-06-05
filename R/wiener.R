@@ -12,6 +12,10 @@
 #' J Math Chem 2, 267–277 (1988)
 #' @export
 wiener <- function(phy, normalization = FALSE, weight = TRUE) {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

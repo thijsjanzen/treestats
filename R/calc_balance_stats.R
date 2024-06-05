@@ -32,110 +32,84 @@
 #'   \item{symmetry Nodes}
 #'   \item{rquartet index}
 #'   \item{j_one statistic}
+#'   \item{diameter}
 #' }
 #'
 calc_balance_stats <- function(phylo, normalize = FALSE) {
 
   stats <- list()
 
-  stats$sackin             <- treestats::sackin(phylo,
-                                                normalization =
-                                                  ifelse(normalize,
-                                                         "yule", "none"))
-  stats$colless            <- treestats::colless(phylo,
-                                                 normalization =
-                                                   ifelse(normalize,
-                                                          "yule", "none"))
+  stats$sackin             <- try_stat(phylo, treestats::sackin,
+                                       normalize, c("yule", "none"))
+  stats$colless            <- try_stat(phylo, treestats::colless,
+                                       normalize, c("yule", "none"))
 
-  stats$beta          <- tryCatch(expr = {treestats::beta_statistic(phylo) }, #nolint
-                                  error = function(e) {return(NA) }) #nolint
+  stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 
-  stats$blum               <- treestats::blum(phylo,
-                                              normalization = normalize)
+  stats$blum               <- try_stat(phylo, treestats::blum, normalize)
 
-  stats$avg_ladder          <- treestats::avg_ladder(phylo) #nolint
-  stats$max_ladder          <- treestats::max_ladder(phylo) #nolint
-  stats$cherries           <- treestats::cherries(phylo,
-                                                  normalization =
-                                                    ifelse(normalize,
-                                                           "yule", "none"))
+  stats$avg_ladder         <- try_stat(phylo, treestats::avg_ladder)
+  stats$max_ladder         <- try_stat(phylo, treestats::max_ladder)
+  stats$cherries           <- try_stat(phylo, treestats::cherries,
+                                       normalize, c("yule", "none"))
 
-  stats$il_number           <- treestats::ILnumber(phylo,
-                                                   normalization =
-                                                     ifelse(normalize,
-                                                            "tips", "none"))
+  stats$il_number          <- try_stat(phylo, treestats::ILnumber,
+                                       normalize, c("tips", "none"))
 
-  stats$pitchforks         <- treestats::pitchforks(phylo,
-                                                    normalization =
-                                                      ifelse(normalize,
-                                                             "tips", "none"))
-  stats$stairs             <- treestats::stairs(phylo)
+  stats$pitchforks         <- try_stat(phylo, treestats::pitchforks,
+                                       normalize, c("tips", "none"))
 
-  stats$b1           <- treestats::b1(phylo,
-                                      normalization =
-                                        ifelse(normalize,
-                                               "tips", "none"))
+  stats$stairs              <- try_stat(phylo, treestats::stairs)
 
-  stats$b2           <- treestats::b2(phylo,
-                                      normalization =
-                                        ifelse(normalize,
-                                               "yule", "none"))
+  stats$b1                 <- try_stat(phylo, treestats::b1,
+                                       normalize, c("tips", "none"))
 
-  stats$area_per_pair <- treestats::area_per_pair(phylo,
-                                                  normalization =
-                                                    ifelse(normalize,
-                                                           "yule", "none"))
+  stats$b2                 <- try_stat(phylo, treestats::b2,
+                                       normalize, c("yule", "none"))
 
-  stats$average_leaf_depth  <-
-        treestats::average_leaf_depth(phylo,
-                                      normalization = ifelse(normalize,
-                                                             "yule", "none"))
+  stats$area_per_pair      <- try_stat(phylo, treestats::area_per_pair,
+                                       normalize, c("yule", "none"))
 
-  stats$i_stat       <- treestats::mean_i(phylo)
-  stats$ew_colless    <- treestats::ew_colless(phylo)
-  stats$max_del_width <- treestats::max_del_width(phylo,
-                                                  normalization =
-                                                    ifelse(normalize,
-                                                           "tips", "none"))
+  stats$average_leaf_depth <- try_stat(phylo, treestats::average_leaf_depth,
+                                       normalize, c("yule", "none"))
 
-  stats$max_depth     <- treestats::max_depth(phylo,
-                                              normalization =
-                                                ifelse(normalize,
-                                                       "tips", "none"))
-  stats$max_width     <- treestats::max_width(phylo,
-                                              normalization =
-                                                ifelse(normalize,
-                                                       "tips", "none"))
-  stats$rogers       <- treestats::rogers(phylo,
-                                          normalization =
-                                            ifelse(normalize,
-                                                   "tips", "none"))
-  stats$stairs2      <- treestats::stairs2(phylo)
-  stats$tot_coph      <- treestats::tot_coph(phylo,
-                                             normalization =
-                                                ifelse(normalize,
-                                                       "yule", "none"))
+  stats$i_stat             <- try_stat(phylo, treestats::mean_i)
 
-  stats$var_depth <- treestats::var_leaf_depth(phylo,
-                                               normalization =
-                                                 ifelse(normalize,
-                                                        "yule", "none"))
-  stats$symmetry_nodes  <- treestats::sym_nodes(phylo,
-                                                normalization =
-                                                  ifelse(normalize,
-                                                         "tips", "none"))
+  stats$ew_colless         <- try_stat(phylo, treestats::ew_colless)
 
-  stats$rquartet     <- treestats::rquartet(phylo,
-                                            normalization =
-                                              ifelse(normalize,
-                                                     "yule", "none"))
+  stats$max_del_width      <- try_stat(phylo, treestats::max_del_width,
+                                       normalize, c("tips", "none"))
 
-  stats$imbalance_steps <- treestats::imbalance_steps(phylo,
+  stats$max_depth          <- try_stat(phylo, treestats::max_depth,
+                                       normalize, c("tips", "none"))
+
+  stats$max_width          <- try_stat(phylo, treestats::max_width,
+                                       normalize, c("tips", "none"))
+
+  stats$rogers             <- try_stat(phylo, treestats::rogers,
+                                       normalize, c("tips", "none"))
+
+
+  stats$stairs2            <- try_stat(phylo, treestats::stairs2)
+
+  stats$tot_coph           <- try_stat(phylo, treestats::tot_coph,
+                                       normalize, c("yule", "none"))
+
+  stats$var_depth          <- try_stat(phylo, treestats::var_depth,
+                                       normalize, c("yule", "none"))
+
+  stats$symmetry_nodes     <- try_stat(phylo, treestats::sym_nodes,
+                                       normalize, c("tips", "none"))
+
+  stats$rquartet           <- try_stat(phylo, treestats::rquartet,
+                                       normalize, c("yule", "none"))
+
+  stats$imbalance_steps    <- treestats::imbalance_steps(phylo,
                                                       normalization = normalize)
 
-  stats$j_one       <- treestats::j_one(phylo)
+  stats$j_one              <- try_stat(phylo, treestats::j_one)
 
-  stats$diameter    <- treestats::diameter(phylo)
+  stats$diameter           <- try_stat(phylo, treestats::diameter)
 
   return(stats)
 }
