@@ -19,6 +19,10 @@
 #' @export
 mean_i <- function(phy) {
 
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     if (length(phy[, 1]) < 4) {
       warning("I statistic is only available for trees with at least 4 tips.")

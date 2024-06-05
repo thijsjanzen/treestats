@@ -41,6 +41,9 @@ beta_statistic <- function(phy,
                            algorithm = "COBYLA",
                            abs_tol = 1e-4,
                            rel_tol = 1e-6) {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     beta_stat <- calc_beta_ltable_cpp(phy, upper_lim,

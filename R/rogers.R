@@ -22,6 +22,11 @@
 #'   rogers(unbalanced_tree) # should be higher
 #' }
 rogers <- function(phy, normalization = "none") {
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

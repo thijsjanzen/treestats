@@ -35,6 +35,9 @@ tree_height <- function(phy) {
 #' @return crown age
 #' @export
 crown_age <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     return(phy[1, 1])

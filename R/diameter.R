@@ -10,6 +10,9 @@
 #' @export
 diameter <- function(phy,
                      weight = FALSE) {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     diam_stat <- calc_diameter_ltable_cpp(phy, weight)

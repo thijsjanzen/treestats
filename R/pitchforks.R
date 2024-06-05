@@ -10,6 +10,10 @@
 pitchforks <- function(input_obj, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  check_tree(input_obj,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   if (inherits(input_obj, "matrix")) {
     pitch_stat <- pitchforks_ltable_cpp(input_obj)
     if (normalization == "tips" || normalization == TRUE) {

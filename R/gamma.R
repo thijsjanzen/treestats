@@ -19,6 +19,10 @@
 #' }
 gamma_statistic <- function(phy) {
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = TRUE)
+
   if (inherits(phy, "phylo")) {
 
     if (length(phy$tip.label) < 100) {

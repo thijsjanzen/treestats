@@ -11,6 +11,10 @@
 #' EBO-S9738.
 #' @export
 stairs <- function(input_obj) {
+  check_tree(input_obj,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(input_obj, "matrix")) {
     return(stairs_ltable_cpp(input_obj))
   }
@@ -34,6 +38,10 @@ stairs <- function(input_obj) {
 #' EBO-S9738.
 #' @export
 stairs2 <- function(input_obj) {
+  check_tree(input_obj,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(input_obj, "matrix")) {
     return(stairs2_ltable_cpp(input_obj))
   }

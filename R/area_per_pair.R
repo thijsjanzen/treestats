@@ -8,13 +8,17 @@
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "yule", in which case the acquired result
 #' is divided by the expectation for the Yule model.
-#' @return Total cophenetic index
+#' @return Area per pair index
 #' @references  T. Araújo Lima, F. M. D. Marquitti, and M. A. M. de Aguiar.
 #' Measuring Tree Balance with Normalized Tree Area. arXiv e-prints, art.
 #' arXiv:2008.12867, 2020.
 #' @export
 area_per_pair <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   n <- 0
 

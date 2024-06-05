@@ -20,6 +20,10 @@
 sackin <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     return(calc_sackin_ltable_cpp(phy, normalization))
   }

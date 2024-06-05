@@ -24,6 +24,9 @@
 blum <- function(phy,
                  normalization = FALSE) {
   normalization <- check_normalization_key(normalization)
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     return(calc_blum_ltable_cpp(phy, normalization))

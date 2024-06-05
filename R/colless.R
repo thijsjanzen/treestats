@@ -23,6 +23,7 @@
 colless <- function(phy,
                     normalization = "none") {
   normalization <- check_normalization_key(normalization)
+  check_tree(phy, TRUE, FALSE)
 
   if (inherits(phy, "matrix")) {
     return(calc_colless_ltable_cpp(phy, normalization))
@@ -55,7 +56,9 @@ colless <- function(phy,
 #'   ew_colless(unbalanced_tree) # should be higher
 #' }
 ew_colless <- function(phy) {
-
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
   if (inherits(phy, "matrix")) {
     return(calc_eWcolless_ltable_cpp(phy))
   }

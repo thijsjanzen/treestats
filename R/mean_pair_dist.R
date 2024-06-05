@@ -21,8 +21,15 @@ mean_pair_dist <- function(phy, normalization = "none") {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
-                         phy$edge.length)
+
+    if (ape::is.binary(phy)) {
+      mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
+                          phy$edge.length)
+    } else {
+      dist_mat <- ape::cophenetic.phylo(phy)
+      diag(dist_mat) <- NA
+      mpd <- mean(dist_mat, na.rm = TRUE)
+    }
     if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       mpd <- mpd / (2 * log(n))
