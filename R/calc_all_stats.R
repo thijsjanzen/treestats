@@ -165,7 +165,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$tot_coph           <- try_stat(phylo, treestats::tot_coph,
                                        normalize, c("yule", "none"))
 
-  stats$var_depth          <- try_stat(phylo, treestats::var_depth,
+  stats$var_depth          <- try_stat(phylo, treestats::var_leaf_depth,
                                        normalize, c("yule", "none"))
 
   stats$symmetry_nodes     <- try_stat(phylo, treestats::sym_nodes,

@@ -30,7 +30,10 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
   Rcpp::StringVector tips = phy["tip.label"];
   auto num_tips = tips.size();
 
-  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge, el, num_tips, num_nodes);
+  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge,
+                                                            el,
+                                                            num_tips,
+                                                            num_nodes);
   Rcpp::NumericMatrix res(lapl_mat.size(), lapl_mat[0].size());
 
   for (size_t i = 0; i < lapl_mat.size(); ++i) {
