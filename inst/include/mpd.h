@@ -59,7 +59,6 @@ class phylo_tree {
       if (tree_edge[i] < root_no) root_no = tree_edge[i];
     }
 
-    
     tree_size = root_no - 1;
 
     tree.resize(tree_edge.size() / 2 - root_no + 2);
