@@ -25,11 +25,10 @@ pigot_rho <- function(phy) {
     return(calc_rho_ltable_cpp(phy))
   }
 
-  if (!ape::is.ultrametric(phy)) {
-    return(calc_rho_complete_cpp(phy))
-  }
-
   if (inherits(phy, "phylo")) {
+    if (!ape::is.ultrametric(phy)) {
+      return(calc_rho_complete_cpp(phy))
+    }
     return(calc_rho_cpp(phy))
   }
 
