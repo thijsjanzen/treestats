@@ -21,7 +21,6 @@ mean_pair_dist <- function(phy, normalization = "none") {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-
     if (ape::is.binary(phy)) {
       mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
                           phy$edge.length)
