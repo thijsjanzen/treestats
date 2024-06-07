@@ -105,6 +105,12 @@ class stat {
     return(*std::max_element(s_values.begin(), s_values.end()));
   }
 
+  size_t calc_avg_vert_depth() {
+    auto s_values = collect_depths();
+    auto s = std::accumulate(s_values.begin(), s_values.end(), 0.0);
+    return(s * 1.0 / (s_values.size() - 1));
+  }
+
   double calc_b2() {
     auto depths = collect_depths();
     double s = 0.0;
@@ -177,6 +183,13 @@ class stat {
       dW[i - 1] = widths[i] - widths[i - 1];
     }
     return(*std::max_element(dW.begin(), dW.end()));
+  }
+
+  size_t sum_depth() {
+    std::vector< int > depths = collect_depths();
+
+    double inv_tree_size = 1.0 / depths.size();
+    return std::accumulate(depths.begin(), depths.end(), 0.0);
   }
 
  private:

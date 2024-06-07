@@ -52,6 +52,16 @@ class max_depth_tree {
     }
     return md;
   }
+
+  double avg_depth() {
+    double md = 0.0;
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).set_depth();
+      md += (*i).depth;
+    }
+    md *= 1.0 / tree.size();
+    return md;
+  }
 };
 
 }  // end namespace max_depth

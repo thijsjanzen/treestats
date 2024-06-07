@@ -23,6 +23,8 @@ single tree, being:
   \item gamma
   \item Sackin
   \item Colless
+  \item corrected Colless
+  \item quadratic Colless
   \item Aldous' beta statistic
   \item Blum
   \item crown age

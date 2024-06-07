@@ -169,6 +169,22 @@ pitchforks_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_pitchforks_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
+calc_colless_corr_cpp <- function(parent_list, normalization) {
+    .Call('_treestats_calc_colless_corr_cpp', PACKAGE = 'treestats', parent_list, normalization)
+}
+
+calc_colless_corr_ltable_cpp <- function(l_from_R, normalization) {
+    .Call('_treestats_calc_colless_corr_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
+}
+
+calc_colless_quad_cpp <- function(parent_list, normalization) {
+    .Call('_treestats_calc_colless_quad_cpp', PACKAGE = 'treestats', parent_list, normalization)
+}
+
+calc_colless_quad_ltable_cpp <- function(l_from_R, normalization) {
+    .Call('_treestats_calc_colless_quad_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
+}
+
 calc_max_del_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
 }
@@ -189,8 +205,20 @@ calc_max_depth_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_depth_cpp', PACKAGE = 'treestats', parent_list)
 }
 
+calc_avg_vert_depth_cpp <- function(parent_list) {
+    .Call('_treestats_calc_avg_vert_depth_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+tot_internal_path_cpp <- function(parent_list) {
+    .Call('_treestats_tot_internal_path_cpp', PACKAGE = 'treestats', parent_list)
+}
+
 calc_max_depth_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_max_depth_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_avg_vert_depth_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_avg_vert_depth_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
 calc_var_leaf_depth_cpp <- function(parent_list) {
@@ -219,6 +247,14 @@ calc_b2_cpp <- function(parent_list) {
 
 calc_b2_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_b2_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_mw_over_md_cpp <- function(parent_list) {
+    .Call('_treestats_calc_mw_over_md_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_mw_over_md_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_mw_over_md_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
 avgLadder_cpp <- function(tree_edge) {

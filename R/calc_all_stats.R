@@ -11,6 +11,8 @@
 #'   \item gamma
 #'   \item Sackin
 #'   \item Colless
+#'   \item corrected Colless
+#'   \item quadratic Colless
 #'   \item Aldous' beta statistic
 #'   \item Blum
 #'   \item crown age
@@ -82,6 +84,10 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$colless            <- try_stat(phylo, treestats::colless,
                                          normalize, c("yule", "none"))
+  stats$colless_corr       <- try_stat(phylo, treestats::colless_corr,
+                                       normalize, c("yule", "none"))
+  stats$colless_quad       <- try_stat(phylo, treestats::colless_quad,
+                                       normalize, c("yule", "none"))
 
   stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 
@@ -153,8 +159,16 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$max_depth          <- try_stat(phylo, treestats::max_depth,
                                        normalize, c("tips", "none"))
 
+  stats$avg_vert_depth     <- try_stat(phylo, treestats::avg_vert_depth)
+
   stats$max_width          <- try_stat(phylo, treestats::max_width,
                                        normalize, c("tips", "none"))
+
+  stats$mw_over_md         <- try_stat(phylo, treestats::mw_over_md)
+
+  stats$tot_path           <- try_stat(phylo, treestats::tot_path)
+
+  stats$tot_interal_path   <- try_stat(phylo, treestats::tot_interal_path)
 
   stats$rogers             <- try_stat(phylo, treestats::rogers,
                                        normalize, c("tips", "none"))

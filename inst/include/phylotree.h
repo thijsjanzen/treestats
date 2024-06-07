@@ -25,7 +25,9 @@ auto make_phylo_tree(const std::vector<int>& tree_edge) {
   }
 
   int tree_size = tree_edge.size() / 2 - root_no + 2;
+
   if constexpr (FULL_TREE) tree_size = 2 + 0.5 * tree_edge.size();
+
   auto tree = phylo_tree_t<NODE>(tree_size);
 
   for (size_t i = 0; i < tree_edge.size(); i += 2) {

@@ -67,3 +67,72 @@ ew_colless <- function(phy) {
   }
   stop("input object has to be phylo or ltable")
 }
+
+
+
+#' Corrected Colless index of (im)balance.
+#' @description The Corrected Colless index is calculated as the sum of
+#' \eqn{abs(L - R)} over all nodes, corrected for tree size by dividing over
+#' (n-1) * (n-2), where n is the number of nodes.
+#' @param phy phylo object or ltable
+#' @param normalization A character string equals to "none" (default) for no
+#' normalization or "yule", in which case the obtained index is divided by
+#' the Yule expectation.
+#' @return corrected colless index
+#' @references  Heard, Stephen B. "Patterns in tree balance among cladistic,
+#' phenetic, and randomly generated phylogenetic trees." Evolution 46.6 (1992):
+#' 1818-1826.
+#' @export
+#' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+#' brts <- branching_times(simulated_tree)
+#' if (requireNamespace("nodeSub")) {
+#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
+#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+#'   colless_corr(balanced_tree)
+#'   colless_corr(unbalanced_tree) # should be higher
+#' }
+colless_corr <- function(phy,
+                         normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+  check_tree(phy, TRUE, FALSE)
+
+  if (inherits(phy, "matrix")) {
+    return(calc_colless_corr_ltable_cpp(phy, normalization))
+  }
+  if (inherits(phy, "phylo")) {
+    return(calc_colless_corr_cpp(as.vector(t(phy$edge)), normalization))
+  }
+  stop("input object has to be phylo or ltable")
+}
+
+#' Quadratic Colless index of (im)balance.
+#' @description The Quadratic Colless index is calculated as the sum of
+#' \eqn{(L - R)^2} over all nodes.
+#' @param phy phylo object or ltable
+#' @param normalization A character string equals to "none" (default) for no
+#' normalization or "yule"
+#' @return quadratic colless index
+#' @references  Bartoszek, Krzysztof, et al. "Squaring within the Colless index
+#' yields a better balance index." Mathematical Biosciences 331 (2021): 108503.
+#' @export
+#' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+#' brts <- branching_times(simulated_tree)
+#' if (requireNamespace("nodeSub")) {
+#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
+#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
+#'   colless_quad(balanced_tree)
+#'   colless_quad(unbalanced_tree) # should be higher
+#' }
+colless_quad <- function(phy,
+                         normalization = "none") {
+  normalization <- check_normalization_key(normalization)
+  check_tree(phy, TRUE, FALSE)
+
+  if (inherits(phy, "matrix")) {
+    return(calc_colless_quad_ltable_cpp(phy, normalization))
+  }
+  if (inherits(phy, "phylo")) {
+    return(calc_colless_quad_cpp(as.vector(t(phy$edge)), normalization))
+  }
+  stop("input object has to be phylo or ltable")
+}

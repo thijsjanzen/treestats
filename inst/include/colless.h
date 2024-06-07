@@ -24,6 +24,10 @@ double calc_colless(int L, int R) {
   return(std::abs(L - R));
 }
 
+double calc_colless_quad(int L, int R) {
+  return((L - R) * (L - R));
+}
+
 double calc_ew_colless(int L, int R) {
   double answ = 0.0;
   if (L + R > 2) {
@@ -188,6 +192,10 @@ class colless_stat_ltable {
 
   size_t colless() {
     return collect_stat(&calc_colless);
+  }
+
+  size_t colless_quad() {
+    return collect_stat(&calc_colless_quad);
   }
 
   double ew_colless() {
