@@ -1,3 +1,12 @@
+# Version 1.1.0
+
+Add several new statistics:
+  - Colless-corrected
+  - Colless-Quadratic
+  - Total path index
+  - Total internal path index
+  - Average vertex depth
+  - Max Width over Max Depth
 
 # Version 1.0.7
 - Added checks to each statistic verifying the statistic requires an ultrametric

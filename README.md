@@ -61,6 +61,12 @@ The following summary statistics are included:
   - Variation branch length terminal branches
   - J one
   - treeness
+  - Colless-corrected
+  - Colless-Quadratic
+  - Total path index
+  - Total internal path index
+  - Average vertex depth
+  - Max Width over Max Depth
 
 ## Rcpp
 For all of these statistics, the package provides Rcpp versions that 
