@@ -20,6 +20,7 @@
 #include "util.h"     // NOLINT [build/include_subdir]
 #include "colless.h"  // NOLINT [build/include_subdir]
 #include "ILnumber.h" // NOLINT [build/include_subdir]
+#include "root_imbal.h" // NOLINT [build/include_subdir]
 
 
 // [[Rcpp::export]]
@@ -169,9 +170,6 @@ size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   return c.count_pitchforks();
 }
 
-
-
-
 // [[Rcpp::export]]
 double calc_colless_corr_cpp(const std::vector<int>& parent_list,
                              std::string normalization) {
@@ -201,7 +199,6 @@ double calc_colless_corr_cpp(const std::vector<int>& parent_list,
   return output;
 }
 
-
 // [[Rcpp::export]]
 double calc_colless_corr_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                std::string normalization) {
@@ -229,9 +226,6 @@ double calc_colless_corr_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
   return output;
 }
 
-
-
-
 // [[Rcpp::export]]
 double calc_colless_quad_cpp(const std::vector<int>& parent_list,
                              std::string normalization) {
@@ -252,7 +246,6 @@ double calc_colless_quad_cpp(const std::vector<int>& parent_list,
   return output;
 }
 
-
 // [[Rcpp::export]]
 double calc_colless_quad_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
                                     std::string normalization) {
@@ -271,4 +264,17 @@ double calc_colless_quad_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
     output *= 1.0 / expected_yule;
   }
   return output;
+}
+
+// [[Rcpp::export]]
+double calc_root_imbalance_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  auto imbal = calc_root_imbal(l_in_cpp);
+  return imbal;
+}
+
+// [[Rcpp::export]]
+double calc_root_imbalance_cpp(const std::vector<int>& parent_list) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  return focal_tree.calc_root_imbal();
 }

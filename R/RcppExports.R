@@ -185,6 +185,14 @@ calc_colless_quad_ltable_cpp <- function(l_from_R, normalization) {
     .Call('_treestats_calc_colless_quad_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
 }
 
+calc_root_imbalance_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_root_imbalance_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_root_imbalance_cpp <- function(parent_list) {
+    .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
+}
+
 calc_max_del_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
 }

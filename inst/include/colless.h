@@ -21,11 +21,15 @@
 #include "phylotree.h"   // NOLINT [build/include_subdir]
 
 double calc_colless(int L, int R) {
-  return(std::abs(L - R));
+  return std::abs(L - R);
 }
 
 double calc_colless_quad(int L, int R) {
-  return((L - R) * (L - R));
+  return (L - R) * (L - R);
+}
+
+double root_imbal(int L, int R) {
+  return L + R;
 }
 
 double calc_ew_colless(int L, int R) {
@@ -149,6 +153,18 @@ class colless_tree {
       }
     }
     return s * 1.0 / cnt;
+  }
+
+  double calc_root_imbal() {
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).update_node(&root_imbal);
+    }
+    auto root = tree.begin();
+    auto n1 = root->L;
+    auto n2 = root->R;
+    double answ = 1.0 * n1 / (n1 + n2);
+    if (answ < 0.5) answ = 1.0 - answ;
+    return answ;
   }
 
   int size() {

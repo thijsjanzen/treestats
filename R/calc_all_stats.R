@@ -224,6 +224,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$treeness <- treestats::treeness(phylo)
 
+  stats$root_imbalance <- try_stat(phylo, treestats::root_imbalance)
+
   return(stats)
 }
 
