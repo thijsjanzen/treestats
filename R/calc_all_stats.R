@@ -166,9 +166,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$mw_over_md         <- try_stat(phylo, treestats::mw_over_md)
 
-  stats$tot_path           <- try_stat(phylo, treestats::tot_path)
+  stats$tot_path           <- try_stat(phylo, treestats::tot_path_length)
 
-  stats$tot_interal_path   <- try_stat(phylo, treestats::tot_interal_path)
+  stats$tot_internal_path  <- try_stat(phylo, treestats::tot_internal_path)
 
   stats$rogers             <- try_stat(phylo, treestats::rogers,
                                        normalize, c("tips", "none"))
