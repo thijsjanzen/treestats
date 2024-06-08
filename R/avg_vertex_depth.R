@@ -14,8 +14,7 @@ avg_vert_depth <- function(phy) {
              require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
-    max_d_stat <- calc_avg_vert_depth_ltable_cpp(phy)
-    return(max_d_stat)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     max_d_stat <- calc_avg_vert_depth_cpp(as.vector(t(phy$edge)))

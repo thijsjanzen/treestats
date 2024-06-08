@@ -100,17 +100,20 @@ class width_tree {
     return var_depth;
   }
 
-  double calc_sum_depth() {
+  double calc_tot_int_path() {
     double sum_depth = 0.0;
-    for (size_t i = 1; i < tree.size(); ++i) {
+    for (size_t i = root_no; i < tree.size(); ++i) {
       sum_depth += tree[i].depth;
     }
     return sum_depth;
   }
 
   double calc_avg_vert_depth() {
-    double s = calc_sum_depth();
-    auto answ =  s * 1.0 / (tree.size() - 1);
+    double sum_depth = 0.0;
+    for (size_t i = 1; i < tree.size(); ++i) {
+      sum_depth += tree[i].depth;
+    }
+    auto answ =  sum_depth * 1.0 / (tree.size() - 1);
     return answ;
   }
 };

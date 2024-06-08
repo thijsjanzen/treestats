@@ -3,7 +3,7 @@ context("tot_internal_path")
 test_that("usage", {
   if (requireNamespace("treebalance")) {
     set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+    focal_tree <- ape::rphylo(n = 97, birth = 1, death = 0)
 
     a1 <- treestats::tot_internal_path(focal_tree)
     a2 <- treebalance::totIntPathLen(focal_tree)

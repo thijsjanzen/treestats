@@ -14,8 +14,7 @@ tot_path_length <- function(phy) {
              require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
-    max_d_stat <- calc_avg_depth_ltable_cpp(phy)
-    return(max_d_stat)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     t_p <- sackin(phy) + tot_internal_path(phy)

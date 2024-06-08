@@ -17,7 +17,6 @@ The total internal path length describes the sums of the depths
 of all inner vertices of the tree.
 }
 \references{
-C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
-transmission patterns. Evolution, Medicine, and Public Health,
-2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
+Knuth, Donald E. The Art of Computer Programming:
+Fundamental Algorithms, volume 1. Addison-Wesley Professional, 1997.
 }

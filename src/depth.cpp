@@ -55,6 +55,7 @@ int calc_max_depth_cpp(const std::vector<int>& parent_list) {
   return local_tree.max_depth();
 }
 
+
 // [[Rcpp::export]]
 double calc_avg_vert_depth_cpp(const std::vector<int>& parent_list) {
   width::width_tree local_tree(parent_list);
@@ -64,17 +65,22 @@ double calc_avg_vert_depth_cpp(const std::vector<int>& parent_list) {
 // [[Rcpp::export]]
 double tot_internal_path_cpp(const std::vector<int>& parent_list) {
   width::width_tree local_tree(parent_list);
-  return local_tree.calc_sum_depth();
+  return local_tree.calc_tot_int_path();
 }
 
-/*
 // [[Rcpp::export]]
-double tot_path_cpp(const std::vector<int>& parent_list) {
-  sackin::sackin_tree s_tree(parent_list);
-  double s_index = s_tree.calc_sackin();
-  double tip = tot_internal_path_cpp(parent_list);
-  return tip + s_index;
-}*/
+double tot_internal_path_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  ltab::stat s(l_in_cpp);
+  return s.calc_tot_int_path();
+}
+
+// [[Rcpp::export]]
+double calc_tot_path_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  ltab::stat s(l_in_cpp);
+  return s.calc_tot_path();
+}
 
 // [[Rcpp::export]]
 double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {

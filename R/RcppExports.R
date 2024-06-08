@@ -213,6 +213,14 @@ tot_internal_path_cpp <- function(parent_list) {
     .Call('_treestats_tot_internal_path_cpp', PACKAGE = 'treestats', parent_list)
 }
 
+tot_internal_path_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_tot_internal_path_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_tot_path_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_tot_path_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_max_depth_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_max_depth_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }

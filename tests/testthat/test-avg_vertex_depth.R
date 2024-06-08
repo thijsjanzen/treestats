@@ -1,4 +1,4 @@
-context("avg depth")
+context("avg vertex depth")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {

@@ -6,15 +6,12 @@
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 #' @export
 mw_over_md <- function(phy) {
-  check_tree(phy,
-             require_binary = FALSE,
-             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     return(calc_mw_over_md_ltable_cpp(phy))
   }
   if (inherits(phy, "phylo")) {
-    return(calc_mw_over_md_cpp(phy))
+    return(calc_mw_over_md_cpp(as.vector(t(phy$edge))))
   }
 
   stop("input object has to be phylo or ltable")
