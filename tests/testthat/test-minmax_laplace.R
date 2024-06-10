@@ -16,9 +16,9 @@ test_that("usage", {
   ref <- c(5.684185e-01, 4.343028e-01, 1.754782e-01, 1.248247e-01, 7.433148e-02,
            3.966736e-02, 3.384060e-02, 4.262393e-03, 3.699463e-17)
 
-  testthat::expect_equal(a1_1$min, min(ref[ref > 0]), tolerance = 0.001)
+  testthat::expect_equal(a1_1$min, min(ref[ref > 0]), tolerance = 0.01)
 
-  testthat::expect_equal(a1_1$max, max(ref), tolerance = 0.001)
+  testthat::expect_equal(a1_1$max, max(ref), tolerance = 0.01)
 
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(

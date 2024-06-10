@@ -20,16 +20,16 @@ max_betweenness <- function(phy, normalization = "none") {
   if (inherits(phy, "matrix")) {
     betweenness_stat <- calc_max_betweenness_ltable_cpp(phy)
     if (normalization == "tips" || normalization == TRUE) {
-      n <- length(phy[, 1])
-      betweenness_stat <- betweenness_stat / ((n - 2) * (n - 1))
+      n <- 2 * length(phy[, 1]) - 1
+      betweenness_stat <- 2 * betweenness_stat / ((n - 2) * (n - 1))
     }
     return(betweenness_stat)
   }
   if (inherits(phy, "phylo")) {
     betweenness_stat <- calc_max_betweenness_cpp(phy)
     if (normalization == "tips" || normalization == TRUE) {
-      n <- length(phy$tip.label)
-      betweenness_stat <- betweenness_stat / ((n - 2) * (n - 1))
+      n <- 1 + length(phy$edge[, 1])
+      betweenness_stat <- 2 * betweenness_stat / ((n - 2) * (n - 1))
     }
     return(betweenness_stat)
   }
