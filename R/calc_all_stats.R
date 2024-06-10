@@ -109,7 +109,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$cherries           <- try_stat(phylo, treestats::cherries,
                                      normalize, c("yule", "none"))
 
-  stats$double_cherries         <- try_stat(phylo, treestats::double_cherries)
+  stats$double_cherries    <- try_stat(phylo, treestats::double_cherries)
+  stats$four_prong         <- try_stat(phylo, treestats::four_prong)
 
   stats$il_number          <- try_stat(phylo, treestats::ILnumber,
                                        normalize, c("tips", "none"))

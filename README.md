@@ -50,9 +50,11 @@ The following summary statistics are included:
   - Max Del Width
   - Max Betweenness
   - Max Closeness
+  - Max Closesess, using branch lengths
   - Wiener Index
   - Diameter
-  - Eigen Vector
+  - Eigen Vector centrality
+  - Eigen Vector centrality, using branch lengths
   - Mean branch length
   - Variation branch length
   - Mean branch length internal branches
@@ -67,6 +69,13 @@ The following summary statistics are included:
   - Total internal path index
   - Average vertex depth
   - Max Width over Max Depth
+  - Double cherries
+  - Four prong
+  - Min eigenvalue adjacency matrix
+  - Max eigenvalue adjacency matrix
+  - Min eigenvalue Laplacian matrix
+  - Max eigenvalue Laplacian matrix 
+  - Root imbalance
 
 ## Rcpp
 For all of these statistics, the package provides Rcpp versions that 

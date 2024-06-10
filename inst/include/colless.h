@@ -179,6 +179,21 @@ class colless_tree {
     return num;
   }
 
+  size_t calc_four_prong() {
+    size_t num = 0;
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).update_node(&root_imbal);
+
+      if ((*i).L == 3 && (*i).R == 1) {
+        num++;
+      } else if ((*i).L == 1 && (*i).R == 3) {
+        num++;
+      }
+
+    }
+    return num;
+  }
+
   int size() {
     return tree.size();
   }
@@ -334,6 +349,31 @@ class colless_stat_ltable {
       remove_from_dataset(j);
 
       if (L == 2 && R == 2) stat++;
+
+      if (ltable_.size() == 1) break;
+    }
+    return stat;
+  }
+
+  double calc_four_prong() {
+    double stat = 0.0;
+    double sum_nj = 0.0;
+    while (true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {  // we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (L == 3 && R == 1) stat++;
+      if (L == 1 && R == 3) stat++;
 
       if (ltable_.size() == 1) break;
     }

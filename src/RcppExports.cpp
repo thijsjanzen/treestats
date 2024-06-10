@@ -584,6 +584,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_four_prong_cpp
+double calc_four_prong_cpp(const std::vector<int>& parent_list);
+RcppExport SEXP _treestats_calc_four_prong_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_four_prong_cpp(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_four_prong_ltable_cpp
+double calc_four_prong_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
+RcppExport SEXP _treestats_calc_four_prong_ltable_cpp(SEXP l_from_RSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_four_prong_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_max_del_width_cpp
 int calc_max_del_width_cpp(const std::vector<int>& parent_list);
 RcppExport SEXP _treestats_calc_max_del_width_cpp(SEXP parent_listSEXP) {
@@ -1096,6 +1118,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_root_imbalance_cpp", (DL_FUNC) &_treestats_calc_root_imbalance_cpp, 1},
     {"_treestats_calc_double_cherries_cpp", (DL_FUNC) &_treestats_calc_double_cherries_cpp, 1},
     {"_treestats_calc_double_cherries_ltable_cpp", (DL_FUNC) &_treestats_calc_double_cherries_ltable_cpp, 1},
+    {"_treestats_calc_four_prong_cpp", (DL_FUNC) &_treestats_calc_four_prong_cpp, 1},
+    {"_treestats_calc_four_prong_ltable_cpp", (DL_FUNC) &_treestats_calc_four_prong_ltable_cpp, 1},
     {"_treestats_calc_max_del_width_cpp", (DL_FUNC) &_treestats_calc_max_del_width_cpp, 1},
     {"_treestats_calc_max_del_width_ltable_cpp", (DL_FUNC) &_treestats_calc_max_del_width_ltable_cpp, 1},
     {"_treestats_calc_max_width_cpp", (DL_FUNC) &_treestats_calc_max_width_cpp, 1},

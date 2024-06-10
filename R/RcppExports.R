@@ -201,6 +201,14 @@ calc_double_cherries_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_double_cherries_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_four_prong_cpp <- function(parent_list) {
+    .Call('_treestats_calc_four_prong_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_four_prong_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_four_prong_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_max_del_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
 }
