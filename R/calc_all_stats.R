@@ -23,6 +23,7 @@
 #'   \item phylogenetic diversity
 #'   \item avgLadder index
 #'   \item cherries
+#'   \item double cherries
 #'   \item ILnumber
 #'   \item pitchforks
 #'   \item stairs
@@ -107,6 +108,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$cherries           <- try_stat(phylo, treestats::cherries,
                                      normalize, c("yule", "none"))
+
+  stats$double_cherries         <- try_stat(phylo, treestats::double_cherries)
 
   stats$il_number          <- try_stat(phylo, treestats::ILnumber,
                                        normalize, c("tips", "none"))

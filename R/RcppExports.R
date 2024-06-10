@@ -193,6 +193,14 @@ calc_root_imbalance_cpp <- function(parent_list) {
     .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
 }
 
+calc_double_cherries_cpp <- function(parent_list) {
+    .Call('_treestats_calc_double_cherries_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_double_cherries_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_double_cherries_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_max_del_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
 }

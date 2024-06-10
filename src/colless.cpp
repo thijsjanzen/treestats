@@ -278,3 +278,16 @@ double calc_root_imbalance_cpp(const std::vector<int>& parent_list) {
   colless_tree::colless_tree focal_tree(parent_list);
   return focal_tree.calc_root_imbal();
 }
+
+// [[Rcpp::export]]
+double calc_double_cherries_cpp(const std::vector<int>& parent_list) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  return focal_tree.calc_double_cherries();
+}
+
+// [[Rcpp::export]]
+double calc_double_cherries_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  colless_stat_ltable s(l_in_cpp);
+  return s.calc_double_cherries();
+}
