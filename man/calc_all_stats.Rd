@@ -35,6 +35,7 @@ single tree, being:
   \item phylogenetic diversity
   \item avgLadder index
   \item cherries
+  \item double cherries
   \item ILnumber
   \item pitchforks
   \item stairs

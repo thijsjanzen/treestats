@@ -134,6 +134,18 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$laplace_spectrum_g  <- NA
   }
 
+  temp_stats <- try_stat(phylo, treestats::minmax_laplace)
+
+  if (length(temp_stats) == 2) {
+    stats$min_laplace <- temp_stats$min
+    stats$max_laplace <- temp_stats$max
+  } else {
+    stats$min_laplace <- NA
+    stats$max_laplace <- NA
+  }
+
+
+
   stats$imbalance_steps  <-
     treestats::imbalance_steps(phylo,
                                normalization = normalize)
@@ -208,13 +220,30 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$max_betweenness    <- try_stat(phylo, treestats::max_betweenness,
                                        normalize, c("tips", "none"))
 
-  stats$max_closeness      <- try_stat(phylo, treestats::max_closeness,
-                                       normalize, c("tips", "none"))
+  local_closeness <- function(tree, w, n) {
+    return(treestats::max_closeness(tree, weight = w,
+                                    normalization =
+                                      ifelse(n == TRUE, "tips", "none")))
+  }
+
+
+  stats$max_closeness      <- try_stat(phylo, function(x) {local_closeness(x,
+                                                             FALSE, normalize)})
+
+  stats$max_closenessW     <- try_stat(phylo, function(x) {local_closeness(x,
+                                                             TRUE, normalize)})
 
   stats$diameter           <- try_stat(phylo, treestats::diameter)
 
   stats$eigenvector        <- try_stat(phylo,
-                                       function(x) {return(max(treestats::eigen_vector(x)$eigenvector))}) #nolint
+                                       function(x) {
+                          return(max(treestats::eigen_vector(x,
+                                       weight = FALSE)$eigenvector))}) #nolint
+
+  stats$eigenvectorW        <- try_stat(phylo,
+                                       function(x) {
+                                         return(max(treestats::eigen_vector(x,
+                                           weight = TRUE)$eigenvector))}) #nolint
 
 
   stats$mean_branch_length <- treestats::mean_branch_length(phylo)
