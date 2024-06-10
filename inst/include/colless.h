@@ -189,7 +189,6 @@ class colless_tree {
       } else if ((*i).L == 1 && (*i).R == 3) {
         num++;
       }
-
     }
     return num;
   }
