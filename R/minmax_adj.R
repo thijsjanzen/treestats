@@ -1,20 +1,22 @@
-#' Laplacian Matrix properties
-#' @description Calculates the eigenvalues of the Laplacian Matrix, where the
-#' Laplacian matrix is the matrix representation of a graph, in this case a
-#' phylogeny.
+#' Adjancency Matrix properties
+#' @description Calculates the eigenvalues of the Adjancency Matrix, where the
+#' Adjacency matrix is a square matrix indicate whether pairs of vertices
+#' are adjacent or not on a graph - here, entries in the matrix indicate
+#' connections between nodes (and betweens nodes and tips). Entries in the
+#' adjacency matrix are weighted by branch length. Then, using the adjacency
+#' matrix, we calculate the spectral properties of the matrix, e.g. the
+#' minimum and maximum eigenvalues of the matrix.
 #' @param phy phylo object or ltable
 #' @return List with the minimum and maximum eigenvalues
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
-minmax_laplace <- function(phy) {
+minmax_adj <- function(phy) {
   check_tree(phy,
              require_binary = TRUE,
              require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
-    if (sum(phy[, 4] > -1))
-    warning("minmax_laplace may give incorrect results for the minimal value due to conversion to a phylo object, when extinct lineages are present")  # nolint
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
@@ -24,8 +26,6 @@ minmax_laplace <- function(phy) {
                                 phy$edge.length, 1)
 
     lap_mat <- lap_mat + t(lap_mat)
-    degrees <- rowSums(lap_mat)
-    lap_mat <- diag(degrees) - lap_mat
 
     eigen_vals <- eigen(lap_mat,
                         symmetric = TRUE,

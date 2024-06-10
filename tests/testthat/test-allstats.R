@@ -8,7 +8,7 @@ test_that("usage", {
   testthat::expect_invisible(
    all_stats <- treestats::calc_all_stats(focal_tree)
   )
-  testthat::expect_equal(length(all_stats), 67)
+  testthat::expect_equal(length(all_stats), 69)
 
   focal_tree <- ape::rphylo(n = 23175, birth = 1, death = 0)
   testthat::expect_silent(
@@ -21,6 +21,8 @@ test_that("usage", {
 
   testthat::expect_true(is.na(all_stats$max_laplace))
   testthat::expect_true(is.na(all_stats$min_laplace))
+  testthat::expect_true(is.na(all_stats$max_adj))
+  testthat::expect_true(is.na(all_stats$min_adj))
 
   testthat::expect_true(is.na(all_stats$vpd))
 })

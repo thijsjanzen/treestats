@@ -144,6 +144,16 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$max_laplace <- NA
   }
 
+  temp_stats <- try_stat(phylo, treestats::minmax_adj)
+
+  if (length(temp_stats) == 2) {
+    stats$min_adj <- temp_stats$min
+    stats$max_adj <- temp_stats$max
+  } else {
+    stats$min_adj <- NA
+    stats$max_adj <- NA
+  }
+
 
 
   stats$imbalance_steps  <-
@@ -226,23 +236,22 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                       ifelse(n == TRUE, "tips", "none")))
   }
 
+  stats$max_closeness      <- try_stat(phylo, function(x) {
+                                        local_closeness(x, FALSE, normalize)})
 
-  stats$max_closeness      <- try_stat(phylo, function(x) {local_closeness(x,
-                                                             FALSE, normalize)})
-
-  stats$max_closenessW     <- try_stat(phylo, function(x) {local_closeness(x,
-                                                             TRUE, normalize)})
+  stats$max_closenessW     <- try_stat(phylo, function(x) {
+                                        local_closeness(x, TRUE, normalize)})
 
   stats$diameter           <- try_stat(phylo, treestats::diameter)
 
-  stats$eigenvector        <- try_stat(phylo,
+  stats$eigen_centrality   <- try_stat(phylo,
                                        function(x) {
-                          return(max(treestats::eigen_vector(x,
+                          return(max(treestats::eigen_centrality(x,
                                        weight = FALSE)$eigenvector))}) #nolint
 
-  stats$eigenvectorW        <- try_stat(phylo,
+  stats$eigen_centralityW  <- try_stat(phylo,
                                        function(x) {
-                                         return(max(treestats::eigen_vector(x,
+                                      return(max(treestats::eigen_centrality(x,
                                            weight = TRUE)$eigenvector))}) #nolint
 
 

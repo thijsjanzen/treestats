@@ -47,7 +47,8 @@ Suggests:
     RPANDA,
     lintr,
     rmarkdown,
-    knitr
+    knitr,
+    igraph
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats
 VignetteBuilder: knitr

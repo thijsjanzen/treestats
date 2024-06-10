@@ -13,11 +13,11 @@ test_that("usage", {
   testthat::expect_equal(a1_1, a2_1, tolerance = 0.01)
 
   if (requireNamespace("igraph")) {
-      df = as.data.frame(cbind(focal_tree$edge,
-                               weight = focal_tree$edge.length))
-      g = igraph::graph_from_data_frame(df, directed = FALSE)
-      ref_betweenness <- igraph::betweenness(g)
-      testthat::expect_equal(a1_1, max(ref_betweenness), tolerance = 0.01)
+    df <- as.data.frame(cbind(focal_tree$edge,
+                              weight = focal_tree$edge.length))
+    g <- igraph::graph_from_data_frame(df, directed = FALSE)
+    ref_betweenness <- igraph::betweenness(g)
+    testthat::expect_equal(a1_1, max(ref_betweenness), tolerance = 0.01)
   }
 
 
@@ -33,9 +33,9 @@ test_that("usage", {
   # values:
   a2_1 <- 20315 # max(treeCentrality::computeBetweenness(focal_tree)) #nolint
   if (requireNamespace("igraph")) {
-    df = as.data.frame(cbind(focal_tree$edge,
-                             weight = focal_tree$edge.length))
-    g = igraph::graph_from_data_frame(df, directed = FALSE)
+    df <- as.data.frame(cbind(focal_tree$edge,
+                              weight = focal_tree$edge.length))
+    g <- igraph::graph_from_data_frame(df, directed = FALSE)
     ref_betweenness <- igraph::betweenness(g)
     testthat::expect_equal(a1_1, max(ref_betweenness), tolerance = 0.01)
   }
@@ -54,9 +54,9 @@ test_that("normalization", {
     focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
     a1_1 <- treestats::max_betweenness(focal_tree, normalization = "tips")
 
-    df = as.data.frame(cbind(focal_tree$edge,
+    df <- as.data.frame(cbind(focal_tree$edge,
                              weight = focal_tree$edge.length))
-    g = igraph::graph_from_data_frame(df, directed = FALSE)
+    g <- igraph::graph_from_data_frame(df, directed = FALSE)
 
     ref_betweenness <- igraph::betweenness(g, normalized = TRUE)
     testthat::expect_equal(a1_1, max(ref_betweenness), tolerance = 0.01)

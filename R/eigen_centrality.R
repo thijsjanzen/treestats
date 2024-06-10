@@ -9,7 +9,7 @@
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
-eigen_vector <- function(phy,
+eigen_centrality <- function(phy,
                          weight = TRUE,
                          scale = FALSE) {
   check_tree(phy,

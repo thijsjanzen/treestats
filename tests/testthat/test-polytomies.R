@@ -32,8 +32,15 @@ test_that("usage", {
   testthat::expect_true(is.na(all_stats$wiener))
   testthat::expect_true(is.na(all_stats$max_betweenness))
   testthat::expect_true(is.na(all_stats$max_closeness))
+  testthat::expect_true(is.na(all_stats$max_closenessW))
   testthat::expect_true(is.na(all_stats$diameter))
-  testthat::expect_true(is.na(all_stats$eigenvector))
+  testthat::expect_true(is.na(all_stats$eigen_centrality))
+  testthat::expect_true(is.na(all_stats$eigen_centralityW))
+
+  testthat::expect_true(is.na(all_stats$min_laplace))
+  testthat::expect_true(is.na(all_stats$max_laplace))
+  testthat::expect_true(is.na(all_stats$min_adj))
+  testthat::expect_true(is.na(all_stats$max_adj))
 
   brts_stats <- treestats::calc_brts_stats(focal_tree)
   testthat::expect_true(is.na(brts_stats$gamma))

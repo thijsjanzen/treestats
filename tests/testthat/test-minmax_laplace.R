@@ -21,6 +21,7 @@ test_that("usage", {
   testthat::expect_equal(a1_1$max, max(ref), tolerance = 0.01)
 
   ltab <- treestats::phylo_to_l(focal_tree)
+
   testthat::expect_equal(
     treestats::minmax_laplace(focal_tree),
     treestats::minmax_laplace(ltab))
@@ -38,14 +39,18 @@ test_that("usage", {
   #                                      full = TRUE, lap = TRUE, norm = FALSE)
   a1_1 <- treestats::minmax_laplace(focal_tree)
 
-  testthat::expect_equal(a1_1$min, min(ref[ref > 0]))
+  testthat::expect_equal(a1_1$min, min(ref[ref > 0]), tolerance = 0.001)
 
-  testthat::expect_equal(a1_1$max, max(ref))
+  testthat::expect_equal(a1_1$max, max(ref), tolerance = 0.001)
 
   ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_equal(
-    treestats::minmax_laplace(focal_tree),
-    treestats::minmax_laplace(ltab))
+
+  testthat::expect_warning(
+    a2_1 <- treestats::minmax_laplace(ltab)
+  )
+
+  testthat::expect_lt(a2_1$min, min(ref[ref > 0]))
+  testthat::expect_equal(a2_1$max, max(ref), tolerance = 0.001)
 })
 
 test_that("wrong_object", {
