@@ -64,7 +64,7 @@ test_that("igraph", {
                               weight = focal_tree$edge.length))
     g <- igraph::graph_from_data_frame(df, directed = FALSE)
 
-    lapl_mat <- igraph::laplacian_matrix(g, normalized = FALSE , sparse = FALSE)
+    lapl_mat <- igraph::laplacian_matrix(g, normalized = FALSE, sparse = FALSE)
     ref <- eigen(lapl_mat)$values
     ref <- round(ref, digits = 10)
 

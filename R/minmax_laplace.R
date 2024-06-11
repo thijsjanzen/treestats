@@ -36,7 +36,8 @@ minmax_laplace <- function(phy) {
     max_val <- max(eigen_vals)
     min_val <- min(eigen_vals[eigen_vals > 0])
     return(list("max" = max_val,
-                "min" = min_val))
+                "min" = min_val,
+                "values" = eigen_vals))
   }
 
   stop("input object has to be phylo or ltable")

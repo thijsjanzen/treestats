@@ -31,10 +31,13 @@ minmax_adj <- function(phy) {
                         symmetric = TRUE,
                         only.values = TRUE)$values
 
+    eigen_vals <- round(eigen_vals, digits = 10)
+
     max_val <- max(eigen_vals)
     min_val <- min(eigen_vals[eigen_vals > 0])
     return(list("max" = max_val,
-                "min" = min_val))
+                "min" = min_val,
+                "values" = eigen_vals))
   }
 
   stop("input object has to be phylo or ltable")

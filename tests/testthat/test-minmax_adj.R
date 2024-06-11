@@ -13,6 +13,7 @@ test_that("usage", {
 
     adj_mat <- igraph::as_adjacency_matrix(g, attr = "weight", sparse = FALSE)
     ref <- eigen(adj_mat)$values
+    ref <- round(ref, digits = 10)
 
     testthat::expect_equal(a1_1$min, min(ref[ref > 0]))
     testthat::expect_equal(a1_1$max, max(ref))
