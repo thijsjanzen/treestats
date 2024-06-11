@@ -69,31 +69,10 @@ double tot_internal_path_cpp(const std::vector<int>& parent_list) {
 }
 
 // [[Rcpp::export]]
-double tot_internal_path_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-  auto l_in_cpp = convert_to_ltable(l_from_R);
-  ltab::stat s(l_in_cpp);
-  return s.calc_tot_int_path();
-}
-
-// [[Rcpp::export]]
-double calc_tot_path_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-  auto l_in_cpp = convert_to_ltable(l_from_R);
-  ltab::stat s(l_in_cpp);
-  return s.calc_tot_path();
-}
-
-// [[Rcpp::export]]
 double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   auto l_in_cpp = convert_to_ltable(l_from_R);
   ltab::stat s(l_in_cpp);
   return s.calc_max_depth();
-}
-
-// [[Rcpp::export]]
-double calc_avg_vert_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
-  auto l_in_cpp = convert_to_ltable(l_from_R);
-  ltab::stat s(l_in_cpp);
-  return s.calc_avg_vert_depth();
 }
 
 // [[Rcpp::export]]

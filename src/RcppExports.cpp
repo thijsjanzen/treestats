@@ -683,28 +683,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// tot_internal_path_ltable_cpp
-double tot_internal_path_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_tot_internal_path_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(tot_internal_path_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_tot_path_ltable_cpp
-double calc_tot_path_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_tot_path_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_tot_path_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_max_depth_ltable_cpp
 double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
 RcppExport SEXP _treestats_calc_max_depth_ltable_cpp(SEXP l_from_RSEXP) {
@@ -713,17 +691,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_max_depth_ltable_cpp(l_from_R));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_avg_vert_depth_ltable_cpp
-double calc_avg_vert_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_avg_vert_depth_ltable_cpp(SEXP l_from_RSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_avg_vert_depth_ltable_cpp(l_from_R));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1127,10 +1094,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_max_depth_cpp", (DL_FUNC) &_treestats_calc_max_depth_cpp, 1},
     {"_treestats_calc_avg_vert_depth_cpp", (DL_FUNC) &_treestats_calc_avg_vert_depth_cpp, 1},
     {"_treestats_tot_internal_path_cpp", (DL_FUNC) &_treestats_tot_internal_path_cpp, 1},
-    {"_treestats_tot_internal_path_ltable_cpp", (DL_FUNC) &_treestats_tot_internal_path_ltable_cpp, 1},
-    {"_treestats_calc_tot_path_ltable_cpp", (DL_FUNC) &_treestats_calc_tot_path_ltable_cpp, 1},
     {"_treestats_calc_max_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_max_depth_ltable_cpp, 1},
-    {"_treestats_calc_avg_vert_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_avg_vert_depth_ltable_cpp, 1},
     {"_treestats_calc_var_leaf_depth_cpp", (DL_FUNC) &_treestats_calc_var_leaf_depth_cpp, 1},
     {"_treestats_calc_var_leaf_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_var_leaf_depth_ltable_cpp, 1},
     {"_treestats_calc_sym_nodes_cpp", (DL_FUNC) &_treestats_calc_sym_nodes_cpp, 1},

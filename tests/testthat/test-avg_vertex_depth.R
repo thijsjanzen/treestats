@@ -29,12 +29,12 @@ test_that("usage", {
 
 test_that("wrong_object", {
   testthat::expect_error(
-    treestats::max_depth(10),
+    treestats::avg_vert_depth(10),
     "input object has to be phylo or ltable"
   )
 
   testthat::expect_error(
-    treestats::max_depth(list()),
+    treestats::avg_vert_depth(list()),
     "input object has to be phylo or ltable"
   )
 })

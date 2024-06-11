@@ -104,12 +104,6 @@ class stat {
     return(*std::max_element(s_values.begin(), s_values.end()));
   }
 
-  size_t calc_avg_vert_depth() {
-    auto s_values = collect_depths();
-    auto s = std::accumulate(s_values.begin(), s_values.end(), 0.0);
-    return(s * 1.0 / (s_values.size() - 1));
-  }
-
   double calc_b2() {
     auto depths = collect_depths();
     double s = 0.0;
@@ -187,46 +181,6 @@ class stat {
   size_t sum_depth() {
     std::vector< int > depths = collect_depths();
     return std::accumulate(depths.begin(), depths.end(), 0.0);
-  }
-
-  size_t calc_tot_int_path() {
-    auto s_values = std::vector<int>(ltable_.size(), 0);
-    s_values[0] = 0;
-    s_values[1] = 0;
-    for (size_t i = 2; i < ltable_.size(); ++i) {
-      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
-      s_values[parent_index]++;
-      s_values[i] = s_values[parent_index];
-    }
-    // position 0 is not required
-    size_t int_path = 0;
-    for (size_t i = 1; i < s_values.size(); ++i) {
-      int_path += s_values[i];
-    }
-    return int_path;
-  }
-
-  size_t calc_tot_path() {
-    std::vector< int > s_values(ltable_.size(), 0);
-    s_values[0] = 1;
-    s_values[1] = 1;
-    for (size_t i = 2; i < ltable_.size(); ++i) {
-      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
-      s_values[parent_index]++;
-      s_values[i] = s_values[parent_index];
-    }
-    auto sackin = std::accumulate(s_values.begin(), s_values.end(), 0);
-
-    // create new ltable removing all tips:
-    /*size_t cnt = ltable_.size();
-    ltable nodes;
-    for (int i = ltable_.size() - 1; i >= 1; i--) {
-        auto entry = ltable[i];
-        entry[3] = cnt;
-        if (entry[1] != 0) nodes.push_back(entry);
-    }*/
-
-    return sackin + calc_tot_int_path();
   }
 
  private:
