@@ -3,7 +3,7 @@ context("minmax_adj")
 test_that("usage", {
   if (requireNamespace("igraph")) {
     set.seed(42)
-    focal_tree <- ape::rphylo(n = 5, birth = 1, death = 0)
+    focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
     a1_1 <- treestats::minmax_adj(focal_tree)
 
