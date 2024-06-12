@@ -30,7 +30,6 @@ test_that("usage", {
 })
 
 test_that("yule", {
-  testthat::skip_on_ci()
   testthat::skip_on_cran()
   found <- c()
   found2 <- c()

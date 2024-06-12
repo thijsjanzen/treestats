@@ -231,7 +231,6 @@ double calc_colless_quad_cpp(const std::vector<int>& parent_list,
                              std::string normalization) {
   colless_tree::colless_tree focal_tree(parent_list);
   double output = focal_tree.calc_stat(&calc_colless_quad);
-
   if (normalization == "yule") {
     size_t n = focal_tree.size() + 1;
     auto expected_yule = n * (n + 1);

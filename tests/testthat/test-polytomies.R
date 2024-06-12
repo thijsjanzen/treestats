@@ -73,4 +73,8 @@ test_that("usage", {
   testthat::expect_silent(
     ltab2 <- treestats::rebase_ltable(ltab)
   )
+
+  testthat::expect_silent(
+    treestats::mean_pair_dist(focal_tree)
+  )
 })

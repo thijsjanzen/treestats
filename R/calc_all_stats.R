@@ -137,7 +137,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   temp_stats <- try_stat(phylo, treestats::minmax_laplace)
 
-  if (length(temp_stats) == 2) {
+  if (length(temp_stats) == 3) {
     stats$min_laplace <- temp_stats$min
     stats$max_laplace <- temp_stats$max
   } else {
@@ -147,7 +147,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   temp_stats <- try_stat(phylo, treestats::minmax_adj)
 
-  if (length(temp_stats) == 2) {
+  if (length(temp_stats) == 3) {
     stats$min_adj <- temp_stats$min
     stats$max_adj <- temp_stats$max
   } else {
