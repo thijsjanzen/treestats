@@ -285,10 +285,6 @@ max_ladder_cpp <- function(tree_edge) {
     .Call('_treestats_max_ladder_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-#' function to create laplacian matrix
-#' @param phy phy
-#' @return numericmatrix
-#' @export
 prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }

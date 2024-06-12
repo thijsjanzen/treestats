@@ -19,6 +19,13 @@ minmax_laplace <- function(phy) {
   }
   if (inherits(phy, "phylo")) {
     mat_size <- max(phy$edge)
+
+    # prepping matrix in Rcpp yields no speed gain
+    mat_size <- max(phy$edge)
+    if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
+      Rcpp::stop("tree too big, memory allocation fail")
+    }
+
     lap_mat <- matrix(0, mat_size, mat_size)
     lap_mat[phy$edge] <- ifelse(rep(TRUE, mat_size - 1), # weight is always true
                                 phy$edge.length, 1)

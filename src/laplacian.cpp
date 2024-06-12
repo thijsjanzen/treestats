@@ -17,10 +17,6 @@
 #include "util.h"         // NOLINT [build/include_subdir]
 #include "dist_nodes.h"   // NOLINT [build/include_subdir]
 
-//' function to create laplacian matrix
-//' @param phy phy
-//' @return numericmatrix
-//' @export
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);
