@@ -18,10 +18,11 @@ mean_pair_dist <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
+
   if (inherits(phy, "phylo")) {
-    if (ape::is.binary(phy)) {
+    if (treestats::check_binary(phy)) {
       mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
                           phy$edge.length)
     } else {

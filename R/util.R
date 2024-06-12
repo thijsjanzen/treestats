@@ -8,6 +8,19 @@ check_normalization_key <- function(normalization) {
   return(output)
 }
 
+#' in some weird testing cases, ape::is.binary returned a vector of integers,
+#' somehow this local (identical) version does not.
+#' @keywords internal
+check_binary <- function(phy) {
+  n <- length(phy$tip.label)
+  m <- phy$Nnode
+  dgr <- tabulate(phy$edge, n + m)
+  ref <- c(rep.int(1L, n), rep.int(3L, m))
+  ## can use identical() as long as tabulate() returns integers
+  if (ape::is.rooted(phy)) ref[n + 1L] <- 2L
+  identical(dgr, ref)
+}
+
 #' @keywords internal
 check_tree <- function(phy,
                        require_binary = FALSE,

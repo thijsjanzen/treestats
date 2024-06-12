@@ -332,7 +332,6 @@ class colless_stat_ltable {
 
   double calc_double_cherries() {
     double stat = 0.0;
-    double sum_nj = 0.0;
     while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
@@ -356,7 +355,6 @@ class colless_stat_ltable {
 
   double calc_four_prong() {
     double stat = 0.0;
-    double sum_nj = 0.0;
     while (true) {
       auto j = get_min_index();
       auto parent = ltable_[j][1];
