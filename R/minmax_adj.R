@@ -24,7 +24,7 @@ minmax_adj <- function(phy) {
 
     mat_size <- max(phy$edge)
     if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
-      Rcpp::stop("tree too big, memory allocation fail")
+      stop("tree too big, memory allocation fail")
     }
 
     lap_mat <- matrix(0, mat_size, mat_size)
