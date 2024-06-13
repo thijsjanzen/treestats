@@ -8,10 +8,10 @@ check_normalization_key <- function(normalization) {
   return(output)
 }
 
-#' in some weird testing cases, ape::is.binary returned a vector of integers,
-#' somehow this local (identical) version does not.
 #' @keywords internal
 check_binary <- function(phy) {
+  # in some weird testing cases, ape::is.binary returned a vector of integers,
+  # somehow this local (identical) version does not.
   n <- length(phy$tip.label)
   m <- phy$Nnode
   dgr <- tabulate(phy$edge, n + m)

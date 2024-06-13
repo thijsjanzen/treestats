@@ -1,3 +1,7 @@
+# Version 1.1.2
+Removed dependencies to nodeSub by integrating functions to generate fully
+balanced and unbalanced into treestats.
+
 # Version 1.1.1
 
 Added the following statistics:

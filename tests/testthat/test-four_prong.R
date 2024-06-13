@@ -4,8 +4,8 @@ test_that("usage", {
   if (requireNamespace("nodeSub")) {
     set.seed(42)
     focal_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
-    brts <- treestats::branching_times(focal_tree)
-    bal_tree <- nodeSub::create_balanced_tree(brts)
+
+    bal_tree <- treestats::create_fully_balanced_tree(focal_tree)
 
     c1 <- treestats::four_prong(bal_tree)
     testthat::expect_equal(c1, 0)
@@ -15,7 +15,7 @@ test_that("usage", {
     testthat::expect_equal(c2, 0)
 
 
-    unbal_tree <- nodeSub::create_unbalanced_tree(brts)
+    unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
 
     c1 <- treestats::four_prong(unbal_tree)
     testthat::expect_equal(c1, 1)

@@ -4,10 +4,9 @@ test_that("usage", {
   if (requireNamespace("nodeSub")) {
     set.seed(42)
     focal_tree <- ape::rphylo(n = 128, birth = 1, death = 0)
-    brts <- treestats::branching_times(focal_tree)
 
-    bal_tree <- nodeSub::create_balanced_tree(brts)
-    unbal_tree <- nodeSub::create_unbalanced_tree(brts)
+    bal_tree <- treestats::create_fully_balanced_tree(focal_tree)
+    unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
 
     j_one_1 <- treestats::j_one(bal_tree)
     j_one_2 <- treestats::j_one(unbal_tree)

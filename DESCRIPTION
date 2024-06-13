@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Phylogenetic Tree Statistics
-Version: 1.1.1
+Version: 1.1.2
 Authors@R: c(person(given = "Thijs",
         family = "Janzen",
         email = "thijsjanzen@gmail.com",
@@ -36,7 +36,6 @@ Suggests:
     testthat,
     DDD,
     geiger,
-    nodeSub,
     nLTT,
     castor,
     adephylo,

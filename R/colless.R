@@ -13,13 +13,10 @@
 #' Practice of Phylogenetic Systematics. Systematic Zoology 31:100-104.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' brts <- branching_times(simulated_tree)
-#' if (requireNamespace("nodeSub")) {
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   colless(balanced_tree)
-#'   colless(unbalanced_tree) # should be higher
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' colless(balanced_tree)
+#' colless(unbalanced_tree) # should be higher
 colless <- function(phy,
                     normalization = "none") {
   normalization <- check_normalization_key(normalization)
@@ -48,13 +45,10 @@ colless <- function(phy,
 #' doi: 10.1086/419657.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' brts <- branching_times(simulated_tree)
-#' if (requireNamespace("nodeSub")) {
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   ew_colless(balanced_tree)
-#'   ew_colless(unbalanced_tree) # should be higher
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' ew_colless(balanced_tree)
+#' ew_colless(unbalanced_tree) # should be higher
 ew_colless <- function(phy) {
   check_tree(phy,
              require_binary = TRUE,
@@ -84,13 +78,10 @@ ew_colless <- function(phy) {
 #' 1818-1826.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' brts <- branching_times(simulated_tree)
-#' if (requireNamespace("nodeSub")) {
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   colless_corr(balanced_tree)
-#'   colless_corr(unbalanced_tree) # should be higher
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' colless_corr(balanced_tree)
+#' colless_corr(unbalanced_tree) # should be higher
 colless_corr <- function(phy,
                          normalization = "none") {
   normalization <- check_normalization_key(normalization)
@@ -116,13 +107,10 @@ colless_corr <- function(phy,
 #' yields a better balance index." Mathematical Biosciences 331 (2021): 108503.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' brts <- branching_times(simulated_tree)
-#' if (requireNamespace("nodeSub")) {
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   colless_quad(balanced_tree)
-#'   colless_quad(unbalanced_tree) # should be higher
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' colless_quad(balanced_tree)
+#' colless_quad(unbalanced_tree) # should be higher
 colless_quad <- function(phy,
                          normalization = "none") {
   normalization <- check_normalization_key(normalization)

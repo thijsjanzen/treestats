@@ -16,9 +16,8 @@ test_that("usage", {
     a2 <- treestats::root_imbalance(treestats::phylo_to_l(bal_tree))
     testthat::expect_equal(a2, 0.5)
 
-    unbal_tree <- nodeSub::create_unbalanced_tree(
-      brts = treestats::branching_times(focal_tree)
-    )
+    unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
+
     a1 <- treestats::root_imbalance(unbal_tree)
     testthat::expect_equal(a1, 63 / 64)
     a2 <- treestats::root_imbalance(treestats::phylo_to_l(unbal_tree))
