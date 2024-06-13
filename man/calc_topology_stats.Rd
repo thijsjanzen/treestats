@@ -57,7 +57,7 @@ available in this package for a single tree, being:
   \item{symmetry_nodes}
   \item{tot_coph}
   \item{tot_internal_path}
-  \item{tot_path}
+  \item{tot_path_length}
   \item{var_depth}
 }
 }

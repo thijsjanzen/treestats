@@ -19,7 +19,7 @@ has the same branching times as the original input tree.
 }
 \examples{
 phy <- ape::rphylo(n = 16, birth = 1, death = 0)
-bal_tree <- treestats::create_unbalanced_tree(phy)
+bal_tree <- treestats::create_fully_unbalanced_tree(phy)
 treestats::colless(phy)
 treestats::colless(bal_tree) # much higher
 }

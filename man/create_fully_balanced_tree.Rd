@@ -21,7 +21,7 @@ ideal balance possible.
 }
 \examples{
 phy <- ape::rphylo(n = 16, birth = 1, death = 0)
-bal_tree <- treestats::create_balanced_tree(phy)
+bal_tree <- treestats::create_fully_balanced_tree(phy)
 treestats::colless(phy)
 treestats::colless(bal_tree) # much lower
 }

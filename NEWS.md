@@ -1,6 +1,8 @@
 # Version 1.1.2
-Removed dependencies to nodeSub by integrating functions to generate fully
+-   Removed dependencies to nodeSub by integrating functions to generate fully
 balanced and unbalanced into treestats.
+-   Renamed 'calc_balance_stats' to 'calc_topology_stats', and included only
+statistics that take the topology (without the branch lengths) into account.
 
 # Version 1.1.1
 

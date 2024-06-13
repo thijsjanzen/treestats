@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 #' phy <- ape::rphylo(n = 16, birth = 1, death = 0)
-#' bal_tree <- treestats::create_unbalanced_tree(phy)
+#' bal_tree <- treestats::create_fully_unbalanced_tree(phy)
 #' treestats::colless(phy)
 #' treestats::colless(bal_tree) # much higher
 create_fully_unbalanced_tree <- function(phy) {
@@ -47,7 +47,7 @@ create_fully_unbalanced_tree <- function(phy) {
 #' ideal balance possible.
 #' @export
 #' @examples phy <- ape::rphylo(n = 16, birth = 1, death = 0)
-#' bal_tree <- treestats::create_balanced_tree(phy)
+#' bal_tree <- treestats::create_fully_balanced_tree(phy)
 #' treestats::colless(phy)
 #' treestats::colless(bal_tree) # much lower
 create_fully_balanced_tree <- function(phy) {
