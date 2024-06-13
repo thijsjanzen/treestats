@@ -62,8 +62,8 @@ use unlist and omit `as.vector` to retain the names):
 unlist(all_stats)
 ```
 
-Similarly, we can also blanket apply all balance associated summary statistics:
+Similarly, we can also blanket apply all topology associated summary statistics:
 ```{r all_stats3}
-balance_stats <- calc_balance_stats(phy)
+balance_stats <- calc_topology_stats(phy)
 unlist(balance_stats)
 ```
