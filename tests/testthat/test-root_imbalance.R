@@ -7,22 +7,19 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(treestats::root_imbalance(focal_tree),
                          treestats::root_imbalance(ltab))
-  if (requireNamespace("nodeSub")) {
-    bal_tree <- nodeSub::create_balanced_tree(
-      brts = treestats::branching_times(focal_tree)
-    )
-    a1 <- treestats::root_imbalance(bal_tree)
-    testthat::expect_equal(a1, 0.5)
-    a2 <- treestats::root_imbalance(treestats::phylo_to_l(bal_tree))
-    testthat::expect_equal(a2, 0.5)
+  bal_tree <- treestats::create_fully_balanced_tree(focal_tree)
+  a1 <- treestats::root_imbalance(bal_tree)
+  testthat::expect_equal(a1, 0.5)
+  a2 <- treestats::root_imbalance(treestats::phylo_to_l(bal_tree))
+  testthat::expect_equal(a2, 0.5)
 
-    unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
+  unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
 
-    a1 <- treestats::root_imbalance(unbal_tree)
-    testthat::expect_equal(a1, 63 / 64)
-    a2 <- treestats::root_imbalance(treestats::phylo_to_l(unbal_tree))
-    testthat::expect_equal(a2, 63 / 64)
-  }
+  a1 <- treestats::root_imbalance(unbal_tree)
+  testthat::expect_equal(a1, 63 / 64)
+  a2 <- treestats::root_imbalance(treestats::phylo_to_l(unbal_tree))
+  testthat::expect_equal(a2, 63 / 64)
+
 
   # with extinct species:
   focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)

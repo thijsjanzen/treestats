@@ -45,7 +45,7 @@
 #'   \item{symmetry_nodes}
 #'   \item{tot_coph}
 #'   \item{tot_internal_path}
-#'   \item{tot_path}
+#'   \item{tot_path_length}
 #'   \item{var_depth}
 #' }
 #'
@@ -58,9 +58,9 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
   stats$colless            <- try_stat(phylo, treestats::colless,
                                        normalize, c("yule", "none"))
 
-  stats$colless_corr            <- try_stat(phylo, treestats::colless_corr)
+  stats$colless_corr       <- try_stat(phylo, treestats::colless_corr)
 
-  stats$colless_quad            <- try_stat(phylo, treestats::colless_quad)
+  stats$colless_quad       <- try_stat(phylo, treestats::colless_quad)
 
   stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 
@@ -81,7 +81,7 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
 
   stats$four_prong         <- try_stat(phylo, treestats::four_prong)
 
-  stats$stairs              <- try_stat(phylo, treestats::stairs)
+  stats$stairs             <- try_stat(phylo, treestats::stairs)
 
   stats$b1                 <- try_stat(phylo, treestats::b1,
                                        normalize, c("tips", "none"))
@@ -149,14 +149,14 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
     return(treestats::max_closeness(x, weight = FALSE, normalization = n))
   }
 
-  stats$max_closeness    <- try_stat(phylo, calc_max_closeness,
+  stats$max_closeness      <- try_stat(phylo, calc_max_closeness,
                                      normalize, c("tips", "none"))
 
-  stats$root_imbalance   <- try_stat(phylo, treestats::root_imbalance)
+  stats$root_imbalance     <- try_stat(phylo, treestats::root_imbalance)
 
-  stats$tot_internal_path <- try_stat(phylo, treestats::tot_internal_path)
+  stats$tot_internal_path  <- try_stat(phylo, treestats::tot_internal_path)
 
-  stats$tot_path <- try_stat(phylo, treestats::tot_path)
+  stats$tot_path_length    <- try_stat(phylo, treestats::tot_path_length)
 
   return(stats)
 }
