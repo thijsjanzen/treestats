@@ -1,4 +1,4 @@
-context("hard_tree")
+context("polytomies")
 
 test_that("usage", {
 
@@ -46,7 +46,7 @@ test_that("usage", {
   brts_stats <- treestats::calc_brts_stats(poly_tree)
   testthat::expect_true(is.na(brts_stats$gamma))
 
-  bal_stats <- treestats::calc_balance_stats(poly_tree)
+  bal_stats <- treestats::calc_topology_stats(poly_tree)
   testthat::expect_true(is.na(bal_stats$sackin))
   testthat::expect_true(is.na(bal_stats$colless))
   testthat::expect_true(is.na(bal_stats$beta))

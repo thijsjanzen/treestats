@@ -98,5 +98,5 @@ create_fully_balanced_tree <- function(phy) {
     brts <- brts[-c(1:num_to_do)]
 
   }
-  return( treestats::l_to_phylo(ltab))
+  return(treestats::l_to_phylo(ltab))
 }

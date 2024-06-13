@@ -23,13 +23,10 @@ The Corrected Colless index is calculated as the sum of
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-brts <- branching_times(simulated_tree)
-if (requireNamespace("nodeSub")) {
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  colless_corr(balanced_tree)
-  colless_corr(unbalanced_tree) # should be higher
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+colless_corr(balanced_tree)
+colless_corr(unbalanced_tree) # should be higher
 }
 \references{
 Heard, Stephen B. "Patterns in tree balance among cladistic,
