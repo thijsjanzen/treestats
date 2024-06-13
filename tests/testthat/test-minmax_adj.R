@@ -17,6 +17,10 @@ test_that("usage", {
 
     testthat::expect_equal(a1_1$min, min(ref[ref > 0]))
     testthat::expect_equal(a1_1$max, max(ref))
+
+    ltab <- treestats::phylo_to_l(focal_tree)
+    a1_2 <- treestats::minmax_adj(ltab)
+    testthat::expect_equal(a1_1$values, a1_2$values)
   }
 })
 

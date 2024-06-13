@@ -30,4 +30,14 @@ test_that("wrong_object", {
     treestats::create_fully_balanced_tree(list()),
     "This function requires a phylogeny as input"
   )
+
+  testthat::expect_error(
+    treestats::create_fully_unbalanced_tree(10),
+    "This function requires a phylogeny as input"
+  )
+
+  testthat::expect_error(
+    treestats::create_fully_unbalanced_tree(list()),
+    "This function requires a phylogeny as input"
+  )
 })

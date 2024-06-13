@@ -26,12 +26,12 @@ test_that("usage", {
 
 test_that("wrong_object", {
   testthat::expect_error(
-    treestats::double_cherries(10),
+    treestats::four_prong(10),
     "input object has to be phylo or ltable"
   )
 
   testthat::expect_error(
-    treestats::double_cherries(list()),
+    treestats::four_prong(list()),
     "input object has to be phylo or ltable"
   )
 })
