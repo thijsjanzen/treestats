@@ -919,7 +919,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // imbalance_steps_cpp
-int imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R, bool normalization);
+double imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R, bool normalization);
 RcppExport SEXP _treestats_imbalance_steps_cpp(SEXP ltable_RSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

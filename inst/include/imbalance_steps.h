@@ -195,12 +195,12 @@ void rebase_ltable(ltable* ltab) {
   return;
 }
 
-int number_of_steps(ltable ltab, bool normalization) {
+double number_of_steps(ltable ltab, bool normalization) {
   rebase_ltable(&ltab);
 
   auto attractor = get_attractor(ltab);
 
-  int cnt_steps = 0;
+  double cnt_steps = 0;
   for (size_t i = 2; i < ltab.size(); ++i) {
     if (ltab[i][1] != attractor) cnt_steps++;
   }
@@ -208,7 +208,7 @@ int number_of_steps(ltable ltab, bool normalization) {
   if (normalization) {
     size_t tree_size = ltab.size();
     int max_expected = tree_size - std::ceil(std::log2(tree_size)) - 1;
-    cnt_steps /= max_expected;
+    cnt_steps *= 1.0 / max_expected;
   }
 
   return cnt_steps;
