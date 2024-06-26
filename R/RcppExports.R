@@ -289,6 +289,10 @@ prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
+prep_adj_mat <- function(parent_list, br_len, use_br_len) {
+    .Call('_treestats_prep_adj_mat', PACKAGE = 'treestats', parent_list, br_len, use_br_len)
+}
+
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }

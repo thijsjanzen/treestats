@@ -28,9 +28,7 @@ LinkingTo:
     nloptr
 Imports:
     ape,
-    nloptr,
-    RSpectra,
-    Matrix
+    nloptr
 Suggests:
     phyloTop,
     testthat,
@@ -47,7 +45,9 @@ Suggests:
     lintr,
     rmarkdown,
     knitr,
-    igraph
+    igraph,
+    RSpectra,
+    Matrix
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats
 VignetteBuilder: knitr

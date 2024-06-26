@@ -41,3 +41,29 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
 
   return res;
 }
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,
+                                 const std::vector<double>& br_len,
+                                 bool use_br_len) {
+
+  auto max_num = *std::max_element(parent_list.begin(), parent_list.end());
+  Rcpp::NumericMatrix out_mat(max_num, max_num);
+
+  if (use_br_len) {
+    for (int i = 0; i < parent_list.size(); i += 2) {
+      auto x = parent_list[i] - 1;
+      auto y = parent_list[i + 1] - 1;
+      out_mat(x, y) = out_mat(y, x) = br_len[i / 2];
+    }
+  } else {
+    for (size_t i = 0; i < parent_list.size(); i += 2) {
+      auto x = parent_list[i] - 1;
+      auto y = parent_list[i + 1] - 1;
+      out_mat(x, y) = out_mat(y, x) = 1;
+    }
+  }
+  return(out_mat);
+}
+
+

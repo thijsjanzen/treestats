@@ -826,6 +826,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// prep_adj_mat
+Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list, const std::vector<double>& br_len, bool use_br_len);
+RcppExport SEXP _treestats_prep_adj_mat(SEXP parent_listSEXP, SEXP br_lenSEXP, SEXP use_br_lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type br_len(br_lenSEXP);
+    Rcpp::traits::input_parameter< bool >::type use_br_len(use_br_lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(prep_adj_mat(parent_list, br_len, use_br_len));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_mpd_cpp
 double calc_mpd_cpp(const std::vector<int>& edge, const std::vector<double>& el);
 RcppExport SEXP _treestats_calc_mpd_cpp(SEXP edgeSEXP, SEXP elSEXP) {
@@ -1107,6 +1120,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
     {"_treestats_max_ladder_cpp", (DL_FUNC) &_treestats_max_ladder_cpp, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
+    {"_treestats_prep_adj_mat", (DL_FUNC) &_treestats_prep_adj_mat, 3},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 2},
     {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 2},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 2},

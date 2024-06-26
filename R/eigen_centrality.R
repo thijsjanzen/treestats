@@ -20,23 +20,37 @@ eigen_centrality <- function(phy,
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    edge_for_mat <- rbind(phy$edge, cbind(phy$edge[, 2], phy$edge[, 1]))
-
     adj_matrix <- c()
-    if (weight) {
-      adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
+    if (requireNamespace("Matrix")) {
+      # using the Matrix package is much faster
+      edge_for_mat <- rbind(phy$edge, cbind(phy$edge[, 2], phy$edge[, 1]))
+
+      if (weight) {
+        adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
+                                           j = edge_for_mat[, 2],
+                                           x = c(phy$edge.length,
+                                                     phy$edge.length))
+      } else {
+        adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
                                          j = edge_for_mat[, 2],
-                                         x = c(phy$edge.length,
-                                                   phy$edge.length))
+                                         x = rep(1, length(edge_for_mat[, 1])))
+      }
     } else {
-      adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
-                                       j = edge_for_mat[, 2],
-                                       x = rep(1, length(edge_for_mat[, 1])))
+      adj_matrix <- prep_adj_mat(as.vector(t(phy$edge)),
+                                 as.vector(phy$edge.length),
+                                 weight)
     }
 
-    ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
+    if (requireNamespace("RSpectra")) {
+      # using the RSpectra package is much faster than eigen, because it limits
+      # the number of eigen values
+      ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
                              which = "LM",
                              opts = list(retvec = TRUE))
+    } else {
+      ev <- eigen(adj_matrix, symmetric = TRUE)
+    }
+
     evector <- abs(ev$vectors[, 1])
 
     evalue <- abs(ev$values[1])

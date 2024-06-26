@@ -114,7 +114,9 @@ colless_corr <- function(phy,
 colless_quad <- function(phy,
                          normalization = "none") {
   normalization <- check_normalization_key(normalization)
-  check_tree(phy, TRUE, FALSE)
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     return(calc_colless_quad_ltable_cpp(phy, normalization))
