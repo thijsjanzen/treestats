@@ -24,6 +24,9 @@ test_that("usage", {
   testthat::expect_true(
     is.na(all_stats[names(all_stats) == "laplace_spectrum_g"]))
 
+  testthat::expect_true(
+    is.na(all_stats[names(all_stats) == "mntd"]))
+
   testthat::expect_true(is.na(all_stats[names(all_stats) == "max_laplace"]))
   testthat::expect_true(is.na(all_stats[names(all_stats) == "min_laplace"]))
   testthat::expect_true(is.na(all_stats[names(all_stats) == "max_adj"]))

@@ -72,6 +72,9 @@ test_that("usage", {
     a1_1 <- treestats::eigen_centrality(focal_tree,
                                         weight = TRUE,
                                         scale = FALSE)
+    a2_1 <- treestats::eigen_centrality(focal_tree,
+                                        weight = FALSE,
+                                        scale = FALSE)
 
     testthat::with_mocked_bindings(
       {
@@ -80,6 +83,11 @@ test_that("usage", {
                                             weight = TRUE,
                                             scale = FALSE)
         testthat::expect_equal(a1_1, a1_2)
+
+        a1_3 <- treestats::eigen_centrality(focal_tree,
+                                            weight = FALSE,
+                                            scale = FALSE)
+        testthat::expect_equal(a2_1, a1_3)
       },
       requireNamespace = function(pkg, quietly = TRUE) {
         if (pkg == "Matrix") {
