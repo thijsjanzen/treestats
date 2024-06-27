@@ -10,7 +10,7 @@ list_statistics <- function(only_balance_stats = FALSE) {
                       "tree_height", "pigot_rho", "number_of_lineages",
                       "nltt_base", "phylogenetic_div", "avg_ladder",
                       "max_ladder", "cherries", "double_cherries",
-                      "il_number", "pitchforks",
+                      "il_number", "pitchforks", "four_prong",
                       "stairs", "laplace_spectrum_a", "laplace_spectrum_p",
                       "laplace_spectrum_e", "laplace_spectrum_g",
                       "min_laplace", "max_laplace",
@@ -32,12 +32,16 @@ list_statistics <- function(only_balance_stats = FALSE) {
                       "var_branch_length_int", "var_branch_length_ext",
                       "treeness", "root_imbalance")
 
+  all_statistics <- sort(all_statistics)
+
   bal_stats <- c("sackin", "colless", "beta", "blum", "avg_ladder",
                  "max_ladder", "cherries", "il_number", "pitchforks", "stairs",
                  "b1", "b2", "area_per_pair", "average_leaf_depth", "i_stat",
                  "ew_colless", "max_del_width", "max_depth", "max_width",
                  "rogers", "stairs2", "tot_coph", "var_depth", "symmetry_nodes",
                  "rquartet", "imbalance_steps", "j_one", "diameter")
+
+  bal_stats <- sort(bal_stats)
 
   if (only_balance_stats) return(bal_stats)
 

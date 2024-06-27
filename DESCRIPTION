@@ -47,7 +47,8 @@ Suggests:
     knitr,
     igraph,
     RSpectra,
-    Matrix
+    Matrix,
+    abcrf
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats
 VignetteBuilder: knitr
