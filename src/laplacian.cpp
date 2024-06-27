@@ -46,7 +46,6 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
 Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,
                                  const std::vector<double>& br_len,
                                  bool use_br_len) {
-
   auto max_num = *std::max_element(parent_list.begin(), parent_list.end());
   Rcpp::NumericMatrix out_mat(max_num, max_num);
 

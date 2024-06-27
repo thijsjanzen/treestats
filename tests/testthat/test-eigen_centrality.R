@@ -65,6 +65,38 @@ test_that("usage", {
     a1_2 <- treestats::eigen_centrality(ltab)
     testthat::expect_equal(a1_2$eigenvalue, ref$value, tolerance = 0.01)
   }
+
+  # compare namespaces
+  if (requireNamespace("Matrix")) {
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+    a1_1 <- treestats::eigen_centrality(focal_tree,
+                                        weight = TRUE,
+                                        scale = FALSE)
+
+    unloadNamespace("RSpectra")
+    unloadNamespace("Matrix")
+
+    testthat::with_mocked_bindings(
+      {
+        # Now `myfun()` should behave as if `data.tree` is not installed
+        a1_2 <- treestats::eigen_centrality(focal_tree,
+                                            weight = TRUE,
+                                            scale = FALSE)
+        testthat::expect_equal(a1_1, a1_2)
+      },
+      requireNamespace = function(pkg, quietly = TRUE) {
+        if (pkg == "Matrix") {
+          return(FALSE)
+        }
+        if (pkg == "RSpectra") {
+          return(FALSE)
+        }
+        # Call the real `requireNamespace` for other packages
+        base::requireNamespace(pkg, quietly = TRUE)
+      },
+      .package = "base"
+    )
+  }
 })
 
 test_that("wrong_object", {
