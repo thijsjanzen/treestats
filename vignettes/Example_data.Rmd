@@ -4,9 +4,12 @@ author: "Thijs Janzen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Example: data}
   %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{Example: data}
   %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -24,16 +27,18 @@ knitr::opts_chunk$set(fig.height = 6)
 
 ## Data
 
-The treestats package can rapidly calculate summary statistics on phylogenetic
-trees, and in this vignette, we demonstrate this on empirical trees. We will
-make use of family-level pruned trees stemming from the clootl supertree of
-birds. These were created for the original publication accompanying the
-treestats paper.
+The treestats package can rapidly calculate summary statistics on
+phylogenetic trees, and in this vignette, we demonstrate this on
+empirical trees. We will make use of family-level pruned trees stemming
+from the clootl supertree of birds. These were created for the original
+publication accompanying the treestats paper.
+
 ```{r read_trees}
 focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/new_data/fracced/birds.trees")
 ```
 
 We can now calculate all summary statistics for all trees:
+
 ```{r calc_sum_stats}
 all_stats <- c()
 for (i in 1:length(focal_trees)) {
@@ -43,19 +48,40 @@ for (i in 1:length(focal_trees)) {
 all_stats <- as.data.frame(all_stats)
 ```
 
-We can now, for instance, plot the distribution of family sizes in birds:
+We can now, for instance, plot the distribution of family sizes in
+birds:
+
 ```{r plot_size}
 hist(all_stats$number_of_lineages)
 ```
+
 Furthermore, we can make a heatmap of all correlations:
+
 ```{r corr}
 cor.dist <- cor(all_stats)
 diag(cor.dist) <- NA
 heatmap(cor.dist)
 ```
 
-This will generate a distorted image: correlations are not corrected for tree 
-size. To correct for this, we will have to go over the entire correlation 
+This will generate a distorted image: correlations are not corrected for
+tree size. We can study this a bit more in detail:
+
+```{r plot with tree size}
+opar <- par()
+par(mfrow = c(3, 3))
+for (stat in c("area_per_pair", "colless", "eigen_centrality", 
+               "four_prong", "max_betweenness", "max_width",
+               "mntd", "sackin", "wiener")) {
+  if (stat != "number_of_lineages") {
+    x <- all_stats[, colnames(all_stats) == "number_of_lineages"]
+    y <- all_stats[, colnames(all_stats) == stat]
+    plot(y~x, xlab = "tree size", ylab = stat)
+  }
+}
+par(opar)
+```
+
+To correct for this, we will have to go over the entire correlation
 matrix.
 
 ```{r correct_corr}
@@ -78,7 +104,9 @@ for (i in 1:nrow(cor.dist)) {
 diag(cor.dist) <- NA
 heatmap(cor.dist)
 ```
+
 A nicer way to visualize this is given by the package ppheatmap:
+
 ```{r nicer plot}
-if (requireNamespace(pheatmap)) pheatmap::pheatmap(cor.dist)
+if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
 ```
