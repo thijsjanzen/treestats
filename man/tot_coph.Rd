@@ -2,7 +2,7 @@
 % Please edit documentation in R/tot_coph.R
 \name{tot_coph}
 \alias{tot_coph}
-\title{Fast function using C++ to calculate the total cophenetic index.}
+\title{Total cophenetic index.}
 \usage{
 tot_coph(phy, normalization = "none")
 }

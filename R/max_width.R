@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the maximum width of branch depth.
+#' Maximum width of branch depths.
 #' @description Calculates the maximum width, this is calculated by first
 #' collecting the depth of each node and tip across the entire tree, where the
 #' depth represents the distance (in nodes) to the root. Then, the width
@@ -14,6 +14,9 @@
 #' @export
 max_width <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     max_w_stat <- calc_max_width_ltable_cpp(phy)

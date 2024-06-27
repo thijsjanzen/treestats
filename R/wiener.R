@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Wiener index
+#' Wiener index
 #' @description The Wiener index is defined as the sum of all shortest path
 #' lengths between pairs of nodes in a tree.
 #' @param phy phylo object or ltable
@@ -12,6 +12,10 @@
 #' J Math Chem 2, 267–277 (1988)
 #' @export
 wiener <- function(phy, normalization = FALSE, weight = TRUE) {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

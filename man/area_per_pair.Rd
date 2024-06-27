@@ -2,7 +2,7 @@
 % Please edit documentation in R/area_per_pair.R
 \name{area_per_pair}
 \alias{area_per_pair}
-\title{Fast function using C++ to calculate the area per pair index}
+\title{Area per pair index}
 \usage{
 area_per_pair(phy, normalization = "none")
 }
@@ -13,7 +13,7 @@ area_per_pair(phy, normalization = "none")
 is divided by the expectation for the Yule model.}
 }
 \value{
-Total cophenetic index
+Area per pair index
 }
 \description{
 The area per pair index calculates the sum of the number of

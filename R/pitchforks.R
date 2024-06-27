@@ -1,5 +1,7 @@
-#' Calculate pitchforks, from the phyloTop package, a pitchfork is a clade
-#' with three tips.
+#' Number of pitchforks
+#' @description
+#' Pitchforks are a clade with three tips, as introduced in the phyloTop
+#' package.
 #' @param input_obj phylo object or ltable
 #' @param normalization "none" or "tips", in which case the found number of
 #' pitchforks is divided by the expected number.
@@ -7,6 +9,10 @@
 #' @export
 pitchforks <- function(input_obj, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(input_obj,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(input_obj, "matrix")) {
     pitch_stat <- pitchforks_ltable_cpp(input_obj)

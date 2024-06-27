@@ -19,7 +19,7 @@
 
 #include <utility>
 
-#include "branching_times.h"
+#include "branching_times.h"   // NOLINT [build/include_subdir]
 
 inline size_t get_min_index(const std::vector< std::array<double, 6>>& localtab,
                      size_t col_index) {
@@ -103,7 +103,8 @@ inline size_t find_index(const std::vector< std::array<double, 6>>& pre_Ltable,
   return index;
 }
 
-inline std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
+inline
+  std::vector< std::array< double, 4> > phylo_to_l_cpp(const Rcpp::List& phy) {
   std::vector< double > brts = branching_times_phy(phy);
 
   auto min_brts = *std::min_element(brts.begin(), brts.end());

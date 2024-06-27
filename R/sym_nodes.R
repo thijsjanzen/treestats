@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the symmetry nodes metric
+#' Symmetry nodes metric
 #' @description Balance metric that returns the total number of internal nodes
 #' that are not-symmetric (confusingly enough). A node is considered symmetric
 #' when both daughter trees have the same topology, measured as having the
@@ -16,6 +16,10 @@
 #' @export
 sym_nodes <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)

@@ -21,7 +21,15 @@
 #include "phylotree.h"   // NOLINT [build/include_subdir]
 
 double calc_colless(int L, int R) {
-  return(std::abs(L - R));
+  return std::abs(L - R);
+}
+
+double calc_colless_quad(int L, int R) {
+  return (L - R) * (L - R);
+}
+
+double root_imbal(int L, int R) {
+  return L + R;
 }
 
 double calc_ew_colless(int L, int R) {
@@ -147,6 +155,44 @@ class colless_tree {
     return s * 1.0 / cnt;
   }
 
+  double calc_root_imbal() {
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).update_node(&root_imbal);
+    }
+    auto root = tree.begin();
+    auto n1 = root->L;
+    auto n2 = root->R;
+    double answ = 1.0 * n1 / (n1 + n2);
+    if (answ < 0.5) answ = 1.0 - answ;
+    return answ;
+  }
+
+  size_t calc_double_cherries() {
+    size_t num = 0;
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).update_node(&root_imbal);
+
+      if ((*i).L == 2 && (*i).R == 2) {
+        num++;
+      }
+    }
+    return num;
+  }
+
+  size_t calc_four_prong() {
+    size_t num = 0;
+    for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
+      (*i).update_node(&root_imbal);
+
+      if ((*i).L == 3 && (*i).R == 1) {
+        num++;
+      } else if ((*i).L == 1 && (*i).R == 3) {
+        num++;
+      }
+    }
+    return num;
+  }
+
   int size() {
     return tree.size();
   }
@@ -188,6 +234,10 @@ class colless_stat_ltable {
 
   size_t colless() {
     return collect_stat(&calc_colless);
+  }
+
+  size_t colless_quad() {
+    return collect_stat(&calc_colless_quad);
   }
 
   double ew_colless() {
@@ -277,6 +327,53 @@ class colless_stat_ltable {
       if (ltable_.size() == 1) break;
     }
     stat *= 1.0 / (sum_nj * std::log(2));
+    return stat;
+  }
+
+  double calc_double_cherries() {
+    double stat = 0.0;
+    while (true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {  // we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (L == 2 && R == 2) stat++;
+
+      if (ltable_.size() == 1) break;
+    }
+    return stat;
+  }
+
+  double calc_four_prong() {
+    double stat = 0.0;
+    while (true) {
+      auto j = get_min_index();
+      auto parent = ltable_[j][1];
+      if (parent == 0) {  // we hit the root!
+        j++;
+        parent = ltable_[j][1];
+      }
+      auto j_parent = index_of_parent(parent);
+
+      int L = extant_tips[j];
+      int R = extant_tips[j_parent];
+      extant_tips[j_parent] = L + R;
+      remove_from_dataset(j);
+
+      if (L == 3 && R == 1) stat++;
+      if (L == 1 && R == 3) stat++;
+
+      if (ltable_.size() == 1) break;
+    }
     return stat;
   }
 

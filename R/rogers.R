@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Rogers J index of (im)balance.
+#' Rogers J index of (im)balance.
 #' @description The Rogers index is calculated as the total number of internal
 #' nodes that are unbalanced, e.g. for which both daughter nodes lead to a
 #' different number of extant tips. in other words, the number of nodes where
@@ -14,14 +14,16 @@
 #' 45(1):99-110, 1996. doi: 10.1093/sysbio/45.1.99.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' brts <- branching_times(simulated_tree)
-#' if (requireNamespace("nodeSub")) {
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   rogers(balanced_tree)
-#'   rogers(unbalanced_tree) # should be higher
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' rogers(balanced_tree)
+#' rogers(unbalanced_tree) # should be higher
 rogers <- function(phy, normalization = "none") {
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

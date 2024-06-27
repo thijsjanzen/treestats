@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the mean I value.
+#' Mean I statistic.
 #' @description The mean I value is defined for all nodes with at least 4 tips
 #' connected, such that different topologies can be formed. Then, for each node,
 #' I = (nm - nt/2) / (nt - 1 - nt/2), where nt is the total number of tips
@@ -18,6 +18,10 @@
 #' Biology, 2002. doi: 10.1006/jtbi.2001.2443.
 #' @export
 mean_i <- function(phy) {
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     if (length(phy[, 1]) < 4) {

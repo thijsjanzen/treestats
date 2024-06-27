@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <array>
+#include <algorithm>
 #include <Rcpp.h>
 
 using ltable = std::vector< std::array<double, 4>>;

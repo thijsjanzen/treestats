@@ -1,4 +1,4 @@
-#' Calculate the gamma statistic, using a fast implementation in C++.
+#' Gamma statistic
 #' @description The gamma statistic measures the relative position of
 #' internal nodes within a reconstructed phylogeny. Under the Yule process,
 #' the gamma values of a reconstructed tree follow a standard normal
@@ -18,6 +18,10 @@
 #'   gamma_statistic(ddd_tree) # because of diversity dependence, should be < 0
 #' }
 gamma_statistic <- function(phy) {
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = TRUE)
 
   if (inherits(phy, "phylo")) {
 

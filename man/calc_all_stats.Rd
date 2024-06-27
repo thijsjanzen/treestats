@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_all_stats.R
 \name{calc_all_stats}
 \alias{calc_all_stats}
-\title{function to apply all available tree statistics to a single tree}
+\title{Apply all available tree statistics to a single tree}
 \usage{
 calc_all_stats(phylo, normalize = FALSE)
 }
@@ -23,6 +23,8 @@ single tree, being:
   \item gamma
   \item Sackin
   \item Colless
+  \item corrected Colless
+  \item quadratic Colless
   \item Aldous' beta statistic
   \item Blum
   \item crown age
@@ -33,6 +35,7 @@ single tree, being:
   \item phylogenetic diversity
   \item avgLadder index
   \item cherries
+  \item double cherries
   \item ILnumber
   \item pitchforks
   \item stairs
@@ -70,6 +73,7 @@ single tree, being:
   \item variance of internal branch length
   \item number of imbalancing steps
   \item j_one statistic
+  \item treeness statistic
 }
 
 For the Laplacian spectrum properties, four properties of the eigenvalue

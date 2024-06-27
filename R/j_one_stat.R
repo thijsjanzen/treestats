@@ -1,4 +1,4 @@
-#' function to calculate the J^1 index.
+#' J^1 index.
 #' @description The J^1 index calculates the Shannon Entropy of a tree, where
 #' at each node with two children, the Shannon Entropy is the sum of
 #' p_i log_2(p_i) over the two children i, and p_i is L / (L + R), where L and
@@ -11,6 +11,11 @@
 #' https://doi.org/10.1093/sysbio/syac027
 #' @export
 j_one <- function(input_obj) {
+
+  check_tree(input_obj,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(input_obj, "matrix")) {
     return(calc_j_one_ltable_cpp(input_obj))
   }

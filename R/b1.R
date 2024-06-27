@@ -1,7 +1,9 @@
-#' Fast function using C++ to calculate the B1 metric
+#' B1 metric
 #' @description Balance metric (in the case of a binary tree), which measures
 #' the sum across all internal nodes of one over the maximum depth of all
 #' attached tips to that node.
+#' Although also defined on non-binary trees, the treestats package only
+#' provides code for binary trees.
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "tips", in which case the resulting
 #' statistic is divided by the number of tips in the tree, as a crude way of
@@ -12,6 +14,11 @@
 #' @export
 b1 <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     b1_stat <- calc_b1_ltable_cpp(phy)
     if (normalization == "tips" || normalization == TRUE) {

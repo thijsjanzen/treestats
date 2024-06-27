@@ -2,7 +2,7 @@
 % Please edit documentation in R/beta.R
 \name{beta_statistic}
 \alias{beta_statistic}
-\title{Fast function using C++ to calculate the Aldous beta statistic.}
+\title{Aldous' beta statistic.}
 \usage{
 beta_statistic(
   phy,
@@ -45,14 +45,11 @@ The lower bound of the beta splitting parameter is -2.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-if (requireNamespace("nodeSub")) {
-  brts <- branching_times(simulated_tree)
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  beta_statistic(balanced_tree) # should be approximately 10
-  beta_statistic(simulated_tree) # should be near 0
-  beta_statistic(unbalanced_tree) # should be approximately -2
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+beta_statistic(balanced_tree) # should be approximately 10
+beta_statistic(simulated_tree) # should be near 0
+beta_statistic(unbalanced_tree) # should be approximately -2
 }
 \references{
 Aldous, David. "Probability distributions on cladograms." Random

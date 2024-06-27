@@ -2,7 +2,7 @@
 % Please edit documentation in R/ILnumber.R
 \name{ILnumber}
 \alias{ILnumber}
-\title{Calculate ILnumber}
+\title{ILnumber}
 \usage{
 ILnumber(input_obj, normalization = "none")
 }

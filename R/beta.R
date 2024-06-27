@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the Aldous beta statistic.
+#' Aldous' beta statistic.
 #' @description The Beta statistic fits a beta splitting model to each node,
 #' assuming that the number of extant descendents of each daughter branch is
 #' split following a beta distribution, such that the number of extant
@@ -28,19 +28,19 @@
 #' @examples
 
 #' simulated_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-#' if (requireNamespace("nodeSub")) {
-#'   brts <- branching_times(simulated_tree)
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   beta_statistic(balanced_tree) # should be approximately 10
-#'   beta_statistic(simulated_tree) # should be near 0
-#'   beta_statistic(unbalanced_tree) # should be approximately -2
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' beta_statistic(balanced_tree) # should be approximately 10
+#' beta_statistic(simulated_tree) # should be near 0
+#' beta_statistic(unbalanced_tree) # should be approximately -2
 beta_statistic <- function(phy,
                            upper_lim = 10,
                            algorithm = "COBYLA",
                            abs_tol = 1e-4,
                            rel_tol = 1e-6) {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     beta_stat <- calc_beta_ltable_cpp(phy, upper_lim,

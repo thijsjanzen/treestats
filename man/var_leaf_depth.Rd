@@ -2,7 +2,7 @@
 % Please edit documentation in R/var_leaf_depth.R
 \name{var_leaf_depth}
 \alias{var_leaf_depth}
-\title{Fast function using C++ to calculate the variance of leaf depth statistic}
+\title{Variance of leaf depth statistic}
 \usage{
 var_leaf_depth(phy, normalization = "none")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/b1.R
 \name{b1}
 \alias{b1}
-\title{Fast function using C++ to calculate the B1 metric}
+\title{B1 metric}
 \usage{
 b1(phy, normalization = "none")
 }
@@ -20,6 +20,8 @@ B1 statistic
 Balance metric (in the case of a binary tree), which measures
 the sum across all internal nodes of one over the maximum depth of all
 attached tips to that node.
+Although also defined on non-binary trees, the treestats package only
+provides code for binary trees.
 }
 \references{
 K.-T. Shao and R. R. Sokal. Tree Balance.

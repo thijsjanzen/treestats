@@ -26,7 +26,8 @@ jobs:
 
           - {os: windows-latest, r: 'release'}
           # use 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: '4.1'}
+       # this no longer works with requirements to 4.4.0
+       #   - {os: windows-latest, r: '4.1'}
 
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}

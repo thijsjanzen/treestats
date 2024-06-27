@@ -1,4 +1,4 @@
-#' Calculate ILnumber
+#' ILnumber
 #' @description The ILnumber is the number of internal nodes with a
 #' single tip child. Higher values typically indicate a tree that
 #' is more unbalanced.
@@ -13,6 +13,9 @@
 #' @export
 ILnumber <- function(input_obj, normalization = "none") { # nolint
   normalization <- check_normalization_key(normalization)
+  check_tree(input_obj,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(input_obj, "matrix")) {
     il_stat <- ILnumber_ltable_cpp(input_obj)

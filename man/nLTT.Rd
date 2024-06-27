@@ -2,7 +2,7 @@
 % Please edit documentation in R/nLTT.R
 \name{nLTT}
 \alias{nLTT}
-\title{Calculate the nLTT, using C++.}
+\title{Normalized LTT statistic}
 \usage{
 nLTT(phy, ref_tree)
 }

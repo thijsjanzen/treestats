@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the diameter
+#' Diameter statistic
 #' @description The Diameter of a tree is defined as the maximum length of a
 #' shortest path. When taking branch lengths into account, this is equal to
 #' twice the crown age.
@@ -10,6 +10,9 @@
 #' @export
 diameter <- function(phy,
                      weight = FALSE) {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     diam_stat <- calc_diameter_ltable_cpp(phy, weight)

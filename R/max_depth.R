@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate maximum depth metric
+#' Maximum depth metric
 #' @description The maximum depth metric, measures the maximal path (in edges),
 #' between the tips and the root.
 #' @param phy phylo object or ltable
@@ -10,6 +10,11 @@
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 #' @export
 max_depth <- function(phy, normalization = "none") {
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

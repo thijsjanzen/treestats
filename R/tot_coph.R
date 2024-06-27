@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the total cophenetic index.
+#' Total cophenetic index.
 #' @description The total cophenetic index is the sum of the depth of the last
 #' common ancestor of all pairs of leaves.
 #' @param phy phylo object or ltable
@@ -11,6 +11,10 @@
 #' @export
 tot_coph <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)

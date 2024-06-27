@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate Phylogenetic Species Variability.
+#' Phylogenetic Species Variability.
 #' @description The phylogenetic species variability is bounded in [0, 1]. The
 #' psv quantifies how phylogenetic relatedness decrease the variance of a
 #' (neutral) trait shared by all species in the tree. As species become more
@@ -25,8 +25,10 @@ psv <- function(phy, normalization = "none") {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
+
     psv_stat <- calc_psv_cpp(as.vector(t(phy$edge)),
-                             phy$edge.length)
+                                       phy$edge.length)
+
     if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)
       psv_stat <- psv_stat / (2 * log(n))

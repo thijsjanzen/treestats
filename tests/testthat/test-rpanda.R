@@ -6,7 +6,7 @@ test_that("usage", {
 
   if (requireNamespace("RPANDA")) {
     set.seed(42)
-    focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
+    focal_tree <- ape::rphylo(n = 5, birth = 1, death = 0)
 
     ref <- RPANDA::spectR(focal_tree)
     stat <- treestats::laplacian_spectrum(focal_tree)

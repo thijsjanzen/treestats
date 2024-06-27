@@ -19,10 +19,15 @@ using phylo_tree_t = std::vector<NODE>;
 template <typename NODE,
           bool FULL_TREE>
 auto make_phylo_tree(const std::vector<int>& tree_edge) {
-  // this holds always:
-  int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
+  int root_no = tree_edge[0];
+  for (size_t i = 2; i < tree_edge.size(); i+=2) {
+    if (tree_edge[i] < root_no) root_no = tree_edge[i];
+  }
+
   int tree_size = tree_edge.size() / 2 - root_no + 2;
+
   if constexpr (FULL_TREE) tree_size = 2 + 0.5 * tree_edge.size();
+
   auto tree = phylo_tree_t<NODE>(tree_size);
 
   for (size_t i = 0; i < tree_edge.size(); i += 2) {

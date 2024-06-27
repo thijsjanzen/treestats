@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate maximum closeness
+#' Maximum closeness
 #' @description Closeness is defined as 1 / Farness, where Farness is the sum
 #' of distances from a node to all the other nodes in the tree. Here, we return
 #' the node with maximum closeness.
@@ -15,6 +15,10 @@
 #' p. 2090–2095.
 #' @export
 max_closeness <- function(phy, weight = TRUE, normalization = "none") {
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

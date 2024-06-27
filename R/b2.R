@@ -1,7 +1,9 @@
-#' Fast function using C++ to calculate the B2 metric
+#' B2 metric
 #' @description Balance metric that uses the Shannon-Wiener statistic of
 #' information content. The b2 measure is given by the sum over the depths of
-#' all tips, divided by 2^depth: sum Ni / 2^Ni
+#' all tips, divided by 2^depth: sum Ni / 2^Ni.
+#' Although also defined on non-binary trees, the treestats package only
+#' provides code for binary trees.
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "yule", when "yule" is chosen, the statistic
 #' is divided by the Yule expectation, following from theorem 3.7 in Bienvenu
@@ -16,6 +18,10 @@
 #' @export
 b2 <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     b2_stat <- calc_b2_ltable_cpp(phy)

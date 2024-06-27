@@ -2,7 +2,7 @@
 % Please edit documentation in R/sackin.R
 \name{sackin}
 \alias{sackin}
-\title{Fast function using C++ to calculate the sackin index of (im)balance.}
+\title{Sackin index of (im)balance.}
 \usage{
 sackin(phy, normalization = "none")
 }
@@ -22,13 +22,10 @@ Yule expectation, or a pda expectation.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-brts <- branching_times(simulated_tree)
-if (requireNamespace("nodeSub")) {
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  sackin(balanced_tree)
-  sackin(unbalanced_tree) # should be much higher
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+sackin(balanced_tree)
+sackin(unbalanced_tree) # should be much higher
 }
 \references{
 M. J. Sackin (1972). "Good" and "Bad" Phenograms.

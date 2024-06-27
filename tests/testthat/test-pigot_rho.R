@@ -19,16 +19,12 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   rho2 <- treestats::pigot_rho(ltab)
   testthat::expect_equal(rho, rho2)
-  # we can use the (slower) method of using a branching set,
-  #  should give same result:
-  rho3 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
-  testthat::expect_equal(rho, rho3)
 
   if (requireNamespace("geiger")) {
     # and we can do with extinct trees as well
     focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2,
                               fossils = TRUE)
-    rho4 <- treestats::pigot_rho(focal_tree, extant_tree = FALSE)
+    rho4 <- treestats::pigot_rho(focal_tree)
     extant_tree <- geiger::drop.extinct(focal_tree)
     rho5 <- treestats::pigot_rho(extant_tree)
     testthat::expect_false(rho4 == rho5)

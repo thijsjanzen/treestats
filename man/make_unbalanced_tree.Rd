@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_unbalanced_tree.R
 \name{make_unbalanced_tree}
 \alias{make_unbalanced_tree}
-\title{this function increasingly increases the imbalance of a tree}
+\title{Stepwise increase the imbalance of a tree}
 \usage{
 make_unbalanced_tree(
   init_tree,
@@ -42,13 +42,10 @@ maximized in a fully imbalanced tree).
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 16, birth = 1, death = 0)
-brts <- branching_times(simulated_tree)
-if (requireNamespace("nodeSub")) {
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  intermediate_tree <- make_unbalanced_tree(balanced_tree, 8)
-  colless(balanced_tree)
-  colless(intermediate_tree) # should be intermediate value
-  colless(unbalanced_tree) # should be highest colless value
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+intermediate_tree <- make_unbalanced_tree(balanced_tree, 8)
+colless(balanced_tree)
+colless(intermediate_tree) # should be intermediate value
+colless(unbalanced_tree) # should be highest colless value
 }

@@ -1,4 +1,4 @@
-#' Fast function using C++ to calculate the variance of leaf depth statistic
+#' Variance of leaf depth statistic
 #' @description The variance of leaf depth statistic returns the variance
 #' of depths across all tips.
 #' @param phy phylo object or ltable
@@ -12,6 +12,10 @@
 #' @export
 var_leaf_depth <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     var_leaf_depth_stat <- calc_var_leaf_depth_ltable_cpp(phy)

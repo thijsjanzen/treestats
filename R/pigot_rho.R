@@ -1,8 +1,5 @@
-#' calculate Pigot's rho
+#' Pigot's rho
 #' @param phy phylo object
-#' @param extant_tree Pigot's rho is originally only defined for an extant tree,
-#' however we include functionality to calculate Pigot's rho for a complete
-#' tree as well.
 #' @return rho
 #' @description Calculates the change in rate between the first half and the
 #' second half of the extant phylogeny. Rho = (r2 - r1) / (r1 + r2), where r
@@ -22,23 +19,17 @@
 #' pigot_rho(simulated_tree) # should be around 0.
 #' ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
 #' pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
-pigot_rho <- function(phy,
-                      extant_tree = TRUE) {
+pigot_rho <- function(phy) {
 
   if (inherits(phy, "matrix")) {
     return(calc_rho_ltable_cpp(phy))
   }
 
-  if (!extant_tree) {
-    return(calc_rho_complete_cpp(phy))
-  }
-
   if (inherits(phy, "phylo")) {
-    if (phy$Nnode < 200) {
+    if (!ape::is.ultrametric(phy)) {
       return(calc_rho_complete_cpp(phy))
-    } else {
-      return(calc_rho_cpp(phy))
     }
+    return(calc_rho_cpp(phy))
   }
 
   stop("input object has to be phylo or ltable")

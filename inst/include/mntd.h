@@ -143,10 +143,10 @@ double calc_mntd_ltable(const ltable& ltable_) {
 double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
                       const std::vector<double>& el) {
   size_t root_no = edge[0][0];
-
   size_t max_num = 0;
   for (const auto& i : edge) {
     if (i[0] > max_num) max_num = i[0];
+    if (i[0] < root_no) root_no = i[0];
   }
 
   std::vector<double> node_heights(max_num + 1, 0);

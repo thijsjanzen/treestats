@@ -2,7 +2,7 @@
 % Please edit documentation in R/b2.R
 \name{b2}
 \alias{b2}
-\title{Fast function using C++ to calculate the B2 metric}
+\title{B2 metric}
 \usage{
 b2(phy, normalization = "none")
 }
@@ -19,7 +19,9 @@ Maximum depth (in number of edges)
 \description{
 Balance metric that uses the Shannon-Wiener statistic of
 information content. The b2 measure is given by the sum over the depths of
-all tips, divided by 2^depth: sum Ni / 2^Ni
+all tips, divided by 2^depth: sum Ni / 2^Ni.
+Although also defined on non-binary trees, the treestats package only
+provides code for binary trees.
 }
 \references{
 K.-T. Shao and R. R. Sokal. Tree Balance.

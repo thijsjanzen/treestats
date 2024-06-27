@@ -2,7 +2,7 @@
 % Please edit documentation in R/branching_times.R
 \name{branching_times}
 \alias{branching_times}
-\title{Calculates branching times of a tree, using C++}
+\title{Branching times of a tree}
 \usage{
 branching_times(phy)
 }

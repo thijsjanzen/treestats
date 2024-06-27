@@ -9,7 +9,7 @@ calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
 
 
 
-#' Calculates phylogenetic diversity at time point t
+#' Phylogenetic diversity at time point t
 #' @description The phylogenetic diversity at time t is given by the total
 #' branch length of the tree reconstructed up until time point t. Time is
 #' measured increasingly, with the crown age equal to 0. Thus, the time at
@@ -28,7 +28,9 @@ calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
 phylogenetic_diversity <- function(input_obj,
                                    t = 0,
                                    extinct_tol = NULL) {
-
+  check_tree(input_obj,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(input_obj, "matrix")) {
 

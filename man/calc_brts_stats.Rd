@@ -2,8 +2,7 @@
 % Please edit documentation in R/calc_brts_stats.R
 \name{calc_brts_stats}
 \alias{calc_brts_stats}
-\title{function to apply all tree statistics related to branching times
-to a single tree.}
+\title{Apply all tree statistics related to branching times to a single tree.}
 \usage{
 calc_brts_stats(phylo)
 }
@@ -15,12 +14,13 @@ list with statistics
 }
 \description{
 this function applies all tree statistics based on
-branching times to a single tree, being:
+branching times to a single tree (more or less ignoring topology), being:
 \itemize{
   \item{gamma}
   \item{pigot's rho}
   \item{mean branch length}
   \item{nLTT with empty tree}
+  \item{treeness}
   \item{var branch length}
   \item{mean internal branch length}
   \item{mean external branch length}

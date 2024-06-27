@@ -1,5 +1,4 @@
-#' Fast function using C++ to calculate the intensive quadratic entropy
-#' statistic J.
+#' Intensive quadratic entropy statistic J.
 #' @description The intensive quadratic entropy statistic J is given by the
 #' average distance between two randomly chosen species, thus given by the
 #' sum of all pairwise distances, divided by S^2, where S is the number of tips
@@ -11,6 +10,11 @@
 #' Ecological Modelling 130.1-3 (2000): 151-156.
 #' @export
 entropy_j <- function(phy) {
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }

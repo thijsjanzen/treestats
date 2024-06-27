@@ -11,6 +11,9 @@
 #' @export
 cherries <- function(input_obj, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+  check_tree(input_obj,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   num_cherries <- 0
 

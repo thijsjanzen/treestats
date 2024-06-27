@@ -2,7 +2,7 @@
 % Please edit documentation in R/colless.R
 \name{colless}
 \alias{colless}
-\title{Fast function using C++ to calculate the Colless index of (im)balance.}
+\title{Colless index of (im)balance.}
 \usage{
 colless(phy, normalization = "none")
 }
@@ -25,13 +25,10 @@ or a pda expectation.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-brts <- branching_times(simulated_tree)
-if (requireNamespace("nodeSub")) {
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  colless(balanced_tree)
-  colless(unbalanced_tree) # should be higher
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+colless(balanced_tree)
+colless(unbalanced_tree) # should be higher
 }
 \references{
 Colless D H. 1982. Review of: Phylogenetics: The Theory and

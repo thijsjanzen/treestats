@@ -1,4 +1,4 @@
-#' Calculate the nLTT, using C++.
+#' Normalized LTT statistic
 #' @description The nLTT statistic calculates the sum of
 #' absolute differences in the number of lineages over time, where both the
 #' number of lineages and the time are normalized. The number of lineages is
@@ -24,6 +24,10 @@ nLTT <- function(phy, # nolint
                  ref_tree) {
 
   if (inherits(phy, "phylo")) {
+    if (inherits(ref_tree, "matrix")) {
+      return(nLTT(ref_tree, phy))
+    }
+
     return(calc_nltt_cpp(phy, ref_tree))
   }
 
@@ -37,8 +41,7 @@ nLTT <- function(phy, # nolint
   stop("input needs to be phylo or ltable object")
 }
 
-#' Calculates the nLTT statistic using a reference 'empty' tree with only
-#' two lineages.
+#' Reference nLTT statistic
 #' @description The base nLTT statistic can be used as a semi stand-alone
 #' statistic for phylogenetic trees. However, please note that although this
 #' provides a nice way of checking the power of the nLTT statistic without

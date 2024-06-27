@@ -2,7 +2,7 @@
 % Please edit documentation in R/rogers.R
 \name{rogers}
 \alias{rogers}
-\title{Fast function using C++ to calculate the Rogers J index of (im)balance.}
+\title{Rogers J index of (im)balance.}
 \usage{
 rogers(phy, normalization = "none")
 }
@@ -25,13 +25,10 @@ node).
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-brts <- branching_times(simulated_tree)
-if (requireNamespace("nodeSub")) {
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  rogers(balanced_tree)
-  rogers(unbalanced_tree) # should be higher
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+rogers(balanced_tree)
+rogers(unbalanced_tree) # should be higher
 }
 \references{
 J. S. Rogers. Central Moments and Probability Distributions of

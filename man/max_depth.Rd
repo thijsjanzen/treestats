@@ -2,7 +2,7 @@
 % Please edit documentation in R/max_depth.R
 \name{max_depth}
 \alias{max_depth}
-\title{Fast function using C++ to calculate maximum depth metric}
+\title{Maximum depth metric}
 \usage{
 max_depth(phy, normalization = "none")
 }

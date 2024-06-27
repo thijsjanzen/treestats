@@ -30,6 +30,15 @@ test_that("usage", {
   l1 <- treestats::phylo_to_l(focal_tree)
   a3 <- treestats::branching_times(l1)
   testthat::expect_true(sum(a2 - a3) == 0)
+
+
+  # with node labels:
+  set.seed(42)
+  focal_tree <- ape::rphylo(n = 5, birth = 1, death = 0)
+  focal_tree$node.label <- 4:1
+  b1 <- treestats::branching_times(focal_tree)
+  b2 <- ape::branching.times(focal_tree)
+  testthat::expect_true(all.equal(b1, b2))
 })
 
 test_that("wrong_object", {

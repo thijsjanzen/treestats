@@ -1,4 +1,4 @@
-#' Calculates branching times of a tree, using C++
+#' Branching times of a tree
 #' @param phy phylo object or ltable
 #' @return vector of branching times
 #' @description C++ based alternative to `ape::branching.times`, please note

@@ -2,10 +2,7 @@
 % Please edit documentation in R/stairs.R
 \name{stairs}
 \alias{stairs}
-\title{Calculates the staircase-ness measure, from the phyloTop package. The
-staircase-ness reflects the number of subtrees that are imbalanced, e.g.
-subtrees where the left child has more extant tips than the right child, or
-vice versa.}
+\title{Stairs index}
 \usage{
 stairs(input_obj)
 }
@@ -16,10 +13,10 @@ stairs(input_obj)
 number of stairs
 }
 \description{
-Calculates the staircase-ness measure, from the phyloTop package. The
-staircase-ness reflects the number of subtrees that are imbalanced, e.g.
-subtrees where the left child has more extant tips than the right child, or
-vice versa.
+Calculates the staircase-ness measure, from the phyloTop
+package. The staircase-ness reflects the number of subtrees that are
+imbalanced, e.g. subtrees where the left child has more extant tips than the
+right child, or vice versa.
 }
 \references{
 Norström, Melissa M., et al. "Phylotempo: a set of r scripts for
