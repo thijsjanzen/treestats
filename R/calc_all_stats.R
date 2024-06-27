@@ -268,6 +268,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$root_imbalance <- try_stat(phylo, treestats::root_imbalance)
 
+  stats <- unlist(stats)
+  stats <- stats[order(names(stats))]
+
   return(stats)
 }
 

@@ -137,11 +137,12 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
 
   stats$avg_vert_depth     <- try_stat(phylo, treestats::avg_vert_depth)
 
-  calc_eigen_centrality <- function(x) {
-    return(treestats::eigen_centrality(x, weight = FALSE, scale = FALSE))
+  calc_local_eigen_centrality <- function(x) {
+    res <- treestats::eigen_centrality(x, weight = FALSE, scale = FALSE)
+    return(max(res$eigenvector))
   }
 
-  stats$eigen_centrality   <- try_stat(phylo, calc_eigen_centrality)
+  stats$eigen_centrality   <- try_stat(phylo, calc_local_eigen_centrality)
 
   stats$max_betweenness    <- try_stat(phylo, treestats::max_betweenness)
 
@@ -157,6 +158,9 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
   stats$tot_internal_path  <- try_stat(phylo, treestats::tot_internal_path)
 
   stats$tot_path_length    <- try_stat(phylo, treestats::tot_path_length)
+
+  stats <- unlist(stats)
+  stats <- stats[order(names(stats))]
 
   return(stats)
 }

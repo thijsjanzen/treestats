@@ -15,15 +15,19 @@ test_that("usage", {
   testthat::expect_silent(
     all_stats <- treestats::calc_all_stats(focal_tree)
   )
-  testthat::expect_true(is.na(all_stats$laplace_spectrum_a))
-  testthat::expect_true(is.na(all_stats$laplace_spectrum_p))
-  testthat::expect_true(is.na(all_stats$laplace_spectrum_e))
-  testthat::expect_true(is.na(all_stats$laplace_spectrum_g))
+  testthat::expect_true(
+    is.na(all_stats[names(all_stats) == "laplace_spectrum_a"]))
+  testthat::expect_true(
+    is.na(all_stats[names(all_stats) == "laplace_spectrum_p"]))
+  testthat::expect_true(
+    is.na(all_stats[names(all_stats) == "laplace_spectrum_e"]))
+  testthat::expect_true(
+    is.na(all_stats[names(all_stats) == "laplace_spectrum_g"]))
 
-  testthat::expect_true(is.na(all_stats$max_laplace))
-  testthat::expect_true(is.na(all_stats$min_laplace))
-  testthat::expect_true(is.na(all_stats$max_adj))
-  testthat::expect_true(is.na(all_stats$min_adj))
+  testthat::expect_true(is.na(all_stats[names(all_stats) == "max_laplace"]))
+  testthat::expect_true(is.na(all_stats[names(all_stats) == "min_laplace"]))
+  testthat::expect_true(is.na(all_stats[names(all_stats) == "max_adj"]))
+  testthat::expect_true(is.na(all_stats[names(all_stats) == "min_adj"]))
 
-  testthat::expect_true(is.na(all_stats$vpd))
+  testthat::expect_true(is.na(all_stats[names(all_stats) == "vpd"]))
 })
