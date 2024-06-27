@@ -95,7 +95,8 @@ functions have been improved as well:
   - DDD::phylo2L
   - DDD::L2phylo
 
-[Figure_S3.pdf](https://github.com/user-attachments/files/16012805/Figure_S3.pdf)
+![Figure_S3](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)
+
 
 
 ## C++ Library
