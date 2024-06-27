@@ -75,7 +75,7 @@ for (stat in c("area_per_pair", "colless", "eigen_centrality",
   if (stat != "number_of_lineages") {
     x <- all_stats[, colnames(all_stats) == "number_of_lineages"]
     y <- all_stats[, colnames(all_stats) == stat]
-    plot(y~x, xlab = "tree size", ylab = stat)
+    plot(y~x, xlab = "Tree size", ylab = stat, pch = 16)
   }
 }
 par(opar)
