@@ -1,8 +1,12 @@
+# Version 1.1.3
+
+-   Reduced dependencies, Matrix and RSpectra are no longer required (but availability will improve speed!)
+-   calc_all_stats, calc_topology_stats and calc_brts_stats no longer return a named list, but return a named vector, for ease of rapid calculation across many trees
+
 # Version 1.1.2
--   Removed dependencies to nodeSub by integrating functions to generate fully
-balanced and unbalanced into treestats.
--   Renamed 'calc_balance_stats' to 'calc_topology_stats', and included only
-statistics that take the topology (without the branch lengths) into account.
+
+-   Removed dependencies to nodeSub by integrating functions to generate fully balanced and unbalanced into treestats.
+-   Renamed 'calc_balance_stats' to 'calc_topology_stats', and included only statistics that take the topology (without the branch lengths) into account.
 
 # Version 1.1.1
 
