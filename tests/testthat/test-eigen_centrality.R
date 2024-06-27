@@ -73,9 +73,6 @@ test_that("usage", {
                                         weight = TRUE,
                                         scale = FALSE)
 
-    unloadNamespace("RSpectra")
-    unloadNamespace("Matrix")
-
     testthat::with_mocked_bindings(
       {
         # Now `myfun()` should behave as if `data.tree` is not installed
