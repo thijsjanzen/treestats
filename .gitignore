@@ -9,3 +9,5 @@ src/*.dll
 *.png
 *.pdf
 *.txt
+*.json
+/.vscode
