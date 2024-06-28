@@ -44,6 +44,10 @@ skew_ness <- function(x) {
 #' @export
 laplacian_spectrum <- function(phy) {
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
@@ -82,6 +86,8 @@ laplacian_spectrum <- function(phy) {
                    n = length(x), data.name = deparse(substitute(x)),
                    has.na = has_na), class = "density")
   }
+
+  phy <- ape::reorder.phylo(phy)
 
   lapl_mat <- -prep_lapl_spec(phy)
 

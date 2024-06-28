@@ -169,6 +169,46 @@ pitchforks_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_pitchforks_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
+calc_colless_corr_cpp <- function(parent_list, normalization) {
+    .Call('_treestats_calc_colless_corr_cpp', PACKAGE = 'treestats', parent_list, normalization)
+}
+
+calc_colless_corr_ltable_cpp <- function(l_from_R, normalization) {
+    .Call('_treestats_calc_colless_corr_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
+}
+
+calc_colless_quad_cpp <- function(parent_list, normalization) {
+    .Call('_treestats_calc_colless_quad_cpp', PACKAGE = 'treestats', parent_list, normalization)
+}
+
+calc_colless_quad_ltable_cpp <- function(l_from_R, normalization) {
+    .Call('_treestats_calc_colless_quad_ltable_cpp', PACKAGE = 'treestats', l_from_R, normalization)
+}
+
+calc_root_imbalance_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_root_imbalance_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_root_imbalance_cpp <- function(parent_list) {
+    .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_double_cherries_cpp <- function(parent_list) {
+    .Call('_treestats_calc_double_cherries_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_double_cherries_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_double_cherries_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_four_prong_cpp <- function(parent_list) {
+    .Call('_treestats_calc_four_prong_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_four_prong_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_four_prong_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 calc_max_del_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
 }
@@ -187,6 +227,14 @@ calc_max_width_ltable_cpp <- function(l_from_R) {
 
 calc_max_depth_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_depth_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_avg_vert_depth_cpp <- function(parent_list) {
+    .Call('_treestats_calc_avg_vert_depth_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+tot_internal_path_cpp <- function(parent_list) {
+    .Call('_treestats_tot_internal_path_cpp', PACKAGE = 'treestats', parent_list)
 }
 
 calc_max_depth_ltable_cpp <- function(l_from_R) {
@@ -221,6 +269,14 @@ calc_b2_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_b2_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_mw_over_md_cpp <- function(parent_list) {
+    .Call('_treestats_calc_mw_over_md_cpp', PACKAGE = 'treestats', parent_list)
+}
+
+calc_mw_over_md_ltable_cpp <- function(l_from_R) {
+    .Call('_treestats_calc_mw_over_md_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
 avgLadder_cpp <- function(tree_edge) {
     .Call('_treestats_avgLadder_cpp', PACKAGE = 'treestats', tree_edge)
 }
@@ -229,12 +285,12 @@ max_ladder_cpp <- function(tree_edge) {
     .Call('_treestats_max_ladder_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-#' function to create laplacian matrix
-#' @param phy phy
-#' @return numericmatrix
-#' @export
 prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+
+prep_adj_mat <- function(parent_list, br_len, use_br_len) {
+    .Call('_treestats_prep_adj_mat', PACKAGE = 'treestats', parent_list, br_len, use_br_len)
 }
 
 calc_mpd_cpp <- function(edge, el) {

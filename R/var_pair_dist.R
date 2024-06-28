@@ -9,6 +9,10 @@
 #' @export
 var_pair_dist <- function(phy) {
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }

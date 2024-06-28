@@ -253,7 +253,7 @@ class LRsizes {
       }
       auto j_parent = index_of_parent(parent);
       if (j_parent < 0) {
-        Rcpp::stop("out of bounds");
+        throw "out of bounds";
       }
 
       int L = extant_tips[j];

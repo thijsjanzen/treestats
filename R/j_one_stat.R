@@ -11,6 +11,11 @@
 #' https://doi.org/10.1093/sysbio/syac027
 #' @export
 j_one <- function(input_obj) {
+
+  check_tree(input_obj,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
   if (inherits(input_obj, "matrix")) {
     return(calc_j_one_ltable_cpp(input_obj))
   }

@@ -1,10 +1,10 @@
 ---
-title: "demonstration"
+title: "Getting started"
 author: "Thijs Janzen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{demonstration}
+  %\VignetteIndexEntry{Getting started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -55,15 +55,8 @@ several functions have been set up aptly. Firstly, the function
 all_stats <- calc_all_stats(phy)
 ```
 
-This generates a named list, which can be very useful to find your focal
-statistics, but often a conversion into a vector may be more interesting (we
-use unlist and omit `as.vector` to retain the names):
-```{r all_stats2} 
-unlist(all_stats)
-```
-
-Similarly, we can also blanket apply all balance associated summary statistics:
+Similarly, we can also blanket apply all topology associated summary statistics:
 ```{r all_stats3}
-balance_stats <- calc_balance_stats(phy)
+balance_stats <- calc_topology_stats(phy)
 unlist(balance_stats)
 ```

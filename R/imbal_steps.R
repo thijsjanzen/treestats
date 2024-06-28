@@ -11,6 +11,9 @@
 #' @export
 imbalance_steps <- function(input_obj,
                             normalization = FALSE) {
+  check_tree(input_obj,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(input_obj, "phylo")) {
     input_obj <- treestats::phylo_to_l(input_obj)

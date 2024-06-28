@@ -23,6 +23,8 @@ single tree, being:
   \item gamma
   \item Sackin
   \item Colless
+  \item corrected Colless
+  \item quadratic Colless
   \item Aldous' beta statistic
   \item Blum
   \item crown age
@@ -33,6 +35,7 @@ single tree, being:
   \item phylogenetic diversity
   \item avgLadder index
   \item cherries
+  \item double cherries
   \item ILnumber
   \item pitchforks
   \item stairs

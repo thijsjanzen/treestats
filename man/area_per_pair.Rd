@@ -13,7 +13,7 @@ area_per_pair(phy, normalization = "none")
 is divided by the expectation for the Yule model.}
 }
 \value{
-Total cophenetic index
+Area per pair index
 }
 \description{
 The area per pair index calculates the sum of the number of

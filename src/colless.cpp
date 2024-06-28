@@ -20,6 +20,7 @@
 #include "util.h"     // NOLINT [build/include_subdir]
 #include "colless.h"  // NOLINT [build/include_subdir]
 #include "ILnumber.h" // NOLINT [build/include_subdir]
+#include "root_imbal.h" // NOLINT [build/include_subdir]
 
 
 // [[Rcpp::export]]
@@ -168,3 +169,138 @@ size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   colless_stat_ltable c(local_ltab);
   return c.count_pitchforks();
 }
+
+// [[Rcpp::export]]
+double calc_colless_corr_cpp(const std::vector<int>& parent_list,
+                             std::string normalization) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  double output = focal_tree.calc_stat(&calc_colless);
+
+  size_t n = focal_tree.size() + 1;
+
+  output *= 2.0 / ((n - 1) * (n - 2));
+
+  if (normalization == "yule") {
+    auto expected_val_yule = 2.0 * n / ((n - 1) * (n - 2));
+
+    double sum_thing = 0.0;
+    if (n % 2 == 0) {  // even number of tips
+      for (size_t j = 2; j < n / 2; ++j) sum_thing += 1.0 / j;
+    } else {
+      sum_thing = 1.0 / n;
+      for (size_t j = 2; j < (n - 1) / 2; ++j) sum_thing += 1.0 / j;
+    }
+
+    expected_val_yule *= sum_thing;
+
+    output *= 1.0 / expected_val_yule;
+  }
+
+  return output;
+}
+
+// [[Rcpp::export]]
+double calc_colless_corr_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
+                               std::string normalization) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  colless_stat_ltable s(l_in_cpp);
+  double output = static_cast<double>(s.colless());
+
+  size_t n = s.size();
+  output *= 2.0 / ((n - 1) * (n - 2));
+
+  if (normalization == "yule") {
+    auto expected_val_yule = 2.0 * n / ((n - 1) * (n - 2));
+
+    double sum_thing = 0.0;
+    if (n % 2 == 0) {  // even number of tips
+      for (size_t j = 2; j < n / 2; ++j) sum_thing += 1.0 / j;
+    } else {
+      sum_thing = 1.0 / n;
+      for (size_t j = 2; j < (n - 1) / 2; ++j) sum_thing += 1.0 / j;
+    }
+    expected_val_yule *= sum_thing;
+
+    output *= 1.0 / expected_val_yule;
+  }
+  return output;
+}
+
+// [[Rcpp::export]]
+double calc_colless_quad_cpp(const std::vector<int>& parent_list,
+                             std::string normalization) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  double output = focal_tree.calc_stat(&calc_colless_quad);
+  if (normalization == "yule") {
+    size_t n = focal_tree.size() + 1;
+    auto expected_yule = n * (n + 1);
+    double sum_thing = 0.0;
+    for (size_t i = 1; i <= n; ++i) sum_thing += 1.0 / i;
+
+    expected_yule -= 2 * n * sum_thing;
+
+    output *= 1.0 / expected_yule;
+  }
+
+  return output;
+}
+
+// [[Rcpp::export]]
+double calc_colless_quad_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
+                                    std::string normalization) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  colless_stat_ltable s(l_in_cpp);
+  double output = static_cast<double>(s.colless_quad());
+
+  if (normalization == "yule") {
+    size_t n = s.size();
+    auto expected_yule = n * (n + 1);
+    double sum_thing = 0.0;
+    for (size_t i = 1; i <= n; ++i) sum_thing += 1.0 / i;
+
+    expected_yule -= 2 * n * sum_thing;
+
+    output *= 1.0 / expected_yule;
+  }
+  return output;
+}
+
+// [[Rcpp::export]]
+double calc_root_imbalance_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  auto imbal = calc_root_imbal(l_in_cpp);
+  return imbal;
+}
+
+// [[Rcpp::export]]
+double calc_root_imbalance_cpp(const std::vector<int>& parent_list) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  return focal_tree.calc_root_imbal();
+}
+
+// [[Rcpp::export]]
+double calc_double_cherries_cpp(const std::vector<int>& parent_list) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  return focal_tree.calc_double_cherries();
+}
+
+// [[Rcpp::export]]
+double calc_double_cherries_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  colless_stat_ltable s(l_in_cpp);
+  return s.calc_double_cherries();
+}
+
+// [[Rcpp::export]]
+double calc_four_prong_cpp(const std::vector<int>& parent_list) {
+  colless_tree::colless_tree focal_tree(parent_list);
+  return focal_tree.calc_four_prong();
+}
+
+// [[Rcpp::export]]
+double calc_four_prong_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+  auto l_in_cpp = convert_to_ltable(l_from_R);
+  colless_stat_ltable s(l_in_cpp);
+  return s.calc_four_prong();
+}
+

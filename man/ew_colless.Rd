@@ -22,13 +22,10 @@ of 1.0. The ew_colless index is not sensitive to tree size.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-brts <- branching_times(simulated_tree)
-if (requireNamespace("nodeSub")) {
-  balanced_tree <- nodeSub::create_balanced_tree(brts)
-  unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-  ew_colless(balanced_tree)
-  ew_colless(unbalanced_tree) # should be higher
-}
+balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+ew_colless(balanced_tree)
+ew_colless(unbalanced_tree) # should be higher
 }
 \references{
 A. O. Mooers and S. B. Heard. Inferring Evolutionary Process

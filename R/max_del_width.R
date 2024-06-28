@@ -5,7 +5,11 @@
 #' (in nodes) to the root. Then, the width represents the number of occurrences
 #' of each possible depth. Then, we take the difference between each consecutive
 #' width, starting with the first width. The maximum difference is then
-#' returned.
+#' returned - whereas the original statistic designed by Colijn and Gardy used
+#' the absolute maximum difference, we here use the modified version as
+#' introduced in Fischher 2023: this returns the maximum value, without
+#' absoluting negative widths. This ensures that this metric is a proper
+#' (im)balance metric, follwing Fischer 2023.
 #' @param phy phylogeny or ltable
 #' @param normalization "none" or "tips", in which case the resulting statistic
 #' is divided by the number of tips in the tree.
@@ -13,8 +17,15 @@
 #' @references C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
 #' transmission patterns. Evolution, Medicine, and Public Health,
 #' 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018..
+#' Fischer, M., Herbst, L., Kersting, S., Kühn, A. L., & Wicke, K. (2023).
+#' Tree Balance Indices: A Comprehensive Survey.
 #' @export
 max_del_width <- function(phy, normalization = "none") {
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

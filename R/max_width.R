@@ -14,6 +14,9 @@
 #' @export
 max_width <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     max_w_stat <- calc_max_width_ltable_cpp(phy)

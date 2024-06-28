@@ -17,6 +17,10 @@
 #' average_leaf_depth(simulated_tree)
 average_leaf_depth <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
+
 
   if (inherits(phy, "phylo")) {
     n <- length(phy$tip.label)

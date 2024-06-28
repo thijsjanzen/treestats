@@ -21,15 +21,10 @@ test_that("usage", {
   }
   focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
-  testthat::expect_error(
-    treestats::mntd(focal_tree),
-    "can only calculate mntd statistic for ultrametric tree")
-
   focal_ltab <- treestats::phylo_to_l(focal_tree)
-  testthat::expect_error(
-    treestats::mntd(focal_ltab),
-    "can only calculate mntd statistic for ultrametric tree")
-
+  a1 <- treestats::mntd(focal_ltab)
+  a2 <- treestats::mntd(focal_tree)
+  testthat::expect_equal(a1, a2)
 })
 
 test_that("wrong_object", {

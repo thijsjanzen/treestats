@@ -4,14 +4,10 @@
 \alias{pigot_rho}
 \title{Pigot's rho}
 \usage{
-pigot_rho(phy, extant_tree = TRUE)
+pigot_rho(phy)
 }
 \arguments{
 \item{phy}{phylo object}
-
-\item{extant_tree}{Pigot's rho is originally only defined for an extant tree,
-however we include functionality to calculate Pigot's rho for a complete
-tree as well.}
 }
 \value{
 rho

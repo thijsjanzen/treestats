@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Phylogenetic Tree Statistics
-Version: 1.0.6
+Version: 1.1.3
 Authors@R: c(person(given = "Thijs",
         family = "Janzen",
         email = "thijsjanzen@gmail.com",
@@ -20,7 +20,7 @@ Description: Collection of phylogenetic tree statistics,
              found in Janzen (2023) <doi:10.1101/2024.01.24.576848>.
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends:
     Rcpp
 LinkingTo: 
@@ -28,15 +28,12 @@ LinkingTo:
     nloptr
 Imports:
     ape,
-    nloptr,
-    RSpectra,
-    Matrix
+    nloptr
 Suggests:
     phyloTop,
     testthat,
     DDD,
     geiger,
-    nodeSub,
     nLTT,
     castor,
     adephylo,
@@ -47,7 +44,12 @@ Suggests:
     RPANDA,
     lintr,
     rmarkdown,
-    knitr
+    knitr,
+    igraph,
+    RSpectra,
+    Matrix,
+    abcrf,
+    pheatmap
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats
 VignetteBuilder: knitr

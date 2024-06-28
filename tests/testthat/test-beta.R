@@ -1,8 +1,7 @@
 context("beta")
 
 test_that("usage", {
-  if (requireNamespace("nodeSub") &&
-      requireNamespace("apTreeshape")) {
+  if (requireNamespace("apTreeshape")) {
     set.seed(42)
     focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
@@ -12,9 +11,7 @@ test_that("usage", {
 
     testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
 
-    brts <- as.vector(ape::branching.times(focal_tree))
-
-    bal_tree <- nodeSub::create_balanced_tree(brts)
+    bal_tree <- treestats::create_fully_balanced_tree(focal_tree)
 
     beta_treestats <- treestats::beta_statistic(bal_tree)
     beta_ref       <- apTreeshape::maxlik.betasplit(bal_tree)
@@ -22,7 +19,7 @@ test_that("usage", {
     testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
 
 
-    unbal_tree <- nodeSub::create_unbalanced_tree(brts)
+    unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
 
     beta_treestats <- treestats::beta_statistic(unbal_tree)
     beta_ref       <- apTreeshape::maxlik.betasplit(unbal_tree)

@@ -40,6 +40,23 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(treestats::max_closeness(focal_tree, weight = TRUE),
                          treestats::max_closeness(ltab,       weight = TRUE))
+
+  if (requireNamespace("igraph")) {
+    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+    df <- as.data.frame(cbind(focal_tree$edge,
+                             weight = focal_tree$edge.length))
+    g <- igraph::graph_from_data_frame(df, directed = FALSE)
+
+    ref <- igraph::closeness(g)
+
+    a1 <- treestats::max_closeness(focal_tree)
+
+    testthat::expect_equal(a1, max(ref), tolerance = 0.01)
+
+    ltab <- treestats::phylo_to_l(focal_tree)
+    a1_2 <- treestats::max_closeness(ltab)
+    testthat::expect_equal(a1_2, max(ref), tolerance = 0.01)
+  }
 })
 
 

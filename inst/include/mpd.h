@@ -53,7 +53,12 @@ class phylo_tree {
  public:
   explicit phylo_tree(const std::vector< int >& tree_edge,
                       const std::vector<double>& edge_length) {
-    int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
+    // int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
+    int root_no = tree_edge[0];
+    for (size_t i = 2; i < tree_edge.size(); i+=2) {
+      if (tree_edge[i] < root_no) root_no = tree_edge[i];
+    }
+
     tree_size = root_no - 1;
 
     tree.resize(tree_edge.size() / 2 - root_no + 2);

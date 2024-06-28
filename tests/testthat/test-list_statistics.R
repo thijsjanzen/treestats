@@ -9,7 +9,10 @@ test_that("usage", {
   testthat::expect_equal(sum(all_names %in% names_all_stats),
                          length(all_names))
 
-  all_stats <- treestats::calc_balance_stats(focal_tree)
+  testthat::expect_equal(length(names_all_stats),
+                         length(all_names))
+
+  all_stats <- treestats::calc_topology_stats(focal_tree)
   names_all_stats <- names(all_stats)
   all_names <- treestats::list_statistics(only_balance_stats = TRUE)
   testthat::expect_equal(sum(all_names %in% names_all_stats),

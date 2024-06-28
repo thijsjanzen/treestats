@@ -10,15 +10,16 @@
 #' Systematic Biology. 21:225-226.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
-#' brts <- branching_times(simulated_tree)
-#' if (requireNamespace("nodeSub")) {
-#'   balanced_tree <- nodeSub::create_balanced_tree(brts)
-#'   unbalanced_tree <- nodeSub::create_unbalanced_tree(brts)
-#'   sackin(balanced_tree)
-#'   sackin(unbalanced_tree) # should be much higher
-#' }
+#' balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
+#' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
+#' sackin(balanced_tree)
+#' sackin(unbalanced_tree) # should be much higher
 sackin <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE)
 
   if (inherits(phy, "matrix")) {
     return(calc_sackin_ltable_cpp(phy, normalization))

@@ -86,7 +86,6 @@ class stat {
     return s;
   }
 
-
   auto collect_depths() {
     std::vector< int > s_values(ltable_.size(), 0);
     s_values[0] = 1;
@@ -177,6 +176,11 @@ class stat {
       dW[i - 1] = widths[i] - widths[i - 1];
     }
     return(*std::max_element(dW.begin(), dW.end()));
+  }
+
+  size_t sum_depth() {
+    std::vector< int > depths = collect_depths();
+    return std::accumulate(depths.begin(), depths.end(), 0.0);
   }
 
  private:

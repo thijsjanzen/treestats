@@ -13,6 +13,10 @@
 var_leaf_depth <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE)
+
   if (inherits(phy, "matrix")) {
     var_leaf_depth_stat <- calc_var_leaf_depth_ltable_cpp(phy)
     if (normalization == "yule" || normalization == TRUE) {
