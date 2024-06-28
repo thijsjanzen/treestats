@@ -34,7 +34,7 @@ from the clootl supertree of birds. These were created for the original
 publication accompanying the treestats paper.
 
 ```{r read_trees}
-focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/new_data/fracced/birds.trees")
+focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/birds.trees")
 ```
 
 We can now calculate all summary statistics for all trees:
