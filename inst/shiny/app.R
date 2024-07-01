@@ -17,9 +17,8 @@ available_stats <- colnames(tree_data)[2:55]
 
 phy_tree <- ape::read.tree("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/phy_tree.txt")
 
-sim_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/sim_stats.txt",
+sim_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/sim_data.txt",
                        header = TRUE)
-
 
 
 
