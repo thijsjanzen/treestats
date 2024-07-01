@@ -1,4 +1,5 @@
 url: https://thijsjanzen.github.io/treestats/
 template:
   bootstrap: 5
+  bootswatch: materia
 
