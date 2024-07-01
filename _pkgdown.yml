@@ -3,6 +3,9 @@ template:
   bootstrap: 5
   bootswatch: flatly
 
+development:
+  mode: devel
+
 navbar:
   title: "treestats"
   left:
