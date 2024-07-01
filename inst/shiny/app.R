@@ -13,14 +13,29 @@ library(nlme)
 
 tree_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/emp_stats.txt",
                         header = TRUE)
-available_stats <- colnames(tree_data)[2:55]
 
-phy_tree <- ape::read.tree("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/phy_tree.txt")
+tree_data$Taxa[tree_data$Taxa == "Vascular_Plants"] <- "Flowering_Plants"
+tt <- tree_data$Taxa
+
+tree_data$Taxa <- factor(tree_data$Taxa,
+                         levels = c("Birds", "Mammals", "Ferns",
+                                    "Flowering_Plants", "Cartaliginous_Fish",
+                                    "Ray_finned_Fish", "Amphibians"))
+
+available_stats <- colnames(tree_data)[2:71]
+
+phy_tree <- ape::read.tree("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/taxon_backbone.tree")
 
 sim_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats/shiny2/data/sim_data.txt",
                        header = TRUE)
 
-
+manual_colors2 <- c( "#CC500A", #birds
+                     "#9F55D6", # mammals
+                     "#D4E995", # ferns
+                     "#145F16", # plants 2
+                     "#6CA8E9", # fish 1
+                     "#3A7DB1", # fish 2
+                     "grey")    # Amphibians
 
 sidebarPanel2 <- function(..., out = NULL, width = 4)
 {
@@ -53,7 +68,7 @@ ui <- fluidPage(
                                            label = "Coloring",
                                            selected = "Taxonomic group",
                                            choices = c("None", "Size", "Taxonomic group")),
-      out = HTML('This Shiny app provides a means to explore the found correlations in <a href =https://doi.org/10.1101/2024.01.24.576848>Janzen 2024</a>. Empirical correlations are based on 215 Empirical trees from <a href = https://doi-org.proxy-ub.rug.nl/10.1111/ele.13382>Condamine et al. 2019</a>. Simulated data shown is a random subset of 500 trees per diversification model, see the original paper for results using a much larger dataset. <br><br>
+      out = HTML('This Shiny app provides a means to explore the found correlations in <a href =https://doi.org/10.1101/2024.01.24.576848>Janzen 2024</a>. Empirical correlations are based on 221 Empirical trees from a variety of sources (see the original paper). Simulated data shown is a random subset of 500 trees per diversification model, see the original paper for results using a much larger dataset. <br><br>
               There are three types of plots available: <br>
                 1) Raw correlations, without correction. <br>
                 2) Residual correlations, corrected for tree size and phylogenetic relatedness. <br>
@@ -122,7 +137,8 @@ server <- function(input, output) {
       p1 <- ggplot(to_plot, aes(x = x, y = y, col = Taxa)) +
         geom_point(size = 2) +
         stat_smooth(method = "lm", col = "#416894", fill = "#416894") +
-        scale_color_brewer(type = "div", palette = 3) +
+      #  scale_color_brewer(type = "div", palette = 3) +
+        scale_color_manual(values = manual_colors2) +
         xlab(input$x_axis) +
         ylab(input$y_axis) +
         theme_classic() +
@@ -143,7 +159,7 @@ server <- function(input, output) {
     x <- unlist(tree_data[which(colnames(tree_data) == input$x_axis)])
     y <- unlist(tree_data[which(colnames(tree_data) == input$y_axis)])
     z <- tree_data$number_of_lineages
-    tt <- tree_data$Taxa
+
 
     sp <- tree_data$Family
     bm <- ape::corBrownian(value = 1, phy = phy_tree, form =~ sp)
@@ -160,24 +176,30 @@ server <- function(input, output) {
     to_plot$y <- as.numeric(to_plot$y)
     to_plot$Size <- as.numeric(to_plot$Size)
 
+    to_plot$Taxa <- factor(to_plot$Taxa,
+                             levels = c("Birds", "Mammals", "Ferns",
+                                        "Flowering_Plants", "Cartaliginous_Fish",
+                                        "Ray_finned_Fish", "Amphibians"))
+
     local_cor <- paste0("Pearson correlation = ", round(cor(xvals, yvals), 2))
 
     if (input$coloring == "Taxonomic group") {
       p1 <- ggplot(to_plot, aes(x = x, y = y, col = as.factor(Taxa))) +
         geom_point(size = 2) +
-        scale_color_brewer(type = "div", palette = 3) +
+        #scale_color_brewer(type = "qual", palette = 2) +
+        scale_color_manual(values = manual_colors2) +
         stat_smooth(method = "lm", col = "#416894", fill = "#416894") +
         xlab(paste("residual:", input$x_axis)) +
         ylab(paste("residual:", input$y_axis)) +
         theme_classic() +
         ggtitle(local_cor) +
         labs(col = "Taxonomic\nGroup") +
-        theme(legend.text = element_text(size=14),
-              legend.title = element_text(size=16),
-              axis.title.x = element_text(size=16),
-              axis.title.y = element_text(size=16),
+        theme(legend.text = element_text(size  = 14),
+              legend.title = element_text(size = 16),
+              axis.title.x = element_text(size = 16),
+              axis.title.y = element_text(size = 16),
               plot.title = element_text(size = 16, face = "bold")) +
-        guides(colour = guide_legend(override.aes = list(size=3)))
+        guides(colour = guide_legend(override.aes = list(size = 3)))
     }
     if (input$coloring == "None") {
       p1 <- ggplot(to_plot, aes(x = x, y = y)) +
@@ -187,10 +209,10 @@ server <- function(input, output) {
         ylab(paste("residual:", input$y_axis)) +
         theme_classic() +
         ggtitle(local_cor) +
-        theme(legend.text = element_text(size=14),
-              legend.title = element_text(size=16),
-              axis.title.x = element_text(size=16),
-              axis.title.y = element_text(size=16),
+        theme(legend.text = element_text(size  = 14),
+              legend.title = element_text(size = 16),
+              axis.title.x = element_text(size = 16),
+              axis.title.y = element_text(size = 16),
               plot.title = element_text(size = 16, face = "bold"))
     }
     if (input$coloring == "Size") {
@@ -202,10 +224,10 @@ server <- function(input, output) {
         ylab(paste("residual:", input$y_axis)) +
         theme_classic() +
         ggtitle(local_cor) +
-        theme(legend.text = element_text(size=14),
-              legend.title = element_text(size=16),
-              axis.title.x = element_text(size=16),
-              axis.title.y = element_text(size=16),
+        theme(legend.text = element_text(size  = 14),
+              legend.title = element_text(size = 16),
+              axis.title.x = element_text(size = 16),
+              axis.title.y = element_text(size = 16),
               plot.title = element_text(size = 16, face = "bold"))
     }
     p1
@@ -232,10 +254,10 @@ server <- function(input, output) {
       labs(col = "Diversification\nModel") +
       theme_classic() +
       ggtitle(local_cor) +
-      theme(legend.text = element_text(size=14),
-            legend.title = element_text(size=16),
-            axis.title.x = element_text(size=16),
-            axis.title.y = element_text(size=16),
+      theme(legend.text = element_text(size  = 14),
+            legend.title = element_text(size = 16),
+            axis.title.x = element_text(size = 16),
+            axis.title.y = element_text(size = 16),
             plot.title = element_text(size = 16, face = "bold")) +
       guides(colour = guide_legend(override.aes = list(size=3)))
   })
