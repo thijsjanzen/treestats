@@ -51,5 +51,5 @@ Suggests:
     abcrf,
     pheatmap
 BugReports: https://github.com/thijsjanzen/treestats/issues
-URL: https://github.com/thijsjanzen/treestats
+URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
