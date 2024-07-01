@@ -51,6 +51,7 @@ ui <- fluidPage(
                                            choices = sort(available_stats)),
                                selectInput(inputId = "coloring",
                                            label = "Coloring",
+                                           selected = "Taxonomic group",
                                            choices = c("None", "Size", "Taxonomic group")),
       out = HTML('This Shiny app provides a means to explore the found correlations in <a href =https://doi.org/10.1101/2024.01.24.576848>Janzen 2024</a>. Empirical correlations are based on 215 Empirical trees from <a href = https://doi-org.proxy-ub.rug.nl/10.1111/ele.13382>Condamine et al. 2019</a>. Simulated data shown is a random subset of 500 trees per diversification model, see the original paper for results using a much larger dataset. <br><br>
               There are three types of plots available: <br>
