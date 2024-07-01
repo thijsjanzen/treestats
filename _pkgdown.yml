@@ -3,6 +3,19 @@ template:
   bootstrap: 5
   bootswatch: quartz
 
+navbar:
+  title: "treestats"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Articles"
+      href: articles/index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+
+
 reference:
   - title: Collection functions
     contents:
