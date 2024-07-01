@@ -1,0 +1,112 @@
+---
+title: 'Example: data'
+author: "Thijs Janzen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{Example: data}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+required <- c("ape", "pheatmap")
+if (!all(unlist(lapply(required,
+                       function(pkg) requireNamespace(pkg, quietly = TRUE)))))
+  knitr::opts_chunk$set(eval = FALSE)
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width = 6)
+knitr::opts_chunk$set(fig.height = 6)
+
+
+```
+
+## Data
+
+The treestats package can rapidly calculate summary statistics on
+phylogenetic trees, and in this vignette, we demonstrate this on
+empirical trees. We will make use of family-level pruned trees stemming
+from the clootl supertree of birds. These were created for the original
+publication accompanying the treestats paper.
+
+```{r read_trees}
+focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/birds.trees")
+```
+
+We can now calculate all summary statistics for all trees:
+
+```{r calc_sum_stats}
+all_stats <- c()
+for (i in 1:length(focal_trees)) {
+  focal_stats <- treestats::calc_all_stats(focal_trees[[i]])
+  all_stats <- rbind(all_stats, focal_stats)
+}
+all_stats <- as.data.frame(all_stats)
+```
+
+We can now, for instance, plot the distribution of family sizes in
+birds:
+
+```{r plot_size}
+hist(all_stats$number_of_lineages)
+```
+
+Furthermore, we can make a heatmap of all correlations:
+
+```{r corr}
+cor.dist <- cor(all_stats)
+diag(cor.dist) <- NA
+heatmap(cor.dist)
+```
+
+This will generate a distorted image: correlations are not corrected for
+tree size. We can study this a bit more in detail:
+
+```{r plot with tree size}
+opar <- par()
+par(mfrow = c(3, 3))
+for (stat in c("area_per_pair", "colless", "eigen_centrality", 
+               "four_prong", "max_betweenness", "max_width",
+               "mntd", "sackin", "wiener")) {
+  if (stat != "number_of_lineages") {
+    x <- all_stats[, colnames(all_stats) == "number_of_lineages"]
+    y <- all_stats[, colnames(all_stats) == stat]
+    plot(y~x, xlab = "Tree size", ylab = stat, pch = 16)
+  }
+}
+par(opar)
+```
+
+To correct for this, we will have to go over the entire correlation
+matrix.
+
+```{r correct_corr}
+
+tree_size <- all_stats[, colnames(all_stats) == "number_of_lineages"]
+
+for (i in 1:nrow(cor.dist)) {
+  for (j in 1:ncol(cor.dist)) {
+    stat1 <- rownames(cor.dist)[i]
+    stat2 <- colnames(cor.dist)[j]
+    x <- all_stats[, colnames(all_stats) == stat1]
+    y <- all_stats[, colnames(all_stats) == stat2]
+    
+    a1 <- lm(x ~ tree_size)
+    a2 <- lm(y ~ tree_size)
+    new_cor <- cor(a1$residuals, a2$residuals)
+    cor.dist[i, j] <- new_cor
+  }
+}
+diag(cor.dist) <- NA
+heatmap(cor.dist)
+```
+
+A nicer way to visualize this is given by the package ppheatmap:
+
+```{r nicer plot}
+if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
+```

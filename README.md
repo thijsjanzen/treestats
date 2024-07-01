@@ -7,12 +7,33 @@
 
 Branch|CodeCov
 ---|---
-master|[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/master/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats)
+main|[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats)
 develop|[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/develop/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats)
 
-## Description
+The treestats R package contains rapid, C++ based, functions to calculate summary statistics on phylogenies, assuming the phylogenies. 
 
-R package that combines functions to calculate summary statistics on phylogenies.
+## Getting started
+### Installation
+To get started, you can either install from CRAN or use the latest version from GitHub:
+```
+install.packages("treestats") # install from CRAN
+
+# use the devtools package to install latest version from GitHub:
+install.packages("devtools")
+devtools::install_github("thijsjanzen/treestats")
+```
+### Basic usage
+Given a tree (for example a simulated tree, as in the code example), you can either access individual statistics, or calculate
+all currently implemented statistics:
+
+```
+focal_tree   <- ape::rphylo(n = 10, birth = 1, death = 0)
+colless_stat <- treestats::colless(focal_tree)
+all_stats    <- treestats::calc_all_stats(focal_tree)
+``` 
+
+
+### List of statistics
 The following summary statistics are included:
 | Statistic              | Information               | Fischer   | Normalization | Assumes Ultrametric tree | Requires binary tree | Reference                        |
 | ---------------------- | ------------------------- | --------- | ------------- | ------------------------ | -------------------- | -------------------------------- |
@@ -95,18 +116,19 @@ functions have been improved as well:
   - DDD::phylo2L
   - DDD::L2phylo
 
-[Figure_S3.pdf](https://github.com/user-attachments/files/16012805/Figure_S3.pdf)
+![Figure_S3](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)
+
 
 
 ## C++ Library
-For the Rcpp improved summary statistics (excluding the RPANDA and DDD functions, 
-as these are only partially captured in Rcpp), tree independent C++ code is provided 
+For the Rcpp improved summary statistics (excluding statistics that rely on the calculation of eigen values,
+as these rely on the Rcpp independent Eigen code), R independent C++ code is provided 
 in the inst/include folder. These can be independently linked by adding the treestats 
 package in the DESCRIPTION in both the LinkingTo and Depends fields. Then, in your package,
 you can also calculate these functions. 
 
 Please note that for all functions, there are two versions available: 
 1) based on input of a phylo object, which is typically one 2-column matrix containing all edges, and a vector containing the edge lengths (depending on which information is required to calculate the statistic).
-2) based on input of an Ltable, which is a 4-column matrix containing information on each species, being 1) birth time, 2) parent species, 3) species label and 4) death time (or -1 if extant).
+2) based on input of an Ltable (Lineage table), which is a 4-column matrix containing information on each species, being 1) birth time, 2) parent species, 3) species label and 4) death time (or -1 if extant).
 
 Ltable input can be useful when summary statistics are required for more complicated simulation models. 

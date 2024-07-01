@@ -8,7 +8,6 @@
 #' Systematics 33:475-505.
 #' @export
 mntd <- function(phy) {
-
   # only defined for extant trees!
   if (inherits(phy, "matrix")) {
     if (sum(phy[, 4] != -1)) {

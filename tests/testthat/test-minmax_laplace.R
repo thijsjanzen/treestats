@@ -70,9 +70,6 @@ test_that("igraph", {
 
     testthat::expect_equal(a1_1$min, min(ref[ref > 1e-5]))
     testthat::expect_equal(a1_1$max, max(ref))
-
-    ref2 <- RSpectra::eigs_sym(lapl_mat, k = nrow(lapl_mat) - 1)$values
-
   }
 })
 
