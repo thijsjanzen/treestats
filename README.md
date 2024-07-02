@@ -85,7 +85,7 @@ The following summary statistics are included:
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
-        <td>Colijn &amp; Gardy, 2014</td>
+        <td>Herrada, 2011</td>
     </tr>
     <tr>
         <td>b1</td>
