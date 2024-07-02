@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Collection of phylogenetic tree statistics, collected throughout the literature. All functions have been written to maximize computation speed. The package includes umbrella functions to calculate all statistics, all balance associated statistics, or all branching time related statistics. Furthermore, the treestats package supports summary statistic calculations on Ltables, provides speed-improved coding of branching times, Ltable conversion and includes algorithms to create intermediately balanced trees. Full description can be found in Janzen (2023) &lt;doi:10.1101/2024.01.24.576848&gt;.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Phylogenetic Tree Statistics • treestats</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Phylogenetic Tree Statistics">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Phylogenetic Tree Statistics">
 <meta property="og:description" content="Collection of phylogenetic tree statistics, collected throughout the literature. All functions have been written to maximize computation speed. The package includes umbrella functions to calculate all statistics, all balance associated statistics, or all branching time related statistics. Furthermore, the treestats package supports summary statistic calculations on Ltables, provides speed-improved coding of branching times, Ltable conversion and includes algorithms to create intermediately balanced trees. Full description can be found in Janzen (2023) &lt;doi:10.1101/2024.01.24.576848&gt;.">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -19,55 +19,60 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+<body data-spy="scroll" data-target="#toc">
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
-    
-    <a class="navbar-brand me-2" href="index.html">treestats</a>
+    <div class="container template-home">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">treestats</a>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.3</span>
+      </span>
+    </div>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.3</small>
-
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto">
-<li class="active nav-item">
-  <a class="nav-link" href="index.html">Home</a>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<li>
+  <a href="index.html">Home</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="articles/index.html">Articles</a>
+<li>
+  <a href="articles/index.html">Articles</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Functions</a>
+<li>
+  <a href="reference/index.html">Functions</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="news/index.html">News</a>
+<li>
+  <a href="news/index.html">News</a>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/thijsjanzen/treestats/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/thijsjanzen/treestats/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-
-    
+<!--/.nav-collapse -->
   </div>
-</nav><div class="container template-home">
-<div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
+<!--/.container -->
+</div>
+<!--/.navbar -->
+
+      
+
+      </header><div class="row">
+  <div class="contents col-md-9">
+<div class="section level1">
 <div class="page-header"><h1 id="treestats">treestats<a class="anchor" aria-label="anchor" href="#treestats"></a>
 </h1></div>
 <p><a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://www.r-pkg.org/badges/version/treestats" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/treestats"></a> <a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/treestats"></a> <a href="https://github.com/thijsjanzen/treestats/actions" class="external-link"><img src="https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></p>
@@ -83,11 +88,11 @@
 <tbody>
 <tr class="odd">
 <td>main</td>
-<td><a href="https://app.codecov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thijsjanzen/treestats/branch/main/graph/badge.svg" alt="codecov.io"></a></td>
+<td><a href="https://app.code%20cov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg" alt="codeco v.io"></a></td>
 </tr>
 <tr class="even">
 <td>develop</td>
-<td><a href="https://app.codecov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thijsjanzen/treestats/branch/develop/graph/badge.svg" alt="codecov.io"></a></td>
+<td><a href="https://app.code%20cov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thijsja%20nzen/treestats/branch/develop/gr%20aph/badge.svg" alt="codecov.i o"></a></td>
 </tr>
 </tbody>
 </table>
@@ -116,7 +121,587 @@
 <div class="section level3">
 <h3 id="list-of-statistics">List of statistics<a class="anchor" aria-label="anchor" href="#list-of-statistics"></a>
 </h3>
-<p>The following summary statistics are included: | Statistic | Information | Fischer | Normalization | Assumes Ultrametric tree | Requires binary tree | Reference | | ———————- | ————————- | ——— | ————- | ———————— | ——————– | ——————————– | | area_per_pair | Topology | Shape | Yule | NO | YES | Lima et al., 2020 | | average_leaf_depth | Topology | Imbalance | Yule | NO | YES | Shao &amp; Sokal, 1990 | | avg_ladder | Topology | Shape | None | NO | YES | Kendall et al., 2018 | | avg_vert_depth | Topology | Imbalance | None | NO | NO | Colijn &amp; Gardy, 2014 | | b1 | Topology | Balance | Tips | NO | NO | Shao &amp; Sokal, 1990 | | b2 | Topology | Balance | Yule | NO | NO | Shao &amp; Sokal, 1990 | | beta | Topology | No index | None | NO | YES | Aldous, 1996 | | blum | Topology | Imbalance | None | NO | YES | Blum &amp; François, 2006 | | cherries | Topology | Shape | Yule | NO | YES | McKenzie et al., 1999 | | colless | Topology | Imbalance | Yule | NO | YES | Colless, 1982 | | colless_corr | Topology | Imbalance | None | NO | YES | Heard, 1992 | | colless_quad | Topology | Imbalance | None | NO | YES | Bartoszek et al., 2021 | | crown_age | Branching times | No index | None | NO | NO | | | diameter | Topology | Shape | None | NO | YES | Chindelevitch et al., 2021 | | double_cherries | Topology | Shape | None | NO | YES | Chindelevitch et al., 2021 | | eigen_centrality | Topology | No index | None | NO | NO | Chindelevitch et al., 2021 | | eigen_centralityW | Topology + branch lengths | No index | None | NO | NO | Chindelevitch et al., 2021 | | ew_colless | Topology | Imbalance | None | NO | YES | Mooers &amp; S. B. Heard, 1997 | | four_prong | Topology | Shape | None | NO | YES | Chindelevitch et al., 2021 | | gamma | Branching times | No index | None | YES | NO | Pybus &amp; Harvey, 2000 | | i_stat | Topology | Imbalance | None | NO | YES | Fusco &amp; Cronk, 1995 | | il_number | Topology | Shape | Tips | NO | NO | Kendall et al., 2018 | | imbalance_steps | Topology | No index | Tips | NO | NO | Janzen &amp; Etienne, 2024 | | j_one | Topology | No index | None | NO | YES | Lemant et al., 2022 | | j_stat | Topology + branch lengths | No index | None | NO | NO | Izsák &amp; Papp, 2000 | | laplace_spectrum_a | Topology + branch lengths | No index | None | YES | NO | Lewitus &amp; Morlon, 2016 | | laplace_spectrum_e | Topology + branch lengths | No index | None | YES | NO | Lewitus &amp; Morlon, 2016 | | laplace_spectrum_g | Topology + branch lengths | No index | None | YES | NO | Lewitus &amp; Morlon, 2016 | | laplace_spectrum_p | Topology + branch lengths | No index | None | YES | NO | Lewitus &amp; Morlon, 2016 | | max_adj | Topology + branch lengths | No index | None | NO | YES | Chindelevitch et al., 2021 | | max_betweenness | Topology | Shape | Tips | NO | YES | Chindelevitch et al., 2021 | | max_closeness | Topology | Shape | Tips | NO | YES | Chindelevitch et al., 2021 | | max_closenessW | Topology + branch lengths | Shape | None | NO | YES | Chindelevitch et al., 2021 | | max_del_width | Topology | Shape | Tips | NO | NO | Colijn &amp; Gardy, 2014 | | max_depth | Topology | Imbalance | Tips | NO | NO | Colijn &amp; Gardy, 2014 | | max_ladder | Topology | Shape | None | NO | YES | Kendall et al., 2018 | | max_laplace | Topology + branch lengths | No index | None | NO | YES | Chindelevitch et al., 2021 | | max_width | Topology | Balance | Tips | NO | NO | Colijn &amp; Gardy, 2014 | | mean_branch_length | Topology + branch lengths | No index | None | NO | NO | Janzen &amp; Etienne, 2017 | | mean_branch_length_ext | Topology + branch lengths | No index | None | NO | NO | Saulnier et al., 2017 | | mean_branch_length_int | Topology + branch lengths | No index | None | NO | NO | Saulnier et al., 2017 | | min_adj | Topology + branch lengths | No index | None | NO | YES | Chindelevitch et al., 2021 | | min_laplace | Topology + branch lengths | No index | None | NO | YES | Chindelevitch et al., 2021 | | mntd | Topology + branch lengths | No index | None | NO | NO | Webb et al., 2002 | | mpd | Topology + branch lengths | No index | Tips | NO | NO | Webb et al., 2002 | | mw_over_md | Topology | Balance | None | NO | NO | Colijn &amp; Gardy, 2014 | | nltt_base | Branching times | No index | None | YES | NO | Janzen et al., 2015 | | number_of_lineages | Topology + branch lengths | No index | None | NO | NO | | | phylogenetic_div | Topology + branch lengths | No index | None | NO | NO | Faith, 1992 | | pigot_rho | Branching times | No index | None | YES | NO | Pigot et al., 2010 | | pitchforks | Topology | Shape | Tips | NO | NO | Kendall et al., 2018 | | psv | Topology + branch lengths | No index | Tips | NO | NO | Helmus et al., 2007 | | rogers | Topology | Imbalance | Tips | NO | YES | Rogers, 1996 | | root_imbalance | Topology | Shape | None | NO | YES | Guyer et al., 1993 | | rquartet | Topology | Balance | Yule | NO | NO | Coronado et al., 2019 | | sackin | Topology | Imbalance | Yule | NO | YES | Sackin, 1972 | | stairs | Topology | Imbalance | None | NO | YES | Norström et al., 2012 | | stairs2 | Topology | Balance | None | NO | YES | Norström et al., 2012 | | symmetry_nodes | Topology | Imbalance | Tips | NO | YES | Kersting &amp; Fischer, 2021 | | tot_coph | Topology | Imbalance | Yule | NO | YES | Mir et al., 2013 | | tot_internal_path | Topology | Imbalance | None | NO | NO | Knuth, 1997 | | tot_path | Topology | Imbalance | None | NO | YES | Colijn &amp; Gardy, 2014 | | tree_height | Branching times | No index | None | NO | NO | | | treeness | Topology + branch lengths | No index | None | NO | NO | Astolfi &amp; Zonta-Sgaramella, 1984 | | var_branch_length | Topology + branch lengths | No index | None | NO | NO | Saulnier et al., 2017 | | var_branch_length_ext | Topology + branch lengths | No index | None | NO | NO | Saulnier et al., 2017 | | var_branch_length_int | Topology + branch lengths | No index | None | NO | NO | Saulnier et al., 2017 | | var_depth | Topology | Imbalance | Yule | NO | NO | Coronado et al., 2020 | | vpd | Topology + branch lengths | No index | None | NO | NO | Webb et al., 2002 | | wiener | Topology + branch lengths | Shape | None | NO | YES | Chindelevitch et al., 2021 |</p>
+<p>The following summary statistics are included:</p>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+</colgroup>
+<thead><tr class="header">
+<th>Statistic</th>
+<th>Information</th>
+<th>Normalization</th>
+<th>Assumes Ultrametric tree</th>
+<th>Requires binary tree</th>
+<th>Reference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>area per_pair</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>YES</td>
+<td>Lima et al., 2020</td>
+</tr>
+<tr class="even">
+<td>average_leaf_depth</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>YES</td>
+<td>Shao &amp; Sokal, 1990</td>
+</tr>
+<tr class="odd">
+<td>avg_ladder</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Kendall et al., 2018</td>
+</tr>
+<tr class="even">
+<td>avg_vert_depth</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Colijn &amp; Gardy, 2014</td>
+</tr>
+<tr class="odd">
+<td>b1</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Shao &amp; Sokal, 1990</td>
+</tr>
+<tr class="even">
+<td>b2</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>NO</td>
+<td>Shao &amp; Sokal, 1990</td>
+</tr>
+<tr class="odd">
+<td>beta</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Aldous, 1996</td>
+</tr>
+<tr class="even">
+<td>blum</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Blum &amp; F rançois, 2006</td>
+</tr>
+<tr class="odd">
+<td>cherries</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>YES</td>
+<td>McKenzie et al., 1999</td>
+</tr>
+<tr class="even">
+<td>colless</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>YES</td>
+<td>Colless, 1982</td>
+</tr>
+<tr class="odd">
+<td>colless_corr</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Heard, 1992</td>
+</tr>
+<tr class="even">
+<td>colless_quad</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>B artoszek et al., 2021</td>
+</tr>
+<tr class="odd">
+<td>crown_age</td>
+<td>B ranching times</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>diameter</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="odd">
+<td>double cherries</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>eigen_centrality</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="odd">
+<td>eigen_centralityW</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>ew_colless</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Mooers &amp; S. B. Heard, 1997</td>
+</tr>
+<tr class="odd">
+<td>four_prong</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>gamma</td>
+<td>B ranching times</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Pybus &amp; Harvey, 2000</td>
+</tr>
+<tr class="odd">
+<td>i_stat</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Fusco &amp; Cronk, 1995</td>
+</tr>
+<tr class="even">
+<td>il_number</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Kendall et al., 2018</td>
+</tr>
+<tr class="odd">
+<td>imbalance_steps</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Janzen &amp; Etienne, 2024</td>
+</tr>
+<tr class="even">
+<td>j_one</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Lemant et al., 2022</td>
+</tr>
+<tr class="odd">
+<td>j_stat</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Izsák &amp; Papp, 2000</td>
+</tr>
+<tr class="even">
+<td>laplace_spectrum_a</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Lewitus &amp; Morlon, 2016</td>
+</tr>
+<tr class="odd">
+<td>laplace_spectrum_e</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Lewitus &amp; Morlon, 2016</td>
+</tr>
+<tr class="even">
+<td>laplace_spectrum_g</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Lewitus &amp; Morlon, 2016</td>
+</tr>
+<tr class="odd">
+<td>laplace_spectrum_p</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Lewitus &amp; Morlon, 2016</td>
+</tr>
+<tr class="even">
+<td>max_adj</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="odd">
+<td>max_betweenness</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>max_closeness</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="odd">
+<td>max_closenessW</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>max_del_width</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Colijn &amp; Gardy, 2014</td>
+</tr>
+<tr class="odd">
+<td>max_depth</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Colijn &amp; Gardy, 2014</td>
+</tr>
+<tr class="even">
+<td>max_ladder</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Kendall et al., 2018</td>
+</tr>
+<tr class="odd">
+<td>max_laplace</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>max_width</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Colijn &amp; Gardy, 2014</td>
+</tr>
+<tr class="odd">
+<td>mean_branch_length</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Janzen &amp; Etienne, 2017</td>
+</tr>
+<tr class="even">
+<td>mean_branch_length_ext</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Saulnier et al., 2017</td>
+</tr>
+<tr class="odd">
+<td>mean_branch_length_int</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Saulnier et al., 2017</td>
+</tr>
+<tr class="even">
+<td>min_adj</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="odd">
+<td>min_laplace</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+<tr class="even">
+<td>mntd</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Webb et al., 2002</td>
+</tr>
+<tr class="odd">
+<td>mpd</td>
+<td>Topology + branch lengths</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Webb et al., 2002</td>
+</tr>
+<tr class="even">
+<td>mw_over_md</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Colijn &amp; Gardy, 2014</td>
+</tr>
+<tr class="odd">
+<td>nltt_base</td>
+<td>B ranching times</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Janzen et al., 2015</td>
+</tr>
+<tr class="even">
+<td>number_of_lineages</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>phylogenetic_div</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Faith, 1992</td>
+</tr>
+<tr class="even">
+<td>pigot_rho</td>
+<td>B ranching times</td>
+<td>None</td>
+<td>YES</td>
+<td>NO</td>
+<td>Pigot et al., 2010</td>
+</tr>
+<tr class="odd">
+<td>pitchforks</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Kendall et al., 2018</td>
+</tr>
+<tr class="even">
+<td>psv</td>
+<td>Topology + branch lengths</td>
+<td>Tips</td>
+<td>NO</td>
+<td>NO</td>
+<td>Helmus et al., 2007</td>
+</tr>
+<tr class="odd">
+<td>rogers</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>YES</td>
+<td>Rogers, 1996</td>
+</tr>
+<tr class="even">
+<td>root_imbalance</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Guyer et al., 1993</td>
+</tr>
+<tr class="odd">
+<td>rquartet</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>NO</td>
+<td>Coronado et al., 2019</td>
+</tr>
+<tr class="even">
+<td>sackin</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>YES</td>
+<td>Sackin, 1972</td>
+</tr>
+<tr class="odd">
+<td>stairs</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Norström et al., 2012</td>
+</tr>
+<tr class="even">
+<td>stairs2</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Norström et al., 2012</td>
+</tr>
+<tr class="odd">
+<td>symmetry_nodes</td>
+<td>Topology</td>
+<td>Tips</td>
+<td>NO</td>
+<td>YES</td>
+<td>Kersting &amp; Fischer, 2021</td>
+</tr>
+<tr class="even">
+<td>tot_coph</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>YES</td>
+<td>Mir et al., 2013</td>
+</tr>
+<tr class="odd">
+<td>tot_internal_path</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Knuth, 1997</td>
+</tr>
+<tr class="even">
+<td>tot_path</td>
+<td>Topology</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Colijn &amp; Gardy, 2014</td>
+</tr>
+<tr class="odd">
+<td>tree_height</td>
+<td>B ranching times</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>treeness</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Astolfi &amp; Z onta-Sga ramella, 1984</td>
+</tr>
+<tr class="odd">
+<td>var_branch_length</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Saulnier et al., 2017</td>
+</tr>
+<tr class="even">
+<td>var_branch_length_ext</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Saulnier et al., 2017</td>
+</tr>
+<tr class="odd">
+<td>var_branch_length_int</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Saulnier et al., 2017</td>
+</tr>
+<tr class="even">
+<td>var_depth</td>
+<td>Topology</td>
+<td>Yule</td>
+<td>NO</td>
+<td>NO</td>
+<td>Coronado et al., 2020</td>
+</tr>
+<tr class="odd">
+<td>vpd</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>NO</td>
+<td>Webb et al., 2002</td>
+</tr>
+<tr class="even">
+<td>wiener</td>
+<td>Topology + branch lengths</td>
+<td>None</td>
+<td>NO</td>
+<td>YES</td>
+<td>Chindelevitch et al., 2021</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section level2">
@@ -135,7 +720,10 @@
 <p>Ltable input can be useful when summary statistics are required for more complicated simulation models.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="links">
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=treestats" class="external-link">View on CRAN</a></li>
@@ -168,22 +756,25 @@
 
 
 
-  </aside>
+  </div>
 </div>
 
 
-    <footer><div class="pkgdown-footer-left">
-  <p>Developed by Thijs Janzen.</p>
+      <footer><div class="copyright">
+  <p></p>
+<p>Developed by Thijs Janzen.</p>
 </div>
 
-<div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+<div class="pkgdown">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
-    </footer>
+      </footer>
 </div>
 
   
+
 
   
 
