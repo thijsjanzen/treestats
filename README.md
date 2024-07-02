@@ -621,8 +621,10 @@ The following summary statistics are included:
 
 For all of these statistics, the package provides Rcpp versions that are
 much, much faster than their R sister functions. Furthermore, some
-additional functions have been improved as well: -
-ape::branching.times - DDD::phylo2L - DDD::L2phylo
+additional functions have been improved as well: 
+* ape::branching.times
+* DDD::phylo2L
+* DDD::L2phylo
 
 ![Figure_S3](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)
 
