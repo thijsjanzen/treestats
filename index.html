@@ -22,7 +22,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="index.html">treestats</a>
 
@@ -68,30 +68,7 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="treestats">treestats<a class="anchor" aria-label="anchor" href="#treestats"></a>
-</h1></div>
-<p><a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://www.r-pkg.org/badges/version/treestats" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/treestats"></a> <a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/treestats"></a> <a href="https://github.com/thijsjanzen/treestats/actions" class="external-link"><img src="https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></p>
-<table class="table">
-<colgroup>
-<col width="50%">
-<col width="50%">
-</colgroup>
-<thead><tr class="header">
-<th>Branch</th>
-<th>CodeCov</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>main</td>
-<td><a href="https://app.code%20cov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg" alt="codeco v.io"></a></td>
-</tr>
-<tr class="even">
-<td>develop</td>
-<td><a href="https://app.code%20cov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thijsja%20nzen/treestats/branch/develop/gr%20aph/badge.svg" alt="codecov.i o"></a></td>
-</tr>
-</tbody>
-</table>
+  <main id="main" class="col-md-9">
 <p>The treestats R package contains rapid, C++ based, functions to calculate summary statistics on phylogenies. For some functions (but not all, see below), the phylogenies are required to be ultrametric and/or binary.</p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -1554,7 +1531,7 @@ Chindelevitch et al., 2021
 <p>Please note that for all functions, there are two versions available: 1) based on input of a phylo object, which is typically one 2-column matrix containing all edges, and a vector containing the edge lengths (depending on which information is required to calculate the statistic). 2) based on input of an Ltable (Lineage table), which is a 4-column matrix containing information on each species, being 1) birth time, 2) parent species, 3) species label and 4) death time (or -1 if extant).</p>
 <p>Ltable input can be useful when summary statistics are required for more complicated simulation models.</p>
 </div>
-</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -1586,7 +1563,16 @@ Chindelevitch et al., 2021
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://www.r-pkg.org/badges/version/treestats" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/treestats"></a></li>
+<li><a href="https://cran.r-project.org/package=treestats" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/treestats"></a></li>
+<li><a href="https://github.com/thijsjanzen/treestats/actions" class="external-link"><img src="https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.code%20cov.io/gh/thijsjanzen/treestats" class="external-link"><img src="https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg" alt="codecov.io"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
