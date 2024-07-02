@@ -11,7 +11,8 @@
 | develop | [![codecov.i o](https://codecov.io/gh/thijsja%20nzen/treestats/branch/develop/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) |
 
 The treestats R package contains rapid, C++ based, functions to
-calculate summary statistics on phylogenies, assuming the phylogenies.
+calculate summary statistics on phylogenies. For some functions (but not all, see below), the
+phylogenies are required to be ultrametric and/or binary.
 
 ## Getting started
 
