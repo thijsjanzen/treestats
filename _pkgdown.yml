@@ -1,6 +1,7 @@
 url: https://thijsjanzen.github.io/treestats/
 template:
-  bootswatch: cosmo
+  bootstrap: 5
+  bootswatch: litera
 
 development:
   mode: devel
