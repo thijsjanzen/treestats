@@ -2,18 +2,3 @@ url: https://thijsjanzen.github.io/treestats/
 template:
   bootstrap: 5
   bootswatch: litera
-
-development:
-  mode: devel
-
-navbar:
-  title: "treestats"
-  left:
-    - text: "Home"
-      href: index.html
-    - text: "Articles"
-      href: articles/index.html
-    - text: "Functions"
-      href: reference/index.html
-    - text: "News"
-      href: news/index.html
