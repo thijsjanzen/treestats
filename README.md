@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
 [![codecov.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) 
 
-<img src="hex_logo.png" align="right" width="180" />
+<img src="https://github.com/thijsjanzen/treestats/blob/f81cea43ca06aa6b1fbe1fef9d3a1488c88d7a12/hex_logo.png" align="right" width="180" />
 
 # Treestats 
 #### Measuring properties of phylogenetic trees
