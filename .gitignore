@@ -6,7 +6,6 @@ src/*.o
 src/*.so
 src/*.dll
 *.tree
-*.png
 *.pdf
 *.txt
 docs/
