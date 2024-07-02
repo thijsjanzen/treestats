@@ -1,14 +1,8 @@
-# treestats
-
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/treestats)](https://cran.r-project.org/package=treestats)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/treestats)](https://cran.r-project.org/package=treestats)
 [![](https://cranlogs.r-pkg.org/badges/treestats)](https://cran.r-project.org/package=treestats)
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
-
-| Branch  | CodeCov                                                                                                                                                |
-|-----------------------------------|-----------------------------------|
-| main    | [![codeco v.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats)    |
-| develop | [![codecov.i o](https://codecov.io/gh/thijsja%20nzen/treestats/branch/develop/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) |
+[![codecov.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) 
 
 The treestats R package contains rapid, C++ based, functions to
 calculate summary statistics on phylogenies. For some functions (but not all, see below), the
