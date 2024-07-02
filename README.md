@@ -8,7 +8,10 @@
 
 <img src="hex_logo.png" align="right" width="180" />
 
-The treestats R package contains rapid, C++ based, functions to
+# Treestats 
+#### Measuring properties of phylogenetic trees
+
+The **treestats** R package contains rapid, C++ based, functions to
 calculate summary statistics on phylogenies. For some functions (but not all, see below), the
 phylogenies are required to be ultrametric and/or binary.
 
