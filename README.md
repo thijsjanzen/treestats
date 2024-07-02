@@ -1,8 +1,12 @@
+
+
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/treestats)](https://cran.r-project.org/package=treestats)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/treestats)](https://cran.r-project.org/package=treestats)
 [![](https://cranlogs.r-pkg.org/badges/treestats)](https://cran.r-project.org/package=treestats)
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
 [![codecov.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) 
+
+<img src="hex_logo.png" align="right" width="180" />
 
 The treestats R package contains rapid, C++ based, functions to
 calculate summary statistics on phylogenies. For some functions (but not all, see below), the
@@ -620,7 +624,7 @@ additional functions have been improved as well:
 * DDD::phylo2L
 * DDD::L2phylo
 
-![Figure_S3](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)
+![](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)
 
 ## C++ Library
 
