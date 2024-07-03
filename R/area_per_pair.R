@@ -16,10 +16,6 @@
 area_per_pair <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
-  check_tree(phy,
-             require_binary = FALSE,
-             require_ultrametric = FALSE)
-
   n <- 0
 
   if (inherits(phy, "matrix")) {

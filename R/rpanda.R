@@ -44,10 +44,6 @@ skew_ness <- function(x) {
 #' @export
 laplacian_spectrum <- function(phy) {
 
-  check_tree(phy,
-             require_binary = FALSE,
-             require_ultrametric = FALSE)
-
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }

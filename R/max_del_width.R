@@ -21,11 +21,6 @@
 #' Tree Balance Indices: A Comprehensive Survey.
 #' @export
 max_del_width <- function(phy, normalization = "none") {
-
-  check_tree(phy,
-             require_binary = FALSE,
-             require_ultrametric = FALSE)
-
   normalization <- check_normalization_key(normalization)
 
   if (inherits(phy, "matrix")) {

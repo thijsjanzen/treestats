@@ -28,9 +28,6 @@ calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
 phylogenetic_diversity <- function(input_obj,
                                    t = 0,
                                    extinct_tol = NULL) {
-  check_tree(input_obj,
-             require_binary = FALSE,
-             require_ultrametric = FALSE)
 
   if (inherits(input_obj, "matrix")) {
 

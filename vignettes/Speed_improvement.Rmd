@@ -13,7 +13,7 @@ vignette: >
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(fig.width = 6)
 knitr::opts_chunk$set(fig.height = 6)
-speed_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/Figure_S3_S4/timings.txt", header = TRUE)
+speed_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/Figure_S3_S4/timings.txt", header = TRUE)  # nolint
 
 ```
 
@@ -35,7 +35,7 @@ steps, calculating statistics for 10 randomly generated Yule trees per
 tree size.
 
 ```{r out.width="100%", echo=FALSE}
-knitr::include_graphics("https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S3.png?raw=true")
+knitr::include_graphics("https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S3.png?raw=true") # nolint
 ```
 
 Results show that for many statistics, treestats code provides a serious speed
@@ -64,7 +64,7 @@ for (x in unique(speed_data$treestatsfunction)) {
 }
 res <- data.frame("treestats_function" = res[, 1],
                      "time" = res[, 2])
-res$time <- as.numeric(res$time) 
+res$time <- as.numeric(res$time)
 
 res2 <- res[order(res$time), ]
 
@@ -72,7 +72,7 @@ res2 <- res[order(res$time), ]
 
 ```{r out.width="100%", echo = FALSE}
 opar <- par(no.readonly = TRUE)
-par(mar = c(8,4,4,4))
+par(mar = c(8, 4, 4, 4))
 barplot(res2$time, names.arg = res2$treestats_function, las = 2,
         cex.names = 0.4, ylab = "Time", log = "y")
 par(opar)
@@ -87,5 +87,5 @@ Nevertheless, improvements are considerable and we hope that these improvements
 in calculation speed allow for a broader application of many summary statistics.
 
 ```{r out.width="100%", echo=FALSE}
-knitr::include_graphics("https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true")
+knitr::include_graphics("https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true") # nolint
 ```
