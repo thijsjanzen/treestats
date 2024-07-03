@@ -5,7 +5,7 @@
 [![codecov.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) 
 
 
-<img src="https://github.com/thijsjanzen/treestats/blob/main/layout/hex_logo.png?raw=true" align="right" width="180" />
+<img src="https://github.com/thijsjanzen/treestats/blob/main/layout/hex_treestats.png?raw=true" align="right" width="180" />
 
 # Treestats 
 #### Measuring properties of phylogenetic trees
