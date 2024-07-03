@@ -44,9 +44,10 @@ eigen_centrality <- function(phy,
     if (requireNamespace("RSpectra")) {
       # using the RSpectra package is much faster than eigen, because it limits
       # the number of eigen values
-      ev <- RSpectra::eigs_sym(adj_matrix, k = 1,
-                             which = "LM",
-                             opts = list(retvec = TRUE))
+      ev <- RSpectra::eigs_sym(adj_matrix,
+                               k = 1,
+                               which = "LM",
+                               opts = list(retvec = TRUE))
     } else {
       ev <- eigen(adj_matrix, symmetric = TRUE)
     }
