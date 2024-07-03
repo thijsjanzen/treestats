@@ -81,5 +81,5 @@ par(opar)
 So how much does the speed improve for large trees?
 
 ```{r out.width="100%", echo=FALSE}
-knitr::include_graphics("https://github.com/thijsjanzen/treestats-scripts/blob/3d30d6de9f8ea3c36c83cea10573a576d3be0232/Figure_S3_S4/Figure_S4.pdf?raw=true")
+knitr::include_graphics("https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true")
 ```
