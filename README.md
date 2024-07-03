@@ -626,7 +626,7 @@ additional functions have been improved as well:
 * DDD::phylo2L
 * DDD::L2phylo
 
-![https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd](https://github.com/thijsjanzen/treestats/blob/c435e0d21b18fc5b30a4e42c583c414b0ccd394c/layout/Figure_S3.png)
+![](https://github.com/thijsjanzen/treestats/blob/cd3649833740eb7cdb23f722a2738cfd23bc4b10/layout/Figure_S3.png)
 
 ## C++ Library
 
