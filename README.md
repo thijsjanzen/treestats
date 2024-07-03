@@ -5,7 +5,7 @@
 [![codecov.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) 
 
 
-<img src="https://github.com/thijsjanzen/treestats/blob/788a46665cfe11bd36ad30a40a530c1484b93ec2/hex_logo.png?raw=true" align="right" width="180" />
+<img src="https://github.com/thijsjanzen/treestats/blob/main/layout/hex_logo.png?raw=true" align="right" width="180" />
 
 # Treestats 
 #### Measuring properties of phylogenetic trees
@@ -626,7 +626,7 @@ additional functions have been improved as well:
 * DDD::phylo2L
 * DDD::L2phylo
 
-![](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)
+[![](https://github.com/thijsjanzen/treestats/assets/19486664/606a33c0-67d2-4b96-876b-81853adf59cd)](https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S3.png?raw=true)
 
 ## C++ Library
 
