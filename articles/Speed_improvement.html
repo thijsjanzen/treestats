@@ -139,7 +139,14 @@ Eigen values is a costly endeavour, and can not be further optimized
 in-house - we use the base Eigen functions for that already.</p>
 <p><img src="Speed_improvement_files/figure-html/unnamed-chunk-2-1.png" width="100%">
 ### Speed improvement So how much does the speed improve for large
-trees?</p>
+trees? We see that for many statistics, the speed improvement is at
+least a factor 10, with for some statistics (mntd, mpd, psv) a speed
+improvement around four orders of magnitude. Currently, for many
+functions speed is limited by preliminary checks if the used tree is
+ultrametric and/or binary (if required), and code converting a phy
+object to C++ objects. Nevertheless, improvements are considerable and
+we hope that these improvements in calculation speed allow for a broader
+application of many summary statistics.</p>
 <p><img src="https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true" width="100%"></p>
 </div>
 </div>
