@@ -85,11 +85,10 @@ To correct for this, we will have to go over the entire correlation
 matrix.
 
 ```{r correct_corr}
-
 tree_size <- all_stats[, colnames(all_stats) == "number_of_lineages"]
 
-for (i in seq_len(cor.dist)) {
-  for (j in seq_len(cor.dist)) {
+for (i in seq_len(nrow(cor.dist))) {
+  for (j in seq_len(ncol(cor.dist))) {
     stat1 <- rownames(cor.dist)[i]
     stat2 <- colnames(cor.dist)[j]
     x <- all_stats[, colnames(all_stats) == stat1]
@@ -107,6 +106,6 @@ heatmap(cor.dist)
 
 A nicer way to visualize this is given by the package ppheatmap:
 
-```{r nicer plot}
+```{r nicer plot, out.width="100%" }
 if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
 ```
