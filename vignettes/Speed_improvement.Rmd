@@ -78,7 +78,13 @@ barplot(res2$time, names.arg = res2$treestats_function, las = 2,
 par(opar)
 ```
 ### Speed improvement
-So how much does the speed improve for large trees?
+So how much does the speed improve for large trees? We see that for many statistics,
+the speed improvement is at least a factor 10, with for some statistics (mntd, mpd,
+psv) a speed improvement around four orders of magnitude. Currently, for many
+functions speed is limited by preliminary checks if the used tree is ultrametric
+and/or binary (if required), and code converting a phy object to C++ objects.
+Nevertheless, improvements are considerable and we hope that these improvements
+in calculation speed allow for a broader application of many summary statistics.
 
 ```{r out.width="100%", echo=FALSE}
 knitr::include_graphics("https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true")
