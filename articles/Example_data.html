@@ -78,7 +78,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2024-07-03</h4>
+            <h4 data-toc-skip class="date">2024-07-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/HEAD/vignettes/Example_data.Rmd" class="external-link"><code>vignettes/Example_data.Rmd</code></a></small>
       <div class="d-none name"><code>Example_data.Rmd</code></div>
@@ -103,24 +103,23 @@ publication accompanying the treestats paper.</p>
 <span>  <span class="va">focal_stats</span> <span class="op">&lt;-</span> <span class="fu">treestats</span><span class="fu">::</span><span class="fu"><a href="../reference/calc_all_stats.html">calc_all_stats</a></span><span class="op">(</span><span class="va">focal_trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span>  <span class="va">all_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">all_stats</span>, <span class="va">focal_stats</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Loading required namespace: Matrix</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required namespace: RSpectra</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">)</span></span></code></pre></div>
 <p>We can now, for instance, plot the distribution of family sizes in
 birds:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">$</span><span class="va">number_of_lineages</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Example_data_files/figure-html/plot_size-1.png" width="576"></p>
 <p>Furthermore, we can make a heatmap of all correlations:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cor.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Example_data_files/figure-html/corr-1.png" width="576"></p>
 <p>This will generate a distorted image: correlations are not corrected
 for tree size. We can study this a bit more in detail:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">stat</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"area_per_pair"</span>, <span class="st">"colless"</span>, <span class="st">"eigen_centrality"</span>,</span>
@@ -133,7 +132,7 @@ for tree size. We can study this a bit more in detail:</p>
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><img src="Example_data_files/figure-html/plot%20with%20tree%20size-1.png" width="576"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in par(opar): graphical parameter "cin" cannot be set</span></span></code></pre>
 <pre><code><span><span class="co">## Warning in par(opar): graphical parameter "cra" cannot be set</span></span></code></pre>
@@ -143,7 +142,7 @@ for tree size. We can study this a bit more in detail:</p>
 <pre><code><span><span class="co">## Warning in par(opar): graphical parameter "page" cannot be set</span></span></code></pre>
 <p>To correct for this, we will have to go over the entire correlation
 matrix.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_size</span> <span class="op">&lt;-</span> <span class="va">all_stats</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">)</span> <span class="op">==</span> <span class="st">"number_of_lineages"</span><span class="op">]</span></span>
 <span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -163,7 +162,7 @@ matrix.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Example_data_files/figure-html/correct_corr-1.png" width="576"></p>
 <p>A nicer way to visualize this is given by the package ppheatmap:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pheatmap"</span><span class="op">)</span><span class="op">)</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Example_data_files/figure-html/nicer%20plot-1.png" width="100%"></p>
 </div>

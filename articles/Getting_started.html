@@ -78,7 +78,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2024-07-03</h4>
+            <h4 data-toc-skip class="date">2024-07-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/HEAD/vignettes/Getting_started.Rmd" class="external-link"><code>vignettes/Getting_started.Rmd</code></a></small>
       <div class="d-none name"><code>Getting_started.Rmd</code></div>
@@ -144,11 +144,10 @@ For this, several functions have been set up aptly. Firstly, the
 function <code>calc_all_stats</code> will calculate all statistics:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_all_stats.html">calc_all_stats</a></span><span class="op">(</span><span class="va">phy</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Loading required namespace: Matrix</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required namespace: RSpectra</span></span></code></pre>
 <p>Similarly, we can also blanket apply all topology associated summary
 statistics:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">balance_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_topology_stats.html">calc_topology_stats</a></span><span class="op">(</span><span class="va">phy</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">balance_stats</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      area_per_pair average_leaf_depth         avg_ladder     avg_vert_depth </span></span>
