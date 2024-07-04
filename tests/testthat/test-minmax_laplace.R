@@ -51,6 +51,17 @@ test_that("usage", {
 
   testthat::expect_equal(a2_1$min, min(ref[ref > 0]))
   testthat::expect_equal(a2_1$max, max(ref), tolerance = 0.001)
+
+  # test rspectra use
+  ref <- treestats::minmax_laplace(focal_tree,
+                                   use_rspectra = FALSE)
+
+  a2 <- treestats::minmax_laplace(focal_tree,
+                                  use_rspectra = TRUE)
+  testthat::expect_equal(ref$min, a2$min)
+  testthat::expect_equal(ref$max, a2$max)
+
+
 })
 
 test_that("igraph", {

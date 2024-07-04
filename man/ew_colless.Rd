@@ -2,8 +2,7 @@
 % Please edit documentation in R/colless.R
 \name{ew_colless}
 \alias{ew_colless}
-\title{Fast function using C++ to calculate the equal weights Colless index of
-(im)balance.}
+\title{Equal weights Colless index of (im)balance.}
 \usage{
 ew_colless(phy)
 }
