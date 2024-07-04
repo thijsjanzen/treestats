@@ -51,7 +51,7 @@ test_data <- as.data.frame(test_data)
 ```
 Given the training data, we can create our random forest:
 ```{r abcrf_simple}
-forest <- regAbcrf(birth~., test_data, ntree = 100)
+forest <- regAbcrf(birth ~ ., test_data, ntree = 100)
 ```
 With our random forest set up, let's put it to the test on some other Yule tree:
 ```{r test_simple}
@@ -87,7 +87,8 @@ new_test_data <- cbind(test_data, 1)
 for (r in 1:num_points) {
   b <- runif(1)
   focal_tree <- DDD::dd_sim(pars = c(b, 0, 130), age = 26.5)$tes
-  while (length(focal_tree$tip.label) < 4) # too small trees will yield NA values
+  # too small trees will yield NA values
+  while (length(focal_tree$tip.label) < 4)
     focal_tree <- DDD::dd_sim(pars = c(b, 0, 130), age = 26.5)$tes
   focal_stats <- treestats::calc_all_stats(focal_tree)
   new_test_data <- rbind(new_test_data, c(b, focal_stats, 2))
@@ -112,7 +113,8 @@ for (i in 1:5) {
 
 for (i in 1:5) {
   focal_tree <- DDD::dd_sim(pars = c(0.5, 0, 130), age = 26.5)$tes
-  while (length(focal_tree$tip.label) < 4) # too small trees will yield NA values
+  # too small trees will yield NA values
+  while (length(focal_tree$tip.label) < 4)
     focal_tree <- DDD::dd_sim(pars = c(0.5, 0, 130), age = 26.5)$tes
   to_test <- rbind(to_test, treestats::calc_all_stats(focal_tree))
 }

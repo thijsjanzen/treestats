@@ -1,0 +1,6 @@
+url: https://thijsjanzen.github.io/treestats/
+template:
+  bootstrap: 5
+  bootswatch: sandstone
+  bslib:
+    pkgdown-nav-height: 100px

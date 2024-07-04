@@ -2,7 +2,7 @@
 % Please edit documentation in R/var_pair_dist.R
 \name{var_pair_dist}
 \alias{var_pair_dist}
-\title{Fast function using C++ to calculate the variance of all pairwise distances.}
+\title{Variance of all pairwise distances.}
 \usage{
 var_pair_dist(phy)
 }

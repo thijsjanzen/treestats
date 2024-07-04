@@ -10,3 +10,6 @@
 
 ^articles$
 ^docs$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github$

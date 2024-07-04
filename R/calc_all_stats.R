@@ -135,9 +135,10 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$laplace_spectrum_g  <- NA
   }
 
-  temp_stats <- try_stat(phylo, treestats::minmax_laplace)
+  temp_stats <- try_stat(phylo,
+                      function(x) {return(treestats::minmax_laplace(x, TRUE))})
 
-  if (length(temp_stats) == 3) {
+  if (length(temp_stats) >= 2) {
     stats$min_laplace <- temp_stats$min
     stats$max_laplace <- temp_stats$max
   } else {
@@ -145,17 +146,16 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$max_laplace <- NA
   }
 
-  temp_stats <- try_stat(phylo, treestats::minmax_adj)
+  temp_stats <- try_stat(phylo,
+                         function(x) {return(treestats::minmax_adj(x, TRUE))})
 
-  if (length(temp_stats) == 3) {
+  if (length(temp_stats) >= 2) {
     stats$min_adj <- temp_stats$min
     stats$max_adj <- temp_stats$max
   } else {
     stats$min_adj <- NA
     stats$max_adj <- NA
   }
-
-
 
   stats$imbalance_steps  <-
     treestats::imbalance_steps(phylo,

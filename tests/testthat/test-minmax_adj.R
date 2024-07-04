@@ -8,7 +8,7 @@ test_that("usage", {
     a1_1 <- treestats::minmax_adj(focal_tree)
 
     df <- as.data.frame(cbind(focal_tree$edge,
-                             weight = focal_tree$edge.length))
+                              weight = focal_tree$edge.length))
     g <- igraph::graph_from_data_frame(df, directed = FALSE)
 
     adj_mat <- igraph::as_adjacency_matrix(g, attr = "weight", sparse = FALSE)
@@ -22,6 +22,15 @@ test_that("usage", {
     a1_2 <- treestats::minmax_adj(ltab)
     testthat::expect_equal(a1_1$values, a1_2$values)
   }
+
+  # test rspectra use
+  ref <- treestats::minmax_adj(focal_tree,
+                               use_rspectra = FALSE)
+
+  a2 <- treestats::minmax_adj(focal_tree,
+                              use_rspectra = TRUE)
+  testthat::expect_equal(ref$min, a2$min)
+  testthat::expect_equal(ref$max, a2$max)
 })
 
 test_that("wrong_object", {

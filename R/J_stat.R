@@ -10,16 +10,10 @@
 #' Ecological Modelling 130.1-3 (2000): 151-156.
 #' @export
 entropy_j <- function(phy) {
-
-  check_tree(phy,
-             require_binary = FALSE,
-             require_ultrametric = FALSE)
-
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-
     return(calc_J_cpp(as.vector(t(phy$edge)),
                       phy$edge.length))
   }

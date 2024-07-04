@@ -34,14 +34,14 @@ from the clootl supertree of birds. These were created for the original
 publication accompanying the treestats paper.
 
 ```{r read_trees}
-focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/birds.trees")
+focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/birds.trees")  # nolint
 ```
 
 We can now calculate all summary statistics for all trees:
 
 ```{r calc_sum_stats}
 all_stats <- c()
-for (i in 1:length(focal_trees)) {
+for (i in seq_along(focal_trees)) {
   focal_stats <- treestats::calc_all_stats(focal_trees[[i]])
   all_stats <- rbind(all_stats, focal_stats)
 }
@@ -69,13 +69,13 @@ tree size. We can study this a bit more in detail:
 ```{r plot with tree size}
 opar <- par()
 par(mfrow = c(3, 3))
-for (stat in c("area_per_pair", "colless", "eigen_centrality", 
+for (stat in c("area_per_pair", "colless", "eigen_centrality",
                "four_prong", "max_betweenness", "max_width",
                "mntd", "sackin", "wiener")) {
   if (stat != "number_of_lineages") {
     x <- all_stats[, colnames(all_stats) == "number_of_lineages"]
     y <- all_stats[, colnames(all_stats) == stat]
-    plot(y~x, xlab = "Tree size", ylab = stat, pch = 16)
+    plot(y ~ x, xlab = "Tree size", ylab = stat, pch = 16)
   }
 }
 par(opar)
@@ -85,16 +85,15 @@ To correct for this, we will have to go over the entire correlation
 matrix.
 
 ```{r correct_corr}
-
 tree_size <- all_stats[, colnames(all_stats) == "number_of_lineages"]
 
-for (i in 1:nrow(cor.dist)) {
-  for (j in 1:ncol(cor.dist)) {
+for (i in seq_len(nrow(cor.dist))) {
+  for (j in seq_len(ncol(cor.dist))) {
     stat1 <- rownames(cor.dist)[i]
     stat2 <- colnames(cor.dist)[j]
     x <- all_stats[, colnames(all_stats) == stat1]
     y <- all_stats[, colnames(all_stats) == stat2]
-    
+
     a1 <- lm(x ~ tree_size)
     a2 <- lm(y ~ tree_size)
     new_cor <- cor(a1$residuals, a2$residuals)
@@ -107,6 +106,6 @@ heatmap(cor.dist)
 
 A nicer way to visualize this is given by the package ppheatmap:
 
-```{r nicer plot}
+```{r nicer plot, out.width="100%" }
 if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
 ```

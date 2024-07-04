@@ -4,10 +4,14 @@
 \alias{minmax_adj}
 \title{Adjancency Matrix properties}
 \usage{
-minmax_adj(phy)
+minmax_adj(phy, use_rspectra = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{use_rspectra}{boolean to indicate whether the helping package RSpectra
+should be used, in which case only the minimum and maximum values are
+returned}
 }
 \value{
 List with the minimum and maximum eigenvalues
@@ -20,6 +24,10 @@ connections between nodes (and betweens nodes and tips). Entries in the
 adjacency matrix are weighted by branch length. Then, using the adjacency
 matrix, we calculate the spectral properties of the matrix, e.g. the
 minimum and maximum eigenvalues of the matrix.
+When the R package RSpectra is available, a faster calculation can be used,
+which does not calculate all eigenvalues, but only the maximum and minimum.
+As such, when using this option, the vector of all eigenvalues is not
+returned
 }
 \references{
 Chindelevitch, Leonid, et al. "Network science inspires novel

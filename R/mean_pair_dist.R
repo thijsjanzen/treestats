@@ -9,6 +9,7 @@
 #' @references  Webb, C., D. Ackerly, M. McPeek, and M. Donoghue. 2002.
 #' Phylogenies and community ecology. Annual Review of Ecology and
 #' Systematics 33:475-505.
+#'
 #' Tsirogiannis, Constantinos, Brody Sandel, and Dimitris Cheliotis.
 #' "Efficient computation of popular phylogenetic tree measures." Algorithms in
 #' Bioinformatics: 12th International Workshop, WABI 2012, Ljubljana, Slovenia,
