@@ -1,3 +1,7 @@
+# Version 1.70.3
+
+Version numbering has improved to include the number of statistics availabe.
+
 # Version 1.1.3
 
 -   Reduced dependencies, Matrix and RSpectra are no longer required (but availability will improve speed!)
