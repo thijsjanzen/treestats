@@ -1,3 +1,6 @@
+# Version 1.70.4
+Removed C++20 dependency
+
 # Version 1.70.3
 
 Version numbering has improved to include the number of statistics availabe.
