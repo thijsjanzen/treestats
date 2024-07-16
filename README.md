@@ -2,7 +2,7 @@
 [![](https://cranlogs.r-pkg.org/badges/grand-total/treestats)](https://cran.r-project.org/package=treestats)
 [![](https://cranlogs.r-pkg.org/badges/treestats)](https://cran.r-project.org/package=treestats)
 [![R-CMD-check](https://github.com/thijsjanzen/treestats/workflows/R-CMD-check/badge.svg)](https://github.com/thijsjanzen/treestats/actions)
-[![codecov.io](https://codecov.io/gh/thij%20sjanzen/treestats/branch/main/gr%20aph/badge.svg)](https://app.code%20cov.io/gh/thijsjanzen/treestats) 
+[![codecov.io](https://codecov.io/gh/thijsjanzen/treestats/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thijsjanzen/treestats) 
 
 
 <img src="https://github.com/thijsjanzen/treestats/blob/main/layout/hex_treestats.png?raw=true" align="right" width="180" />
