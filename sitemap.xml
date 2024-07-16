@@ -1,264 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/404.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/articles/Example_abc.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/articles/Example_data.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/articles/Getting_started.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/articles/Speed_improvement.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/index.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/ILnumber.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/area_per_pair.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/average_leaf_depth.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/avg_ladder.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/avg_vert_depth.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/b1.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/b2.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/beta_statistic.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/blum.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/branching_times.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/calc_all_stats.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/calc_brts_stats.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/calc_topology_stats.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/cherries.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/colless.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/colless_corr.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/colless_quad.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/create_fully_balanced_tree.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/create_fully_unbalanced_tree.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/crown_age.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/diameter.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/double_cherries.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/eigen_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/entropy_j.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/ew_colless.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/four_prong.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/gamma_statistic.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/imbalance_steps.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/j_one.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/l_to_phylo.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/laplacian_spectrum.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/list_statistics.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/ltable_to_newick.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/make_unbalanced_tree.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/max_betweenness.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/max_closeness.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/max_del_width.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/max_depth.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/max_ladder.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/max_width.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mean_branch_length.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mean_branch_length_ext.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mean_branch_length_int.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mean_i.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mean_pair_dist.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/minmax_adj.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/minmax_laplace.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mntd.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/mw_over_md.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/nLTT.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/nLTT_base.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/number_of_lineages.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/phylo_to_l.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/phylogenetic_diversity.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/pigot_rho.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/pitchforks.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/psv.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/rebase_ltable.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/rogers.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/root_imbalance.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/rquartet.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/sackin.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/stairs.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/stairs2.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/sym_nodes.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/tot_coph.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/tot_internal_path.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/tot_path_length.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/tree_height.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/treeness.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/treestats-package.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/var_branch_length.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/var_branch_length_ext.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/var_branch_length_int.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/var_leaf_depth.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/var_pair_dist.html</loc>
-  </url>
-  <url>
-    <loc>https://thijsjanzen.github.io/treestats/reference/wiener.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://thijsjanzen.github.io/treestats/404.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/articles/Example_abc.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/articles/Example_data.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/articles/Getting_started.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/articles/Speed_improvement.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/articles/index.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/authors.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/index.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/news/index.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/ILnumber.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/area_per_pair.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/average_leaf_depth.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/avg_ladder.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/avg_vert_depth.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/b1.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/b2.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/beta_statistic.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/blum.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/branching_times.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/calc_all_stats.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/calc_brts_stats.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/calc_topology_stats.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/cherries.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/colless.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/colless_corr.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/colless_quad.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/create_fully_balanced_tree.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/create_fully_unbalanced_tree.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/crown_age.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/diameter.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/double_cherries.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/eigen_centrality.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/entropy_j.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/ew_colless.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/four_prong.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/gamma_statistic.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/imbalance_steps.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/index.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/j_one.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/l_to_phylo.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/laplacian_spectrum.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/list_statistics.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/ltable_to_newick.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/make_unbalanced_tree.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/max_betweenness.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/max_closeness.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/max_del_width.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/max_depth.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/max_ladder.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/max_width.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mean_branch_length.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mean_branch_length_ext.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mean_branch_length_int.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mean_i.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mean_pair_dist.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/minmax_adj.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/minmax_laplace.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mntd.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/mw_over_md.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/nLTT.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/nLTT_base.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/number_of_lineages.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/phylo_to_l.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/phylogenetic_diversity.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/pigot_rho.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/pitchforks.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/psv.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/rebase_ltable.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/rogers.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/root_imbalance.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/rquartet.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/sackin.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/stairs.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/stairs2.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/sym_nodes.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/tot_coph.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/tot_internal_path.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/tot_path_length.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/tree_height.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/treeness.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/treestats-package.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/var_branch_length.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/var_branch_length_ext.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/var_branch_length_int.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/var_leaf_depth.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/var_pair_dist.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/reference/wiener.html</loc></url>
 </urlset>
+
