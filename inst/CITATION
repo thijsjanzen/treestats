@@ -4,7 +4,6 @@ bibentry(bibtype = "Article",
          volume = 200,
          pages = 108168,
          year = 2024,
-         doi = https://doi.org/10.1016/j.ympev.2024.108168,
-         author = {Thijs Janzen and Rampal S. Etienne},
+         journal = Molecular Phylogenetics and Evolution,
          header = "To cite treestats in a publication please use:",
          textVersion = "Janzen, T and Etienne, R.S. (2024) Phylogenetic tree statistics: a systematic overview using the new R package 'treestats'. Molecular Phylogenetics and Evolution, 200, 108168", footer = "As treestats is continually evolving you may also want to cite its version number (found with 'library(help = treestats)' or 'packageVersion(\"treestats\")').")

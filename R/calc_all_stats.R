@@ -136,7 +136,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   }
 
   temp_stats <- try_stat(phylo,
-                      function(x) {return(treestats::minmax_laplace(x, TRUE))})
+                      function(x) {
+                        return(treestats::minmax_laplace(x, TRUE))
+                      })
 
   if (length(temp_stats) >= 2) {
     stats$min_laplace <- temp_stats$min
@@ -147,7 +149,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   }
 
   temp_stats <- try_stat(phylo,
-                         function(x) {return(treestats::minmax_adj(x, TRUE))})
+                         function(x) {
+                           return(treestats::minmax_adj(x, TRUE))
+                          })
 
   if (length(temp_stats) >= 2) {
     stats$min_adj <- temp_stats$min
