@@ -38,7 +38,7 @@ check_tree <- function(phy,
       }
     }
     if (require_ultrametric) {
-      valid <- ape::is.ultrametric(phy, tol = 0.01, option = 1)
+      valid <- ape::is.ultrametric(phy, tol = 1e-7, option = 1)
 
       if (!valid) {
         stop("Tree is not ultrametric, statistic not applicable")
