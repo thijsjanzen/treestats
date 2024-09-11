@@ -25,11 +25,12 @@ gamma_statistic <- function(phy) {
 
   if (inherits(phy, "phylo")) {
 
-    if (length(phy$tip.label) < 100) {
-      return(calc_gamma_cpp(phy))
-    } else {
-      return(calc_gamma_cpp2(as.vector(t(phy$edge)), phy$edge.length))
-    }
+    # if (length(phy$tip.label) < 100) {
+    #  return(calc_gamma_cpp(phy))
+    # } else {
+    #   return(calc_gamma_cpp2(as.vector(t(phy$edge)), phy$edge.length))
+    # }
+    return(calc_gamma_cpp(phy))
   }
   if (inherits(phy, "matrix")) {
     return(calc_gamma_ltable_cpp(phy))
