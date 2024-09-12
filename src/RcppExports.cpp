@@ -153,12 +153,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_gamma_cpp2
-double calc_gamma_cpp2(const std::vector<int>& edge, const std::vector<double>& el);
+double calc_gamma_cpp2(const std::vector<size_t>& edge, const std::vector<double>& el);
 RcppExport SEXP _treestats_calc_gamma_cpp2(SEXP edgeSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<size_t>& >::type edge(edgeSEXP);
     Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_gamma_cpp2(edge, el));
     return rcpp_result_gen;

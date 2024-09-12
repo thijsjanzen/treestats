@@ -142,7 +142,7 @@ double calc_gamma_cpp(const Rcpp::List& phy) {
 }
 
 // [[Rcpp::export]]
-double calc_gamma_cpp2(const std::vector<int>& edge,
+double calc_gamma_cpp2(const std::vector<size_t>& edge,
                        const std::vector<double>& el) {
   return calc_gamma2(edge, el);
 }
