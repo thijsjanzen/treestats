@@ -50,7 +50,7 @@ Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,
   Rcpp::NumericMatrix out_mat(max_num, max_num);
 
   if (use_br_len) {
-    for (int i = 0; i < parent_list.size(); i += 2) {
+    for (size_t i = 0; i < parent_list.size(); i += 2) {
       auto x = parent_list[i] - 1;
       auto y = parent_list[i + 1] - 1;
       out_mat(x, y) = out_mat(y, x) = br_len[i / 2];

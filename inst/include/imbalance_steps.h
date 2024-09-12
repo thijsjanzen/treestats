@@ -136,7 +136,7 @@ ltable swap_deepest(const ltable& ltab, int* main_attractor, bool* stop) {
                   std::max_element(depths.begin(), depths.end()));
 
   *main_attractor = 0;
-  int focal_index = 0;
+  size_t focal_index = 0;
   for (focal_index = 0; focal_index < ltab.size(); ++focal_index) {
     if (std::abs(ltab[focal_index][2]) == max_depth_lineage) {
       *main_attractor = ltab[focal_index][2];
