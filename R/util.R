@@ -18,7 +18,10 @@ check_binary <- function(phy) {
   ref <- c(rep.int(1L, n), rep.int(3L, m))
   ## can use identical() as long as tabulate() returns integers
   if (ape::is.rooted(phy)) ref[n + 1L] <- 2L
-  identical(dgr, ref)
+  a1 <- identical(dgr, ref)
+  # check that the root node is indeed binary
+  a2 <- dgr[n + 1L] == 2
+  return(a1 && a2)
 }
 
 #' @keywords internal
