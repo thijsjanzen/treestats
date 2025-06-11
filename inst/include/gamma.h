@@ -32,9 +32,8 @@ double calc_gamma(std::vector<double> brts_) {
   double double_sum = 0.0;
   auto max_i = n - 1;
   for (size_t i = 1; i < max_i; ++i) {
-    if (i - 1 < 0) throw "gamma: out of range, i -1 < 0";
+    if (i - 1 < 0) throw "gamma: out of range, i-1 < 0";
     if (i >= brts_.size()) throw "gamma: out of range, i >= brts_.size()";
-
 
     total += (i + 1) * (brts_[i] - brts_[i - 1]);
 

@@ -24,10 +24,13 @@ check_binary <- function(phy) {
 #' @keywords internal
 check_tree <- function(phy,
                        require_binary = FALSE,
-                       require_ultrametric = FALSE) {
+                       require_ultrametric = FALSE,
+                       require_rooted = FALSE) {
 
   # early exit
-  if (!require_binary && !require_ultrametric) return()
+  if (!require_binary &&
+      !require_ultrametric &&
+      !require_rooted) return()
 
 
   if (inherits(phy, "phylo")) {
@@ -44,6 +47,15 @@ check_tree <- function(phy,
         stop("Tree is not ultrametric, statistic not applicable")
       }
     }
+
+    if (require_rooted) {
+      valid <- ape::is.rooted(phy)
+
+      if (!valid) {
+        stop("Tree is not rooted, statistic not applicable")
+      }
+    }
+
   }
   if (inherits(phy, "matrix")) {
     if (require_ultrametric) {
