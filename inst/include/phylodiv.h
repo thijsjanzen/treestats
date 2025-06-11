@@ -99,7 +99,7 @@ std::vector< branch > create_branch_set(const phylo& phy,
   for (size_t i = 0; i < phy.edge.size(); ++i) {
     size_t parent_label = phy.edge[i][0];
 
-    double start_date = 0.f;
+    double start_date = 0.0;
     if (parent_label != crown) {
       start_date = get_start_date(branchset, parent_label);
     }

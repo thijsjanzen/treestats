@@ -142,7 +142,7 @@ class stat {
     for (const auto& i : depths) {
       var_depth += (i - average_depth) * (i - average_depth);
     }
-    var_depth *= 1.0 / (depths.size() - 1);
+    var_depth *= inv_tree_size;
     return var_depth;
   }
 

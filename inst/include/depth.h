@@ -89,14 +89,14 @@ class width_tree {
       average_depth += tree[i].depth;
     }
 
-    average_depth *= 1.0 / (n);
+    average_depth *= 1.0 / n;
 
     double var_depth = 0.0;
     for (size_t i = 1; i < root_no; ++i) {
       var_depth += (tree[i].depth - average_depth) *
         (tree[i].depth - average_depth);
     }
-    var_depth *= 1.0 / (n - 1);
+    var_depth *= 1.0 / n;
     return var_depth;
   }
 
