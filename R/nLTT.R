@@ -57,6 +57,12 @@ nLTT <- function(phy, # nolint
 #' @return number of lineages
 #' @export
 nLTT_base <- function(phy) {  # nolint
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = TRUE,
+             require_rooted = TRUE)
+
   empty_tree <- ape::read.tree(text = "(1:4,2:4):0;")
   return(nLTT(phy, empty_tree))
 }

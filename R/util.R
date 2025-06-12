@@ -35,7 +35,7 @@ check_tree <- function(phy,
 
   if (inherits(phy, "phylo")) {
     if (require_binary) {
-      valid <- ape::is.binary(phy)
+      valid <- check_binary(phy)
       if (!valid) {
         stop("Tree is non-binary, statistic not applicable")
       }

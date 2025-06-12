@@ -25,9 +25,7 @@ psv <- function(phy, normalization = "none") {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-
-    psv_stat <- calc_psv_cpp(as.vector(t(phy$edge)),
-                                       phy$edge.length)
+    psv_stat <- treestats::mean_pair_dist(phy) * 0.5
 
     if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$tip.label)

@@ -73,17 +73,16 @@ inline void add_entry(std::vector<entry>& cladewise_result,
 inline void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
                                      std::vector<double>* edge_length) {
 
-
   if ((*edge).size() != (*edge_length).size()) {
     throw std::runtime_error("size mismatch");
   }
 
   std::vector<entry> everything((*edge).size());
-  int root_no = 1e6;
+ // int root_no = 1e6;
   for (size_t i = 0; i < (*edge).size(); ++i) {
     everything[i].bl = (*edge_length)[i];
     everything[i].ed = (*edge)[i];
-    if (everything[i].ed[0] < root_no) root_no = everything[i].ed[0];
+  //  if (everything[i].ed[0] < root_no) root_no = everything[i].ed[0];
   }
 
   std::sort(everything.begin(), everything.end(),
@@ -91,18 +90,18 @@ inline void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
             {return a.ed[0] < b.ed[0];});
 
   // let's order clade wise
-  std::vector<entry> cladewise_result;
+ /* std::vector<entry> cladewise_result;
   std::vector<bool> added(everything.size(), false);
   for (size_t i = 0; i < everything.size(); i++) {
     auto id = everything[i].ed[0];
     add_entry(cladewise_result, added, everything, id, i);
-  }
+  }*/
 
 
   // now place back
-  for (size_t i = 0; i < cladewise_result.size(); ++i) {
-    (*edge)[i] = cladewise_result[i].ed;
-    (*edge_length)[i] = cladewise_result[i].bl;
+  for (size_t i = 0; i < everything.size(); ++i) {
+    (*edge)[i] = everything[i].ed;
+    (*edge_length)[i] = everything[i].bl;
   }
   return;
 }

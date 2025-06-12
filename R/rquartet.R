@@ -12,6 +12,11 @@
 #' Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w.
 #' @export
 rquartet <- function(phy, normalization = "none") {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   normalization <- check_normalization_key(normalization)
 
   if (!inherits(phy, "matrix") && !inherits(phy, "phylo")) {
@@ -22,9 +27,10 @@ rquartet <- function(phy, normalization = "none") {
     answ <- calc_rquartet_ltable_cpp(phy)
   }
   if (inherits(phy, "phylo")) {
-    if (phy$Nnode + 1 != length(phy$tip.label)) {
-  stop("Tree must be binary, for non binary trees use treebalance::rQuartetI")
+    if (!check_binary(phy)) {
+      return(treebalance::rQuartetI(phy))
     }
+
     answ <- calc_rquartet_cpp(as.vector(t(phy$edge)))
   }
 

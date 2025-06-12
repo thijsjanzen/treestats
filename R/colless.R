@@ -20,7 +20,10 @@
 colless <- function(phy,
                     normalization = "none") {
   normalization <- check_normalization_key(normalization)
-  check_tree(phy, TRUE, FALSE)
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     return(calc_colless_ltable_cpp(phy, normalization))
@@ -51,7 +54,8 @@ colless <- function(phy,
 ew_colless <- function(phy) {
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
   if (inherits(phy, "matrix")) {
     return(calc_eWcolless_ltable_cpp(phy))
   }
@@ -84,7 +88,10 @@ ew_colless <- function(phy) {
 colless_corr <- function(phy,
                          normalization = "none") {
   normalization <- check_normalization_key(normalization)
-  check_tree(phy, TRUE, FALSE)
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     return(calc_colless_corr_ltable_cpp(phy, normalization))
@@ -115,7 +122,8 @@ colless_quad <- function(phy,
   normalization <- check_normalization_key(normalization)
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     return(calc_colless_quad_ltable_cpp(phy, normalization))
