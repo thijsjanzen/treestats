@@ -592,8 +592,8 @@ The following summary statistics are included:
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
-        <td>NO</td>
-        <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Faith, 1992</td>
     </tr>
     <tr>

@@ -48,6 +48,10 @@ phylogenetic_diversity <- function(input_obj,
   }
 
   if (inherits(input_obj, "phylo")) {
+    if (!ape::is.rooted(input_obj)) {
+      stop("phylogenetic diversity is not available for unrooted trees")
+    }
+
     if (is.null(extinct_tol)) {
       extinct_tol <- min(input_obj$edge.length) / 100
     }
