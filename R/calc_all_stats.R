@@ -259,10 +259,14 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$mean_branch_length <- try_stat(phylo, treestats::mean_branch_length)
   stats$var_branch_length  <- try_stat(phylo, treestats::var_branch_length)
 
-  stats$mean_branch_length_int <- try_stat(phylo, treestats::mean_branch_length_int)
-  stats$mean_branch_length_ext <- try_stat(phylo, treestats::mean_branch_length_ext)
-  stats$var_branch_length_int  <- try_stat(phylo, treestats::var_branch_length_int)
-  stats$var_branch_length_ext  <- try_stat(phylo, treestats::var_branch_length_ext)
+  stats$mean_branch_length_int <- try_stat(phylo,
+                                           treestats::mean_branch_length_int)
+  stats$mean_branch_length_ext <- try_stat(phylo,
+                                           treestats::mean_branch_length_ext)
+  stats$var_branch_length_int  <- try_stat(phylo,
+                                           treestats::var_branch_length_int)
+  stats$var_branch_length_ext  <- try_stat(phylo,
+                                           treestats::var_branch_length_ext)
 
   stats$treeness <- try_stat(phylo, treestats::treeness)
 

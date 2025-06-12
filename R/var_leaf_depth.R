@@ -1,6 +1,7 @@
 #' Variance of leaf depth statistic
 #' @description The variance of leaf depth statistic returns the variance
-#' of depths across all tips.
+#' of depths across all tips, where depth of a tip indicates the distance of
+#' the tip to the root.
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "yule", when "yule" is chosen, the statistic
 #' is divided by the Yule expectation
@@ -12,6 +13,11 @@
 #' @export
 var_leaf_depth <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     var_leaf_depth_stat <- calc_var_leaf_depth_ltable_cpp(phy)
