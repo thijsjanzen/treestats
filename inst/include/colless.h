@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -428,13 +428,14 @@ namespace correction {
 double correct_pda(double Ic, size_t num_tips) {  // colless corrections
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;
-  }
+}
 
-  double correct_yule(double Ic, size_t num_tips) {
+double correct_yule(double Ic, size_t num_tips) {
     static const double g = 0.577215664901532;
     auto output = (Ic -
                    num_tips * log(num_tips) -
                    num_tips * (g - 1 - log(2))) / num_tips;
     return output;
-  }
+}
+
 }   // namespace correction
