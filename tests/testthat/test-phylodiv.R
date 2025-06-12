@@ -57,6 +57,14 @@ test_that("usage 2", {
   testthat::expect_equal(div3, div2)
 })
 
+test_that("unrooted", {
+  set.seed(42)
+  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+  a1 <- treestats::phylogenetic_diversity(focal_tree)
+  a2 <- treestats::phylogenetic_diversity(ape::unroot(focal_tree))
+  testthat::expect_equal(a1, a2)
+})
+
 test_that("ltab", {
   set.seed(42)
   focal_tree <- ape::rphylo(n = 3, birth = 1, death = 0)

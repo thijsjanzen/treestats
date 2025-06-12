@@ -851,18 +851,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_psv_cpp
-double calc_psv_cpp(const std::vector<int>& edge, const std::vector<double>& el);
-RcppExport SEXP _treestats_calc_psv_cpp(SEXP edgeSEXP, SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_psv_cpp(edge, el));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_J_cpp
 double calc_J_cpp(const std::vector<int>& edge, const std::vector<double>& el);
 RcppExport SEXP _treestats_calc_J_cpp(SEXP edgeSEXP, SEXP elSEXP) {
@@ -1122,7 +1110,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_prep_adj_mat", (DL_FUNC) &_treestats_prep_adj_mat, 3},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 2},
-    {"_treestats_calc_psv_cpp", (DL_FUNC) &_treestats_calc_psv_cpp, 2},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 2},
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
     {"_treestats_calc_mntd_cpp", (DL_FUNC) &_treestats_calc_mntd_cpp, 1},

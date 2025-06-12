@@ -48,37 +48,3 @@ double calc_gamma(std::vector<double> brts_) {
 
   return (a - b) / c;
 }
-
-double calc_gamma2(const std::vector<size_t>& t_edge,
-                   const std::vector<double>& edge_length) {
-  int Nnode = static_cast<int>(edge_length.size()) / 2;
-  int n = Nnode + 1;
-  int n_1 = n + 1;
-
-  std::vector<double> xx(Nnode, 0.f);
-
-  for (size_t i = 0; i < t_edge.size(); i += 2) {
-    auto j = i / 2;
-    if (t_edge[i + 1] > n) {
-      xx[t_edge[i + 1] - n_1] = xx[t_edge[i] - n_1] + edge_length[j];
-    }
-  }
-
-  auto h = xx[t_edge[t_edge.size() - 2] - n_1] + edge_length.back();
-
-  std::partial_sort(xx.begin(), xx.begin() + n - 1, xx.end());
-
-  double total = 0.0;
-  double double_sum = 0.0;
-
-  for (int i = 1; i < n - 1; ++i) {
-    total += (i + 1) * (xx[i] - xx[i - 1]);
-    double_sum += total;
-  }
-
-  total += n * (h - xx[n - 2]);
-
-  double c = total * sqrt(1.0 / (12 * n - 24));
-
-  return (double_sum / (n - 2) - 0.5 * total) / c;
-}

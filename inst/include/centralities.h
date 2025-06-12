@@ -232,24 +232,6 @@ double diameter(const edge& e,
   return diam;
 }
 
-void dist_to_root(size_t focal_id,
-                  const edge& e,
-                  const std::vector<double>& el,
-                  bool weight,
-                  double& total_dist,
-                  size_t root_no) {
-  size_t j = 0;
-  for (; j < e.size(); ++j) {
-    if (e[j][1] == focal_id) break;
-  }
-  auto parent = e[j][0];
-  auto dist_to_parent = weight ? el[j] : 1;
-  total_dist += dist_to_parent;
-  if (parent != root_no) {
-    dist_to_root(parent, e, el, weight, total_dist, root_no);
-  }
-}
-
 // LTABLE associated code
 class LRsizes {
  public:
