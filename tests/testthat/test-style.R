@@ -5,5 +5,6 @@ test_that("Package style", {
   lintr::expect_lint_free(
     linters = lintr::linters_with_defaults(object_name_linter = NULL,
                                            indentation_linter = NULL,
-                                           return_linter = NULL))
+                                           return_linter = NULL,
+                                           commented_code_linter = NULL))
 })

@@ -17,7 +17,8 @@ Variance of leaf depths
 }
 \description{
 The variance of leaf depth statistic returns the variance
-of depths across all tips.
+of depths across all tips, where depth of a tip indicates the distance of
+the tip to the root.
 }
 \references{
 T. M. Coronado, A. Mir, F. Rosselló, and L. Rotger.

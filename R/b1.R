@@ -18,7 +18,7 @@ b1 <- function(phy, normalization = "none") {
   check_tree(phy,
              require_binary = TRUE,
              require_ultrametric = FALSE,
-             requires_rooted = TRUE)
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     b1_stat <- calc_b1_ltable_cpp(phy)

@@ -128,8 +128,8 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
   stats$rquartet           <- try_stat(phylo, treestats::rquartet,
                                        normalize, c("yule", "none"))
 
-  stats$imbalance_steps    <- treestats::imbalance_steps(phylo,
-                                                      normalization = normalize)
+  stats$imbalance_steps    <- try_stat(phylo, treestats::imbalance_steps,
+                                       normalize)
 
   stats$j_one              <- try_stat(phylo, treestats::j_one)
 

@@ -23,7 +23,7 @@ pigot_rho <- function(phy) {
 
   check_tree(phy,
              require_binary = FALSE,
-             require_ultrametric = TRUE,
+             require_ultrametric = FALSE,
              require_rooted = TRUE)
 
 

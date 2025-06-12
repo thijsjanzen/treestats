@@ -25,6 +25,8 @@ entropy_j <- function(phy) {
     } else {
       n <- length(phy$tip.label)
       return(treestats::mean_pair_dist(phy) / n)
+      # notice that the statistic divides by S^2, but since the mean is
+      # already dividing by S, this is fine.
     }
   }
   stop("input object has to be phylo or ltable")

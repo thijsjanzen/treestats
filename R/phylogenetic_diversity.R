@@ -1,9 +1,11 @@
 #' @keywords internal
 calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
-  if (t == 0) {
+  if (t == 0 && ape::is.ultrametric(phy, option = 2)) {
     return(sum(phy$edge.length)) # no need to pass to Rcpp
   } else {
-    return(calc_phylodiv_cpp(phy, t, extinct_tol))
+    if (ape::is.rooted(phy)) {
+      return(calc_phylodiv_cpp(phy, t, extinct_tol))
+    }
   }
 }
 

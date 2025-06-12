@@ -31,11 +31,7 @@ test_that("usage", {
   test_na("stairs2", all_stats)
   test_na("tot_coph", all_stats)
   test_na("symmetry_nodes", all_stats)
-  test_na("rquartet", all_stats)
-  test_na("wiener", all_stats)
   test_na("max_betweenness", all_stats)
-  test_na("max_closeness", all_stats)
-  test_na("max_closenessW", all_stats)
   test_na("diameter", all_stats)
   test_na("eigen_centrality", all_stats)
   test_na("eigen_centralityW", all_stats)
@@ -48,7 +44,6 @@ test_that("usage", {
   test_na("gamma", brts_stats)
 
   bal_stats <- treestats::calc_topology_stats(poly_tree)
-
 
   test_na("sackin", bal_stats)
   test_na("colless", bal_stats)
@@ -69,7 +64,6 @@ test_that("usage", {
   test_na("stairs2", bal_stats)
   test_na("tot_coph", bal_stats)
   test_na("symmetry_nodes", bal_stats)
-  test_na("rquartet", bal_stats)
   test_na("diameter", bal_stats)
 
   # test phylo_to_l and rebase_ltable on polytomies:

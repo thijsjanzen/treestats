@@ -9,7 +9,7 @@
 #' @return crown age
 #' @export
 tree_height <- function(phy) {
-  check_tree(input_obj,
+  check_tree(phy,
              require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
