@@ -11,10 +11,10 @@ eigen_centrality(phy, weight = TRUE, scale = FALSE)
 
 \item{weight}{if TRUE, uses branch lengths.}
 
-\item{scale}{if TRUE, the eigenvector is rescaled}
+\item{scale}{if TRUE, the Eigenvector is rescaled}
 }
 \value{
-List with the eigen vector and the leading eigen value
+List with the Eigen vector and the leading Eigen value
 }
 \description{
 Eigen vector centrality associates with each node v the positive

@@ -95,13 +95,13 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$blum               <- try_stat(phylo, treestats::blum,
                                        normalize, c(TRUE, FALSE))
 
-  stats$crown_age          <- treestats::crown_age(phylo)
-  stats$tree_height        <- treestats::tree_height(phylo)
-  stats$pigot_rho          <- treestats::pigot_rho(phylo)
+  stats$crown_age          <- try_stat(phylo, treestats::crown_age)
+  stats$tree_height        <- try_stat(phylo, treestats::tree_height)
+  stats$pigot_rho          <- try_stat(phylo, treestats::pigot_rho)
 
-  stats$number_of_lineages <- treestats::number_of_lineages(phylo)
-  stats$nltt_base          <- treestats::nLTT_base(phylo)
-  stats$phylogenetic_div   <- treestats::phylogenetic_diversity(phylo)
+  stats$number_of_lineages <- try_stat(phylo, treestats::number_of_lineages)
+  stats$nltt_base          <- try_stat(phylo, treestats::nLTT_base)
+  stats$phylogenetic_div   <- try_stat(phylo, treestats::phylogenetic_diversity)
 
   stats$avg_ladder         <- try_stat(phylo, treestats::avg_ladder)
   stats$max_ladder         <- try_stat(phylo, treestats::max_ladder)
@@ -138,7 +138,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   temp_stats <- try_stat(phylo,
                       function(x) {
                         return(treestats::minmax_laplace(x, TRUE))
-                      })
+                       })
+
 
   if (length(temp_stats) >= 2) {
     stats$min_laplace <- temp_stats$min
@@ -151,7 +152,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   temp_stats <- try_stat(phylo,
                          function(x) {
                            return(treestats::minmax_adj(x, TRUE))
-                          })
+                         })
+
 
   if (length(temp_stats) >= 2) {
     stats$min_adj <- temp_stats$min
@@ -161,9 +163,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     stats$max_adj <- NA
   }
 
-  stats$imbalance_steps  <-
-    treestats::imbalance_steps(phylo,
-                               normalization = normalize)
+  stats$imbalance_steps  <- try_stat(phylo, treestats::imbalance_steps,
+                                     normalize)
 
   stats$j_one              <- try_stat(phylo, treestats::j_one)
 
@@ -260,15 +261,19 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                            weight = TRUE)$eigenvector))}) #nolint
 
 
-  stats$mean_branch_length <- treestats::mean_branch_length(phylo)
-  stats$var_branch_length  <- treestats::var_branch_length(phylo)
+  stats$mean_branch_length <- try_stat(phylo, treestats::mean_branch_length)
+  stats$var_branch_length  <- try_stat(phylo, treestats::var_branch_length)
 
-  stats$mean_branch_length_int <- treestats::mean_branch_length_int(phylo)
-  stats$mean_branch_length_ext <- treestats::mean_branch_length_ext(phylo)
-  stats$var_branch_length_int <- treestats::var_branch_length_int(phylo)
-  stats$var_branch_length_ext <- treestats::var_branch_length_ext(phylo)
+  stats$mean_branch_length_int <- try_stat(phylo,
+                                           treestats::mean_branch_length_int)
+  stats$mean_branch_length_ext <- try_stat(phylo,
+                                           treestats::mean_branch_length_ext)
+  stats$var_branch_length_int  <- try_stat(phylo,
+                                           treestats::var_branch_length_int)
+  stats$var_branch_length_ext  <- try_stat(phylo,
+                                           treestats::var_branch_length_ext)
 
-  stats$treeness <- treestats::treeness(phylo)
+  stats$treeness <- try_stat(phylo, treestats::treeness)
 
   stats$root_imbalance <- try_stat(phylo, treestats::root_imbalance)
 

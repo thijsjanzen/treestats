@@ -1,4 +1,4 @@
-context("mean pair distance")
+context("entropy j")
 
 test_that("usage", {
   if (requireNamespace("picante")) {

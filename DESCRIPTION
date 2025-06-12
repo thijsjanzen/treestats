@@ -28,7 +28,8 @@ LinkingTo:
     nloptr
 Imports:
     ape,
-    nloptr
+    nloptr,
+    treebalance
 Suggests:
     phyloTop,
     testthat,

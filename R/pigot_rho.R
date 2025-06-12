@@ -21,6 +21,12 @@
 #' pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
 pigot_rho <- function(phy) {
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
+
   if (inherits(phy, "matrix")) {
     return(calc_rho_ltable_cpp(phy))
   }

@@ -13,7 +13,8 @@
 stairs <- function(input_obj) {
   check_tree(input_obj,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(input_obj, "matrix")) {
     return(stairs_ltable_cpp(input_obj))
@@ -40,7 +41,8 @@ stairs <- function(input_obj) {
 stairs2 <- function(input_obj) {
   check_tree(input_obj,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(input_obj, "matrix")) {
     return(stairs2_ltable_cpp(input_obj))

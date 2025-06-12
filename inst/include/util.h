@@ -48,27 +48,55 @@ inline std::vector<double> phy_to_el(const Rcpp::List& phy) {
   return el_cpp;
 }
 
+struct entry {
+  std::array<size_t, 2> ed;
+  double bl;
+};
+
+inline void add_entry(std::vector<entry>& cladewise_result,
+                  std::vector<bool>& added,
+                  const std::vector<entry>& unsorted,
+                  size_t id,
+                  size_t start) {
+  for (size_t i = start; i < unsorted.size(); ++i) {
+    auto focal_id = unsorted[i].ed[0];
+    if (focal_id == id && added[i] == false) {
+      cladewise_result.push_back(unsorted[i]);
+      added[i] = true;
+      auto daughter = unsorted[i].ed[1];
+      add_entry(cladewise_result, added, unsorted, daughter, i);
+    }
+  }
+}
+
 
 inline void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
-                              std::vector<double>* edge_length) {
-  struct entry {
-    std::array<size_t, 2> ed;
-    double bl;
-  };
+                                     std::vector<double>* edge_length) {
 
   if ((*edge).size() != (*edge_length).size()) {
     throw std::runtime_error("size mismatch");
   }
 
   std::vector<entry> everything((*edge).size());
+ // int root_no = 1e6;
   for (size_t i = 0; i < (*edge).size(); ++i) {
     everything[i].bl = (*edge_length)[i];
     everything[i].ed = (*edge)[i];
+  //  if (everything[i].ed[0] < root_no) root_no = everything[i].ed[0];
   }
 
   std::sort(everything.begin(), everything.end(),
             [&](auto a, auto b)
             {return a.ed[0] < b.ed[0];});
+
+  // let's order clade wise
+ /* std::vector<entry> cladewise_result;
+  std::vector<bool> added(everything.size(), false);
+  for (size_t i = 0; i < everything.size(); i++) {
+    auto id = everything[i].ed[0];
+    add_entry(cladewise_result, added, everything, id, i);
+  }*/
+
 
   // now place back
   for (size_t i = 0; i < everything.size(); ++i) {

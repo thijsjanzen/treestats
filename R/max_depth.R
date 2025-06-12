@@ -12,6 +12,11 @@
 max_depth <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
     max_d_stat <- calc_max_depth_ltable_cpp(phy)
     if (normalization == "tips" || normalization == TRUE) {

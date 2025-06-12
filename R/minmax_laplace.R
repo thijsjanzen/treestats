@@ -18,7 +18,8 @@ minmax_laplace <- function(phy,
                            use_rspectra = FALSE) {
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
     if (sum(phy[, 4] > -1))

@@ -23,7 +23,7 @@ mean_pair_dist <- function(phy, normalization = "none") {
   }
 
   if (inherits(phy, "phylo")) {
-    if (check_binary(phy)) {
+    if (check_binary(phy) && ape::is.rooted(phy)) {
       mpd <- calc_mpd_cpp(as.vector(t(phy$edge)),
                           phy$edge.length)
     } else {

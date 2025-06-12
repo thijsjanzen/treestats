@@ -13,8 +13,9 @@
 #' @export
 wiener <- function(phy, normalization = FALSE, weight = TRUE) {
   check_tree(phy,
-             require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   normalization <- check_normalization_key(normalization)
 
@@ -22,7 +23,12 @@ wiener <- function(phy, normalization = FALSE, weight = TRUE) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    return(calc_wiener_cpp(phy, normalization, weight))
+    if (check_binary(phy) && ape::is.rooted(phy)) {
+      return(calc_wiener_cpp(phy, normalization, weight))
+    } else {
+      dist_n <- ape::dist.nodes(phy)
+      return(sum(dist_n[lower.tri(dist_n)]))
+    }
   }
   stop("input object has to be phylo or ltable")
 }

@@ -21,7 +21,8 @@ gamma_statistic <- function(phy) {
 
   check_tree(phy,
              require_binary = FALSE,
-             require_ultrametric = TRUE)
+             require_ultrametric = TRUE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "phylo")) {
 

@@ -19,7 +19,8 @@ average_leaf_depth <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
 
   if (inherits(phy, "phylo")) {

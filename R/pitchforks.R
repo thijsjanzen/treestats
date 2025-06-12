@@ -12,7 +12,8 @@ pitchforks <- function(input_obj, normalization = "none") {
 
   check_tree(input_obj,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   if (inherits(input_obj, "matrix")) {
     pitch_stat <- pitchforks_ltable_cpp(input_obj)

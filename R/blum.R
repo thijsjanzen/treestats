@@ -23,7 +23,8 @@ blum <- function(phy,
   normalization <- check_normalization_key(normalization)
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     return(calc_blum_ltable_cpp(phy, normalization))

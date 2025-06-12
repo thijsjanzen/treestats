@@ -19,7 +19,8 @@ sym_nodes <- function(phy, normalization = "none") {
 
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
