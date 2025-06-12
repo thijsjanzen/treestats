@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 # Version 1.70.5
 
 Updated references.
@@ -8,7 +6,6 @@ Updated references.
 
 Removed C++20 dependency
 
->>>>>>> Stashed changes
 # Version 1.70.3
 
 Version numbering has improved to include the number of statistics available.
