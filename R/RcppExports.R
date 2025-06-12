@@ -49,10 +49,6 @@ calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
 
-calc_gamma_cpp2 <- function(edge, el) {
-    .Call('_treestats_calc_gamma_cpp2', PACKAGE = 'treestats', edge, el)
-}
-
 calc_gamma_ltable_cpp <- function(ltab_in) {
     .Call('_treestats_calc_gamma_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
