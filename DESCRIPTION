@@ -41,7 +41,6 @@ Suggests:
     ggplot2,
     tibble,
     picante,
-    treebalance,
     RPANDA,
     lintr,
     rmarkdown,

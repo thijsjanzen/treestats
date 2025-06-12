@@ -20,7 +20,7 @@ var_pair_dist <- function(phy) {
       dist_mat <- ape::cophenetic.phylo(phy)
       dist_mat <- dist_mat[lower.tri(dist_mat)]
       n <- length(dist_mat)
-      var_mpd <- var(dist_mat, na.rm = TRUE, use = "everything")
+      var_mpd <- stats::var(dist_mat, na.rm = TRUE, use = "everything")
       # var uses sample variance, we use population variance
       var_mpd <- var_mpd * (n - 1) / n
       return(var_mpd)
