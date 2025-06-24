@@ -289,6 +289,10 @@ prep_adj_mat <- function(parent_list, br_len, use_br_len) {
     .Call('_treestats_prep_adj_mat', PACKAGE = 'treestats', parent_list, br_len, use_br_len)
 }
 
+outer_cpp <- function(xx, x, sd) {
+    .Call('_treestats_outer_cpp', PACKAGE = 'treestats', xx, x, sd)
+}
+
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }

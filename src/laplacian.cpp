@@ -14,6 +14,7 @@
 //
 //
 #include <vector>
+#include <cmath>
 #include <Rcpp.h>
 #include "util.h"         // NOLINT [build/include_subdir]
 #include "dist_nodes.h"   // NOLINT [build/include_subdir]
@@ -67,3 +68,23 @@ Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,
 }
 
 
+// General normal distribution PDF
+double normal_pdf(double x, double mu, double sigma) {
+  static const double inv_sqrt_2pi = 0.3989422804014327; // 1 / sqrt(2 * pi)
+  double a = (x - mu) / sigma;
+  return (inv_sqrt_2pi / sigma) * std::exp(-0.5 * a * a);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix outer_cpp(const std::vector<double>& xx,
+                              const std::vector<double>& x,
+                              double sd) {
+  Rcpp::NumericMatrix out(xx.size(), x.size());
+
+  for (size_t i = 0; i < xx.size(); ++i) {
+    for (size_t j = 0; j < x.size(); ++j) {
+       out(i, j) = normal_pdf(xx[i], x[j], sd);   //dens(xx[i] * x[j]);
+    }
+  }
+  return out;
+}

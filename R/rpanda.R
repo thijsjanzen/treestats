@@ -77,10 +77,18 @@ laplacian_spectrum <- function(phy) {
       bw[1]
       else bw(x)) * adjust
     xx <- seq(from, to, len = n)
-    mat <- outer(xx, x, kernel, sd = sd, ...)
-    structure(list(x = xx, y = rowMeans(mat), bw = sd, call = match.call(),
-                   n = length(x), data.name = deparse(substitute(x)),
-                   has.na = has_na), class = "density")
+
+    mat <-  outer_cpp(xx, x, sd)
+
+
+    structure(list(x = xx,
+                   y = rowMeans(mat),
+                   bw = sd,
+                   call = match.call(),
+                   n = length(x),
+                   data.name = deparse(substitute(x)),
+                   has.na = has_na),
+              class = "density")
   }
 
   phy <- ape::reorder.phylo(phy)

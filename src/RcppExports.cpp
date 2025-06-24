@@ -827,6 +827,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// outer_cpp
+Rcpp::NumericMatrix outer_cpp(const std::vector<double>& xx, const std::vector<double>& x, double sd);
+RcppExport SEXP _treestats_outer_cpp(SEXP xxSEXP, SEXP xSEXP, SEXP sdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type xx(xxSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sd(sdSEXP);
+    rcpp_result_gen = Rcpp::wrap(outer_cpp(xx, x, sd));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_mpd_cpp
 double calc_mpd_cpp(const std::vector<int>& edge, const std::vector<double>& el);
 RcppExport SEXP _treestats_calc_mpd_cpp(SEXP edgeSEXP, SEXP elSEXP) {
@@ -1096,6 +1109,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_max_ladder_cpp", (DL_FUNC) &_treestats_max_ladder_cpp, 1},
     {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_prep_adj_mat", (DL_FUNC) &_treestats_prep_adj_mat, 3},
+    {"_treestats_outer_cpp", (DL_FUNC) &_treestats_outer_cpp, 3},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 2},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 2},
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
