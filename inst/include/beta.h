@@ -20,7 +20,7 @@
 #include <utility>
 #include <string>
 #include <vector>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 
 using ltable = std::vector< std::array<double, 4>>;

@@ -93,11 +93,9 @@ laplacian_spectrum <- function(phy) {
 
   phy <- ape::reorder.phylo(phy)
 
-  lapl_mat <- -prep_lapl_spec(phy)
+  x <- get_eigen_values_arma_cpp(phy)
+  x <- sort(x, decreasing = TRUE)
 
-  e <- eigen(lapl_mat, symmetric = TRUE, only.values = TRUE)
-
-  x <- subset(e$values, e$values >= 1)
   d <- dens_rpanda(log(x))
   dsc <- d$y / (integr(d$x, d$y))
   principal_eigenvalue <- max(x)

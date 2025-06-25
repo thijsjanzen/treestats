@@ -14,7 +14,7 @@
 
 #include <vector>
 #include <array>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "avgladder.h"   // NOLINT [build/include_subdir]

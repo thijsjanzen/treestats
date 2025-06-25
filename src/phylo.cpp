@@ -16,7 +16,7 @@
 #include <vector>
 #include <string>
 #include <array>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "phylo2L.h"     // NOLINT [build/include_subdir]

@@ -13,11 +13,16 @@
 //
 //
 //
+#include <RcppArmadillo.h>
+
 #include <vector>
 #include <cmath>
-#include <Rcpp.h>
+// #include <Rcpp.h>
 #include "util.h"         // NOLINT [build/include_subdir]
 #include "dist_nodes.h"   // NOLINT [build/include_subdir]
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
 
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
@@ -43,6 +48,39 @@ Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy) {
 
   return res;
 }
+
+// [[Rcpp::export]]
+Rcpp::NumericVector get_eigen_values_arma_cpp(const Rcpp::List& phy) {
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
+
+  auto num_nodes = phy["Nnode"];
+  Rcpp::StringVector tips = phy["tip.label"];
+  auto num_tips = tips.size();
+
+  std::vector< std::vector< double >> lapl_mat = dist_nodes(edge,
+                                                            el,
+                                                            num_tips,
+                                                            num_nodes);
+  arma::mat A(lapl_mat.size(), lapl_mat[0].size());
+  for (size_t i = 0; i < lapl_mat.size(); ++i) {
+    for (size_t j = 0; j < lapl_mat[i].size(); ++j) {
+      A(i, j) = -lapl_mat[i][j];
+    }
+    A(i, i) = std::accumulate(lapl_mat[i].begin(), lapl_mat[i].end(), 0.0);
+  }
+
+  arma::vec eigvals;
+  arma::eig_sym(eigvals, A);
+
+  Rcpp::NumericVector out;
+  for (const auto& i : eigvals) {
+    if (i >= 1) out.push_back(i);
+  }
+
+  return out;
+}
+
 
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,

@@ -15,7 +15,7 @@
 #include <vector>
 #include <array>
 #include <string>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "beta.h"        // NOLINT [build/include_subdir]

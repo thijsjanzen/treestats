@@ -15,7 +15,7 @@
 
 #include <vector>
 #include <array>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 #include "centralities.h"  // NOLINT [build/include_subdir]
 #include "util.h"          // NOLINT [build/include_subdir]

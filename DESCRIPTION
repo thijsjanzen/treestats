@@ -25,6 +25,7 @@ Depends:
     Rcpp
 LinkingTo: 
     Rcpp,
+    RcppArmadillo,
     nloptr
 Imports:
     ape,

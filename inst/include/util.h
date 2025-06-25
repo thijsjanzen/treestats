@@ -14,7 +14,7 @@
 #include <vector>
 #include <array>
 #include <algorithm>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 using ltable = std::vector< std::array<double, 4>>;
 using edge_table = std::vector< std::array< size_t, 2 >>;

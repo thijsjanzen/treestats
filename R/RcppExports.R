@@ -285,6 +285,10 @@ prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
+get_eigen_values_arma_cpp <- function(phy) {
+    .Call('_treestats_get_eigen_values_arma_cpp', PACKAGE = 'treestats', phy)
+}
+
 prep_adj_mat <- function(parent_list, br_len, use_br_len) {
     .Call('_treestats_prep_adj_mat', PACKAGE = 'treestats', parent_list, br_len, use_br_len)
 }

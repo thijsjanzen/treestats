@@ -12,3 +12,4 @@ src/*.dll
 /.vscode
 docs/
 
+.RDataTmp

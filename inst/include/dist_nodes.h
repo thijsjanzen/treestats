@@ -13,7 +13,7 @@
 
 #include <vector>
 #include <array>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 // The function below is lifted from the ape package.
 inline std::vector< std::vector< double >> dist_nodes(

@@ -11,7 +11,7 @@
 //
 #pragma once
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <vector>
 #include <array>
 #include <algorithm>

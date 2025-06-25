@@ -16,7 +16,7 @@
 #include <array>
 #include <functional>
 #include <algorithm>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 #include "branching_times.h" // NOLINT [build/include_subdir]
 #include "phylo2L.h"
