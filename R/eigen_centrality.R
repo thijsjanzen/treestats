@@ -33,7 +33,7 @@ eigen_centrality <- function(phy,
         adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
                                            j = edge_for_mat[, 2],
                                            x = c(phy$edge.length,
-                                                     phy$edge.length))
+                                                 phy$edge.length))
       } else {
         adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
                                            j = edge_for_mat[, 2],

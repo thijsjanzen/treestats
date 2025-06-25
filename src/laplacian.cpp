@@ -81,7 +81,6 @@ Rcpp::NumericVector get_eigen_values_arma_cpp(const Rcpp::List& phy) {
   return out;
 }
 
-
 // [[Rcpp::export]]
 Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,
                                  const std::vector<double>& br_len,
@@ -108,7 +107,7 @@ Rcpp::NumericMatrix prep_adj_mat(const std::vector<int>& parent_list,
 
 // General normal distribution PDF
 double normal_pdf(double x, double mu, double sigma) {
-  static const double inv_sqrt_2pi = 0.3989422804014327; // 1 / sqrt(2 * pi)
+  static const double inv_sqrt_2pi = 0.3989422804014327;   // 1.0 / sqrt(2 * pi)
   double a = (x - mu) / sigma;
   return (inv_sqrt_2pi / sigma) * std::exp(-0.5 * a * a);
 }
@@ -121,7 +120,7 @@ Rcpp::NumericMatrix outer_cpp(const std::vector<double>& xx,
 
   for (size_t i = 0; i < xx.size(); ++i) {
     for (size_t j = 0; j < x.size(); ++j) {
-       out(i, j) = normal_pdf(xx[i], x[j], sd);   //dens(xx[i] * x[j]);
+       out(i, j) = normal_pdf(xx[i], x[j], sd);   //  dens(xx[i] * x[j]);
     }
   }
   return out;

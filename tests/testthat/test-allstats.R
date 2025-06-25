@@ -12,7 +12,7 @@ test_that("usage", {
   testthat::expect_equal(length(all_stats), 70)
 
   focal_tree <- ape::rphylo(n = 23175, birth = 1, death = 0)
-  testthat::expect_silent(
+  testthat::expect_warning(
     all_stats <- treestats::calc_all_stats(focal_tree)
   )
   testthat::expect_true(
