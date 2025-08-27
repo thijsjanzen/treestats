@@ -6,7 +6,7 @@ this
 available for unrooted trees, and which statistics (appear) to be affected by
 root position
 - using treebalance functions when treestats functions do not suffice (e.g.
-for rquartet for polytymous trees)
+for rquartet for polytomous trees)
 - updated Wiener test, to include distance matrix based calculation
 
 # Version 1.70.5
