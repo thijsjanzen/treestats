@@ -95,8 +95,9 @@ class phylo_tree {
       mpd += L_bl * (l * (N - l));
       mpd += R_bl * (r * (N - r));
     }
-
-    mpd *= 2.0 / (N * (N - 1));
+    // to prevent integer overflow when N * (N - 1) is too large
+    double Nd = static_cast<double>(N);
+    mpd *= 2.0 / (Nd * (Nd - 1));
     return(mpd);
   }
 
