@@ -14,5 +14,5 @@ vector of branching times
 }
 \description{
 C++ based alternative to
-\link[ape::branching.times]{ape::branching.times}.
+\link[ape:branching.times]{ape::branching.times}.
 }

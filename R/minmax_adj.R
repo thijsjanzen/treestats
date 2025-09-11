@@ -6,7 +6,7 @@
 #' adjacency matrix are weighted by branch length. Then, using the adjacency
 #' matrix, we calculate the spectral properties of the matrix, e.g. the
 #' minimum and maximum eigenvalues of the matrix.
-#' When the R package \link[RSpectra]{RSpectra} is available,
+#' When the R package \pkg{RSpectra} is available,
 #' a faster calculation can be used, which does not calculate all eigenvalues,
 #' but only the maximum and minimum. As such, when using this option,
 #' the vector of all eigenvalues is not returned.

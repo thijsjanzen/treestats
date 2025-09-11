@@ -2,7 +2,7 @@
 #' @param phy phylo object or ltable
 #' @return vector of branching times
 #' @description C++ based alternative to
-#' \link[ape::branching.times]{ape::branching.times}.
+#' \link[ape:branching.times]{ape::branching.times}.
 #' @export
 branching_times <- function(phy) {
 
