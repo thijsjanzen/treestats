@@ -6,10 +6,10 @@
 #' adjacency matrix are weighted by branch length. Then, using the adjacency
 #' matrix, we calculate the spectral properties of the matrix, e.g. the
 #' minimum and maximum eigenvalues of the matrix.
-#' When the R package RSpectra is available, a faster calculation can be used,
-#' which does not calculate all eigenvalues, but only the maximum and minimum.
-#' As such, when using this option, the vector of all eigenvalues is not
-#' returned
+#' When the R package \link[RSpectra]{RSpectra} is available,
+#' a faster calculation can be used, which does not calculate all eigenvalues,
+#' but only the maximum and minimum. As such, when using this option,
+#' the vector of all eigenvalues is not returned.
 #' @param phy phylo object or ltable
 #' @param use_rspectra boolean to indicate whether the helping package RSpectra
 #' should be used, in which case only the minimum and maximum values are

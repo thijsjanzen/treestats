@@ -20,9 +20,11 @@ should be used, which is faster, but returns fewer eigen values.}
 List with the Eigen vector and the leading Eigen value
 }
 \description{
-Eigen vector centrality associates with each node v the positive
-value e(v), such that: \eqn{sum_{e~v} w(uv) * e(u) = \lambda * e(v)}. Thus,
-e(v) is the Perron-Frobenius eigenvector of the adjacency matrix of the tree.
+Eigen vector centrality associates with each node \eqn{v}
+the positive value \eqn{e(v)}, such that:
+\eqn{ \sum_{e}^v w(uv) * e(u) = \lambda * e(v) }. Thus,
+\eqn{e(v)} is the Perron-Frobenius eigenvector of the adjacency matrix of the
+tree.
 }
 \references{
 Chindelevitch, Leonid, et al. "Network science inspires novel

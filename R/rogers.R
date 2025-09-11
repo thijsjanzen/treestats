@@ -2,8 +2,8 @@
 #' @description The Rogers index is calculated as the total number of internal
 #' nodes that are unbalanced, e.g. for which both daughter nodes lead to a
 #' different number of extant tips. in other words, the number of nodes where
-#' L != R (where L(R) is the number of extant tips of the Left (Right) daughter
-#' node).
+#' \eqn{L  !=  R} (where L(R) is the number of extant tips of the Left (Right)
+#' daughter node).
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "tips", in which case the resulting statistic
 #' is divided by the number of tips - 2 (e.g. the maximum value of the rogers

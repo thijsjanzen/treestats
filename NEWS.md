@@ -1,6 +1,10 @@
 # Version 1.70.7
 - Fixed numerical issue in calculating mean pair distance for very large trees
 - Now use armadillo to calculate Eigen values
+- added the function 'sshape', which was previously called the blum statistic (
+the blum function remains available as well). Thanks Sophie Kersting for 
+pointing this out!
+- polished the manual
 
 # Version 1.70.6
 - Added support for unrooted trees

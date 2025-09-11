@@ -2,7 +2,7 @@
 % Please edit documentation in R/j_one_stat.R
 \name{j_one}
 \alias{j_one}
-\title{J^1 index.}
+\title{\eqn{J^1} index.}
 \usage{
 j_one(input_obj)
 }
@@ -10,17 +10,20 @@ j_one(input_obj)
 \item{input_obj}{phylo object or ltable}
 }
 \value{
-j^1 index
+\eqn{j^1} index
 }
 \description{
-The J^1 index calculates the Shannon Entropy of a tree, where
+The \eqn{J^1} index calculates the Shannon Entropy of a tree, where
 at each node with two children, the Shannon Entropy is the sum of
-p_i log_2(p_i) over the two children i, and p_i is L / (L + R), where L and
-R represent the number of tips connected to the two daughter branches.
+\eqn{p_i log_2(p_i)} over the two children \eqn{i}, and \eqn{p_i} is
+\eqn{L / (L + R)},
+where L and R represent the number of tips connected to the two daughter
+branches.
 }
 \references{
 Jeanne Lemant, Cécile Le Sueur, Veselin Manojlović, Robert Noble,
 Robust, Universal Tree Balance Indices, Systematic Biology, Volume 71,
-Issue 5, September 2022, Pages 1210–1224,
+Issue 5, September 2022, Pages 1210–1224
+
 https://doi.org/10.1093/sysbio/syac027
 }

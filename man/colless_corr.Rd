@@ -19,7 +19,7 @@ corrected colless index
 \description{
 The Corrected Colless index is calculated as the sum of
 \eqn{abs(L - R)} over all nodes, corrected for tree size by dividing over
-(n-1) * (n-2), where n is the number of nodes.
+\eqn{(n-1) * (n-2)}, where n is the number of nodes.
 }
 \examples{
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
