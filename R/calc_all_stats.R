@@ -137,8 +137,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   temp_stats <- try_stat(phylo,
                       function(x) {
-                        return(treestats::minmax_laplace(x,
-                                                         use_rspectra = TRUE))
+                        return(treestats::minmax_laplace(x, TRUE))
                        })
 
 
@@ -152,8 +151,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   temp_stats <- try_stat(phylo,
                          function(x) {
-                           return(treestats::minmax_adj(x,
-                                                        use_rspectra = TRUE))
+                           return(treestats::minmax_adj(x, TRUE))
                          })
 
 
@@ -255,14 +253,12 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$eigen_centrality   <- try_stat(phylo,
                                        function(x) {
                           return(max(treestats::eigen_centrality(x,
-                                       weight = FALSE,
-                                       use_rspectra = TRUE)$eigenvector))}) #nolint
+                                       weight = FALSE)$eigenvector))}) #nolint
 
   stats$eigen_centralityW  <- try_stat(phylo,
                                        function(x) {
                                       return(max(treestats::eigen_centrality(x,
-                                           weight = TRUE,
-                                           use_rspectra = TRUE)$eigenvector))}) #nolint
+                                           weight = TRUE)$eigenvector))}) #nolint
 
 
   stats$mean_branch_length <- try_stat(phylo, treestats::mean_branch_length)
