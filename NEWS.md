@@ -1,5 +1,6 @@
 # Version 1.70.7
 - Fixed numerical issue in calculating mean pair distance for very large trees
+- Now use armadillo to calculate Eigen values
 
 # Version 1.70.6
 - Added support for unrooted trees
