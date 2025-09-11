@@ -1,3 +1,6 @@
+# Version 1.70.7
+- Fixed numerical issue in calculating mean pair distance for very large trees
+
 # Version 1.70.6
 - Added support for unrooted trees
 - Added check if tree is unrooted, and aborting if statistic does not support
