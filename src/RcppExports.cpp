@@ -943,6 +943,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_branch_colless_cpp
+double calc_branch_colless_cpp(const std::vector<int>& edge, const std::vector<double>& el);
+RcppExport SEXP _treestats_calc_branch_colless_cpp(SEXP edgeSEXP, SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_branch_colless_cpp(edge, el));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_sackin_cpp
 double calc_sackin_cpp(const std::vector<int>& tree_edge, const Rcpp::String& normalization);
 RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
@@ -1130,6 +1142,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
     {"_treestats_imbalance_steps_cpp", (DL_FUNC) &_treestats_imbalance_steps_cpp, 2},
+    {"_treestats_calc_branch_colless_cpp", (DL_FUNC) &_treestats_calc_branch_colless_cpp, 2},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
     {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},

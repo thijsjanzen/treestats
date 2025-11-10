@@ -353,6 +353,10 @@ imbalance_steps_cpp <- function(ltable_R, normalization) {
     .Call('_treestats_imbalance_steps_cpp', PACKAGE = 'treestats', ltable_R, normalization)
 }
 
+calc_branch_colless_cpp <- function(edge, el) {
+    .Call('_treestats_calc_branch_colless_cpp', PACKAGE = 'treestats', edge, el)
+}
+
 calc_sackin_cpp <- function(tree_edge, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }

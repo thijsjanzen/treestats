@@ -62,6 +62,7 @@
 #'   \item number of imbalancing steps
 #'   \item j_one statistic
 #'   \item treeness statistic
+#'   \item branch weighted colless statistic
 #' }
 #'
 #' For the Laplacian spectrum properties, four properties of the eigenvalue
@@ -89,6 +90,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                        normalize, c("yule", "none"))
   stats$colless_quad       <- try_stat(phylo, treestats::colless_quad,
                                        normalize, c("yule", "none"))
+
+  stats$colless_branch     <- try_stat(phylo, treestats::colless_branch)
 
   stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 

@@ -22,6 +22,7 @@
 #include "L2newick.h"    // NOLINT [build/include_subdir]
 
 #include "imbalance_steps.h"  // NOLINT [build/include_subdir]
+#include "branch_colless.h"  // NOLINT [build/include_subdir]
 
 //' Function to generate an ltable from a phy object.
 //' @description This function is a C++
@@ -84,3 +85,11 @@ double imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R,
     }
     return NA_REAL;
 }
+
+// [[Rcpp::export]]
+double calc_branch_colless_cpp(const std::vector<int>& edge,
+                          const std::vector<double>& el) {
+  branch_colless::phylo_tree focal_tree(edge, el);
+  return focal_tree.calculate_branch_colless();
+}
+
