@@ -50,7 +50,6 @@ Suggests:
     igraph,
     RSpectra,
     Matrix,
-    abcrf,
     pheatmap
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
