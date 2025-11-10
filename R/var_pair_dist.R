@@ -13,7 +13,18 @@ var_pair_dist <- function(phy) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
-    return(calc_var_mpd_cpp(phy))
+
+    if (ape::is.rooted(phy)) {
+       return(calc_var_mpd_cpp(phy))
+    } else {
+      dist_mat <- ape::cophenetic.phylo(phy)
+      dist_mat <- dist_mat[lower.tri(dist_mat)]
+      n <- length(dist_mat)
+      var_mpd <- stats::var(dist_mat, na.rm = TRUE, use = "everything")
+      # var uses sample variance, we use population variance
+      var_mpd <- var_mpd * (n - 1) / n
+      return(var_mpd)
+    }
   }
   stop("input object has to be phylo or ltable")
 }

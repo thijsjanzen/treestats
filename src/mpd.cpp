@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +16,7 @@
 
 #include <vector>
 #include <array>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "mpd.h"         // NOLINT [build/include_subdir]
@@ -28,14 +28,6 @@ double calc_mpd_cpp(const std::vector<int>& edge,
   mpd_tree::phylo_tree focal_tree(edge, el);
   auto mpd = focal_tree.calculate_mpd();
   return mpd;
-}
-
-// [[Rcpp::export]]
-double calc_psv_cpp(const std::vector<int>& edge,
-                    const std::vector<double>& el) {
-  mpd_tree::phylo_tree focal_tree(edge, el);
-  auto mpd = focal_tree.calculate_mpd();
-  return mpd * 0.5;
 }
 
 // [[Rcpp::export]]

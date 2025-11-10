@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +14,9 @@
 
 #include <vector>
 #include <array>
-#include <Rcpp.h>
+#include <functional>
+#include <algorithm>
+#include <RcppArmadillo.h>
 
 #include "branching_times.h" // NOLINT [build/include_subdir]
 #include "phylo2L.h"
@@ -140,13 +142,6 @@ double calc_gamma_cpp(const Rcpp::List& phy) {
   std::vector<double> brts = branching_times_cpp(phy);
   return calc_gamma(brts);
 }
-
-// [[Rcpp::export]]
-double calc_gamma_cpp2(const std::vector<size_t>& edge,
-                       const std::vector<double>& el) {
-  return calc_gamma2(edge, el);
-}
-
 
 // [[Rcpp::export]]
 double calc_gamma_ltable_cpp(const Rcpp::NumericMatrix& ltab_in) {

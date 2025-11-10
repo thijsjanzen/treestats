@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -75,7 +75,7 @@ class width_tree {
 
   double calc_b2() {
     double s = 0.0;
-    for (size_t i = 1; i < root_no; ++i) {
+    for (int i = 1; i < root_no; ++i) {
       // we are only interested in tip depths
       s += tree[i].depth / std::pow(2, tree[i].depth);
     }
@@ -85,24 +85,24 @@ class width_tree {
   double var_leaf_depth() {
     double average_depth = 0.0;
     int n = root_no - 1;
-    for (size_t i = 1; i < root_no; ++i) {
+    for (int i = 1; i < root_no; ++i) {
       average_depth += tree[i].depth;
     }
 
-    average_depth *= 1.0 / (n);
+    average_depth *= 1.0 / n;
 
     double var_depth = 0.0;
-    for (size_t i = 1; i < root_no; ++i) {
+    for (int i = 1; i < root_no; ++i) {
       var_depth += (tree[i].depth - average_depth) *
         (tree[i].depth - average_depth);
     }
-    var_depth *= 1.0 / (n - 1);
+    var_depth *= 1.0 / n;
     return var_depth;
   }
 
   double calc_tot_int_path() {
     double sum_depth = 0.0;
-    for (size_t i = root_no; i < tree.size(); ++i) {
+    for (size_t i = static_cast<size_t>(root_no); i < tree.size(); ++i) {
       sum_depth += tree[i].depth;
     }
     return sum_depth;

@@ -16,8 +16,9 @@
 #' @export
 max_closeness <- function(phy, weight = TRUE, normalization = "none") {
   check_tree(phy,
-             require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   normalization <- check_normalization_key(normalization)
 
@@ -25,7 +26,15 @@ max_closeness <- function(phy, weight = TRUE, normalization = "none") {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    closeness_stat <- calc_max_closeness_cpp(phy, weight)
+
+    if (ape::is.binary(phy) && ape::is.rooted(phy)) {
+      closeness_stat <- calc_max_closeness_cpp(phy, weight)
+    } else {
+      if (!weight) phy$edge.length <- rep(1, length(phy$edge.length))
+      node_dist <- ape::dist.nodes(phy)
+      closeness_stat <- max(1 / rowSums(node_dist))
+    }
+
     if (normalization == "tips" || normalization == TRUE) {
       n <- length(phy$edge)
       expectation <- 1.0 / (n * log(n))

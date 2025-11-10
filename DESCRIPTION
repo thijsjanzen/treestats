@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Phylogenetic Tree Statistics
-Version: 1.70.3
+Version: 1.70.7
 Authors@R: c(person(given = "Thijs",
         family = "Janzen",
         email = "thijsjanzen@gmail.com",
@@ -17,7 +17,7 @@ Description: Collection of phylogenetic tree statistics,
              calculations on Ltables, provides speed-improved coding of 
              branching times, Ltable conversion and includes algorithms to
              create intermediately balanced trees. Full description can be
-             found in Janzen (2023) <doi:10.1101/2024.01.24.576848>.
+             found in Janzen (2024) <doi:10.1016/j.ympev.2024.108168>.
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.3.2
@@ -25,11 +25,14 @@ Depends:
     Rcpp
 LinkingTo: 
     Rcpp,
+    RcppArmadillo,
     nloptr
 Imports:
     ape,
-    nloptr
+    nloptr,
+    treebalance
 Suggests:
+    phytools,
     phyloTop,
     testthat,
     DDD,
@@ -40,7 +43,6 @@ Suggests:
     ggplot2,
     tibble,
     picante,
-    treebalance,
     RPANDA,
     lintr,
     rmarkdown,

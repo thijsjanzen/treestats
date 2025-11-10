@@ -77,19 +77,25 @@ laplacian_spectrum <- function(phy) {
       bw[1]
       else bw(x)) * adjust
     xx <- seq(from, to, len = n)
-    mat <- outer(xx, x, kernel, sd = sd, ...)
-    structure(list(x = xx, y = rowMeans(mat), bw = sd, call = match.call(),
-                   n = length(x), data.name = deparse(substitute(x)),
-                   has.na = has_na), class = "density")
+
+    mat <-  outer_cpp(xx, x, sd)
+
+
+    structure(list(x = xx,
+                   y = rowMeans(mat),
+                   bw = sd,
+                   call = match.call(),
+                   n = length(x),
+                   data.name = deparse(substitute(x)),
+                   has.na = has_na),
+              class = "density")
   }
 
   phy <- ape::reorder.phylo(phy)
 
-  lapl_mat <- -prep_lapl_spec(phy)
+  x <- get_eigen_values_arma_cpp(phy)
+  x <- sort(x, decreasing = TRUE)
 
-  e <- eigen(lapl_mat, symmetric = TRUE, only.values = TRUE)
-
-  x <- subset(e$values, e$values >= 1)
   d <- dens_rpanda(log(x))
   dsc <- d$y / (integr(d$x, d$y))
   principal_eigenvalue <- max(x)

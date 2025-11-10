@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -142,7 +142,7 @@ class stat {
     for (const auto& i : depths) {
       var_depth += (i - average_depth) * (i - average_depth);
     }
-    var_depth *= 1.0 / (depths.size() - 1);
+    var_depth *= inv_tree_size;
     return var_depth;
   }
 

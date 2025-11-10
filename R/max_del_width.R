@@ -23,6 +23,11 @@
 max_del_width <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
     max_dw_stat <- calc_max_del_width_ltable_cpp(phy)
     if (normalization == "tips" || normalization == TRUE) {

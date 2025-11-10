@@ -31,9 +31,9 @@ Beta value
 }
 \description{
 The Beta statistic fits a beta splitting model to each node,
-assuming that the number of extant descendents of each daughter branch is
+assuming that the number of extant descendants of each daughter branch is
 split following a beta distribution, such that the number of extant
-descendentants x and y at a node follows \eqn{q(x, y) = s_n(beta)^-1
+descendants x and y at a node follows \eqn{q(x, y) = s_n(beta)^-1
 \frac{(gamma(x + 1 + beta)gamma(y + 1 + beta))}{gamma(x+1)gamma(y+1)}}, where
 \eqn{s_n(beta)^-1} is a normalizing constant. When this model is fit to a
 tree, different values of beta correspond to the expectation following from

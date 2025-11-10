@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -95,8 +95,9 @@ class phylo_tree {
       mpd += L_bl * (l * (N - l));
       mpd += R_bl * (r * (N - r));
     }
-
-    mpd *= 2.0 / (N * (N - 1));
+    // to prevent integer overflow when N * (N - 1) is too large
+    double Nd = static_cast<double>(N);
+    mpd *= 2.0 / (Nd * (Nd - 1));
     return(mpd);
   }
 

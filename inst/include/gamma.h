@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -32,9 +32,8 @@ double calc_gamma(std::vector<double> brts_) {
   double double_sum = 0.0;
   auto max_i = n - 1;
   for (size_t i = 1; i < max_i; ++i) {
-    if (i - 1 < 0) throw "gamma: out of range, i -1 < 0";
+    if (i - 1 < 0) throw "gamma: out of range, i-1 < 0";
     if (i >= brts_.size()) throw "gamma: out of range, i >= brts_.size()";
-
 
     total += (i + 1) * (brts_[i] - brts_[i - 1]);
 
@@ -48,38 +47,4 @@ double calc_gamma(std::vector<double> brts_) {
   double c = total * sqrtf(1.f / (12 * n - 24));
 
   return (a - b) / c;
-}
-
-double calc_gamma2(const std::vector<size_t>& t_edge,
-                   const std::vector<double>& edge_length) {
-  auto Nnode = edge_length.size() / 2;
-  auto n = Nnode + 1;
-  auto n_1 = n + 1;
-
-  std::vector<double> xx(Nnode, 0.f);
-
-  for (size_t i = 0; i < t_edge.size(); i += 2) {
-    auto j = i / 2;
-    if (t_edge[i + 1] > n) {
-      xx[t_edge[i + 1] - n_1] = xx[t_edge[i] - n_1] + edge_length[j];
-    }
-  }
-
-  auto h = xx[t_edge[t_edge.size() - 2] - n_1] + edge_length.back();
-
-  std::partial_sort(xx.begin(), xx.begin() + n - 1, xx.end());
-
-  double total = 0.0;
-  double double_sum = 0.0;
-
-  for (size_t i = 1; i < n - 1; ++i) {
-    total += (i + 1) * (xx[i] - xx[i - 1]);
-    double_sum += total;
-  }
-
-  total += n * (h - xx[n - 2]);
-
-  double c = total * sqrt(1.0 / (12 * n - 24));
-
-  return (double_sum / (n - 2) - 0.5 * total) / c;
 }

@@ -1,5 +1,18 @@
-<<<<<<< Updated upstream
-=======
+# Version 1.70.7
+- Fixed numerical issue in calculating mean pair distance for very large trees
+- Now use armadillo to calculate Eigen values
+
+# Version 1.70.6
+- Added support for unrooted trees
+- Added check if tree is unrooted, and aborting if statistic does not support
+this
+- Updated reference table in the README file, showing which statistics are
+available for unrooted trees, and which statistics (appear) to be affected by
+root position
+- using treebalance functions when treestats functions do not suffice (e.g.
+for rquartet for polytomous trees)
+- updated Wiener test, to include distance matrix based calculation
+
 # Version 1.70.5
 
 Updated references.
@@ -8,7 +21,6 @@ Updated references.
 
 Removed C++20 dependency
 
->>>>>>> Stashed changes
 # Version 1.70.3
 
 Version numbering has improved to include the number of statistics available.

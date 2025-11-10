@@ -4,17 +4,21 @@
 #' e(v) is the Perron-Frobenius eigenvector of the adjacency matrix of the tree.
 #' @param phy phylo object or ltable
 #' @param weight if TRUE, uses branch lengths.
-#' @param scale if TRUE, the eigenvector is rescaled
-#' @return List with the eigen vector and the leading eigen value
+#' @param scale if TRUE, the Eigenvector is rescaled
+#' @param use_rspectra boolean to indicate whether the helping package RSpectra
+#' should be used, which is faster, but returns fewer eigen values.
+#' @return List with the Eigen vector and the leading Eigen value
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
 eigen_centrality <- function(phy,
-                         weight = TRUE,
-                         scale = FALSE) {
+                             weight = TRUE,
+                             scale = FALSE,
+                             use_rspectra = FALSE) {
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
@@ -29,11 +33,11 @@ eigen_centrality <- function(phy,
         adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
                                            j = edge_for_mat[, 2],
                                            x = c(phy$edge.length,
-                                                     phy$edge.length))
+                                                 phy$edge.length))
       } else {
         adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
-                                         j = edge_for_mat[, 2],
-                                         x = rep(1, length(edge_for_mat[, 1])))
+                                           j = edge_for_mat[, 2],
+                                          x = rep(1, length(edge_for_mat[, 1])))
       }
     } else {
       adj_matrix <- prep_adj_mat(as.vector(t(phy$edge)),
@@ -41,9 +45,9 @@ eigen_centrality <- function(phy,
                                  weight)
     }
 
-    if (requireNamespace("RSpectra")) {
-      # using the RSpectra package is much faster than eigen, because it limits
-      # the number of eigen values
+    if (requireNamespace("RSpectra") && use_rspectra == TRUE) {
+      # using the RSpectra package is much faster than Eigen, because it limits
+      # the number of Eigen values
       ev <- RSpectra::eigs_sym(adj_matrix,
                                k = 1,
                                which = "LM",

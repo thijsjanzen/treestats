@@ -49,79 +49,109 @@ The following summary statistics are included:
     <tr>
         <td>Statistic</td>
         <td>Information</td>
+        <td>Fischer</td>
         <td>Normalization</td>
         <td>Assumes Ultrametric tree</td>
         <td>Requires binary tree</td>
+        <td>Assumes rooted tree</td>
+        <td>Sensitive to root position</td>
         <td>Reference</td>
     </tr>
     <tr>
         <td>area_per_pair</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Yule</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Lima et al., 2020</td>
     </tr>
     <tr>
         <td>average_leaf_depth</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Yule</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Shao &amp; Sokal, 1990</td>
     </tr>
     <tr>
         <td>avg_ladder</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Kendall et al., 2018</td>
     </tr>
     <tr>
         <td>avg_vert_depth</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
-        <td>Herrada, 2011</td>
+        <td>YES</td>
+        <td>YES</td>
+        <td>Colijn &amp; Gardy, 2014</td>
     </tr>
     <tr>
         <td>b1</td>
         <td>Topology</td>
+        <td>Balance</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Shao &amp; Sokal, 1990</td>
     </tr>
     <tr>
         <td>b2</td>
         <td>Topology</td>
+        <td>Balance</td>
         <td>Yule</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Shao &amp; Sokal, 1990</td>
     </tr>
     <tr>
         <td>beta</td>
         <td>Topology</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Aldous, 1996</td>
     </tr>
     <tr>
         <td>blum</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Blum &amp; François, 2006</td>
     </tr>
     <tr>
         <td>cherries</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Yule</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>McKenzie et al., 1999</td>
@@ -129,47 +159,65 @@ The following summary statistics are included:
     <tr>
         <td>colless</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Yule</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Colless, 1982</td>
     </tr>
     <tr>
         <td>colless_corr</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Heard, 1992</td>
     </tr>
     <tr>
         <td>colless_quad</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Bartoszek et al., 2021</td>
     </tr>
     <tr>
         <td>crown_age</td>
         <td>Branching times</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td></td>
     </tr>
     <tr>
         <td>diameter</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
         <td>double_cherries</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
@@ -177,31 +225,43 @@ The following summary statistics are included:
     <tr>
         <td>eigen_centrality</td>
         <td>Topology</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
         <td>eigen_centralityW</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
         <td>ew_colless</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Mooers &amp; S. B. Heard, 1997</td>
     </tr>
     <tr>
         <td>four_prong</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
@@ -209,47 +269,65 @@ The following summary statistics are included:
     <tr>
         <td>gamma</td>
         <td>Branching times</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Pybus &amp; Harvey, 2000</td>
     </tr>
     <tr>
         <td>i_stat</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Fusco &amp; Cronk, 1995</td>
     </tr>
     <tr>
         <td>il_number</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Kendall et al., 2018</td>
     </tr>
     <tr>
         <td>imbalance_steps</td>
         <td>Topology</td>
+        <td>No index</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Janzen &amp; Etienne, 2024</td>
     </tr>
     <tr>
         <td>j_one</td>
         <td>Topology</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Lemant et al., 2022</td>
     </tr>
     <tr>
         <td>j_stat</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td>Izsák &amp; Papp, 2000</td>
@@ -257,39 +335,54 @@ The following summary statistics are included:
     <tr>
         <td>laplace_spectrum_a</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Lewitus &amp; Morlon, 2016</td>
     </tr>
     <tr>
         <td>laplace_spectrum_e</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Lewitus &amp; Morlon, 2016</td>
     </tr>
     <tr>
         <td>laplace_spectrum_g</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Lewitus &amp; Morlon, 2016</td>
     </tr>
     <tr>
         <td>laplace_spectrum_p</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Lewitus &amp; Morlon, 2016</td>
     </tr>
     <tr>
         <td>max_adj</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
@@ -297,47 +390,65 @@ The following summary statistics are included:
     <tr>
         <td>max_betweenness</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Tips</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
         <td>max_closeness</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Tips</td>
         <td>NO</td>
         <td>YES</td>
+        <td>NO</td>
+        <td>Small</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
         <td>max_closenessW</td>
         <td>Topology + branch lengths</td>
+        <td>Shape</td>
         <td>None</td>
         <td>NO</td>
         <td>YES</td>
+        <td>NO</td>
+        <td>Small</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
         <td>max_del_width</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Colijn &amp; Gardy, 2014</td>
     </tr>
     <tr>
         <td>max_depth</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Colijn &amp; Gardy, 2014</td>
     </tr>
     <tr>
         <td>max_ladder</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Kendall et al., 2018</td>
@@ -345,7 +456,10 @@ The following summary statistics are included:
     <tr>
         <td>max_laplace</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
@@ -353,23 +467,32 @@ The following summary statistics are included:
     <tr>
         <td>max_width</td>
         <td>Topology</td>
+        <td>Balance</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Colijn &amp; Gardy, 2014</td>
     </tr>
     <tr>
         <td>mean_branch_length</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Janzen &amp; Etienne, 2017</td>
     </tr>
     <tr>
         <td>mean_branch_length_ext</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td>Saulnier et al., 2017</td>
@@ -377,15 +500,21 @@ The following summary statistics are included:
     <tr>
         <td>mean_branch_length_int</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
     <tr>
         <td>min_adj</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
@@ -393,7 +522,10 @@ The following summary statistics are included:
     <tr>
         <td>min_laplace</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
@@ -401,7 +533,10 @@ The following summary statistics are included:
     <tr>
         <td>mntd</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td>Webb et al., 2002</td>
@@ -409,7 +544,10 @@ The following summary statistics are included:
     <tr>
         <td>mpd</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>Tips</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td>Webb et al., 2002</td>
@@ -417,23 +555,32 @@ The following summary statistics are included:
     <tr>
         <td>mw_over_md</td>
         <td>Topology</td>
+        <td>Balance</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Colijn &amp; Gardy, 2014</td>
     </tr>
     <tr>
         <td>nltt_base</td>
         <td>Branching times</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Janzen et al., 2015</td>
     </tr>
     <tr>
         <td>number_of_lineages</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td></td>
@@ -441,31 +588,43 @@ The following summary statistics are included:
     <tr>
         <td>phylogenetic_div</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Faith, 1992</td>
     </tr>
     <tr>
         <td>pigot_rho</td>
         <td>Branching times</td>
+        <td>No index</td>
         <td>None</td>
         <td>YES</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Pigot et al., 2010</td>
     </tr>
     <tr>
         <td>pitchforks</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>Tips</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Kendall et al., 2018</td>
     </tr>
     <tr>
         <td>psv</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>Tips</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td>Helmus et al., 2007</td>
@@ -473,7 +632,10 @@ The following summary statistics are included:
     <tr>
         <td>rogers</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Tips</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Rogers, 1996</td>
@@ -481,127 +643,175 @@ The following summary statistics are included:
     <tr>
         <td>root_imbalance</td>
         <td>Topology</td>
+        <td>Shape</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Guyer et al., 1993</td>
     </tr>
     <tr>
         <td>rquartet</td>
         <td>Topology</td>
+        <td>Balance</td>
         <td>Yule</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Coronado et al., 2019</td>
     </tr>
     <tr>
         <td>sackin</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Yule</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Sackin, 1972</td>
     </tr>
     <tr>
         <td>stairs</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Norström et al., 2012</td>
     </tr>
     <tr>
         <td>stairs2</td>
         <td>Topology</td>
+        <td>Balance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Norström et al., 2012</td>
     </tr>
     <tr>
         <td>symmetry_nodes</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Tips</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Kersting &amp; Fischer, 2021</td>
     </tr>
     <tr>
         <td>tot_coph</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Yule</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Mir et al., 2013</td>
     </tr>
     <tr>
         <td>tot_internal_path</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Knuth, 1997</td>
     </tr>
     <tr>
         <td>tot_path</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>None</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>YES</td>
         <td>Colijn &amp; Gardy, 2014</td>
     </tr>
     <tr>
         <td>tree_height</td>
         <td>Branching times</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td></td>
     </tr>
     <tr>
         <td>treeness</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Astolfi &amp; Zonta-Sgaramella, 1984</td>
     </tr>
     <tr>
         <td>var_branch_length</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
     <tr>
         <td>var_branch_length_ext</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
     <tr>
         <td>var_branch_length_int</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
         <td>NO</td>
         <td>NO</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
     <tr>
         <td>var_depth</td>
         <td>Topology</td>
+        <td>Imbalance</td>
         <td>Yule</td>
         <td>NO</td>
         <td>NO</td>
+        <td>YES</td>
+        <td>YES</td>
         <td>Coronado et al., 2020</td>
     </tr>
     <tr>
         <td>vpd</td>
         <td>Topology + branch lengths</td>
+        <td>No index</td>
         <td>None</td>
+        <td>NO</td>
+        <td>NO</td>
         <td>NO</td>
         <td>NO</td>
         <td>Webb et al., 2002</td>
@@ -609,13 +819,15 @@ The following summary statistics are included:
     <tr>
         <td>wiener</td>
         <td>Topology + branch lengths</td>
+        <td>Shape</td>
         <td>None</td>
+        <td>NO</td>
+        <td>YES</td>
         <td>NO</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
     </tr>
 </table>
-
 
 ## Rcpp
 

@@ -4,17 +4,20 @@
 \alias{eigen_centrality}
 \title{Eigen vector centrality}
 \usage{
-eigen_centrality(phy, weight = TRUE, scale = FALSE)
+eigen_centrality(phy, weight = TRUE, scale = FALSE, use_rspectra = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
 
 \item{weight}{if TRUE, uses branch lengths.}
 
-\item{scale}{if TRUE, the eigenvector is rescaled}
+\item{scale}{if TRUE, the Eigenvector is rescaled}
+
+\item{use_rspectra}{boolean to indicate whether the helping package RSpectra
+should be used, which is faster, but returns fewer eigen values.}
 }
 \value{
-List with the eigen vector and the leading eigen value
+List with the Eigen vector and the leading Eigen value
 }
 \description{
 Eigen vector centrality associates with each node v the positive

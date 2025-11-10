@@ -7,6 +7,11 @@
 #' @export
 mw_over_md <- function(phy) {
 
+  check_tree(phy,
+             require_binary = TRUE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
     return(calc_mw_over_md_ltable_cpp(phy))
   }

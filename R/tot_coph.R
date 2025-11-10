@@ -14,7 +14,8 @@ tot_coph <- function(phy, normalization = "none") {
 
   check_tree(phy,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
     tot_coph_stat <- calc_tot_coph_ltable_cpp(phy)

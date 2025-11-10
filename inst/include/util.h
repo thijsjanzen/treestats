@@ -1,4 +1,4 @@
-// Copyright 2022 - 2024 Thijs Janzen
+// Copyright 2022 - 2025 Thijs Janzen
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +14,7 @@
 #include <vector>
 #include <array>
 #include <algorithm>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 using ltable = std::vector< std::array<double, 4>>;
 using edge_table = std::vector< std::array< size_t, 2 >>;
@@ -48,14 +48,30 @@ inline std::vector<double> phy_to_el(const Rcpp::List& phy) {
   return el_cpp;
 }
 
+struct entry {
+  std::array<size_t, 2> ed;
+  double bl;
+};
+
+inline void add_entry(std::vector<entry>& cladewise_result,
+                  std::vector<bool>& added,
+                  const std::vector<entry>& unsorted,
+                  size_t id,
+                  size_t start) {
+  for (size_t i = start; i < unsorted.size(); ++i) {
+    auto focal_id = unsorted[i].ed[0];
+    if (focal_id == id && added[i] == false) {
+      cladewise_result.push_back(unsorted[i]);
+      added[i] = true;
+      auto daughter = unsorted[i].ed[1];
+      add_entry(cladewise_result, added, unsorted, daughter, i);
+    }
+  }
+}
+
 
 inline void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
-                              std::vector<double>* edge_length) {
-  struct entry {
-    std::array<size_t, 2> ed;
-    double bl;
-  };
-
+                                     std::vector<double>* edge_length) {
   if ((*edge).size() != (*edge_length).size()) {
     throw std::runtime_error("size mismatch");
   }

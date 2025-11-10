@@ -1,4 +1,4 @@
-context("mean pair distance")
+context("entropy j")
 
 test_that("usage", {
   if (requireNamespace("picante")) {
@@ -19,6 +19,14 @@ test_that("usage", {
     testthat::expect_equal(treestats::entropy_j(focal_tree),
                            treestats::entropy_j(ltab))
   }
+})
+
+test_that("unrooted", {
+  set.seed(42)
+  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+  a1 <- treestats::entropy_j(focal_tree)
+  a2 <- treestats::entropy_j(ape::unroot(focal_tree))
+  testthat::expect_equal(a1, a2)
 })
 
 test_that("wrong_object", {

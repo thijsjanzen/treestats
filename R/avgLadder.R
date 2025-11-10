@@ -12,7 +12,8 @@
 avg_ladder <- function(input_obj) {  #nolint
   check_tree(input_obj,
              require_binary = TRUE,
-             require_ultrametric = FALSE)
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
   if (inherits(input_obj, "matrix")) {
     input_obj <- treestats::l_to_phylo(input_obj, drop_extinct = FALSE)
   }

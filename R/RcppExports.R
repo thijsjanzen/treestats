@@ -49,10 +49,6 @@ calc_gamma_cpp <- function(phy) {
     .Call('_treestats_calc_gamma_cpp', PACKAGE = 'treestats', phy)
 }
 
-calc_gamma_cpp2 <- function(edge, el) {
-    .Call('_treestats_calc_gamma_cpp2', PACKAGE = 'treestats', edge, el)
-}
-
 calc_gamma_ltable_cpp <- function(ltab_in) {
     .Call('_treestats_calc_gamma_ltable_cpp', PACKAGE = 'treestats', ltab_in)
 }
@@ -289,16 +285,20 @@ prep_lapl_spec <- function(phy) {
     .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
 }
 
+get_eigen_values_arma_cpp <- function(phy) {
+    .Call('_treestats_get_eigen_values_arma_cpp', PACKAGE = 'treestats', phy)
+}
+
 prep_adj_mat <- function(parent_list, br_len, use_br_len) {
     .Call('_treestats_prep_adj_mat', PACKAGE = 'treestats', parent_list, br_len, use_br_len)
 }
 
-calc_mpd_cpp <- function(edge, el) {
-    .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
+outer_cpp <- function(xx, x, sd) {
+    .Call('_treestats_outer_cpp', PACKAGE = 'treestats', xx, x, sd)
 }
 
-calc_psv_cpp <- function(edge, el) {
-    .Call('_treestats_calc_psv_cpp', PACKAGE = 'treestats', edge, el)
+calc_mpd_cpp <- function(edge, el) {
+    .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }
 
 calc_J_cpp <- function(edge, el) {
