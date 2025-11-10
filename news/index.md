@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.70.8
+
+- removed all references and vignettes making use of the package abcrf,
+  as this is longer available on CRAN
+
 ## Version 1.70.7
 
 CRAN release: 2025-09-11
@@ -8,8 +13,8 @@ CRAN release: 2025-09-11
   trees
 - Now use armadillo to calculate Eigen values
 - added the function ‘sshape’, which was previously called the blum
-  statistic ( the blum function remains available as well). Thanks
-  Sophie Kersting for pointing this out!
+  statistic (the blum function remains available as well). Thanks Sophie
+  Kersting for pointing this out!
 - polished the manual
 
 ## Version 1.70.6
