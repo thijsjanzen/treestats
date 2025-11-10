@@ -1,8 +1,10 @@
+# Version 1.70.8
+- removed all references and vignettes making use of the package abcrf, as this is longer available on CRAN
+
 # Version 1.70.7
 - Fixed numerical issue in calculating mean pair distance for very large trees
 - Now use armadillo to calculate Eigen values
-- added the function 'sshape', which was previously called the blum statistic (
-the blum function remains available as well). Thanks Sophie Kersting for 
+- added the function 'sshape', which was previously called the blum statistic (the blum function remains available as well). Thanks Sophie Kersting for 
 pointing this out!
 - polished the manual
 
