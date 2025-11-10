@@ -1,0 +1,325 @@
+# Treestats
+
+![](https://github.com/thijsjanzen/treestats/blob/main/layout/hex_treestats.png?raw=true)
+
+#### Measuring properties of phylogenetic trees
+
+The **treestats** R package contains rapid, C++ based, functions to
+calculate summary statistics on phylogenies. For some functions (but not
+all, see below), the phylogenies are required to be ultrametric and/or
+binary.
+
+## Getting started
+
+### Installation
+
+To get started, you can either install from CRAN or use the latest
+version from GitHub:
+
+    install.packages("treestats") # install from CRAN
+
+    # use the devtools package to install latest version from GitHub:
+    install.packages("devtools")
+    devtools::install_github("thijsjanzen/treestats")
+
+### Basic usage
+
+Given a tree (for example a simulated tree, as in the code example), you
+can either access individual statistics, or calculate all currently
+implemented statistics:
+
+    focal_tree   <- ape::rphylo(n = 10, birth = 1, death = 0)
+    colless_stat <- treestats::colless(focal_tree)
+    all_stats    <- treestats::calc_all_stats(focal_tree)
+
+### List of statistics
+
+The following summary statistics are included:
+
+|                        |                           |           |               |                          |                      |                     |                            |                                  |
+|------------------------|---------------------------|-----------|---------------|--------------------------|----------------------|---------------------|----------------------------|----------------------------------|
+| Statistic              | Information               | Fischer   | Normalization | Assumes Ultrametric tree | Requires binary tree | Assumes rooted tree | Sensitive to root position | Reference                        |
+| area_per_pair          | Topology                  | Shape     | Yule          | NO                       | YES                  | YES                 | YES                        | Lima et al., 2020                |
+| average_leaf_depth     | Topology                  | Imbalance | Yule          | NO                       | YES                  | YES                 | YES                        | Shao & Sokal, 1990               |
+| avg_ladder             | Topology                  | Shape     | None          | NO                       | YES                  | YES                 | YES                        | Kendall et al., 2018             |
+| avg_vert_depth         | Topology                  | Imbalance | None          | NO                       | NO                   | YES                 | YES                        | Colijn & Gardy, 2014             |
+| b1                     | Topology                  | Balance   | Tips          | NO                       | NO                   | YES                 | YES                        | Shao & Sokal, 1990               |
+| b2                     | Topology                  | Balance   | Yule          | NO                       | NO                   | YES                 | YES                        | Shao & Sokal, 1990               |
+| beta                   | Topology                  | No index  | None          | NO                       | YES                  | YES                 | YES                        | Aldous, 1996                     |
+| blum                   | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Blum & François, 2006            |
+| cherries               | Topology                  | Shape     | Yule          | NO                       | YES                  | NO                  | YES                        | McKenzie et al., 1999            |
+| colless                | Topology                  | Imbalance | Yule          | NO                       | YES                  | YES                 | YES                        | Colless, 1982                    |
+| colless_corr           | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Heard, 1992                      |
+| colless_quad           | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Bartoszek et al., 2021           |
+| crown_age              | Branching times           | No index  | None          | NO                       | NO                   | YES                 | YES                        |                                  |
+| diameter               | Topology                  | Shape     | None          | NO                       | YES                  | YES                 | YES                        | Chindelevitch et al., 2021       |
+| double_cherries        | Topology                  | Shape     | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+| eigen_centrality       | Topology                  | No index  | None          | NO                       | NO                   | NO                  | YES                        | Chindelevitch et al., 2021       |
+| eigen_centralityW      | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Chindelevitch et al., 2021       |
+| ew_colless             | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Mooers & S. B. Heard, 1997       |
+| four_prong             | Topology                  | Shape     | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+| gamma                  | Branching times           | No index  | None          | YES                      | NO                   | YES                 | YES                        | Pybus & Harvey, 2000             |
+| i_stat                 | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Fusco & Cronk, 1995              |
+| il_number              | Topology                  | Shape     | Tips          | NO                       | NO                   | NO                  | YES                        | Kendall et al., 2018             |
+| imbalance_steps        | Topology                  | No index  | Tips          | NO                       | NO                   | YES                 | YES                        | Janzen & Etienne, 2024           |
+| j_one                  | Topology                  | No index  | None          | NO                       | YES                  | YES                 | YES                        | Lemant et al., 2022              |
+| j_stat                 | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | NO                         | Izsák & Papp, 2000               |
+| laplace_spectrum_a     | Topology + branch lengths | No index  | None          | YES                      | NO                   | NO                  | YES                        | Lewitus & Morlon, 2016           |
+| laplace_spectrum_e     | Topology + branch lengths | No index  | None          | YES                      | NO                   | NO                  | YES                        | Lewitus & Morlon, 2016           |
+| laplace_spectrum_g     | Topology + branch lengths | No index  | None          | YES                      | NO                   | NO                  | YES                        | Lewitus & Morlon, 2016           |
+| laplace_spectrum_p     | Topology + branch lengths | No index  | None          | YES                      | NO                   | NO                  | YES                        | Lewitus & Morlon, 2016           |
+| max_adj                | Topology + branch lengths | No index  | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+| max_betweenness        | Topology                  | Shape     | Tips          | NO                       | YES                  | YES                 | YES                        | Chindelevitch et al., 2021       |
+| max_closeness          | Topology                  | Shape     | Tips          | NO                       | YES                  | NO                  | Small                      | Chindelevitch et al., 2021       |
+| max_closenessW         | Topology + branch lengths | Shape     | None          | NO                       | YES                  | NO                  | Small                      | Chindelevitch et al., 2021       |
+| max_del_width          | Topology                  | Shape     | Tips          | NO                       | NO                   | YES                 | YES                        | Colijn & Gardy, 2014             |
+| max_depth              | Topology                  | Imbalance | Tips          | NO                       | NO                   | YES                 | YES                        | Colijn & Gardy, 2014             |
+| max_ladder             | Topology                  | Shape     | None          | NO                       | YES                  | NO                  | YES                        | Kendall et al., 2018             |
+| max_laplace            | Topology + branch lengths | No index  | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+| max_width              | Topology                  | Balance   | Tips          | NO                       | NO                   | YES                 | YES                        | Colijn & Gardy, 2014             |
+| mean_branch_length     | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Janzen & Etienne, 2017           |
+| mean_branch_length_ext | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | NO                         | Saulnier et al., 2017            |
+| mean_branch_length_int | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Saulnier et al., 2017            |
+| min_adj                | Topology + branch lengths | No index  | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+| min_laplace            | Topology + branch lengths | No index  | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+| mntd                   | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | NO                         | Webb et al., 2002                |
+| mpd                    | Topology + branch lengths | No index  | Tips          | NO                       | NO                   | NO                  | NO                         | Webb et al., 2002                |
+| mw_over_md             | Topology                  | Balance   | None          | NO                       | NO                   | YES                 | YES                        | Colijn & Gardy, 2014             |
+| nltt_base              | Branching times           | No index  | None          | YES                      | NO                   | YES                 | YES                        | Janzen et al., 2015              |
+| number_of_lineages     | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | NO                         |                                  |
+| phylogenetic_div       | Topology + branch lengths | No index  | None          | NO                       | NO                   | YES                 | YES                        | Faith, 1992                      |
+| pigot_rho              | Branching times           | No index  | None          | YES                      | NO                   | YES                 | YES                        | Pigot et al., 2010               |
+| pitchforks             | Topology                  | Shape     | Tips          | NO                       | NO                   | NO                  | YES                        | Kendall et al., 2018             |
+| psv                    | Topology + branch lengths | No index  | Tips          | NO                       | NO                   | NO                  | NO                         | Helmus et al., 2007              |
+| rogers                 | Topology                  | Imbalance | Tips          | NO                       | YES                  | NO                  | YES                        | Rogers, 1996                     |
+| root_imbalance         | Topology                  | Shape     | None          | NO                       | YES                  | YES                 | YES                        | Guyer et al., 1993               |
+| rquartet               | Topology                  | Balance   | Yule          | NO                       | NO                   | YES                 | YES                        | Coronado et al., 2019            |
+| sackin                 | Topology                  | Imbalance | Yule          | NO                       | YES                  | YES                 | YES                        | Sackin, 1972                     |
+| stairs                 | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Norström et al., 2012            |
+| stairs2                | Topology                  | Balance   | None          | NO                       | YES                  | YES                 | YES                        | Norström et al., 2012            |
+| symmetry_nodes         | Topology                  | Imbalance | Tips          | NO                       | YES                  | YES                 | YES                        | Kersting & Fischer, 2021         |
+| tot_coph               | Topology                  | Imbalance | Yule          | NO                       | YES                  | YES                 | YES                        | Mir et al., 2013                 |
+| tot_internal_path      | Topology                  | Imbalance | None          | NO                       | NO                   | YES                 | YES                        | Knuth, 1997                      |
+| tot_path               | Topology                  | Imbalance | None          | NO                       | YES                  | YES                 | YES                        | Colijn & Gardy, 2014             |
+| tree_height            | Branching times           | No index  | None          | NO                       | NO                   | YES                 | YES                        |                                  |
+| treeness               | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Astolfi & Zonta-Sgaramella, 1984 |
+| var_branch_length      | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Saulnier et al., 2017            |
+| var_branch_length_ext  | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Saulnier et al., 2017            |
+| var_branch_length_int  | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | YES                        | Saulnier et al., 2017            |
+| var_depth              | Topology                  | Imbalance | Yule          | NO                       | NO                   | YES                 | YES                        | Coronado et al., 2020            |
+| vpd                    | Topology + branch lengths | No index  | None          | NO                       | NO                   | NO                  | NO                         | Webb et al., 2002                |
+| wiener                 | Topology + branch lengths | Shape     | None          | NO                       | YES                  | NO                  | YES                        | Chindelevitch et al., 2021       |
+
+## Rcpp
+
+For all of these statistics, the package provides Rcpp versions that are
+much, much faster than their R sister functions. Furthermore, some
+additional functions have been improved as well: \* ape::branching.times
+\* DDD::phylo2L \* DDD::L2phylo
+
+![](https://github.com/thijsjanzen/treestats/blob/cd3649833740eb7cdb23f722a2738cfd23bc4b10/layout/Figure_S3.png?raw=true)
+
+## C++ Library
+
+For the Rcpp improved summary statistics (excluding statistics that rely
+on the calculation of eigen values, as these rely on the Rcpp
+independent Eigen code), R independent C++ code is provided in the
+inst/include folder. These can be independently linked by adding the
+treestats package in the DESCRIPTION in both the LinkingTo and Depends
+fields. Then, in your package, you can also calculate these functions.
+
+Please note that for all functions, there are two versions available: 1)
+based on input of a phylo object, which is typically one 2-column matrix
+containing all edges, and a vector containing the edge lengths
+(depending on which information is required to calculate the statistic).
+2) based on input of an Ltable (Lineage table), which is a 4-column
+matrix containing information on each species, being 1) birth time, 2)
+parent species, 3) species label and 4) death time (or -1 if extant).
+
+Ltable input can be useful when summary statistics are required for more
+complicated simulation models.
+
+# Package index
+
+## All functions
+
+- [`ILnumber()`](https://thijsjanzen.github.io/treestats/reference/ILnumber.md)
+  : ILnumber
+- [`area_per_pair()`](https://thijsjanzen.github.io/treestats/reference/area_per_pair.md)
+  : Area per pair index
+- [`average_leaf_depth()`](https://thijsjanzen.github.io/treestats/reference/average_leaf_depth.md)
+  : Average leaf depth statistic. The average leaf depth statistic is a
+  normalized version of the Sackin index, normalized by the number of
+  tips.
+- [`avg_ladder()`](https://thijsjanzen.github.io/treestats/reference/avg_ladder.md)
+  : Average ladder index
+- [`avg_vert_depth()`](https://thijsjanzen.github.io/treestats/reference/avg_vert_depth.md)
+  : Average vertex depth metric
+- [`b1()`](https://thijsjanzen.github.io/treestats/reference/b1.md) : B1
+  metric
+- [`b2()`](https://thijsjanzen.github.io/treestats/reference/b2.md) : B2
+  metric
+- [`beta_statistic()`](https://thijsjanzen.github.io/treestats/reference/beta_statistic.md)
+  : Aldous' beta statistic.
+- [`blum()`](https://thijsjanzen.github.io/treestats/reference/blum.md)
+  : Blum index of (im)balance.
+- [`branching_times()`](https://thijsjanzen.github.io/treestats/reference/branching_times.md)
+  : Branching times of a tree
+- [`calc_all_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_all_stats.md)
+  : Apply all available tree statistics to a single tree
+- [`calc_brts_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_brts_stats.md)
+  : Apply all tree statistics related to branching times to a single
+  tree.
+- [`calc_topology_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_topology_stats.md)
+  : Calculate all topology based statistics for a single tree
+- [`cherries()`](https://thijsjanzen.github.io/treestats/reference/cherries.md)
+  : Cherry index
+- [`colless()`](https://thijsjanzen.github.io/treestats/reference/colless.md)
+  : Colless index of (im)balance.
+- [`colless_corr()`](https://thijsjanzen.github.io/treestats/reference/colless_corr.md)
+  : Corrected Colless index of (im)balance.
+- [`colless_quad()`](https://thijsjanzen.github.io/treestats/reference/colless_quad.md)
+  : Quadratic Colless index of (im)balance.
+- [`create_fully_balanced_tree()`](https://thijsjanzen.github.io/treestats/reference/create_fully_balanced_tree.md)
+  : Create a fully balanced tree
+- [`create_fully_unbalanced_tree()`](https://thijsjanzen.github.io/treestats/reference/create_fully_unbalanced_tree.md)
+  : Create an unbalanced tree (caterpillar tree)
+- [`crown_age()`](https://thijsjanzen.github.io/treestats/reference/crown_age.md)
+  : Crown age of a tree.
+- [`diameter()`](https://thijsjanzen.github.io/treestats/reference/diameter.md)
+  : Diameter statistic
+- [`double_cherries()`](https://thijsjanzen.github.io/treestats/reference/double_cherries.md)
+  : Double Cherry index
+- [`eigen_centrality()`](https://thijsjanzen.github.io/treestats/reference/eigen_centrality.md)
+  : Eigen vector centrality
+- [`entropy_j()`](https://thijsjanzen.github.io/treestats/reference/entropy_j.md)
+  : Intensive quadratic entropy statistic J.
+- [`ew_colless()`](https://thijsjanzen.github.io/treestats/reference/ew_colless.md)
+  : Equal weights Colless index of (im)balance.
+- [`four_prong()`](https://thijsjanzen.github.io/treestats/reference/four_prong.md)
+  : Four prong index
+- [`gamma_statistic()`](https://thijsjanzen.github.io/treestats/reference/gamma_statistic.md)
+  : Gamma statistic
+- [`i_stat()`](https://thijsjanzen.github.io/treestats/reference/i_stat.md)
+  : Mean I statistic.
+- [`imbalance_steps()`](https://thijsjanzen.github.io/treestats/reference/imbalance_steps.md)
+  : Imbalance steps index
+- [`j_one()`](https://thijsjanzen.github.io/treestats/reference/j_one.md)
+  : \\J^1\\ index.
+- [`l_to_phylo()`](https://thijsjanzen.github.io/treestats/reference/l_to_phylo.md)
+  : Convert an L table to phylo object
+- [`laplacian_spectrum()`](https://thijsjanzen.github.io/treestats/reference/laplacian_spectrum.md)
+  : Laplacian spectrum statistics, from RPANDA
+- [`list_statistics()`](https://thijsjanzen.github.io/treestats/reference/list_statistics.md)
+  : Provides a list of all available statistics in the package
+- [`ltable_to_newick()`](https://thijsjanzen.github.io/treestats/reference/ltable_to_newick.md)
+  : Convert an L table to newick string
+- [`make_unbalanced_tree()`](https://thijsjanzen.github.io/treestats/reference/make_unbalanced_tree.md)
+  : Stepwise increase the imbalance of a tree
+- [`max_betweenness()`](https://thijsjanzen.github.io/treestats/reference/max_betweenness.md)
+  : Maximum betweenness centrality.
+- [`max_closeness()`](https://thijsjanzen.github.io/treestats/reference/max_closeness.md)
+  : Maximum closeness
+- [`max_del_width()`](https://thijsjanzen.github.io/treestats/reference/max_del_width.md)
+  : Maximum difference of widths of a phylogenetic tree
+- [`max_depth()`](https://thijsjanzen.github.io/treestats/reference/max_depth.md)
+  : Maximum depth metric
+- [`max_ladder()`](https://thijsjanzen.github.io/treestats/reference/max_ladder.md)
+  : Maximum ladder index
+- [`max_width()`](https://thijsjanzen.github.io/treestats/reference/max_width.md)
+  : Maximum width of branch depths.
+- [`mean_branch_length()`](https://thijsjanzen.github.io/treestats/reference/mean_branch_length.md)
+  : Mean branch length of a tree, including extinct branches.
+- [`mean_branch_length_ext()`](https://thijsjanzen.github.io/treestats/reference/mean_branch_length_ext.md)
+  : Mean length of external branch lengths of a tree, e.g. of branches
+  leading to a tip.
+- [`mean_branch_length_int()`](https://thijsjanzen.github.io/treestats/reference/mean_branch_length_int.md)
+  : Mean length of internal branches of a tree, e.g. of branches not
+  leading to a tip.
+- [`mean_i()`](https://thijsjanzen.github.io/treestats/reference/mean_i.md)
+  : Mean I statistic.
+- [`mean_pair_dist()`](https://thijsjanzen.github.io/treestats/reference/mean_pair_dist.md)
+  : Mean Pairwise distance
+- [`minmax_adj()`](https://thijsjanzen.github.io/treestats/reference/minmax_adj.md)
+  : Adjancency Matrix properties
+- [`minmax_laplace()`](https://thijsjanzen.github.io/treestats/reference/minmax_laplace.md)
+  : Laplacian Matrix properties
+- [`mntd()`](https://thijsjanzen.github.io/treestats/reference/mntd.md)
+  : Mean Nearest Taxon distance
+- [`mw_over_md()`](https://thijsjanzen.github.io/treestats/reference/mw_over_md.md)
+  : Maximum width of branch depths divided by the maximum depth
+- [`nLTT()`](https://thijsjanzen.github.io/treestats/reference/nLTT.md)
+  : Normalized LTT statistic
+- [`nLTT_base()`](https://thijsjanzen.github.io/treestats/reference/nLTT_base.md)
+  : Reference nLTT statistic
+- [`number_of_lineages()`](https://thijsjanzen.github.io/treestats/reference/number_of_lineages.md)
+  : Number of tips of a tree, including extinct tips.
+- [`phylo_to_l()`](https://thijsjanzen.github.io/treestats/reference/phylo_to_l.md)
+  : Function to generate an ltable from a phy object.
+- [`phylogenetic_diversity()`](https://thijsjanzen.github.io/treestats/reference/phylogenetic_diversity.md)
+  : Phylogenetic diversity at time point t
+- [`pigot_rho()`](https://thijsjanzen.github.io/treestats/reference/pigot_rho.md)
+  : Pigot's rho
+- [`pitchforks()`](https://thijsjanzen.github.io/treestats/reference/pitchforks.md)
+  : Number of pitchforks
+- [`psv()`](https://thijsjanzen.github.io/treestats/reference/psv.md) :
+  Phylogenetic Species Variability.
+- [`rebase_ltable()`](https://thijsjanzen.github.io/treestats/reference/rebase_ltable.md)
+  : a function to modify an ltable, such that the longest path in the
+  phylogeny is a crown lineage.
+- [`rogers()`](https://thijsjanzen.github.io/treestats/reference/rogers.md)
+  : Rogers J index of (im)balance.
+- [`root_imbalance()`](https://thijsjanzen.github.io/treestats/reference/root_imbalance.md)
+  : Root imbalance
+- [`rquartet()`](https://thijsjanzen.github.io/treestats/reference/rquartet.md)
+  : Rquartet index.
+- [`sackin()`](https://thijsjanzen.github.io/treestats/reference/sackin.md)
+  : Sackin index of (im)balance.
+- [`sshape()`](https://thijsjanzen.github.io/treestats/reference/sshape.md)
+  : s shape statistic of (im)balance.
+- [`stairs()`](https://thijsjanzen.github.io/treestats/reference/stairs.md)
+  : Stairs index
+- [`stairs2()`](https://thijsjanzen.github.io/treestats/reference/stairs2.md)
+  : Stairs2 index
+- [`sym_nodes()`](https://thijsjanzen.github.io/treestats/reference/sym_nodes.md)
+  : Symmetry nodes metric
+- [`tot_coph()`](https://thijsjanzen.github.io/treestats/reference/tot_coph.md)
+  : Total cophenetic index.
+- [`tot_internal_path()`](https://thijsjanzen.github.io/treestats/reference/tot_internal_path.md)
+  : Total internal path length
+- [`tot_path_length()`](https://thijsjanzen.github.io/treestats/reference/tot_path_length.md)
+  : Total path length
+- [`tree_height()`](https://thijsjanzen.github.io/treestats/reference/tree_height.md)
+  : Height of a tree.
+- [`treeness()`](https://thijsjanzen.github.io/treestats/reference/treeness.md)
+  : Treeness statistic
+- [`treestats-package`](https://thijsjanzen.github.io/treestats/reference/treestats-package.md)
+  [`treestats`](https://thijsjanzen.github.io/treestats/reference/treestats-package.md)
+  : Collection of phylogenetic tree statistics
+- [`var_branch_length()`](https://thijsjanzen.github.io/treestats/reference/var_branch_length.md)
+  : Variance of branch lengths of a tree, including extinct branches.
+- [`var_branch_length_ext()`](https://thijsjanzen.github.io/treestats/reference/var_branch_length_ext.md)
+  : Variance of external branch lengths of a tree, e.g. of branches
+  leading to a tip.
+- [`var_branch_length_int()`](https://thijsjanzen.github.io/treestats/reference/var_branch_length_int.md)
+  : Variance of internal branch lengths of a tree, e.g. of branches not
+  leading to a tip.
+- [`var_leaf_depth()`](https://thijsjanzen.github.io/treestats/reference/var_leaf_depth.md)
+  : Variance of leaf depth statistic
+- [`var_pair_dist()`](https://thijsjanzen.github.io/treestats/reference/var_pair_dist.md)
+  : Variance of all pairwise distances.
+- [`wiener()`](https://thijsjanzen.github.io/treestats/reference/wiener.md)
+  : Wiener index
+
+# Articles
+
+### All vignettes
+
+- [Example:
+  abc](https://thijsjanzen.github.io/treestats/articles/Example_abc.md):
+- [Example:
+  data](https://thijsjanzen.github.io/treestats/articles/Example_data.md):
+- [Getting
+  started](https://thijsjanzen.github.io/treestats/articles/Getting_started.md):
+- [Speed
+  improvement](https://thijsjanzen.github.io/treestats/articles/Speed_improvement.md):

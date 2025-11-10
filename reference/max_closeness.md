@@ -1,0 +1,39 @@
+# Maximum closeness
+
+Closeness is defined as 1 / Farness, where Farness is the sum of
+distances from a node to all the other nodes in the tree. Here, we
+return the node with maximum closeness.
+
+## Usage
+
+``` r
+max_closeness(phy, weight = TRUE, normalization = "none")
+```
+
+## Arguments
+
+- phy:
+
+  phylo object or ltable
+
+- weight:
+
+  if TRUE, uses branch lengths.
+
+- normalization:
+
+  "none" or "tips", in which case an arbitrary post-hoc correction is
+  performed by dividing by the expectation of n log(n), where n is the
+  number of tips.
+
+## Value
+
+Maximum Closeness
+
+## References
+
+Chindelevitch, Leonid, et al. "Network science inspires novel tree shape
+statistics." Plos one 16.12 (2021): e0259877. Wang W, Tang CY.
+Distributed computation of classic and exponential closeness on tree
+graphs. Proceedings of the American Control Conference. IEEE; 2014. p.
+2090–2095.

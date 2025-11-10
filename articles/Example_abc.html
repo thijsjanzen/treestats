@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2025-09-11</h4>
+            <h4 data-toc-skip class="date">2025-11-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/main/vignettes/Example_abc.Rmd" class="external-link"><code>vignettes/Example_abc.Rmd</code></a></small>
       <div class="d-none name"><code>Example_abc.Rmd</code></div>
@@ -98,41 +98,29 @@ training data:</p>
 <span>  <span class="va">focal_tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/rlineage.html" class="external-link">rphylo</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, birth <span class="op">=</span> <span class="va">b</span>, death <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="va">focal_stats</span> <span class="op">&lt;-</span> <span class="fu">treestats</span><span class="fu">::</span><span class="fu"><a href="../reference/calc_all_stats.html">calc_all_stats</a></span><span class="op">(</span><span class="va">focal_tree</span><span class="op">)</span></span>
 <span>  <span class="va">test_data</span><span class="op">[</span><span class="va">r</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">focal_stats</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Loading required namespace: RSpectra</span></span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"birth"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">focal_stats</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"birth"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">focal_stats</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">test_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span></span></code></pre></div>
 <p>Given the training data, we can create our random forest:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">forest</span> <span class="op">&lt;-</span> <span class="fu">regAbcrf</span><span class="op">(</span><span class="va">birth</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">test_data</span>, ntree <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <p>With our random forest set up, let’s put it to the test on some other
 Yule tree:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/rlineage.html" class="external-link">rphylo</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, birth <span class="op">=</span> <span class="fl">0.5</span>, death <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">test_stats</span> <span class="op">&lt;-</span> <span class="fu">treestats</span><span class="fu">::</span><span class="fu"><a href="../reference/calc_all_stats.html">calc_all_stats</a></span><span class="op">(</span><span class="va">test_tree</span><span class="op">)</span></span>
 <span><span class="va">test_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">test_stats</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">forest</span>, <span class="va">test_stats</span>, <span class="va">test_data</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##      expectation    median variance (post.MSE.mean) variance.cdf quantile=0.025</span></span>
-<span><span class="co">## [1,]   0.4096861 0.4055519              0.003548676  0.002715648      0.3182503</span></span>
-<span><span class="co">##      quantile=0.975 post.NMAE.mean</span></span>
-<span><span class="co">## [1,]      0.5497408      0.1219827</span></span></code></pre>
 <p>We see that even using only 100 decision trees, the parameter
 estimate is quite close to 0.5. This can be visualized further:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">densityPlot</span><span class="op">(</span><span class="va">forest</span>, <span class="va">test_stats</span>, <span class="va">test_data</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning in density.default(resp, weights = weights.std[, i], ...): Selecting</span></span>
-<span><span class="co">## bandwidth *not* using 'weights'</span></span>
-<span><span class="co">## Warning in density.default(resp, weights = weights.std[, i], ...): Selecting</span></span>
-<span><span class="co">## bandwidth *not* using 'weights'</span></span></code></pre>
-<p><img src="Example_abc_files/figure-html/plot_simpl2-1.png" width="576"></p>
 <p>Interestingly, we can also assess which summary statistics were most
 informative:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">forest</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example_abc_files/figure-html/plot_simple-1.png" width="576">
-This indicates that for estimating the parameters, the mean branch
+<p>This indicates that for estimating the parameters, the mean branch
 length and phylogenetic diversity - both branch length dependent
 parameters, e.g.  properties of the tree directly related to the
 speciation rate - are most decisive in determining the birth rate.</p>
@@ -144,7 +132,7 @@ speciation rate - are most decisive in determining the birth rate.</p>
 the Yule data we generated before with trees generated using the DDD
 model, and see if abcrf can distinguish between these two models. First,
 we prep our new training data frame and generate DDD trees:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_test_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">r</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_points</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
@@ -161,15 +149,11 @@ we prep our new training data frame and generate DDD trees:</p>
 <span><span class="va">for_abc</span><span class="op">$</span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">for_abc</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">forest</span> <span class="op">&lt;-</span> <span class="fu">abcrf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/abcrf/man/abcrf.html" class="external-link">abcrf</a></span><span class="op">(</span><span class="va">model</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">for_abc</span>, ntree <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning in lda.default(x, grouping, ...): variables are collinear</span></span></code></pre>
 <p>The random forest can now be plotted, and be used to assess target
 trees:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">forest</span>, <span class="va">for_abc</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example_abc_files/figure-html/plot_abcrf_model_select-1.png" width="576"></p>
-<pre><code><span><span class="co">## Press &lt;ENTER&gt; to Continue</span></span></code></pre>
-<p><img src="Example_abc_files/figure-html/plot_abcrf_model_select-2.png" width="576"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">to_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">focal_tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/rlineage.html" class="external-link">rphylo</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, birth <span class="op">=</span> <span class="fl">0.5</span>, death <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
@@ -185,17 +169,6 @@ trees:</p>
 <span><span class="op">}</span></span>
 <span><span class="va">to_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">to_test</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">forest</span>, <span class="va">to_test</span>, <span class="va">for_abc</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    selected model votes model1 votes model2 post.proba</span></span>
-<span><span class="co">## 1               1         1000            0     1.0000</span></span>
-<span><span class="co">## 2               1          970           30     1.0000</span></span>
-<span><span class="co">## 3               1          990           10     1.0000</span></span>
-<span><span class="co">## 4               1         1000            0     1.0000</span></span>
-<span><span class="co">## 5               1         1000            0     0.9987</span></span>
-<span><span class="co">## 6               2            0         1000     1.0000</span></span>
-<span><span class="co">## 7               2            0         1000     1.0000</span></span>
-<span><span class="co">## 8               2            0         1000     1.0000</span></span>
-<span><span class="co">## 9               2            0         1000     0.9978</span></span>
-<span><span class="co">## 10              2            0         1000     1.0000</span></span></code></pre>
 <p>Indeed, we see that the first five trees are convincingly assigned
 model 1 (BD), and that the last five trees are convincingly assigned
 model 2 (DDD).</p>
@@ -212,7 +185,7 @@ model 2 (DDD).</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

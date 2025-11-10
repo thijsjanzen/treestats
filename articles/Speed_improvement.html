@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2025-09-11</h4>
+            <h4 data-toc-skip class="date">2025-11-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/main/vignettes/Speed_improvement.Rmd" class="external-link"><code>vignettes/Speed_improvement.Rmd</code></a></small>
       <div class="d-none name"><code>Speed_improvement.Rmd</code></div>
@@ -88,7 +88,7 @@ speed.</p>
 performance. We have varied tree size from 10 to 1000 in logarithmicly
 appropriate steps, calculating statistics for 10 randomly generated Yule
 trees per tree size.</p>
-<p><img src="https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S3.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S3.png?raw=true" class="r-plt" width="100%"></p>
 <p>Results show that for many statistics, treestats code provides a
 serious speed improvement over the old R code. Furthermore, scaling with
 tree size is much better (consider for instance mpd and mntd, which
@@ -108,7 +108,7 @@ functions (see Figure below). These three functions rely on calculation
 of the Eigen values of a (Laplacian) matrix. Unfortunately, calculating
 Eigen values is a costly endeavour, and can not be further optimized
 in-house - we use the base Eigen functions for that already.</p>
-<p><img src="Speed_improvement_files/figure-html/unnamed-chunk-2-1.png" width="100%"></p>
+<p><img src="Speed_improvement_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="speed-improvement">Speed improvement<a class="anchor" aria-label="anchor" href="#speed-improvement"></a>
@@ -122,7 +122,7 @@ required), and code converting a phy object to C++ objects.
 Nevertheless, improvements are considerable and we hope that these
 improvements in calculation speed allow for a broader application of
 many summary statistics.</p>
-<p><img src="https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/thijsjanzen/treestats/blob/main/layout/Figure_S4.png?raw=true" class="r-plt" width="100%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -136,7 +136,7 @@ many summary statistics.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

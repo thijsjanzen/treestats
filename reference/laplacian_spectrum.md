@@ -1,0 +1,44 @@
+# Laplacian spectrum statistics, from RPANDA
+
+Computes the distribution of eigenvalues for the modified graph
+Laplacian of a phylogenetic tree, and several summary statistics of this
+distribution. The modified graph Laplacian of a phylogeny is given by
+the difference between its' distance matrix (e.g. all pairwise distances
+between all nodes), and the degree matrix (e.g. the diagonal matrix
+where each diagonal element represents the sum of branch lengths to all
+other nodes). Each row of the modified graph Laplacian sums to zero. For
+a tree with n tips, there are \\N = 2n-1\\ nodes, and hence the modified
+graph Laplacian is represented by a \\N x N\\ matrix. Where RPANDA
+relies on the package igraph to calculate the modified graph Laplacian,
+the treestats package uses C++ to directly calculate the different
+entries in the matrix. This makes the treestats implementation slightly
+faster, although the bulk of computation occurs in estimating the eigen
+values, where RcppArmadillo generates a bit of speed up.
+
+## Usage
+
+``` r
+laplacian_spectrum(phy)
+```
+
+## Arguments
+
+- phy:
+
+  phy
+
+## Value
+
+list with five components: 1) eigenvalues the vector of eigen values, 2)
+principal_eigenvalue the largest eigenvalueof the spectral density
+distribution 3) asymmetry the skewness of the spectral density
+distribution 4) peak_height the largest y-axis valueof the spectral
+density distribution and 5) eigengap theposition ofthe largest
+difference between eigenvalues, giving the number of modalities in the
+tree.
+
+## References
+
+Eric Lewitus, Helene Morlon, Characterizing and Comparing Phylogenies
+from their Laplacian Spectrum, Systematic Biology, Volume 65, Issue 3,
+May 2016, Pages 495–507, https://doi.org/10.1093/sysbio/syv116
