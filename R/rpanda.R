@@ -58,13 +58,8 @@ laplacian_spectrum <- function(phy) {
     stop("tree too big")
   }
 
-  kernel_g <- function(x, mean = 0, sd = 1) {
-    return(stats::dnorm(x, mean = mean, sd = sd))
-  }
-
   dens_rpanda <- function(x,
                           bw = stats::bw.nrd0,
-                          kernel = kernel_g,
                           n = 4096,
                           from = min(x) - 3 * sd, to = max(x) + 3 * sd,
                           adjust = 1,

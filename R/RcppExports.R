@@ -281,10 +281,6 @@ max_ladder_cpp <- function(tree_edge) {
     .Call('_treestats_max_ladder_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-prep_lapl_spec <- function(phy) {
-    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
-}
-
 get_eigen_values_arma_cpp <- function(phy) {
     .Call('_treestats_get_eigen_values_arma_cpp', PACKAGE = 'treestats', phy)
 }

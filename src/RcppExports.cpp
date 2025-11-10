@@ -804,17 +804,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// prep_lapl_spec
-Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy);
-RcppExport SEXP _treestats_prep_lapl_spec(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(prep_lapl_spec(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
 // get_eigen_values_arma_cpp
 Rcpp::NumericVector get_eigen_values_arma_cpp(const Rcpp::List& phy);
 RcppExport SEXP _treestats_get_eigen_values_arma_cpp(SEXP phySEXP) {
@@ -1119,7 +1108,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_mw_over_md_ltable_cpp", (DL_FUNC) &_treestats_calc_mw_over_md_ltable_cpp, 1},
     {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
     {"_treestats_max_ladder_cpp", (DL_FUNC) &_treestats_max_ladder_cpp, 1},
-    {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_get_eigen_values_arma_cpp", (DL_FUNC) &_treestats_get_eigen_values_arma_cpp, 1},
     {"_treestats_prep_adj_mat", (DL_FUNC) &_treestats_prep_adj_mat, 3},
     {"_treestats_outer_cpp", (DL_FUNC) &_treestats_outer_cpp, 3},

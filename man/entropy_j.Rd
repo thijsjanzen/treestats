@@ -15,8 +15,8 @@ intensive quadratic entropy statistic J
 \description{
 The intensive quadratic entropy statistic J is given by the
 average distance between two randomly chosen species, thus given by the
-sum of all pairwise distances, divided by \eqn{S^2}, where S is the number of tips
-of the tree.
+sum of all pairwise distances, divided by \eqn{S^2}, where S is the number
+of tips of the tree.
 }
 \references{
 Izsák, János, and Laszlo Papp. "A link between ecological

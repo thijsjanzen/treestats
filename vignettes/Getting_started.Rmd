@@ -13,10 +13,7 @@ vignette: >
 if (!requireNamespace("Matrix", quietly = TRUE)) {
     message("Matrix needed for this vignette to compile. Please install it.")
     knitr::knit_exit()
-  }
-  
-
-
+}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.width = 6)
 knitr::opts_chunk$set(fig.height = 6)

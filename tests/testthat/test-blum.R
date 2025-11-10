@@ -24,6 +24,11 @@ test_that("usage", {
   ltab <- treestats::phylo_to_l(focal_tree)
   blum2 <- treestats::blum(ltab)
   testthat::expect_equal(blum1, blum2)
+
+  sshape1 <- treestats::sshape(focal_tree)
+  testthat::expect_equal(sshape1, blum1)
+  sshape2 <- treestats::sshape(ltab)
+  testthat::expect_equal(sshape2, blum1)
 })
 
 test_that("wrong_object", {

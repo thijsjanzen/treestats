@@ -40,9 +40,17 @@ test_that("usage", {
   a2_2 <- 2.631605  # treeCentrality::computeEigenvector(focal_tree
   #                                      weight = FALSE))
 
-
   testthat::expect_equal(a1_1$eigenvalue, a2_1, tolerance = 1e-4)
   testthat::expect_equal(a1_2$eigenvalue, a2_2, tolerance = 1e-4)
+
+  if (requireNamespace("RSpectra")) {
+    a1_1 <- treestats::eigen_centrality(focal_tree, weight = TRUE,
+                                        use_rspectra = TRUE)
+    a1_2 <- treestats::eigen_centrality(focal_tree, weight = FALSE,
+                                        use_rspectra = TRUE)
+    testthat::expect_equal(a1_1$eigenvalue, a2_1, tolerance = 1e-4)
+    testthat::expect_equal(a1_2$eigenvalue, a2_2, tolerance = 1e-4)
+  }
 
   ltab <- treestats::phylo_to_l(focal_tree)
   testthat::expect_equal(

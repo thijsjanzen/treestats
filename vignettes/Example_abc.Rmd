@@ -10,11 +10,11 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-  
+
   if (!requireNamespace("abcrf", quietly = TRUE)) {
     message("abcrf needed for this vignette to compile. Please install it.")
-    
-    if (requireNamespace("devtools", quietly = TRUE)) { 
+
+    if (requireNamespace("devtools", quietly = TRUE)) {
        devtools::install_github("jmm34/abcrf")
        if (!requireNamespace("abcrf", quietly = TRUE)) {
          knitr::knit_exit()
@@ -23,19 +23,19 @@ vignette: >
       knitr::knit_exit()
     }
   }
-  
+
   if (!requireNamespace("DDD", quietly = TRUE)) {
     message("ape needed for this vignette to compile. Please install it.")
     knitr::knit_exit()
   }
-  
+
   if (!requireNamespace("ape", quietly = TRUE)) {
     message("ape needed for this vignette to compile. Please install it.")
     knitr::knit_exit()
   }
-    knitr::opts_chunk$set(eval = FALSE)
-  
-  
+  knitr::opts_chunk$set(eval = FALSE)
+
+
   knitr::opts_chunk$set(echo = TRUE)
   knitr::opts_chunk$set(fig.width = 6)
   knitr::opts_chunk$set(fig.height = 6)

@@ -26,6 +26,12 @@ test_that("usage", {
     ltab <- treestats::phylo_to_l(focal_tree)
     testthat::expect_equal(treestats::mean_i(focal_tree),
                            treestats::mean_i(ltab))
+
+    av <- treestats::i_stat(focal_tree)
+    testthat::expect_equal(a1, av)
+    testthat::expect_equal(treestats::i_stat(focal_tree),
+                           treestats::i_stat(ltab))
+
   }
 })
 
