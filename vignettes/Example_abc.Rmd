@@ -13,7 +13,15 @@ vignette: >
   
   if (!requireNamespace("abcrf", quietly = TRUE)) {
     message("abcrf needed for this vignette to compile. Please install it.")
-    knitr::knit_exit()
+    
+    if (requireNamespace("devtools", quietly = TRUE)) { 
+       devtools::install_github("jmm34/abcrf")
+       if (!requireNamespace("abcrf", quietly = TRUE)) {
+         knitr::knit_exit()
+       }
+    } else {
+      knitr::knit_exit()
+    }
   }
   
   if (!requireNamespace("DDD", quietly = TRUE)) {
