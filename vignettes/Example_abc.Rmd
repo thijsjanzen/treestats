@@ -10,16 +10,28 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-required <- c("abcrf", "ape", "DDD")
-if (!all(unlist(lapply(required,
-                       function(pkg) requireNamespace(pkg, quietly = TRUE)))))
-  knitr::opts_chunk$set(eval = FALSE)
-
-
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.width = 6)
-knitr::opts_chunk$set(fig.height = 6)
-library(abcrf)
+  
+  if (!requireNamespace("abcrf", quietly = TRUE)) {
+    message("abcrf needed for this vignette to compile. Please install it.")
+    knitr::knit_exit()
+  }
+  
+  if (!requireNamespace("DDD", quietly = TRUE)) {
+    message("ape needed for this vignette to compile. Please install it.")
+    knitr::knit_exit()
+  }
+  
+  if (!requireNamespace("ape", quietly = TRUE)) {
+    message("ape needed for this vignette to compile. Please install it.")
+    knitr::knit_exit()
+  }
+    knitr::opts_chunk$set(eval = FALSE)
+  
+  
+  knitr::opts_chunk$set(echo = TRUE)
+  knitr::opts_chunk$set(fig.width = 6)
+  knitr::opts_chunk$set(fig.height = 6)
+  library(abcrf)
 ```
 
 ## ABC

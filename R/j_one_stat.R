@@ -1,6 +1,6 @@
 #' \eqn{J^1} index.
-#' @description The \eqn{J^1} index calculates the Shannon Entropy of a tree, where
-#' at each node with two children, the Shannon Entropy is the sum of
+#' @description The \eqn{J^1} index calculates the Shannon Entropy of a tree,
+#' where at each node with two children, the Shannon Entropy is the sum of
 #' \eqn{p_i log_2(p_i)} over the two children \eqn{i}, and \eqn{p_i} is
 #' \eqn{L / (L + R)},
 #' where L and R represent the number of tips connected to the two daughter
