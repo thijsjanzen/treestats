@@ -133,26 +133,3 @@ colless_quad <- function(phy,
   }
   stop("input object has to be phylo or ltable")
 }
-
-
-#' Branch weighted Colless index of (im)balance.
-#' @description The Branch Colless index is calculated as the sum of
-#' \eqn{(bl_L - bl_R)} over all nodes, where bl_X is the summed branch length
-#' attached to that daughter node.
-#' @param phy phylo object or ltable
-#' @return branch weighted colless index
-#' @export
-colless_branch <- function(phy) {
-  check_tree(phy,
-             require_binary = TRUE,
-             require_ultrametric = FALSE)
-
-  if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy, FALSE)
-  }
-  if (inherits(phy, "phylo")) {
-    return(calc_branch_colless_cpp(as.vector(t(phy$edge)), phy$edge.length))
-  }
-  stop("input object has to be phylo or ltable")
-}
-
