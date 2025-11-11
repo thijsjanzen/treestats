@@ -30,12 +30,12 @@ LinkingTo:
 Imports:
     ape,
     nloptr,
-    treebalance
+    treebalance,
+    DDD
 Suggests:
     phytools,
     phyloTop,
     testthat,
-    DDD,
     geiger,
     nLTT,
     castor,
