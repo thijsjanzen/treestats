@@ -1,3 +1,14 @@
+// Copyright 2022 - 2025 Thijs Janzen
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
 # pragma once
 
 #include <vector>
@@ -14,8 +25,8 @@ struct bc_node {
   bc_node* daughterR = nullptr;
   double bl_R;
   double bl_L;
-  double sum_bl_R; // sum branch lenghts connected to daughter R
-  double sum_bl_L; // sum branch lenghts connected to daughter L
+  double sum_bl_R;   // sum branch lenghts connected to daughter R
+  double sum_bl_L;   // sum branch lenghts connected to daughter L
 
   bc_node() {
     daughterL = nullptr;
@@ -45,7 +56,7 @@ struct bc_node {
 };
 
 class phylo_tree {
-public:
+ public:
   explicit phylo_tree(const std::vector< int >& tree_edge,
                       const std::vector<double>& edge_length) {
     // int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
@@ -86,8 +97,8 @@ public:
     return stat;
   }
 
-private:
+ private:
   std::vector< bc_node > tree;
   int tree_size = 0;
 };
-} // end namespace branch_colless
+}   // end namespace branch_colless
