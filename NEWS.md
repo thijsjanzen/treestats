@@ -1,3 +1,7 @@
+# Version 1.70.9
+- Added function to calculate statistics for large trees, which skips several
+distance matrix based statistics that can cause extreme memory usage
+
 # Version 1.70.8
 - Removed all references and vignettes making use of the package abcrf, as this is longer available on CRAN.
 - Improved compliance to noSuggests CRAN policy.
