@@ -33,8 +33,7 @@ double calc_mpd_cpp(const std::vector<int>& edge,
 // [[Rcpp::export]]
 double calc_J_cpp(const std::vector<int>& edge,
                   const std::vector<double>& el) {
-  mpd_tree::phylo_tree focal_tree(edge, el);
-  auto mpd = focal_tree.calculate_mpd();
+  auto mpd = calc_mpd_cpp(edge, el);
   int n = (el.size() + 2) * 0.5;
 
   return mpd * 1.0 / n;
