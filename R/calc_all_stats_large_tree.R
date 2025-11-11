@@ -11,15 +11,7 @@
 #' statistics EXCLUDED are:
 #' \itemize{
 #'   \item laplacian spectrum
-#'   \item total Cophenetic distance
-#'   \item mean of pairwise distance (mpd)
 #'   \item variance of pairwise distance (vpd)
-#'   \item Phylogenetic Species Variability (psv)
-#'   \item mean nearest taxon distance (mntd)
-#'   \item Wiener index
-#'   \item max betweenness
-#'   \item max closeness
-#'   \item diameter, without branch lenghts
 #'   \item maximum eigen vector value
 #'   \item minimum eigenvalue of the Laplacian matrix
 #'   \item maximum eigenvalue of the Laplacian matrix
@@ -72,53 +64,6 @@ calc_all_stats_large_tree <- function(phylo, normalize = FALSE) {
                                        normalize, c("tips", "none"))
 
   stats$stairs              <- try_stat(phylo, treestats::stairs)
-
-  if (1 == 2) {
-
-  temp_stats <- tryCatch(expr = {treestats::laplacian_spectrum(phylo) }, #nolint
-                         error = function(e) {return(NA) }) #nolint
-
-  if (length(temp_stats) == 5) {
-    stats$laplace_spectrum_a  <- temp_stats$asymmetry
-    stats$laplace_spectrum_p  <- temp_stats$peakedness
-    stats$laplace_spectrum_e  <- log(temp_stats$principal_eigenvalue)
-    stats$laplace_spectrum_g  <- temp_stats$eigengap[[1]]
-  } else {
-    stats$laplace_spectrum_a  <- NA
-    stats$laplace_spectrum_p  <- NA
-    stats$laplace_spectrum_e  <- NA
-    stats$laplace_spectrum_g  <- NA
-  }
-
-  temp_stats <- try_stat(phylo,
-                         function(x) {
-                           return(treestats::minmax_laplace(x, TRUE))
-                         })
-
-
-  if (length(temp_stats) >= 2) {
-    stats$min_laplace <- temp_stats$min
-    stats$max_laplace <- temp_stats$max
-  } else {
-    stats$min_laplace <- NA
-    stats$max_laplace <- NA
-  }
-
-  temp_stats <- try_stat(phylo,
-                         function(x) {
-                           return(treestats::minmax_adj(x, TRUE))
-                         })
-
-
-  if (length(temp_stats) >= 2) {
-    stats$min_adj <- temp_stats$min
-    stats$max_adj <- temp_stats$max
-  } else {
-    stats$min_adj <- NA
-    stats$max_adj <- NA
-  }
-
-  }
 
   stats$imbalance_steps  <- try_stat(phylo, treestats::imbalance_steps,
                                      normalize)
