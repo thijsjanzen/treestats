@@ -21,8 +21,6 @@ if (!all(unlist(lapply(required,
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.width = 6)
 knitr::opts_chunk$set(fig.height = 6)
-
-
 ```
 
 ## Data
@@ -57,7 +55,8 @@ We can now, for instance, plot the distribution of family sizes in
 birds:
 
 ```{r plot_size}
-hist(all_stats$number_of_lineages)
+hist(all_stats$number_of_lineages, main = "Number of lineages",
+     xlab = "Number of lineages", ylab = "count")
 ```
 
 Furthermore, we can make a heatmap of all correlations:
@@ -113,4 +112,20 @@ A nicer way to visualize this is given by the package ppheatmap:
 
 ```{r nicer plot, out.width="100%" }
 if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
+```
+## Adding a random category to our matrix
+To test whether outliers are perhaps instead of identifying unique information, 
+picking up on random noise, we can also add an extra statistic that has no
+meaning, and that has random correlations with all other statistics:
+```{r add random}
+cor.dist2 <- cor.dist
+rand_values <- runif(n = nrow(cor.dist2))
+cor.dist2 <- cbind(cor.dist2, rand_values)
+cor.dist2 <- rbind(cor.dist2, c(rand_values, NA))
+colnames(cor.dist2)[ncol(cor.dist2)] <- "random"
+rownames(cor.dist2)[nrow(cor.dist2)] <- "random"
+
+# and now we plot again:
+heatmap(cor.dist2)
+if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist2)
 ```
