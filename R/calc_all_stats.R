@@ -95,8 +95,6 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$colless_quad       <- try_stat(phylo, treestats::colless_quad,
                                        normalize, c("yule", "none"))
 
-  stats$colless_branch     <- try_stat(phylo, treestats::colless_branch)
-
   stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 
   stats$blum               <- try_stat(phylo, treestats::blum,
