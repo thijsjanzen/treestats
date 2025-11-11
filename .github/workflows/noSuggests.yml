@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [main, master, develop]
 
-name: R-CMD-check
+name: noSuggests
 
 jobs:
   R-CMD-check:
