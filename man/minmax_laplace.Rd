@@ -20,10 +20,10 @@ List with the minimum and maximum eigenvalues
 Calculates the eigenvalues of the Laplacian Matrix, where the
 Laplacian matrix is the matrix representation of a graph, in this case a
 phylogeny.
-When the R package RSpectra is available, a faster calculation can be used,
-which does not calculate all eigenvalues, but only the maximum and minimum.
-As such, when using this option, the vector of all eigenvalues is not
-returned
+When the R package \pkg{RSpectra} is available, a faster
+calculation can be used, which does not calculate all eigenvalues, but only
+the maximum and minimum. As such, when using this option, the vector of all
+eigenvalues is not returned.
 }
 \references{
 Chindelevitch, Leonid, et al. "Network science inspires novel

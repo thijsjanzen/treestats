@@ -33,12 +33,14 @@ Beta value
 The Beta statistic fits a beta splitting model to each node,
 assuming that the number of extant descendants of each daughter branch is
 split following a beta distribution, such that the number of extant
-descendants x and y at a node follows \eqn{q(x, y) = s_n(beta)^-1
-\frac{(gamma(x + 1 + beta)gamma(y + 1 + beta))}{gamma(x+1)gamma(y+1)}}, where
-\eqn{s_n(beta)^-1} is a normalizing constant. When this model is fit to a
-tree, different values of beta correspond to the expectation following from
+descendants x and y at a node follows \eqn{q(x, y) = s_n(\beta)^{-1}
+\frac{(\gamma(x + 1 + \beta)\gamma(y + 1 + \beta))}{\gamma(x+1)\gamma(y+1)}},
+where \eqn{s_n(\beta)^{-1}} is a normalizing constant. When this model is fit
+to a tree,
+different values of beta correspond to the expectation following from
 different diversification models, such that a beta of 0 corresponds to a
-Yule tree, a beta of -3/2 to a tree following from a PDA model. In general,
+Yule tree, a beta of \eqn{-3/2} to a tree following from a PDA model.
+In general,
 negative beta values correspond to trees more unbalanced than Yule trees, and
 beta values larger than zero indicate trees more balanced than Yule trees.
 The lower bound of the beta splitting parameter is -2.

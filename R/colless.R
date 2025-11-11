@@ -36,7 +36,7 @@ colless <- function(phy,
 
 #' Equal weights Colless index of (im)balance.
 #' @description The equal weights Colless index is calculated as the sum of
-#' \eqn{abs(L - R) / (L + R - 2)} over all nodes where L + R > 2,
+#' \eqn{abs(L - R) / (L + R - 2)} over all nodes where \eqn{L + R > 2},
 #' where L (or R) is the number of extant tips associated with the L (or R)
 #' daughter branch at that node.  Maximal imbalance is associated with a value
 #' of 1.0. The ew_colless index is not sensitive to tree size.
@@ -70,7 +70,7 @@ ew_colless <- function(phy) {
 #' Corrected Colless index of (im)balance.
 #' @description The Corrected Colless index is calculated as the sum of
 #' \eqn{abs(L - R)} over all nodes, corrected for tree size by dividing over
-#' (n-1) * (n-2), where n is the number of nodes.
+#' \eqn{(n-1) * (n-2)}, where n is the number of nodes.
 #' @param phy phylo object or ltable
 #' @param normalization A character string equals to "none" (default) for no
 #' normalization or "yule", in which case the obtained index is divided by

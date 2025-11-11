@@ -8,7 +8,6 @@ test_that("usage", {
   num_steps <- tree_size * 2
   for (g_method in c("any", "terminal")) {
     for (s_method in c("oldest", "youngest", "random")) {
-
       unbal_tree <- treestats::make_unbalanced_tree(init_tree = focal_tree,
                                                     unbal_steps = num_steps,
                                                     group_method = g_method,

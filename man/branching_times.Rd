@@ -13,7 +13,6 @@ branching_times(phy)
 vector of branching times
 }
 \description{
-C++ based alternative to `ape::branching.times`, please note
-that to maximise speed, `treestats::branching_times` does not return
-node names associated to the branching times, in contrast to the ape version.
+C++ based alternative to
+\link[ape:branching.times]{ape::branching.times}.
 }

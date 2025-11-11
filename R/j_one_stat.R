@@ -1,13 +1,16 @@
-#' J^1 index.
-#' @description The J^1 index calculates the Shannon Entropy of a tree, where
-#' at each node with two children, the Shannon Entropy is the sum of
-#' p_i log_2(p_i) over the two children i, and p_i is L / (L + R), where L and
-#' R represent the number of tips connected to the two daughter branches.
+#' \eqn{J^1} index.
+#' @description The \eqn{J^1} index calculates the Shannon Entropy of a tree,
+#' where at each node with two children, the Shannon Entropy is the sum of
+#' \eqn{p_i log_2(p_i)} over the two children \eqn{i}, and \eqn{p_i} is
+#' \eqn{L / (L + R)},
+#' where L and R represent the number of tips connected to the two daughter
+#' branches.
 #' @param input_obj phylo object or ltable
-#' @return j^1 index
+#' @return \eqn{j^1} index
 #' @references Jeanne Lemant, Cécile Le Sueur, Veselin Manojlović, Robert Noble,
 #' Robust, Universal Tree Balance Indices, Systematic Biology, Volume 71,
-#' Issue 5, September 2022, Pages 1210–1224,
+#' Issue 5, September 2022, Pages 1210–1224
+#'
 #' https://doi.org/10.1093/sysbio/syac027
 #' @export
 j_one <- function(input_obj) {

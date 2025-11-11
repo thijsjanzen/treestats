@@ -16,3 +16,5 @@
 ^layout$
 ^dev$
 ^deps$
+^vignettes/Example_abc\.Rmd$
+^doc$

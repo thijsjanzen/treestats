@@ -14,7 +14,8 @@ crown age
 }
 \description{
 In a reconstructed tree, obtaining the crown age is
-fairly straightforward, and the function beautier::get_crown_age does
+fairly straightforward, and the function
+\link[beautier:get_crown_age]{beautier::get_crown_age}  does
 a great job at it. However, in a non-ultrametric tree, that function no
-longer works. This function provides a functioning alternative
+longer works. This function provides a functioning alternative.
 }
