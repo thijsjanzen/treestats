@@ -2,8 +2,9 @@
 
 ## Version 1.70.8
 
-- removed all references and vignettes making use of the package abcrf,
-  as this is longer available on CRAN
+- Removed all references and vignettes making use of the package abcrf,
+  as this is longer available on CRAN.
+- Improved compliance to noSuggests CRAN policy.
 
 ## Version 1.70.7
 
@@ -11,11 +12,11 @@ CRAN release: 2025-09-11
 
 - Fixed numerical issue in calculating mean pair distance for very large
   trees
-- Now use armadillo to calculate Eigen values
-- added the function ‘sshape’, which was previously called the blum
+- Now use armadillo to calculate Eigen values.
+- Added the function ‘sshape’, which was previously called the blum
   statistic (the blum function remains available as well). Thanks Sophie
   Kersting for pointing this out!
-- polished the manual
+- Polished the manual.
 
 ## Version 1.70.6
 
@@ -25,9 +26,9 @@ CRAN release: 2025-09-11
 - Updated reference table in the README file, showing which statistics
   are available for unrooted trees, and which statistics (appear) to be
   affected by root position
-- using treebalance functions when treestats functions do not suffice
+- Using treebalance functions when treestats functions do not suffice
   (e.g. for rquartet for polytomous trees)
-- updated Wiener test, to include distance matrix based calculation
+- Updated Wiener test, to include distance matrix based calculation
 
 ## Version 1.70.5
 
