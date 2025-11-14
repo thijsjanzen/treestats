@@ -161,8 +161,15 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$min_adj <- NA
   stats$max_adj <- NA
-  if (length(temp_stats$max)) stats$max_adj <- temp_stats$max
-  if (length(temp_stats$min)) stats$min_adj <- temp_stats$min
+
+  obj_not_na <- !is.null(temp_stats) &&
+                !(length(temp_stats) == 1 && is.na(temp_stats))
+
+  max_not_na <- obj_not_na && !is.na(temp_stats$max)
+  min_not_na <- obj_not_na && !is.null(temp_stats$min)
+
+  if (max_not_na) stats$max_adj <- temp_stats$max
+  if (min_not_na) stats$min_adj <- temp_stats$min
 
   stats$imbalance_steps  <- try_stat(phylo, treestats::imbalance_steps,
                                      normalize)
