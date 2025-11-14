@@ -159,14 +159,10 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                            return(treestats::minmax_adj(x, TRUE))
                          })
 
-
-  if (length(temp_stats) >= 2) {
-    stats$min_adj <- temp_stats$min
-    stats$max_adj <- temp_stats$max
-  } else {
-    stats$min_adj <- NA
-    stats$max_adj <- NA
-  }
+  stats$min_adj <- NA
+  stats$max_adj <- NA
+  if (length(temp_stats$max)) stats$max_adj <- temp_stats$max
+  if (length(temp_stats$min)) stats$min_adj <- temp_stats$min
 
   stats$imbalance_steps  <- try_stat(phylo, treestats::imbalance_steps,
                                      normalize)

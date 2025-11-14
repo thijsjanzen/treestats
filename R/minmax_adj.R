@@ -14,16 +14,15 @@
 #' @param use_rspectra boolean to indicate whether the helping package RSpectra
 #' should be used, in which case only the minimum and maximum values are
 #' returned
-#' @param calculate_min boolean to indicate whether or not to also calculate
-#' the minimum positive eigenvalue. Default is TRUE, but when calculating for
-#' extremely large trees (>10k tips, or even >40k tips), this can be very slow
-#' or in which case setting to FALSE still allows for the
-#' calculation of the maximum eigen value within reasonable time.
+#' @param force_min boolean to indicate whether or not to also calculate
+#' the minimum positive eigenvalue if the tree is larger than 23170 tips.
+#' Default is FALSE, as this can be very slow, but in some cases might be
+#' of interest.
 #' @return List with the minimum and maximum eigenvalues
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
-minmax_adj <- function(phy, use_rspectra = FALSE, calculate_min = TRUE) {
+minmax_adj <- function(phy, use_rspectra = TRUE, force_min = FALSE) {
   check_tree(phy,
              require_binary = TRUE,
              require_ultrametric = FALSE,
@@ -54,7 +53,7 @@ minmax_adj <- function(phy, use_rspectra = FALSE, calculate_min = TRUE) {
                                     opts = list(retvec = FALSE))$values
 
       if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
-        if (calculate_min == TRUE) {
+        if (force_min == TRUE) {
           warning("calculating the minimum eigenvalue
                    is very costly for large trees")
           res <- RSpectra::eigs_sym(matvec_fun,
@@ -95,10 +94,15 @@ minmax_adj <- function(phy, use_rspectra = FALSE, calculate_min = TRUE) {
 
 #' @keywords internal
 slow_calc <- function(phy) {
-  warning("calculating all eigenvalues without RSpectra can be slow
-              for large trees")
+
   # prepping matrix in Rcpp yields no speed gain
   mat_size <- max(phy$edge)
+
+  if (mat_size > 10000) {
+    warning("calculating all eigenvalues without RSpectra can be slow
+              for large trees")
+  }
+
   if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
     stop("tree too big, memory allocation fail")
   }

@@ -31,7 +31,8 @@ Imports:
     ape,
     nloptr,
     treebalance,
-    DDD
+    DDD,
+    RSpectra
 Suggests:
     phytools,
     phyloTop,
@@ -48,8 +49,6 @@ Suggests:
     rmarkdown,
     knitr,
     igraph,
-    RSpectra,
-    Matrix,
     pheatmap
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/

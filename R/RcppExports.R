@@ -393,6 +393,12 @@ phylo_laplacian_matvec_rcpp <- function(edges, lengths, x) {
     .Call('_treestats_phylo_laplacian_matvec_rcpp', PACKAGE = 'treestats', edges, lengths, x)
 }
 
+#' test
+#' @param edge edge
+#' @param lengths lenths
+#' @param x x
+#' @param nnodes nnodes
+#' @export
 Ax_tree <- function(edge, lengths, x, nNodes) {
     .Call('_treestats_Ax_tree', PACKAGE = 'treestats', edge, lengths, x, nNodes)
 }

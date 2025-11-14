@@ -4,7 +4,7 @@
 \alias{minmax_adj}
 \title{Adjancency Matrix properties}
 \usage{
-minmax_adj(phy, use_rspectra = FALSE, calculate_min = TRUE)
+minmax_adj(phy, use_rspectra = TRUE, force_min = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
@@ -13,11 +13,10 @@ minmax_adj(phy, use_rspectra = FALSE, calculate_min = TRUE)
 should be used, in which case only the minimum and maximum values are
 returned}
 
-\item{calculate_min}{boolean to indicate whether or not to also calculate
-the minimum positive eigenvalue. Default is TRUE, but when calculating for
-extremely large trees (>10k tips, or even >40k tips), this can be very slow
-or in which case setting to FALSE still allows for the
-calculation of the maximum eigen value within reasonable time.}
+\item{force_min}{boolean to indicate whether or not to also calculate
+the minimum positive eigenvalue if the tree is larger than 23170 tips.
+Default is FALSE, as this can be very slow, but in some cases might be
+of interest.}
 }
 \value{
 List with the minimum and maximum eigenvalues

@@ -16,7 +16,7 @@
 eigen_centrality <- function(phy,
                              weight = TRUE,
                              scale = FALSE,
-                             use_rspectra = FALSE) {
+                             use_rspectra = TRUE) {
   check_tree(phy,
              require_binary = TRUE,
              require_ultrametric = FALSE,
@@ -26,36 +26,27 @@ eigen_centrality <- function(phy,
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    adj_matrix <- c()
-    if (requireNamespace("Matrix")) {
-      # using the Matrix package is much faster
-      edge_for_mat <- rbind(phy$edge, cbind(phy$edge[, 2], phy$edge[, 1]))
 
-      if (weight) {
-        adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
-                                           j = edge_for_mat[, 2],
-                                           x = c(phy$edge.length,
-                                                 phy$edge.length))
-      } else {
-        adj_matrix <- Matrix::sparseMatrix(i = edge_for_mat[, 1],
-                                           j = edge_for_mat[, 2],
-                                          x = rep(1, length(edge_for_mat[, 1])))
-      }
+    if (use_rspectra == FALSE || !requireNamespace("RSpectra")) {
+      ev <- slow_eigen_centrality(phy, weight)
     } else {
-      adj_matrix <- prep_adj_mat(as.vector(t(phy$edge)),
-                                 as.vector(phy$edge.length),
-                                 weight)
-    }
+      edges   <- phy$edge
+      lengths <- phy$edge.length
+      if (!weight) {
+        lengths <- rep(1, length(phy$edge.length))
+      }
+      n_nodes <- max(edges)
 
-    if (requireNamespace("RSpectra") && use_rspectra == TRUE) {
-      # using the RSpectra package is much faster than Eigen, because it limits
-      # the number of Eigen values
-      ev <- RSpectra::eigs_sym(adj_matrix,
+      matvec_fun <- function(x, args) {
+        Ax_tree(edges, lengths, x, n_nodes)
+      }
+
+      mat_size <- max(phy$edge)
+      ev <- RSpectra::eigs_sym(matvec_fun,
+                               n = mat_size,
                                k = 1,
                                which = "LM",
                                opts = list(retvec = TRUE))
-    } else {
-      ev <- eigen(adj_matrix, symmetric = TRUE)
     }
 
     evector <- abs(ev$vectors[, 1])
@@ -71,4 +62,13 @@ eigen_centrality <- function(phy,
   }
 
   stop("input object has to be phylo or ltable")
+}
+
+
+slow_eigen_centrality <- function(phy, weight) {
+  adj_matrix <- prep_adj_mat(as.vector(t(phy$edge)),
+                             as.vector(phy$edge.length),
+                             weight)
+  ev <- eigen(adj_matrix, symmetric = TRUE)
+  return(ev)
 }

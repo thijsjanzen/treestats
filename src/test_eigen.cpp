@@ -28,6 +28,12 @@ Rcpp::NumericVector phylo_laplacian_matvec_rcpp(
   return y;
 }
 
+//' test
+//' @param edge edge
+//' @param lengths lenths
+//' @param x x
+//' @param nnodes nnodes
+//' @export
 // [[Rcpp::export]]
 Rcpp::NumericVector Ax_tree(const Rcpp::IntegerMatrix &edge,
                             const Rcpp::NumericVector &lengths,
