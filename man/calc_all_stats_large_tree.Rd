@@ -23,15 +23,7 @@ amounts of memory, because they are based on a distance matrix. The
 statistics EXCLUDED are:
 \itemize{
   \item laplacian spectrum
-  \item total Cophenetic distance
-  \item mean of pairwise distance (mpd)
   \item variance of pairwise distance (vpd)
-  \item Phylogenetic Species Variability (psv)
-  \item mean nearest taxon distance (mntd)
-  \item Wiener index
-  \item max betweenness
-  \item max closeness
-  \item diameter, without branch lenghts
   \item maximum eigen vector value
   \item minimum eigenvalue of the Laplacian matrix
   \item maximum eigenvalue of the Laplacian matrix

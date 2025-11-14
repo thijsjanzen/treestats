@@ -389,3 +389,11 @@ pitchforks_cpp <- function(tree_edge) {
     .Call('_treestats_pitchforks_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
+phylo_laplacian_matvec_rcpp <- function(edges, lengths, x) {
+    .Call('_treestats_phylo_laplacian_matvec_rcpp', PACKAGE = 'treestats', edges, lengths, x)
+}
+
+Ax_tree <- function(edge, lengths, x, nNodes) {
+    .Call('_treestats_Ax_tree', PACKAGE = 'treestats', edge, lengths, x, nNodes)
+}
+

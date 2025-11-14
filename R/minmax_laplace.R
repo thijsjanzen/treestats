@@ -27,8 +27,6 @@ minmax_laplace <- function(phy,
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    mat_size <- max(phy$edge)
-
     # prepping matrix in Rcpp yields no speed gain
     mat_size <- max(phy$edge)
     if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
