@@ -1048,19 +1048,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// phylo_laplacian_matvec_rcpp
-Rcpp::NumericVector phylo_laplacian_matvec_rcpp(Rcpp::IntegerMatrix edges, Rcpp::NumericVector lengths, Rcpp::NumericVector x);
-RcppExport SEXP _treestats_phylo_laplacian_matvec_rcpp(SEXP edgesSEXP, SEXP lengthsSEXP, SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix >::type edges(edgesSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type lengths(lengthsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(phylo_laplacian_matvec_rcpp(edges, lengths, x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // Ax_tree
 Rcpp::NumericVector Ax_tree(const Rcpp::IntegerMatrix& edge, const Rcpp::NumericVector& lengths, const Rcpp::NumericVector& x, int nNodes);
 RcppExport SEXP _treestats_Ax_tree(SEXP edgeSEXP, SEXP lengthsSEXP, SEXP xSEXP, SEXP nNodesSEXP) {
@@ -1072,6 +1059,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
     Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
     rcpp_result_gen = Rcpp::wrap(Ax_tree(edge, lengths, x, nNodes));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Lx_tree_weighted
+Rcpp::NumericVector Lx_tree_weighted(const Rcpp::IntegerMatrix& edge, const Rcpp::NumericVector& w, const Rcpp::NumericVector& x, int nNodes);
+RcppExport SEXP _treestats_Lx_tree_weighted(SEXP edgeSEXP, SEXP wSEXP, SEXP xSEXP, SEXP nNodesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
+    rcpp_result_gen = Rcpp::wrap(Lx_tree_weighted(edge, w, x, nNodes));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1168,8 +1169,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_cherries_cpp", (DL_FUNC) &_treestats_cherries_cpp, 1},
     {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
     {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
-    {"_treestats_phylo_laplacian_matvec_rcpp", (DL_FUNC) &_treestats_phylo_laplacian_matvec_rcpp, 3},
     {"_treestats_Ax_tree", (DL_FUNC) &_treestats_Ax_tree, 4},
+    {"_treestats_Lx_tree_weighted", (DL_FUNC) &_treestats_Lx_tree_weighted, 4},
     {NULL, NULL, 0}
 };
 
