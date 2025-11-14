@@ -14,6 +14,11 @@
 #' @param use_rspectra boolean to indicate whether the helping package RSpectra
 #' should be used, in which case only the minimum and maximum values are
 #' returned
+#' @param calculate_min boolean to indicate whether or not to also calculate
+#' the minimum positive eigenvalue. Default is TRUE, but when calculating for
+#' extremely large trees (>10k tips, or even >40k tips), this can be very slow
+#' or in which case setting to FALSE still allows for the
+#' calculation of the maximum eigen value within reasonable time.
 #' @return List with the minimum and maximum eigenvalues
 #' @references  Chindelevitch, Leonid, et al. "Network science inspires novel
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
@@ -38,7 +43,7 @@ minmax_adj <- function(phy, use_rspectra = FALSE, calculate_min = TRUE) {
       n_nodes <- max(edges)
 
       matvec_fun <- function(x, args) {
-        treestats::Ax_tree(edges, lengths, x, n_nodes)
+        Ax_tree(edges, lengths, x, n_nodes)
       }
 
       mat_size <- max(phy$edge)

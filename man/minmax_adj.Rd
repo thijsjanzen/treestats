@@ -12,6 +12,12 @@ minmax_adj(phy, use_rspectra = FALSE, calculate_min = TRUE)
 \item{use_rspectra}{boolean to indicate whether the helping package RSpectra
 should be used, in which case only the minimum and maximum values are
 returned}
+
+\item{calculate_min}{boolean to indicate whether or not to also calculate
+the minimum positive eigenvalue. Default is TRUE, but when calculating for
+extremely large trees (>10k tips, or even >40k tips), this can be very slow
+or in which case setting to FALSE still allows for the
+calculation of the maximum eigen value within reasonable time.}
 }
 \value{
 List with the minimum and maximum eigenvalues

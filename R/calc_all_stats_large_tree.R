@@ -154,14 +154,14 @@ calc_all_stats_large_tree <- function(phylo, normalize = FALSE) {
 
   if (1 == 2) {
   stats$eigen_centrality   <- try_stat(phylo,
-                                       function(x) {
-                                         return(max(treestats::eigen_centrality(x,
-                                                                                weight = FALSE)$eigenvector))}) #nolint
+                                function(x) {
+                                return(max(treestats::eigen_centrality(x,
+                                        weight = FALSE)$eigenvector))}) #nolint
 
   stats$eigen_centralityW  <- try_stat(phylo,
-                                       function(x) {
-                                         return(max(treestats::eigen_centrality(x,
-                                                                                weight = TRUE)$eigenvector))}) #nolint
+                                function(x) {
+                                return(max(treestats::eigen_centrality(x,
+                                weight = TRUE)$eigenvector))}) #nolint
 }
 
   stats$mean_branch_length <- try_stat(phylo, treestats::mean_branch_length)
