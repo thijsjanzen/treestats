@@ -1076,6 +1076,64 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// precalc_Laplacian_mem
+List precalc_Laplacian_mem(const IntegerMatrix& edge, const NumericVector& w, int nNodes);
+RcppExport SEXP _treestats_precalc_Laplacian_mem(SEXP edgeSEXP, SEXP wSEXP, SEXP nNodesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerMatrix& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
+    rcpp_result_gen = Rcpp::wrap(precalc_Laplacian_mem(edge, w, nNodes));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Lx_mem
+NumericVector Lx_mem(const NumericVector& x);
+RcppExport SEXP _treestats_Lx_mem(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(Lx_mem(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Lx_mem_fast
+NumericVector Lx_mem_fast(const NumericVector& x);
+RcppExport SEXP _treestats_Lx_mem_fast(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(Lx_mem_fast(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// precalc_Laplacian_csr
+void precalc_Laplacian_csr(const IntegerMatrix& edge, const NumericVector& w, int nNodes);
+RcppExport SEXP _treestats_precalc_Laplacian_csr(SEXP edgeSEXP, SEXP wSEXP, SEXP nNodesSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerMatrix& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
+    precalc_Laplacian_csr(edge, w, nNodes);
+    return R_NilValue;
+END_RCPP
+}
+// Lx_csr
+NumericVector Lx_csr(const NumericVector& x);
+RcppExport SEXP _treestats_Lx_csr(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(Lx_csr(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
@@ -1171,6 +1229,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
     {"_treestats_Ax_tree", (DL_FUNC) &_treestats_Ax_tree, 4},
     {"_treestats_Lx_tree_weighted", (DL_FUNC) &_treestats_Lx_tree_weighted, 4},
+    {"_treestats_precalc_Laplacian_mem", (DL_FUNC) &_treestats_precalc_Laplacian_mem, 3},
+    {"_treestats_Lx_mem", (DL_FUNC) &_treestats_Lx_mem, 1},
+    {"_treestats_Lx_mem_fast", (DL_FUNC) &_treestats_Lx_mem_fast, 1},
+    {"_treestats_precalc_Laplacian_csr", (DL_FUNC) &_treestats_precalc_Laplacian_csr, 3},
+    {"_treestats_Lx_csr", (DL_FUNC) &_treestats_Lx_csr, 1},
     {NULL, NULL, 0}
 };
 

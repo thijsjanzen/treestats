@@ -9,7 +9,8 @@
 #' @param phy phylo object or ltable
 #' @param use_rspectra boolean to indicate whether the helping package RSpectra
 #' should be used, in which case only the minimum and maximum values are
-#' returned
+#' returned, and not the full list of eigenvalues, which makes the computation
+#' much faster.
 #' @param force_min boolean to indicate whether or not to also calculate
 #' the minimum positive eigenvalue if the tree is larger than 23170 tips.
 #' Default is FALSE, as this can be very slow, but in some cases might be
@@ -19,7 +20,7 @@
 #' tree shape statistics." Plos one 16.12 (2021): e0259877.
 #' @export
 minmax_laplace <- function(phy,
-                           use_rspectra = FALSE,
+                           use_rspectra = TRUE,
                            force_min = FALSE) {
   check_tree(phy,
              require_binary = TRUE,
@@ -76,9 +77,13 @@ minmax_laplace <- function(phy,
       lap_mat <- matrix(0, mat_size, mat_size)
       lap_mat[phy$edge] <- phy$edge.length
       lap_mat <- lap_mat + t(lap_mat)
+      degrees <- rowSums(lap_mat)
+      lap_mat <- diag(degrees) - lap_mat
 
       # we can make use of RSpectra
-      min_val <- RSpectra::eigs_sym(lap_mat, k = 1, which = "BE",
+      min_val <- RSpectra::eigs_sym(lap_mat,
+                                    k = 1,
+                                    which = "BE",
                                     sigma = 1e-9,
                                     opts = list(retvec = FALSE))$values
 
@@ -119,4 +124,3 @@ slow_calc_minmax_laplace <- function(phy) {
               "min" = min_val,
               "values" = eigen_vals))
 }
-

@@ -397,3 +397,34 @@ Lx_tree_weighted <- function(edge, w, x, nNodes) {
     .Call('_treestats_Lx_tree_weighted', PACKAGE = 'treestats', edge, w, x, nNodes)
 }
 
+#' precompute laplacian stuff
+#' @param edge edge
+#' @param w weights
+#' @param nNodes nnodes
+#' @export
+precalc_Laplacian_mem <- function(edge, w, nNodes) {
+    .Call('_treestats_precalc_Laplacian_mem', PACKAGE = 'treestats', edge, w, nNodes)
+}
+
+#' lx_mem
+#' @param x vector
+#' @export
+Lx_mem <- function(x) {
+    .Call('_treestats_Lx_mem', PACKAGE = 'treestats', x)
+}
+
+#' lx_mem_fast
+#' @param x vector
+#' @export
+Lx_mem_fast <- function(x) {
+    .Call('_treestats_Lx_mem_fast', PACKAGE = 'treestats', x)
+}
+
+precalc_Laplacian_csr <- function(edge, w, nNodes) {
+    invisible(.Call('_treestats_precalc_Laplacian_csr', PACKAGE = 'treestats', edge, w, nNodes))
+}
+
+Lx_csr <- function(x) {
+    .Call('_treestats_Lx_csr', PACKAGE = 'treestats', x)
+}
+
