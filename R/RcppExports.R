@@ -293,6 +293,10 @@ outer_cpp <- function(xx, x, sd) {
     .Call('_treestats_outer_cpp', PACKAGE = 'treestats', xx, x, sd)
 }
 
+prep_lapl_spec <- function(phy) {
+    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }
@@ -395,36 +399,5 @@ Ax_tree <- function(edge, lengths, x, nNodes) {
 
 Lx_tree_weighted <- function(edge, w, x, nNodes) {
     .Call('_treestats_Lx_tree_weighted', PACKAGE = 'treestats', edge, w, x, nNodes)
-}
-
-#' precompute laplacian stuff
-#' @param edge edge
-#' @param w weights
-#' @param nNodes nnodes
-#' @export
-precalc_Laplacian_mem <- function(edge, w, nNodes) {
-    .Call('_treestats_precalc_Laplacian_mem', PACKAGE = 'treestats', edge, w, nNodes)
-}
-
-#' lx_mem
-#' @param x vector
-#' @export
-Lx_mem <- function(x) {
-    .Call('_treestats_Lx_mem', PACKAGE = 'treestats', x)
-}
-
-#' lx_mem_fast
-#' @param x vector
-#' @export
-Lx_mem_fast <- function(x) {
-    .Call('_treestats_Lx_mem_fast', PACKAGE = 'treestats', x)
-}
-
-precalc_Laplacian_csr <- function(edge, w, nNodes) {
-    invisible(.Call('_treestats_precalc_Laplacian_csr', PACKAGE = 'treestats', edge, w, nNodes))
-}
-
-Lx_csr <- function(x) {
-    .Call('_treestats_Lx_csr', PACKAGE = 'treestats', x)
 }
 
