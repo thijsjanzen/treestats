@@ -956,6 +956,34 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Ax_tree
+Rcpp::NumericVector Ax_tree(const Rcpp::IntegerMatrix& edge, const Rcpp::NumericVector& lengths, const Rcpp::NumericVector& x, int nNodes);
+RcppExport SEXP _treestats_Ax_tree(SEXP edgeSEXP, SEXP lengthsSEXP, SEXP xSEXP, SEXP nNodesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type lengths(lengthsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
+    rcpp_result_gen = Rcpp::wrap(Ax_tree(edge, lengths, x, nNodes));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Lx_tree_weighted
+Rcpp::NumericVector Lx_tree_weighted(const Rcpp::IntegerMatrix& edge, const Rcpp::NumericVector& w, const Rcpp::NumericVector& x, int nNodes);
+RcppExport SEXP _treestats_Lx_tree_weighted(SEXP edgeSEXP, SEXP wSEXP, SEXP xSEXP, SEXP nNodesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
+    rcpp_result_gen = Rcpp::wrap(Lx_tree_weighted(edge, w, x, nNodes));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_sackin_cpp
 double calc_sackin_cpp(const std::vector<int>& tree_edge, const Rcpp::String& normalization);
 RcppExport SEXP _treestats_calc_sackin_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
@@ -1059,34 +1087,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// Ax_tree
-Rcpp::NumericVector Ax_tree(const Rcpp::IntegerMatrix& edge, const Rcpp::NumericVector& lengths, const Rcpp::NumericVector& x, int nNodes);
-RcppExport SEXP _treestats_Ax_tree(SEXP edgeSEXP, SEXP lengthsSEXP, SEXP xSEXP, SEXP nNodesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type lengths(lengthsSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
-    rcpp_result_gen = Rcpp::wrap(Ax_tree(edge, lengths, x, nNodes));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Lx_tree_weighted
-Rcpp::NumericVector Lx_tree_weighted(const Rcpp::IntegerMatrix& edge, const Rcpp::NumericVector& w, const Rcpp::NumericVector& x, int nNodes);
-RcppExport SEXP _treestats_Lx_tree_weighted(SEXP edgeSEXP, SEXP wSEXP, SEXP xSEXP, SEXP nNodesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type w(wSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type nNodes(nNodesSEXP);
-    rcpp_result_gen = Rcpp::wrap(Lx_tree_weighted(edge, w, x, nNodes));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
@@ -1172,6 +1172,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
     {"_treestats_imbalance_steps_cpp", (DL_FUNC) &_treestats_imbalance_steps_cpp, 2},
     {"_treestats_calc_branch_colless_cpp", (DL_FUNC) &_treestats_calc_branch_colless_cpp, 2},
+    {"_treestats_Ax_tree", (DL_FUNC) &_treestats_Ax_tree, 4},
+    {"_treestats_Lx_tree_weighted", (DL_FUNC) &_treestats_Lx_tree_weighted, 4},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
     {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},
@@ -1181,8 +1183,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_cherries_cpp", (DL_FUNC) &_treestats_cherries_cpp, 1},
     {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
     {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
-    {"_treestats_Ax_tree", (DL_FUNC) &_treestats_Ax_tree, 4},
-    {"_treestats_Lx_tree_weighted", (DL_FUNC) &_treestats_Lx_tree_weighted, 4},
     {NULL, NULL, 0}
 };
 

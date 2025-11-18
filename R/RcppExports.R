@@ -357,6 +357,14 @@ calc_branch_colless_cpp <- function(edge, el) {
     .Call('_treestats_calc_branch_colless_cpp', PACKAGE = 'treestats', edge, el)
 }
 
+Ax_tree <- function(edge, lengths, x, nNodes) {
+    .Call('_treestats_Ax_tree', PACKAGE = 'treestats', edge, lengths, x, nNodes)
+}
+
+Lx_tree_weighted <- function(edge, w, x, nNodes) {
+    .Call('_treestats_Lx_tree_weighted', PACKAGE = 'treestats', edge, w, x, nNodes)
+}
+
 calc_sackin_cpp <- function(tree_edge, normalization) {
     .Call('_treestats_calc_sackin_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }
@@ -391,13 +399,5 @@ cherries_ltable_cpp <- function(ltable_R) {
 
 pitchforks_cpp <- function(tree_edge) {
     .Call('_treestats_pitchforks_cpp', PACKAGE = 'treestats', tree_edge)
-}
-
-Ax_tree <- function(edge, lengths, x, nNodes) {
-    .Call('_treestats_Ax_tree', PACKAGE = 'treestats', edge, lengths, x, nNodes)
-}
-
-Lx_tree_weighted <- function(edge, w, x, nNodes) {
-    .Call('_treestats_Lx_tree_weighted', PACKAGE = 'treestats', edge, w, x, nNodes)
 }
 
