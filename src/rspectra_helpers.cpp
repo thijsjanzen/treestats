@@ -25,7 +25,6 @@ Rcpp::NumericVector Ax_tree(const Rcpp::IntegerMatrix &edge,
    for (int i = 0; i < nEdges; i++) {
       int u = edge(i, 0) - 1;            // convert to zero-based
       int v = edge(i, 1) - 1;
-
       double w = lengths[i];
 
       // adjacency contribution
