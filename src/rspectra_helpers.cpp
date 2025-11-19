@@ -20,18 +20,15 @@ Rcpp::NumericVector Ax_tree(const Rcpp::IntegerMatrix &edge,
                             const Rcpp::NumericVector &x,
                             int nNodes) {
    Rcpp::NumericVector result(nNodes);
-
    int nEdges = edge.nrow();
    for (int i = 0; i < nEdges; i++) {
       int u = edge(i, 0) - 1;            // convert to zero-based
       int v = edge(i, 1) - 1;
       double w = lengths[i];
-
       // adjacency contribution
       result[u] += w * x[v];
       result[v] += w * x[u];
    }
-
    return result;
 }
 
