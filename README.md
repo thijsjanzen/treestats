@@ -171,7 +171,7 @@ The following summary statistics are included:
         <td>colless_corr</td>
         <td>Topology</td>
         <td>Imbalance</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>NO</td>
         <td>YES</td>
         <td>YES</td>
