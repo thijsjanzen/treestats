@@ -3,6 +3,11 @@
 eigenvector and the adjacency matrix related summary statistics. These are no
 longer restricted by tree size (although for very large trees, calculations
 might still take considerable time, scaling is much better now).
+- Added matrix-free calculations for the min_max laplacian function
+- Note that the RSpectra related statistics are NOT matrix free possible: these
+require all distances between all tips and all nodes, which can not be done
+matrix-free (so these are restricted to trees < ~20k nodes, and relatively
+slow).
 
 # Version 1.70.9
 - Added function to calculate statistics for large trees, which skips several

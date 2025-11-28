@@ -46,5 +46,4 @@ list_statistics <- function(only_balance_stats = FALSE) {
   if (only_balance_stats) return(bal_stats)
 
   return(all_statistics)
-
 }
