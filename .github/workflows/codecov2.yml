@@ -28,6 +28,10 @@ jobs:
       - name: Install apTreeshape
         run: devtools::install_github("cran/apTreeshape")
         shell: Rscript {0}
+
+      - name: Install RPANDA
+        runL: devtools::install_github("hmorlon/PANDA")
+        shell: Rscript {0}
         
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
