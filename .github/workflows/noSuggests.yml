@@ -36,21 +36,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
-
-
-  # installing TESS and RPANDA manually, because they are not on CRAN (jan 2025). Still needed for other dependencies
-      - name: Install devtools
-        run: install.packages("devtools")
-        shell: Rscript {0}
   
-      - name: Install TESS
-        run: devtools::install_github("hoehna/TESS")
-        shell: Rscript {0}
-
-      - name: Install RPANDA
-        run: devtools::install_github("hmorlon/PANDA")
-        shell: Rscript {0}
-
       - name: Install system dependencies (Linux only)
         if: runner.os == 'Linux'
         run: |
