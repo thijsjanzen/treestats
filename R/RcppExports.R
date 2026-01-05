@@ -317,6 +317,10 @@ calc_mntd_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_calc_mntd_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
+calc_inv_path_cpp <- function(edge, el) {
+    .Call('_treestats_calc_inv_path_cpp', PACKAGE = 'treestats', edge, el)
+}
+
 #' Function to generate an ltable from a phy object.
 #' @description This function is a C++
 #' implementation of the function DDD::phylo2L. An L table summarises a

@@ -1,3 +1,7 @@
+# Version 1.71.10
+- Added the summary statistic representing the distribution of the sum of 
+inverse branch lengths along the shortest path between the root and all tips.
+
 # Version 1.70.10
 - Added matrix-free calculations for eigenvalue related calculations, for the
 eigenvector and the adjacency matrix related summary statistics. These are no

@@ -67,6 +67,7 @@
 #'   \item maximum eigenvalue of the Laplacian matrix
 #'   \item minimum eigenvalue of the adjacency matrix
 #'   \item maximum eigenvalue of the adjacency matrix
+#'   \item mean of the sum of inverse branch lengths
 #' }
 #'
 #' For the Laplacian spectrum properties, four properties of the eigenvalue
@@ -286,6 +287,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$treeness <- try_stat(phylo, treestats::treeness)
 
   stats$root_imbalance <- try_stat(phylo, treestats::root_imbalance)
+
+  inv_path_dist <- try_stat(phylo, treestats::inv_branch_dist)
+  stats$mean_inv_branch_dist <- mean(inv_path_dist)
 
   stats <- unlist(stats)
   stats <- stats[order(names(stats))]

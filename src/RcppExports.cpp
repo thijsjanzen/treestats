@@ -909,6 +909,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_inv_path_cpp
+Rcpp::List calc_inv_path_cpp(const std::vector<int>& edge, const std::vector<double>& el);
+RcppExport SEXP _treestats_calc_inv_path_cpp(SEXP edgeSEXP, SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_inv_path_cpp(edge, el));
+    return rcpp_result_gen;
+END_RCPP
+}
 // phylo_to_l
 Rcpp::NumericMatrix phylo_to_l(const Rcpp::List& phy);
 RcppExport SEXP _treestats_phylo_to_l(SEXP phySEXP) {
@@ -1168,6 +1180,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
     {"_treestats_calc_mntd_cpp", (DL_FUNC) &_treestats_calc_mntd_cpp, 1},
     {"_treestats_calc_mntd_ltable_cpp", (DL_FUNC) &_treestats_calc_mntd_ltable_cpp, 1},
+    {"_treestats_calc_inv_path_cpp", (DL_FUNC) &_treestats_calc_inv_path_cpp, 2},
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
     {"_treestats_imbalance_steps_cpp", (DL_FUNC) &_treestats_imbalance_steps_cpp, 2},
