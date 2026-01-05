@@ -38,7 +38,6 @@ Rcpp::NumericVector Lx_tree_weighted(const Rcpp::IntegerMatrix &edge,
                                      const Rcpp::NumericVector &x,
                                      int nNodes) {
    Rcpp::NumericVector result(nNodes);
-
    int nEdges = edge.nrow();
    for (int i = 0; i < nEdges; i++) {
       int u = edge(i, 0) - 1;  // zero-based

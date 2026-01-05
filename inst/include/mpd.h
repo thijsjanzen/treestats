@@ -144,15 +144,17 @@ struct path_node {
 
   std::vector<std::vector<double>> get_inv_blengths() const {
     std::vector<std::vector<double>> v;
-    if (!daughterL) v.push_back({sum_inv_b_length + 1.0 / bl_L, static_cast<double>(id_L)});
-    if (!daughterR) v.push_back({sum_inv_b_length + 1.0 / bl_R, static_cast<double>(id_R)});
+    if (!daughterL) v.push_back({sum_inv_b_length + 1.0 / bl_L,
+                                 static_cast<double>(id_L)});
+    if (!daughterR) v.push_back({sum_inv_b_length + 1.0 / bl_R,
+                                 static_cast<double>(id_R)});
 
     return v;
   }
 };
 
 class phylo_path_tree {
-public:
+ public:
   explicit phylo_path_tree(const std::vector< int >& tree_edge,
                            const std::vector<double>& edge_length) {
     // int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
@@ -203,7 +205,7 @@ public:
     return res;
   }
 
-private:
+ private:
   std::vector< path_node > tree;
   int tree_size = 0;
 };
