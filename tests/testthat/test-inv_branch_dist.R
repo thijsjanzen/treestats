@@ -8,7 +8,7 @@ test_that("usage", {
    focal_tree$edge.length <- c(0.5, 1, 1, 1.5)
    expected_vals <- c(1 + 1 / 0.5, 1 + 1 / 0.5, 1 / 1.5)
 
-   inv_dist <- treestats::inv_branch_dist(focal_tree)
+   inv_dist <- treestats::inv_branch_dist(focal_tree, add_one = FALSE)
    testthat::expect_equal(as.vector(inv_dist), expected_vals)
 
    ltab <- treestats::phylo_to_l(focal_tree)
