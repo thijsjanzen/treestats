@@ -12,7 +12,7 @@ test_that("usage", {
    testthat::expect_equal(as.vector(inv_dist), expected_vals)
 
    ltab <- treestats::phylo_to_l(focal_tree)
-   inv_dist_ltab <- treestats::inv_branch_dist(ltab)
+   inv_dist_ltab <- treestats::inv_branch_dist(ltab, add_one = FALSE)
    testthat::expect_equal(sum(as.vector(inv_dist_ltab)), sum(expected_vals))
 })
 
