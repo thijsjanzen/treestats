@@ -2,9 +2,11 @@
 #' @description This statistic calculates per tip, the sum of the inverse of
 #' all branch lengths of the shortest path between the root and the tip.
 #' @param phy phylo object or ltable
+#' @param add_one should we take 1 / bl or 1 / (1 + bl) ? if TRUE, then
+#' 1 / (1 + bl) is used. Default: TRUE
 #' @return Distribution of the sum of inverse brnch length.
 #' @export
-inv_branch_dist <- function(phy) {
+inv_branch_dist <- function(phy, add_one = TRUE) {
 
   check_tree(phy,
              require_binary = TRUE,
@@ -16,7 +18,8 @@ inv_branch_dist <- function(phy) {
   }
   if (inherits(phy, "phylo")) {
     res <- calc_inv_path_cpp(as.vector(t(phy$edge)),
-                             phy$edge.length)
+                             phy$edge.length,
+                             add_one)
     distances <- res$distances
     names(distances) <- phy$tip.label[res$tip_ids]
     distances <- distances[sort(names(distances))]

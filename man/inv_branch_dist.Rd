@@ -4,10 +4,13 @@
 \alias{inv_branch_dist}
 \title{Sum of Inverse branch length}
 \usage{
-inv_branch_dist(phy)
+inv_branch_dist(phy, add_one = TRUE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{add_one}{should we take 1 / bl or 1 / (1 + bl) ? if TRUE, then
+1 / (1 + bl) is used. Default: TRUE}
 }
 \value{
 Distribution of the sum of inverse brnch length.

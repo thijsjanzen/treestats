@@ -117,6 +117,7 @@ struct path_node {
   double bl_L;
   int id_R;
   int id_L;
+  double add_one;
 
   // for inv_path length
   double sum_inv_b_length;
@@ -129,10 +130,11 @@ struct path_node {
     sum_inv_b_length = 0.0;
     id_R = -1;
     id_L = -1;
+    add_one = 1.0;
   }
 
   void update_path(double branch, double prev_sum) {
-    sum_inv_b_length += branch > 0.0 ? prev_sum + 1.0 / branch : prev_sum;
+    sum_inv_b_length += branch > 0.0 ? prev_sum + 1.0 / (add_one + branch) : prev_sum;
 
     if (daughterL) {
       daughterL->update_path(bl_L, sum_inv_b_length);
@@ -144,9 +146,9 @@ struct path_node {
 
   std::vector<std::vector<double>> get_inv_blengths() const {
     std::vector<std::vector<double>> v;
-    if (!daughterL) v.push_back({sum_inv_b_length + 1.0 / bl_L,
+    if (!daughterL) v.push_back({sum_inv_b_length + 1.0 / (add_one + bl_L),
                                  static_cast<double>(id_L)});
-    if (!daughterR) v.push_back({sum_inv_b_length + 1.0 / bl_R,
+    if (!daughterR) v.push_back({sum_inv_b_length + 1.0 / (add_one + bl_R),
                                  static_cast<double>(id_R)});
 
     return v;
@@ -156,7 +158,8 @@ struct path_node {
 class phylo_path_tree {
  public:
   explicit phylo_path_tree(const std::vector< int >& tree_edge,
-                           const std::vector<double>& edge_length) {
+                           const std::vector<double>& edge_length,
+                           bool add_one) {
     // int root_no = 2 + static_cast<int>(0.25 * tree_edge.size());
     int root_no = tree_edge[0];
     for (size_t i = 2; i < tree_edge.size(); i+=2) {
@@ -166,6 +169,9 @@ class phylo_path_tree {
     tree_size = root_no - 1;
 
     tree.resize(tree_edge.size() / 2 - root_no + 2);
+    for (auto& i : tree) {
+        i.add_one = static_cast<double>(add_one);
+    }
 
     for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]) - root_no;

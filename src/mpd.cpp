@@ -61,8 +61,9 @@ double calc_mntd_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 
 // [[Rcpp::export]]
 Rcpp::List calc_inv_path_cpp(const std::vector<int>& edge,
-                                      const std::vector<double>& el) {
-  mpd_tree::phylo_path_tree focal_tree(edge, el);
+                             const std::vector<double>& el,
+                             bool add_one) {
+  mpd_tree::phylo_path_tree focal_tree(edge, el, add_one);
   std::vector<std::vector<double>> res = focal_tree.calculate_inv_path_length();
 
   Rcpp::NumericVector distances(res.size());
