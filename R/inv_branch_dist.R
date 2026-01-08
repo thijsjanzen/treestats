@@ -6,7 +6,7 @@
 #' 1 / (1 + bl) is used. Default: TRUE
 #' @return Distribution of the sum of inverse brnch length.
 #' @export
-inv_branch_dist <- function(phy, add_one = TRUE) {
+inv_branch_dist <- function(phy, add_one = FALSE) {
 
   check_tree(phy,
              require_binary = TRUE,
