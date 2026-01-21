@@ -4,7 +4,7 @@
 \alias{inv_branch_dist}
 \title{Sum of Inverse branch length}
 \usage{
-inv_branch_dist(phy, add_one = TRUE)
+inv_branch_dist(phy, add_one = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
