@@ -1,3 +1,6 @@
+# Version 1.71.11
+- Replaced ::Rf_error with Rcpp::stop()
+
 # Version 1.71.10
 - Added the summary statistic representing the distribution of the sum of 
 inverse branch lengths along the shortest path between the root and all tips.
