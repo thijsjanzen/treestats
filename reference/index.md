@@ -26,6 +26,9 @@
   : Branching times of a tree
 - [`calc_all_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_all_stats.md)
   : Apply all available tree statistics to a single tree
+- [`calc_all_stats_large_tree()`](https://thijsjanzen.github.io/treestats/reference/calc_all_stats_large_tree.md)
+  : Apply all available tree statistics to a single tree, but exclude
+  those statistics that require large amounts of memory.
 - [`calc_brts_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_brts_stats.md)
   : Apply all tree statistics related to branching times to a single
   tree.
@@ -63,6 +66,8 @@
   : Mean I statistic.
 - [`imbalance_steps()`](https://thijsjanzen.github.io/treestats/reference/imbalance_steps.md)
   : Imbalance steps index
+- [`inv_branch_dist()`](https://thijsjanzen.github.io/treestats/reference/inv_branch_dist.md)
+  : Sum of Inverse branch length
 - [`j_one()`](https://thijsjanzen.github.io/treestats/reference/j_one.md)
   : \\J^1\\ index.
 - [`l_to_phylo()`](https://thijsjanzen.github.io/treestats/reference/l_to_phylo.md)

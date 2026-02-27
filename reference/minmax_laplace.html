@@ -19,7 +19,7 @@ eigenvalues is not returned."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.70.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@ eigenvalues is not returned.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">minmax_laplace</span><span class="op">(</span><span class="va">phy</span>, use_rspectra <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">minmax_laplace</span><span class="op">(</span><span class="va">phy</span>, use_rspectra <span class="op">=</span> <span class="cn">TRUE</span>, force_min <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -78,7 +78,15 @@ eigenvalues is not returned.</p>
 <dt id="arg-use-rspectra">use_rspectra<a class="anchor" aria-label="anchor" href="#arg-use-rspectra"></a></dt>
 <dd><p>boolean to indicate whether the helping package RSpectra
 should be used, in which case only the minimum and maximum values are
-returned</p></dd>
+returned, and not the full list of eigenvalues, which makes the computation
+much faster.</p></dd>
+
+
+<dt id="arg-force-min">force_min<a class="anchor" aria-label="anchor" href="#arg-force-min"></a></dt>
+<dd><p>boolean to indicate whether or not to also calculate
+the minimum positive eigenvalue if the tree is larger than 23170 tips.
+Default is FALSE, as this can be very slow, but in some cases might be
+of interest.</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.70.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2025-11-11</h4>
+            <h4 data-toc-skip class="date">2026-02-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/main/vignettes/Example_data.Rmd" class="external-link"><code>vignettes/Example_data.Rmd</code></a></small>
       <div class="d-none name"><code>Example_data.Rmd</code></div>
@@ -99,14 +99,15 @@ publication accompanying the treestats paper.</p>
 <p>We can now, for instance, plot the distribution of family sizes in
 birds:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">$</span><span class="va">number_of_lineages</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example_data_files/figure-html/plot_size-1.png" class="r-plt" width="576"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">$</span><span class="va">number_of_lineages</span>, main <span class="op">=</span> <span class="st">"Number of lineages"</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Number of lineages"</span>, ylab <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Example_data_files/figure-html/plot_size-1.png" class="r-plt" alt="" width="576"></p>
 <p>Furthermore, we can make a heatmap of all correlations:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cor.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example_data_files/figure-html/corr-1.png" class="r-plt" width="576"></p>
+<p><img src="Example_data_files/figure-html/corr-1.png" class="r-plt" alt="" width="576"></p>
 <p>This will generate a distorted image: correlations are not corrected
 for tree size. We can study this a bit more in detail:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -121,7 +122,7 @@ for tree size. We can study this a bit more in detail:</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Tree size"</span>, ylab <span class="op">=</span> <span class="va">stat</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><img src="Example_data_files/figure-html/plot%20with%20tree%20size-1.png" class="r-plt" width="576"></p>
+<p><img src="Example_data_files/figure-html/plot%20with%20tree%20size-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in par(opar): graphical parameter "cin" cannot be set</span></span></code></pre>
@@ -148,13 +149,35 @@ matrix.</p>
 <span>    <span class="va">cor.dist</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new_cor</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example_data_files/figure-html/correct_corr-1.png" class="r-plt" width="576"></p>
+<p><img src="Example_data_files/figure-html/correct_corr-1.png" class="r-plt" alt="" width="576"></p>
 <p>A nicer way to visualize this is given by the package ppheatmap:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pheatmap"</span><span class="op">)</span><span class="op">)</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span><span class="va">cor.dist</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Example_data_files/figure-html/nicer%20plot-1.png" class="r-plt" width="100%"></p>
+<p><img src="Example_data_files/figure-html/nicer%20plot-1.png" class="r-plt" alt="" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="adding-a-random-category-to-our-matrix">Adding a random category to our matrix<a class="anchor" aria-label="anchor" href="#adding-a-random-category-to-our-matrix"></a>
+</h2>
+<p>To test whether outliers are perhaps instead of identifying unique
+information, picking up on random noise, we can also add an extra
+statistic that has no meaning, and that has random correlations with all
+other statistics:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cor.dist2</span> <span class="op">&lt;-</span> <span class="va">cor.dist</span></span>
+<span><span class="va">rand_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">cor.dist2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">cor.dist2</span>, <span class="va">rand_values</span><span class="op">)</span></span>
+<span><span class="va">cor.dist2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">cor.dist2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">rand_values</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"random"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"random"</span></span>
+<span></span>
+<span><span class="co"># and now we plot again:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Example_data_files/figure-html/add%20random-1.png" class="r-plt" alt="" width="576"></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pheatmap"</span><span class="op">)</span><span class="op">)</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span><span class="va">cor.dist2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Example_data_files/figure-html/add%20random-2.png" class="r-plt" alt="" width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

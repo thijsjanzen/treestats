@@ -8,7 +8,7 @@ adjacency matrix of the tree.
 ## Usage
 
 ``` r
-eigen_centrality(phy, weight = TRUE, scale = FALSE, use_rspectra = FALSE)
+eigen_centrality(phy, weight = TRUE, scale = FALSE, use_rspectra = TRUE)
 ```
 
 ## Arguments

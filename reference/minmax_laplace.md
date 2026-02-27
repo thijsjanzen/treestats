@@ -10,7 +10,7 @@ vector of all eigenvalues is not returned.
 ## Usage
 
 ``` r
-minmax_laplace(phy, use_rspectra = FALSE)
+minmax_laplace(phy, use_rspectra = TRUE, force_min = FALSE)
 ```
 
 ## Arguments
@@ -22,7 +22,16 @@ minmax_laplace(phy, use_rspectra = FALSE)
 - use_rspectra:
 
   boolean to indicate whether the helping package RSpectra should be
-  used, in which case only the minimum and maximum values are returned
+  used, in which case only the minimum and maximum values are returned,
+  and not the full list of eigenvalues, which makes the computation much
+  faster.
+
+- force_min:
+
+  boolean to indicate whether or not to also calculate the minimum
+  positive eigenvalue if the tree is larger than 23170 tips. Default is
+  FALSE, as this can be very slow, but in some cases might be of
+  interest.
 
 ## Value
 

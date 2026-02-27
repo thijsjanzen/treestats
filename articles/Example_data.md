@@ -37,7 +37,8 @@ We can now, for instance, plot the distribution of family sizes in
 birds:
 
 ``` r
-hist(all_stats$number_of_lineages)
+hist(all_stats$number_of_lineages, main = "Number of lineages",
+     xlab = "Number of lineages", ylab = "count")
 ```
 
 ![](Example_data_files/figure-html/plot_size-1.png)
@@ -46,7 +47,7 @@ Furthermore, we can make a heatmap of all correlations:
 
 ``` r
 cor.dist <- cor(all_stats)
-diag(cor.dist) <- NA
+diag(cor.dist) <- 0
 heatmap(cor.dist)
 ```
 
@@ -106,7 +107,7 @@ for (i in seq_len(nrow(cor.dist))) {
     cor.dist[i, j] <- new_cor
   }
 }
-diag(cor.dist) <- NA
+diag(cor.dist) <- 0
 heatmap(cor.dist)
 ```
 
@@ -119,3 +120,30 @@ if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
 ```
 
 ![](Example_data_files/figure-html/nicer%20plot-1.png)
+
+## Adding a random category to our matrix
+
+To test whether outliers are perhaps instead of identifying unique
+information, picking up on random noise, we can also add an extra
+statistic that has no meaning, and that has random correlations with all
+other statistics:
+
+``` r
+cor.dist2 <- cor.dist
+rand_values <- runif(n = nrow(cor.dist2))
+cor.dist2 <- cbind(cor.dist2, rand_values)
+cor.dist2 <- rbind(cor.dist2, c(rand_values, 0))
+colnames(cor.dist2)[ncol(cor.dist2)] <- "random"
+rownames(cor.dist2)[nrow(cor.dist2)] <- "random"
+
+# and now we plot again:
+heatmap(cor.dist2)
+```
+
+![](Example_data_files/figure-html/add%20random-1.png)
+
+``` r
+if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist2)
+```
+
+![](Example_data_files/figure-html/add%20random-2.png)

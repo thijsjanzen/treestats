@@ -23,7 +23,7 @@ extant."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.70.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@ extant.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">simulated_tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/rlineage.html" class="external-link">rphylo</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, birth <span class="op">=</span> <span class="fl">1</span>, death <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ltable</span> <span class="op">&lt;-</span> <span class="fu">phylo_to_l</span><span class="op">(</span><span class="va">simulated_tree</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">reconstructed_tree</span> <span class="op">&lt;-</span> <span class="fu">DDD</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DDD/man/L2phylo.html" class="external-link">L2phylo</a></span><span class="op">(</span><span class="va">ltable</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reconstructed_tree</span> <span class="op">&lt;-</span> <span class="fu">DDD</span><span class="fu">::</span><span class="fu"><a href="https://rsetienne.github.io/DDD/reference/L2phylo.html" class="external-link">L2phylo</a></span><span class="op">(</span><span class="va">ltable</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">old_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># trees should be more or less similar, although labels may not match, and</span></span></span>
