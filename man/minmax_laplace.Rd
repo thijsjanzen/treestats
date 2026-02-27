@@ -4,14 +4,20 @@
 \alias{minmax_laplace}
 \title{Laplacian Matrix properties}
 \usage{
-minmax_laplace(phy, use_rspectra = FALSE)
+minmax_laplace(phy, use_rspectra = TRUE, force_min = FALSE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}
 
 \item{use_rspectra}{boolean to indicate whether the helping package RSpectra
 should be used, in which case only the minimum and maximum values are
-returned}
+returned, and not the full list of eigenvalues, which makes the computation
+much faster.}
+
+\item{force_min}{boolean to indicate whether or not to also calculate
+the minimum positive eigenvalue if the tree is larger than 23170 tips.
+Default is FALSE, as this can be very slow, but in some cases might be
+of interest.}
 }
 \value{
 List with the minimum and maximum eigenvalues

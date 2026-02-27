@@ -46,7 +46,7 @@ double calc_beta_cpp(const Rcpp::List& phy,
   } catch (const char* msg) {
     Rcpp::Rcout << msg << std::endl;
   } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+    Rcpp::stop("c++ exception (unknown reason)");
   }
   return NA_REAL;
 }
@@ -72,7 +72,7 @@ double calc_beta_ltable_cpp(const Rcpp::NumericMatrix& ltable,
   } catch (const char* msg) {
     Rcpp::Rcout << msg << std::endl;
   } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+    Rcpp::stop("c++ exception (unknown reason)");
   }
   return NA_REAL;
 }

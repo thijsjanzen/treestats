@@ -1,3 +1,25 @@
+# Version 1.71.11
+- Replaced ::Rf_error with Rcpp::stop()
+
+# Version 1.71.10
+- Added the summary statistic representing the distribution of the sum of 
+inverse branch lengths along the shortest path between the root and all tips.
+
+# Version 1.70.10
+- Added matrix-free calculations for eigenvalue related calculations, for the
+eigenvector and the adjacency matrix related summary statistics. These are no
+longer restricted by tree size (although for very large trees, calculations
+might still take considerable time, scaling is much better now).
+- Added matrix-free calculations for the min_max laplacian function
+- Note that the RSpectra related statistics are NOT matrix free possible: these
+require all distances between all tips and all nodes, which can not be done
+matrix-free (so these are restricted to trees < ~20k nodes, and relatively
+slow).
+
+# Version 1.70.9
+- Added function to calculate statistics for large trees, which skips several
+distance matrix based statistics that can cause extreme memory usage
+
 # Version 1.70.8
 - Removed all references and vignettes making use of the package abcrf, as this is longer available on CRAN.
 - Improved compliance to noSuggests CRAN policy.

@@ -36,7 +36,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
-
+  
       - name: Install system dependencies (Linux only)
         if: runner.os == 'Linux'
         run: |
@@ -47,7 +47,7 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
-            devtools
+            devtools, RPANDA=?ignore, TESS=?ignore
           needs: check
 
       - name: Run devtools::check(force_suggests = TRUE, args = "--no-stop-on-test-error")

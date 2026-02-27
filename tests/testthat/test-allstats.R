@@ -11,10 +11,12 @@ test_that("usage", {
   testthat::expect_invisible(
    all_stats <- treestats::calc_all_stats(focal_tree)
   )
-  testthat::expect_equal(length(all_stats), 70)
+  testthat::expect_equal(length(all_stats), 71)
 
   focal_tree <- ape::rphylo(n = 23175, birth = 1, death = 0)
-  all_stats <- treestats::calc_all_stats(focal_tree)
+  testthat::expect_warning(
+    all_stats <- treestats::calc_all_stats(focal_tree)
+  )
 
   testthat::expect_true(
     is.na(all_stats[names(all_stats) == "laplace_spectrum_a"]))
@@ -25,9 +27,7 @@ test_that("usage", {
   testthat::expect_true(
     is.na(all_stats[names(all_stats) == "laplace_spectrum_g"]))
 
-  testthat::expect_true(is.na(all_stats[names(all_stats) == "max_laplace"]))
   testthat::expect_true(is.na(all_stats[names(all_stats) == "min_laplace"]))
-  testthat::expect_true(is.na(all_stats[names(all_stats) == "max_adj"]))
   testthat::expect_true(is.na(all_stats[names(all_stats) == "min_adj"]))
 
   testthat::expect_true(is.na(all_stats[names(all_stats) == "vpd"]))

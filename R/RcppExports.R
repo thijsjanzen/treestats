@@ -293,6 +293,10 @@ outer_cpp <- function(xx, x, sd) {
     .Call('_treestats_outer_cpp', PACKAGE = 'treestats', xx, x, sd)
 }
 
+prep_lapl_spec <- function(phy) {
+    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
+}
+
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }
@@ -311,6 +315,10 @@ calc_mntd_cpp <- function(phy) {
 
 calc_mntd_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_calc_mntd_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+}
+
+calc_inv_path_cpp <- function(edge, el, add_one) {
+    .Call('_treestats_calc_inv_path_cpp', PACKAGE = 'treestats', edge, el, add_one)
 }
 
 #' Function to generate an ltable from a phy object.
@@ -347,6 +355,18 @@ l_to_newick <- function(ltable_R, drop_extinct) {
 
 imbalance_steps_cpp <- function(ltable_R, normalization) {
     .Call('_treestats_imbalance_steps_cpp', PACKAGE = 'treestats', ltable_R, normalization)
+}
+
+calc_branch_colless_cpp <- function(edge, el) {
+    .Call('_treestats_calc_branch_colless_cpp', PACKAGE = 'treestats', edge, el)
+}
+
+Ax_tree <- function(edge, lengths, x, nNodes) {
+    .Call('_treestats_Ax_tree', PACKAGE = 'treestats', edge, lengths, x, nNodes)
+}
+
+Lx_tree_weighted <- function(edge, w, x, nNodes) {
+    .Call('_treestats_Lx_tree_weighted', PACKAGE = 'treestats', edge, w, x, nNodes)
 }
 
 calc_sackin_cpp <- function(tree_edge, normalization) {

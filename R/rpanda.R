@@ -76,7 +76,6 @@ laplacian_spectrum <- function(phy) {
 
     mat <-  outer_cpp(xx, x, sd)
 
-
     structure(list(x = xx,
                    y = rowMeans(mat),
                    bw = sd,

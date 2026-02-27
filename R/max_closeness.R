@@ -30,6 +30,11 @@ max_closeness <- function(phy, weight = TRUE, normalization = "none") {
     if (ape::is.binary(phy) && ape::is.rooted(phy)) {
       closeness_stat <- calc_max_closeness_cpp(phy, weight)
     } else {
+      mat_size <- max(phy$edge)
+      if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
+        stop("tree too big, memory allocation fail")
+      }
+
       if (!weight) phy$edge.length <- rep(1, length(phy$edge.length))
       node_dist <- ape::dist.nodes(phy)
       closeness_stat <- max(1 / rowSums(node_dist))

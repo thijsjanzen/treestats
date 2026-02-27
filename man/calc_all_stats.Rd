@@ -74,6 +74,12 @@ single tree, being:
   \item number of imbalancing steps
   \item j_one statistic
   \item treeness statistic
+  \item branch weighted colless statistic
+  \item minimum eigenvalue of the Laplacian matrix
+  \item maximum eigenvalue of the Laplacian matrix
+  \item minimum eigenvalue of the adjacency matrix
+  \item maximum eigenvalue of the adjacency matrix
+  \item mean of the sum of inverse branch lengths
 }
 
 For the Laplacian spectrum properties, four properties of the eigenvalue

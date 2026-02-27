@@ -1,7 +1,7 @@
 Package: treestats
 Type: Package
 Title: Phylogenetic Tree Statistics
-Version: 1.70.8
+Version: 1.71.11
 Authors@R: c(person(given = "Thijs",
         family = "Janzen",
         email = "thijsjanzen@gmail.com",
@@ -31,7 +31,8 @@ Imports:
     ape,
     nloptr,
     treebalance,
-    DDD
+    DDD,
+    RSpectra
 Suggests:
     phytools,
     phyloTop,
@@ -48,10 +49,12 @@ Suggests:
     rmarkdown,
     knitr,
     igraph,
-    RSpectra,
-    Matrix,
-    pheatmap
+    pheatmap,
+    Matrix
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
 SystemRequirements: C++17
+Remotes:
+    hoehna/TESS,
+    hmorlon/PANDA

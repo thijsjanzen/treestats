@@ -33,8 +33,7 @@ double calc_mpd_cpp(const std::vector<int>& edge,
 // [[Rcpp::export]]
 double calc_J_cpp(const std::vector<int>& edge,
                   const std::vector<double>& el) {
-  mpd_tree::phylo_tree focal_tree(edge, el);
-  auto mpd = focal_tree.calculate_mpd();
+  auto mpd = calc_mpd_cpp(edge, el);
   int n = (el.size() + 2) * 0.5;
 
   return mpd * 1.0 / n;
@@ -58,4 +57,21 @@ double calc_mntd_cpp(const Rcpp::List& phy) {
 double calc_mntd_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto ltab = convert_to_ltable(ltable_R);
   return calc_mntd_ltable(ltab);
+}
+
+// [[Rcpp::export]]
+Rcpp::List calc_inv_path_cpp(const std::vector<int>& edge,
+                             const std::vector<double>& el,
+                             bool add_one) {
+  mpd_tree::phylo_path_tree focal_tree(edge, el, add_one);
+  std::vector<std::vector<double>> res = focal_tree.calculate_inv_path_length();
+
+  Rcpp::NumericVector distances(res.size());
+  Rcpp::NumericVector tip_ids(res.size());
+  for (size_t i = 0; i < res.size(); ++i) {
+    distances(i)  = res[i][0];
+    tip_ids(i)    = res[i][1];
+  }
+  return Rcpp::List::create(Rcpp::Named("distances")  = distances,
+                            Rcpp::Named("tip_ids")    = tip_ids);
 }

@@ -55,9 +55,18 @@ jobs:
         run: devtools::install_github("cran/apTreeshape")
         shell: Rscript {0}
 
+        # installing TESS and RPANDA manually, because they are not on CRAN (jan 2025). Still needed for other dependencies
+      - name: Install TESS
+        run: devtools::install_github("hoehna/TESS")
+        shell: Rscript {0}
+
+      - name: Install RPANDA
+        run: devtools::install_github("hmorlon/PANDA")
+        shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, RPANDA=?ignore, TESS=?ignore
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

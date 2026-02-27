@@ -4,7 +4,7 @@
 \alias{eigen_centrality}
 \title{Eigen vector centrality}
 \usage{
-eigen_centrality(phy, weight = TRUE, scale = FALSE, use_rspectra = FALSE)
+eigen_centrality(phy, weight = TRUE, scale = FALSE, use_rspectra = TRUE)
 }
 \arguments{
 \item{phy}{phylo object or ltable}

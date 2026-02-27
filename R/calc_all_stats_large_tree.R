@@ -1,96 +1,35 @@
-#' Apply all available tree statistics to a single tree
+#' Apply all available tree statistics to a single tree, but exclude those
+#' statistics that require large amounts of memory.
 #' @param phylo phylo object
 #' @param normalize if set to TRUE, results are normalized (if possible) under
 #' either the  Yule expectation (if available), or the number of tips
 #' @return List with statistics
 #' @export
 #' @description this function applies all tree statistics available in
-#' this package to a
-#' single tree, being:
+#' this package to a single tree, excluding statistics that require large
+#' amounts of memory, because they are based on a distance matrix. The
+#' statistics EXCLUDED are:
 #' \itemize{
-#'   \item gamma
-#'   \item Sackin
-#'   \item Colless
-#'   \item corrected Colless
-#'   \item quadratic Colless
-#'   \item Aldous' beta statistic
-#'   \item Blum
-#'   \item crown age
-#'   \item tree height
-#'   \item Pigot's rho
-#'   \item number of lineages
-#'   \item nLTT with empty tree
-#'   \item phylogenetic diversity
-#'   \item avgLadder index
-#'   \item cherries
-#'   \item double cherries
-#'   \item ILnumber
-#'   \item pitchforks
-#'   \item stairs
-#'   \item stairs2
 #'   \item laplacian spectrum
-#'   \item B1
-#'   \item B2
-#'   \item area per pair (aPP)
-#'   \item average leaf depth (aLD)
-#'   \item I statistic
-#'   \item ewColless
-#'   \item max Delta Width (maxDelW)
-#'   \item maximum of Depth
-#'   \item variance of Depth
-#'   \item maximum Width
-#'   \item Rogers
-#'   \item total Cophenetic distance
-#'   \item symmetry Nodes
-#'   \item mean of pairwise distance (mpd)
 #'   \item variance of pairwise distance (vpd)
-#'   \item Phylogenetic Species Variability (psv)
-#'   \item mean nearest taxon distance (mntd)
-#'   \item J statistic of entropy
-#'   \item rquartet index
-#'   \item Wiener index
-#'   \item max betweenness
-#'   \item max closeness
-#'   \item diameter, without branch lenghts
 #'   \item maximum eigen vector value
-#'   \item mean branch length
-#'   \item variance of branch length
-#'   \item mean external branch length
-#'   \item variance of external branch length
-#'   \item mean internal branch length
-#'   \item variance of internal branch length
-#'   \item number of imbalancing steps
-#'   \item j_one statistic
-#'   \item treeness statistic
-#'   \item branch weighted colless statistic
 #'   \item minimum eigenvalue of the Laplacian matrix
 #'   \item maximum eigenvalue of the Laplacian matrix
 #'   \item minimum eigenvalue of the adjacency matrix
 #'   \item maximum eigenvalue of the adjacency matrix
-#'   \item mean of the sum of inverse branch lengths
 #' }
 #'
-#' For the Laplacian spectrum properties, four properties of the eigenvalue
-#' distribution are returned: 1) asymmetry, 2) peakedness, 3) log(principal
-#' eigenvalue) and 4) eigengap.
-#' Please notice that for some very small or very large trees, some of the
-#' statistics can not be calculated. The function will report an NA for this
-#' statistic, but will not break, to facilitate batch analysis of large numbers
-#' of trees.
-#' @rawNamespace import(Rcpp)
-#' @rawNamespace import(nloptr)
-#' @rawNamespace useDynLib(treestats)
-calc_all_stats <- function(phylo, normalize = FALSE) {
+calc_all_stats_large_tree <- function(phylo, normalize = FALSE) {
 
   stats <- list()
 
   stats$gamma              <- try_stat(phylo, treestats::gamma_statistic)
 
   stats$sackin             <- try_stat(phylo, treestats::sackin,
-                                      normalize, c("yule", "none"))
+                                       normalize, c("yule", "none"))
 
   stats$colless            <- try_stat(phylo, treestats::colless,
-                                         normalize, c("yule", "none"))
+                                       normalize, c("yule", "none"))
   stats$colless_corr       <- try_stat(phylo, treestats::colless_corr,
                                        normalize, c("yule", "none"))
   stats$colless_quad       <- try_stat(phylo, treestats::colless_quad,
@@ -113,7 +52,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$max_ladder         <- try_stat(phylo, treestats::max_ladder)
 
   stats$cherries           <- try_stat(phylo, treestats::cherries,
-                                     normalize, c("yule", "none"))
+                                       normalize, c("yule", "none"))
 
   stats$double_cherries    <- try_stat(phylo, treestats::double_cherries)
   stats$four_prong         <- try_stat(phylo, treestats::four_prong)
@@ -125,54 +64,6 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                                        normalize, c("tips", "none"))
 
   stats$stairs              <- try_stat(phylo, treestats::stairs)
-
-  temp_stats <- tryCatch(expr = {treestats::laplacian_spectrum(phylo) }, #nolint
-                         error = function(e) {return(NA) }) #nolint
-
-  if (length(temp_stats) == 5) {
-    stats$laplace_spectrum_a  <- temp_stats$asymmetry
-    stats$laplace_spectrum_p  <- temp_stats$peakedness
-    stats$laplace_spectrum_e  <- log(temp_stats$principal_eigenvalue)
-    stats$laplace_spectrum_g  <- temp_stats$eigengap[[1]]
-  } else {
-    stats$laplace_spectrum_a  <- NA
-    stats$laplace_spectrum_p  <- NA
-    stats$laplace_spectrum_e  <- NA
-    stats$laplace_spectrum_g  <- NA
-  }
-
-  temp_stats <- try_stat(phylo,
-                      function(x) {
-                        return(treestats::minmax_laplace(x, TRUE))
-                       })
-  stats$max_laplace <- NA
-  stats$min_laplace <- NA
-
-  obj_not_na <- !is.null(temp_stats) &&
-    !(length(temp_stats) == 1 && is.na(temp_stats))
-
-  max_not_na <- obj_not_na && !is.na(temp_stats$max)
-  min_not_na <- obj_not_na && !is.null(temp_stats$min)
-
-  if (max_not_na) stats$max_laplace <- temp_stats$max
-  if (min_not_na) stats$min_laplace <- temp_stats$min
-
-  temp_stats <- try_stat(phylo,
-                         function(x) {
-                           return(treestats::minmax_adj(x, TRUE))
-                         })
-
-  stats$min_adj <- NA
-  stats$max_adj <- NA
-
-  obj_not_na <- !is.null(temp_stats) &&
-                !(length(temp_stats) == 1 && is.na(temp_stats))
-
-  max_not_na <- obj_not_na && !is.na(temp_stats$max)
-  min_not_na <- obj_not_na && !is.null(temp_stats$min)
-
-  if (max_not_na) stats$max_adj <- temp_stats$max
-  if (min_not_na) stats$min_adj <- temp_stats$min
 
   stats$imbalance_steps  <- try_stat(phylo, treestats::imbalance_steps,
                                      normalize)
@@ -254,23 +145,24 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   }
 
   stats$max_closeness      <- try_stat(phylo, function(x) {
-                                        local_closeness(x, FALSE, normalize)})
+    local_closeness(x, FALSE, normalize)})
 
   stats$max_closenessW     <- try_stat(phylo, function(x) {
-                                        local_closeness(x, TRUE, normalize)})
+    local_closeness(x, TRUE, normalize)})
 
   stats$diameter           <- try_stat(phylo, treestats::diameter)
 
+  if (1 == 2) {
   stats$eigen_centrality   <- try_stat(phylo,
-                                       function(x) {
-                          return(max(treestats::eigen_centrality(x,
-                                       weight = FALSE)$eigenvector))}) #nolint
+                                function(x) {
+                                return(max(treestats::eigen_centrality(x,
+                                        weight = FALSE)$eigenvector))}) #nolint
 
   stats$eigen_centralityW  <- try_stat(phylo,
-                                       function(x) {
-                                      return(max(treestats::eigen_centrality(x,
-                                           weight = TRUE)$eigenvector))}) #nolint
-
+                                function(x) {
+                                return(max(treestats::eigen_centrality(x,
+                                weight = TRUE)$eigenvector))}) #nolint
+}
 
   stats$mean_branch_length <- try_stat(phylo, treestats::mean_branch_length)
   stats$var_branch_length  <- try_stat(phylo, treestats::var_branch_length)
@@ -288,32 +180,5 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$root_imbalance <- try_stat(phylo, treestats::root_imbalance)
 
-  inv_path_dist <- try_stat(phylo, treestats::inv_branch_dist)
-  stats$mean_inv_branch_dist <- mean(inv_path_dist)
-
-  stats <- unlist(stats)
-  stats <- stats[order(names(stats))]
-
   return(stats)
-}
-
-#' @keywords internal
-try_stat <- function(phylo,
-                     func,
-                     normalize = FALSE,
-                     norm_res = c(TRUE, FALSE)) {
-  res <- NA
-  if (normalize) {
-    res <- tryCatch(expr = {
-                            func(phylo,
-                                 normalization =
-                                   ifelse(normalize,
-                                          norm_res[1], norm_res[2]))
-                           },
-                    error = function(e) {return(NA)})     #nolint
-  } else {
-    res <- tryCatch(expr = {func(phylo)},  #nolint
-                    error = function(e) {return(NA)})     #nolint
-  }
-  return(res)
 }

@@ -30,7 +30,8 @@ list_statistics <- function(only_balance_stats = FALSE) {
                       "mean_branch_length", "var_branch_length",
                       "mean_branch_length_int", "mean_branch_length_ext",
                       "var_branch_length_int", "var_branch_length_ext",
-                      "treeness", "root_imbalance")
+                      "treeness", "root_imbalance",
+                      "mean_inv_branch_dist")
 
   all_statistics <- sort(all_statistics)
 
@@ -46,5 +47,4 @@ list_statistics <- function(only_balance_stats = FALSE) {
   if (only_balance_stats) return(bal_stats)
 
   return(all_statistics)
-
 }
