@@ -82,7 +82,7 @@ double imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R,
     } catch (const char* msg) {
        Rcpp::Rcout << msg << std::endl;
     } catch(...) {
-       ::Rf_error("c++ exception (unknown reason)");
+      Rcpp::stop("c++ exception (unknown reason)");
     }
     return NA_REAL;
 }

@@ -28,7 +28,7 @@ double avgLadder_cpp(const std::vector<int>& tree_edge) {
   } catch (const char* msg) {
     Rcpp::Rcout << msg << std::endl;
   } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+    Rcpp::stop("c++ exception (unknown reason)");
   }
   return NA_REAL;
 }
@@ -42,7 +42,7 @@ double max_ladder_cpp(const std::vector<int>& tree_edge) {
   } catch (const char* msg) {
     Rcpp::Rcout << msg << std::endl;
   } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+    Rcpp::stop("c++ exception (unknown reason)");
   }
   return NA_REAL;
 }
