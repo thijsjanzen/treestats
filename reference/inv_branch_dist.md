@@ -6,7 +6,7 @@ lengths of the shortest path between the root and the tip.
 ## Usage
 
 ``` r
-inv_branch_dist(phy, add_one = FALSE)
+inv_branch_dist(phy, add_one = TRUE)
 ```
 
 ## Arguments
