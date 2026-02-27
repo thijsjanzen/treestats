@@ -44,7 +44,6 @@ Suggests:
     ggplot2,
     tibble,
     picante,
-    RPANDA,
     lintr,
     rmarkdown,
     knitr,
@@ -55,6 +54,3 @@ BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
 SystemRequirements: C++17
-Remotes:
-    hoehna/TESS,
-    hmorlon/PANDA
