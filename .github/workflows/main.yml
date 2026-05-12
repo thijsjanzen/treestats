@@ -48,20 +48,20 @@ jobs:
           use-public-rspm: true
           
       - name: Install devtools
-        run: install.packages("devtools")
+        run: install.packages("pak")
         shell: Rscript {0}
         
       - name: Install apTreeshape
-        run: devtools::install_github("cran/apTreeshape")
+        run: pak::pak("cran/apTreeshape")
         shell: Rscript {0}
 
         # installing TESS and RPANDA manually, because they are not on CRAN (jan 2025). Still needed for other dependencies
       - name: Install TESS
-        run: devtools::install_github("hoehna/TESS")
+        run: pak::pak("hoehna/TESS")
         shell: Rscript {0}
 
       - name: Install RPANDA
-        run: devtools::install_github("hmorlon/PANDA")
+        run: pak::pak("hmorlon/PANDA")
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
