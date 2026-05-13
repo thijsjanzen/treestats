@@ -42,7 +42,19 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y libcurl4-openssl-dev libxml2-dev libssl-dev
+      - name: Install apTreeshape
+        run: pak::pak("cran/apTreeshape")
+        shell: Rscript {0}
 
+        # installing TESS and RPANDA manually, because they are not on CRAN (jan 2025). Still needed for other dependencies
+      - name: Install TESS
+        run: pak::pak("hoehna/TESS")
+        shell: Rscript {0}
+
+      - name: Install RPANDA
+        run: pak::pak("hmorlon/PANDA")
+        shell: Rscript {0}
+        
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
