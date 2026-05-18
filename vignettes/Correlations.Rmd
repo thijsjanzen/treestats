@@ -82,13 +82,6 @@ found_stats2 <- found_stats |>
 df <- as.data.frame(found_stats2[, 2:(num_stats + 2)])
 ```
 
-Then, we calculate the pearson rank correlation.
-
-```{r pearson}
-res.cor <- stats::cor(df, method = "pearson")
-res.cor2 <- res.cor # store for later use
-```
-
 Statistics are known to correlate with tree size, so we correct for this effect 
 by calculating the residuals of a linear regression of each statistic against 
 tree size, and then calculating the correlations between these residuals.
@@ -177,19 +170,14 @@ rect_plot <- data.frame(xmin = all_rect[, 1],
                         ymax = all_rect[, 4],
                         categ = seq_along(all_rect[, 1]))
 
-colors_used <- ggpubr::get_palette(palette = "Paired",
-                                   k = max(rect_plot$categ))
-
 lvls <- sort(unique(as.numeric(rect_plot$categ)))
 rect_plot$categ <- factor(rect_plot$categ, levels = lvls)
-
 
 ggplot() +
   geom_rect(data = rect_plot,
             aes(xmin = ymin, xmax = ymax, ymin = xmin, ymax = xmax,
                 fill = categ), alpha = 1) +
-  scale_fill_manual(values = colors_used) +
-  new_scale_fill() +
+  scale_fill_brewer(type = "qual", palette = 3) + 
   geom_segment(data = ggdendro::segment(ddata),
                aes(x = x, y = y, xend = xend, yend = yend)
   ) +
@@ -198,7 +186,6 @@ ggplot() +
             size = 10
   ) +
   coord_flip() +
-  #scale_y_reverse() +
   ylim(1, -0.3) +
   theme_classic() +
   theme(axis.text.y = element_blank(),

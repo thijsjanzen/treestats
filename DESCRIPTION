@@ -51,8 +51,7 @@ Suggests:
     Matrix,
     pheatmap,
     ggdendro,
-    dendextend,
-    ggpubr
+    dendextend
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
