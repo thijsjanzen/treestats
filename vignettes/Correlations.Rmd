@@ -73,8 +73,8 @@ found_stats <- tibble::as_tibble(found_stats)
 found_stats$random <- runif(n = length(found_stats$Family))
 
 # remove failed calculations:
-found_stats <- found_stats |>
-  filter(!is.na(sackin))
+to_remove <- which(is.na(found_stats$sackin))
+found_stats <- found_stats[-to_remove, ]
 
 found_stats2 <- found_stats |>
   dplyr::mutate_at(2:(num_stats + 2), as.numeric)
