@@ -45,6 +45,10 @@ jobs:
       - name: Install pak
         run: install.packages("pak")
         shell: Rscript {0}
+
+      - name: Install devtools
+        run: install.packages("devtools")
+        shell: Rscript {0}
         
       - name: Install apTreeshape
         run: pak::pak("cran/apTreeshape")
@@ -58,7 +62,7 @@ jobs:
       - name: Install RPANDA
         run: pak::pak("hmorlon/PANDA")
         shell: Rscript {0}
-
+      
       - name: Run devtools::check(force_suggests = TRUE, args = "--no-stop-on-test-error")
         run: |
           Rscript -e 'devtools::check(force_suggests = TRUE, args = c("--no-stop-on-test-error"), error_on = "never")'
