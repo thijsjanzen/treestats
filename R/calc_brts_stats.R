@@ -15,7 +15,6 @@
 #'   \item{mean external branch length}
 #'   \item{var internal branch length}
 #'   \item{var external branch length}
-#'   \item{mean of the sum of inverse branch lengths}
 #' }
 #'
 calc_brts_stats <- function(phylo) {
@@ -40,8 +39,6 @@ calc_brts_stats <- function(phylo) {
   stats$var_branch_length_ext  <- try_stat(phylo,
                                            treestats::var_branch_length_ext)
 
-  inv_path_dist <- try_stat(phylo, treestats::inv_branch_dist)
-  stats$mean_inv_branch_dist <- mean(inv_path_dist)
   stats <- unlist(stats)
   stats <- stats[order(names(stats))]
 
