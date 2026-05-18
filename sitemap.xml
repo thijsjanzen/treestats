@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://thijsjanzen.github.io/treestats/404.html</loc></url>
+<url><loc>https://thijsjanzen.github.io/treestats/articles/Correlations.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/articles/Example_abc.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/articles/Example_data.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/articles/Getting_started.html</loc></url>
@@ -19,7 +20,6 @@
 <url><loc>https://thijsjanzen.github.io/treestats/reference/blum.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/branching_times.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/calc_all_stats.html</loc></url>
-<url><loc>https://thijsjanzen.github.io/treestats/reference/calc_all_stats_large_tree.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/calc_brts_stats.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/calc_topology_stats.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/cherries.html</loc></url>
@@ -39,7 +39,6 @@
 <url><loc>https://thijsjanzen.github.io/treestats/reference/i_stat.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/imbalance_steps.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/index.html</loc></url>
-<url><loc>https://thijsjanzen.github.io/treestats/reference/inv_branch_dist.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/j_one.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/l_to_phylo.html</loc></url>
 <url><loc>https://thijsjanzen.github.io/treestats/reference/laplacian_spectrum.html</loc></url>

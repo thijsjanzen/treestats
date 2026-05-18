@@ -38,8 +38,8 @@ Geographic Speciation, Systematic Biology, Volume 59, Issue 6, December
 ``` r
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 pigot_rho(simulated_tree) # should be around 0.
-#> [1] 0.4961407
+#> [1] -0.3652124
 ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
 pigot_rho(ddd_tree) # because of diversity dependence, should be < 0
-#> [1] -0.3652124
+#> [1] -1
 ```

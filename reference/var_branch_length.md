@@ -1,4 +1,4 @@
-# Variance of branch lengths of a tree, including extinct branches.
+# Variance of branch lengths of a tree
 
 Variance of branch lengths of a tree, including extinct branches.
 

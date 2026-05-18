@@ -1,4 +1,4 @@
-# Mean length of external branch lengths of a tree, e.g. of branches leading to a tip.
+# Mean length of external branch lengths of a tree
 
 Mean length of external branch lengths of a tree, e.g. of branches
 leading to a tip.

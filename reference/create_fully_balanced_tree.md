@@ -28,7 +28,7 @@ phylo phylo object
 phy <- ape::rphylo(n = 16, birth = 1, death = 0)
 bal_tree <- treestats::create_fully_balanced_tree(phy)
 treestats::colless(phy)
-#> [1] 34
+#> [1] 27
 treestats::colless(bal_tree) # much lower
 #> [1] 0
 ```

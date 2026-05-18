@@ -7,9 +7,7 @@
 - [`area_per_pair()`](https://thijsjanzen.github.io/treestats/reference/area_per_pair.md)
   : Area per pair index
 - [`average_leaf_depth()`](https://thijsjanzen.github.io/treestats/reference/average_leaf_depth.md)
-  : Average leaf depth statistic. The average leaf depth statistic is a
-  normalized version of the Sackin index, normalized by the number of
-  tips.
+  : Average leaf depth statistic.
 - [`avg_ladder()`](https://thijsjanzen.github.io/treestats/reference/avg_ladder.md)
   : Average ladder index
 - [`avg_vert_depth()`](https://thijsjanzen.github.io/treestats/reference/avg_vert_depth.md)
@@ -26,9 +24,6 @@
   : Branching times of a tree
 - [`calc_all_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_all_stats.md)
   : Apply all available tree statistics to a single tree
-- [`calc_all_stats_large_tree()`](https://thijsjanzen.github.io/treestats/reference/calc_all_stats_large_tree.md)
-  : Apply all available tree statistics to a single tree, but exclude
-  those statistics that require large amounts of memory.
 - [`calc_brts_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_brts_stats.md)
   : Apply all tree statistics related to branching times to a single
   tree.
@@ -66,8 +61,6 @@
   : Mean I statistic.
 - [`imbalance_steps()`](https://thijsjanzen.github.io/treestats/reference/imbalance_steps.md)
   : Imbalance steps index
-- [`inv_branch_dist()`](https://thijsjanzen.github.io/treestats/reference/inv_branch_dist.md)
-  : Sum of Inverse branch length
 - [`j_one()`](https://thijsjanzen.github.io/treestats/reference/j_one.md)
   : \\J^1\\ index.
 - [`l_to_phylo()`](https://thijsjanzen.github.io/treestats/reference/l_to_phylo.md)
@@ -93,13 +86,11 @@
 - [`max_width()`](https://thijsjanzen.github.io/treestats/reference/max_width.md)
   : Maximum width of branch depths.
 - [`mean_branch_length()`](https://thijsjanzen.github.io/treestats/reference/mean_branch_length.md)
-  : Mean branch length of a tree, including extinct branches.
+  : Mean branch length of a tree
 - [`mean_branch_length_ext()`](https://thijsjanzen.github.io/treestats/reference/mean_branch_length_ext.md)
-  : Mean length of external branch lengths of a tree, e.g. of branches
-  leading to a tip.
+  : Mean length of external branch lengths of a tree
 - [`mean_branch_length_int()`](https://thijsjanzen.github.io/treestats/reference/mean_branch_length_int.md)
-  : Mean length of internal branches of a tree, e.g. of branches not
-  leading to a tip.
+  : Mean length of internal branches of a tree
 - [`mean_i()`](https://thijsjanzen.github.io/treestats/reference/mean_i.md)
   : Mean I statistic.
 - [`mean_pair_dist()`](https://thijsjanzen.github.io/treestats/reference/mean_pair_dist.md)
@@ -129,8 +120,7 @@
 - [`psv()`](https://thijsjanzen.github.io/treestats/reference/psv.md) :
   Phylogenetic Species Variability.
 - [`rebase_ltable()`](https://thijsjanzen.github.io/treestats/reference/rebase_ltable.md)
-  : a function to modify an ltable, such that the longest path in the
-  phylogeny is a crown lineage.
+  : rebase ltable
 - [`rogers()`](https://thijsjanzen.github.io/treestats/reference/rogers.md)
   : Rogers J index of (im)balance.
 - [`root_imbalance()`](https://thijsjanzen.github.io/treestats/reference/root_imbalance.md)
@@ -161,13 +151,11 @@
   [`treestats`](https://thijsjanzen.github.io/treestats/reference/treestats-package.md)
   : Collection of phylogenetic tree statistics
 - [`var_branch_length()`](https://thijsjanzen.github.io/treestats/reference/var_branch_length.md)
-  : Variance of branch lengths of a tree, including extinct branches.
+  : Variance of branch lengths of a tree
 - [`var_branch_length_ext()`](https://thijsjanzen.github.io/treestats/reference/var_branch_length_ext.md)
-  : Variance of external branch lengths of a tree, e.g. of branches
-  leading to a tip.
+  : Variance of external branch lengths of a tree
 - [`var_branch_length_int()`](https://thijsjanzen.github.io/treestats/reference/var_branch_length_int.md)
-  : Variance of internal branch lengths of a tree, e.g. of branches not
-  leading to a tip.
+  : Variance of internal branch lengths of a tree
 - [`var_leaf_depth()`](https://thijsjanzen.github.io/treestats/reference/var_leaf_depth.md)
   : Variance of leaf depth statistic
 - [`var_pair_dist()`](https://thijsjanzen.github.io/treestats/reference/var_pair_dist.md)

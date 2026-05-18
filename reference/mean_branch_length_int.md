@@ -1,4 +1,4 @@
-# Mean length of internal branches of a tree, e.g. of branches not leading to a tip.
+# Mean length of internal branches of a tree
 
 Mean length of internal branches of a tree, e.g. of branches not leading
 to a tip.

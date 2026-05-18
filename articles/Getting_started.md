@@ -7,6 +7,7 @@ summary statistics on phylogenetic trees. To obtain a list of all
 supported summary statistics use:
 
 ``` r
+
 list_statistics()
 ```
 
@@ -23,17 +24,17 @@ list_statistics()
     ## [31] "max_betweenness"        "max_closeness"          "max_closenessW"        
     ## [34] "max_del_width"          "max_depth"              "max_ladder"            
     ## [37] "max_laplace"            "max_width"              "mean_branch_length"    
-    ## [40] "mean_branch_length_ext" "mean_branch_length_int" "mean_inv_branch_dist"  
-    ## [43] "min_adj"                "min_laplace"            "mntd"                  
-    ## [46] "mpd"                    "mw_over_md"             "nltt_base"             
-    ## [49] "number_of_lineages"     "phylogenetic_div"       "pigot_rho"             
-    ## [52] "pitchforks"             "psv"                    "rogers"                
-    ## [55] "root_imbalance"         "rquartet"               "sackin"                
-    ## [58] "stairs"                 "stairs2"                "symmetry_nodes"        
-    ## [61] "tot_coph"               "tot_internal_path"      "tot_path"              
-    ## [64] "tree_height"            "treeness"               "var_branch_length"     
-    ## [67] "var_branch_length_ext"  "var_branch_length_int"  "var_depth"             
-    ## [70] "vpd"                    "wiener"
+    ## [40] "mean_branch_length_ext" "mean_branch_length_int" "min_adj"               
+    ## [43] "min_laplace"            "mntd"                   "mpd"                   
+    ## [46] "mw_over_md"             "nltt_base"              "number_of_lineages"    
+    ## [49] "phylogenetic_div"       "pigot_rho"              "pitchforks"            
+    ## [52] "psv"                    "rogers"                 "root_imbalance"        
+    ## [55] "rquartet"               "sackin"                 "stairs"                
+    ## [58] "stairs2"                "symmetry_nodes"         "tot_coph"              
+    ## [61] "tot_internal_path"      "tot_path"               "tree_height"           
+    ## [64] "treeness"               "var_branch_length"      "var_branch_length_ext" 
+    ## [67] "var_branch_length_int"  "var_depth"              "vpd"                   
+    ## [70] "wiener"
 
 If your favourite summary statistic is missing, please let the
 maintainer know, treestats is a dynamic package always under
@@ -44,6 +45,7 @@ calculate your summary statistic of choice. Let’s take for instance the
 Colless statistic (and we generate a dummy tree):
 
 ``` r
+
 phy <- ape::rphylo(n = 100, birth = 1, death = 0.1)
 
 treestats::colless(phy)
@@ -57,6 +59,7 @@ we find that the function also includes options to normalize for size:
 either ‘pda’ or ‘yule’:
 
 ``` r
+
 treestats::colless(phy, normalization = "yule")
 ```
 
@@ -69,6 +72,7 @@ For this, several functions have been set up aptly. Firstly, the
 function `calc_all_stats` will calculate all statistics:
 
 ``` r
+
 all_stats <- calc_all_stats(phy)
 ```
 
@@ -78,6 +82,7 @@ Similarly, we can also blanket apply all topology associated summary
 statistics:
 
 ``` r
+
 balance_stats <- calc_topology_stats(phy)
 unlist(balance_stats)
 ```

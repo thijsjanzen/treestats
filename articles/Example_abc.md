@@ -19,6 +19,7 @@ birth rate on a Yule tree (e.g. without extinction). First, we generate
 training data:
 
 ``` r
+
 num_points <- 100
 test_data <- matrix(nrow = num_points,
                     ncol = 1 + length(treestats::list_statistics()))
@@ -28,6 +29,12 @@ for (r in 1:num_points) {
   focal_stats <- treestats::calc_all_stats(focal_tree)
   test_data[r, ] <- c(b, focal_stats)
 }
+```
+
+    ## Loading required namespace: RSpectra
+
+``` r
+
 colnames(test_data) <- c("birth", names(focal_stats))
 test_data <- as.data.frame(test_data)
 ```
@@ -35,6 +42,7 @@ test_data <- as.data.frame(test_data)
 Given the training data, we can create our random forest:
 
 ``` r
+
 forest <- regAbcrf(birth ~ ., test_data, ntree = 100)
 ```
 
@@ -42,6 +50,7 @@ With our random forest set up, let’s put it to the test on some other
 Yule tree:
 
 ``` r
+
 test_tree <- ape::rphylo(n = 100, birth = 0.5, death = 0)
 test_stats <- treestats::calc_all_stats(test_tree)
 test_stats <- as.data.frame(t(test_stats))
@@ -49,23 +58,39 @@ test_stats <- as.data.frame(t(test_stats))
 predict(forest, test_stats, test_data)
 ```
 
+    ##      expectation    median variance (post.MSE.mean) variance.cdf quantile=0.025
+    ## [1,]   0.4096861 0.4055519              0.003548676  0.002715648      0.3182503
+    ##      quantile=0.975 post.NMAE.mean
+    ## [1,]      0.5497408      0.1219827
+
 We see that even using only 100 decision trees, the parameter estimate
 is quite close to 0.5. This can be visualized further:
 
 ``` r
+
 densityPlot(forest, test_stats, test_data)
 ```
+
+    ## Warning in density.default(resp, weights = weights.std[, i], ...): Selecting
+    ## bandwidth *not* using 'weights'
+    ## Warning in density.default(resp, weights = weights.std[, i], ...): Selecting
+    ## bandwidth *not* using 'weights'
+
+![](Example_abc_files/figure-html/plot_simpl2-1.png)
 
 Interestingly, we can also assess which summary statistics were most
 informative:
 
 ``` r
+
 plot(forest)
 ```
 
+![](Example_abc_files/figure-html/plot_simple-1.png)
+
 This indicates that for estimating the parameters, the mean branch
 length and phylogenetic diversity - both branch length dependent
-parameters, e.g.  properties of the tree directly related to the
+parameters, e.g. properties of the tree directly related to the
 speciation rate - are most decisive in determining the birth rate.
 
 ### Comparing models
@@ -76,6 +101,7 @@ and see if abcrf can distinguish between these two models. First, we
 prep our new training data frame and generate DDD trees:
 
 ``` r
+
 new_test_data <- cbind(test_data, 1)
 for (r in 1:num_points) {
   b <- runif(1)
@@ -94,14 +120,24 @@ for_abc$model <- as.factor(for_abc$model)
 forest <- abcrf::abcrf(model ~ ., data = for_abc, ntree = 100)
 ```
 
+    ## Warning in lda.default(x, grouping, ...): variables are collinear
+
 The random forest can now be plotted, and be used to assess target
 trees:
 
 ``` r
+
 plot(forest, for_abc)
 ```
 
+![](Example_abc_files/figure-html/plot_abcrf_model_select-1.png)
+
+    ## Press <ENTER> to Continue
+
+![](Example_abc_files/figure-html/plot_abcrf_model_select-2.png)
+
 ``` r
+
 to_test <- c()
 for (i in 1:5) {
   focal_tree <- ape::rphylo(n = 100, birth = 0.5, death = 0)
@@ -118,6 +154,18 @@ for (i in 1:5) {
 to_test <- as.data.frame(to_test)
 predict(forest, to_test, for_abc)
 ```
+
+    ##    selected model votes model1 votes model2 post.proba
+    ## 1               1         1000            0     1.0000
+    ## 2               1          970           30     1.0000
+    ## 3               1          990           10     1.0000
+    ## 4               1         1000            0     1.0000
+    ## 5               1         1000            0     0.9987
+    ## 6               2            0         1000     1.0000
+    ## 7               2            0         1000     1.0000
+    ## 8               2            0         1000     1.0000
+    ## 9               2            0         1000     0.9978
+    ## 10              2            0         1000     1.0000
 
 Indeed, we see that the first five trees are convincingly assigned model
 1 (BD), and that the last five trees are convincingly assigned model 2

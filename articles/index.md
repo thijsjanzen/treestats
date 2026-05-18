@@ -2,6 +2,7 @@
 
 ### All vignettes
 
+- [Correlations](https://thijsjanzen.github.io/treestats/articles/Correlations.md):
 - [Example:
   abc](https://thijsjanzen.github.io/treestats/articles/Example_abc.md):
 - [Example:

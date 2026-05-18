@@ -1,4 +1,4 @@
-# Variance of internal branch lengths of a tree, e.g. of branches not leading to a tip.
+# Variance of internal branch lengths of a tree
 
 Variance of internal branch lengths of a tree, e.g. of branches not
 leading to a tip.

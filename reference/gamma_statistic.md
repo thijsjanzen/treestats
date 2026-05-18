@@ -34,11 +34,11 @@ of London. Series B. Biological Sciences, 267, 2267–2272.
 ``` r
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 gamma_statistic(simulated_tree) # should be around 0.
-#> [1] -0.2218001
+#> [1] -0.6004068
 if (requireNamespace("DDD")) {
   ddd_tree <- DDD::dd_sim(pars = c(1, 0, 10), age = 7)$tes
   gamma_statistic(ddd_tree) # because of diversity dependence, should be < 0
 }
 #> Loading required namespace: DDD
-#> [1] -3.672579
+#> [1] -3.462767
 ```

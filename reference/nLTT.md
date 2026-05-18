@@ -43,7 +43,7 @@ Evol, 6: 566-575. https://doi.org/10.1111/2041-210X.12350
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 reference_tree <- ape::rphylo(n = 10, birth = 0.2, death = 0)
 nLTT(simulated_tree, reference_tree)
-#> [1] 0.09091369
+#> [1] 0.1506625
 nLTT(simulated_tree, simulated_tree) # should be zero.
 #> [1] 0
 ```

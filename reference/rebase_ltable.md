@@ -1,4 +1,4 @@
-# a function to modify an ltable, such that the longest path in the phylogeny is a crown lineage.
+# rebase ltable
 
 a function to modify an ltable, such that the longest path in the
 phylogeny is a crown lineage.

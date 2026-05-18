@@ -1,4 +1,4 @@
-# Variance of external branch lengths of a tree, e.g. of branches leading to a tip.
+# Variance of external branch lengths of a tree
 
 Variance of external branch lengths of a tree, e.g. of branches leading
 to a tip.

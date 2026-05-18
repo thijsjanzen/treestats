@@ -1,14 +1,8 @@
 # Changelog
 
-## Version 1.71.11
+## Version 1.70.11
 
 - Replaced ::Rf_error with Rcpp::stop()
-
-## Version 1.71.10
-
-- Added the summary statistic representing the distribution of the sum
-  of inverse branch lengths along the shortest path between the root and
-  all tips.
 
 ## Version 1.70.10
 
@@ -71,12 +65,12 @@ Updated references.
 
 CRAN release: 2024-07-17
 
-Removed C++20 dependency
+- Removed C++20 dependency
 
 ## Version 1.70.3
 
-Version numbering has improved to include the number of statistics
-available.
+- Version numbering has improved to include the number of statistics
+  available.
 
 ## Version 1.1.3
 
@@ -96,7 +90,7 @@ available.
 
 ## Version 1.1.1
 
-Added the following statistics:
+- Added the following statistics:
 
 - minimum(\>0) eigenvalue of the Adjacency matrix
 
@@ -161,4 +155,4 @@ CRAN release: 2024-01-30
 
 CRAN release: 2024-01-12
 
-First release to CRAN
+- First release to CRAN

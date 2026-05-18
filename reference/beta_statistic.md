@@ -72,7 +72,7 @@ unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
 beta_statistic(balanced_tree) # should be approximately 10
 #> [1] 9.999957
 beta_statistic(simulated_tree) # should be near 0
-#> [1] -0.3786523
+#> [1] -0.2638232
 beta_statistic(unbalanced_tree) # should be approximately -2
 #> [1] -2
 ```

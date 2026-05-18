@@ -1,4 +1,4 @@
-# Mean branch length of a tree, including extinct branches.
+# Mean branch length of a tree
 
 Mean branch length of a tree, including extinct branches.
 

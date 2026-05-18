@@ -23,8 +23,6 @@ single tree (more or less ignoring topology), being:
 
 - var external branch length
 
-- mean of the sum of inverse branch lengths
-
 ## Usage
 
 ``` r

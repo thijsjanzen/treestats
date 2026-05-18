@@ -9,12 +9,14 @@ from the clootl supertree of birds. These were created for the original
 publication accompanying the treestats paper.
 
 ``` r
+
 focal_trees <- ape::read.tree(file = "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/birds.trees")  # nolint
 ```
 
 We can now calculate all summary statistics for all trees:
 
 ``` r
+
 all_stats <- c()
 for (i in seq_along(focal_trees)) {
   if (!ape::is.ultrametric(focal_trees[[i]])) {
@@ -30,6 +32,7 @@ for (i in seq_along(focal_trees)) {
     ## Loading required namespace: RSpectra
 
 ``` r
+
 all_stats <- as.data.frame(all_stats)
 ```
 
@@ -37,6 +40,7 @@ We can now, for instance, plot the distribution of family sizes in
 birds:
 
 ``` r
+
 hist(all_stats$number_of_lineages, main = "Number of lineages",
      xlab = "Number of lineages", ylab = "count")
 ```
@@ -46,6 +50,7 @@ hist(all_stats$number_of_lineages, main = "Number of lineages",
 Furthermore, we can make a heatmap of all correlations:
 
 ``` r
+
 cor.dist <- cor(all_stats)
 diag(cor.dist) <- 0
 heatmap(cor.dist)
@@ -57,6 +62,7 @@ This will generate a distorted image: correlations are not corrected for
 tree size. We can study this a bit more in detail:
 
 ``` r
+
 opar <- par()
 par(mfrow = c(3, 3))
 for (stat in c("area_per_pair", "colless", "eigen_centrality",
@@ -73,6 +79,7 @@ for (stat in c("area_per_pair", "colless", "eigen_centrality",
 ![](Example_data_files/figure-html/plot%20with%20tree%20size-1.png)
 
 ``` r
+
 par(opar)
 ```
 
@@ -92,6 +99,7 @@ To correct for this, we will have to go over the entire correlation
 matrix.
 
 ``` r
+
 tree_size <- all_stats[, colnames(all_stats) == "number_of_lineages"]
 
 for (i in seq_len(nrow(cor.dist))) {
@@ -116,6 +124,7 @@ heatmap(cor.dist)
 A nicer way to visualize this is given by the package ppheatmap:
 
 ``` r
+
 if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
 ```
 
@@ -129,6 +138,7 @@ statistic that has no meaning, and that has random correlations with all
 other statistics:
 
 ``` r
+
 cor.dist2 <- cor.dist
 rand_values <- runif(n = nrow(cor.dist2))
 cor.dist2 <- cbind(cor.dist2, rand_values)
@@ -143,6 +153,7 @@ heatmap(cor.dist2)
 ![](Example_data_files/figure-html/add%20random-1.png)
 
 ``` r
+
 if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist2)
 ```
 

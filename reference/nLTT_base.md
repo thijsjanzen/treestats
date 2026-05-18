@@ -32,5 +32,5 @@ number of lineages
 ``` r
 simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 nLTT_base(simulated_tree)
-#> [1] 0.5417693
+#> [1] 0.5631948
 ```
