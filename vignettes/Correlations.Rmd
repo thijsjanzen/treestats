@@ -19,14 +19,16 @@ require(pheatmap)
 
 ## Correlations
 
-With the ongoing development and addition of new statistics, here we document the correlations between all statistics, as measured on the collection of empirical trees, as used in Janzen (2024).
+With the ongoing development and addition of new statistics, here we document 
+the correlations between all statistics, as measured on the collection of 
+empirical trees, as used in Janzen (2024).
 
 ### Loading data
 
 We load the data from the supplement, hosted on GitHub.
 
 ```{r load_data}
-begin <- "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/"
+begin <- "https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/" # nolint
 
 tree_collection_files <- c("amphibia_fracced.rds",
                            "birds_fracced.rds",
@@ -36,36 +38,33 @@ tree_collection_files <- c("amphibia_fracced.rds",
                            "sharks_fracced.rds",
                            "vascular_plants_fracced.rds")
 
-taxa_names <- c("Amphibians", "Birds", "Ferns", "Mammals", "Ray finned Fish", "Cartaliginous Fish", "Vascular Plants")
+taxa_names <- c("Amphibians", "Birds", "Ferns", "Mammals",
+                "Ray finned Fish", "Cartaliginous Fish", "Vascular Plants")
 
 found_stats <- c()
-for (i in 1:length(tree_collection_files)) {
-  #tree_collection <- readRDS(paste0(begin, tree_collection_files[i]))
+for (i in seq_along(tree_collection_files)) {
   raw_url <- paste0(begin, tree_collection_files[i])
   con <- url(raw_url, open = "rb")
   on.exit(close(con))
-  
+
   tree_collection <- readRDS(con)
-  
+
   families <- names(tree_collection)
   cat(i, "\n")
-  for (j in 1:length(tree_collection)) {
-    
+  for (j in seq_along(tree_collection)) {
     focal_tree <- tree_collection[[j]]
-    
     if (length(focal_tree$tip.label) >= 10) {
-      
       all_stats <- treestats::calc_all_stats(focal_tree, FALSE)
       to_add <- unlist(all_stats)
       to_add <- c(families[j], to_add)
-      
       found_stats <- rbind(found_stats, to_add)
     }
   }
 }
 ```
 
-We add one statistic with random values to the dataset, as a benchmark for a completely uninformative statistic.
+We add one statistic with random values to the dataset, as a benchmark for a 
+completely uninformative statistic.
 
 ```{r add_random}
 num_stats <- length(names(all_stats))
@@ -74,10 +73,10 @@ found_stats <- tibble::as_tibble(found_stats)
 found_stats$random <- runif(n = length(found_stats$Family))
 
 # remove failed calculations:
-found_stats <- found_stats %>%
+found_stats <- found_stats |>
   filter(!is.na(sackin))
 
-found_stats2 <- found_stats %>%
+found_stats2 <- found_stats |>
   dplyr::mutate_at(2:(num_stats + 2), as.numeric)
 
 df <- as.data.frame(found_stats2[, 2:(num_stats + 2)])
@@ -90,39 +89,41 @@ res.cor <- stats::cor(df, method = "pearson")
 res.cor2 <- res.cor # store for later use
 ```
 
-Statistics are known to correlate with tree size, so we correct for this effect by calculating the residuals of a linear regression of each statistic against tree size, and then calculating the correlations between these residuals.
+Statistics are known to correlate with tree size, so we correct for this effect 
+by calculating the residuals of a linear regression of each statistic against 
+tree size, and then calculating the correlations between these residuals.
 
 ```{r correct_for_tree_size}
 get_cor <- function(local_stats) {
-  
+
   local_stats <- local_stats[!is.na(local_stats$gamma), ]
   local_stats <- local_stats[!is.na(local_stats$sackin), ]
-  
-  local_stats2 <- local_stats %>%
+
+  local_stats2 <- local_stats |>
     dplyr::mutate_at(2:(num_stats + 2), as.numeric)
-  
+
   local_stats2 <- as.data.frame(local_stats2[, 2:(num_stats + 2)])
-  
+
   res.cor <- stats::cor(as.data.frame(local_stats2), method = "pearson")
-  
+
   res.cor2 <- res.cor
-  
-  for (i in 1:length(res.cor[1, ])) {
-    for (j in 1:length(res.cor[1, ])) {
+
+  for (i in seq_along(res.cor[1, ])) {
+    for (j in seq_along(res.cor[1, ])) {
       stat1 <- colnames(res.cor)[i]
       stat2 <- colnames(res.cor)[j]
-      
+
       if (stat1 != stat2) {
         if (stat1 != "number_of_lineages" && stat2 != "number_of_lineages") {
-          x <- unlist(as.vector(local_stats2[stat1]))
-          y <- unlist(as.vector(local_stats2[stat2]))
-          z <- unlist(as.vector(local_stats2["number_of_lineages"]))
-          
-          a1 <- nlme::gls(y~z)
-          a2 <- nlme::gls(x~z)
-          
+          x <- unlist(as.vector(local_stats2[stat1]))  # nolint
+          y <- unlist(as.vector(local_stats2[stat2]))  # nolint
+          z <- unlist(as.vector(local_stats2["number_of_lineages"])) # nolint
+
+          a1 <- nlme::gls(y ~ z)
+          a2 <- nlme::gls(x ~ z)
+
           found_cor <- cor(a1$residuals, a2$residuals)
-          
+
           res.cor2[i, j] <- found_cor
         }
       }
@@ -146,8 +147,8 @@ to_remove <- which(colnames(cor1) == "number_of_lineages")
 cor1 <- cor1[-to_remove, -to_remove]
 cor1 <- as.data.frame(cor1)
 cor1 <- tibble::as_tibble(cor1)
-cor1 <- cor1 %>%
-  dplyr::mutate_at(1:ncol(cor1), as.numeric)
+cor1 <- cor1 |>
+  dplyr::mutate_at(seq_len(ncol(cor1)), as.numeric)
 
 res.dist <- stats::as.dist(1 - abs(as.matrix(cor1)))
 
@@ -174,7 +175,7 @@ rect_plot <- data.frame(xmin = all_rect[, 1],
                         xmax = all_rect[, 2],
                         ymin = all_rect[, 3],
                         ymax = all_rect[, 4],
-                        categ = 1:length(all_rect[, 1]))
+                        categ = seq_along(all_rect[, 1]))
 
 colors_used <- ggpubr::get_palette(palette = "Paired",
                                    k = max(rect_plot$categ))
@@ -198,7 +199,7 @@ ggplot() +
   ) +
   coord_flip() +
   #scale_y_reverse() +
-  ylim(1, -0.3) + 
+  ylim(1, -0.3) +
   theme_classic() +
   theme(axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
