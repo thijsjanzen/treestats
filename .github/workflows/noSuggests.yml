@@ -62,6 +62,11 @@ jobs:
       - name: Install RPANDA
         run: pak::pak("hmorlon/PANDA")
         shell: Rscript {0}
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
       
       - name: Run devtools::check(force_suggests = TRUE, args = "--no-stop-on-test-error")
         run: |
