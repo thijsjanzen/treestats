@@ -13,7 +13,7 @@ inv_branch_dist(phy, add_one = FALSE)
 1 / (1 + bl) is used. Default: TRUE}
 }
 \value{
-Distribution of the sum of inverse brnch length.
+Distribution of the sum of inverse branch length.
 }
 \description{
 This statistic calculates per tip, the sum of the inverse of
