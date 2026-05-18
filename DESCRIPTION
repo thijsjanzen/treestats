@@ -48,10 +48,11 @@ Suggests:
     rmarkdown,
     knitr,
     igraph,
-    pheatmap,
     Matrix,
+    pheatmap,
     ggdendro,
-    dendextend
+    dendextend,
+    ggpubr
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
