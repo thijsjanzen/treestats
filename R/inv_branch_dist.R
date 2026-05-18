@@ -4,7 +4,7 @@
 #' @param phy phylo object or ltable
 #' @param add_one should we take 1 / bl or 1 / (1 + bl) ? if TRUE, then
 #' 1 / (1 + bl) is used. Default: TRUE
-#' @return Distribution of the sum of inverse brnch length.
+#' @return Distribution of the sum of inverse branch length.
 #' @export
 inv_branch_dist <- function(phy, add_one = FALSE) {
 
