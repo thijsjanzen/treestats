@@ -49,7 +49,8 @@ Suggests:
     knitr,
     igraph,
     pheatmap,
-    Matrix
+    Matrix,
+    ggdendro
 BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr

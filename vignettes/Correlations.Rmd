@@ -154,7 +154,7 @@ res.dist <- stats::as.dist(1 - abs(as.matrix(cor1)))
 
 hc <- hclust(res.dist, method = "average")
 dend0 <- stats::as.dendrogram(hc)
-ddata <- dendro_data(hc, type = "rectangle")
+ddata <- ggdendro::dendro_data(hc, type = "rectangle")
 
 xmax <- 0.8
 
@@ -190,10 +190,10 @@ ggplot() +
                 fill = categ), alpha = 1) +
   scale_fill_manual(values = colors_used) +
   new_scale_fill() +
-  geom_segment(data = segment(ddata),
+  geom_segment(data = ggdendro::segment(ddata),
                aes(x = x, y = y, xend = xend, yend = yend)
   ) +
-  geom_text(data = label(ddata),
+  geom_text(data = ggdendro::label(ddata),
             aes(x = x, y = y, label = label, hjust = 0),
             size = 10
   ) +
