@@ -79,7 +79,6 @@ single tree, being:
   \item maximum eigenvalue of the Laplacian matrix
   \item minimum eigenvalue of the adjacency matrix
   \item maximum eigenvalue of the adjacency matrix
-  \item mean of the sum of inverse branch lengths
 }
 
 For the Laplacian spectrum properties, four properties of the eigenvalue

@@ -2,9 +2,7 @@
 % Please edit documentation in R/average_leaf_depth.R
 \name{average_leaf_depth}
 \alias{average_leaf_depth}
-\title{Average leaf depth statistic. The average leaf depth statistic
-is a normalized version of the Sackin index, normalized by the number of
-tips.}
+\title{Average leaf depth statistic.}
 \usage{
 average_leaf_depth(phy, normalization = "none")
 }
@@ -19,7 +17,7 @@ Coronado et al. 2020.}
 average leaf depth statistic
 }
 \description{
-Average leaf depth statistic. The average leaf depth statistic
+The average leaf depth statistic
 is a normalized version of the Sackin index, normalized by the number of
 tips.
 }
