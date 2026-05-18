@@ -2,8 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{mean_branch_length_int}
 \alias{mean_branch_length_int}
-\title{Mean length of internal branches of a tree, e.g. of
-branches not leading to a tip.}
+\title{Mean length of internal branches of a tree}
 \usage{
 mean_branch_length_int(phy)
 }

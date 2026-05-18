@@ -1,4 +1,5 @@
-#' Average leaf depth statistic. The average leaf depth statistic
+#' Average leaf depth statistic.
+#' @description The average leaf depth statistic
 #' is a normalized version of the Sackin index, normalized by the number of
 #' tips.
 #' @param phy phylo object or ltable

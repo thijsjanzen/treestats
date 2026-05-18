@@ -1,5 +1,6 @@
-#' a function to modify an ltable, such that the longest path in the phylogeny
-#' is a crown lineage.
+#' rebase ltable
+#' @description a function to modify an ltable,
+#' such that the longest path in the phylogeny is a crown lineage.
 #' @param ltable ltable
 #' @return modified ltable
 #' @export

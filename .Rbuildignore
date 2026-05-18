@@ -19,3 +19,5 @@
 ^vignettes/Example_abc\.Rmd$
 ^vignettes/Correlations\.Rmd$
 ^doc$
+^\.positai$
+^\.claude$

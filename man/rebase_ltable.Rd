@@ -2,8 +2,7 @@
 % Please edit documentation in R/rebase_ltable.R
 \name{rebase_ltable}
 \alias{rebase_ltable}
-\title{a function to modify an ltable, such that the longest path in the phylogeny
-is a crown lineage.}
+\title{rebase ltable}
 \usage{
 rebase_ltable(ltable)
 }
@@ -14,6 +13,6 @@ rebase_ltable(ltable)
 modified ltable
 }
 \description{
-a function to modify an ltable, such that the longest path in the phylogeny
-is a crown lineage.
+a function to modify an ltable,
+such that the longest path in the phylogeny is a crown lineage.
 }

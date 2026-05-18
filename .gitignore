@@ -13,3 +13,4 @@ src/*.dll
 docs/
 
 .RDataTmp
+.positai

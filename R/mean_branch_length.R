@@ -1,4 +1,5 @@
-#' Mean branch length of a tree, including extinct branches.
+#' Mean branch length of a tree
+#' @description Mean branch length of a tree, including extinct branches.
 #' @param phy phylo object or Ltable
 #' @return mean branch length
 #' @export
@@ -14,7 +15,8 @@ mean_branch_length <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-#' Variance of branch lengths of a tree,
+#' Variance of branch lengths of a tree
+#' @description Variance of branch lengths of a tree,
 #' including extinct branches.
 #' @param phy phylo object or Ltable
 #' @return variance of branch lengths
@@ -36,9 +38,9 @@ var_branch_length <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-
-#' Variance of internal branch lengths of a tree, e.g. of branches not leading
-#' to a tip.
+#' Variance of internal branch lengths of a tree
+#' @description Variance of internal branch lengths of a tree,
+#' e.g. of branches not leading to a tip.
 #' @param phy phylo object or Ltable
 #' @return variance of internal branch lengths
 #' @export
@@ -57,7 +59,8 @@ var_branch_length_int <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-#' Mean length of internal branches of a tree, e.g. of
+#' Mean length of internal branches of a tree
+#' @description Mean length of internal branches of a tree, e.g. of
 #' branches not leading to a tip.
 #' @param phy phylo object or Ltable
 #' @return mean of internal branch lengths
@@ -77,8 +80,8 @@ mean_branch_length_int <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-
-#' Variance of external branch lengths of a tree, e.g. of
+#' Variance of external branch lengths of a tree
+#' @description Variance of external branch lengths of a tree, e.g. of
 #' branches leading to a tip.
 #' @param phy phylo object or Ltable
 #' @return variance of external branch lengths
@@ -98,7 +101,8 @@ var_branch_length_ext <- function(phy) {
   stop("input object has to be phylo or ltable")
 }
 
-#' Mean length of external branch lengths of a tree, e.g. of
+#' Mean length of external branch lengths of a tree
+#' @description Mean length of external branch lengths of a tree, e.g. of
 #' branches leading to a tip.
 #' @param phy phylo object or Ltable
 #' @return mean of external branch lengths

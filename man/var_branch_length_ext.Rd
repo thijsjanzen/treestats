@@ -2,8 +2,7 @@
 % Please edit documentation in R/mean_branch_length.R
 \name{var_branch_length_ext}
 \alias{var_branch_length_ext}
-\title{Variance of external branch lengths of a tree, e.g. of
-branches leading to a tip.}
+\title{Variance of external branch lengths of a tree}
 \usage{
 var_branch_length_ext(phy)
 }
