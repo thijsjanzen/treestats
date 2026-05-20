@@ -43,6 +43,8 @@ Suggests:
     adephylo,
     ggplot2,
     tibble,
+    dplyr,
+    tidyr,
     picante,
     lintr,
     rmarkdown,

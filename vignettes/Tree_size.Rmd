@@ -11,6 +11,8 @@ require(tidyverse)
 require(TreeSim)
 require(ggplot2)
 require(tibble)
+require(tidyr)
+require(dplyr)
 ```
 
 ## Tree Size
@@ -65,7 +67,7 @@ normalization applied to each statistic.
 norm_info <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/normalize.txt", header = TRUE) # nolint
 
 found2 <- found |>
-  gather(key = "statistic", value = "value", -number_of_lineages)
+  tidyr::gather(key = "statistic", value = "value", -number_of_lineages)
 
 found3 <- left_join(found2, norm_info)
 ```
