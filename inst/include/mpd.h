@@ -134,7 +134,8 @@ struct path_node {
   }
 
   void update_path(double branch, double prev_sum) {
-    sum_inv_b_length += branch > 0.0 ? prev_sum + 1.0 / (add_one + branch) : prev_sum;
+    sum_inv_b_length += branch > 0.0 ? prev_sum + 1.0 / (add_one + branch) :
+                                       prev_sum;
 
     if (daughterL) {
       daughterL->update_path(bl_L, sum_inv_b_length);
