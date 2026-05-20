@@ -78,10 +78,10 @@ found_stats2 <- found_stats |>
 df <- as.data.frame(found_stats2[, 2:(num_stats + 2)])
 ```
 
-Statistics are known to correlate with tree size, so we correct for this
-effect by calculating the residuals of a linear regression of each
-statistic against tree size, and then calculating the correlations
-between these residuals.
+Statistics are known to correlate with tree size (see also the
+corresponding vignette), so we correct for this effect by calculating
+the residuals of a linear regression of each statistic against tree
+size, and then calculating the correlations between these residuals.
 
 ``` r
 
@@ -95,14 +95,14 @@ get_cor <- function(local_stats) {
 
   local_stats2 <- as.data.frame(local_stats2[, 2:(num_stats + 2)])
 
-  res.cor <- stats::cor(as.data.frame(local_stats2), method = "pearson")
+  res_cor <- stats::cor(as.data.frame(local_stats2), method = "pearson")
 
-  res.cor2 <- res.cor
+  res_cor2 <- res_cor
 
-  for (i in seq_along(res.cor[1, ])) {
-    for (j in seq_along(res.cor[1, ])) {
-      stat1 <- colnames(res.cor)[i]
-      stat2 <- colnames(res.cor)[j]
+  for (i in seq_along(res_cor[1, ])) {
+    for (j in seq_along(res_cor[1, ])) {
+      stat1 <- colnames(res_cor)[i]
+      stat2 <- colnames(res_cor)[j]
 
       if (stat1 != stat2) {
         if (stat1 != "number_of_lineages" && stat2 != "number_of_lineages") {
@@ -115,18 +115,25 @@ get_cor <- function(local_stats) {
 
           found_cor <- cor(a1$residuals, a2$residuals)
 
-          res.cor2[i, j] <- found_cor
+          res_cor2[i, j] <- found_cor
         }
       }
     }
   }
-  return(res.cor2)
+  return(res_cor2)
 }
 
 master_cor <- get_cor(found_stats2)
 ```
 
-Then, we plot it as a dendrogram, with added shading for groups:
+Then, we plot it as a dendrogram, with added shading for groups, where
+closeness in the tree is calculated as a function of 1 -
+abs(correlation), so that both positive and negative correlations are
+considered as close, thus statistics that group together in the
+dendrogram are those strongly related / covering the same information.
+Shaded areas are based on grouping those groups together with at least a
+correlation of 0.2, which is somewhat arbitrary, but seems to look
+reasonable, and avoids creating many small groups.
 
 ``` r
 
@@ -141,9 +148,9 @@ cor1 <- tibble::as_tibble(cor1)
 cor1 <- cor1 |>
   dplyr::mutate_at(seq_len(ncol(cor1)), as.numeric)
 
-res.dist <- stats::as.dist(1 - abs(as.matrix(cor1)))
+res_dist <- stats::as.dist(1 - abs(as.matrix(cor1)))
 
-hc <- hclust(res.dist, method = "average")
+hc <- hclust(res_dist, method = "average")
 dend0 <- stats::as.dendrogram(hc)
 ddata <- ggdendro::dendro_data(hc, type = "rectangle")
 
@@ -175,7 +182,7 @@ ggplot() +
   geom_rect(data = rect_plot,
             aes(xmin = ymin, xmax = ymax, ymin = xmin, ymax = xmax,
                 fill = categ), alpha = 1) +
-  scale_fill_brewer(type = "qual", palette = 3) + 
+  scale_fill_brewer(type = "qual", palette = 3) +
   geom_segment(data = ggdendro::segment(ddata),
                aes(x = x, y = y, xend = xend, yend = yend)
   ) +
@@ -195,12 +202,12 @@ ggplot() +
 
 ![](Correlations_files/figure-html/plot_dendrogram-1.png)
 
-Or as a heatmap
+Or as a heatmap, where red colors indicate positive correlations and
+blue colors indicate negative correlations.
 
 ``` r
 
 breakz <- seq(-1, 1, length.out = 99)
-color_used <- ggpubr::get_palette(palette = "GnBu", k = 99)
 cor2 <- as.matrix(cor1)
 hm1 <- pheatmap::pheatmap(mat = cor2,
                           breaks = breakz,

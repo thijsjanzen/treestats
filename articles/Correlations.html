@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../articles/Example_data.html">Example: data</a></li>
     <li><a class="dropdown-item" href="../articles/Getting_started.html">Getting started</a></li>
     <li><a class="dropdown-item" href="../articles/Speed_improvement.html">Speed improvement</a></li>
+    <li><a class="dropdown-item" href="../articles/Tree_size.html">tree_size</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -64,7 +65,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2026-05-18</h4>
+            <h4 data-toc-skip class="date">2026-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/main/vignettes/Correlations.Rmd" class="external-link"><code>vignettes/Correlations.Rmd</code></a></small>
       <div class="d-none name"><code>Correlations.Rmd</code></div>
@@ -140,10 +141,10 @@ benchmark for a completely uninformative statistic.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">num_stats</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">found_stats2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">num_stats</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p>Statistics are known to correlate with tree size, so we correct for
-this effect by calculating the residuals of a linear regression of each
-statistic against tree size, and then calculating the correlations
-between these residuals.</p>
+<p>Statistics are known to correlate with tree size (see also the
+corresponding vignette), so we correct for this effect by calculating
+the residuals of a linear regression of each statistic against tree
+size, and then calculating the correlations between these residuals.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">get_cor</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">local_stats</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
@@ -155,14 +156,14 @@ between these residuals.</p>
 <span></span>
 <span>  <span class="va">local_stats2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">local_stats2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">num_stats</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">res.cor</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">local_stats2</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span>
+<span>  <span class="va">res_cor</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">local_stats2</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">res.cor2</span> <span class="op">&lt;-</span> <span class="va">res.cor</span></span>
+<span>  <span class="va">res_cor2</span> <span class="op">&lt;-</span> <span class="va">res_cor</span></span>
 <span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">res.cor</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">res.cor</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">stat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">res.cor</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>      <span class="va">stat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">res.cor</span><span class="op">)</span><span class="op">[</span><span class="va">j</span><span class="op">]</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">res_cor</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">res_cor</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">stat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">res_cor</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
+<span>      <span class="va">stat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">res_cor</span><span class="op">)</span><span class="op">[</span><span class="va">j</span><span class="op">]</span></span>
 <span></span>
 <span>      <span class="kw">if</span> <span class="op">(</span><span class="va">stat1</span> <span class="op">!=</span> <span class="va">stat2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="va">stat1</span> <span class="op">!=</span> <span class="st">"number_of_lineages"</span> <span class="op">&amp;&amp;</span> <span class="va">stat2</span> <span class="op">!=</span> <span class="st">"number_of_lineages"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -175,16 +176,23 @@ between these residuals.</p>
 <span></span>
 <span>          <span class="va">found_cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">a1</span><span class="op">$</span><span class="va">residuals</span>, <span class="va">a2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
 <span></span>
-<span>          <span class="va">res.cor2</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">found_cor</span></span>
+<span>          <span class="va">res_cor2</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">found_cor</span></span>
 <span>        <span class="op">}</span></span>
 <span>      <span class="op">}</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">}</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">res.cor2</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">res_cor2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">master_cor</span> <span class="op">&lt;-</span> <span class="fu">get_cor</span><span class="op">(</span><span class="va">found_stats2</span><span class="op">)</span></span></code></pre></div>
-<p>Then, we plot it as a dendrogram, with added shading for groups:</p>
+<p>Then, we plot it as a dendrogram, with added shading for groups,
+where closeness in the tree is calculated as a function of 1 -
+abs(correlation), so that both positive and negative correlations are
+considered as close, thus statistics that group together in the
+dendrogram are those strongly related / covering the same information.
+Shaded areas are based on grouping those groups together with at least a
+correlation of 0.2, which is somewhat arbitrary, but seems to look
+reasonable, and avoids creating many small groups.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cor1</span> <span class="op">&lt;-</span> <span class="va">master_cor</span></span>
 <span></span>
@@ -197,9 +205,9 @@ between these residuals.</p>
 <span><span class="va">cor1</span> <span class="op">&lt;-</span> <span class="va">cor1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">cor1</span><span class="op">)</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">res.dist</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">cor1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">res_dist</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">cor1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">res.dist</span>, method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span></span>
+<span><span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">res_dist</span>, method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span></span>
 <span><span class="va">dend0</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span>
 <span><span class="va">ddata</span> <span class="op">&lt;-</span> <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://andrie.github.io/ggdendro/reference/dendro_data.html" class="external-link">dendro_data</a></span><span class="op">(</span><span class="va">hc</span>, type <span class="op">=</span> <span class="st">"rectangle"</span><span class="op">)</span></span>
 <span></span>
@@ -231,7 +239,7 @@ between these residuals.</p>
 <span>  <span class="fu">geom_rect</span><span class="op">(</span>data <span class="op">=</span> <span class="va">rect_plot</span>,</span>
 <span>            <span class="fu">aes</span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">ymin</span>, xmax <span class="op">=</span> <span class="va">ymax</span>, ymin <span class="op">=</span> <span class="va">xmin</span>, ymax <span class="op">=</span> <span class="va">xmax</span>,</span>
 <span>                fill <span class="op">=</span> <span class="va">categ</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_brewer</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"qual"</span>, palette <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">scale_fill_brewer</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"qual"</span>, palette <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_segment</span><span class="op">(</span>data <span class="op">=</span> <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://andrie.github.io/ggdendro/reference/segment.html" class="external-link">segment</a></span><span class="op">(</span><span class="va">ddata</span><span class="op">)</span>,</span>
 <span>               <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, xend <span class="op">=</span> <span class="va">xend</span>, yend <span class="op">=</span> <span class="va">yend</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -248,10 +256,10 @@ between these residuals.</p>
 <span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"1 - abs(correlation)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Correlations_files/figure-html/plot_dendrogram-1.png" class="r-plt" alt="" width="2400"></p>
-<p>Or as a heatmap</p>
+<p>Or as a heatmap, where red colors indicate positive correlations and
+blue colors indicate negative correlations.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">breakz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span><span class="va">color_used</span> <span class="op">&lt;-</span> <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/get_palette.html" class="external-link">get_palette</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"GnBu"</span>, k <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span><span class="va">cor2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">cor1</span><span class="op">)</span></span>
 <span><span class="va">hm1</span> <span class="op">&lt;-</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="va">cor2</span>,</span>
 <span>                          breaks <span class="op">=</span> <span class="va">breakz</span>,</span>

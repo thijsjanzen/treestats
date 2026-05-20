@@ -7,7 +7,8 @@ articles:
   Example_data: Example_data.html
   Getting_started: Getting_started.html
   Speed_improvement: Speed_improvement.html
-last_built: 2026-05-18T14:52Z
+  Tree_size: Tree_size.html
+last_built: 2026-05-20T08:23Z
 urls:
   reference: https://thijsjanzen.github.io/treestats/reference
   article: https://thijsjanzen.github.io/treestats/articles

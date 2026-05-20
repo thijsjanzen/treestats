@@ -11,3 +11,4 @@
   started](https://thijsjanzen.github.io/treestats/articles/Getting_started.md):
 - [Speed
   improvement](https://thijsjanzen.github.io/treestats/articles/Speed_improvement.md):
+- [tree_size](https://thijsjanzen.github.io/treestats/articles/Tree_size.md):

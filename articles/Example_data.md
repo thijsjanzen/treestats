@@ -51,9 +51,9 @@ Furthermore, we can make a heatmap of all correlations:
 
 ``` r
 
-cor.dist <- cor(all_stats)
-diag(cor.dist) <- 0
-heatmap(cor.dist)
+cor_dist <- cor(all_stats)
+diag(cor_dist) <- 0
+heatmap(cor_dist)
 ```
 
 ![](Example_data_files/figure-html/corr-1.png)
@@ -102,21 +102,21 @@ matrix.
 
 tree_size <- all_stats[, colnames(all_stats) == "number_of_lineages"]
 
-for (i in seq_len(nrow(cor.dist))) {
-  for (j in seq_len(ncol(cor.dist))) {
-    stat1 <- rownames(cor.dist)[i]
-    stat2 <- colnames(cor.dist)[j]
+for (i in seq_len(nrow(cor_dist))) {
+  for (j in seq_len(ncol(cor_dist))) {
+    stat1 <- rownames(cor_dist)[i]
+    stat2 <- colnames(cor_dist)[j]
     x <- all_stats[, colnames(all_stats) == stat1]
     y <- all_stats[, colnames(all_stats) == stat2]
 
     a1 <- lm(x ~ tree_size)
     a2 <- lm(y ~ tree_size)
     new_cor <- cor(a1$residuals, a2$residuals)
-    cor.dist[i, j] <- new_cor
+    cor_dist[i, j] <- new_cor
   }
 }
-diag(cor.dist) <- 0
-heatmap(cor.dist)
+diag(cor_dist) <- 0
+heatmap(cor_dist)
 ```
 
 ![](Example_data_files/figure-html/correct_corr-1.png)
@@ -125,7 +125,7 @@ A nicer way to visualize this is given by the package ppheatmap:
 
 ``` r
 
-if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist)
+if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor_dist)
 ```
 
 ![](Example_data_files/figure-html/nicer%20plot-1.png)
@@ -139,22 +139,22 @@ other statistics:
 
 ``` r
 
-cor.dist2 <- cor.dist
-rand_values <- runif(n = nrow(cor.dist2))
-cor.dist2 <- cbind(cor.dist2, rand_values)
-cor.dist2 <- rbind(cor.dist2, c(rand_values, 0))
-colnames(cor.dist2)[ncol(cor.dist2)] <- "random"
-rownames(cor.dist2)[nrow(cor.dist2)] <- "random"
+cor_dist2 <- cor_dist
+rand_values <- runif(n = nrow(cor_dist2))
+cor_dist2 <- cbind(cor_dist2, rand_values)
+cor_dist2 <- rbind(cor_dist2, c(rand_values, 0))
+colnames(cor_dist2)[ncol(cor_dist2)] <- "random"
+rownames(cor_dist2)[nrow(cor_dist2)] <- "random"
 
 # and now we plot again:
-heatmap(cor.dist2)
+heatmap(cor_dist2)
 ```
 
 ![](Example_data_files/figure-html/add%20random-1.png)
 
 ``` r
 
-if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor.dist2)
+if (requireNamespace("pheatmap")) pheatmap::pheatmap(cor_dist2)
 ```
 
 ![](Example_data_files/figure-html/add%20random-2.png)
