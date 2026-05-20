@@ -13,6 +13,7 @@ vignette: >
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(fig.width = 6)
 knitr::opts_chunk$set(fig.height = 6)
+knitr::opts_chunk$set(dev = "svg")
 speed_data <- read.table("https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/Figure_S3_S4/timings.txt", header = TRUE)  # nolint
 
 ```

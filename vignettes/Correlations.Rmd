@@ -3,15 +3,20 @@ title: "Correlations"
 author: "Thijs Janzen"
 date: "`r Sys.Date()`"
 output: html_document
+vignette: >
+  %\VignetteIndexEntry{Correlations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-require(ggplot2)
-require(tibble)
-require(dendextend)
-require(ggdendro)
-require(pheatmap)
+knitr::opts_chunk$set(dev = "svg")
+library(ggplot2)
+library(tibble)
+library(dendextend)
+library(ggdendro)
+library(pheatmap)
 ```
 
 ## Correlations

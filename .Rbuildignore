@@ -17,6 +17,7 @@
 ^dev$
 ^deps$
 ^vignettes/Example_abc\.Rmd$
+^vignettes/Example_data\.Rmd$
 ^doc$
 ^\.positai$
 ^\.claude$
