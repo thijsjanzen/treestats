@@ -7,11 +7,6 @@
 #' @export
 treeness <- function(phy) {
 
-  #check_tree(phy,
-  #           require_binary = FALSE,
-  #           require_ultrametric = FALSE,
-  #           require_rooted = FALSE)
-
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }

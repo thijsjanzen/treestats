@@ -13,7 +13,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 
 if (!requireNamespace("abcrf", quietly = TRUE)) {
   message("abcrf needed for this vignette to compile. Please install it.")
-  
+
   if (requireNamespace("devtools", quietly = TRUE)) {
     devtools::install_github("jmm34/abcrf")
     if (!requireNamespace("abcrf", quietly = TRUE)) {
