@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
 require(TreeSim)
+require(ggplot2)
+require(tibble)
 ```
 
 ## Tree Size

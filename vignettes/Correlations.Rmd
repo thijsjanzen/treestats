@@ -7,13 +7,10 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-require(tidyverse)
+require(ggplot2)
+require(tibble)
 require(dendextend)
 require(ggdendro)
-require(MetBrewer)
-require(ggnewscale)
-require(ggplot2)
-require(ggpubr)
 require(pheatmap)
 ```
 
