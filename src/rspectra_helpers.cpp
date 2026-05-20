@@ -12,6 +12,11 @@
 //
 //
 
+// we don't lint this file, it generates many weird lints on tab size / number
+// of spaces
+//
+// NOLINTBEGIN
+
 #include <Rcpp.h>
 
 // [[Rcpp::export]]
@@ -49,3 +54,5 @@ Rcpp::NumericVector Lx_tree_weighted(const Rcpp::IntegerMatrix &edge,
    }
    return result;
 }
+
+// NOLINTEND
