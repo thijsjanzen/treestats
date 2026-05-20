@@ -1,5 +1,7 @@
 # Version 1.70.11
 - Replaced ::Rf_error with Rcpp::stop()
+- Added vignette on the effect of tree size
+- Added vignette visualizing correlations between statistics
 
 # Version 1.70.10
 - Added matrix-free calculations for eigenvalue related calculations, for the
