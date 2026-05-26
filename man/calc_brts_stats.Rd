@@ -26,5 +26,6 @@ branching times to a single tree (more or less ignoring topology), being:
   \item{mean external branch length}
   \item{var internal branch length}
   \item{var external branch length}
+  \item{mean of the sum of inverse branch lengths}
 }
 }

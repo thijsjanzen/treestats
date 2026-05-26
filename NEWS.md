@@ -1,3 +1,6 @@
+# Version 1.71.11
+- Added inverse sum of branch lengths statistic.
+
 # Version 1.70.11
 - Replaced ::Rf_error with Rcpp::stop()
 - Added vignette on the effect of tree size
