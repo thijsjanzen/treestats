@@ -293,10 +293,6 @@ outer_cpp <- function(xx, x, sd) {
     .Call('_treestats_outer_cpp', PACKAGE = 'treestats', xx, x, sd)
 }
 
-prep_lapl_spec <- function(phy) {
-    .Call('_treestats_prep_lapl_spec', PACKAGE = 'treestats', phy)
-}
-
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
 }
@@ -355,10 +351,6 @@ l_to_newick <- function(ltable_R, drop_extinct) {
 
 imbalance_steps_cpp <- function(ltable_R, normalization) {
     .Call('_treestats_imbalance_steps_cpp', PACKAGE = 'treestats', ltable_R, normalization)
-}
-
-calc_branch_colless_cpp <- function(edge, el) {
-    .Call('_treestats_calc_branch_colless_cpp', PACKAGE = 'treestats', edge, el)
 }
 
 Ax_tree <- function(edge, lengths, x, nNodes) {

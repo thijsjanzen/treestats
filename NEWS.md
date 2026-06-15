@@ -1,3 +1,7 @@
+# Version 1.71.12
+- Updated calculation of how to crown age was calculated to avoid edge-case
+miscalculations, and to speed up calculation as well.
+
 # Version 1.71.11
 - Added inverse sum of branch lengths statistic.
 

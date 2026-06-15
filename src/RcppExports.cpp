@@ -841,17 +841,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// prep_lapl_spec
-Rcpp::NumericMatrix prep_lapl_spec(const Rcpp::List& phy);
-RcppExport SEXP _treestats_prep_lapl_spec(SEXP phySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(prep_lapl_spec(phy));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_mpd_cpp
 double calc_mpd_cpp(const std::vector<int>& edge, const std::vector<double>& el);
 RcppExport SEXP _treestats_calc_mpd_cpp(SEXP edgeSEXP, SEXP elSEXP) {
@@ -954,18 +943,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
     Rcpp::traits::input_parameter< bool >::type normalization(normalizationSEXP);
     rcpp_result_gen = Rcpp::wrap(imbalance_steps_cpp(ltable_R, normalization));
-    return rcpp_result_gen;
-END_RCPP
-}
-// calc_branch_colless_cpp
-double calc_branch_colless_cpp(const std::vector<int>& edge, const std::vector<double>& el);
-RcppExport SEXP _treestats_calc_branch_colless_cpp(SEXP edgeSEXP, SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_branch_colless_cpp(edge, el));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1175,7 +1152,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_get_eigen_values_arma_cpp", (DL_FUNC) &_treestats_get_eigen_values_arma_cpp, 1},
     {"_treestats_prep_adj_mat", (DL_FUNC) &_treestats_prep_adj_mat, 3},
     {"_treestats_outer_cpp", (DL_FUNC) &_treestats_outer_cpp, 3},
-    {"_treestats_prep_lapl_spec", (DL_FUNC) &_treestats_prep_lapl_spec, 1},
     {"_treestats_calc_mpd_cpp", (DL_FUNC) &_treestats_calc_mpd_cpp, 2},
     {"_treestats_calc_J_cpp", (DL_FUNC) &_treestats_calc_J_cpp, 2},
     {"_treestats_calc_var_mpd_cpp", (DL_FUNC) &_treestats_calc_var_mpd_cpp, 1},
@@ -1185,7 +1161,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_phylo_to_l", (DL_FUNC) &_treestats_phylo_to_l, 1},
     {"_treestats_l_to_newick", (DL_FUNC) &_treestats_l_to_newick, 2},
     {"_treestats_imbalance_steps_cpp", (DL_FUNC) &_treestats_imbalance_steps_cpp, 2},
-    {"_treestats_calc_branch_colless_cpp", (DL_FUNC) &_treestats_calc_branch_colless_cpp, 2},
     {"_treestats_Ax_tree", (DL_FUNC) &_treestats_Ax_tree, 4},
     {"_treestats_Lx_tree_weighted", (DL_FUNC) &_treestats_Lx_tree_weighted, 4},
     {"_treestats_calc_sackin_cpp", (DL_FUNC) &_treestats_calc_sackin_cpp, 2},
