@@ -17,27 +17,22 @@ double calc_crown_age(std::vector< std::array<size_t, 2>> edge,
                       std::vector<double> el) {
   // we calculate the distance to the root first for all nodes
   // then for all tips
-  size_t max_label_id = 0;
-  for (const auto& i : edge) {
-    if (i[0] > max_label_id) max_label_id = i[0];
-  }
+  size_t max_label_id = 1 + el.size();
 
-  std::vector<double> dist_to_root(max_label_id + 1, -1); // + 1 because of R indexing
+  //  + 1 because of R indexing
+  std::vector<double> dist_to_root(max_label_id + 1, 0.0);
+  double crown_age = -1;
   for (size_t i = 0; i < edge.size(); ++i) {
-    size_t focal_index = edge[i][1];
+    size_t focal_index  = edge[i][1];
     size_t parent_index = edge[i][0];
     double bl = el[i];
 
-    if (dist_to_root[parent_index] != -1) {
-      dist_to_root[focal_index] = bl + dist_to_root[parent_index];
-    } else {
-      dist_to_root[focal_index] = bl;
-    }
+    auto d = bl + dist_to_root[parent_index];
+
+    dist_to_root[focal_index] = d;
+
+    if (d > crown_age) crown_age = d;
   }
 
-  double crown_age = -1;
-  for (const auto& i : dist_to_root) {
-    if (i > crown_age) crown_age = i;
-  }
   return crown_age;
 }
