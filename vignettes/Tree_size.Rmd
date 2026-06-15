@@ -127,5 +127,12 @@ found3 |>
   ggtitle("Statistics not normalized")
 ```
 
-Here we now see clear patterns with tree size.
+Here we now see clear patterns with tree size. This is worrying, as for some
+statistics, patterns might arise that are simply a side-effect of creating 
+larger trees, rather than directly influencly the statistic of choice. 
+Overall, it appears there are few statistics insensitive to tree size. When
+the Yule model correction is used, this tends to work when we are looking at
+trees of varying size that generated under the Yule model, but when the 
+generating model is different, the correction no longer works. See the original
+treestats paper (Janzen & Etienne 2024) for a more thorough study on this. 
 
