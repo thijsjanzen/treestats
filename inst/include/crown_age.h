@@ -11,62 +11,33 @@
 //
 #pragma once
 
-#include <functional>  // std::greater
-#include <algorithm>   // std::sort
 #include <vector>
-
-#include "phylodiv.h"  // NOLINT [build/include_subdir]
-
-
-double get_total_bl(const std::vector< std::array<size_t, 2>>& edge,
-                    const std::vector<double>& el,
-                    size_t init_label) {
-  size_t tip_label = init_label;
-  size_t root_label = edge[0][0];
-  size_t tip_index = 0;
-  for (tip_index = 0; tip_index < edge.size(); ++tip_index) {
-    if (edge[tip_index][1] == tip_label) {
-      break;
-    }
-  }
-  double bl = el[tip_index];
-  while (edge[tip_index][0] != root_label) {
-    tip_label = edge[tip_index][0];
-    for (tip_index = 0; tip_index < edge.size(); ++tip_index) {
-      if (edge[tip_index][1] == tip_label) {
-        break;
-      }
-    }
-    bl += el[tip_index];
-  }
-  return bl;
-}
-
-void update_dist_to_root(std::vector<double>* dist_to_root,
-                         size_t* focal_index,
-                         const std::vector< std::array<size_t, 2>>& edge,
-                         const std::vector<double>& el) {
-  double bl = get_total_bl(edge, el, *focal_index);
-  (*focal_index)++;
-  (*dist_to_root).push_back(bl);
-  std::sort((*dist_to_root).begin(), (*dist_to_root).end(),
-            std::greater<double>());
-  return;
-}
 
 double calc_crown_age(std::vector< std::array<size_t, 2>> edge,
                       std::vector<double> el) {
-  sort_edge_and_edgelength(&edge, &el);
-
-  size_t focal_index = 1;
-  size_t root_label = edge[0][0];
-
-  std::vector<double> dist_to_root;
-  update_dist_to_root(&dist_to_root, &focal_index, edge, el);
-  update_dist_to_root(&dist_to_root, &focal_index, edge, el);
-
-  while (dist_to_root[1] != dist_to_root[0] && focal_index < root_label) {
-    update_dist_to_root(&dist_to_root, &focal_index, edge, el);
+  // we calculate the distance to the root first for all nodes
+  // then for all tips
+  size_t max_label_id = 0;
+  for (const auto& i : edge) {
+    if (i[0] > max_label_id) max_label_id = i[0];
   }
-  return dist_to_root[0];
+
+  std::vector<double> dist_to_root(max_label_id + 1, -1); // + 1 because of R indexing
+  for (size_t i = 0; i < edge.size(); ++i) {
+    size_t focal_index = edge[i][1];
+    size_t parent_index = edge[i][0];
+    double bl = el[i];
+
+    if (dist_to_root[parent_index] != -1) {
+      dist_to_root[focal_index] = bl + dist_to_root[parent_index];
+    } else {
+      dist_to_root[focal_index] = bl;
+    }
+  }
+
+  double crown_age = -1;
+  for (const auto& i : dist_to_root) {
+    if (i > crown_age) crown_age = i;
+  }
+  return crown_age;
 }

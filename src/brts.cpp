@@ -45,19 +45,11 @@ std::vector<double>
 
 // [[Rcpp::export]]
 double calc_rho_complete_cpp(const Rcpp::List& phy) {
-  Rcpp::NumericMatrix edge = phy["edge"];
-  Rcpp::NumericVector edge_length = phy["edge.length"];
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
 
-  std::vector<double> el(edge_length.begin(), edge_length.end());
-  edge_table edges(edge.nrow());
-  for (int i = 0; i < edge.nrow(); i++) {
-    std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
-                                    static_cast<size_t>(edge(i, 1))};
-    edges[i] = to_add;
-  }
-
-  double crown_age = calc_crown_age(edges, el);
-  phylo phylo_tree(edges, el);
+  double crown_age = calc_crown_age(edge, el);
+  phylo phylo_tree(edge, el);
   rho pigot_rho(phylo_tree, crown_age);
   return pigot_rho.calc_pigot_rho();
 }
@@ -86,19 +78,11 @@ double calc_phylodiv_cpp(const Rcpp::List& phy,
                          double t,
                          double extinct_acc) {
   try {
-    Rcpp::NumericMatrix edge = phy["edge"];
-    Rcpp::NumericVector edge_length = phy["edge.length"];
+    auto edge = phy_to_edge(phy);
+    auto el   = phy_to_el(phy);
 
-    std::vector<double> el(edge_length.begin(), edge_length.end());
-    edge_table edges(edge.nrow());
-    for (int i = 0; i < edge.nrow(); i++) {
-      std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
-                                   static_cast<size_t>(edge(i, 1))};
-      edges[i] = to_add;
-    }
-
-    double crown_age = calc_crown_age(edges, el);  // ignore root edge
-    phylo phylo_tree(edges, el);
+    double crown_age = calc_crown_age(edge, el);  // ignore root edge
+    phylo phylo_tree(edge, el);
 
     // function below calculates [0, T], max_t is in [T, 0]
     t = crown_age - t;
@@ -191,16 +175,9 @@ double calc_nltt_ltable_cpp(const Rcpp::NumericMatrix& ltab1,
 
 // [[Rcpp::export]]
 double calc_crown_age_cpp(const Rcpp::List& phy) {
-  Rcpp::NumericMatrix edge = phy["edge"];
-  Rcpp::NumericVector edge_length = phy["edge.length"];
+  auto edge = phy_to_edge(phy);
+  auto el   = phy_to_el(phy);
 
-  std::vector<double> el(edge_length.begin(), edge_length.end());
-  edge_table edges(edge.nrow());
-  for (int i = 0; i < edge.nrow(); i++) {
-    std::array<size_t, 2> to_add = {static_cast<size_t>(edge(i, 0)),
-                                    static_cast<size_t>(edge(i, 1))};
-    edges[i] = to_add;
-  }
-  return calc_crown_age(edges, el);
+  return calc_crown_age(edge, el);
 }
 

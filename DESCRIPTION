@@ -20,7 +20,6 @@ Description: Collection of phylogenetic tree statistics,
              found in Janzen (2024) <doi:10.1016/j.ympev.2024.108168>.
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Depends:
     Rcpp
 LinkingTo: 
@@ -61,3 +60,4 @@ BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://github.com/thijsjanzen/treestats, https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
 SystemRequirements: C++17
+Config/roxygen2/version: 8.0.0
