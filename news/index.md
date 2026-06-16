@@ -1,6 +1,17 @@
 # Changelog
 
+## Version 1.71.12
+
+- Updated calculation of how to crown age was calculated to avoid
+  edge-case miscalculations, and to speed up calculation as well.
+
+## Version 1.71.11
+
+- Added inverse sum of branch lengths statistic.
+
 ## Version 1.70.11
+
+CRAN release: 2026-05-20
 
 - Replaced ::Rf_error with Rcpp::stop()
 - Added vignette on the effect of tree size

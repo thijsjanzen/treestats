@@ -61,6 +61,8 @@
   : Mean I statistic.
 - [`imbalance_steps()`](https://thijsjanzen.github.io/treestats/reference/imbalance_steps.md)
   : Imbalance steps index
+- [`inv_branch_dist()`](https://thijsjanzen.github.io/treestats/reference/inv_branch_dist.md)
+  : Sum of Inverse branch length
 - [`j_one()`](https://thijsjanzen.github.io/treestats/reference/j_one.md)
   : \\J^1\\ index.
 - [`l_to_phylo()`](https://thijsjanzen.github.io/treestats/reference/l_to_phylo.md)

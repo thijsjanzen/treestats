@@ -121,6 +121,8 @@ single tree, being:
 
 - maximum eigenvalue of the adjacency matrix
 
+- mean of the sum of inverse branch lengths
+
 For the Laplacian spectrum properties, four properties of the eigenvalue
 distribution are returned: 1) asymmetry, 2) peakedness, 3) log(principal
 eigenvalue) and 4) eigengap. Please notice that for some very small or
