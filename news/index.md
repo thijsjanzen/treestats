@@ -104,38 +104,24 @@ CRAN release: 2024-07-17
 ## Version 1.1.1
 
 - Added the following statistics:
-
 - minimum(\>0) eigenvalue of the Adjacency matrix
-
 - maximum eigenvalue of the Adjacency matrix
-
 - minimum(\>0) eigenvalue of the Laplacian matrix
-
 - maximum eigenvalue of the Laplacian matrix
-
 - double cherries
-
 - root imbalance
-
 - four prong
-
-Renamed eigenvector to eigen_centrality (in line with the analogous
-function in igraph)
+- Renamed eigenvector to eigen_centrality (in line with the analogous
+  function in igraph)
 
 ## Version 1.1.0
 
-Add several new statistics:
-
+- Add several new statistics:
 - Colless-corrected
-
 - Colless-Quadratic
-
 - Total path index
-
 - Total internal path index
-
 - Average vertex depth
-
 - Max Width over Max Depth
 
 ## Version 1.0.7
