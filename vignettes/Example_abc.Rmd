@@ -7,31 +7,28 @@ output: html_document
 
 ```{r setup, include=FALSE}
 
-if (!requireNamespace("remotes", quietly = TRUE)) {
-  install.packages("remotes")
-}
-
 if (!requireNamespace("abcrf", quietly = TRUE)) {
   message("abcrf needed for this vignette to compile. Please install it.")
+  install.packages("abcrf")
+  library(abcrf)
+}
 
-  if (requireNamespace("devtools", quietly = TRUE)) {
-    devtools::install_github("jmm34/abcrf")
-    if (!requireNamespace("abcrf", quietly = TRUE)) {
-      knitr::knit_exit()
-    }
-  } else {
+if (!requireNamespace("DDD", quietly = TRUE)) {
+  message("DDD needed for this vignette to compile. Please install it.")
+  install.packages("DDD")
+  library(DDD)
+  if (!requireNamespace("DDD", quietly = TRUE)) {
     knitr::knit_exit()
   }
 }
 
-if (!requireNamespace("DDD", quietly = TRUE)) {
-  message("ape needed for this vignette to compile. Please install it.")
-  knitr::knit_exit()
-}
-
 if (!requireNamespace("ape", quietly = TRUE)) {
   message("ape needed for this vignette to compile. Please install it.")
-  knitr::knit_exit()
+  install.packages("ape")
+  library(ape)
+  if (!requireNamespace("ape", quietly = TRUE)) {
+    knitr::knit_exit()
+  }
 }
 knitr::opts_chunk$set(eval = TRUE)
 
