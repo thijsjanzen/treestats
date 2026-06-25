@@ -18,6 +18,7 @@ tot_internal_path <- function(phy) {
   }
   if (inherits(phy, "phylo")) {
     t_i_p <- tot_internal_path_cpp(as.vector(t(phy$edge)))
+
     return(t_i_p)
   }
   stop("input object has to be phylo or ltable")

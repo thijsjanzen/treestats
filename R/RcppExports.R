@@ -205,6 +205,10 @@ calc_four_prong_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_four_prong_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+check_is_binary_rcpp <- function(parent_list) {
+    .Call('_treestats_check_is_binary_rcpp', PACKAGE = 'treestats', parent_list)
+}
+
 calc_max_del_width_cpp <- function(parent_list) {
     .Call('_treestats_calc_max_del_width_cpp', PACKAGE = 'treestats', parent_list)
 }
@@ -295,10 +299,6 @@ outer_cpp <- function(xx, x, sd) {
 
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
-}
-
-calc_J_cpp <- function(edge, el) {
-    .Call('_treestats_calc_J_cpp', PACKAGE = 'treestats', edge, el)
 }
 
 calc_var_mpd_cpp <- function(phy) {

@@ -37,7 +37,9 @@ max_del_width <- function(phy, normalization = "none") {
     return(max_dw_stat)
   }
   if (inherits(phy, "phylo")) {
+    # polytomies are checked at the Rcpp side
     max_dw_stat <- calc_max_del_width_cpp(as.vector(t(phy$edge)))
+
     if (normalization == "tips" || normalization == TRUE) {
       max_dw_stat <- max_dw_stat / length(phy$tip.label)
     }

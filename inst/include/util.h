@@ -15,6 +15,7 @@
 #include <array>
 #include <algorithm>
 #include <RcppArmadillo.h>
+#include <unordered_map>
 
 using ltable = std::vector< std::array<double, 4>>;
 using edge_table = std::vector< std::array< size_t, 2 >>;
@@ -92,4 +93,27 @@ inline void sort_edge_and_edgelength(std::vector< std::array<size_t, 2 >>* edge,
     (*edge_length)[i] = everything[i].bl;
   }
   return;
+}
+
+inline bool is_binary(const std::vector<int>& tree_edge) {
+  int root_no = tree_edge[0];
+  int max_num = 0;
+  for (size_t i = 2; i < tree_edge.size(); i+=2) {
+    if (tree_edge[i] < root_no) root_no = tree_edge[i];
+    if (tree_edge[i] > max_num) max_num = tree_edge[i];
+  }
+
+  std::vector<int> counts(max_num + 1, 0);
+  for (const auto& i : tree_edge) {
+    counts[i]++;
+  }
+  for (size_t i = 1; i < root_no; ++i) {
+    if (counts[i] != 1) return false;
+  }
+  if (counts[root_no] != 2) return false;
+
+  for (size_t i = root_no + 1; i < counts.size(); ++i) {
+    if (counts[i] != 3) return false;
+  }
+  return true;
 }

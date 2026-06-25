@@ -29,7 +29,9 @@ var_leaf_depth <- function(phy, normalization = "none") {
     return(var_leaf_depth_stat)
   }
   if (inherits(phy, "phylo")) {
+    # polytomies are checked at the Rcpp side
     var_leaf_depth_stat <- calc_var_leaf_depth_cpp(as.vector(t(phy$edge)))
+
     if (normalization == "yule" || normalization == TRUE) {
       n <- length(phy$tip.label)
       yule_expected <-  2 * log(n)

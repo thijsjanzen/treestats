@@ -73,3 +73,16 @@ test_that("usage", {
     ltab2 <- treestats::rebase_ltable(ltab)
   )
 })
+
+test_that("manual trees", {
+  # these trees were provided by Luise Haeuser.
+
+  poly_tree <- ape::read.tree(text = "(((t9:1,t14:1)1:1,t4:1,t12:1)1:0.5,(((t6:1,t19:1,t10:1,t2:1)1:1,t8:1,(t5:1,t16:1)1:1)1:1,(((((t11:1,t17:1)1:1,(t7:1,t3:1)1:1)1:1,(t1:1,t18:1)1:1)1:1,t15:1)1:1,t13:1)1:1)1:0.5);") #nolint
+  il_val <- treestats::ILnumber(poly_tree)
+  testthat::expect_equal(il_val, 3) # reference value through solving by eye
+
+  poly_tree <- ape::read.tree(text = "((t6:1,t2:1)1:0.5,(((t15:1,t8:1,t11:1)1:1,t12:1,t13:1,t10:1)1:1,((t9:1,(t4:1,t14:1)1:1)1:1,t1:1)1:1,(t3:1,t7:1,t5:1)1:1)1:0.5);") #nolint
+  tip1 <- treestats::tot_internal_path(poly_tree)
+  tip2 <- treebalance::totIntPathLen(poly_tree)
+  testthat::expect_equal(tip1, tip2)
+})

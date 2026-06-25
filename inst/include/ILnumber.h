@@ -14,7 +14,12 @@
 #include <vector>
 
 size_t calc_IL(const std::vector< int >& tree_edge) {
-  int root_no = 2 + tree_edge.size() * 0.25;
+  int root_no = tree_edge[0];
+
+  for (size_t i = 2; i < tree_edge.size(); i+=2) {
+    if (tree_edge[i] < root_no) root_no = tree_edge[i];
+  }
+
   std::vector< int > nodes(tree_edge.size() / 2, 0);
 
   for (size_t i = 0; i < tree_edge.size(); i += 2) {
