@@ -12,8 +12,10 @@
 #pragma once
 
 #include <algorithm>   // std::sort
+#include <memory>
 #include <vector>
-#include "util.h"
+#include "util.h"      // NOLINT [build/include_subdir]
+
 
 namespace width {
 
@@ -89,7 +91,7 @@ class width_tree : public tree_base {
   std::vector<NODE> tree;
   int root_no;
 
-  public:
+ public:
   explicit width_tree(const std::vector< int >& tree_edge) {
     root_no = tree_edge[0];
     int tree_size = 0;
@@ -175,7 +177,8 @@ class width_tree : public tree_base {
   }
 };
 
-std::unique_ptr<tree_base> create_width_tree(const std::vector<int>& tree_edge) {
+std::unique_ptr<tree_base> 
+  create_width_tree(const std::vector<int>& tree_edge) {
   if (is_binary(tree_edge)) {
     return std::make_unique<width_tree<node_binary>>(tree_edge);
   } else {
