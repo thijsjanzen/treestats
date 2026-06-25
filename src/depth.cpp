@@ -106,6 +106,17 @@ double calc_b1_cpp(const std::vector<int>& parent_list) {
   return focal_tree.calc_b1();
 }
 
+//' alternative b1
+//' @param parent_list
+//' @description alternative b1
+//' @export
+// [[Rcpp::export]]
+double calc_b1_cpp2(const std::vector<int>& parent_list) {
+  auto tree = width::create_width_tree(parent_list);
+  return tree->calc_b1();
+}
+
+
 // [[Rcpp::export]]
 double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   auto l_in_cpp = convert_to_ltable(l_from_R);

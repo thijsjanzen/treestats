@@ -31,7 +31,8 @@ Imports:
     nloptr,
     treebalance,
     DDD,
-    RSpectra
+    RSpectra,
+    geiger
 Suggests:
     phytools,
     phyloTop,

@@ -144,7 +144,6 @@ double calculate_phylogenetic_diversity(const phylo& phy,
                                         double extinct_acc) {
   std::vector< branch > branchset = create_branch_set(phy, t,
                                                       crown_age, extinct_acc);
-
   double pd = 0.f;
   for (auto it = branchset.cbegin(); it != branchset.cend(); ++it) {
     pd += it->bl;

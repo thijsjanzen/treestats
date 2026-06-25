@@ -14,7 +14,7 @@ var_pair_dist <- function(phy) {
   }
   if (inherits(phy, "phylo")) {
 
-    if (ape::is.rooted(phy)) {
+    if (ape::is.rooted(phy) && check_binary(phy)) {
        return(calc_var_mpd_cpp(phy))
     } else {
       dist_mat <- ape::cophenetic.phylo(phy)

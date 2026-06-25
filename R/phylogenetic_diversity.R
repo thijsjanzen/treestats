@@ -1,6 +1,7 @@
 #' @keywords internal
 calc_phylogenetic_diversity <- function(phy, t, extinct_tol) {
-  if (t == 0 && ape::is.ultrametric(phy, option = 2)) {
+  if (t == 0) {
+    if (!ape::is.ultrametric(phy, option = 2)) phy <- geiger::drop.extinct(phy)
     return(sum(phy$edge.length)) # no need to pass to Rcpp
   } else {
     if (ape::is.rooted(phy)) {

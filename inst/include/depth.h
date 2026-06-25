@@ -24,9 +24,11 @@ struct node_binary {
   node_binary* daughter2 = nullptr;
 
   int depth;
+  int dist_to_tips;
 
   node_binary() {
     depth = 0;
+    dist_to_tips = 0;
     daughter1 = nullptr;
     daughter2 = nullptr;
   }
@@ -49,14 +51,28 @@ struct node_binary {
 
     return;
   }
+
+  int set_dist_to_tips() {
+    if (daughter1 && !daughter2) {
+      dist_to_tips = 1 + daughter1->set_dist_to_tips();
+    } else if (daughter1 && daughter2) {
+      auto d1 = 1 + daughter1->set_dist_to_tips();
+      auto d2 = 1 + daughter2->set_dist_to_tips();
+      dist_to_tips = std::max(d1, d2);
+    }
+
+    return dist_to_tips;
+  }
 };
 
 struct node_poly {
   std::vector<node_poly*> daughters;
   int depth;
+  int dist_to_tips;
 
   node_poly() {
     depth = 0;
+    dist_to_tips = 0;
   }
 
   void add_daughter(node_poly* d) {
@@ -74,6 +90,18 @@ struct node_poly {
 
     return;
   }
+
+  int set_dist_to_tips() {
+    dist_to_tips = 1;
+    if (!daughters.empty()) {
+        std::vector<double> d(daughters.size());
+        for (size_t i = 0; i < daughters.size(); ++i) {
+          d[i] = dist_to_tips + daughters[i]->set_dist_to_tips();
+        }
+        dist_to_tips = *std::min_element(d.begin(), d.end());
+    }
+    return dist_to_tips;
+  }
 };
 
 struct tree_base {
@@ -84,6 +112,7 @@ struct tree_base {
   virtual double var_leaf_depth() = 0;
   virtual double calc_tot_int_path() = 0;
   virtual double calc_avg_vert_depth() = 0;
+  virtual double calc_b1() = 0;
 };
 
 template<typename NODE>
@@ -92,7 +121,7 @@ class width_tree : public tree_base {
   int root_no;
 
  public:
-  explicit width_tree(const std::vector< int >& tree_edge) {
+  explicit width_tree(const std::vector< int >& tree_edge, bool set_depth = true) {
     root_no = tree_edge[0];
     int tree_size = 0;
 
@@ -109,7 +138,7 @@ class width_tree : public tree_base {
 
       tree[index].add_daughter(&tree[d1_index]);
     }
-    tree[root_no].set_depth(-1);
+    if (set_depth) tree[root_no].set_depth(-1);
   }
 
   int calc_max_width() override {
@@ -167,6 +196,17 @@ class width_tree : public tree_base {
     return sum_depth;
   }
 
+  double calc_b1() override {
+
+    tree[root_no].set_dist_to_tips();
+
+    double b1 = 0.0;
+    for (size_t i = static_cast<size_t>(root_no + 1); i < tree.size(); ++i) {
+      b1 += 1.0 / (tree[i].dist_to_tips);
+    }
+    return b1;
+  }
+
   double calc_avg_vert_depth() override {
     double sum_depth = 0.0;
     for (size_t i = 1; i < tree.size(); ++i) {
@@ -177,7 +217,7 @@ class width_tree : public tree_base {
   }
 };
 
-std::unique_ptr<tree_base> 
+std::unique_ptr<tree_base>
   create_width_tree(const std::vector<int>& tree_edge) {
   if (is_binary(tree_edge)) {
     return std::make_unique<width_tree<node_binary>>(tree_edge);

@@ -13,7 +13,7 @@
 #' @export
 wiener <- function(phy, normalization = FALSE, weight = TRUE) {
   check_tree(phy,
-             require_binary = FALSE,
+             require_binary = TRUE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 
@@ -23,7 +23,7 @@ wiener <- function(phy, normalization = FALSE, weight = TRUE) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    if (check_binary(phy) && ape::is.rooted(phy)) {
+    if (ape::is.rooted(phy)) {
       return(calc_wiener_cpp(phy, normalization, weight))
     } else {
       dist_n <- ape::dist.nodes(phy)

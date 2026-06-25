@@ -738,6 +738,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_b1_cpp2
+double calc_b1_cpp2(const std::vector<int>& parent_list);
+RcppExport SEXP _treestats_calc_b1_cpp2(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_b1_cpp2(parent_list));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calc_b1_ltable_cpp
 double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
 RcppExport SEXP _treestats_calc_b1_ltable_cpp(SEXP l_from_RSEXP) {
@@ -1142,6 +1153,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_var_leaf_depth_ltable_cpp", (DL_FUNC) &_treestats_calc_var_leaf_depth_ltable_cpp, 1},
     {"_treestats_calc_sym_nodes_cpp", (DL_FUNC) &_treestats_calc_sym_nodes_cpp, 1},
     {"_treestats_calc_b1_cpp", (DL_FUNC) &_treestats_calc_b1_cpp, 1},
+    {"_treestats_calc_b1_cpp2", (DL_FUNC) &_treestats_calc_b1_cpp2, 1},
     {"_treestats_calc_b1_ltable_cpp", (DL_FUNC) &_treestats_calc_b1_ltable_cpp, 1},
     {"_treestats_calc_b2_cpp", (DL_FUNC) &_treestats_calc_b2_cpp, 1},
     {"_treestats_calc_b2_ltable_cpp", (DL_FUNC) &_treestats_calc_b2_ltable_cpp, 1},
