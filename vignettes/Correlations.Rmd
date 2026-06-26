@@ -51,7 +51,7 @@ for (i in seq_along(tree_collection_files)) {
   tree_collection <- readRDS(con)
 
   families <- names(tree_collection)
-  cat(i, "\n")
+  cat(taxa_names[i], "\n")
   for (j in seq_along(tree_collection)) {
     focal_tree <- tree_collection[[j]]
     if (length(focal_tree$tip.label) >= 10) {
@@ -79,7 +79,7 @@ found_stats <- tibble::as_tibble(found_stats)
 found_stats$random <- runif(n = length(found_stats$Family))
 
 # remove failed calculations:
-to_remove <- which(is.na(found_stats$sackin))
+to_remove <- which(is.na(found_stats$colless))
 found_stats <- found_stats[-to_remove, ]
 
 found_stats2 <- found_stats |>
@@ -214,6 +214,7 @@ indicate negative correlations.
 ```{r heatmap, , fig.width=25, fig.height=25}
 breakz <- seq(-1, 1, length.out = 99)
 cor2 <- as.matrix(cor1)
+rownames(cor2) <- colnames(cor2)
 hm1 <- pheatmap::pheatmap(mat = cor2,
                           breaks = breakz,
                           clustering_method = "average",
