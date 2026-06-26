@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 #include "util.h"      // NOLINT [build/include_subdir]
-#include "binom.h"
+#include "binom.h"     // NOLINT [build/include_subdir]
 
 
 namespace depth {
