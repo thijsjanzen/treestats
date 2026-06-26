@@ -10,7 +10,7 @@
 tot_path_length <- function(phy) {
 
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 

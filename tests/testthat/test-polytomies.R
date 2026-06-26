@@ -7,51 +7,30 @@ test_that("usage", {
 
   all_stats <- treestats::calc_all_stats(poly_tree)
 
-  test_na <- function(stat_name, local_stats) {
-    testthat::expect_true(is.na(local_stats[names(local_stats) == stat_name]))
-  }
 
-  test_na("gamma", all_stats)
-  test_na("colless", all_stats)
-  test_na("beta", all_stats)
-  test_na("avg_ladder", all_stats)
-  test_na("max_ladder", all_stats)
-  test_na("stairs", all_stats)
-  test_na("j_one", all_stats)
-  test_na("b2", all_stats)
-  test_na("i_stat", all_stats)
-  test_na("ew_colless", all_stats)
-  test_na("rogers", all_stats)
-  test_na("stairs2", all_stats)
-  test_na("symmetry_nodes", all_stats)
-  test_na("max_betweenness", all_stats)
-  test_na("diameter", all_stats)
-  test_na("eigen_centrality", all_stats)
-  test_na("eigen_centralityW", all_stats)
-  test_na("min_laplace", all_stats)
-  test_na("max_laplace", all_stats)
-  test_na("min_adj", all_stats)
-  test_na("max_adj", all_stats)
+  na_stats <- names(all_stats)[which(is.na(all_stats))]
+  non_na_stats <- names(all_stats)[which(!is.na(all_stats))]
 
-  brts_stats <- treestats::calc_brts_stats(poly_tree)
-  test_na("gamma", brts_stats)
+  names_na_stats <- c("avg_ladder", "beta" ,
+                      "colless", "colless_corr", "colless_quad",
+                      "diameter", "double_cherries",
+                      "eigen_centrality", "eigen_centralityW",
+                      "ew_colless", "four_prong", "gamma",
+                      "i_stat", "imbalance_steps", "j_one",
+                      "max_adj", "max_betweenness",
+                      "max_ladder", "max_laplace", "min_adj",
+                      "min_laplace", "rogers",
+                      "stairs", "stairs2", "symmetry_nodes",
+                      "wiener",
+                      "root_imbalance",
+                      "mean_inv_branch_dist", # TODO: make this doable
+                      "nltt_base") # TODO: nLTT is NA because of ultrametric!
 
-  bal_stats <- treestats::calc_topology_stats(poly_tree)
+  a <- na_stats %in% names_na_stats
+  b <- names_na_stats %in% na_stats
+  testthat::expect_all_true(a)
+  testthat::expect_all_true(b)
 
-  test_na("colless", bal_stats)
-  test_na("beta", bal_stats)
-  test_na("avg_ladder", bal_stats)
-  test_na("max_ladder", bal_stats)
-  test_na("cherries", bal_stats)
-  test_na("stairs", bal_stats)
-  test_na("j_one", bal_stats)
-  test_na("b2", bal_stats)
-  test_na("i_stat", bal_stats)
-  test_na("ew_colless", bal_stats)
-  test_na("rogers", bal_stats)
-  test_na("stairs2", bal_stats)
-  test_na("symmetry_nodes", bal_stats)
-  test_na("diameter", bal_stats)
 
   # test phylo_to_l and rebase_ltable on polytomies:
   testthat::expect_silent(
