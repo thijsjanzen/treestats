@@ -17,7 +17,7 @@
 #include "util.h"      // NOLINT [build/include_subdir]
 
 
-namespace width {
+namespace depth {
 
 struct node_binary {
   node_binary* daughter1 = nullptr;
@@ -92,13 +92,13 @@ struct node_poly {
   }
 
   int set_dist_to_tips() {
-    dist_to_tips = 1;
+    dist_to_tips = 0;
     if (!daughters.empty()) {
         std::vector<double> d(daughters.size());
         for (size_t i = 0; i < daughters.size(); ++i) {
-          d[i] = dist_to_tips + daughters[i]->set_dist_to_tips();
+          d[i] = 1 + daughters[i]->set_dist_to_tips();
         }
-        dist_to_tips = *std::min_element(d.begin(), d.end());
+        dist_to_tips = *std::max_element(d.begin(), d.end());
     }
     return dist_to_tips;
   }
@@ -113,15 +113,16 @@ struct tree_base {
   virtual double calc_tot_int_path() = 0;
   virtual double calc_avg_vert_depth() = 0;
   virtual double calc_b1() = 0;
+  virtual int max_depth() = 0;
 };
 
 template<typename NODE>
-class width_tree : public tree_base {
+class depth_tree : public tree_base {
   std::vector<NODE> tree;
   int root_no;
 
  public:
-  explicit width_tree(const std::vector< int >& tree_edge, bool set_depth = true) {
+  explicit depth_tree(const std::vector< int >& tree_edge, bool set_depth = true) {
     root_no = tree_edge[0];
     int tree_size = 0;
 
@@ -215,14 +216,22 @@ class width_tree : public tree_base {
     auto answ =  sum_depth * 1.0 / (tree.size() - 1);
     return answ;
   }
+
+  int max_depth() override {
+    int md = 0;
+    for (const auto& i : tree) {
+      if (i.depth > md) md = i.depth;
+    }
+    return md;
+  }
 };
 
 std::unique_ptr<tree_base>
-  create_width_tree(const std::vector<int>& tree_edge) {
+  create_depth_tree(const std::vector<int>& tree_edge) {
   if (is_binary(tree_edge)) {
-    return std::make_unique<width_tree<node_binary>>(tree_edge);
+    return std::make_unique<depth_tree<node_binary>>(tree_edge);
   } else {
-    return std::make_unique<width_tree<node_poly>>(tree_edge);
+    return std::make_unique<depth_tree<node_poly>>(tree_edge);
   }
 }
 

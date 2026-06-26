@@ -21,7 +21,6 @@ test_that("usage", {
   test_na("cherries", all_stats)
   test_na("stairs", all_stats)
   test_na("j_one", all_stats)
-  test_na("b1", all_stats)
   test_na("b2", all_stats)
   test_na("area_per_pair", all_stats)
   test_na("average_leaf_depth", all_stats)
@@ -54,7 +53,6 @@ test_that("usage", {
   test_na("cherries", bal_stats)
   test_na("stairs", bal_stats)
   test_na("j_one", bal_stats)
-  test_na("b1", bal_stats)
   test_na("b2", bal_stats)
   test_na("area_per_pair", bal_stats)
   test_na("average_leaf_depth", bal_stats)
@@ -81,8 +79,16 @@ test_that("manual trees", {
   il_val <- treestats::ILnumber(poly_tree)
   testthat::expect_equal(il_val, 3) # reference value through solving by eye
 
+  b1_val <- treestats::b1(poly_tree)
+  b1_ref <- treebalance::B1I(poly_tree)
+  testthat::expect_equal(b1_val, b1_ref)
+
   poly_tree <- ape::read.tree(text = "((t6:1,t2:1)1:0.5,(((t15:1,t8:1,t11:1)1:1,t12:1,t13:1,t10:1)1:1,((t9:1,(t4:1,t14:1)1:1)1:1,t1:1)1:1,(t3:1,t7:1,t5:1)1:1)1:0.5);") #nolint
   tip1 <- treestats::tot_internal_path(poly_tree)
   tip2 <- treebalance::totIntPathLen(poly_tree)
   testthat::expect_equal(tip1, tip2)
+
+  b1_val <- treestats::b1(poly_tree)
+  b1_ref <- treebalance::B1I(poly_tree)
+  testthat::expect_equal(b1_val, b1_ref)
 })

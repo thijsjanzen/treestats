@@ -257,14 +257,6 @@ calc_b1_cpp <- function(parent_list) {
     .Call('_treestats_calc_b1_cpp', PACKAGE = 'treestats', parent_list)
 }
 
-#' alternative b1
-#' @param parent_list
-#' @description alternative b1
-#' @export
-calc_b1_cpp2 <- function(parent_list) {
-    .Call('_treestats_calc_b1_cpp2', PACKAGE = 'treestats', parent_list)
-}
-
 calc_b1_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_b1_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }

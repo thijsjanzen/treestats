@@ -1,6 +1,6 @@
 # Version 1.71.13
 - Polytomies were not handled correctly, and code for the following statistics
-was adjusted accordingly: ILnumber, entropy_j, tot_internal_path, max_width,
+was adjusted accordingly: b1, ILnumber, entropy_j, tot_internal_path, max_width,
 max_del_width, phylogenetic_diversity, var_pair_dist and var_leaf_depth.
 
 # Version 1.71.12

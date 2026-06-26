@@ -2,8 +2,10 @@
 #' @description Balance metric (in the case of a binary tree), which measures
 #' the sum across all internal nodes of one over the maximum depth of all
 #' attached tips to that node.
-#' Although also defined on non-binary trees, the treestats package only
-#' provides code for binary trees.
+#' When calculated on a binary tree, the b1 statistic is a true balance
+#' statistic (meaning that the caterpillar tree is the most extreme, unbalanced
+#' tree). However, the treestats package also supports calculation on
+#' non-binary trees.
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "tips", in which case the resulting
 #' statistic is divided by the number of tips in the tree, as a crude way of
@@ -16,7 +18,7 @@ b1 <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 
