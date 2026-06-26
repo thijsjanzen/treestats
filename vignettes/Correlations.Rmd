@@ -55,6 +55,11 @@ for (i in seq_along(tree_collection_files)) {
   for (j in seq_along(tree_collection)) {
     focal_tree <- tree_collection[[j]]
     if (length(focal_tree$tip.label) >= 10) {
+      if (!ape::is.ultrametric(focal_tree)) {
+        testthat::expect_output(
+          focal_tree <- phytools::force.ultrametric(focal_tree)
+        )
+      }
       all_stats <- treestats::calc_all_stats(focal_tree, FALSE)
       to_add <- unlist(all_stats)
       to_add <- c(families[j], to_add)

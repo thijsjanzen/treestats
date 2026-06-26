@@ -182,7 +182,7 @@ class depth_tree : public tree_base {
 
       tree[index].add_daughter(&tree[d1_index]);
     }
-    if (setting == used_for::depth) tree[root_no].set_depth(-1);
+    if (setting == used_for::depth)  tree[root_no].set_depth(-1);
     if (setting == used_for::sackin) tree[root_no].get_acc_num_tips();
   }
 
@@ -319,8 +319,8 @@ class depth_tree : public tree_base {
   }
 };
 
-inline std::unique_ptr<tree_base>
-  create_depth_tree(const std::vector<int>& tree_edge,
+inline std::unique_ptr<tree_base> create_depth_tree(
+                    const std::vector<int>& tree_edge,
                     used_for setting = used_for::depth) {
   if (is_binary(tree_edge)) {
     return std::make_unique<depth_tree<node_binary>>(tree_edge, setting);
@@ -329,8 +329,5 @@ inline std::unique_ptr<tree_base>
   }
 }
 
-
-
-
-}   // namespace width
+}   // namespace depth
 
