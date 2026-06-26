@@ -54,8 +54,10 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 
 // [[Rcpp::export]]
 double calc_tot_coph_cpp(const std::vector<int>& tree_edge) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  return sackin_tree.calc_tot_coph();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+
+  return sackin_tree->calc_tot_coph();
 }
 
 // [[Rcpp::export]]

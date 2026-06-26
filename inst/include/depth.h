@@ -15,6 +15,7 @@
 #include <memory>
 #include <vector>
 #include "util.h"      // NOLINT [build/include_subdir]
+#include "binom.h"
 
 
 namespace depth {
@@ -152,6 +153,7 @@ struct tree_base {
   virtual double calc_blum() = 0;
   virtual size_t count_cherries() = 0;
   virtual size_t count_pitchforks() = 0;
+  virtual double calc_tot_coph() = 0;
 };
 
 enum used_for {depth, b1, sackin};
@@ -301,6 +303,16 @@ class depth_tree : public tree_base {
     for (size_t i = root_no; i < tree.size(); ++i) {
       if (tree[i].num_extant_tips > 1) {
         s += log2(1.0 * tree[i].num_extant_tips - 1);
+      }
+    }
+    return s;
+  }
+
+  double calc_tot_coph() override {
+    double s = 0.0;
+    for (size_t i = root_no + 1; i < tree.size(); ++i) {
+      if (tree[i].num_extant_tips > 0) {
+        s += binom_coeff(tree[i].num_extant_tips, 2);
       }
     }
     return s;
