@@ -135,7 +135,7 @@ The following summary statistics are included:
         <td>Aldous, 1996</td>
     </tr>
     <tr>
-        <td>blum</td>
+        <td>blum / sshape</td>
         <td>Topology</td>
         <td>Imbalance</td>
         <td>None</td>

@@ -6,7 +6,7 @@ test_that("usage", {
     focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 
     blum1 <- treestats::blum(focal_tree)
-    blum_check <- treebalance::sShapeI(focal_tree, logbase = exp(1))
+    blum_check <- treebalance::sShapeI(focal_tree, logbase = 2)
     testthat::expect_equal(blum1, blum_check)
     ltab <- treestats::phylo_to_l(focal_tree)
     blum2 <- treestats::blum(ltab)

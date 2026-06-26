@@ -2,13 +2,11 @@
 #' @description Balance metric that uses the Shannon-Wiener statistic of
 #' information content. The b2 measure is given by the sum over the depths of
 #' all tips, divided by \eqn{2^{d}}, e.g. \eqn{\sum d_i / 2^{d_i}}
-#' Although also defined on non-binary trees, the treestats package only
-#' provides code for binary trees.
 #' @param phy phylo object or ltable
 #' @param normalization "none" or "yule", when "yule" is chosen, the statistic
 #' is divided by the Yule expectation, following from theorem 3.7 in Bienvenu
 #' 2020.
-#' @return Maximum depth (in number of edges)
+#' @return b2 statistic
 #' @references  K.-T. Shao and R. R. Sokal. Tree Balance.
 #' Systematic Zoology, 39(3):266, 1990. doi: 10.2307/2992186.
 #'
@@ -20,7 +18,7 @@ b2 <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 

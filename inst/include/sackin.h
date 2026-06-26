@@ -132,7 +132,7 @@ class sackin_tree {
     double s = 0;
     for (auto i = tree.rbegin(); i != tree.rend(); ++i) {
       if ((*i).get_acc_num_tips() > 1) {
-        s += log(1.0 * (*i).num_extant_tips - 1);
+        s += log2(1.0 * (*i).num_extant_tips - 1);
       }
     }
     return s;

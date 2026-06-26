@@ -24,11 +24,13 @@ struct node_binary {
   node_binary* daughter2 = nullptr;
 
   int depth;
-  int dist_to_tips;
+  int dist_to_tips;    // for b1 statistic
+  int num_extant_tips; // for sackin related statistics
 
   node_binary() {
     depth = 0;
     dist_to_tips = 0;
+    num_extant_tips = 0;
     daughter1 = nullptr;
     daughter2 = nullptr;
   }
@@ -63,16 +65,32 @@ struct node_binary {
 
     return dist_to_tips;
   }
+
+  int get_acc_num_tips() {
+    if (!daughter1 && !daughter2) {
+      num_extant_tips = 1;
+    } else {
+      if (daughter1 && !daughter2) {
+        num_extant_tips = 1 + daughter1->get_acc_num_tips();
+      } else {
+        num_extant_tips = daughter1->get_acc_num_tips() +
+          daughter2->get_acc_num_tips();
+      }
+    }
+    return num_extant_tips;
+  }
 };
 
 struct node_poly {
   std::vector<node_poly*> daughters;
   int depth;
   int dist_to_tips;
+  int num_extant_tips;
 
   node_poly() {
     depth = 0;
     dist_to_tips = 0;
+    num_extant_tips = 0;
   }
 
   void add_daughter(node_poly* d) {
@@ -102,6 +120,22 @@ struct node_poly {
     }
     return dist_to_tips;
   }
+
+  int get_acc_num_tips() {
+    if (daughters.empty()) {
+      num_extant_tips = 1;
+    } else {
+      if (daughters.size() == 1) {
+        num_extant_tips = 1 + daughters.front()->get_acc_num_tips();
+      } else {
+        for (auto& i : daughters) {
+          num_extant_tips += i->get_acc_num_tips();
+        }
+      }
+    }
+
+    return num_extant_tips;
+  }
 };
 
 struct tree_base {
@@ -114,7 +148,13 @@ struct tree_base {
   virtual double calc_avg_vert_depth() = 0;
   virtual double calc_b1() = 0;
   virtual int max_depth() = 0;
+  virtual int calc_sackin() = 0;
+  virtual double calc_blum() = 0;
+  virtual size_t count_cherries() = 0;
+  virtual size_t count_pitchforks() = 0;
 };
+
+enum used_for {depth, b1, sackin};
 
 template<typename NODE>
 class depth_tree : public tree_base {
@@ -122,7 +162,8 @@ class depth_tree : public tree_base {
   int root_no;
 
  public:
-  explicit depth_tree(const std::vector< int >& tree_edge, bool set_depth = true) {
+  explicit depth_tree(const std::vector< int >& tree_edge,
+                      used_for setting = used_for::depth) {
     root_no = tree_edge[0];
     int tree_size = 0;
 
@@ -139,7 +180,8 @@ class depth_tree : public tree_base {
 
       tree[index].add_daughter(&tree[d1_index]);
     }
-    if (set_depth) tree[root_no].set_depth(-1);
+    if (setting == used_for::depth) tree[root_no].set_depth(-1);
+    if (setting == used_for::sackin) tree[root_no].get_acc_num_tips();
   }
 
   int calc_max_width() override {
@@ -224,14 +266,54 @@ class depth_tree : public tree_base {
     }
     return md;
   }
+
+  int calc_sackin() override {
+    int s = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      s += tree[i].num_extant_tips;
+    }
+
+    return s;
+   }
+
+   size_t count_pitchforks() override {
+    size_t num_pitchforks = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      if (tree[i].num_extant_tips == 3) {
+        num_pitchforks++;
+      }
+    }
+    return num_pitchforks;
+  }
+
+  size_t count_cherries() override {
+    size_t num_cherries = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      if (tree[i].num_extant_tips == 2) {
+        num_cherries++;
+      }
+    }
+    return num_cherries;
+  }
+
+  double calc_blum() override {
+    double s = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      if (tree[i].num_extant_tips > 1) {
+        s += log2(1.0 * tree[i].num_extant_tips - 1);
+      }
+    }
+    return s;
+  }
 };
 
-std::unique_ptr<tree_base>
-  create_depth_tree(const std::vector<int>& tree_edge) {
+inline std::unique_ptr<tree_base>
+  create_depth_tree(const std::vector<int>& tree_edge,
+                    used_for setting = used_for::depth) {
   if (is_binary(tree_edge)) {
-    return std::make_unique<depth_tree<node_binary>>(tree_edge);
+    return std::make_unique<depth_tree<node_binary>>(tree_edge, setting);
   } else {
-    return std::make_unique<depth_tree<node_poly>>(tree_edge);
+    return std::make_unique<depth_tree<node_poly>>(tree_edge, setting);
   }
 }
 

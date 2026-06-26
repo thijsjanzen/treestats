@@ -100,7 +100,8 @@ int calc_sym_nodes_cpp(const std::vector<int>& parent_list) {
 
 // [[Rcpp::export]]
 double calc_b1_cpp(const std::vector<int>& parent_list) {
-  auto tree = depth::create_depth_tree(parent_list);
+  auto tree = depth::create_depth_tree(parent_list,
+                                       depth::used_for::b1);
   return tree->calc_b1();
 }
 

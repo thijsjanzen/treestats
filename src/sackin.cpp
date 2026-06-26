@@ -21,12 +21,15 @@
 #include "sackin.h"   // NOLINT [build/include_subdir]
 #include "ltable.h"   // NOLINT [build/include_subdir]
 #include "cherries.h" // NOLINT [build/include_subdir]
+#include "depth.h"    // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const std::vector<int>& tree_edge,
                        const Rcpp::String& normalization) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  double output = static_cast<double>(sackin_tree.calc_sackin());
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+
+  double output = static_cast<double>(sackin_tree->calc_sackin());
 
   if (normalization == "yule") {
     size_t n  = tree_edge.size() / 4 + 1;
@@ -65,8 +68,10 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 // [[Rcpp::export]]
 double calc_blum_cpp(const std::vector<int>& tree_edge,
                      bool normalize) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  double output = sackin_tree.calc_blum();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  double output = sackin_tree->calc_blum();
+
   if (normalize)  {
     size_t n  = tree_edge.size() / 4 + 1;
     output = correction::correct_blum(n, output);
@@ -84,8 +89,10 @@ double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
 
 // [[Rcpp::export]]
 size_t cherries_cpp(const std::vector<int>& tree_edge) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  return sackin_tree.count_cherries();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+
+  return sackin_tree->count_cherries();
 }
 
 // [[Rcpp::export]]
@@ -97,7 +104,8 @@ size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 // [[Rcpp::export]]
 size_t pitchforks_cpp(const std::vector<int>& tree_edge) {
   // ltable version uses colless
-  sackin::sackin_tree sackin_tree(tree_edge);
-  return sackin_tree.count_pitchforks();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->count_pitchforks();
 }
 

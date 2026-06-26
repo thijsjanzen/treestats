@@ -75,7 +75,7 @@ class stat {
     double s = 0.0;
     for (size_t i = 1; i < s_values.size(); ++i) {
       if (s_values[i] != 0.0) {
-        s += log(1.0 * s_values[i] - 1.0);
+        s += log2(1.0 * s_values[i] - 1.0);
       }
     }
 
