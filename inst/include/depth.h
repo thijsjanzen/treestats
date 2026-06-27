@@ -25,8 +25,8 @@ struct node_binary {
   node_binary* daughter2 = nullptr;
 
   int depth;
-  int dist_to_tips;    // for b1 statistic
-  int num_extant_tips; // for sackin related statistics
+  int dist_to_tips;     // for b1 statistic
+  int num_extant_tips;  // for sackin related statistics
 
   node_binary() {
     depth = 0;
@@ -113,11 +113,11 @@ struct node_poly {
   int set_dist_to_tips() {
     dist_to_tips = 0;
     if (!daughters.empty()) {
-        std::vector<double> d(daughters.size());
-        for (size_t i = 0; i < daughters.size(); ++i) {
-          d[i] = 1 + daughters[i]->set_dist_to_tips();
-        }
-        dist_to_tips = *std::max_element(d.begin(), d.end());
+      std::vector<double> d(daughters.size());
+      for (size_t i = 0; i < daughters.size(); ++i) {
+        d[i] = 1 + daughters[i]->set_dist_to_tips();
+      }
+      dist_to_tips = *std::max_element(d.begin(), d.end());
     }
     return dist_to_tips;
   }
@@ -163,7 +163,7 @@ class depth_tree : public tree_base {
   std::vector<NODE> tree;
   int root_no;
 
- public:
+public:
   explicit depth_tree(const std::vector< int >& tree_edge,
                       used_for setting = used_for::depth) {
     root_no = tree_edge[0];
@@ -276,9 +276,9 @@ class depth_tree : public tree_base {
     }
 
     return s;
-   }
+  }
 
-   size_t count_pitchforks() override {
+  size_t count_pitchforks() override {
     size_t num_pitchforks = 0;
     for (size_t i = root_no; i < tree.size(); ++i) {
       if (tree[i].num_extant_tips == 3) {
@@ -320,8 +320,8 @@ class depth_tree : public tree_base {
 };
 
 inline std::unique_ptr<tree_base> create_depth_tree(
-                    const std::vector<int>& tree_edge,
-                    used_for setting = used_for::depth) {
+    const std::vector<int>& tree_edge,
+    used_for setting = used_for::depth) {
   if (is_binary(tree_edge)) {
     return std::make_unique<depth_tree<node_binary>>(tree_edge, setting);
   } else {

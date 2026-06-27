@@ -14,6 +14,7 @@
 #include <vector>
 #include <array>
 #include <algorithm>
+#include <string>
 
 #include "binom.h"   // NOLINT [build/include_subdir]
 

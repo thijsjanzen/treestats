@@ -24,26 +24,28 @@
 
 
 namespace correction {
-  double correct_pda(size_t n,
-                    double Is) {
-    double denom = powf(n, 1.5f);
-    return 1.0 * Is / denom;
-  }
 
-  double correct_yule(size_t n,
-                      double Is) {
-    double sum_count = 0.0;
-    for (size_t j = 2; j <= n; ++j) {
-      sum_count += 1.0 / j;
-    }
-    return 1.0 * (Is - 2.0 * n * sum_count) / n;
-  }
-
-  double correct_blum(size_t n,
-                      double Is) {
-    return Is * 1.0 / n;
-  }
+double correct_pda(size_t n,
+                  double Is) {
+  double denom = powf(n, 1.5f);
+  return 1.0 * Is / denom;
 }
+
+double correct_yule(size_t n,
+                    double Is) {
+  double sum_count = 0.0;
+  for (size_t j = 2; j <= n; ++j) {
+    sum_count += 1.0 / j;
+  }
+  return 1.0 * (Is - 2.0 * n * sum_count) / n;
+}
+
+double correct_blum(size_t n,
+                    double Is) {
+  return Is * 1.0 / n;
+}
+
+}   // namespace correction
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const std::vector<int>& tree_edge,
