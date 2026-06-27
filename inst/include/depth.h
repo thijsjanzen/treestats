@@ -163,7 +163,7 @@ class depth_tree : public tree_base {
   std::vector<NODE> tree;
   int root_no;
 
-public:
+ public:
   explicit depth_tree(const std::vector< int >& tree_edge,
                       used_for setting = used_for::depth) {
     root_no = tree_edge[0];
@@ -242,7 +242,6 @@ public:
   }
 
   double calc_b1() override {
-
     tree[root_no].set_dist_to_tips();
 
     double b1 = 0.0;

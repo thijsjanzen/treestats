@@ -34,14 +34,12 @@ test_that("usage", {
     testthat::expect_all_true(a)
     testthat::expect_all_true(b)
 
-
     # test phylo_to_l and rebase_ltable on polytomies:
     testthat::expect_silent(
       ltab  <- treestats::phylo_to_l(poly_tree))
     testthat::expect_silent(
       ltab2 <- treestats::rebase_ltable(ltab)
     )
-
   }
 })
 
