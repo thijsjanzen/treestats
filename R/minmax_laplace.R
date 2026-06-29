@@ -23,7 +23,7 @@ minmax_laplace <- function(phy,
                            use_rspectra = TRUE,
                            force_min = FALSE) {
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 
@@ -93,8 +93,6 @@ minmax_laplace <- function(phy,
   }
   stop("input object has to be phylo or ltable")
 }
-
-
 
 
 #' @keywords internal

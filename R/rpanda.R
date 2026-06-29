@@ -25,25 +25,30 @@ skew_ness <- function(x) {
 #' all nodes), and the degree matrix (e.g. the diagonal matrix where each
 #' diagonal element represents the sum of branch lengths to all other nodes).
 #' Each row of the modified graph Laplacian sums to zero. For a tree with n
-#' tips, there are \eqn{N = 2n-1} nodes, and hence the modified graph Laplacian
-#' is represented by a \eqn{N x N} matrix. Where RPANDA relies on the package
-#' igraph to calculate the modified graph Laplacian, the treestats package uses
-#' C++ to directly calculate the different entries in the matrix. This makes the
-#' treestats implementation slightly faster, although the bulk of computation
-#' occurs in estimating the eigen values, where RcppArmadillo generates a bit
-#' of speed up.
+#' tips, there are at most \eqn{N = 2n-1} nodes, and hence the modified graph
+#' Laplacian is represented by a \eqn{N x N} matrix. Where RPANDA relies on the
+#' package igraph to calculate the modified graph Laplacian, the treestats
+#' package uses C++ to directly calculate the different entries in the matrix.
+#' This makes the treestats implementation slightly faster, although the bulk of
+#' computation occurs in estimating the eigen values, where RcppArmadillo
+#' generates a bit of speed up.
 #' @param phy phy
 #' @return list with five components: 1) eigenvalues the vector of eigen
-#' values, 2) principal_eigenvalue the largest eigenvalueof the spectral
+#' values, 2) principal_eigenvalue the largest eigenvalue of the spectral
 #' density distribution 3) asymmetry the skewness of the spectral density
-#' distribution 4) peak_height the largest y-axis valueof the spectral
-#' density distribution and 5) eigengap theposition ofthe largest
+#' distribution 4) peak_height the largest y-axis value of the spectral
+#' density distribution and 5) eigengap the position of the largest
 #' difference between eigenvalues, giving the number of modalities in the tree.
 #' @references Eric Lewitus, Helene Morlon, Characterizing and Comparing
 #' Phylogenies from their Laplacian Spectrum, Systematic Biology, Volume 65,
 #' Issue 3, May 2016, Pages 495–507, https://doi.org/10.1093/sysbio/syv116
 #' @export
 laplacian_spectrum <- function(phy) {
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)

@@ -16,10 +16,11 @@
 #include <numeric>
 #include <algorithm>   // min element
 #include <utility>     // swap
+#include <stack>
 
 #include "binom.h"  // NOLINT [build/include_subdir]
 
-using edge = std::vector< std::array< size_t, 2 >>;
+using edge   = std::vector< std::array< size_t, 2 >>;
 using ltable = std::vector< std::array< double, 4>>;
 
 // first sum:
@@ -75,6 +76,69 @@ std::vector< std::array<double, 2>> computeLRSizes(
   return Tab;
 }
 
+std::vector< std::vector<double>> computeLRSizes_poly(
+    const edge& e,
+    const std::vector<double>& el,
+    bool use_branch_length = false,
+    bool use_max = false) {
+
+//  int n = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5);  // num tips
+//  int N = 2 * n - 1;
+
+  int root_no = e[0][0];
+  int max_node_no = e[0][0];
+  for (const auto& i : e) {
+    if (i[0] < root_no) root_no = i[0];
+    if (i[0] > max_node_no) max_node_no = i[0];
+  }
+  int N = max_node_no - root_no;
+  int n = root_no - 1;
+
+  std::vector< std::vector< double >> Tab(n - 1);
+
+  std::array<int, 2> curRow;
+
+  for (int ind = N - 2; ind >= 0; ind--) {
+    curRow = { static_cast<int>(e[ind][0]) - n - 1,
+               static_cast<int>(e[ind][1]) - n - 1 };
+
+    if (ind < 0 || ind >= static_cast<int>(el.size())) {
+      throw "ind out of range el";
+    }
+
+    double W = use_branch_length ? el[ind] : 1.0;
+
+    if (curRow[1] >= static_cast<int>(Tab.size())) {
+      throw "curRow[1] out of range Tab";
+    }
+
+    double new_val;
+    if (use_max) {
+      new_val = curRow[1] > 0 ?
+        W + std::max(Tab[curRow[1]][0], Tab[curRow[1]][1]) :
+        W;
+    } else {
+      // use sum
+      new_val = curRow[1] > 0 ?
+        W + Tab[curRow[1]][0] + Tab[curRow[1]][1] :
+        W;
+    }
+
+    int x = curRow[0];
+    if (curRow[0] < 0 || curRow[0] >= static_cast<int>(Tab.size())) {
+      throw "curRow[0] out of range Tab";
+    }
+   // int y = Tab[curRow[0]][0] < 0 ? 0 : 1;
+
+    Tab[x].push_back(new_val);
+  }
+
+  return Tab;
+}
+
+
+
+
 double wiener(const edge& e,
               const std::vector<double>& el,
               bool normalize = false,
@@ -113,6 +177,8 @@ double wiener(const edge& e,
 
   return W;
 }
+
+
 
 
 double max_betweenness(const edge& e,
@@ -231,6 +297,65 @@ double diameter(const edge& e,
   }
   return diam;
 }
+
+struct Edge {
+  int to;
+  double w;
+};
+
+void dfs(int start,
+         const std::vector<std::vector<Edge>>& adj,
+         std::vector<double>& dist) {
+  std::fill(dist.begin(), dist.end(), -1.0);
+
+  std::stack<int> st;
+  st.push(start);
+  dist[start] = 0;
+
+  while (!st.empty()) {
+    int v = st.top();
+    st.pop();
+
+    for (auto &e : adj[v]) {
+      if (dist[e.to] < 0) {
+        dist[e.to] = dist[v] + e.w;
+        st.push(e.to);
+      }
+    }
+  }
+}
+
+double diameter_poly(const edge& e,
+                const std::vector<double>& el,
+                bool weight = false) {
+ // chatgpt magic
+ int max_num_nodes = e[0][0];
+ for (const auto& i : e) {
+   if (i[0] > max_num_nodes) max_num_nodes = i[0];
+ }
+
+ std::vector<std::vector<Edge>> adj(max_num_nodes);
+
+ for (int i = 0; i < e.size(); i++) {
+   int a = e[i][0] - 1;
+   int b = e[i][1] - 1;
+   double w = weight ? el[i] : 1.0;
+
+   adj[a].push_back({b, w});
+   adj[b].push_back({a, w});
+ }
+
+ std::vector<double> dist(max_num_nodes, -1);
+ dfs(0, adj, dist);
+
+ int u = std::max_element(dist.begin(), dist.end()) - dist.begin();
+
+ dfs(u, adj, dist);
+
+ return *std::max_element(dist.begin(), dist.end());
+}
+
+
 
 // LTABLE associated code
 class LRsizes {

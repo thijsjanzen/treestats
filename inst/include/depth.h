@@ -80,6 +80,28 @@ struct node_binary {
     }
     return num_extant_tips;
   }
+
+
+  bool is_double_cherry() {
+    if (num_extant_tips != 4) return false;
+
+    int L = daughter1->num_extant_tips;
+    int R = daughter2->num_extant_tips;
+    if (L == 2 && R == 2) return true;
+
+    return false;
+  }
+
+  bool is_four_prong() {
+    if (num_extant_tips != 4) return false;
+
+    int L = daughter1->num_extant_tips;
+    int R = daughter2->num_extant_tips;
+    if (L == 1 && R == 3) return true;
+    if (L == 3 && R == 1) return true;
+
+    return false;
+  }
 };
 
 struct node_poly {
@@ -137,6 +159,29 @@ struct node_poly {
 
     return num_extant_tips;
   }
+
+  bool is_double_cherry() {
+    if (num_extant_tips != 4) return false;
+    if (daughters.size() != 2) return false;
+
+    int L = daughters[0]->num_extant_tips;
+    int R = daughters[1]->num_extant_tips;
+    if (L == 2 && R == 2) return true;
+
+    return false;
+  }
+
+  bool is_four_prong() {
+    if (num_extant_tips != 4) return false;
+    if (daughters.size() != 2) return false;
+
+    int L = daughters[0]->num_extant_tips;
+    int R = daughters[1]->num_extant_tips;
+    if (L == 1 && R == 3) return true;
+    if (L == 3 && R == 1) return true;
+
+    return false;
+  }
 };
 
 struct tree_base {
@@ -154,6 +199,8 @@ struct tree_base {
   virtual size_t count_cherries() = 0;
   virtual size_t count_pitchforks() = 0;
   virtual double calc_tot_coph() = 0;
+  virtual size_t count_double_cherries() = 0;
+  virtual size_t count_four_prong() = 0;
 };
 
 enum used_for {depth, b1, sackin};
@@ -296,6 +343,26 @@ class depth_tree : public tree_base {
     }
     return num_cherries;
   }
+
+   size_t count_double_cherries() override {
+     size_t num_double_cherries = 0;
+     for (size_t i = root_no; i < tree.size(); ++i) {
+       if (tree[i].is_double_cherry()) {
+         num_double_cherries++;
+       }
+     }
+     return num_double_cherries;
+   }
+
+   size_t count_four_prong() override {
+     size_t num_four_prong = 0;
+     for (size_t i = root_no; i < tree.size(); ++i) {
+       if (tree[i].is_four_prong()) {
+         num_four_prong++;
+       }
+     }
+     return num_four_prong;
+   }
 
   double calc_blum() override {
     double s = 0;

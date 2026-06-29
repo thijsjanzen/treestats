@@ -50,10 +50,22 @@ double calc_max_closeness_cpp(const Rcpp::List& phy, bool weight) {
 }
 
 // [[Rcpp::export]]
-double calc_diameter_cpp(const Rcpp::List& phy, bool weight) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return diameter(edge, el, weight);
+double calc_diameter_cpp(const std::vector<int>& edge_in,
+                         const std::vector<double>& el,
+                         bool weight) {
+  edge e;
+  for (size_t i = 0; i < edge_in.size(); i += 2) {
+    e.push_back({
+                 static_cast<size_t>(edge_in[i]),
+                 static_cast<size_t>(edge_in[i + 1])
+                });
+  }
+
+  if (is_binary(edge_in)) {
+    return diameter(e, el, weight);
+  } else {
+    return diameter_poly(e, el, weight);
+  }
 }
 
 // [[Rcpp::export]]

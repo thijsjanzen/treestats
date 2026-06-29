@@ -14,7 +14,7 @@ diameter <- function(phy,
                      weight = FALSE) {
 
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 
@@ -25,7 +25,9 @@ diameter <- function(phy,
   if (inherits(phy, "phylo")) {
     diam_stat <- NA
     if (ape::is.rooted(phy)) {
-      diam_stat <- calc_diameter_cpp(phy, weight)
+      diam_stat <- calc_diameter_cpp(as.vector(t(phy$edge)),
+                                     phy$edge.length,
+                                     weight)
     } else {
       if (!weight) {
         phy$edge.length <- rep(1, length(phy$edge.length))

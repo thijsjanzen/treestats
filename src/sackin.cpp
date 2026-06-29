@@ -122,6 +122,20 @@ size_t cherries_cpp(const std::vector<int>& tree_edge) {
 }
 
 // [[Rcpp::export]]
+size_t calc_double_cherries_cpp(const std::vector<int>& tree_edge) {
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->count_double_cherries();
+}
+
+// [[Rcpp::export]]
+size_t calc_four_prong_cpp(const std::vector<int>& tree_edge) {
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->count_four_prong();
+}
+
+// [[Rcpp::export]]
 size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   auto local_ltab = convert_to_ltable(ltable_R);
   return calc_cherries_ltable(local_ltab);
