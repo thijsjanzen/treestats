@@ -18,7 +18,7 @@ eigen_centrality <- function(phy,
                              scale = FALSE,
                              use_rspectra = TRUE) {
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 

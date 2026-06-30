@@ -15,6 +15,11 @@ root_imbalance <- function(phy) {
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 
+  # although the tree need not be binary, the root has to be, luckily the test
+  # for rootedness catches this, as ape::is.rooted checks for the number of
+  # lineages connected to the crown, which has to be 2.
+
+
   if (inherits(phy, "matrix")) {
     return(calc_root_imbalance_ltable_cpp(phy))
   }

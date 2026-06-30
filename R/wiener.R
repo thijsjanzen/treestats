@@ -13,7 +13,7 @@
 #' @export
 wiener <- function(phy, normalization = FALSE, weight = TRUE) {
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 
@@ -24,8 +24,12 @@ wiener <- function(phy, normalization = FALSE, weight = TRUE) {
   }
   if (inherits(phy, "phylo")) {
     if (ape::is.rooted(phy)) {
-      return(calc_wiener_cpp(phy, normalization, weight))
+      return(calc_wiener_cpp(as.vector(t(phy$edge)),
+                             phy$edge.length,
+                             normalization,
+                             weight))
     } else {
+      if (!weight) phy$edge.length <- rep(1, length(phy$edge.length))
       dist_n <- ape::dist.nodes(phy)
       return(sum(dist_n[lower.tri(dist_n)]))
     }

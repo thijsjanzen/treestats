@@ -141,3 +141,9 @@ double calc_mw_over_md_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   auto md = calc_max_depth_ltable_cpp(l_from_R);
   return 1.0 * mw / md;
 }
+
+// [[Rcpp::export]]
+double calc_root_imbalance_cpp(const std::vector<int>& parent_list) {
+  auto tree = depth::create_depth_tree(parent_list,  depth::used_for::sackin);
+  return tree->root_imbalance();
+}

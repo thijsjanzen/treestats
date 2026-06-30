@@ -65,20 +65,20 @@ calc_crown_age_cpp <- function(phy) {
     .Call('_treestats_calc_crown_age_cpp', PACKAGE = 'treestats', phy)
 }
 
-calc_wiener_cpp <- function(phy, normalize, weight) {
-    .Call('_treestats_calc_wiener_cpp', PACKAGE = 'treestats', phy, normalize, weight)
+calc_wiener_cpp <- function(edge_in, el, normalize, weight) {
+    .Call('_treestats_calc_wiener_cpp', PACKAGE = 'treestats', edge_in, el, normalize, weight)
 }
 
-calc_max_betweenness_cpp <- function(phy) {
-    .Call('_treestats_calc_max_betweenness_cpp', PACKAGE = 'treestats', phy)
+calc_max_betweenness_cpp <- function(edge_in, el) {
+    .Call('_treestats_calc_max_betweenness_cpp', PACKAGE = 'treestats', edge_in, el)
 }
 
 calc_max_betweenness_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_max_betweenness_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
-calc_max_closeness_cpp <- function(phy, weight) {
-    .Call('_treestats_calc_max_closeness_cpp', PACKAGE = 'treestats', phy, weight)
+calc_max_closeness_cpp <- function(edge_in, el, weight) {
+    .Call('_treestats_calc_max_closeness_cpp', PACKAGE = 'treestats', edge_in, el, weight)
 }
 
 calc_diameter_cpp <- function(edge_in, el, weight) {
@@ -185,10 +185,6 @@ calc_root_imbalance_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_root_imbalance_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
-calc_root_imbalance_cpp <- function(parent_list) {
-    .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
-}
-
 calc_double_cherries_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_double_cherries_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
@@ -267,6 +263,10 @@ calc_mw_over_md_cpp <- function(parent_list) {
 
 calc_mw_over_md_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_mw_over_md_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+calc_root_imbalance_cpp <- function(parent_list) {
+    .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
 }
 
 avgLadder_cpp <- function(tree_edge) {

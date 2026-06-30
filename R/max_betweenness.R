@@ -14,7 +14,7 @@
 max_betweenness <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 
@@ -27,7 +27,8 @@ max_betweenness <- function(phy, normalization = "none") {
     return(betweenness_stat)
   }
   if (inherits(phy, "phylo")) {
-    betweenness_stat <- calc_max_betweenness_cpp(phy)
+    betweenness_stat <- calc_max_betweenness_cpp(as.vector(t(phy$edge)),
+                                                 phy$edge.length)
     if (normalization == "tips" || normalization == TRUE) {
       n <- 1 + length(phy$edge[, 1])
       betweenness_stat <- 2 * betweenness_stat / ((n - 2) * (n - 1))

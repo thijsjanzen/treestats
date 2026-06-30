@@ -200,26 +200,28 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_wiener_cpp
-double calc_wiener_cpp(const Rcpp::List& phy, bool normalize, bool weight);
-RcppExport SEXP _treestats_calc_wiener_cpp(SEXP phySEXP, SEXP normalizeSEXP, SEXP weightSEXP) {
+double calc_wiener_cpp(const std::vector<int>& edge_in, const std::vector<double>& el, bool normalize, bool weight);
+RcppExport SEXP _treestats_calc_wiener_cpp(SEXP edge_inSEXP, SEXP elSEXP, SEXP normalizeSEXP, SEXP weightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge_in(edge_inSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
     Rcpp::traits::input_parameter< bool >::type normalize(normalizeSEXP);
     Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_wiener_cpp(phy, normalize, weight));
+    rcpp_result_gen = Rcpp::wrap(calc_wiener_cpp(edge_in, el, normalize, weight));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_max_betweenness_cpp
-double calc_max_betweenness_cpp(const Rcpp::List& phy);
-RcppExport SEXP _treestats_calc_max_betweenness_cpp(SEXP phySEXP) {
+double calc_max_betweenness_cpp(const std::vector<int>& edge_in, const std::vector<double>& el);
+RcppExport SEXP _treestats_calc_max_betweenness_cpp(SEXP edge_inSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_betweenness_cpp(phy));
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge_in(edge_inSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_betweenness_cpp(edge_in, el));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -235,14 +237,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_max_closeness_cpp
-double calc_max_closeness_cpp(const Rcpp::List& phy, bool weight);
-RcppExport SEXP _treestats_calc_max_closeness_cpp(SEXP phySEXP, SEXP weightSEXP) {
+double calc_max_closeness_cpp(const std::vector<int>& edge_in, const std::vector<double>& el, bool weight);
+RcppExport SEXP _treestats_calc_max_closeness_cpp(SEXP edge_inSEXP, SEXP elSEXP, SEXP weightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type phy(phySEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type edge_in(edge_inSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type el(elSEXP);
     Rcpp::traits::input_parameter< bool >::type weight(weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_max_closeness_cpp(phy, weight));
+    rcpp_result_gen = Rcpp::wrap(calc_max_closeness_cpp(edge_in, el, weight));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -541,17 +544,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// calc_root_imbalance_cpp
-double calc_root_imbalance_cpp(const std::vector<int>& parent_list);
-RcppExport SEXP _treestats_calc_root_imbalance_cpp(SEXP parent_listSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_root_imbalance_cpp(parent_list));
-    return rcpp_result_gen;
-END_RCPP
-}
 // calc_double_cherries_ltable_cpp
 double calc_double_cherries_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
 RcppExport SEXP _treestats_calc_double_cherries_ltable_cpp(SEXP l_from_RSEXP) {
@@ -769,6 +761,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_mw_over_md_ltable_cpp(l_from_R));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_root_imbalance_cpp
+double calc_root_imbalance_cpp(const std::vector<int>& parent_list);
+RcppExport SEXP _treestats_calc_root_imbalance_cpp(SEXP parent_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_root_imbalance_cpp(parent_list));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1095,10 +1098,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_nltt_cpp", (DL_FUNC) &_treestats_calc_nltt_cpp, 2},
     {"_treestats_calc_nltt_ltable_cpp", (DL_FUNC) &_treestats_calc_nltt_ltable_cpp, 2},
     {"_treestats_calc_crown_age_cpp", (DL_FUNC) &_treestats_calc_crown_age_cpp, 1},
-    {"_treestats_calc_wiener_cpp", (DL_FUNC) &_treestats_calc_wiener_cpp, 3},
-    {"_treestats_calc_max_betweenness_cpp", (DL_FUNC) &_treestats_calc_max_betweenness_cpp, 1},
+    {"_treestats_calc_wiener_cpp", (DL_FUNC) &_treestats_calc_wiener_cpp, 4},
+    {"_treestats_calc_max_betweenness_cpp", (DL_FUNC) &_treestats_calc_max_betweenness_cpp, 2},
     {"_treestats_calc_max_betweenness_ltable_cpp", (DL_FUNC) &_treestats_calc_max_betweenness_ltable_cpp, 1},
-    {"_treestats_calc_max_closeness_cpp", (DL_FUNC) &_treestats_calc_max_closeness_cpp, 2},
+    {"_treestats_calc_max_closeness_cpp", (DL_FUNC) &_treestats_calc_max_closeness_cpp, 3},
     {"_treestats_calc_diameter_cpp", (DL_FUNC) &_treestats_calc_diameter_cpp, 3},
     {"_treestats_calc_diameter_ltable_cpp", (DL_FUNC) &_treestats_calc_diameter_ltable_cpp, 2},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
@@ -1125,7 +1128,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_colless_quad_cpp", (DL_FUNC) &_treestats_calc_colless_quad_cpp, 2},
     {"_treestats_calc_colless_quad_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_quad_ltable_cpp, 2},
     {"_treestats_calc_root_imbalance_ltable_cpp", (DL_FUNC) &_treestats_calc_root_imbalance_ltable_cpp, 1},
-    {"_treestats_calc_root_imbalance_cpp", (DL_FUNC) &_treestats_calc_root_imbalance_cpp, 1},
     {"_treestats_calc_double_cherries_ltable_cpp", (DL_FUNC) &_treestats_calc_double_cherries_ltable_cpp, 1},
     {"_treestats_calc_four_prong_ltable_cpp", (DL_FUNC) &_treestats_calc_four_prong_ltable_cpp, 1},
     {"_treestats_check_is_binary_rcpp", (DL_FUNC) &_treestats_check_is_binary_rcpp, 1},
@@ -1146,6 +1148,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_b2_ltable_cpp", (DL_FUNC) &_treestats_calc_b2_ltable_cpp, 1},
     {"_treestats_calc_mw_over_md_cpp", (DL_FUNC) &_treestats_calc_mw_over_md_cpp, 1},
     {"_treestats_calc_mw_over_md_ltable_cpp", (DL_FUNC) &_treestats_calc_mw_over_md_ltable_cpp, 1},
+    {"_treestats_calc_root_imbalance_cpp", (DL_FUNC) &_treestats_calc_root_imbalance_cpp, 1},
     {"_treestats_avgLadder_cpp", (DL_FUNC) &_treestats_avgLadder_cpp, 1},
     {"_treestats_max_ladder_cpp", (DL_FUNC) &_treestats_max_ladder_cpp, 1},
     {"_treestats_get_eigen_values_arma_cpp", (DL_FUNC) &_treestats_get_eigen_values_arma_cpp, 1},

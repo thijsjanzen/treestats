@@ -19,21 +19,27 @@
 
 #include "centralities.h"  // NOLINT [build/include_subdir]
 #include "util.h"          // NOLINT [build/include_subdir]
+#include "dist_nodes.h"    // NOLINT [build/include_subdir]
 
 // [[Rcpp::export]]
-double calc_wiener_cpp(const Rcpp::List& phy,
+double calc_wiener_cpp(const std::vector<int>& edge_in,
+                       const std::vector<double>& el,
                        bool normalize,
                        bool weight) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return wiener(edge, el, normalize, weight);
+  edge e = flat_to_table(edge_in);
+
+  return is_binary(edge_in) ?
+          wiener(e, el, normalize, weight)  :
+          wiener_poly(e, el, normalize, weight);
 }
 
 // [[Rcpp::export]]
-double calc_max_betweenness_cpp(const Rcpp::List& phy) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return max_betweenness(edge, el);
+double calc_max_betweenness_cpp(const std::vector<int>& edge_in,
+                                const std::vector<double>& el) {
+  edge e = flat_to_table(edge_in);
+
+  return is_binary(edge_in) ? max_betweenness(e, el) :
+                              max_betweenness_poly(e, el);
 }
 
 // [[Rcpp::export]]
@@ -43,29 +49,26 @@ double calc_max_betweenness_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 }
 
 // [[Rcpp::export]]
-double calc_max_closeness_cpp(const Rcpp::List& phy, bool weight) {
-  auto edge = phy_to_edge(phy);
-  auto el   = phy_to_el(phy);
-  return max_closeness(edge, el, weight);
+double calc_max_closeness_cpp(const std::vector<int>& edge_in,
+                              const std::vector<double>& el,
+                              bool weight) {
+
+  edge e = flat_to_table(edge_in);
+
+  return is_binary(edge_in) ?
+             1.0 / min_farness(e, el, weight) :
+             1.0 / min_farness_poly(e, el, weight);
 }
 
 // [[Rcpp::export]]
 double calc_diameter_cpp(const std::vector<int>& edge_in,
                          const std::vector<double>& el,
                          bool weight) {
-  edge e;
-  for (size_t i = 0; i < edge_in.size(); i += 2) {
-    e.push_back({
-                 static_cast<size_t>(edge_in[i]),
-                 static_cast<size_t>(edge_in[i + 1])
-                });
-  }
+  edge e = flat_to_table(edge_in);
 
-  if (is_binary(edge_in)) {
-    return diameter(e, el, weight);
-  } else {
-    return diameter_poly(e, el, weight);
-  }
+  return is_binary(edge_in) ?
+                diameter(e, el, weight) :
+                diameter_poly(e, el, weight);
 }
 
 // [[Rcpp::export]]

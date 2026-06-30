@@ -102,6 +102,14 @@ struct node_binary {
 
     return false;
   }
+
+  double calc_root_imbalance() {
+    int L = daughter1->num_extant_tips;
+
+    double answ = 1.0 * L / num_extant_tips;
+    if (answ < 0.5) answ = 1.0 - answ;
+    return answ;
+  }
 };
 
 struct node_poly {
@@ -182,6 +190,17 @@ struct node_poly {
 
     return false;
   }
+
+  double calc_root_imbalance() {
+    // this can not happe, but just to be sure:
+    if (daughters.size() != 2) throw "root is not binary";
+
+    int L = daughters[0]->num_extant_tips;
+
+    double answ = 1.0 * L / (num_extant_tips);
+    if (answ < 0.5) answ = 1.0 - answ;
+    return answ;
+  }
 };
 
 struct tree_base {
@@ -201,6 +220,7 @@ struct tree_base {
   virtual double calc_tot_coph() = 0;
   virtual size_t count_double_cherries() = 0;
   virtual size_t count_four_prong() = 0;
+  virtual double root_imbalance() = 0;
 };
 
 enum used_for {depth, b1, sackin};
@@ -382,6 +402,11 @@ class depth_tree : public tree_base {
       }
     }
     return s;
+  }
+
+  double root_imbalance() override {
+    // we have previously verified the root is binary
+    return tree[root_no].calc_root_imbalance();
   }
 };
 

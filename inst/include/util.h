@@ -43,6 +43,17 @@ inline edge_table phy_to_edge(const Rcpp::List& phy) {
   return local_edge;
 }
 
+inline edge_table flat_to_table(const std::vector<int>& edge_in) {
+  edge_table e(edge_in.size() / 2);
+  for (size_t i = 0; i < edge_in.size(); i += 2) {
+    e[i / 2] = {
+              static_cast<size_t>(edge_in[i]),
+              static_cast<size_t>(edge_in[i + 1])
+          };
+  }
+  return e;
+}
+
 inline std::vector<double> phy_to_el(const Rcpp::List& phy) {
   Rcpp::NumericVector el = phy["edge.length"];
   std::vector<double> el_cpp(el.begin(), el.end());
