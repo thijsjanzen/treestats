@@ -154,9 +154,7 @@ double max_betweenness(const edge& e,
 
   auto q = sub_tree_sizes.create_q(0);
 
-  for (const auto& i : q) {
-    std::cerr << i << " ";
-  } std::cerr << "\n";
+ 
 
   auto n = q.size();
 
@@ -165,14 +163,23 @@ double max_betweenness(const edge& e,
 
     double prod = 1.0;
     for (const auto& j : sub_tree_sizes.Tab[i]) {
+      std::cerr << j << " ";
       prod *= j;
     }
 
-    auto local_b = prod + q[i] * (2 * n - q[i]);
-    std::cerr << i << " " << local_b << "\n";
-    // cat(i, local_b, "\n")
+    double x = sub_tree_sizes.Tab[i].size();
+
+    std::cerr << x << " " << n << " " << q[i] << "\n";
+
+
+    // the 2n - q // or the 2n, is a substitute for all nodes + tips,
+    // so this needs to be corrected for polytomies
+    auto local_b = prod + q[i] * (x * n - q[i]);
+
+    std::cerr << local_b << " ";
+
     if (local_b > max_betweenness) max_betweenness = local_b;
-  }
+  } std::cerr << "\n";
   return max_betweenness;
 }
 
