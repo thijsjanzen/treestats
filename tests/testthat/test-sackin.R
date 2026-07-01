@@ -39,8 +39,10 @@ test_that("usage", {
                            treestats::sackin(ltab,
                                              normalization = "yule"))
 
-    testthat::expect_equal(treestats::sackin(extant_tree, normalization = "pda"),
-                           treestats::sackin(ltab, normalization = "pda"))
+    testthat::expect_equal(treestats::sackin(extant_tree,
+                                             normalization = "pda"),
+                           treestats::sackin(ltab,
+                                             normalization = "pda"))
   }
 })
 

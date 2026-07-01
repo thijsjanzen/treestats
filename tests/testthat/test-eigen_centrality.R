@@ -1,10 +1,10 @@
 context("eigenvector")
 
 test_that("usage", {
-  a1_1 <- treestats::eigen_centrality(extant_tree, weight = TRUE, scale = FALSE)
-  a1_2 <- treestats::eigen_centrality(extant_tree, weight = FALSE, scale = FALSE)
-
-
+  a1_1 <- treestats::eigen_centrality(extant_tree,
+                                      weight = TRUE, scale = FALSE)
+  a1_2 <- treestats::eigen_centrality(extant_tree,
+                                      weight = FALSE, scale = FALSE)
 
   # because treeCentrality is not available on CRAN, we precompute reference
   # values:

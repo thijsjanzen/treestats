@@ -128,3 +128,7 @@ inline bool is_binary(const std::vector<int>& tree_edge) {
   }
   return true;
 }
+
+inline bool is_poly(const std::vector<int>& tree_edge) {
+  return !is_binary(tree_edge);
+}

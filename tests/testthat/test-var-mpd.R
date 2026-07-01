@@ -8,7 +8,8 @@ test_that("usage", {
     a2 <- stats::cophenetic(phy)
     a2 <- a2[lower.tri(a2)]
     a3 <- var(a2, na.rm = TRUE, use = "everything")
-    a3 <- a3 * (length(a2) - 1) / length(a2)  # var calculates / (n - 1), we use n
+    # var calculates / (n - 1), we use n
+    a3 <- a3 * (length(a2) - 1) / length(a2)
     return(a3)
   }
 

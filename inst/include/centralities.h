@@ -165,7 +165,8 @@ double max_betweenness(const edge& e,
     }
 
     auto local_b = prod + q[i] * (2 * n - q[i]);
-
+    // std::cerr << i << " " << local_b << "\n";
+    // cat(i, local_b, "\n")
     if (local_b > max_betweenness) max_betweenness = local_b;
   }
   return max_betweenness;
