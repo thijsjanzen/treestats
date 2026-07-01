@@ -118,7 +118,7 @@ double wiener(const edge& e,
               bool weight = false,
               bool is_poly = false) {
 
-  LRSizes sub_tree_sizes(weight, false);
+  LRSizes sub_tree_sizes(false, false); // weird, but weight should not be passed here.
   sub_tree_sizes.compute(e, el, is_poly);
   auto q = sub_tree_sizes.create_q(1);
 
@@ -154,6 +154,10 @@ double max_betweenness(const edge& e,
 
   auto q = sub_tree_sizes.create_q(0);
 
+  for (const auto& i : q) {
+    std::cerr << i << " ";
+  } std::cerr << "\n";
+
   auto n = q.size();
 
   double max_betweenness = -1.0;
@@ -165,7 +169,7 @@ double max_betweenness(const edge& e,
     }
 
     auto local_b = prod + q[i] * (2 * n - q[i]);
-    // std::cerr << i << " " << local_b << "\n";
+    std::cerr << i << " " << local_b << "\n";
     // cat(i, local_b, "\n")
     if (local_b > max_betweenness) max_betweenness = local_b;
   }
