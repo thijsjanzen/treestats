@@ -2,39 +2,30 @@ context("cherries")
 
 test_that("usage", {
   if (requireNamespace("phyloTop")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    c1 <- treestats::cherries(focal_tree)
-    c2 <- phyloTop::cherries(focal_tree)
+    c1 <- treestats::cherries(extant_tree)
+    c2 <- phyloTop::cherries(extant_tree)
     testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::cherries(treestats::phylo_to_l(focal_tree))
+    c3 <- treestats::cherries(treestats::phylo_to_l(extant_tree))
     testthat::expect_equal(c1, c3)
 
-
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5, fossils = TRUE)
-
-    c1 <- treestats::cherries(focal_tree)
-    c2 <- phyloTop::cherries(focal_tree)
+    c1 <- treestats::cherries(complete_tree)
+    c2 <- phyloTop::cherries(complete_tree)
     testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::cherries(treestats::phylo_to_l(focal_tree))
+    c3 <- treestats::cherries(treestats::phylo_to_l(complete_tree))
     testthat::expect_equal(c1, c3)
   }
 })
 
 test_that("normalisation", {
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-
-  c1 <- treestats::cherries(focal_tree)
-  c2 <- treestats::cherries(focal_tree, normalization = "yule")
-  c3 <- treestats::cherries(focal_tree, normalization = "pda")
+  c1 <- treestats::cherries(extant_tree)
+  c2 <- treestats::cherries(extant_tree, normalization = "yule")
+  c3 <- treestats::cherries(extant_tree, normalization = "pda")
   testthat::expect_lt(c2, c1)
   testthat::expect_lt(c3, c1)
 
-  focal_ltab <- treestats::phylo_to_l(focal_tree)
+  focal_ltab <- treestats::phylo_to_l(extant_tree)
 
   c4 <- treestats::cherries(focal_ltab)
   c5 <- treestats::cherries(focal_ltab, normalization = "yule")
@@ -62,6 +53,14 @@ test_that("normalisation", {
 
   testthat::expect_lt(a2, a1)
   testthat::expect_equal(a2, a3)
+})
+
+test_that("polytomies", {
+  # phyloTop does not support non-binary trees, so no comparison possible.
+  for (focal_tree in poly_trees) {
+   local_stat <- try_stat(focal_tree, treestats::cherries)
+   testthat::expect_true(!is.na(local_stat))
+  }
 })
 
 test_that("wrong_object", {

@@ -2,23 +2,18 @@ context("crown_age")
 
 test_that("usage", {
   if (requireNamespace("adephylo")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    age1 <- treestats::tree_height(focal_tree)
-    age2 <- max(adephylo::distRoot(focal_tree))
+    age1 <- treestats::tree_height(extant_tree)
+    age2 <- max(adephylo::distRoot(extant_tree))
     testthat::expect_equal(age1, age2)
 
     # now with ltable:
-    age3 <- treestats::tree_height(treestats::phylo_to_l(focal_tree))
+    age3 <- treestats::tree_height(treestats::phylo_to_l(extant_tree))
     testthat::expect_equal(age3, age2)
 
 
     # now, more challenging, with extinct lineages:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.3, fossils = TRUE)
-
-    age1 <- treestats::tree_height(focal_tree)
-    age2 <- max(adephylo::distRoot(focal_tree))
+    age1 <- treestats::tree_height(complete_tree)
+    age2 <- max(adephylo::distRoot(complete_tree))
     testthat::expect_equal(age1, age2)
 
     # and now with crown age:
@@ -35,6 +30,16 @@ test_that("usage", {
 
     age3 <- treestats::crown_age(treestats::phylo_to_l(focal_tree))
     testthat::expect_equal(age3, age1)
+  }
+})
+
+test_that("polytomies", {
+  if (requireNamespace("adephylo")) {
+    test_func <- function(phy) {
+      max(adephylo::distRoot(phy))
+    }
+
+    test_polytomies(treestats::crown_age, test_func)
   }
 })
 

@@ -3,26 +3,25 @@ context("avgLadder")
 test_that("usage", {
 
   if (requireNamespace("phyloTop")) {
-    set.seed(42)
-
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    c1 <- treestats::avg_ladder(focal_tree)
-    c2 <- phyloTop::avgLadder(focal_tree)
+    c1 <- treestats::avg_ladder(extant_tree)
+    c2 <- phyloTop::avgLadder(extant_tree)
     testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::avg_ladder(treestats::phylo_to_l(focal_tree))
+    c3 <- treestats::avg_ladder(treestats::phylo_to_l(extant_tree))
     testthat::expect_equal(c1, c3)
 
-
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5, fossils = TRUE)
-
-    c1 <- treestats::avg_ladder(focal_tree)
-    c2 <- phyloTop::avgLadder(focal_tree)
+    c1 <- treestats::avg_ladder(complete_tree)
+    c2 <- phyloTop::avgLadder(complete_tree)
     testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::avg_ladder(treestats::phylo_to_l(focal_tree))
+    c3 <- treestats::avg_ladder(treestats::phylo_to_l(complete_tree))
     testthat::expect_equal(c1, c3)
+  }
+})
+
+test_that("polytomies", {
+  if (requireNamespace("phyloTop")) {
+    test_polytomies(treestats::avg_ladder, phyloTop::avgLadder)
   }
 })
 

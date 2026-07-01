@@ -2,40 +2,37 @@ context("b2")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    a1 <- treestats::b2(focal_tree)
-    a2 <- treebalance::B2I(focal_tree)
+    a1 <- treestats::b2(extant_tree)
+    a2 <- treebalance::B2I(extant_tree)
     testthat::expect_equal(a1, a2)
 
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::b2(focal_tree),
+    ltab <- treestats::phylo_to_l(extant_tree)
+    testthat::expect_equal(treestats::b2(extant_tree),
                            treestats::b2(ltab))
 
 
     # with extinct species:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
-
-    a1 <- treestats::b2(focal_tree)
-    a2 <- treebalance::B2I(focal_tree)
+    a1 <- treestats::b2(complete_tree)
+    a2 <- treebalance::B2I(complete_tree)
     testthat::expect_equal(a1, a2)
 
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::b2(focal_tree),
+    ltab <- treestats::phylo_to_l(complete_tree)
+    testthat::expect_equal(treestats::b2(complete_tree),
                            treestats::b2(ltab))
   }
 })
 
+test_that("polytomies", {
+  if (requireNamespace("treebalance")) {
+    test_polytomies(treestats::b2, treebalance::b2I)
+  }
+})
 
 test_that("normalisation", {
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-
-  c1 <- treestats::b2(focal_tree)
-  c2 <- treestats::b2(focal_tree, normalization = "yule")
+  c1 <- treestats::b2(extant_tree)
+  c2 <- treestats::b2(extant_tree, normalization = "yule")
   testthat::expect_lt(c2, c1)
-  c3 <- treestats::b2(treestats::phylo_to_l(focal_tree),
+  c3 <- treestats::b2(treestats::phylo_to_l(extant_tree),
                                     normalization = "yule")
   testthat::expect_equal(c2, c3)
 

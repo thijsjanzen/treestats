@@ -39,6 +39,15 @@ test_that("usage", {
   }
 })
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    if (ape::is.ultrametric(focal_tree)) {
+      res <- try_stat(focal_tree, treestats::nLTT_base)
+     testthat::expect_true(!is.na(res))
+    }
+  }
+})
+
 test_that("wrong_object", {
   set.seed(42)
   tree1 <- ape::rphylo(n = 10, birth = 1, death = 0)

@@ -1,7 +1,6 @@
 context("branch_length_stats")
 
 test_that("usage", {
-
   focal_tree <- ape::read.tree(text = "((t2:1,t1:1):2,(t4:2,t3:2):1);")
 
   m_br <- treestats::mean_branch_length(focal_tree)
