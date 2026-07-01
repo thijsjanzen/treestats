@@ -6,7 +6,7 @@
 # usethis::use_github_action("check-standard") will install it.
 on:
   push:
-    branches: [main, master, develop]
+    branches: [main, master, develop, refactor_centralities]
   pull_request:
     branches: [main, master, develop]
 
@@ -46,11 +46,11 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
-          
+
       - name: Install devtools
         run: install.packages("pak")
         shell: Rscript {0}
-        
+
       - name: Install apTreeshape
         run: pak::pak("cran/apTreeshape")
         shell: Rscript {0}
