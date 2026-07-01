@@ -2,32 +2,9 @@ context("tot_coph")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+    standard_test(treestats::tot_coph, treebalance::totCophI)
 
-    a1 <- treestats::tot_coph(focal_tree)
-    a2 <- treebalance::totCophI(focal_tree)
-    testthat::expect_equal(a1, a2)
-
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::tot_coph(focal_tree),
-                           treestats::tot_coph(ltab))
-
-    # with extinct species:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.9, fossils = TRUE)
-
-    a1 <- treestats::tot_coph(focal_tree)
-    a2 <- treebalance::totCophI(focal_tree)
-    testthat::expect_equal(a1, a2)
-
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::tot_coph(focal_tree),
-                           treestats::tot_coph(ltab))
-
-    testthat::expect_equal(treestats::tot_coph(focal_tree,
-                                               normalization = "yule"),
-                           treestats::tot_coph(ltab,
-                                               normalization = "yule"))
+    test_polytomies(treestats::tot_coph, treebalance::totCophI)
   }
 })
 

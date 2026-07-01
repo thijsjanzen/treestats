@@ -4,6 +4,9 @@ test_that("usage", {
   if (requireNamespace("treebalance")) {
 
     test_func <- function(phy) {
+      if (!ape::is.binary(phy)) return(NA)
+      # treebalance allows 'few' polytomies
+      # but that is too hard to verify
       return(treebalance::IbasedI(phy, method = "mean",
                            correction = "prime", logs = FALSE))
     }

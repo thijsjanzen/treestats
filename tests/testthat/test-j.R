@@ -12,7 +12,7 @@ test_that("usage", {
                        abundance.weighted = FALSE)[[1]]
     testthat::expect_equal(a1, a2 / n)
 
-    ltab <- treestats::phylo_to_l(focal_tree)
+    ltab <- treestats::phylo_to_l(extant_tree)
     testthat::expect_equal(treestats::entropy_j(extant_tree),
                            treestats::entropy_j(ltab))
   }

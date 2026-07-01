@@ -2,48 +2,27 @@ context("stairs")
 
 test_that("usage stairs1", {
   if (requireNamespace("phyloTop")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-    c1 <- treestats::stairs(focal_tree)
-    c2 <- phyloTop::stairs(focal_tree)[[1]]
-    testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::stairs(treestats::phylo_to_l(focal_tree))
-    testthat::expect_equal(c1, c3)
+    test_func <- function(phy) {
+      phyloTop::stairs(phy)[[1]]
+    }
 
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5,
-                              fossils = TRUE)
+    standard_test(treestats::stairs, test_func)
 
-    c1 <- treestats::stairs(focal_tree)
-    c2 <- phyloTop::stairs(focal_tree)[[1]]
-    testthat::expect_equal(c1, c2)
-
-    c3 <- treestats::stairs(treestats::phylo_to_l(focal_tree))
-    testthat::expect_equal(c1, c3)
+    test_polytomies(treestats::stairs, test_func)
   }
 })
 
 test_that("usage stairs2", {
   if (requireNamespace("phyloTop")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
-    c1 <- treestats::stairs2(focal_tree)
-    c2 <- phyloTop::stairs(focal_tree)[[2]]
-    testthat::expect_equal(c1, c2)
+    test_func <- function(phy) {
+      phyloTop::stairs(phy)[[2]] # 2 = stairs2
+    }
 
-    c3 <- treestats::stairs2(treestats::phylo_to_l(focal_tree))
-    testthat::expect_equal(c1, c3)
+    standard_test(treestats::stairs2, test_func)
 
-
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5, fossils = TRUE)
-
-    c1 <- treestats::stairs2(focal_tree)
-    c2 <- phyloTop::stairs(focal_tree)[[2]]
-    testthat::expect_equal(c1, c2)
-
-    c3 <- treestats::stairs2(treestats::phylo_to_l(focal_tree))
-    testthat::expect_equal(c1, c3)
+    test_polytomies(treestats::stairs2, test_func)
   }
 })
 

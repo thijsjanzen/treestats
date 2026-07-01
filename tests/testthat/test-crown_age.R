@@ -36,10 +36,14 @@ test_that("usage", {
 test_that("polytomies", {
   if (requireNamespace("adephylo")) {
     test_func <- function(phy) {
-      max(adephylo::distRoot(phy))
+        max(adephylo::distRoot(phy))
     }
-
-    test_polytomies(treestats::crown_age, test_func)
+    testthat::expect_warning(
+      # these are warnings from adephylo.
+      # adding this testthat catcher inside the test_func
+      # breaks the test.
+      test_polytomies(treestats::crown_age, test_func)
+    )
   }
 })
 

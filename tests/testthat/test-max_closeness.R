@@ -65,6 +65,7 @@ test_that("polytomies", {
       return(max(ref_betweenness))
     }
 
+    # TODO: fix C++ error
     test_polytomies(treestats::max_betweenness, test_func)
   }
 })

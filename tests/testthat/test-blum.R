@@ -2,24 +2,21 @@ context("blum")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    blum1 <- treestats::blum(extant_tree)
-    blum_check <- treebalance::sShapeI(extant_tree, logbase = 2)
-    testthat::expect_equal(blum1, blum_check)
-    ltab <- treestats::phylo_to_l(extant_tree)
-    blum2 <- treestats::blum(ltab)
-    testthat::expect_equal(blum1, blum2)
+    standard_test(treestats::blum, treebalance::sShapeI)
   }
 })
 
 test_that("usage", {
-  blum1 <- treestats::blum(extant_tree)
+  set.seed(5)
+  focal_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
+  blum1 <- treestats::blum(focal_tree)
   blum_check <- log2(2 - 1) + log2(3 - 1) + log2(4 - 1)
   testthat::expect_equal(blum1, blum_check)
-  ltab <- treestats::phylo_to_l(extant_tree)
+  ltab <- treestats::phylo_to_l(focal_tree)
   blum2 <- treestats::blum(ltab)
   testthat::expect_equal(blum1, blum2)
 
-  sshape1 <- treestats::sshape(extant_tree)
+  sshape1 <- treestats::sshape(focal_tree)
   testthat::expect_equal(sshape1, blum1)
   sshape2 <- treestats::sshape(ltab)
   testthat::expect_equal(sshape2, blum1)

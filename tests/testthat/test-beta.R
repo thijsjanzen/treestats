@@ -60,7 +60,9 @@ test_that("polytomies", {
       return(res$max_lik)
     }
 
-    test_polytomies(treestats::beta, local_func)
+    testthat::expect_warning(
+      test_polytomies(treestats::beta, local_func)
+    )
   }
 })
 
