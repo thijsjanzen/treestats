@@ -61,12 +61,12 @@ test_that("polytomies", {
       df <- as.data.frame(cbind(phy$edge,
                                 weight = phy$edge.length))
       g <- igraph::graph_from_data_frame(df, directed = FALSE)
-      ref_betweenness <- igraph::closeness(g)
-      return(max(ref_betweenness))
+      ref_closeness <- igraph::closeness(g)
+      return(max(ref_closeness))
     }
 
     # TODO: fix C++ error
-    test_polytomies(treestats::max_betweenness, test_func)
+    test_polytomies(treestats::max_closeness, test_func)
   }
 })
 

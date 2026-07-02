@@ -46,7 +46,7 @@ struct LRSizes {
       N_ = 2 * n_ - 1;
     }
 
-    Tab = std::vector< std::vector< double >>(n_ - 1);
+    Tab = std::vector< std::vector< double >>(N_ - n_);
     for (auto& i : Tab) i.reserve(2); // already reserve 2 daughters
 
     std::array<int, 2> curRow;
@@ -154,43 +154,29 @@ double max_betweenness(const edge& e,
 
   auto q = sub_tree_sizes.create_q(0);
 
- 
-
-  auto n = q.size();
-
   double max_betweenness = -1.0;
   for (size_t i = 0; i < sub_tree_sizes.Tab.size(); ++i) {
 
-    double prod = 1.0;
-    for (const auto& j : sub_tree_sizes.Tab[i]) {
-      std::cerr << j << " ";
-      prod *= j;
+    double sum_sq = 0.0;
+    for (double s : sub_tree_sizes.Tab[i]) {
+        sum_sq += s * s;
     }
 
-    double x = sub_tree_sizes.Tab[i].size();
+    double child_pairs = (q[i] * q[i] - sum_sq) / 2.0;
 
-    std::cerr << x << " " << n << " " << q[i] << "\n";
+    double N_ = sub_tree_sizes.N_;
 
-
-    // the 2n - q // or the 2n, is a substitute for all nodes + tips,
-    // so this needs to be corrected for polytomies
-    auto local_b = prod + q[i] * (x * n - q[i]);
-
-    std::cerr << local_b << " ";
+    double local_b = child_pairs + q[i] * (N_ - 1 - q[i]);
 
     if (local_b > max_betweenness) max_betweenness = local_b;
-  } std::cerr << "\n";
+  } 
   return max_betweenness;
 }
 
 double sum_weighed_heights(const edge& e,
                            const std::vector<double>& el,
-                           int n = -1,
-                           int N = -1) {
-  if (n < 0) {
-    n = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5);
-    N = 2 * n - 1;
-  }
+                           int n,
+                           int N) {
 
   std::vector<double> Tab(N, 0.0);
   for (int ind = 0; ind < N - 1; ++ind) {
@@ -218,7 +204,7 @@ double min_farness(const edge& local_edge,
                    bool weight,
                    bool is_poly) {
 
-  LRSizes sub_tree_sizes(weight, false);
+  LRSizes sub_tree_sizes(false, false); // do not pass weight here.
   sub_tree_sizes.compute(local_edge, el, is_poly);
 
   auto sizes = sub_tree_sizes.create_q(0);
@@ -233,7 +219,7 @@ double min_farness(const edge& local_edge,
   }
 
   if (weight) {
-    farness[n] = sum_weighed_heights(local_edge, el);
+    farness[n] = sum_weighed_heights(local_edge, el, n, N);
   } else {
     farness[n] = std::accumulate(sizes.begin(), sizes.end(), 0.0);
   }
