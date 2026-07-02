@@ -26,6 +26,18 @@ test_that("usage", {
   }
 })
 
+test_that("polytomies", {
+  if (requireNamespace("treebalance")) {
+    test_func <- function(phy) {
+      max(phyloTop::ladderSizes(focal_tree)$ladderSizes)
+    }
+
+    test_polytomies(treestats::max_ladder, test_func)
+  }
+})
+
+
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::max_ladder(10),

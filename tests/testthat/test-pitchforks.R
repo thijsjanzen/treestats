@@ -2,25 +2,15 @@ context("pitchforks")
 
 test_that("usage", {
   if (requireNamespace("phyloTop")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
+    standard_test(treestats::pitchforks, phyloTop::pitchforks)
+  }
+})
 
-    c1 <- treestats::pitchforks(focal_tree)
-    c2 <- phyloTop::pitchforks(focal_tree)
-    testthat::expect_equal(c1, c2)
-
-    c3 <- treestats::pitchforks(treestats::phylo_to_l(focal_tree))
-    testthat::expect_equal(c1, c3)
-
-
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5, fossils = TRUE)
-
-    c1 <- treestats::pitchforks(focal_tree)
-    c2 <- phyloTop::pitchforks(focal_tree)
-    testthat::expect_equal(c1, c2)
-
-    c3 <- treestats::pitchforks(treestats::phylo_to_l(focal_tree))
-    testthat::expect_equal(c1, c3)
+test_that("polytomies", {
+  # phyloTop does not support non-binary trees, so no comparison possible.
+  for (focal_tree in poly_trees) {
+    local_stat <- try_stat(focal_tree, treestats::pitchforks)
+    testthat::expect_true(!is.na(local_stat))
   }
 })
 

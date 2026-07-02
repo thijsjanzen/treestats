@@ -10,27 +10,24 @@ test_that("usage", {
   testthat::expect_equal(a1, a2)
 
   # again, but with extinct lineages:
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.3, fossils = TRUE)
 
-  a1 <- ape::branching.times(focal_tree)
+  a1 <- ape::branching.times(complete_tree)
 
   # oddly enough, ape::branching.times does not rescale correctly:
   if (min(a1) < 0) {
     a1 <- a1 - min(a1)
   }
 
-  a2 <- treestats::branching_times(focal_tree)
+  a2 <- treestats::branching_times(complete_tree)
 
   diff_brts <- abs(sort(a1) - sort(a2))
   mean_diff <- mean(diff_brts)
   testthat::expect_lte(mean_diff, min(a2))
 
   # using ltable
-  l1 <- treestats::phylo_to_l(focal_tree)
+  l1 <- treestats::phylo_to_l(complete_tree)
   a3 <- treestats::branching_times(l1)
   testthat::expect_true(sum(a2 - a3) == 0)
-
 
   # with node labels:
   set.seed(42)

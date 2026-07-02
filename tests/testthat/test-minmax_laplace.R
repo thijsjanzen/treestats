@@ -60,8 +60,6 @@ test_that("usage", {
                                   use_rspectra = TRUE)
   testthat::expect_equal(ref$min, a2$min)
   testthat::expect_equal(ref$max, a2$max)
-
-
 })
 
 test_that("igraph", {
@@ -83,6 +81,45 @@ test_that("igraph", {
 
     testthat::expect_equal(a1_1$min, min(ref[ref > 1e-5]))
     testthat::expect_equal(a1_1$max, max(ref))
+  }
+})
+
+test_that("polytomies", {
+  if (requireNamespace("igraph")) {
+
+    test_func <- function(phy) {
+      df <- as.data.frame(cbind(phy$edge,
+                                weight = phy$edge.length))
+      g <- igraph::graph_from_data_frame(df, directed = FALSE)
+
+      lapl_mat <- igraph::laplacian_matrix(g,
+                                           normalization = "unnormalized",
+                                           sparse = FALSE)
+      ref <- eigen(lapl_mat)$values
+      ref <- round(ref, digits = 10)
+      return(ref)
+    }
+
+    min_ref <- function(phy) {
+      ref <- test_func(phy)
+      return(min(ref[ref > 1e-5]))
+    }
+    max_ref <- function(phy) {
+      return(max(test_func(phy)))
+    }
+
+    min_treestats <- function(phy) {
+      res <- treestats::minmax_laplace(phy)
+      return(res$min)
+    }
+    max_treestats <- function(phy) {
+      res <- treestats::minmax_laplace(phy)
+      return(res$max)
+    }
+
+
+    test_polytomies(min_treestats, min_ref, tol = 1e-5)
+    test_polytomies(max_treestats, max_ref)
   }
 })
 

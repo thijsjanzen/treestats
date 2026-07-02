@@ -14,6 +14,8 @@
 #include <algorithm>   // std::sort
 #include <memory>
 #include <vector>
+#include <queue>
+
 #include "util.h"      // NOLINT [build/include_subdir]
 #include "binom.h"     // NOLINT [build/include_subdir]
 
@@ -27,11 +29,13 @@ struct node_binary {
   int depth;
   int dist_to_tips;     // for b1 statistic
   int num_extant_tips;  // for sackin related statistics
+  double p;             // for b2 statistic
 
   node_binary() {
     depth = 0;
     dist_to_tips = 0;
     num_extant_tips = 0;
+    p = 0.0;
     daughter1 = nullptr;
     daughter2 = nullptr;
   }
@@ -81,6 +85,21 @@ struct node_binary {
     return num_extant_tips;
   }
 
+  void set_p(double parent_value) {
+    p = parent_value;
+    if (!daughter1 && !daughter2) return;
+
+    double num_daughters = 0;
+    if (daughter1) num_daughters++;
+    if (daughter2) num_daughters++;
+
+    double added_p = 1.0 / num_daughters;
+    if (daughter1) daughter1->set_p(p * added_p);
+    if (daughter2) daughter2->set_p(p * added_p);
+    
+    return;
+  }
+
 
   bool is_double_cherry() {
     if (num_extant_tips != 4) return false;
@@ -117,11 +136,13 @@ struct node_poly {
   int depth;
   int dist_to_tips;
   int num_extant_tips;
+  double p;
 
   node_poly() {
     depth = 0;
     dist_to_tips = 0;
     num_extant_tips = 0;
+    p = 0.0;
   }
 
   void add_daughter(node_poly* d) {
@@ -201,13 +222,22 @@ struct node_poly {
     if (answ < 0.5) answ = 1.0 - answ;
     return answ;
   }
+
+  void set_p(double parent_value) {
+    p = parent_value;
+    if (daughters.empty()) return;
+
+    double added_p = 1.0 / daughters.size();
+    for (auto& i : daughters) {
+      i->set_p(added_p * p);
+    }
+  }
 };
 
 struct tree_base {
   virtual ~tree_base() = default;
   virtual int calc_max_width() = 0;
   virtual int calc_max_del_width() = 0;
-  virtual double calc_b2() = 0;
   virtual double var_leaf_depth() = 0;
   virtual double calc_tot_int_path() = 0;
   virtual double calc_avg_vert_depth() = 0;
@@ -221,6 +251,7 @@ struct tree_base {
   virtual size_t count_double_cherries() = 0;
   virtual size_t count_four_prong() = 0;
   virtual double root_imbalance() = 0;
+  virtual double calc_b2() = 0;
 };
 
 enum used_for {depth, b1, sackin};
@@ -271,15 +302,6 @@ class depth_tree : public tree_base {
       dW[i - 1] = depths[i] - depths[i - 1];
     }
     return(*std::max_element(dW.begin(), dW.end()));
-  }
-
-  double calc_b2() override {
-    double s = 0.0;
-    for (int i = 1; i < root_no; ++i) {
-      // we are only interested in tip depths
-      s += tree[i].depth / std::pow(2, tree[i].depth);
-    }
-    return s;
   }
 
   double var_leaf_depth() override {
@@ -408,6 +430,18 @@ class depth_tree : public tree_base {
     // we have previously verified the root is binary
     return tree[root_no].calc_root_imbalance();
   }
+
+  double calc_b2() override {
+    tree[root_no].set_p(1.0);
+
+    // now we have to iterate over the tree:
+    double s = 0.0;
+    for (size_t i = 0; i < root_no; ++i) {
+      double p = tree[i].p;
+      if (p > 0) s += p * log2(p);
+    }
+    return -s;
+  }
 };
 
 inline std::unique_ptr<tree_base> create_depth_tree(
@@ -421,4 +455,3 @@ inline std::unique_ptr<tree_base> create_depth_tree(
 }
 
 }   // namespace depth
-

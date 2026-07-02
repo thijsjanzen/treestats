@@ -1,7 +1,5 @@
 context("gamma")
 
-
-
 test_that("usage", {
   if (requireNamespace("castor") &&
       requireNamespace("DDD")) {
@@ -30,6 +28,16 @@ test_that("usage", {
     testthat::expect_lt(treestats::gamma_statistic(dd_tree), 0)
   }
 })
+
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    if (ape::is.ultrametric(focal_tree)) {
+      res <- treestats::gamma_statistic(focal_tree)
+      testthat::expect_true(!is.na(res))
+    }
+  }
+})
+
 
 test_that("wrong_object", {
   testthat::expect_error(

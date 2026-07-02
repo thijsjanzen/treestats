@@ -20,6 +20,15 @@ test_that("usage", {
   testthat::expect_equal(j_one_2_l, 0.1085403, tolerance = 0.001)
 })
 
+test_that("polytomies", {
+  # phyloTop does not support non-binary trees, so no comparison possible.
+  for (focal_tree in poly_trees) {
+    local_stat <- try_stat(focal_tree, treestats::j_one)
+    testthat::expect_true(is.na(local_stat))
+  }
+})
+
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::j_one(10),

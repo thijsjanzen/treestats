@@ -34,6 +34,44 @@ test_that("usage", {
   testthat::expect_equal(ref$max, a2$max)
 })
 
+test_that("polytomies", {
+  if (requireNamespace("igraph")) {
+
+    test_func <- function(phy) {
+      df <- as.data.frame(cbind(phy$edge,
+                                weight = phy$edge.length))
+      g <- igraph::graph_from_data_frame(df, directed = FALSE)
+
+      adj_mat <- igraph::as_adjacency_matrix(g, attr = "weight", sparse = FALSE)
+      ref <- eigen(adj_mat)$values
+      ref <- round(ref, digits = 10)
+      return(ref)
+    }
+
+    min_ref <- function(phy) {
+      ref <- test_func(phy)
+      return(min(ref[ref > 0]))
+    }
+    max_ref <- function(phy) {
+      return(max(test_func(phy)))
+    }
+
+    min_treestats <- function(phy) {
+      res <- treestats::minmax_adj(phy)
+      return(res$min)
+    }
+    max_treestats <- function(phy) {
+      res <- treestats::minmax_adj(phy)
+      return(res$max)
+    }
+
+
+    test_polytomies(min_treestats, min_ref, tol = 1e-5)
+    test_polytomies(max_treestats, max_ref)
+  }
+})
+
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::minmax_adj(10),

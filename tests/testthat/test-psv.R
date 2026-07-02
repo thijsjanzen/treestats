@@ -2,22 +2,21 @@ context("psv")
 
 test_that("usage", {
   if (requireNamespace("picante")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 
-    a1 <- treestats::psv(focal_tree)
+    test_func <- function(phy) {
+      n <- length(phy$tip.label)
+      sample_mat <- matrix(data = 1, nrow = n, ncol = n)
+      colnames(sample_mat) <- phy$tip.label
 
-    n <- length(focal_tree$tip.label)
-    sample_mat <- matrix(data = 1, nrow = n, ncol = n)
-    colnames(sample_mat) <- focal_tree$tip.label
+      return(picante::psv(sample_mat,
+                          phy,
+                          compute.var = FALSE,
+                          scale.vcv = FALSE)[1, 1])
+    }
 
-    a2 <- picante::psv(sample_mat, focal_tree,
-                       compute.var = FALSE, scale.vcv = FALSE)[1, 1]
-    testthat::expect_equal(a1, a2)
+    standard_test(treestats::psv, test_func, drop_complete = TRUE)
 
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::psv(focal_tree),
-                           treestats::psv(ltab))
+    test_polytomies(treestats::psv, test_func)
   }
 })
 

@@ -7,6 +7,11 @@ test_that("usage", {
     return(sum(av2[lower.tri(av2)]))
   }
 
+  standard_test(treestats::wiener, calc_using_ape)
+
+  test_polytomies(treestats::wiener, calc_using_ape)
+
+
   set.seed(42)
   focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
 
@@ -16,12 +21,12 @@ test_that("usage", {
   # because treeCentrality is not available on CRAN, we precompute reference
   # values:
   a2_1 <- 120552.3 # treeCentrality::computeWienerIndex(focal_tree, #noLint
-                   #                                    weight = TRUE)  #noLint
+  #                                    weight = TRUE)  #noLint
   a2_2 <- 217028   # treeCentrality::computeWienerIndex(focal_tree,  #noLint
-                   #                                    weight = FALSE) #noLint
+  #                                    weight = FALSE) #noLint
   a2_3 <- 11.01609 # treeCentrality::computeWienerIndex(focal_tree, #noLint
-                   #                                    norm = TRUE, #noLint
-                   #                                    weight = FALSE) #noLint
+  #                                    norm = TRUE, #noLint
+  #                                    weight = FALSE) #noLint
 
   testthat::expect_equal(a1_1, a2_1, tolerance = 0.01)
   testthat::expect_equal(a1_2, a2_2)
@@ -40,9 +45,9 @@ test_that("usage", {
   # because treeCentrality is not available on CRAN, we precompute reference
   # values:
   a2_1 <- 216717.3 # treeCentrality::computeWienerIndex(focal_tree,
-                   #                                    weight = TRUE)
+  #                                    weight = TRUE)
   a2_2 <- 362732   # treeCentrality::computeWienerIndex(focal_tree,
-                   #                                    weight = FALSE)
+  #                                    weight = FALSE)
 
   testthat::expect_equal(a1_1, a2_1, tolerance = 0.01)
   testthat::expect_equal(a1_2, a2_2)

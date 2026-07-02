@@ -57,6 +57,13 @@ test_that("usage 2", {
   testthat::expect_equal(div3, div2)
 })
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+      res <- try_stat(focal_tree, treestats::phylogenetic_diversity)
+      testthat::expect_true(!is.na(res))
+  }
+})
+
 test_that("ltab", {
   set.seed(42)
   focal_tree <- ape::rphylo(n = 3, birth = 1, death = 0)

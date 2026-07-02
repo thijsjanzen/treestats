@@ -22,6 +22,14 @@ test_that("usage", {
   testthat::expect_equal(as.vector(inv_dist), expected_vals)
 })
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    local_stat <- try_stat(focal_tree, treestats::inv_branch_dist)
+    testthat::expect_true(is.na(local_stat))
+  }
+})
+
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::inv_branch_dist(10),
