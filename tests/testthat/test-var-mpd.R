@@ -13,7 +13,8 @@ test_that("usage", {
     return(a3)
   }
 
-  standard_test(treestats::var_pair_dist, test_func)
+  standard_test(treestats::var_pair_dist, test_func,
+                drop_complete = TRUE)
 
   test_polytomies(treestats::var_pair_dist, test_func)
 })

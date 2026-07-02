@@ -49,10 +49,10 @@ test_that("polytomies", {
       df <- as.data.frame(cbind(phy$edge,
                                 weight = phy$edge.length))
       g <- igraph::graph_from_data_frame(df, directed = FALSE)
-      return(igraph::diameter(g))
+      # diameter by default works without weights
+      return(igraph::diameter(g, weights = rep(1, length(phy$edge.length))))
     }
-    # TODO: fix this code!
-    # test_polytomies(treestats::diameter, test_func)
+    test_polytomies(treestats::diameter, test_func)
   }
 })
 

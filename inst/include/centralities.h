@@ -122,16 +122,18 @@ double wiener(const edge& e,
   sub_tree_sizes.compute(e, el, is_poly);
   auto q = sub_tree_sizes.create_q(1);
 
-  int n = static_cast<int>(q.size());
-  int N = is_poly ? sub_tree_sizes.max_node_no : 2 * n + 1;
-
+  int N = sub_tree_sizes.N_;
 
   double W = 0.0;
   for (size_t i = 0; i < e.size(); ++i) {
     int curEndpoint = static_cast<int>(e[i][1]);
-
-    auto curQ = (curEndpoint > (n + 2)) ? q[curEndpoint - n - 2] : 1.0;
-
+    double curQ = 1.0;
+    if (curEndpoint <= sub_tree_sizes.n_) {
+        curQ = 1;
+    } else {
+        curQ = q[curEndpoint - sub_tree_sizes.n_ - 1];
+    }
+  
     double bl = weight ? el[i] : 1.0;
 
     W += curQ * (N - curQ) * bl;
@@ -251,16 +253,22 @@ double min_farness(const edge& local_edge,
   return *std::min_element(farness.begin(), farness.end());
 }
 
-double diameter(const edge& e,
+double diameter_binary(const edge& e,
                 const std::vector<double>& el,
-                bool weight,
-                bool is_poly) {
+                bool weight = false) {
 
-  LRSizes depths(weight, true);
-  depths.compute(e, el, is_poly);
-  auto diameter = depths.create_q(0);
-  return *std::max_element(diameter.begin(), diameter.end());
+  LRSizes sub_tree_sizes(weight, false); // do not pass weight here.
+  sub_tree_sizes.compute(e, el, false);
+
+  double diam = 0.0;
+  for (const auto& i : sub_tree_sizes.Tab) {
+    assert(i.size() == 2);
+    auto local_depth = i[0] + i[1];
+    if (local_depth > diam) diam = local_depth;
+  }
+  return diam;
 }
+
 
 struct Edge {
   int to;
@@ -289,9 +297,9 @@ void dfs(int start,
   }
 }
 
-double diameter_poly(const edge& e,
-                     const std::vector<double>& el,
-                     bool weight = false) {
+double diameter(const edge& e,
+                const std::vector<double>& el,
+                bool weight = false) {
   // chatgpt magic
   int max_num_nodes = e[0][0];
   for (const auto& i : e) {
@@ -310,10 +318,10 @@ double diameter_poly(const edge& e,
   }
 
   std::vector<double> dist(max_num_nodes, -1);
-  dfs(0, adj, dist);
+  dfs(e[0][0] - 1, adj, dist);
 
   int u = std::max_element(dist.begin(), dist.end()) - dist.begin();
-
+  std::fill(dist.begin(), dist.end(), -1.0);
   dfs(u, adj, dist);
 
   return *std::max_element(dist.begin(), dist.end());

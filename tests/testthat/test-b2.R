@@ -8,8 +8,7 @@ test_that("usage", {
 
 test_that("polytomies", {
   if (requireNamespace("treebalance")) {
-    # TODO: this seems to crash for no reason?
-    # test_polytomies(treestats::b2, treebalance::b2I)
+    test_polytomies(treestats::b2, treebalance::B2I)
   }
 })
 

@@ -68,10 +68,7 @@ double calc_diameter_cpp(const std::vector<int>& edge_in,
                          bool weight) {
   edge e = flat_to_table(edge_in);
 
- // return is_binary(edge_in) ?
- //               diameter(e, el, weight) :
-  //              diameter_poly(e, el, weight);
-  return diameter(e, el, weight, is_poly(edge_in));
+  return diameter(e, el, weight);
 }
 
 // [[Rcpp::export]]

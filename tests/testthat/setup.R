@@ -8,7 +8,7 @@ for (i in seq_along(poly_text)) {
 }
 
 set.seed(42)
-extant_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+extant_tree   <- ape::rphylo(n = 100, birth = 1, death = 0)
 complete_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
 test_polytomies <- function(treestats_func, ref_func, tol = NA) {
@@ -23,7 +23,8 @@ test_polytomies <- function(treestats_func, ref_func, tol = NA) {
   }
 }
 
-standard_test <- function(treestats_func, ref_func,
+standard_test <- function(treestats_func,
+                          ref_func,
                           drop_complete = FALSE) {
   a1 <- treestats_func(extant_tree)
   a2 <- ref_func(extant_tree)
@@ -33,8 +34,7 @@ standard_test <- function(treestats_func, ref_func,
   testthat::expect_equal(treestats_func(extant_tree),
                          treestats_func(ltab))
 
-
-  if (drop_complete == TRUE) {
+  if (drop_complete == FALSE) {
     # with extinct species:
     a1 <- treestats_func(complete_tree)
     a2 <- ref_func(complete_tree)

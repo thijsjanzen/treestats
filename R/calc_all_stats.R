@@ -312,10 +312,10 @@ try_stat <- function(phylo,
                                    ifelse(normalize,
                                           norm_res[1], norm_res[2]))
                            },
-                    error = function(e) {return(NA)})     #nolint
+                    error = function(e) {return(NA_real_)})     #nolint
   } else {
     res <- tryCatch(expr = {func(phylo)},  #nolint
-                    error = function(e) {return(NA)})     #nolint
+                    error = function(e) {return(NA_real_)})     #nolint
   }
   return(res)
 }
