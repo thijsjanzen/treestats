@@ -116,8 +116,8 @@ double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 double calc_b2_cpp(const std::vector<int>& parent_list) {
-  auto tree = depth::create_depth_tree(parent_list);
-  return tree->calc_b2();
+ 
+  return calc_b2_from_flat_edges(parent_list);
 }
 
 // [[Rcpp::export]]

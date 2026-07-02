@@ -14,6 +14,8 @@
 #include <algorithm>   // std::sort
 #include <memory>
 #include <vector>
+#include <queue>
+
 #include "util.h"      // NOLINT [build/include_subdir]
 #include "binom.h"     // NOLINT [build/include_subdir]
 
@@ -207,7 +209,6 @@ struct tree_base {
   virtual ~tree_base() = default;
   virtual int calc_max_width() = 0;
   virtual int calc_max_del_width() = 0;
-  virtual double calc_b2() = 0;
   virtual double var_leaf_depth() = 0;
   virtual double calc_tot_int_path() = 0;
   virtual double calc_avg_vert_depth() = 0;
@@ -271,15 +272,6 @@ class depth_tree : public tree_base {
       dW[i - 1] = depths[i] - depths[i - 1];
     }
     return(*std::max_element(dW.begin(), dW.end()));
-  }
-
-  double calc_b2() override {
-    double s = 0.0;
-    for (int i = 1; i < root_no; ++i) {
-      // we are only interested in tip depths
-      s += tree[i].depth / std::pow(2, tree[i].depth);
-    }
-    return s;
   }
 
   double var_leaf_depth() override {
@@ -422,3 +414,62 @@ inline std::unique_ptr<tree_base> create_depth_tree(
 
 }   // namespace depth
 
+inline double calc_b2_from_flat_edges(
+    const std::vector<int>& edges  // [u0, v0, u1, v1, ...]
+) {
+    int  root = edges[0];
+    int  max_node_no = edges[0];
+
+      for (size_t i = 2; i < edges.size(); i += 2) {
+        if (edges[i] < root) root = edges[i];
+        if (edges[i] > max_node_no) max_node_no = edges[i];
+      }
+
+    int N = max_node_no; // - root;
+
+    int M = edges.size() / 2;
+
+    // 1) build adjacency + outdegree
+    std::vector<std::vector<int>> children(N + 1);
+    std::vector<int> outdeg(N + 1, 0);
+
+    for (int i = 0; i < M; ++i) {
+        int u = edges[2 * i];
+        int v = edges[2 * i + 1];
+
+        children[u].push_back(v);
+        outdeg[u]++;
+    }
+
+    // 2) compute p_x via BFS
+    std::vector<double> p(N + 1, 0.0);
+    p[root] = 1.0;
+
+    std::queue<int> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+
+        if (outdeg[u] == 0) continue;
+
+        double share = p[u] / outdeg[u];
+
+        for (int v : children[u]) {
+            p[v] = share;
+            q.push(v);
+        }
+    }
+
+    // 3) entropy over leaves (tips)
+    double B2 = 0.0;
+
+    for (int i = 1; i <= N; ++i) {
+        if (outdeg[i] == 0 && p[i] > 0.0) {
+            B2 -= p[i] * std::log(p[i]);
+        }
+    }
+
+    return B2;
+}
