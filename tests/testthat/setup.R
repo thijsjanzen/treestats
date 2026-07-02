@@ -11,10 +11,18 @@ set.seed(42)
 extant_tree   <- ape::rphylo(n = 100, birth = 1, death = 0)
 complete_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
+#' @keywords internal
+test_stat <- function(phylo, func) {
+  res <- tryCatch(expr = {func(phylo)},  #nolint
+                  error = function(e) {return(NA_real_)})     #nolint
+  return(res)
+}
+
+
 test_polytomies <- function(treestats_func, ref_func, tol = NA) {
   for (focal_tree in poly_trees) {
-    a1 <- try_stat(focal_tree, treestats_func)
-    a2 <- try_stat(focal_tree, ref_func)
+    a1 <- test_stat(focal_tree, treestats_func)
+    a2 <- test_stat(focal_tree, ref_func)
     if (is.na(tol)) {
       testthat::expect_equal(a1, a2)
     } else {
