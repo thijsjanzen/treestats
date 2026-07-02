@@ -23,13 +23,10 @@
 using edge   = std::vector< std::array< size_t, 2 >>;
 using ltable = std::vector< std::array< double, 4>>;
 
-
 struct LRSizes {
-
   void compute(const edge& e,
                const std::vector<double>& el,
                bool is_poly) {
-
     if (is_poly) {
       root_no = e[0][0];
       max_node_no = e[0][0];
@@ -47,7 +44,7 @@ struct LRSizes {
     }
 
     Tab = std::vector< std::vector< double >>(N_ - n_);
-    for (auto& i : Tab) i.reserve(2); // already reserve 2 daughters
+    for (auto& i : Tab) i.reserve(2);   // already reserve 2 daughters
 
     std::array<int, 2> curRow;
 
@@ -100,7 +97,7 @@ struct LRSizes {
   }
 
   LRSizes(bool use_br, bool use_m) : use_branch_length(use_br), use_max(use_m) {
-    n_ = N_ = -1; // will be set later
+    n_ = N_ = -1;   // will be set later
   }
 
   int n_;
@@ -109,7 +106,7 @@ struct LRSizes {
   bool use_max;
   int root_no;
   int max_node_no;
-  std::vector< std::vector<double> > Tab; //(n - 1, { -1, -1 });
+  std::vector< std::vector<double> > Tab;   //(n - 1, { -1, -1 });
 };
 
 double wiener(const edge& e,
@@ -117,8 +114,7 @@ double wiener(const edge& e,
               bool normalize = false,
               bool weight = false,
               bool is_poly = false) {
-
-  LRSizes sub_tree_sizes(false, false); // weird, but weight should not be passed here.
+  LRSizes sub_tree_sizes(false, false);   // weird, but weight should not be passed here.
   sub_tree_sizes.compute(e, el, is_poly);
   auto q = sub_tree_sizes.create_q(1);
 
@@ -133,7 +129,7 @@ double wiener(const edge& e,
     } else {
         curQ = q[curEndpoint - sub_tree_sizes.n_ - 1];
     }
-  
+
     double bl = weight ? el[i] : 1.0;
 
     W += curQ * (N - curQ) * bl;
@@ -149,7 +145,6 @@ double wiener(const edge& e,
 double max_betweenness(const edge& e,
                        const std::vector<double>& el,
                        bool is_poly) {
-
   LRSizes sub_tree_sizes(false, false);
 
   sub_tree_sizes.compute(e, el, is_poly);
@@ -158,7 +153,6 @@ double max_betweenness(const edge& e,
 
   double max_betweenness = -1.0;
   for (size_t i = 0; i < sub_tree_sizes.Tab.size(); ++i) {
-
     double sum_sq = 0.0;
     for (double s : sub_tree_sizes.Tab[i]) {
         sum_sq += s * s;
@@ -171,7 +165,7 @@ double max_betweenness(const edge& e,
     double local_b = child_pairs + q[i] * (N_ - 1 - q[i]);
 
     if (local_b > max_betweenness) max_betweenness = local_b;
-  } 
+  }
   return max_betweenness;
 }
 
@@ -179,7 +173,6 @@ double sum_weighed_heights(const edge& e,
                            const std::vector<double>& el,
                            int n,
                            int N) {
-
   std::vector<double> Tab(N, 0.0);
   for (int ind = 0; ind < N - 1; ++ind) {
     auto curRow = e[ind];
@@ -205,8 +198,7 @@ double min_farness(const edge& local_edge,
                    const std::vector<double>& el,
                    bool weight,
                    bool is_poly) {
-
-  LRSizes sub_tree_sizes(false, false); // do not pass weight here.
+  LRSizes sub_tree_sizes(false, false);   // do not pass weight here.
   sub_tree_sizes.compute(local_edge, el, is_poly);
 
   auto sizes = sub_tree_sizes.create_q(0);
@@ -256,8 +248,7 @@ double min_farness(const edge& local_edge,
 double diameter_binary(const edge& e,
                 const std::vector<double>& el,
                 bool weight = false) {
-
-  LRSizes sub_tree_sizes(weight, false); // do not pass weight here.
+  LRSizes sub_tree_sizes(weight, false);   // do not pass weight here.
   sub_tree_sizes.compute(e, el, false);
 
   double diam = 0.0;
@@ -331,7 +322,7 @@ double diameter(const edge& e,
 
 // LTABLE associated code
 class LRsizes {
-public:
+ public:
   explicit LRsizes(const ltable& l_in) : ltable_(l_in) {
     extant_tips = std::vector<int>(l_in.size(), 2);
     dist_to_tips = std::vector<double>(l_in.size(), 0.0);

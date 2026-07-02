@@ -96,7 +96,7 @@ struct node_binary {
     double added_p = 1.0 / num_daughters;
     if (daughter1) daughter1->set_p(p * added_p);
     if (daughter2) daughter2->set_p(p * added_p);
-    
+
     return;
   }
 
@@ -386,25 +386,25 @@ class depth_tree : public tree_base {
     return num_cherries;
   }
 
-   size_t count_double_cherries() override {
-     size_t num_double_cherries = 0;
-     for (size_t i = root_no; i < tree.size(); ++i) {
-       if (tree[i].is_double_cherry()) {
-         num_double_cherries++;
-       }
-     }
-     return num_double_cherries;
-   }
+  size_t count_double_cherries() override {
+    size_t num_double_cherries = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      if (tree[i].is_double_cherry()) {
+        num_double_cherries++;
+      }
+    }
+    return num_double_cherries;
+  }
 
-   size_t count_four_prong() override {
-     size_t num_four_prong = 0;
-     for (size_t i = root_no; i < tree.size(); ++i) {
-       if (tree[i].is_four_prong()) {
-         num_four_prong++;
-       }
-     }
-     return num_four_prong;
-   }
+  size_t count_four_prong() override {
+    size_t num_four_prong = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      if (tree[i].is_four_prong()) {
+        num_four_prong++;
+      }
+    }
+    return num_four_prong;
+  }
 
   double calc_blum() override {
     double s = 0;

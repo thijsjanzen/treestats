@@ -28,18 +28,12 @@ double calc_wiener_cpp(const std::vector<int>& edge_in,
                        bool weight) {
   edge e = flat_to_table(edge_in);
   return wiener(e, el, normalize, weight, is_poly(edge_in));
- // return is_binary(edge_in) ?
-   //       wiener(e, el, normalize, weight)  :
-  //        wiener_poly(e, el, normalize, weight);
 }
 
 // [[Rcpp::export]]
 double calc_max_betweenness_cpp(const std::vector<int>& edge_in,
                                 const std::vector<double>& el) {
   edge e = flat_to_table(edge_in);
-
- // return is_binary(edge_in) ? max_betweenness(e, el) :
-  //                            max_betweenness_poly(e, el);
   return max_betweenness(e, el, is_poly(edge_in));
 }
 
@@ -55,10 +49,6 @@ double calc_max_closeness_cpp(const std::vector<int>& edge_in,
                               bool weight) {
 
   edge e = flat_to_table(edge_in);
-
- // return is_binary(edge_in) ?
-//             1.0 / min_farness(e, el, weight) :
-//             1.0 / min_farness_poly(e, el, weight);
   return 1.0 / min_farness(e, el, weight, is_poly(edge_in));
 }
 
