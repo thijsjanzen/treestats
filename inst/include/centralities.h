@@ -106,7 +106,7 @@ struct LRSizes {
   bool use_max;
   int root_no;
   int max_node_no;
-  std::vector< std::vector<double> > Tab;   //(n - 1, { -1, -1 });
+  std::vector< std::vector<double> > Tab;   // (n - 1, { -1, -1 });
 };
 
 double wiener(const edge& e,
@@ -114,7 +114,7 @@ double wiener(const edge& e,
               bool normalize = false,
               bool weight = false,
               bool is_poly = false) {
-  LRSizes sub_tree_sizes(false, false);   // weird, but weight should not be passed here.
+  LRSizes sub_tree_sizes(false, false);
   sub_tree_sizes.compute(e, el, is_poly);
   auto q = sub_tree_sizes.create_q(1);
 

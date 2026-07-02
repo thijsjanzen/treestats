@@ -47,7 +47,6 @@ double calc_max_betweenness_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 double calc_max_closeness_cpp(const std::vector<int>& edge_in,
                               const std::vector<double>& el,
                               bool weight) {
-
   edge e = flat_to_table(edge_in);
   return 1.0 / min_farness(e, el, weight, is_poly(edge_in));
 }
