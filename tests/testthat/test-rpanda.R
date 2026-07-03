@@ -28,16 +28,18 @@ test_that("usage", {
 })
 
 test_that("polytomies", {
-  for (focal_tree in poly_trees) {
-    stat <- treestats::laplacian_spectrum(focal_tree)
-    ref <- RPANDA::spectR(focal_tree)
+  if (requireNamespace("RPANDA")) {
+    for (focal_tree in poly_trees) {
+      stat <- treestats::laplacian_spectrum(focal_tree)
+      ref <- RPANDA::spectR(focal_tree)
 
-    diff_eig <- sum(ref$eigenvalues - stat$eigenvalues)
-    testthat::expect_equal(0, diff_eig)
-    testthat::expect_equal(ref$asymmetry, stat$asymmetry)
-    testthat::expect_equal(ref$peakedness, stat$peakedness, tolerance = 0.01)
-    testthat::expect_equal(ref$principal_eigenvalue, stat$principal_eigenvalue)
-    testthat::expect_equal(ref$eigengap, stat$eigengap)
+      diff_eig <- sum(ref$eigenvalues - stat$eigenvalues)
+      testthat::expect_equal(0, diff_eig)
+      testthat::expect_equal(ref$asymmetry, stat$asymmetry)
+      testthat::expect_equal(ref$peakedness, stat$peakedness, tolerance = 0.01)
+      testthat::expect_equal(ref$principal_eigenvalue, stat$principal_eigenvalue)
+      testthat::expect_equal(ref$eigengap, stat$eigengap)
+    }
   }
 })
 

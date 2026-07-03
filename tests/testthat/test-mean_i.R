@@ -4,7 +4,6 @@ test_that("usage", {
   if (requireNamespace("treebalance")) {
 
     test_func <- function(phy) {
-      if (!ape::is.binary(phy)) return(NA)
       # treebalance allows 'few' polytomies
       # but that is too hard to verify
       return(treebalance::IbasedI(phy, method = "mean",
@@ -12,8 +11,13 @@ test_that("usage", {
     }
 
     standard_test(treestats::mean_i, test_func)
+  }
+})
 
-    test_polytomies(treestats::mean_i, test_func)
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    a1 <- try_stat(focal_tree, treestats::mean_i)
+    testthat::expect_true(is.na(a1))
   }
 })
 
