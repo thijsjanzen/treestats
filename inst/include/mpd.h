@@ -111,7 +111,6 @@ class phylo_tree {
 // just stores less
 
 struct path_node {
-
   struct kid {
     path_node* daughter;
     double bl;
@@ -130,7 +129,7 @@ struct path_node {
     id = -1;
   }
 
-  path_node(double one_val) {
+  explicit path_node(double one_val) {
     sum_inv_b_length = 0.0;
     add_one = one_val;
     id = -1;
@@ -150,7 +149,6 @@ struct path_node {
   }
 
   std::vector<std::vector<double>> get_inv_blengths() const {
-    
     std::vector<std::vector<double>> v;
 
     for (size_t i = 0; i < daughters.size(); ++i) {
@@ -178,7 +176,8 @@ class phylo_path_tree {
     tree_size = root_no - 1;
     int num_nodes = max_node_no - root_no;
 
-    tree = std::vector<path_node>(1 + max_node_no, static_cast<double>(add_one));
+    tree = std::vector<path_node>(1 + max_node_no, 
+                        static_cast<double>(add_one));
 
     for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]);
