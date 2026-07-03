@@ -115,11 +115,11 @@ struct path_node {
   struct kid {
     path_node* daughter;
     double bl;
-    int id;
   };
 
   std::vector< kid > daughters;
   double add_one;
+  int id;
 
   // for inv_path length
   double sum_inv_b_length;
@@ -127,10 +127,11 @@ struct path_node {
   path_node() {
     sum_inv_b_length = 0.0;
     add_one = 1.0;
+    id = -1;
   }
 
   void add_kid(path_node* other, double branchlen) {
-    daughters.push_back({other, branchlen, -1});
+    daughters.push_back({other, branchlen});
   }
 
   void update_path(double branch, double prev_sum) {
@@ -143,11 +144,12 @@ struct path_node {
   }
 
   std::vector<std::vector<double>> get_inv_blengths() const {
+    
     std::vector<std::vector<double>> v;
 
     for (size_t i = 0; i < daughters.size(); ++i) {
       v.push_back({sum_inv_b_length + 1.0 / (add_one + daughters[i].bl),
-                  static_cast<double>(daughters[i].id)});
+                  static_cast<double>(daughters[i].daughter->id)});
     }
 
     return v;
@@ -182,7 +184,7 @@ class phylo_path_tree {
       } else {
         // external node, store the id of the tip
 
-        tree[index].daughters.back().id = tree_edge[i + 1];
+        tree[index].id = tree_edge[i + 1];
       }
     }
 
