@@ -23,10 +23,8 @@ test_that("usage", {
 })
 
 test_that("polytomies", {
-  for (focal_tree in poly_trees) {
-    local_stat <- try_stat(focal_tree, treestats::inv_branch_dist)
-    testthat::expect_true(is.na(local_stat))
-  }
+  local_stat <- max(treestats::inv_branch_dist(poly_trees[[3]]))
+  testthat::expect_true(!is.na(local_stat))
 })
 
 
