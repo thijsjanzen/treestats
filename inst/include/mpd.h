@@ -176,7 +176,7 @@ class phylo_path_tree {
     tree_size = root_no - 1;
     int num_nodes = max_node_no - root_no;
 
-    tree = std::vector<path_node>(1 + max_node_no, 
+    tree = std::vector<path_node>(1 + max_node_no,
                         static_cast<double>(add_one));
 
     for (size_t i = 0; i < tree_edge.size(); i += 2) {
