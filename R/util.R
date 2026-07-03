@@ -8,7 +8,10 @@ check_normalization_key <- function(normalization) {
   return(output)
 }
 
-#' @keywords internal
+#' Faster than the ape version
+#' @description Fast Rcpp function to check if a tree is binary
+#' @param phy phylo object
+#' @export
 check_binary <- function(phy) {
   return(check_is_binary_rcpp(as.vector(t(phy$edge))))
 }

@@ -3,6 +3,13 @@ context("stairs")
 test_that("usage stairs1", {
   if (requireNamespace("phyloTop")) {
 
+    cat(packageVersion("ape"), "\n")
+    cat(packageVersion("phyloTop"), "\n")
+    # sessionInfo()
+    cat(find("is.binary"), "\n")
+    cat(getAnywhere(is.binary), "\n")
+
+
     test_func <- function(phy) {
       phyloTop::stairs(phy)[[1]]
     }

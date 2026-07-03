@@ -5,9 +5,9 @@ max_width, max_del_width, max_depth, mw_over_md, phylogenetic_diversity,
 var_pair_dist and var_leaf_depth. 
 Furthermore, several statistics previously not available for non-binary trees 
 were expanded to be applicable to non-binary trees as well (use at your own 
-discretion, as normalization constants might not be applicable): b1, cherries, 
-pitchforks, sackin index, total cophenetic index, area_per_pair and 
-average_leaf_depth.
+discretion, as normalization constants might not be applicable): b1, b2, 
+cherries, pitchforks, double_cherries, sackin index, total cophenetic index, 
+area_per_pair and average_leaf_depth.
 
 # Version 1.71.12
 - Updated calculation of how to crown age was calculated to avoid edge-case
