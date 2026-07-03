@@ -2,21 +2,11 @@ context("stairs")
 
 test_that("usage stairs1", {
   if (requireNamespace("phyloTop")) {
-
-    cat(packageVersion("ape"), "\n")
-    cat(packageVersion("phyloTop"), "\n")
-    # sessionInfo()
-    cat(find("is.binary"), "\n")
-    cat(getAnywhere(is.binary), "\n")
-
-
     test_func <- function(phy) {
       phyloTop::stairs(phy)[[1]]
     }
 
     standard_test(treestats::stairs, test_func)
-
-    test_polytomies(treestats::stairs, test_func)
   }
 })
 
@@ -28,8 +18,6 @@ test_that("usage stairs2", {
     }
 
     standard_test(treestats::stairs2, test_func)
-
-    test_polytomies(treestats::stairs2, test_func)
   }
 })
 
@@ -44,6 +32,16 @@ test_that("wrong_object", {
     "input object has to be phylo or ltable"
   )
 })
+
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    a1 <- try_stat(focal_tree, treestats::stairs)
+    testthat::expect_true(is.na(a1))
+    a1 <- try_stat(focal_tree, treestats::stairs2)
+    testthat::expect_true(is.na(a1))
+  }
+})
+
 
 test_that("wrong_object", {
   testthat::expect_error(
