@@ -8,12 +8,10 @@ test_that("usage", {
 })
 
 test_that("polytomies", {
-  # phyloTop transforms the trees, e.g. forces them to binary,
-  # which is a no-no.
-
-  #if (requireNamespace("phyloTop")) {
-  #  test_polytomies(treestats::avg_ladder, phyloTop::avgLadder)
-  #}
+  for (focal_tree in poly_trees) {
+    res <- try_stat(focal_tree, treestats::avg_ladder)
+    testthat::expect_true(is.na(res))
+  }
 })
 
 test_that("wrong_object", {
