@@ -6,26 +6,26 @@ difference between its' distance matrix (e.g. all pairwise distances between
 all nodes), and the degree matrix (e.g. the diagonal matrix where each
 diagonal element represents the sum of branch lengths to all other nodes).
 Each row of the modified graph Laplacian sums to zero. For a tree with n
-tips, there are \(N = 2n-1\) nodes, and hence the modified graph Laplacian
-is represented by a \(N x N\) matrix. Where RPANDA relies on the package
-igraph to calculate the modified graph Laplacian, the treestats package uses
-C++ to directly calculate the different entries in the matrix. This makes the
-treestats implementation slightly faster, although the bulk of computation
-occurs in estimating the eigen values, where RcppArmadillo generates a bit
-of speed up."><meta property="og:description" content="Computes the distribution of eigenvalues for the modified graph
+tips, there are at most \(N = 2n-1\) nodes, and hence the modified graph
+Laplacian is represented by a \(N x N\) matrix. Where RPANDA relies on the
+package igraph to calculate the modified graph Laplacian, the treestats
+package uses C++ to directly calculate the different entries in the matrix.
+This makes the treestats implementation slightly faster, although the bulk of
+computation occurs in estimating the eigen values, where RcppArmadillo
+generates a bit of speed up."><meta property="og:description" content="Computes the distribution of eigenvalues for the modified graph
 Laplacian of a phylogenetic tree, and several summary statistics of this
 distribution. The modified graph Laplacian of a phylogeny is given by the
 difference between its' distance matrix (e.g. all pairwise distances between
 all nodes), and the degree matrix (e.g. the diagonal matrix where each
 diagonal element represents the sum of branch lengths to all other nodes).
 Each row of the modified graph Laplacian sums to zero. For a tree with n
-tips, there are \(N = 2n-1\) nodes, and hence the modified graph Laplacian
-is represented by a \(N x N\) matrix. Where RPANDA relies on the package
-igraph to calculate the modified graph Laplacian, the treestats package uses
-C++ to directly calculate the different entries in the matrix. This makes the
-treestats implementation slightly faster, although the bulk of computation
-occurs in estimating the eigen values, where RcppArmadillo generates a bit
-of speed up."></head><body>
+tips, there are at most \(N = 2n-1\) nodes, and hence the modified graph
+Laplacian is represented by a \(N x N\) matrix. Where RPANDA relies on the
+package igraph to calculate the modified graph Laplacian, the treestats
+package uses C++ to directly calculate the different entries in the matrix.
+This makes the treestats implementation slightly faster, although the bulk of
+computation occurs in estimating the eigen values, where RcppArmadillo
+generates a bit of speed up."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -33,7 +33,7 @@ of speed up."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,13 +76,13 @@ difference between its' distance matrix (e.g. all pairwise distances between
 all nodes), and the degree matrix (e.g. the diagonal matrix where each
 diagonal element represents the sum of branch lengths to all other nodes).
 Each row of the modified graph Laplacian sums to zero. For a tree with n
-tips, there are \(N = 2n-1\) nodes, and hence the modified graph Laplacian
-is represented by a \(N x N\) matrix. Where RPANDA relies on the package
-igraph to calculate the modified graph Laplacian, the treestats package uses
-C++ to directly calculate the different entries in the matrix. This makes the
-treestats implementation slightly faster, although the bulk of computation
-occurs in estimating the eigen values, where RcppArmadillo generates a bit
-of speed up.</p>
+tips, there are at most \(N = 2n-1\) nodes, and hence the modified graph
+Laplacian is represented by a \(N x N\) matrix. Where RPANDA relies on the
+package igraph to calculate the modified graph Laplacian, the treestats
+package uses C++ to directly calculate the different entries in the matrix.
+This makes the treestats implementation slightly faster, although the bulk of
+computation occurs in estimating the eigen values, where RcppArmadillo
+generates a bit of speed up.</p>
     </div>
 
     <div class="section level2">
@@ -101,10 +101,10 @@ of speed up.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>list with five components: 1) eigenvalues the vector of eigen
-values, 2) principal_eigenvalue the largest eigenvalueof the spectral
+values, 2) principal_eigenvalue the largest eigenvalue of the spectral
 density distribution 3) asymmetry the skewness of the spectral density
-distribution 4) peak_height the largest y-axis valueof the spectral
-density distribution and 5) eigengap theposition ofthe largest
+distribution 4) peak_height the largest y-axis value of the spectral
+density distribution and 5) eigengap the position of the largest
 difference between eigenvalues, giving the number of modalities in the tree.</p>
     </div>
     <div class="section level2">

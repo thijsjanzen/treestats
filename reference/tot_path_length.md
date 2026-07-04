@@ -1,7 +1,8 @@
 # Total path length
 
 The total path length describes the sums of the depths of all vertices
-of the tree.
+of the tree. This can also be calculated as the sum of the total
+internal path and the sackin index.
 
 ## Usage
 

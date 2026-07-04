@@ -171,6 +171,8 @@ complicated simulation models.
   tree.
 - [`calc_topology_stats()`](https://thijsjanzen.github.io/treestats/reference/calc_topology_stats.md)
   : Calculate all topology based statistics for a single tree
+- [`check_binary()`](https://thijsjanzen.github.io/treestats/reference/check_binary.md)
+  : Faster than the ape version
 - [`cherries()`](https://thijsjanzen.github.io/treestats/reference/cherries.md)
   : Cherry index
 - [`colless()`](https://thijsjanzen.github.io/treestats/reference/colless.md)

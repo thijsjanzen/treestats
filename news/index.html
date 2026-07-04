@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.71.13" id="version-17113">Version 1.71.13<a class="anchor" aria-label="anchor" href="#version-17113"></a></h2>
+<ul><li>Polytomies were not handled correctly, and code for the following statistics was adjusted accordingly: ILnumber, entropy_j, tot_internal_path, tot_path, max_width, max_del_width, max_depth, mw_over_md, phylogenetic_diversity, var_pair_dist and var_leaf_depth. Furthermore, several statistics previously not available for non-binary trees were expanded to be applicable to non-binary trees as well (use at your own discretion, as normalization constants might not be applicable): b1, b2, cherries, pitchforks, double_cherries, sackin index, total cophenetic index, area_per_pair and average_leaf_depth.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.71.12" id="version-17112">Version 1.71.12<a class="anchor" aria-label="anchor" href="#version-17112"></a></h2><p class="text-muted">CRAN release: 2026-06-16</p>
 <ul><li>Updated calculation of how to crown age was calculated to avoid edge-case miscalculations, and to speed up calculation as well.</li>
 </ul></div>
@@ -59,7 +63,7 @@
 <h2 class="pkg-version" data-toc-text="1.70.10" id="version-17010">Version 1.70.10<a class="anchor" aria-label="anchor" href="#version-17010"></a></h2>
 <ul><li>Added matrix-free calculations for eigenvalue related calculations, for the eigenvector and the adjacency matrix related summary statistics. These are no longer restricted by tree size (although for very large trees, calculations might still take considerable time, scaling is much better now).</li>
 <li>Added matrix-free calculations for the min_max laplacian function</li>
-<li>Note that the RSpectra related statistics are NOT matrix free possible: these require all distances between all tips and all nodes, which can not be done matrix-free (so these are restricted to trees &lt; ~20k nodes, and relatively slow).</li>
+<li>Note that the RPANDA related statistics are NOT matrix free possible: these require all distances between all tips and all nodes, which can not be done matrix-free (so these are restricted to trees &lt; ~20k nodes, and relatively slow).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.70.9" id="version-1709">Version 1.70.9<a class="anchor" aria-label="anchor" href="#version-1709"></a></h2>

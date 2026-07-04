@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,9 +117,9 @@ Yule tree:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">forest</span>, <span class="va">test_stats</span>, <span class="va">test_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      expectation    median variance (post.MSE.mean) variance.cdf quantile=0.025</span></span>
-<span><span class="co">## [1,]   0.4218928 0.4220816              0.003128776  0.003513103      0.3354882</span></span>
+<span><span class="co">## [1,]   0.4094318 0.3990544              0.003239358   0.00266392      0.3201379</span></span>
 <span><span class="co">##      quantile=0.975 post.NMAE.mean</span></span>
-<span><span class="co">## [1,]      0.5664929      0.1164852</span></span></code></pre>
+<span><span class="co">## [1,]      0.5522065      0.1158216</span></span></code></pre>
 <p>We see that even using only 100 decision trees, the parameter
 estimate is quite close to 0.5. This can be visualized further:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -189,14 +189,14 @@ trees:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">forest</span>, <span class="va">to_test</span>, <span class="va">for_abc</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    selected model votes model1 votes model2 post.proba</span></span>
 <span><span class="co">## 1               1         1000            0  1.0000000</span></span>
-<span><span class="co">## 2               1          950           50  0.9996000</span></span>
+<span><span class="co">## 2               1          980           20  1.0000000</span></span>
 <span><span class="co">## 3               1         1000            0  1.0000000</span></span>
 <span><span class="co">## 4               1         1000            0  1.0000000</span></span>
 <span><span class="co">## 5               1         1000            0  1.0000000</span></span>
 <span><span class="co">## 6               2            0         1000  1.0000000</span></span>
 <span><span class="co">## 7               2            0         1000  1.0000000</span></span>
-<span><span class="co">## 8               2           10          990  1.0000000</span></span>
-<span><span class="co">## 9               2           10          990  0.9975667</span></span>
+<span><span class="co">## 8               2            0         1000  1.0000000</span></span>
+<span><span class="co">## 9               2            0         1000  0.9971667</span></span>
 <span><span class="co">## 10              2            0         1000  1.0000000</span></span></code></pre>
 <p>Indeed, we see that the first five trees are convincingly assigned
 model 1 (BD), and that the last five trees are convincingly assigned

@@ -42,7 +42,7 @@ simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
   balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
   unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
   sshape(balanced_tree)
-#> [1] 6.291569
+#> [1] 9.076816
   sshape(unbalanced_tree) # should be higher
-#> [1] 12.80183
+#> [1] 18.46913
 ```

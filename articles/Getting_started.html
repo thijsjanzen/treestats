@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treestats</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.71.13</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,23 +83,23 @@ supported summary statistics use:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/list_statistics.html">list_statistics</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "area_per_pair"          "average_leaf_depth"     "avg_ladder"            </span></span>
 <span><span class="co">##  [4] "avg_vert_depth"         "b1"                     "b2"                    </span></span>
-<span><span class="co">##  [7] "beta"                   "blum"                   "cherries"              </span></span>
-<span><span class="co">## [10] "colless"                "colless_corr"           "colless_quad"          </span></span>
-<span><span class="co">## [13] "crown_age"              "diameter"               "double_cherries"       </span></span>
-<span><span class="co">## [16] "eigen_centrality"       "eigen_centralityW"      "ew_colless"            </span></span>
-<span><span class="co">## [19] "four_prong"             "gamma"                  "i_stat"                </span></span>
-<span><span class="co">## [22] "il_number"              "imbalance_steps"        "j_one"                 </span></span>
-<span><span class="co">## [25] "j_stat"                 "laplace_spectrum_a"     "laplace_spectrum_e"    </span></span>
-<span><span class="co">## [28] "laplace_spectrum_g"     "laplace_spectrum_p"     "max_adj"               </span></span>
-<span><span class="co">## [31] "max_betweenness"        "max_closeness"          "max_closenessW"        </span></span>
-<span><span class="co">## [34] "max_del_width"          "max_depth"              "max_ladder"            </span></span>
-<span><span class="co">## [37] "max_laplace"            "max_width"              "mean_branch_length"    </span></span>
-<span><span class="co">## [40] "mean_branch_length_ext" "mean_branch_length_int" "mean_inv_branch_dist"  </span></span>
-<span><span class="co">## [43] "min_adj"                "min_laplace"            "mntd"                  </span></span>
-<span><span class="co">## [46] "mpd"                    "mw_over_md"             "nltt_base"             </span></span>
-<span><span class="co">## [49] "number_of_lineages"     "phylogenetic_div"       "pigot_rho"             </span></span>
-<span><span class="co">## [52] "pitchforks"             "psv"                    "rogers"                </span></span>
-<span><span class="co">## [55] "root_imbalance"         "rquartet"               "sackin"                </span></span>
+<span><span class="co">##  [7] "beta"                   "cherries"               "colless"               </span></span>
+<span><span class="co">## [10] "colless_corr"           "colless_quad"           "crown_age"             </span></span>
+<span><span class="co">## [13] "diameter"               "double_cherries"        "eigen_centrality"      </span></span>
+<span><span class="co">## [16] "eigen_centralityW"      "ew_colless"             "four_prong"            </span></span>
+<span><span class="co">## [19] "gamma"                  "i_stat"                 "il_number"             </span></span>
+<span><span class="co">## [22] "imbalance_steps"        "j_one"                  "j_stat"                </span></span>
+<span><span class="co">## [25] "laplace_spectrum_a"     "laplace_spectrum_e"     "laplace_spectrum_g"    </span></span>
+<span><span class="co">## [28] "laplace_spectrum_p"     "max_adj"                "max_betweenness"       </span></span>
+<span><span class="co">## [31] "max_closeness"          "max_closenessW"         "max_del_width"         </span></span>
+<span><span class="co">## [34] "max_depth"              "max_ladder"             "max_laplace"           </span></span>
+<span><span class="co">## [37] "max_width"              "mean_branch_length"     "mean_branch_length_ext"</span></span>
+<span><span class="co">## [40] "mean_branch_length_int" "mean_inv_branch_dist"   "min_adj"               </span></span>
+<span><span class="co">## [43] "min_laplace"            "mntd"                   "mpd"                   </span></span>
+<span><span class="co">## [46] "mw_over_md"             "nltt_base"              "number_of_lineages"    </span></span>
+<span><span class="co">## [49] "phylogenetic_div"       "pigot_rho"              "pitchforks"            </span></span>
+<span><span class="co">## [52] "psv"                    "rogers"                 "root_imbalance"        </span></span>
+<span><span class="co">## [55] "rquartet"               "sackin"                 "sshape"                </span></span>
 <span><span class="co">## [58] "stairs"                 "stairs2"                "symmetry_nodes"        </span></span>
 <span><span class="co">## [61] "tot_coph"               "tot_internal_path"      "tot_path"              </span></span>
 <span><span class="co">## [64] "tree_height"            "treeness"               "var_branch_length"     </span></span>
@@ -139,22 +139,22 @@ statistics:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">balance_stats</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      area_per_pair average_leaf_depth         avg_ladder     avg_vert_depth </span></span>
 <span><span class="co">##       1.255859e+01       7.630000e+00       2.250000e+00       6.673367e+00 </span></span>
-<span><span class="co">##                 b1                 b2               beta               blum </span></span>
-<span><span class="co">##       5.339845e+01       5.719727e+00       1.193623e+00       1.101485e+02 </span></span>
-<span><span class="co">##           cherries            colless       colless_corr       colless_quad </span></span>
-<span><span class="co">##       3.200000e+01       2.570000e+02       5.297877e-02       4.235000e+03 </span></span>
-<span><span class="co">##           diameter    double_cherries   eigen_centrality         ew_colless </span></span>
-<span><span class="co">##       2.000000e+01       5.000000e+00       2.833317e-01       4.607934e-01 </span></span>
-<span><span class="co">##         four_prong             i_stat          il_number    imbalance_steps </span></span>
-<span><span class="co">##       1.100000e+01       4.712378e-01       3.600000e+01       8.700000e+01 </span></span>
-<span><span class="co">##              j_one    max_betweenness      max_closeness      max_del_width </span></span>
-<span><span class="co">##       8.707544e-01       1.251500e+04                 NA       1.400000e+01 </span></span>
-<span><span class="co">##          max_depth         max_ladder          max_width         mw_over_md </span></span>
-<span><span class="co">##       1.200000e+01       3.000000e+00       4.600000e+01       3.833333e+00 </span></span>
-<span><span class="co">##         pitchforks             rogers     root_imbalance           rquartet </span></span>
-<span><span class="co">##       1.700000e+01       5.900000e+01       7.500000e-01       3.961488e+06 </span></span>
-<span><span class="co">##             sackin             stairs            stairs2     symmetry_nodes </span></span>
-<span><span class="co">##       7.630000e+02       5.959596e-01       6.650377e-01       5.900000e+01 </span></span>
+<span><span class="co">##                 b1                 b2               beta           cherries </span></span>
+<span><span class="co">##       5.339845e+01       5.719727e+00       1.193623e+00       3.200000e+01 </span></span>
+<span><span class="co">##            colless       colless_corr       colless_quad           diameter </span></span>
+<span><span class="co">##       2.570000e+02       5.297877e-02       4.235000e+03       2.000000e+01 </span></span>
+<span><span class="co">##    double_cherries   eigen_centrality         ew_colless         four_prong </span></span>
+<span><span class="co">##       5.000000e+00       2.833317e-01       4.607934e-01       1.100000e+01 </span></span>
+<span><span class="co">##             i_stat          il_number    imbalance_steps              j_one </span></span>
+<span><span class="co">##       4.712378e-01       3.600000e+01       8.700000e+01       8.707544e-01 </span></span>
+<span><span class="co">##    max_betweenness      max_closeness      max_del_width          max_depth </span></span>
+<span><span class="co">##       1.251500e+04                 NA       1.400000e+01       1.200000e+01 </span></span>
+<span><span class="co">##         max_ladder          max_width         mw_over_md         pitchforks </span></span>
+<span><span class="co">##       3.000000e+00       4.600000e+01       3.833333e+00       1.700000e+01 </span></span>
+<span><span class="co">##             rogers     root_imbalance           rquartet             sackin </span></span>
+<span><span class="co">##       5.900000e+01       7.500000e-01       3.961488e+06       7.630000e+02 </span></span>
+<span><span class="co">##             sshape             stairs            stairs2     symmetry_nodes </span></span>
+<span><span class="co">##       1.589107e+02       5.959596e-01       6.650377e-01       5.900000e+01 </span></span>
 <span><span class="co">##           tot_coph  tot_internal_path    tot_path_length          var_depth </span></span>
 <span><span class="co">##       6.686000e+03       5.650000e+02       1.328000e+03       3.213100e+00</span></span></code></pre>
 </div>

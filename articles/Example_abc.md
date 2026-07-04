@@ -59,9 +59,9 @@ predict(forest, test_stats, test_data)
 ```
 
     ##      expectation    median variance (post.MSE.mean) variance.cdf quantile=0.025
-    ## [1,]   0.4218928 0.4220816              0.003128776  0.003513103      0.3354882
+    ## [1,]   0.4094318 0.3990544              0.003239358   0.00266392      0.3201379
     ##      quantile=0.975 post.NMAE.mean
-    ## [1,]      0.5664929      0.1164852
+    ## [1,]      0.5522065      0.1158216
 
 We see that even using only 100 decision trees, the parameter estimate
 is quite close to 0.5. This can be visualized further:
@@ -157,14 +157,14 @@ predict(forest, to_test, for_abc)
 
     ##    selected model votes model1 votes model2 post.proba
     ## 1               1         1000            0  1.0000000
-    ## 2               1          950           50  0.9996000
+    ## 2               1          980           20  1.0000000
     ## 3               1         1000            0  1.0000000
     ## 4               1         1000            0  1.0000000
     ## 5               1         1000            0  1.0000000
     ## 6               2            0         1000  1.0000000
     ## 7               2            0         1000  1.0000000
-    ## 8               2           10          990  1.0000000
-    ## 9               2           10          990  0.9975667
+    ## 8               2            0         1000  1.0000000
+    ## 9               2            0         1000  0.9971667
     ## 10              2            0         1000  1.0000000
 
 Indeed, we see that the first five trees are convincingly assigned model
