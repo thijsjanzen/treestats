@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/thijsjanzen/treestats/blob/1.71.12/inst/CITATION)
+[`inst/CITATION`](https://github.com/thijsjanzen/treestats/blob/main/inst/CITATION)
 
 Janzen, T and Etienne, R.S. (2024) Phylogenetic tree statistics: a
 systematic overview using the new R package 'treestats'. Molecular

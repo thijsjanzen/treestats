@@ -32,92 +32,93 @@ implemented statistics:
     colless_stat <- treestats::colless(focal_tree)
     all_stats    <- treestats::calc_all_stats(focal_tree)
 
+## Rcpp
+
+For all of the implemented statistics, the package provides Rcpp
+versions that are much, much faster than their R sister functions.
+Furthermore, some additional functions have been improved as well: \*
+ape::branching.times \* DDD::phylo2L \* DDD::L2phylo
+
+![](https://github.com/thijsjanzen/treestats/blob/cd3649833740eb7cdb23f722a2738cfd23bc4b10/layout/Figure_S3.png?raw=true)
+
 ### List of statistics
 
 The following summary statistics are included:
 
-|  |  |  |  |  |  |  |  |  |
-|----|----|----|----|----|----|----|----|----|
-| Statistic | Information | Fischer | Normalization | Assumes Ultrametric tree | Requires binary tree | Assumes rooted tree | Sensitive to root position | Reference |
-| area_per_pair | Topology | Shape | Yule | NO | YES | YES | YES | Lima et al., 2020 |
-| average_leaf_depth | Topology | Imbalance | Yule | NO | YES | YES | YES | Shao & Sokal, 1990 |
-| avg_ladder | Topology | Shape | None | NO | YES | YES | YES | Kendall et al., 2018 |
-| avg_vert_depth | Topology | Imbalance | None | NO | NO | YES | YES | Colijn & Gardy, 2014 |
-| b1 | Topology | Balance | Tips | NO | NO | YES | YES | Shao & Sokal, 1990 |
-| b2 | Topology | Balance | Yule | NO | NO | YES | YES | Shao & Sokal, 1990 |
-| beta | Topology | No index | None | NO | YES | YES | YES | Aldous, 1996 |
-| blum | Topology | Imbalance | None | NO | YES | YES | YES | Blum & François, 2006 |
-| cherries | Topology | Shape | Yule | NO | YES | NO | YES | McKenzie et al., 1999 |
-| colless | Topology | Imbalance | Yule | NO | YES | YES | YES | Colless, 1982 |
-| colless_corr | Topology | Imbalance | Yule | NO | YES | YES | YES | Heard, 1992 |
-| colless_quad | Topology | Imbalance | None | NO | YES | YES | YES | Bartoszek et al., 2021 |
-| crown_age | Branching times | No index | None | NO | NO | YES | YES |  |
-| diameter | Topology | Shape | None | NO | YES | YES | YES | Chindelevitch et al., 2021 |
-| double_cherries | Topology | Shape | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-| eigen_centrality | Topology | No index | None | NO | NO | NO | YES | Chindelevitch et al., 2021 |
-| eigen_centralityW | Topology + branch lengths | No index | None | NO | NO | NO | YES | Chindelevitch et al., 2021 |
-| ew_colless | Topology | Imbalance | None | NO | YES | YES | YES | Mooers & S. B. Heard, 1997 |
-| four_prong | Topology | Shape | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-| gamma | Branching times | No index | None | YES | NO | YES | YES | Pybus & Harvey, 2000 |
-| i_stat | Topology | Imbalance | None | NO | YES | YES | YES | Fusco & Cronk, 1995 |
-| il_number | Topology | Shape | Tips | NO | NO | NO | YES | Kendall et al., 2018 |
-| imbalance_steps | Topology | No index | Tips | NO | NO | YES | YES | Janzen & Etienne, 2024 |
-| j_one | Topology | No index | None | NO | YES | YES | YES | Lemant et al., 2022 |
-| j_stat | Topology + branch lengths | No index | None | NO | NO | NO | NO | Izsák & Papp, 2000 |
-| laplace_spectrum_a | Topology + branch lengths | No index | None | YES | NO | NO | YES | Lewitus & Morlon, 2016 |
-| laplace_spectrum_e | Topology + branch lengths | No index | None | YES | NO | NO | YES | Lewitus & Morlon, 2016 |
-| laplace_spectrum_g | Topology + branch lengths | No index | None | YES | NO | NO | YES | Lewitus & Morlon, 2016 |
-| laplace_spectrum_p | Topology + branch lengths | No index | None | YES | NO | NO | YES | Lewitus & Morlon, 2016 |
-| max_adj | Topology + branch lengths | No index | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-| max_betweenness | Topology | Shape | Tips | NO | YES | YES | YES | Chindelevitch et al., 2021 |
-| max_closeness | Topology | Shape | Tips | NO | YES | NO | Small | Chindelevitch et al., 2021 |
-| max_closenessW | Topology + branch lengths | Shape | None | NO | YES | NO | Small | Chindelevitch et al., 2021 |
-| max_del_width | Topology | Shape | Tips | NO | NO | YES | YES | Colijn & Gardy, 2014 |
-| max_depth | Topology | Imbalance | Tips | NO | NO | YES | YES | Colijn & Gardy, 2014 |
-| max_ladder | Topology | Shape | None | NO | YES | NO | YES | Kendall et al., 2018 |
-| max_laplace | Topology + branch lengths | No index | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-| max_width | Topology | Balance | Tips | NO | NO | YES | YES | Colijn & Gardy, 2014 |
-| mean_branch_length | Topology + branch lengths | No index | None | NO | NO | NO | YES | Janzen & Etienne, 2017 |
-| mean_branch_length_ext | Topology + branch lengths | No index | None | NO | NO | NO | NO | Saulnier et al., 2017 |
-| mean_branch_length_int | Topology + branch lengths | No index | None | NO | NO | NO | YES | Saulnier et al., 2017 |
-| min_adj | Topology + branch lengths | No index | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-| min_laplace | Topology + branch lengths | No index | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-| mntd | Topology + branch lengths | No index | None | NO | NO | NO | NO | Webb et al., 2002 |
-| mpd | Topology + branch lengths | No index | Tips | NO | NO | NO | NO | Webb et al., 2002 |
-| mw_over_md | Topology | Balance | None | NO | NO | YES | YES | Colijn & Gardy, 2014 |
-| nltt_base | Branching times | No index | None | YES | NO | YES | YES | Janzen et al., 2015 |
-| number_of_lineages | Topology + branch lengths | No index | None | NO | NO | NO | NO |  |
-| phylogenetic_div | Topology + branch lengths | No index | None | NO | NO | YES | YES | Faith, 1992 |
-| pigot_rho | Branching times | No index | None | YES | NO | YES | YES | Pigot et al., 2010 |
-| pitchforks | Topology | Shape | Tips | NO | NO | NO | YES | Kendall et al., 2018 |
-| psv | Topology + branch lengths | No index | Tips | NO | NO | NO | NO | Helmus et al., 2007 |
-| rogers | Topology | Imbalance | Tips | NO | YES | NO | YES | Rogers, 1996 |
-| root_imbalance | Topology | Shape | None | NO | YES | YES | YES | Guyer et al., 1993 |
-| rquartet | Topology | Balance | Yule | NO | NO | YES | YES | Coronado et al., 2019 |
-| sackin | Topology | Imbalance | Yule | NO | YES | YES | YES | Sackin, 1972 |
-| stairs | Topology | Imbalance | None | NO | YES | YES | YES | Norström et al., 2012 |
-| stairs2 | Topology | Balance | None | NO | YES | YES | YES | Norström et al., 2012 |
-| symmetry_nodes | Topology | Imbalance | Tips | NO | YES | YES | YES | Kersting & Fischer, 2021 |
-| tot_coph | Topology | Imbalance | Yule | NO | YES | YES | YES | Mir et al., 2013 |
-| tot_internal_path | Topology | Imbalance | None | NO | NO | YES | YES | Knuth, 1997 |
-| tot_path | Topology | Imbalance | None | NO | YES | YES | YES | Colijn & Gardy, 2014 |
-| tree_height | Branching times | No index | None | NO | NO | YES | YES |  |
-| treeness | Topology + branch lengths | No index | None | NO | NO | NO | YES | Astolfi & Zonta-Sgaramella, 1984 |
-| var_branch_length | Topology + branch lengths | No index | None | NO | NO | NO | YES | Saulnier et al., 2017 |
-| var_branch_length_ext | Topology + branch lengths | No index | None | NO | NO | NO | YES | Saulnier et al., 2017 |
-| var_branch_length_int | Topology + branch lengths | No index | None | NO | NO | NO | YES | Saulnier et al., 2017 |
-| var_depth | Topology | Imbalance | Yule | NO | NO | YES | YES | Coronado et al., 2020 |
-| vpd | Topology + branch lengths | No index | None | NO | NO | NO | NO | Webb et al., 2002 |
-| wiener | Topology + branch lengths | Shape | None | NO | YES | NO | YES | Chindelevitch et al., 2021 |
-
-## Rcpp
-
-For all of these statistics, the package provides Rcpp versions that are
-much, much faster than their R sister functions. Furthermore, some
-additional functions have been improved as well: \* ape::branching.times
-\* DDD::phylo2L \* DDD::L2phylo
-
-![](https://github.com/thijsjanzen/treestats/blob/cd3649833740eb7cdb23f722a2738cfd23bc4b10/layout/Figure_S3.png?raw=true)
+|  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|
+| Statistic | Information | Normalization | Req Binary? | Req Ultrametric | Req Rooted | Sensitive to root position | Reference |
+| area_per_pair | Topology | Yule | FALSE | FALSE | TRUE | YES | Lima et al., 2020 |
+| average_leaf_depth | Topology | Yule | FALSE | FALSE | TRUE | YES | Shao & Sokal, 1990 |
+| avg_ladder | Topology | None | TRUE | FALSE | TRUE | YES | Kendall et al., 2018 |
+| avg_vert_depth | Topology | None | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| b1 | Topology | Tips | FALSE | FALSE | TRUE | YES | Shao & Sokal, 1990 |
+| b2 | Topology | Yule | FALSE | FALSE | TRUE | YES | Shao & Sokal, 1990 |
+| beta | Topology | None | TRUE | FALSE | TRUE | YES | Aldous, 1996 |
+| blum / sshape | Topology | None | FALSE | FALSE | TRUE | YES | Blum & François, 2006 |
+| cherries | Topology | Yule | FALSE | FALSE | FALSE | YES | McKenzie et al., 1999 |
+| colless | Topology | Yule | TRUE | FALSE | TRUE | YES | Colless, 1982 |
+| colless_corr | Topology | None | TRUE | FALSE | TRUE | YES | Heard, 1992 |
+| colless_quad | Topology | None | TRUE | FALSE | TRUE | YES | Bartoszek et al., 2021 |
+| crown_age | Branching times | None | FALSE | FALSE | TRUE | YES |  |
+| diameter | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| double_cherries | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| eigen_centrality | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| eigen_centralityW | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| ew_colless | Topology | None | TRUE | FALSE | TRUE | YES | Mooers & S. B. Heard, 1997 |
+| four_prong | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| gamma | Branching times | None | FALSE | TRUE | TRUE | YES | Pybus & Harvey, 2000 |
+| i_stat | Topology | None | TRUE | FALSE | TRUE | YES | Fusco & Cronk, 1995 |
+| il_number | Topology | Tips | FALSE | FALSE | TRUE | YES | Kendall et al., 2018 |
+| imbalance_steps | Topology | Tips | TRUE | FALSE | TRUE | YES | Janzen & Etienne, 2024 |
+| j_one | Topology | None | TRUE | FALSE | TRUE | YES | Lemant et al., 2022 |
+| j_stat | Topology + branch lengths | None | FALSE | FALSE | FALSE | NO | Izsák & Papp, 2000 |
+| laplace_spectrum_a | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Lewitus & Morlon, 2016 |
+| laplace_spectrum_e | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Lewitus & Morlon, 2016 |
+| laplace_spectrum_g | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Lewitus & Morlon, 2016 |
+| laplace_spectrum_p | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Lewitus & Morlon, 2016 |
+| max_adj | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| max_betweenness | Topology | Tips | FALSE | FALSE | TRUE | YES | Chindelevitch et al., 2021 |
+| max_closeness | Topology | Tips | FALSE | FALSE | FALSE | Small | Chindelevitch et al., 2021 |
+| max_closenessW | Topology + branch lengths | None | FALSE | FALSE | FALSE | Small | Chindelevitch et al., 2021 |
+| max_del_width | Topology | Tips | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| max_depth | Topology | Tips | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| max_ladder | Topology | None | TRUE | FALSE | FALSE | YES | Kendall et al., 2018 |
+| max_laplace | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| max_width | Topology | Tips | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| mean_branch_length | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Janzen & Etienne, 2017 |
+| mean_branch_length_ext | Topology + branch lengths | None | FALSE | FALSE | FALSE | NO | Saulnier et al., 2017 |
+| mean_branch_length_int | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
+| min_adj | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| min_laplace | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| mntd | Topology + branch lengths | None | FALSE | FALSE | FALSE | NO | Webb et al., 2002 |
+| mpd | Topology + branch lengths | Tips | FALSE | FALSE | FALSE | NO | Webb et al., 2002 |
+| mw_over_md | Topology | None | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| nltt_base | Branching times | None | FALSE | TRUE | TRUE | YES | Janzen et al., 2015 |
+| number_of_lineages | Topology + branch lengths | None | FALSE | FALSE | FALSE | NO |  |
+| phylogenetic_div | Topology + branch lengths | None | FALSE | FALSE | TRUE | YES | Faith, 1992 |
+| pigot_rho | Branching times | None | FALSE | FALSE | TRUE | YES | Pigot et al., 2010 |
+| pitchforks | Topology | Tips | FALSE | FALSE | FALSE | YES | Kendall et al., 2018 |
+| psv | Topology + branch lengths | Tips | FALSE | FALSE | FALSE | NO | Helmus et al., 2007 |
+| rogers | Topology | Tips | TRUE | FALSE | FALSE | YES | Rogers, 1996 |
+| root_imbalance | Topology | None | FALSE | FALSE | TRUE | YES | Guyer et al., 1993 |
+| rquartet | Topology | Yule | FALSE | FALSE | TRUE | YES | Coronado et al., 2019 |
+| sackin | Topology | Yule | FALSE | FALSE | TRUE | YES | Sackin, 1972 |
+| stairs | Topology | None | TRUE | FALSE | TRUE | YES | Norström et al., 2012 |
+| stairs2 | Topology | None | TRUE | FALSE | TRUE | YES | Norström et al., 2012 |
+| symmetry_nodes | Topology | Tips | TRUE | FALSE | TRUE | YES | Kersting & Fischer, 2021 |
+| tot_coph | Topology | Yule | FALSE | FALSE | TRUE | YES | Mir et al., 2013 |
+| tot_internal_path | Topology | None | FALSE | FALSE | TRUE | YES | Knuth, 1997 |
+| tot_path | Topology | None | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| tree_height | Branching times | None | FALSE | FALSE | TRUE | YES |  |
+| treeness | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Astolfi & Zonta-Sgaramella, 1984 |
+| var_branch_length | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
+| var_branch_length_ext | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
+| var_branch_length_int | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
+| var_depth | Topology | Yule | FALSE | FALSE | TRUE | YES | Coronado et al., 2020 |
+| vpd | Topology + branch lengths | None | FALSE | FALSE | FALSE | NO | Webb et al., 2002 |
+| wiener | Topology + branch lengths | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
+| inv_branch_dist | Topology + branch lengths | None | FALSE | FALSE | TRUE |  | Williams et al. 2026 |
 
 ## C++ Library
 
