@@ -2,24 +2,15 @@ context("blum")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    blum1 <- treestats::blum(focal_tree)
-    blum_check <- treebalance::sShapeI(focal_tree, logbase = exp(1))
-    testthat::expect_equal(blum1, blum_check)
-    ltab <- treestats::phylo_to_l(focal_tree)
-    blum2 <- treestats::blum(ltab)
-    testthat::expect_equal(blum1, blum2)
+    standard_test(treestats::blum, treebalance::sShapeI)
   }
 })
 
 test_that("usage", {
   set.seed(5)
   focal_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
-
   blum1 <- treestats::blum(focal_tree)
-  blum_check <- log(2 - 1) + log(3 - 1) + log(4 - 1)
+  blum_check <- log2(2 - 1) + log2(3 - 1) + log2(4 - 1)
   testthat::expect_equal(blum1, blum_check)
   ltab <- treestats::phylo_to_l(focal_tree)
   blum2 <- treestats::blum(ltab)
@@ -30,6 +21,13 @@ test_that("usage", {
   sshape2 <- treestats::sshape(ltab)
   testthat::expect_equal(sshape2, blum1)
 })
+
+test_that("polytomies", {
+  if (requireNamespace("treebalance")) {
+    test_polytomies(treestats::blum, treebalance::sShapeI)
+  }
+})
+
 
 test_that("wrong_object", {
   testthat::expect_error(
@@ -44,13 +42,10 @@ test_that("wrong_object", {
 })
 
 test_that("normalisation", {
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-
-  c1 <- treestats::blum(focal_tree, normalization = FALSE)
-  c2 <- treestats::blum(focal_tree, normalization = TRUE)
+  c1 <- treestats::blum(extant_tree, normalization = FALSE)
+  c2 <- treestats::blum(extant_tree, normalization = TRUE)
   testthat::expect_lt(c2, c1)
-  c3 <- treestats::blum(treestats::phylo_to_l(focal_tree),
+  c3 <- treestats::blum(treestats::phylo_to_l(extant_tree),
                         normalization = TRUE)
   testthat::expect_equal(c2, c3)
 

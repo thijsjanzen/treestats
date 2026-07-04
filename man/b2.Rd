@@ -14,14 +14,12 @@ is divided by the Yule expectation, following from theorem 3.7 in Bienvenu
 2020.}
 }
 \value{
-Maximum depth (in number of edges)
+b2 statistic
 }
 \description{
 Balance metric that uses the Shannon-Wiener statistic of
 information content. The b2 measure is given by the sum over the depths of
 all tips, divided by \eqn{2^{d}}, e.g. \eqn{\sum d_i / 2^{d_i}}
-Although also defined on non-binary trees, the treestats package only
-provides code for binary trees.
 }
 \references{
 K.-T. Shao and R. R. Sokal. Tree Balance.

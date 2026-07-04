@@ -24,7 +24,7 @@
 #' @export
 minmax_adj <- function(phy, use_rspectra = TRUE, force_min = FALSE) {
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 

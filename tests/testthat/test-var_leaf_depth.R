@@ -2,32 +2,10 @@ context("var leaf depth")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
+    standard_test(treestats::var_leaf_depth, treebalance::varLeafDepI)
 
-    a1 <- treestats::var_leaf_depth(focal_tree)
-    a2 <- treebalance::varLeafDepI(focal_tree)
-
-
-    testthat::expect_equal(a1, a2)
-
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::var_leaf_depth(focal_tree),
-                           treestats::var_leaf_depth(ltab))
-
-    # with extinct species:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.3, fossils = TRUE)
-
-    a1 <- treestats::var_leaf_depth(focal_tree)
-    a2 <- treebalance::varLeafDepI(focal_tree)
-
-    testthat::expect_equal(a1, a2)
-
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::var_leaf_depth(focal_tree),
-                           treestats::var_leaf_depth(ltab))
+    test_polytomies(treestats::var_leaf_depth, treebalance::varLeafDepI)
   }
-
 })
 
 

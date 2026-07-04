@@ -2,7 +2,7 @@
 % Please edit documentation in R/tot_path.R
 \name{tot_path_length}
 \alias{tot_path_length}
-\title{Total  path length}
+\title{Total path length}
 \usage{
 tot_path_length(phy)
 }
@@ -14,7 +14,8 @@ Total path length
 }
 \description{
 The total path length describes the sums of the depths
-of all vertices of the tree.
+of all vertices of the tree. This can also be calculated as the sum of the
+total internal path and the sackin index.
 }
 \references{
 C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease

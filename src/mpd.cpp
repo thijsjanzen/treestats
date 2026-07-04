@@ -31,15 +31,6 @@ double calc_mpd_cpp(const std::vector<int>& edge,
 }
 
 // [[Rcpp::export]]
-double calc_J_cpp(const std::vector<int>& edge,
-                  const std::vector<double>& el) {
-  auto mpd = calc_mpd_cpp(edge, el);
-  int n = (el.size() + 2) * 0.5;
-
-  return mpd * 1.0 / n;
-}
-
-// [[Rcpp::export]]
 double calc_var_mpd_cpp(const Rcpp::List& phy) {
   auto edge = phy_to_edge(phy);
   auto el   = phy_to_el(phy);

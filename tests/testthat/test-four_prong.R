@@ -24,6 +24,14 @@ test_that("usage", {
   testthat::expect_equal(c2, 1)
 })
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    res <- treestats::four_prong(focal_tree)
+    testthat::expect_true(!is.na(res))
+  }
+})
+
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::four_prong(10),

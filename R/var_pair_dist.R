@@ -8,13 +8,17 @@
 #' Systematics 33:475-505.
 #' @export
 var_pair_dist <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
     phy <- treestats::l_to_phylo(phy)
   }
   if (inherits(phy, "phylo")) {
 
-    if (ape::is.rooted(phy)) {
+    if (ape::is.rooted(phy) && check_binary(phy)) {
        return(calc_var_mpd_cpp(phy))
     } else {
       dist_mat <- ape::cophenetic.phylo(phy)

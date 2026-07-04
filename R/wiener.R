@@ -23,9 +23,13 @@ wiener <- function(phy, normalization = FALSE, weight = TRUE) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    if (check_binary(phy) && ape::is.rooted(phy)) {
-      return(calc_wiener_cpp(phy, normalization, weight))
+    if (ape::is.rooted(phy)) {
+      return(calc_wiener_cpp(as.vector(t(phy$edge)),
+                             phy$edge.length,
+                             normalization,
+                             weight))
     } else {
+      if (!weight) phy$edge.length <- rep(1, length(phy$edge.length))
       dist_n <- ape::dist.nodes(phy)
       return(sum(dist_n[lower.tri(dist_n)]))
     }

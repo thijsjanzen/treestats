@@ -9,7 +9,7 @@
 #' @export
 avg_vert_depth <- function(phy) {
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 
@@ -18,7 +18,8 @@ avg_vert_depth <- function(phy) {
     phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    max_d_stat <- calc_avg_vert_depth_cpp(as.vector(t(phy$edge)))
+    # polytomies are checked at the Rcpp side
+    max_d_stat <-  calc_avg_vert_depth_cpp(as.vector(t(phy$edge)))
     return(max_d_stat)
   }
   stop("input object has to be phylo or ltable")

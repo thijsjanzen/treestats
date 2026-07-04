@@ -10,7 +10,7 @@
 #' @export
 four_prong <- function(input_obj) {
   check_tree(input_obj,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE)
 
   if (inherits(input_obj, "matrix")) {

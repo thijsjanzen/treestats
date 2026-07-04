@@ -98,7 +98,9 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 
-  stats$blum               <- try_stat(phylo, treestats::blum,
+  #stats$blum               <- try_stat(phylo, treestats::blum,
+  #                                     normalize, c(TRUE, FALSE))
+  stats$sshape             <- try_stat(phylo, treestats::sshape,
                                        normalize, c(TRUE, FALSE))
 
   stats$crown_age          <- try_stat(phylo, treestats::crown_age)
@@ -310,10 +312,10 @@ try_stat <- function(phylo,
                                    ifelse(normalize,
                                           norm_res[1], norm_res[2]))
                            },
-                    error = function(e) {return(NA)})     #nolint
+                    error = function(e) {return(NA_real_)})     #nolint
   } else {
     res <- tryCatch(expr = {func(phylo)},  #nolint
-                    error = function(e) {return(NA)})     #nolint
+                    error = function(e) {return(NA_real_)})     #nolint
   }
   return(res)
 }

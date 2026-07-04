@@ -18,15 +18,42 @@
 #include <RcppArmadillo.h>
 
 #include "util.h"     // NOLINT [build/include_subdir]
-#include "sackin.h"   // NOLINT [build/include_subdir]
 #include "ltable.h"   // NOLINT [build/include_subdir]
 #include "cherries.h" // NOLINT [build/include_subdir]
+#include "depth.h"    // NOLINT [build/include_subdir]
+
+
+namespace correction {
+
+double correct_pda(size_t n,
+                  double Is) {
+  double denom = powf(n, 1.5f);
+  return 1.0 * Is / denom;
+}
+
+double correct_yule(size_t n,
+                    double Is) {
+  double sum_count = 0.0;
+  for (size_t j = 2; j <= n; ++j) {
+    sum_count += 1.0 / j;
+  }
+  return 1.0 * (Is - 2.0 * n * sum_count) / n;
+}
+
+double correct_blum(size_t n,
+                    double Is) {
+  return Is * 1.0 / n;
+}
+
+}   // namespace correction
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const std::vector<int>& tree_edge,
                        const Rcpp::String& normalization) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  double output = static_cast<double>(sackin_tree.calc_sackin());
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+
+  double output = static_cast<double>(sackin_tree->calc_sackin());
 
   if (normalization == "yule") {
     size_t n  = tree_edge.size() / 4 + 1;
@@ -51,8 +78,10 @@ double calc_sackin_ltable_cpp(const Rcpp::NumericMatrix& ltab,
 
 // [[Rcpp::export]]
 double calc_tot_coph_cpp(const std::vector<int>& tree_edge) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  return sackin_tree.calc_tot_coph();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+
+  return sackin_tree->calc_tot_coph();
 }
 
 // [[Rcpp::export]]
@@ -65,8 +94,10 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
 // [[Rcpp::export]]
 double calc_blum_cpp(const std::vector<int>& tree_edge,
                      bool normalize) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  double output = sackin_tree.calc_blum();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  double output = sackin_tree->calc_blum();
+
   if (normalize)  {
     size_t n  = tree_edge.size() / 4 + 1;
     output = correction::correct_blum(n, output);
@@ -84,8 +115,24 @@ double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
 
 // [[Rcpp::export]]
 size_t cherries_cpp(const std::vector<int>& tree_edge) {
-  sackin::sackin_tree sackin_tree(tree_edge);
-  return sackin_tree.count_cherries();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+
+  return sackin_tree->count_cherries();
+}
+
+// [[Rcpp::export]]
+size_t calc_double_cherries_cpp(const std::vector<int>& tree_edge) {
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->count_double_cherries();
+}
+
+// [[Rcpp::export]]
+size_t calc_four_prong_cpp(const std::vector<int>& tree_edge) {
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->count_four_prong();
 }
 
 // [[Rcpp::export]]
@@ -97,7 +144,8 @@ size_t cherries_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 // [[Rcpp::export]]
 size_t pitchforks_cpp(const std::vector<int>& tree_edge) {
   // ltable version uses colless
-  sackin::sackin_tree sackin_tree(tree_edge);
-  return sackin_tree.count_pitchforks();
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->count_pitchforks();
 }
 

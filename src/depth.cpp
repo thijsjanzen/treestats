@@ -19,14 +19,19 @@
 #include "util.h"        // NOLINT [build/include_subdir]
 #include "depth.h"       // NOLINT [build/include_subdir]
 #include "ltable.h"      // NOLINT [build/include_subdir]
-#include "max_depth.h"   // NOLINT [build/include_subdir]
-#include "b1.h"          // NOLINT [build/include_subdir]
 #include "sym_nodes.h"   // NOLINT [build/include_subdir]
+
+
+// [[Rcpp::export]]
+bool check_is_binary_rcpp(const std::vector<int>& parent_list) {
+  return is_binary(parent_list);
+}
+
 
 // [[Rcpp::export]]
 int calc_max_del_width_cpp(const std::vector<int>& parent_list) {
-  width::width_tree tree(parent_list);
-  return tree.calc_max_del_width();
+  auto tree = depth::create_depth_tree(parent_list);
+  return tree->calc_max_del_width();
 }
 
 // [[Rcpp::export]]
@@ -38,8 +43,8 @@ double calc_max_del_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 int calc_max_width_cpp(const std::vector<int>& parent_list) {
-  width::width_tree tree(parent_list);
-  return tree.calc_max_width();
+  auto tree = depth::create_depth_tree(parent_list);
+  return tree->calc_max_width();
 }
 
 // [[Rcpp::export]]
@@ -51,21 +56,20 @@ double calc_max_width_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 int calc_max_depth_cpp(const std::vector<int>& parent_list) {
-  max_depth::max_depth_tree local_tree(parent_list);
-  return local_tree.max_depth();
+  auto tree = depth::create_depth_tree(parent_list);
+  return tree->max_depth();
 }
-
 
 // [[Rcpp::export]]
 double calc_avg_vert_depth_cpp(const std::vector<int>& parent_list) {
-  width::width_tree local_tree(parent_list);
-  return local_tree.calc_avg_vert_depth();
+  auto tree = depth::create_depth_tree(parent_list);
+  return tree->calc_avg_vert_depth();
 }
 
 // [[Rcpp::export]]
 double tot_internal_path_cpp(const std::vector<int>& parent_list) {
-  width::width_tree local_tree(parent_list);
-  return local_tree.calc_tot_int_path();
+  auto tree = depth::create_depth_tree(parent_list);
+  return tree->calc_tot_int_path();
 }
 
 // [[Rcpp::export]]
@@ -77,8 +81,8 @@ double calc_max_depth_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 double calc_var_leaf_depth_cpp(const std::vector<int>& parent_list) {
-  width::width_tree local_tree(parent_list);
-  return local_tree.var_leaf_depth();
+  auto tree = depth::create_depth_tree(parent_list);
+  return tree->var_leaf_depth();
 }
 
 // [[Rcpp::export]]
@@ -96,9 +100,12 @@ int calc_sym_nodes_cpp(const std::vector<int>& parent_list) {
 
 // [[Rcpp::export]]
 double calc_b1_cpp(const std::vector<int>& parent_list) {
-  b1_tree::b1_tree focal_tree(parent_list);
-  return focal_tree.calc_b1();
+  auto tree = depth::create_depth_tree(parent_list,
+                                       depth::used_for::b1);
+  return tree->calc_b1();
 }
+
+
 
 // [[Rcpp::export]]
 double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
@@ -109,8 +116,9 @@ double calc_b1_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
 
 // [[Rcpp::export]]
 double calc_b2_cpp(const std::vector<int>& parent_list) {
-  width::width_tree tree(parent_list);
-  return tree.calc_b2();
+  auto tree = depth::create_depth_tree(parent_list,
+                                       depth::used_for::b1);
+  return tree->calc_b2();
 }
 
 // [[Rcpp::export]]
@@ -135,4 +143,8 @@ double calc_mw_over_md_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
   return 1.0 * mw / md;
 }
 
-
+// [[Rcpp::export]]
+double calc_root_imbalance_cpp(const std::vector<int>& parent_list) {
+  auto tree = depth::create_depth_tree(parent_list,  depth::used_for::sackin);
+  return tree->root_imbalance();
+}

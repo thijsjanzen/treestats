@@ -8,20 +8,12 @@ check_normalization_key <- function(normalization) {
   return(output)
 }
 
-#' @keywords internal
+#' Faster than the ape version
+#' @description Fast Rcpp function to check if a tree is binary
+#' @param phy phylo object
+#' @export
 check_binary <- function(phy) {
-  # in some weird testing cases, ape::is.binary returned a vector of integers,
-  # somehow this local (identical) version does not.
-  n <- length(phy$tip.label)
-  m <- phy$Nnode
-  dgr <- tabulate(phy$edge, n + m)
-  ref <- c(rep.int(1L, n), rep.int(3L, m))
-  ## can use identical() as long as tabulate() returns integers
-  if (ape::is.rooted(phy)) ref[n + 1L] <- 2L
-  a1 <- identical(dgr, ref)
-  # check that the root node is indeed binary
-  a2 <- dgr[n + 1L] == 2
-  return(a1 && a2)
+  return(check_is_binary_rcpp(as.vector(t(phy$edge))))
 }
 
 #' @keywords internal

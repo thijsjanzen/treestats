@@ -27,8 +27,10 @@ max_closeness <- function(phy, weight = TRUE, normalization = "none") {
   }
   if (inherits(phy, "phylo")) {
 
-    if (ape::is.binary(phy) && ape::is.rooted(phy)) {
-      closeness_stat <- calc_max_closeness_cpp(phy, weight)
+    if (ape::is.rooted(phy)) {
+      closeness_stat <- calc_max_closeness_cpp(as.vector(t(phy$edge)),
+                                               phy$edge.length,
+                                               weight)
     } else {
       mat_size <- max(phy$edge)
       if (mat_size > 46340) {  # floor(sqrt(2^31 - 1)))
@@ -41,7 +43,7 @@ max_closeness <- function(phy, weight = TRUE, normalization = "none") {
     }
 
     if (normalization == "tips" || normalization == TRUE) {
-      n <- length(phy$edge)
+      n <- length(phy$tip.label)
       expectation <- 1.0 / (n * log(n))
       closeness_stat <- closeness_stat / expectation
     }

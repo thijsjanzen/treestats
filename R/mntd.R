@@ -8,7 +8,12 @@
 #' Systematics 33:475-505.
 #' @export
 mntd <- function(phy) {
-  # only defined for extant trees!
+
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = FALSE)
+
   if (inherits(phy, "matrix")) {
     if (sum(phy[, 4] != -1)) {
       # we now have to do it brute force:

@@ -46,6 +46,13 @@ test_that("usage", {
 
 })
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    res <- try_stat(focal_tree, treestats::pigot_rho)
+    testthat::expect_true(!is.na(res))
+  }
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::pigot_rho(10),

@@ -6,7 +6,7 @@
 list_statistics <- function(only_balance_stats = FALSE) {
   all_statistics <- c("gamma", "sackin",
                       "colless", "colless_corr", "colless_quad",
-                      "beta", "blum", "crown_age",
+                      "beta", "crown_age",
                       "tree_height", "pigot_rho", "number_of_lineages",
                       "nltt_base", "phylogenetic_div", "avg_ladder",
                       "max_ladder", "cherries", "double_cherries",
@@ -20,7 +20,7 @@ list_statistics <- function(only_balance_stats = FALSE) {
                       "ew_colless",
                       "max_del_width", "max_depth", "max_width", "mw_over_md",
                       "rogers", "stairs2", "tot_coph", "var_depth",
-                      "symmetry_nodes",
+                      "symmetry_nodes", "sshape",
                       "mpd", "psv", "vpd", "mntd", "j_stat", "rquartet",
                       "wiener", "max_betweenness",
                       "max_closeness", "max_closenessW",
@@ -34,7 +34,7 @@ list_statistics <- function(only_balance_stats = FALSE) {
 
   all_statistics <- sort(all_statistics)
 
-  bal_stats <- c("sackin", "colless", "beta", "blum", "avg_ladder",
+  bal_stats <- c("sackin", "colless", "beta", "sshape", "avg_ladder",
                  "max_ladder", "cherries", "il_number", "pitchforks", "stairs",
                  "b1", "b2", "area_per_pair", "average_leaf_depth", "i_stat",
                  "ew_colless", "max_del_width", "max_depth", "max_width",

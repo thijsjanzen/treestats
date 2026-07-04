@@ -65,24 +65,24 @@ calc_crown_age_cpp <- function(phy) {
     .Call('_treestats_calc_crown_age_cpp', PACKAGE = 'treestats', phy)
 }
 
-calc_wiener_cpp <- function(phy, normalize, weight) {
-    .Call('_treestats_calc_wiener_cpp', PACKAGE = 'treestats', phy, normalize, weight)
+calc_wiener_cpp <- function(edge_in, el, normalize, weight) {
+    .Call('_treestats_calc_wiener_cpp', PACKAGE = 'treestats', edge_in, el, normalize, weight)
 }
 
-calc_max_betweenness_cpp <- function(phy) {
-    .Call('_treestats_calc_max_betweenness_cpp', PACKAGE = 'treestats', phy)
+calc_max_betweenness_cpp <- function(edge_in, el) {
+    .Call('_treestats_calc_max_betweenness_cpp', PACKAGE = 'treestats', edge_in, el)
 }
 
 calc_max_betweenness_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_max_betweenness_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
-calc_max_closeness_cpp <- function(phy, weight) {
-    .Call('_treestats_calc_max_closeness_cpp', PACKAGE = 'treestats', phy, weight)
+calc_max_closeness_cpp <- function(edge_in, el, weight) {
+    .Call('_treestats_calc_max_closeness_cpp', PACKAGE = 'treestats', edge_in, el, weight)
 }
 
-calc_diameter_cpp <- function(phy, weight) {
-    .Call('_treestats_calc_diameter_cpp', PACKAGE = 'treestats', phy, weight)
+calc_diameter_cpp <- function(edge_in, el, weight) {
+    .Call('_treestats_calc_diameter_cpp', PACKAGE = 'treestats', edge_in, el, weight)
 }
 
 calc_diameter_ltable_cpp <- function(l_from_R, weight) {
@@ -185,24 +185,16 @@ calc_root_imbalance_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_root_imbalance_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
-calc_root_imbalance_cpp <- function(parent_list) {
-    .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
-}
-
-calc_double_cherries_cpp <- function(parent_list) {
-    .Call('_treestats_calc_double_cherries_cpp', PACKAGE = 'treestats', parent_list)
-}
-
 calc_double_cherries_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_double_cherries_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
-calc_four_prong_cpp <- function(parent_list) {
-    .Call('_treestats_calc_four_prong_cpp', PACKAGE = 'treestats', parent_list)
-}
-
 calc_four_prong_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_four_prong_ltable_cpp', PACKAGE = 'treestats', l_from_R)
+}
+
+check_is_binary_rcpp <- function(parent_list) {
+    .Call('_treestats_check_is_binary_rcpp', PACKAGE = 'treestats', parent_list)
 }
 
 calc_max_del_width_cpp <- function(parent_list) {
@@ -273,6 +265,10 @@ calc_mw_over_md_ltable_cpp <- function(l_from_R) {
     .Call('_treestats_calc_mw_over_md_ltable_cpp', PACKAGE = 'treestats', l_from_R)
 }
 
+calc_root_imbalance_cpp <- function(parent_list) {
+    .Call('_treestats_calc_root_imbalance_cpp', PACKAGE = 'treestats', parent_list)
+}
+
 avgLadder_cpp <- function(tree_edge) {
     .Call('_treestats_avgLadder_cpp', PACKAGE = 'treestats', tree_edge)
 }
@@ -295,10 +291,6 @@ outer_cpp <- function(xx, x, sd) {
 
 calc_mpd_cpp <- function(edge, el) {
     .Call('_treestats_calc_mpd_cpp', PACKAGE = 'treestats', edge, el)
-}
-
-calc_J_cpp <- function(edge, el) {
-    .Call('_treestats_calc_J_cpp', PACKAGE = 'treestats', edge, el)
 }
 
 calc_var_mpd_cpp <- function(phy) {
@@ -387,6 +379,14 @@ calc_blum_ltable_cpp <- function(ltab_in, normalize) {
 
 cherries_cpp <- function(tree_edge) {
     .Call('_treestats_cherries_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
+calc_double_cherries_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_double_cherries_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
+calc_four_prong_cpp <- function(tree_edge) {
+    .Call('_treestats_calc_four_prong_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
 cherries_ltable_cpp <- function(ltable_R) {

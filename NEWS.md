@@ -1,3 +1,14 @@
+# Version 1.71.13
+- Polytomies were not handled correctly, and code for the following statistics
+was adjusted accordingly: ILnumber, entropy_j, tot_internal_path, tot_path,
+max_width, max_del_width, max_depth, mw_over_md, phylogenetic_diversity, 
+var_pair_dist and var_leaf_depth. 
+Furthermore, several statistics previously not available for non-binary trees 
+were expanded to be applicable to non-binary trees as well (use at your own 
+discretion, as normalization constants might not be applicable): b1, b2, 
+cherries, pitchforks, double_cherries, sackin index, total cophenetic index, 
+area_per_pair and average_leaf_depth.
+
 # Version 1.71.12
 - Updated calculation of how to crown age was calculated to avoid edge-case
 miscalculations, and to speed up calculation as well.
@@ -16,7 +27,7 @@ eigenvector and the adjacency matrix related summary statistics. These are no
 longer restricted by tree size (although for very large trees, calculations
 might still take considerable time, scaling is much better now).
 - Added matrix-free calculations for the min_max laplacian function
-- Note that the RSpectra related statistics are NOT matrix free possible: these
+- Note that the RPANDA related statistics are NOT matrix free possible: these
 require all distances between all tips and all nodes, which can not be done
 matrix-free (so these are restricted to trees < ~20k nodes, and relatively
 slow).

@@ -15,27 +15,21 @@ test_that("usage", {
   testthat::expect_equal(treestats::mean_branch_length(focal_tree),
                          treestats::mean_branch_length(ltab))
 
-
-
-  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-  a1 <- treestats::mean_branch_length(focal_tree)
-  a2 <- calc_mean_br_r(focal_tree)
+  a1 <- treestats::mean_branch_length(extant_tree)
+  a2 <- calc_mean_br_r(extant_tree)
   testthat::expect_equal(a1, a2)
 
-  ltab <- treestats::phylo_to_l(focal_tree)
+  ltab <- treestats::phylo_to_l(extant_tree)
   testthat::expect_equal(a2,
                          treestats::mean_branch_length(ltab))
 
 
   # with extinct species:
-  focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
-
-  a1 <- treestats::mean_branch_length(focal_tree)
-  a2 <- calc_mean_br_r(focal_tree)
+  a1 <- treestats::mean_branch_length(complete_tree)
+  a2 <- calc_mean_br_r(complete_tree)
   testthat::expect_equal(a1, a2)
 
-  ltab <- treestats::phylo_to_l(focal_tree)
+  ltab <- treestats::phylo_to_l(complete_tree)
   testthat::expect_equal(a2,
                          treestats::mean_branch_length(ltab))
 })

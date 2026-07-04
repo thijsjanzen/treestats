@@ -2,30 +2,37 @@ context("colless_quad")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    colless_c <- treestats::colless_quad(focal_tree)
-    colless_check <- treebalance::collessI(focal_tree, method = "quadratic")
+    colless_c <- treestats::colless_quad(extant_tree)
+    colless_check <- treebalance::collessI(extant_tree, method = "quadratic")
     testthat::expect_equal(colless_c, colless_check)
 
     # now, using ltable:
-    focal_ltab <- treestats::phylo_to_l(focal_tree)
+    focal_ltab <- treestats::phylo_to_l(extant_tree)
 
     colless_cl <- treestats::colless_quad(focal_ltab)
     testthat::expect_equal(colless_cl, colless_check)
 
     ## with extinct lineages:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
-    colless_c <- treestats::colless_quad(focal_tree)
-    colless_check <- treebalance::collessI(focal_tree, method = "quadratic")
+    colless_c <- treestats::colless_quad(complete_tree)
+    colless_check <- treebalance::collessI(complete_tree, method = "quadratic")
     testthat::expect_equal(colless_c, colless_check)
 
-    focal_ltab <- treestats::phylo_to_l(focal_tree)
+    focal_ltab <- treestats::phylo_to_l(complete_tree)
 
     colless_cl <- treestats::colless_quad(focal_ltab)
     testthat::expect_equal(colless_cl, colless_check)
+  }
+})
+
+test_that("polytomies", {
+  if (requireNamespace("treebalance")) {
+
+    test_func <- function(phy) {
+      treebalance::collessI(phy, method = "quadratic")
+    }
+
+    test_polytomies(treestats::colless_quad, test_func)
   }
 })
 

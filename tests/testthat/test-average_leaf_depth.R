@@ -2,39 +2,37 @@ context("average leaf depth")
 
 test_that("usage", {
   if (requireNamespace("treebalance")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-
-    ald <- treestats::average_leaf_depth(focal_tree)
-    ald_check <- treebalance::avgLeafDepI(focal_tree)
+    ald <- treestats::average_leaf_depth(extant_tree)
+    ald_check <- treebalance::avgLeafDepI(extant_tree)
     testthat::expect_equal(ald, ald_check)
 
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::average_leaf_depth(focal_tree),
+    ltab <- treestats::phylo_to_l(extant_tree)
+    testthat::expect_equal(treestats::average_leaf_depth(extant_tree),
                            treestats::average_leaf_depth(ltab))
 
 
     # with extinct species:
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
-
-    ald <- treestats::average_leaf_depth(focal_tree)
-    ald_check <- treebalance::avgLeafDepI(focal_tree)
+    ald <- treestats::average_leaf_depth(complete_tree)
+    ald_check <- treebalance::avgLeafDepI(complete_tree)
     testthat::expect_equal(ald, ald_check)
 
-    ltab <- treestats::phylo_to_l(focal_tree)
-    testthat::expect_equal(treestats::average_leaf_depth(focal_tree),
+    ltab <- treestats::phylo_to_l(complete_tree)
+    testthat::expect_equal(treestats::average_leaf_depth(complete_tree),
                            treestats::average_leaf_depth(ltab))
   }
 })
 
-test_that("normalization", {
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
+test_that("polytomies", {
+  if (requireNamespace("treebalance")) {
+    test_polytomies(treestats::average_leaf_depth, treebalance::avgLeafDepI)
+  }
+})
 
-  c1 <- treestats::average_leaf_depth(focal_tree)
-  c2 <- treestats::average_leaf_depth(focal_tree, normalization = "yule")
+test_that("normalization", {
+  c1 <- treestats::average_leaf_depth(extant_tree)
+  c2 <- treestats::average_leaf_depth(extant_tree, normalization = "yule")
   testthat::expect_lt(c2, c1)
-  c3 <- treestats::average_leaf_depth(treestats::phylo_to_l(focal_tree),
+  c3 <- treestats::average_leaf_depth(treestats::phylo_to_l(extant_tree),
                             normalization = "yule")
   testthat::expect_equal(c2, c3)
 

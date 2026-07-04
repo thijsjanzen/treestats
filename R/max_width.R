@@ -15,6 +15,11 @@
 max_width <- function(phy, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
     max_w_stat <- calc_max_width_ltable_cpp(phy)
     if (normalization == "tips" || normalization == TRUE) {
@@ -23,7 +28,9 @@ max_width <- function(phy, normalization = "none") {
     return(max_w_stat)
   }
   if (inherits(phy, "phylo")) {
-    max_w_stat <- calc_max_width_cpp(as.vector(t(phy$edge)))
+    # polytomies are checked at the Rcpp side
+    max_w_stat <-  calc_max_width_cpp(as.vector(t(phy$edge)))
+
     if (normalization == "tips" || normalization == TRUE) {
       max_w_stat <- max_w_stat / length(phy$tip.label)
     }

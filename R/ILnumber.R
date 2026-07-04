@@ -6,10 +6,6 @@
 #' @param normalization "none" or "tips", in which case the result is normalized
 #' by dividing by N - 2, where N is the number of tips.
 #' @return ILnumber
-#' @description
-#' The ILnumber is the number of internal nodes with a single tip child, as
-#' adapted from the phyloTop package.
-#'
 #' @export
 ILnumber <- function(input_obj, normalization = "none") { # nolint
   normalization <- check_normalization_key(normalization)

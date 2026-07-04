@@ -22,6 +22,13 @@ test_that("usage", {
   testthat::expect_equal(treeness_2, treeness_2_ltab)
 })
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    res <- try_stat(focal_tree, treestats::treeness)
+    testthat::expect_true(!is.na(res))
+  }
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::treeness(10),

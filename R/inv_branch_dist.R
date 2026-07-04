@@ -15,7 +15,7 @@
 inv_branch_dist <- function(phy, add_one = FALSE) {
 
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = TRUE,
              require_rooted = TRUE)
 

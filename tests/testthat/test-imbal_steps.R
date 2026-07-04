@@ -16,7 +16,13 @@ test_that("usage", {
   a1 <- treestats::imbalance_steps(focal_tree,
                                    normalization = TRUE)
   testthat::expect_equal(a1, 1.0)
+})
 
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    local_stat <- try_stat(focal_tree, treestats::imbalance_steps)
+    testthat::expect_true(is.na(local_stat))
+  }
 })
 
 test_that("abuse", {

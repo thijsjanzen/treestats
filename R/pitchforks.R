@@ -11,7 +11,7 @@ pitchforks <- function(input_obj, normalization = "none") {
   normalization <- check_normalization_key(normalization)
 
   check_tree(input_obj,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 

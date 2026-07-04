@@ -2,37 +2,27 @@ context("IL number")
 
 test_that("usage", {
   if (requireNamespace("phyloTop")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-
-    c1 <- treestats::ILnumber(focal_tree)
-    c2 <- phyloTop::ILnumber(focal_tree)
+     c1 <- treestats::ILnumber(extant_tree)
+    c2 <- phyloTop::ILnumber(extant_tree)
     testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::ILnumber(treestats::phylo_to_l(focal_tree))
+    c3 <- treestats::ILnumber(treestats::phylo_to_l(extant_tree))
     testthat::expect_equal(c1, c3)
 
-
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0.5,
-                              fossils = TRUE)
-
-    c1 <- treestats::ILnumber(focal_tree)
-    c2 <- phyloTop::ILnumber(focal_tree)
+    c1 <- treestats::ILnumber(complete_tree)
+    c2 <- phyloTop::ILnumber(complete_tree)
     testthat::expect_equal(c1, c2)
 
-    c3 <- treestats::ILnumber(treestats::phylo_to_l(focal_tree))
+    c3 <- treestats::ILnumber(treestats::phylo_to_l(complete_tree))
     testthat::expect_equal(c1, c3)
   }
 })
 
 test_that("normalization", {
-  set.seed(42)
-  focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-
-  c1 <- treestats::ILnumber(focal_tree)
-  c2 <- treestats::ILnumber(focal_tree, normalization = "tips")
+  c1 <- treestats::ILnumber(extant_tree)
+  c2 <- treestats::ILnumber(extant_tree, normalization = "tips")
   testthat::expect_lt(c2, c1)
-  c3 <- treestats::ILnumber(treestats::phylo_to_l(focal_tree),
+  c3 <- treestats::ILnumber(treestats::phylo_to_l(extant_tree),
                             normalization = "tips")
   testthat::expect_equal(c2, c3)
 
@@ -50,6 +40,15 @@ test_that("normalization", {
   testthat::expect_lt(a2, a1)
   testthat::expect_lt(a2, 0.2)
 })
+
+test_that("polytomies", {
+  # phyloTop does not apply to non-binary trees, treestats does!
+  for (focal_tree in poly_trees) {
+    local_stat <- try_stat(focal_tree, treestats::ILnumber)
+    testthat::expect_true(!is.na(local_stat))
+  }
+})
+
 
 test_that("wrong_object", {
   testthat::expect_error(

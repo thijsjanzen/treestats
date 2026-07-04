@@ -20,7 +20,6 @@ test_that("usage", {
   a2 <- treestats::root_imbalance(treestats::phylo_to_l(unbal_tree))
   testthat::expect_equal(a2, 63 / 64)
 
-
   # with extinct species:
   focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
@@ -28,6 +27,15 @@ test_that("usage", {
   testthat::expect_equal(treestats::root_imbalance(focal_tree),
                          treestats::root_imbalance(ltab))
 
+})
+
+test_that("polytomies", {
+  for (focal_tree in poly_trees) {
+    if (ape::is.rooted(focal_tree)) {
+        res <- try_stat(focal_tree, treestats::root_imbalance)
+        testthat::expect_true(!is.na(res))
+    }
+  }
 })
 
 test_that("wrong_object", {

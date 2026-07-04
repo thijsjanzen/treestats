@@ -16,95 +16,123 @@
 #include <numeric>
 #include <algorithm>   // min element
 #include <utility>     // swap
+#include <stack>
 
 #include "binom.h"  // NOLINT [build/include_subdir]
 
-using edge = std::vector< std::array< size_t, 2 >>;
+using edge   = std::vector< std::array< size_t, 2 >>;
 using ltable = std::vector< std::array< double, 4>>;
 
-// first sum:
-std::vector< std::array<double, 2>> computeLRSizes(
-    const edge& e,
-    const std::vector<double>& el,
-    bool use_branch_length = false,
-    bool use_max = false) {
-  int n = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5);  // num tips
-  int N = 2 * n - 1;
+struct LRSizes {
+  void compute(const edge& e,
+               const std::vector<double>& el,
+               bool is_poly) {
+    if (is_poly) {
+      root_no = e[0][0];
+      max_node_no = e[0][0];
 
-  std::vector< std::array< double, 2 >> Tab(n - 1, { -1, -1 });
+      for (const auto& i : e) {
+        if (i[0] < root_no) root_no = i[0];
+        if (i[0] > max_node_no) max_node_no = i[0];
+      }
 
-  std::array<int, 2> curRow;
-
-  for (int ind = N - 2; ind >= 0; ind--) {
-    curRow = { static_cast<int>(e[ind][0]) - n - 1,
-               static_cast<int>(e[ind][1]) - n - 1 };
-
-
-    if (ind < 0 || ind >= static_cast<int>(el.size())) {
-      throw "ind out of range el";
-    }
-
-    double W = use_branch_length ? el[ind] : 1.0;
-
-
-    if (curRow[1] >= static_cast<int>(Tab.size())) {
-      throw "curRow[1] out of range Tab";
-    }
-
-    double new_val;
-    if (use_max) {
-      new_val = curRow[1] > 0 ?
-                    W + std::max(Tab[curRow[1]][0], Tab[curRow[1]][1]) :
-                    W;
+      n_ = root_no - 1;
+      N_ = max_node_no;
     } else {
-      // use sum
-      new_val = curRow[1] > 0 ?
-                    W + Tab[curRow[1]][0] + Tab[curRow[1]][1] :
-                    W;
+      n_ = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5);  // num tips
+      N_ = 2 * n_ - 1;
     }
 
-    int x = curRow[0];
-    if (curRow[0] < 0 || curRow[0] >= static_cast<int>(Tab.size())) {
-      throw "curRow[0] out of range Tab";
-    }
-    int y = Tab[curRow[0]][0] < 0 ? 0 : 1;
+    Tab = std::vector< std::vector< double >>(N_ - n_);
+    for (auto& i : Tab) i.reserve(2);   // already reserve 2 daughters
 
-    Tab[x][y] = new_val;
+    std::array<int, 2> curRow;
+
+    for (int ind = N_ - 2; ind >= 0; ind--) {
+      curRow = { static_cast<int>(e[ind][0]) - n_ - 1,
+                 static_cast<int>(e[ind][1]) - n_ - 1 };
+
+      if (ind < 0 || ind >= static_cast<int>(el.size())) {
+        throw "ind out of range el";
+      }
+
+      double W = use_branch_length ? el[ind] : 1.0;
+
+      if (curRow[1] >= static_cast<int>(Tab.size())) {
+        throw "curRow[1] out of range Tab";
+      }
+
+      double new_val = W;
+      if (use_max) {
+        if (curRow[1] > 0) {
+          new_val += *std::max_element(Tab[curRow[1]].begin(),
+                                       Tab[curRow[1]].end());
+        }
+      } else {
+        // use sum
+        if (curRow[1] > 0) {
+          for (size_t i = 0; i < Tab[curRow[1]].size(); ++i) {
+            new_val += Tab[curRow[1]][i];
+          }
+        }
+      }
+
+      int x = curRow[0];
+      if (x < 0 || x >= static_cast<int>(Tab.size())) {
+        throw "curRow[0] out of range Tab";
+      }
+
+      Tab[x].push_back(new_val);
+    }
   }
 
-  return Tab;
-}
+  std::vector<double> create_q(const int offset) {
+    std::vector<double> q(Tab.size(), 0.0);
+    size_t cnt = 0;
+    for (const auto& i : Tab) {
+      q[cnt] = offset + std::accumulate(i.cbegin(), i.cend(), 0.0);
+      cnt++;
+    }
+    return q;
+  }
+
+  LRSizes(bool use_br, bool use_m) : use_branch_length(use_br), use_max(use_m) {
+    n_ = N_ = -1;   // will be set later
+  }
+
+  int n_;
+  int N_;
+  bool use_branch_length;
+  bool use_max;
+  int root_no;
+  int max_node_no;
+  std::vector< std::vector<double> > Tab;   // (n - 1, { -1, -1 });
+};
 
 double wiener(const edge& e,
               const std::vector<double>& el,
               bool normalize = false,
-              bool weight = false) {
-  auto sub_tree_sizes = computeLRSizes(e, el);
-  std::vector<double> q(sub_tree_sizes.size(), 0.0);
-  size_t cnt = 0;
-  for (const auto& i : sub_tree_sizes) {
-    q[cnt] = i[0] + i[1] + 1;
-    cnt++;
-  }
+              bool weight = false,
+              bool is_poly = false) {
+  LRSizes sub_tree_sizes(false, false);
+  sub_tree_sizes.compute(e, el, is_poly);
+  auto q = sub_tree_sizes.create_q(1);
 
-  int n = static_cast<int>(q.size());
-  int N = 2 * n + 1;
+  int N = sub_tree_sizes.N_;
 
   double W = 0.0;
-  if (weight) {
-    W = 0.0;
-    for (size_t i = 0; i < e.size(); ++i) {
-      int curEndpoint = static_cast<int>(e[i][1]);
-
-      auto curQ = (curEndpoint > (n + 2)) ? q[curEndpoint - n - 2] : 1.0;
-
-      W += curQ * (N - curQ) * el[i];
+  for (size_t i = 0; i < e.size(); ++i) {
+    int curEndpoint = static_cast<int>(e[i][1]);
+    double curQ = 1.0;
+    if (curEndpoint <= sub_tree_sizes.n_) {
+        curQ = 1;
+    } else {
+        curQ = q[curEndpoint - sub_tree_sizes.n_ - 1];
     }
-  } else {
-    W = (N - 1) * (n + 1);
-    for (const auto& i : q) {
-      W += i * (N - i);
-    }
+
+    double bl = weight ? el[i] : 1.0;
+
+    W += curQ * (N - curQ) * bl;
   }
 
   if (normalize) {
@@ -114,31 +142,37 @@ double wiener(const edge& e,
   return W;
 }
 
-
 double max_betweenness(const edge& e,
-                       const std::vector<double>& el) {
-  auto sub_tree_sizes = computeLRSizes(e, el);
-  std::vector<double> q(sub_tree_sizes.size());
-  size_t cnt = 0;
-  for (const auto& i : sub_tree_sizes) {
-    q[cnt] = i[0] + i[1];
-    cnt++;
-  }
-  auto n = q.size();
+                       const std::vector<double>& el,
+                       bool is_poly) {
+  LRSizes sub_tree_sizes(false, false);
+
+  sub_tree_sizes.compute(e, el, is_poly);
+
+  auto q = sub_tree_sizes.create_q(0);
 
   double max_betweenness = -1.0;
-  for (size_t i = 0; i < sub_tree_sizes.size(); ++i) {
-    auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] +
-                   q[i] * (2 * n - q[i]);
+  for (size_t i = 0; i < sub_tree_sizes.Tab.size(); ++i) {
+    double sum_sq = 0.0;
+    for (double s : sub_tree_sizes.Tab[i]) {
+        sum_sq += s * s;
+    }
+
+    double child_pairs = (q[i] * q[i] - sum_sq) / 2.0;
+
+    double N_ = sub_tree_sizes.N_;
+
+    double local_b = child_pairs + q[i] * (N_ - 1 - q[i]);
+
     if (local_b > max_betweenness) max_betweenness = local_b;
   }
   return max_betweenness;
 }
 
 double sum_weighed_heights(const edge& e,
-                           const std::vector<double>& el) {
-  int n = 1 + static_cast<int>(static_cast<int>(e.size()) * 0.5);
-  int N = 2 * n - 1;
+                           const std::vector<double>& el,
+                           int n,
+                           int N) {
   std::vector<double> Tab(N, 0.0);
   for (int ind = 0; ind < N - 1; ++ind) {
     auto curRow = e[ind];
@@ -159,20 +193,18 @@ double sum_weighed_heights(const edge& e,
   return std::accumulate(Tab.begin(), Tab.end(), 0.0);
 }
 
+
 double min_farness(const edge& local_edge,
                    const std::vector<double>& el,
-                   bool weight = false) {
-  auto sub_tree_sizes = computeLRSizes(local_edge, el);
+                   bool weight,
+                   bool is_poly) {
+  LRSizes sub_tree_sizes(false, false);   // do not pass weight here.
+  sub_tree_sizes.compute(local_edge, el, is_poly);
 
-  std::vector<double> sizes(sub_tree_sizes.size());
-  size_t cnt = 0;
-  for (const auto& i : sub_tree_sizes) {
-    sizes[cnt] = i[0] + i[1];
-    cnt++;
-  }
+  auto sizes = sub_tree_sizes.create_q(0);
 
-  size_t n = 1 + static_cast<int>(local_edge.size()) * 0.5;;
-  int N = 2 * n - 1;
+  size_t n = sub_tree_sizes.n_;
+  int    N = sub_tree_sizes.N_;
 
   std::vector<double> farness(N);
 
@@ -181,7 +213,7 @@ double min_farness(const edge& local_edge,
   }
 
   if (weight) {
-    farness[n] = sum_weighed_heights(local_edge, el);
+    farness[n] = sum_weighed_heights(local_edge, el, n, N);
   } else {
     farness[n] = std::accumulate(sizes.begin(), sizes.end(), 0.0);
   }
@@ -213,24 +245,80 @@ double min_farness(const edge& local_edge,
   return *std::min_element(farness.begin(), farness.end());
 }
 
-double max_closeness(const edge& e,
-                     const std::vector<double>& el,
-                     bool weight = false) {
-  return 1.0 / min_farness(e, el, weight);
-}
-
-double diameter(const edge& e,
+double diameter_binary(const edge& e,
                 const std::vector<double>& el,
                 bool weight = false) {
-  auto depths = computeLRSizes(e, el, weight, true);
+  LRSizes sub_tree_sizes(weight, false);   // do not pass weight here.
+  sub_tree_sizes.compute(e, el, false);
+
   double diam = 0.0;
-  for (const auto& i : depths) {
+  for (const auto& i : sub_tree_sizes.Tab) {
     assert(i.size() == 2);
     auto local_depth = i[0] + i[1];
     if (local_depth > diam) diam = local_depth;
   }
   return diam;
 }
+
+
+struct Edge {
+  int to;
+  double w;
+};
+
+void dfs(int start,
+         const std::vector<std::vector<Edge>>& adj,
+         std::vector<double>& dist) {
+  std::fill(dist.begin(), dist.end(), -1.0);
+
+  std::stack<int> st;
+  st.push(start);
+  dist[start] = 0;
+
+  while (!st.empty()) {
+    int v = st.top();
+    st.pop();
+
+    for (auto &e : adj[v]) {
+      if (dist[e.to] < 0) {
+        dist[e.to] = dist[v] + e.w;
+        st.push(e.to);
+      }
+    }
+  }
+}
+
+double diameter(const edge& e,
+                const std::vector<double>& el,
+                bool weight = false) {
+  // chatgpt magic
+  int max_num_nodes = e[0][0];
+  for (const auto& i : e) {
+    if (i[0] > max_num_nodes) max_num_nodes = i[0];
+  }
+
+  std::vector<std::vector<Edge>> adj(max_num_nodes);
+
+  for (int i = 0; i < e.size(); i++) {
+    int a = e[i][0] - 1;
+    int b = e[i][1] - 1;
+    double w = weight ? el[i] : 1.0;
+
+    adj[a].push_back({b, w});
+    adj[b].push_back({a, w});
+  }
+
+  std::vector<double> dist(max_num_nodes, -1);
+  dfs(e[0][0] - 1, adj, dist);
+
+  int u = std::max_element(dist.begin(), dist.end()) - dist.begin();
+  std::fill(dist.begin(), dist.end(), -1.0);
+  dfs(u, adj, dist);
+
+  return *std::max_element(dist.begin(), dist.end());
+}
+
+
 
 // LTABLE associated code
 class LRsizes {
@@ -354,7 +442,7 @@ double max_betweenness_ltable(const ltable& ltab_) {
   double max_betweenness = -1.0;
   for (size_t i = 0; i < sub_tree_sizes.size(); ++i) {
     auto local_b = sub_tree_sizes[i][0] * sub_tree_sizes[i][1] +
-                   q[i] * (2 * n - q[i]);
+      q[i] * (2 * n - q[i]);
     if (local_b > max_betweenness) max_betweenness = local_b;
   }
   return max_betweenness;

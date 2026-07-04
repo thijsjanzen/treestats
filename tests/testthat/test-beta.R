@@ -2,16 +2,13 @@ context("beta")
 
 test_that("usage", {
   if (requireNamespace("apTreeshape")) {
-    set.seed(42)
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-
-    beta_treestats <- treestats::beta_statistic(focal_tree)
+    beta_treestats <- treestats::beta_statistic(extant_tree)
     beta_ref       <- apTreeshape::maxlik.betasplit(
-      apTreeshape::as.treeshape(focal_tree))
+      apTreeshape::as.treeshape(extant_tree))
 
     testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
 
-    bal_tree <- treestats::create_fully_balanced_tree(focal_tree)
+    bal_tree <- treestats::create_fully_balanced_tree(extant_tree)
 
     beta_treestats <- treestats::beta_statistic(bal_tree)
     beta_ref       <- apTreeshape::maxlik.betasplit(bal_tree)
@@ -19,7 +16,7 @@ test_that("usage", {
     testthat::expect_equal(beta_treestats, beta_ref$max_lik, tolerance = 0.05)
 
 
-    unbal_tree <- treestats::create_fully_unbalanced_tree(focal_tree)
+    unbal_tree <- treestats::create_fully_unbalanced_tree(extant_tree)
 
     beta_treestats <- treestats::beta_statistic(unbal_tree)
     beta_ref       <- apTreeshape::maxlik.betasplit(unbal_tree)
@@ -45,18 +42,30 @@ test_that("usage", {
     }
 
     comp_methods(bal_tree)
-    comp_methods(focal_tree)
-
-
+    comp_methods(extant_tree)
 
     # ltable
-    focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
-    beta_treestats <- treestats::beta_statistic(focal_tree)
-    focal_ltable <- treestats::phylo_to_l(focal_tree)
+    beta_treestats <- treestats::beta_statistic(extant_tree)
+    focal_ltable <- treestats::phylo_to_l(extant_tree)
     beta_ltable  <- treestats::beta_statistic(focal_ltable)
     testthat::expect_equal(beta_ltable, beta_treestats, tolerance = 0.1)
   }
 })
+
+test_that("polytomies", {
+  if (requireNamespace("apTreeshape")) {
+
+    local_func <- function(phy) {
+      res <- apTreeshape::avgLeafDepI(phy)
+      return(res$max_lik)
+    }
+
+    testthat::expect_warning(
+      test_polytomies(treestats::beta, local_func)
+    )
+  }
+})
+
 
 # abuse
 test_that("abuse", {

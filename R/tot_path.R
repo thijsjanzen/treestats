@@ -1,6 +1,7 @@
-#' Total  path length
+#' Total path length
 #' @description The total path length describes the sums of the depths
-#' of all vertices of the tree.
+#' of all vertices of the tree. This can also be calculated as the sum of the
+#' total internal path and the sackin index.
 #' @param phy phylo object or ltable
 #' @return Total path length
 #' @references  C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
@@ -10,7 +11,7 @@
 tot_path_length <- function(phy) {
 
   check_tree(phy,
-             require_binary = TRUE,
+             require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
 
