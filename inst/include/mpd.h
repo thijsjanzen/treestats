@@ -118,21 +118,13 @@ struct path_node {
 
   std::vector< kid > daughters;
   double add_one;
-  int id;
 
   // for inv_path length
   double sum_inv_b_length;
 
-  path_node() {
-    sum_inv_b_length = 0.0;
-    add_one = 1.0;
-    id = -1;
-  }
-
   explicit path_node(double one_val) {
     sum_inv_b_length = 0.0;
     add_one = one_val;
-    id = -1;
   }
 
   void add_kid(path_node* other, double branchlen) {
@@ -146,17 +138,6 @@ struct path_node {
     for (size_t i = 0; i < daughters.size(); ++i) {
       daughters[i].daughter->update_path(daughters[i].bl, sum_inv_b_length);
     }
-  }
-
-  std::vector<std::vector<double>> get_inv_blengths() const {
-    std::vector<std::vector<double>> v;
-
-    for (size_t i = 0; i < daughters.size(); ++i) {
-      v.push_back({sum_inv_b_length + 1.0 / (add_one + daughters[i].bl),
-                  static_cast<double>(daughters[i].daughter->id)});
-    }
-
-    return v;
   }
 };
 
@@ -173,11 +154,8 @@ class phylo_path_tree {
       if (tree_edge[i] > max_node_no) max_node_no = tree_edge[i];
     }
 
-    tree_size = root_no - 1;
-    int num_nodes = max_node_no - root_no;
-
     tree = std::vector<path_node>(1 + max_node_no,
-                        static_cast<double>(add_one));
+                        path_node(static_cast<double>(add_one)));
 
     for (size_t i = 0; i < tree_edge.size(); i += 2) {
       int index    = static_cast<int>(tree_edge[i]);
@@ -201,9 +179,8 @@ class phylo_path_tree {
 
  private:
   std::vector< path_node > tree;
-  int tree_size = 0;
-  int root_no = 0;
-  int max_node_no = 0;
+  int root_no;
+  int max_node_no;
 };
 
 }  // namespace mpd_tree

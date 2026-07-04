@@ -65,9 +65,9 @@ for (i in seq_along(tree_collection_files)) {
       to_add <- unlist(all_stats)
       # we also need to add if they have polytomies
       is_binary <- treestats::check_binary(focal_tree)
-      
+
       to_add <- c(families[j], is_binary, to_add)
-      
+
       found_stats <- rbind(found_stats, to_add)
     }
   }
@@ -106,13 +106,13 @@ get_cor <- function(local_stats) {
 
   # remove NA statistics
   to_remove <- c()
-  for (i in 1:ncol(local_stats2)) {
+  for (i in seq_len(ncol(local_stats2))) {
     if (any(is.na(local_stats2[, i]))) {
       to_remove <- c(to_remove, i)
     }
   }
   if (length(to_remove)) local_stats2 <- local_stats2[, -to_remove]
-  
+
   res_cor <- stats::cor(as.data.frame(local_stats2), method = "pearson")
 
   res_cor2 <- res_cor
@@ -142,13 +142,13 @@ get_cor <- function(local_stats) {
 }
 ```
 ```{r cor_binary} 
-found_stats_binary <- found_stats2 %>%
+found_stats_binary <- found_stats2 |>
   filter(is_binary == TRUE)
 master_cor_binary <- get_cor(found_stats_binary)
 ```
 
 ```{r cor_poly}
-found_stats_poly <- found_stats2 %>%
+found_stats_poly <- found_stats2 |>
   filter(is_binary == FALSE)
 master_cor_polytomy <- get_cor(found_stats_poly)
 ```

@@ -37,7 +37,8 @@ test_that("polytomies", {
       testthat::expect_equal(0, diff_eig)
       testthat::expect_equal(ref$asymmetry, stat$asymmetry)
       testthat::expect_equal(ref$peakedness, stat$peakedness, tolerance = 0.01)
-      testthat::expect_equal(ref$principal_eigenvalue, stat$principal_eigenvalue)
+      testthat::expect_equal(ref$principal_eigenvalue,
+                             stat$principal_eigenvalue)
       testthat::expect_equal(ref$eigengap, stat$eigengap)
     }
   }
