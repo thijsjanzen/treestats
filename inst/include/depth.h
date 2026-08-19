@@ -206,8 +206,14 @@ struct node_poly {
 
     int L = daughters[0]->num_extant_tips;
     int R = daughters[1]->num_extant_tips;
-    if (L == 1 && R == 3) return true;
-    if (L == 3 && R == 1) return true;
+    if (L == 1 && R == 3) {
+      // check if R is binary
+      if (daughters[1]->daughters.size() == 2) return true;
+      // if not, size is 1, and not binary (e.g. a poly with 3 tips)
+    }
+    if (L == 3 && R == 1) {
+      if (daughters[0]->daughters.size() == 2) return true;
+    }
 
     return false;
   }

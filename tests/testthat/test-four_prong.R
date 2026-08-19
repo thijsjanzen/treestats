@@ -29,6 +29,16 @@ test_that("polytomies", {
     res <- treestats::four_prong(focal_tree)
     testthat::expect_true(!is.na(res))
   }
+
+  # now on artificial trees
+  focal_tree <- ape::read.tree(text = "((((A:0.1,B:0.1):0.2,C:0.1):0.3,D:0.1):0.4,E:0.1);")
+  res <- treestats::four_prong(focal_tree)
+  testthat::expect_equal(res, 1)
+
+  # now we create a poly
+  focal_tree <- ape::read.tree(text = " ((((A:0.1,B:0.1,C:0.1):0.2,D:0.1):0.3,E:0.1):0.4);")
+  res <- treestats::four_prong(focal_tree)
+  testthat::expect_equal(res, 0)
 })
 
 

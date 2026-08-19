@@ -13,11 +13,15 @@ four_prong(input_obj)
 number of 4-tip caterpillars
 }
 \description{
-Calculate the number of 4-tip caterpillars.
+Calculate the number of 4-tip caterpillars. The function does
+accept non-binary trees, but four-prongs are only calculated on
+non-polytomous sub-trees with 4 tips, e.g. the 4-tip part has to be a
+caterpillar.
 }
 \references{
 Chindelevitch, Leonid, et al. "Network science inspires novel
 tree shape statistics." PloS one 16.12 (2021): e0259877.
+
 Rosenberg, Noah A. "The mean and variance of the numbers of r-pronged nodes
 and r-caterpillars in Yule-generated genealogical trees."
 Annals of Combinatorics 10 (2006): 129-146.
