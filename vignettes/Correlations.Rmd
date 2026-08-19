@@ -83,6 +83,7 @@ colnames(found_stats) <- c("Family", "is_binary", names(all_stats))
 found_stats <- tibble::as_tibble(found_stats)
 found_stats$random <- runif(n = length(found_stats$Family))
 
+
 # remove failed calculations:
 #to_remove <- which(is.na(found_stats$colless))
 #found_stats <- found_stats[-to_remove, ]
@@ -243,7 +244,7 @@ hm1 <- pheatmap::pheatmap(mat = cor2,
                           fontsize_row = 18)
 ```
 
-# On trees with polytomies
+## Polytomies
 
 Then, we plot it as a dendrogram, with added shading for groups, where 
 closeness in the tree is calculated as a function of 1 - abs(correlation), 

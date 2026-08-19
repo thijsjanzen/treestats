@@ -2,7 +2,9 @@
 #' @description Measures the distribution of tips over the two crown lineages,
 #' e.g. \eqn{n1 / (n1 + n2)}, where n1 is the number of tips connected to crown
 #' lineage 1 and n2 is the number of tips connected to crown lineage 2. We
-#' always take n1 > n2, thus root imbalance is always in [0.5, 1].
+#' always take n1 > n2, thus root imbalance is always in [0.5, 1]. Root
+#' imbalance is also calculated for polytomous trees, as long as there is no
+#' polytomy at the root.
 #' @param phy phylo object or ltable
 #' @return Root imbalance
 #' @references  Guyer, Craig, and Joseph B. Slowinski. "Adaptive radiation and
