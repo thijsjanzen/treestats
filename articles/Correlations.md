@@ -1,12 +1,12 @@
 # Correlations
 
-### Correlations
+## Correlations
 
 With the ongoing development and addition of new statistics, here we
 document the correlations between all statistics, as measured on the
 collection of empirical trees, as used in Janzen (2024).
 
-#### Loading data
+### Loading data
 
 We load the data from the supplement, hosted on GitHub.
 
@@ -76,6 +76,7 @@ num_stats <- length(names(all_stats))
 colnames(found_stats) <- c("Family", "is_binary", names(all_stats))
 found_stats <- tibble::as_tibble(found_stats)
 found_stats$random <- runif(n = length(found_stats$Family))
+
 
 # remove failed calculations:
 #to_remove <- which(is.na(found_stats$colless))
@@ -151,7 +152,7 @@ found_stats_poly <- found_stats2 |>
 master_cor_polytomy <- get_cor(found_stats_poly)
 ```
 
-### Binary trees
+## Binary trees
 
 Then, we plot it as a dendrogram, with added shading for groups, where
 closeness in the tree is calculated as a function of 1 -
@@ -247,7 +248,7 @@ hm1 <- pheatmap::pheatmap(mat = cor2,
 
 ![](Correlations_files/figure-html/heatmap,%20-1.png)
 
-## On trees with polytomies
+## Polytomies
 
 Then, we plot it as a dendrogram, with added shading for groups, where
 closeness in the tree is calculated as a function of 1 -

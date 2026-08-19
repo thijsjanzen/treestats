@@ -65,7 +65,7 @@
                         <h4 data-toc-skip class="author">Thijs
 Janzen</h4>
             
-            <h4 data-toc-skip class="date">2026-07-04</h4>
+            <h4 data-toc-skip class="date">2026-08-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thijsjanzen/treestats/blob/main/vignettes/Correlations.Rmd" class="external-link"><code>vignettes/Correlations.Rmd</code></a></small>
       <div class="d-none name"><code>Correlations.Rmd</code></div>
@@ -73,15 +73,15 @@ Janzen</h4>
 
     
     
-<div class="section level3">
-<h3 id="correlations">Correlations<a class="anchor" aria-label="anchor" href="#correlations"></a>
-</h3>
+<div class="section level2">
+<h2 id="correlations">Correlations<a class="anchor" aria-label="anchor" href="#correlations"></a>
+</h2>
 <p>With the ongoing development and addition of new statistics, here we
 document the correlations between all statistics, as measured on the
 collection of empirical trees, as used in Janzen (2024).</p>
-<div class="section level4">
-<h4 id="loading-data">Loading data<a class="anchor" aria-label="anchor" href="#loading-data"></a>
-</h4>
+<div class="section level3">
+<h3 id="loading-data">Loading data<a class="anchor" aria-label="anchor" href="#loading-data"></a>
+</h3>
 <p>We load the data from the supplement, hosted on GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">begin</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/thijsjanzen/treestats-scripts/main/datasets/phylogenies/fracced/"</span> <span class="co"># nolint</span></span>
@@ -141,6 +141,7 @@ benchmark for a completely uninformative statistic.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">found_stats</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Family"</span>, <span class="st">"is_binary"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">all_stats</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">found_stats</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">found_stats</span><span class="op">)</span></span>
 <span><span class="va">found_stats</span><span class="op">$</span><span class="va">random</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">found_stats</span><span class="op">$</span><span class="va">Family</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span></span>
 <span><span class="co"># remove failed calculations:</span></span>
 <span><span class="co">#to_remove &lt;- which(is.na(found_stats$colless))</span></span>
@@ -206,9 +207,9 @@ size, and then calculating the correlations between these residuals.</p>
 <span><span class="va">master_cor_polytomy</span> <span class="op">&lt;-</span> <span class="fu">get_cor</span><span class="op">(</span><span class="va">found_stats_poly</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="binary-trees">Binary trees<a class="anchor" aria-label="anchor" href="#binary-trees"></a>
-</h3>
+<div class="section level2">
+<h2 id="binary-trees">Binary trees<a class="anchor" aria-label="anchor" href="#binary-trees"></a>
+</h2>
 <p>Then, we plot it as a dendrogram, with added shading for groups,
 where closeness in the tree is calculated as a function of 1 -
 abs(correlation), so that both positive and negative correlations are
@@ -295,7 +296,7 @@ blue colors indicate negative correlations.</p>
 <p><img src="Correlations_files/figure-html/heatmap,%20-1.png" class="r-plt" alt="" width="2400"></p>
 </div>
 <div class="section level2">
-<h2 id="on-trees-with-polytomies">On trees with polytomies<a class="anchor" aria-label="anchor" href="#on-trees-with-polytomies"></a>
+<h2 id="polytomies">Polytomies<a class="anchor" aria-label="anchor" href="#polytomies"></a>
 </h2>
 <p>Then, we plot it as a dendrogram, with added shading for groups,
 where closeness in the tree is calculated as a function of 1 -
@@ -393,7 +394,7 @@ blue colors indicate negative correlations.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

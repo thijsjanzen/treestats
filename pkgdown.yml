@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   Correlations: Correlations.html
@@ -8,7 +8,7 @@ articles:
   Getting_started: Getting_started.html
   Speed_improvement: Speed_improvement.html
   Tree_size: Tree_size.html
-last_built: 2026-07-04T07:35Z
+last_built: 2026-08-19T12:03Z
 urls:
   reference: https://thijsjanzen.github.io/treestats/reference
   article: https://thijsjanzen.github.io/treestats/articles
