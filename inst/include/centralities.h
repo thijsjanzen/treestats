@@ -245,22 +245,6 @@ double min_farness(const edge& local_edge,
   return *std::min_element(farness.begin(), farness.end());
 }
 
-double diameter_binary(const edge& e,
-                const std::vector<double>& el,
-                bool weight = false) {
-  LRSizes sub_tree_sizes(weight, false);   // do not pass weight here.
-  sub_tree_sizes.compute(e, el, false);
-
-  double diam = 0.0;
-  for (const auto& i : sub_tree_sizes.Tab) {
-    assert(i.size() == 2);
-    auto local_depth = i[0] + i[1];
-    if (local_depth > diam) diam = local_depth;
-  }
-  return diam;
-}
-
-
 struct Edge {
   int to;
   double w;

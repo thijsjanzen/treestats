@@ -65,7 +65,15 @@ test_that("polytomies", {
       return(max(ref_closeness))
     }
 
-    # TODO: fix C++ error
+
+    test_polytomies(treestats::max_closeness, test_func)
+  } else if (requireNamespace("ape")) {
+    test_func <- function(phy) {
+      vv <-  ape::dist.nodes(phy)
+      farness <- rowSums(vv)
+      closeness <- 1 / farness
+      return(max(closeness))
+    }
     test_polytomies(treestats::max_closeness, test_func)
   }
 })
