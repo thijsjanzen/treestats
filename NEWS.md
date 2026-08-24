@@ -66,7 +66,7 @@ for rquartet for polytomous trees)
 
 # Version 1.70.5
 
-Updated references.
+- Updated references.
 
 # Version 1.70.4
 
