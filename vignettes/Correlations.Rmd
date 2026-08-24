@@ -83,11 +83,6 @@ colnames(found_stats) <- c("Family", "is_binary", names(all_stats))
 found_stats <- tibble::as_tibble(found_stats)
 found_stats$random <- runif(n = length(found_stats$Family))
 
-
-# remove failed calculations:
-#to_remove <- which(is.na(found_stats$colless))
-#found_stats <- found_stats[-to_remove, ]
-
 found_stats2 <- found_stats |>
   dplyr::mutate_at(3:(num_stats + 3), as.numeric)
 ```

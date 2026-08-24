@@ -14,7 +14,7 @@ test_that("usage stairs2", {
   if (requireNamespace("phyloTop")) {
 
     test_func <- function(phy) {
-      phyloTop::stairs(phy)[[2]] # 2 = stairs2
+      phyloTop::stairs(phy)[[2]]    # second index is stairs2
     }
 
     standard_test(treestats::stairs2, test_func)

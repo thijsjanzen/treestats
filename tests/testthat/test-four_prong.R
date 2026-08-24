@@ -31,12 +31,12 @@ test_that("polytomies", {
   }
 
   # now on artificial trees
-  focal_tree <- ape::read.tree(text = "((((A:0.1,B:0.1):0.2,C:0.1):0.3,D:0.1):0.4,E:0.1);")
+  focal_tree <- ape::read.tree(text = "((((A:0.1,B:0.1):0.2,C:0.1):0.3,D:0.1):0.4,E:0.1);") # nolint
   res <- treestats::four_prong(focal_tree)
   testthat::expect_equal(res, 1)
 
   # now we create a poly
-  focal_tree <- ape::read.tree(text = " ((((A:0.1,B:0.1,C:0.1):0.2,D:0.1):0.3,E:0.1):0.4);")
+  focal_tree <- ape::read.tree(text = " ((((A:0.1,B:0.1,C:0.1):0.2,D:0.1):0.3,E:0.1):0.4);") # nolint
   res <- treestats::four_prong(focal_tree)
   testthat::expect_equal(res, 0)
 })

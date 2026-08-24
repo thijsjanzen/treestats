@@ -64,8 +64,6 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
 
   stats$beta               <- try_stat(phylo, treestats::beta_statistic)
 
-  #stats$blum               <- try_stat(phylo, treestats::blum, normalize)
-  #
   stats$sshape             <- try_stat(phylo, treestats::sshape,
                                        normalize, c(TRUE, FALSE))
 
