@@ -92,7 +92,7 @@ CRAN release: 2025-09-11
 
 CRAN release: 2024-08-26
 
-Updated references.
+- Updated references.
 
 ## Version 1.70.4
 
