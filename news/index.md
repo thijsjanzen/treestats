@@ -7,10 +7,16 @@
   tot_internal_path, tot_path, max_width, max_del_width, max_depth,
   mw_over_md, phylogenetic_diversity, var_pair_dist and var_leaf_depth.
   Furthermore, several statistics previously not available for
-  non-binary trees were expanded to be applicable to non-binary trees as
-  well (use at your own discretion, as normalization constants might not
-  be applicable): b1, b2, cherries, pitchforks, double_cherries, sackin
-  index, total cophenetic index, area_per_pair and average_leaf_depth.
+  non-binary trees
+- Several statistics previously not available for non-binary trees were
+  expanded to be applicable to non-binary trees as well (use at your own
+  discretion, as normalization constants might not be applicable): b1,
+  b2, cherries, pitchforks, double_cherries, sackin index, total
+  cophenetic index, area_per_pair and average_leaf_depth. max_closeness,
+  area_per_pair and average_leaf_depth.
+- For an overview of which statistics can be used with non-binary trees,
+  please consult the table in the README file, which has been updated
+  accordingly.
 
 ## Version 1.71.12
 
