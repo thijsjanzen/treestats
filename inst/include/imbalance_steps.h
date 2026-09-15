@@ -22,6 +22,7 @@ using ltable = std::vector< std::array<double, 4>>;
 namespace imbal_steps {
 
 int get_attractor(const ltable& ltab) {
+  int attractor = 2;
   int cnt_clade_1 = 0;
   int cnt_clade_2 = 0;
   for (const auto& i : ltab) {
@@ -32,7 +33,9 @@ int get_attractor(const ltable& ltab) {
     }
   }
 
-  return cnt_clade_1 > cnt_clade_2 ? -1 : 2;
+  if (cnt_clade_1 > cnt_clade_2) attractor = -1;
+
+  return attractor;
 }
 
 bool all_identical(const std::array< int, 5>& a) {
@@ -63,7 +66,7 @@ std::vector<int> find_daughters(const ltable& ltab,
                                 int focal_index) {
   std::vector<int> out;
   //  daughters <- which(ltab[, 2] == current_label &
-  //                    ltab[, 1] <= ltab[focal_index, 1])
+  //                    ltab[, 1] <= ltab[i, 1])
   for (size_t i = 0; i < ltab.size(); ++i) {
     if (ltab[i][1] == current_label) {
       if (ltab[i][0] <= ltab[focal_index][0]) {
@@ -90,24 +93,6 @@ std::vector<int> find_others(const ltable& ltab,
   return out;
 }
 
-void find_daughters_and_others(const ltable& ltab,
-                               int daughter_label,
-                               int other_label,
-                               int focal_index,
-                               std::vector<size_t>* daughters,
-                               std::vector<size_t>* others) {
-  for (size_t i = 0; i < ltab.size(); ++i) {
-    // find other instances
-    if (ltab[i][1] == other_label && ltab[i][0] < ltab[focal_index][0]) {
-      (*others).push_back(i);
-    }
-
-    if (ltab[i][1] == daughter_label && ltab[i][0] <= ltab[focal_index][0]) {
-      (*daughters).push_back(i);
-    }
-  }
-}
-
 void renumber_ltable(ltable* ltab) {
   auto temp_new_ltab = *ltab;
 
@@ -117,23 +102,14 @@ void renumber_ltable(ltable* ltab) {
       int new_label = i + 1;   // +1 to adhere to R counting
       if (current_label < 0) new_label *= -1;
       temp_new_ltab[i][2] = new_label;
-
-      std::vector<size_t> daughters;
-      std::vector<size_t> other_instances;
-
-      find_daughters_and_others((*ltab), current_label,
-                                i + 1, i,
-                                &daughters, &other_instances);
-
-
-      //auto daughters = find_daughters((*ltab), current_label, i);
+      auto daughters = find_daughters((*ltab), current_label, i);
       if (!daughters.empty()) {
         for (const auto& j : daughters) {
           temp_new_ltab[j][1] = new_label;
         }
       }
 
-      //auto other_instances = find_others((*ltab), i + 1, i);
+      auto other_instances = find_others((*ltab), i + 1, i);
       if (!other_instances.empty()) {
         for (const auto& j : other_instances) {
           temp_new_ltab[j][1] = current_label;
@@ -146,9 +122,7 @@ void renumber_ltable(ltable* ltab) {
   return;
 }
 
-ltable swap_deepest(const ltable& ltab,
-                    int* main_attractor,
-                    bool* stop) {
+ltable swap_deepest(const ltable& ltab, int* main_attractor, bool* stop) {
   std::vector<int> depths(ltab.size(), 0);
   depths[0] = depths[1] = 1;
   for (size_t i = 2; i < ltab.size(); ++i) {
@@ -209,7 +183,7 @@ void rebase_ltable(ltable* ltab) {
   while (!stop) {
     *ltab = swap_deepest(*ltab, &current_main_attractor, &stop);
     prev_main_attractor[cnt % prev_main_attractor.size()] =
-    current_main_attractor;
+                                                    current_main_attractor;
 
     cnt++;
     if (cnt > 3 && all_identical(prev_main_attractor)) {

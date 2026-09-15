@@ -28,12 +28,6 @@ size_t which_max_index(const std::vector< std::array< double, 4>>& ltable) {
 
 int index_of_parent(const std::vector< std::array< double, 4>>& ltable,
                     int parent) {
-
-  // first try the obvious:
-  if (std::abs(ltable[parent][2] - parent) < 0.0000001) {
-    return parent;
-  }
-
   int index = 0;
   bool found = false;
   for (; index < static_cast<int>(ltable.size()); ++index) {
