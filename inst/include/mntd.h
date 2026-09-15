@@ -17,94 +17,6 @@
 
 using ltable = std::vector< std::array<double, 4>>;
 
-struct lower_tri {
-  explicit lower_tri(size_t n) : n_(n) {
-    data_ = std::vector<double>((n_ * (n_ - 1)) * 0.5, 0.0);
-  }
-
-  int get_linear_index(int i, int j) {
-    int index = i > j ? i * (i - 1) * 0.5 + j :
-                        j * (j - 1) * 0.5 + i;
-
-    if (index < 0) index = 0;
-    return index;
-  }
-
-  void set_val(int i, int j, double val) {
-    if (i == j) return;   // do nothing, these values don't exist.
-
-    auto local_index = get_linear_index(i, j);
-
-    if (local_index < 0 || local_index > static_cast<int>(data_.size())) {
-      throw "local_index outside data_";
-    }
-
-    data_[local_index] = val;
-  }
-
-  double get_val(int i, int j) {
-    if (i == j) return 0.0;
-
-    auto local_index = get_linear_index(i, j);
-
-    if (local_index < 0 || local_index > static_cast<int>(data_.size())) {
-      throw "local_index outside data_";
-    }
-     return data_[local_index];
-  }
-
-  double get_sum_tips() {
-    return std::accumulate(data_.begin(), data_.begin() + n_ - 1, 0.0);
-  }
-
-  std::vector<double> data_;
-  size_t n_;
-};
-
-lower_tri dist_nodes_tri(const std::vector< std::array< size_t, 2 >>& edge,
-                         const std::vector<double>& el) {
-  int n = 1 + edge.size() / 2;
-  int m = n - 1;
-  auto nm = n + m;
-  static double max_s = 46340;   // floor(sqrt(2^31 - 1))
-  if (nm > max_s) {
-    throw std::runtime_error("tree too big");
-  }
-  // code below is from the Ape package
-  int j, k = 0, a, d, NM = n + m, ROOT;
-  double x;
-  size_t N = edge.size();
-  lower_tri D(NM);
-
-  ROOT = edge[0][0] - 1;
-  d    = edge[0][1] - 1; /* the 2 nodes of the 1st edge */
-
-  D.set_val(d, ROOT, el[0]);
-
-  /* go down along the edge matrix
-   starting at the 2nd edge: */
-  for (size_t i = 1; i < N; i++) {
-      a = edge[i][0] - 1;
-      d = edge[i][1] - 1;
-      x = el[i]; /* get the i-th nodes and branch length */
-      D.set_val(a, d, x);
-      /* then go up along the edge matrix from the i-th edge
-       to visit the nodes already visited and update the distances: */
-      for (j = i - 1; j >= 0; j--) {
-        k = edge[j][1] - 1;
-        if (k == a) continue;
-
-        double val_to_set = D.get_val(a, k) + x;
-        D.set_val(k, d, val_to_set);
-      }
-      if (k != ROOT) {
-        double val_to_set = D.get_val(ROOT, a) + x;
-        D.set_val(ROOT, d, val_to_set);
-      }
-  }
-  return D;
-}
-
 double calc_mntd_ltable(const ltable& ltable_) {
   std::vector<double> dist(ltable_.size() + 1, -1);
 
@@ -175,23 +87,97 @@ double calc_mntd_stat(const std::vector< std::array< size_t, 2 >>& edge,
   return(mntd);
 }
 
-double calc_var_mpd_stat(const std::vector< std::array< size_t, 2 >>& edge,
-                         const std::vector<double>& el) {
-  auto dist_mat = dist_nodes_tri(edge, el);
+// this improved version was fully cooked by chatGPT
+double calc_var_mpd_stat(
+    const std::vector<std::array<size_t, 2>>& edge,
+    const std::vector<double>& el) {
 
-  int max_pos = 0.125 * (el.size() * el.size()) + 0.25 * el.size();
+  const size_t n_edges = edge.size();
+  const size_t n_nodes = n_edges + 1;
+  const size_t n_tips = (n_edges + 2) / 2;
 
-  double s = 0.0;
-  double s2 = 0.0;
+  // Number of tips below each node.
+  std::vector<size_t> n(n_nodes, 0);
 
-  for (auto it = dist_mat.data_.begin();
-            it != dist_mat.data_.begin() + max_pos;
-            ++it) {
-    s  += (*it);
-    s2 += (*it) * (*it);
+  // Sum of distances from descendant tips to node.
+  std::vector<double> s(n_nodes, 0.0);
+
+  // Sum of squared distances from descendant tips to node.
+  std::vector<double> q(n_nodes, 0.0);
+
+  // Sum of pairwise distances within subtree.
+  double total_sum = 0.0;
+
+  // Sum of squared pairwise distances within subtree.
+  double total_sum_sq = 0.0;
+
+  /*
+   * ape's edge matrix is normally ordered such that children occur
+   * after their parents. Therefore process edges backwards.
+   *
+   * First initialize tip counts.
+   */
+  for (size_t i = 0; i < n_edges; ++i) {
+    const size_t child = edge[i][1] - 1;
+
+    // Tips are the first n_tips nodes in ape numbering.
+    if (child < n_tips)
+      n[child] = 1;
   }
 
-  double inv_max_pos = 1.0 / max_pos;
+  /*
+   * Process each edge from the tips towards the root.
+   */
+  for (size_t i = n_edges; i-- > 0;) {
+    const size_t parent = edge[i][0] - 1;
+    const size_t child  = edge[i][1] - 1;
+    const double length = el[i];
 
-  return (s2 - (s * s) * inv_max_pos) * inv_max_pos;
+    const size_t nc = n[child];
+
+    if (nc == 0)
+      continue;
+
+    // Distances from child descendants to parent.
+    const double sc =
+      s[child] + static_cast<double>(nc) * length;
+
+    const double qc =
+      q[child]
+    + 2.0 * length * s[child]
+    + static_cast<double>(nc) * length * length;
+
+    /*
+     * Combine this child with all previously processed children
+     * of the parent.
+     */
+    const size_t np = n[parent];
+
+    if (np > 0) {
+      total_sum +=
+        static_cast<double>(nc) * s[parent]
+      + static_cast<double>(np) * sc;
+
+      total_sum_sq +=
+      static_cast<double>(nc) * q[parent]
+      + static_cast<double>(np) * qc
+      + 2.0 * s[parent] * sc;
+    }
+
+    n[parent] += nc;
+    s[parent] += sc;
+    q[parent] += qc;
+  }
+
+  const double pairs =
+    static_cast<double>(n_tips) *
+    static_cast<double>(n_tips - 1) / 2.0;
+
+  if (pairs == 0.0)
+    return 0.0;
+
+  // Population variance of all unordered tip pairs.
+  const double mean = total_sum / pairs;
+
+  return total_sum_sq / pairs - mean * mean;
 }
