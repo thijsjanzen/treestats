@@ -33,7 +33,7 @@ test_that("polytomies", {
   for (focal_tree in poly_trees) {
     if (ape::is.ultrametric(focal_tree)) {
       res <- treestats::gamma_statistic(focal_tree)
-      testthat::expect_true(!is.na(res))
+      testthat::expect_false(is.na(res))
     }
   }
 })

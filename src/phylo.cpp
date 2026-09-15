@@ -72,7 +72,7 @@ std::string l_to_newick(const Rcpp::NumericMatrix& ltable_R,
 
 // [[Rcpp::export]]
 double imbalance_steps_cpp(const Rcpp::NumericMatrix& ltable_R,
-                        bool normalization) {
+                           bool normalization) {
     try {
        auto ltable_cpp = convert_to_ltable(ltable_R);
        return imbal_steps::number_of_steps(ltable_cpp, normalization);

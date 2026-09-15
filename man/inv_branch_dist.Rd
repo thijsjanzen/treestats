@@ -12,6 +12,10 @@ inv_branch_dist(phy, add_one = FALSE)
 \item{add_one}{should we take 1 / bl or 1 / (1 + bl) ? if TRUE, then
 1 / (1 + bl) is used. Default: FALSE.}
 }
+\value{
+vector of sum of inverse branch distances,
+in order of the tips as given by the phy object
+}
 \description{
 This statistic calculates per tip, the sum of the inverse of
 all branch lengths of the shortest path between the root and the tip.

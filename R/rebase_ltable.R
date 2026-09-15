@@ -6,7 +6,7 @@
 #' @export
 rebase_ltable <- function(ltable) {
   if (length(ltable[, 1]) == 2) return(ltable)
-  prev_main_attractor <- c()
+  prev_main_attractor <- NULL
   while (TRUE) {
     res <- swap_deepest(ltable)
     ltable <- res$ltab

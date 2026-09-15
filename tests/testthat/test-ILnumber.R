@@ -45,7 +45,7 @@ test_that("polytomies", {
   # phyloTop does not apply to non-binary trees, treestats does!
   for (focal_tree in poly_trees) {
     local_stat <- try_stat(focal_tree, treestats::ILnumber)
-    testthat::expect_true(!is.na(local_stat))
+    testthat::expect_false(is.na(local_stat))
   }
 })
 

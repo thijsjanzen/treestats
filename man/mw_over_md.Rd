@@ -9,6 +9,9 @@ mw_over_md(phy)
 \arguments{
 \item{phy}{phylogeny or ltable}
 }
+\value{
+mw over md statistic
+}
 \description{
 Calculates the maximum width divided by the maximum depth.
 }

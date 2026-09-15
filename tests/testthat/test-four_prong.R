@@ -27,7 +27,7 @@ test_that("usage", {
 test_that("polytomies", {
   for (focal_tree in poly_trees) {
     res <- treestats::four_prong(focal_tree)
-    testthat::expect_true(!is.na(res))
+    testthat::expect_false(is.na(res))
   }
 
   # now on artificial trees

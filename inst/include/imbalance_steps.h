@@ -65,7 +65,7 @@ std::vector<int> find_daughters(const ltable& ltab,
                                 int current_label,
                                 int focal_index) {
   std::vector<int> out;
-  //  aughters <- which(ltab[, 2] == current_label &
+  //  daughters <- which(ltab[, 2] == current_label &
   //                    ltab[, 1] <= ltab[i, 1])
   for (size_t i = 0; i < ltab.size(); ++i) {
     if (ltab[i][1] == current_label) {

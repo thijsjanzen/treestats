@@ -60,4 +60,4 @@ BugReports: https://github.com/thijsjanzen/treestats/issues
 URL: https://thijsjanzen.github.io/treestats/
 VignetteBuilder: knitr
 SystemRequirements: C++17
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

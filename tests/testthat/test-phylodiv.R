@@ -11,7 +11,8 @@ test_that("usage", {
   ca <- max(treestats::branching_times(focal_tree))
   pds <- treestats::phylogenetic_diversity(focal_tree,
                                            t = seq(ca, 0, length.out =  100))
-  testthat::expect_equal(length(pds), 100)
+  testthat::expect_length(pds, 100)
+
   for (i in 2:length(pds)) {
     testthat::expect_gt(pds[i], pds[i - 1])
   }

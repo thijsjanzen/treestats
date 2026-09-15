@@ -26,7 +26,7 @@ test_that("usage", {
 test_that("polytomies", {
   for (focal_tree in poly_trees) {
     res <- try_stat(focal_tree, treestats::double_cherries)
-    testthat::expect_true(!is.na(res))
+    testthat::expect_false(is.na(res))
   }
 })
 

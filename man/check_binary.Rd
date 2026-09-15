@@ -9,6 +9,9 @@ check_binary(phy)
 \arguments{
 \item{phy}{phylo object}
 }
+\value{
+boolean, true if binary
+}
 \description{
 Fast Rcpp function to check if a tree is binary
 }

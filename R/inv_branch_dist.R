@@ -4,6 +4,8 @@
 #' @param phy phylo object or ltable
 #' @param add_one should we take 1 / bl or 1 / (1 + bl) ? if TRUE, then
 #' 1 / (1 + bl) is used. Default: FALSE.
+#' @return vector of sum of inverse branch distances,
+#' in order of the tips as given by the phy object
 #' @references Williams, P. H., Alonso-Alonso, P., Arbetman, M., Françoso,
 #' E., Ghisbain, G., Huang, J., Orr, M. C., Ren, Z.-X., Streinzer, M., T
 #' hanoosing, C., Vandame, R., Waite, M., & Brace, S. (2026). Evolutionary
