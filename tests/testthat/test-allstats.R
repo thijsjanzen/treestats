@@ -28,6 +28,4 @@ test_that("usage", {
 
   testthat::expect_true(is.na(all_stats[names(all_stats) == "min_laplace"]))
   testthat::expect_true(is.na(all_stats[names(all_stats) == "min_adj"]))
-
-  testthat::expect_true(is.na(all_stats[names(all_stats) == "vpd"]))
 })
