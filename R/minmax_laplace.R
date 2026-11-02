@@ -34,7 +34,7 @@ minmax_laplace <- function(phy,
   }
   if (inherits(phy, "phylo")) {
 
-    if (!use_rspectra || !requireNamespace("RSpectra")) {
+    if (!use_rspectra || !requireNamespace("RSpectra", quietly = TRUE)) {
       return(slow_calc_minmax_laplace(phy))
     }
 

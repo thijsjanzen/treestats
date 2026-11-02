@@ -34,7 +34,7 @@ minmax_adj <- function(phy, use_rspectra = TRUE, force_min = FALSE) {
   if (inherits(phy, "phylo")) {
 
     # when not using RSpectra, things are slow and restricted
-    if (!use_rspectra || !requireNamespace("RSpectra")) {
+    if (!use_rspectra || !requireNamespace("RSpectra", quietly = TRUE)) {
       return(slow_calc(phy))
     } else {
       edges   <- phy$edge

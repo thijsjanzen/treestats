@@ -14,7 +14,7 @@
 #' Bayesian Computation of diversification rates from molecular phylogenies:
 #' introducing a new efficient summary statistic, the nLTT. Methods Ecol Evol,
 #' 6: 566-575. https://doi.org/10.1111/2041-210X.12350
-#' @return number of lineages
+#' @return the nLTT statistic
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' reference_tree <- ape::rphylo(n = 10, birth = 0.2, death = 0)
@@ -54,7 +54,7 @@ nLTT <- function(phy, # nolint
 #' @param phy phylo object
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #' nLTT_base(simulated_tree)
-#' @return number of lineages
+#' @return the nLTT statistic calculated on an empty base tree
 #' @export
 nLTT_base <- function(phy) {  # nolint
 

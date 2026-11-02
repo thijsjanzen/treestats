@@ -22,8 +22,10 @@
 #'   \item nLTT with empty tree
 #'   \item phylogenetic diversity
 #'   \item avgLadder index
+#'   \item max ladder
 #'   \item cherries
 #'   \item double cherries
+#'   \item four prong
 #'   \item ILnumber
 #'   \item pitchforks
 #'   \item stairs
@@ -154,7 +156,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
     !(length(temp_stats) == 1 && is.na(temp_stats))
 
   max_not_na <- obj_not_na && !is.na(temp_stats$max)
-  min_not_na <- obj_not_na && !is.null(temp_stats$min)
+  min_not_na <- obj_not_na && !is.na(temp_stats$min)
 
   if (max_not_na) stats$max_laplace <- temp_stats$max
   if (min_not_na) stats$min_laplace <- temp_stats$min
@@ -171,7 +173,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
                 !(length(temp_stats) == 1 && is.na(temp_stats))
 
   max_not_na <- obj_not_na && !is.na(temp_stats$max)
-  min_not_na <- obj_not_na && !is.null(temp_stats$min)
+  min_not_na <- obj_not_na && !is.na(temp_stats$min)
 
   if (max_not_na) stats$max_adj <- temp_stats$max
   if (min_not_na) stats$min_adj <- temp_stats$min

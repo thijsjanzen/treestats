@@ -27,7 +27,8 @@ eigen_centrality <- function(phy,
   }
   if (inherits(phy, "phylo")) {
 
-    if (use_rspectra == FALSE || !requireNamespace("RSpectra")) {
+    if (use_rspectra == FALSE ||
+        !requireNamespace("RSpectra", quietly = TRUE)) {
       ev <- slow_eigen_centrality(phy, weight)
     } else {
       edges   <- phy$edge
