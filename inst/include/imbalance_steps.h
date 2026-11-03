@@ -17,8 +17,6 @@
 
 #include "L2newick.h"  // NOLINT [build/include_subdir]
 
-using ltable = std::vector< std::array<double, 4>>;
-
 namespace imbal_steps {
 
 int get_attractor(const ltable& ltab) {

@@ -1,5 +1,5 @@
 #' Pigot's rho
-#' @param phy phylo object
+#' @param phy phylo object or ltable
 #' @return rho
 #' @description Calculates the change in rate between the first half and the
 #' second half of the extant phylogeny. \eqn{\rho = (r2 - r1) / (r1 + r2)},

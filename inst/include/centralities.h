@@ -18,10 +18,10 @@
 #include <utility>     // swap
 #include <stack>
 
+#include "util.h"       // NOLINT [build/include_subdir]
 #include "binom.h"  // NOLINT [build/include_subdir]
 
 using edge   = std::vector< std::array< size_t, 2 >>;
-using ltable = std::vector< std::array< double, 4>>;
 
 struct LRSizes {
   void compute(const edge& e,

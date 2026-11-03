@@ -23,7 +23,7 @@
 #include "depth.h"    // NOLINT [build/include_subdir]
 
 
-namespace correction {
+namespace correction_sackin {
 
 double correct_pda(size_t n,
                   double Is) {
@@ -57,11 +57,11 @@ double calc_sackin_cpp(const std::vector<int>& tree_edge,
 
   if (normalization == "yule") {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = correction::correct_yule(n, output);
+    output = correction_sackin::correct_yule(n, output);
   }
   if (normalization == "pda") {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = correction::correct_pda(n, output);
+    output = correction_sackin::correct_pda(n, output);
   }
 
   return output;
@@ -100,7 +100,7 @@ double calc_blum_cpp(const std::vector<int>& tree_edge,
 
   if (normalize)  {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = correction::correct_blum(n, output);
+    output = correction_sackin::correct_blum(n, output);
   }
   return output;
 }

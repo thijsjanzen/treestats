@@ -26,7 +26,6 @@ available in this package for a single tree, being:
   \item{b1}
   \item{b2}
   \item{beta}
-  \item{blum}
   \item{cherries}
   \item{colless}
   \item{colless_corr}
@@ -52,6 +51,7 @@ available in this package for a single tree, being:
   \item{root_imbalance}
   \item{rquartet}
   \item{sackin}
+  \item{sshape}
   \item{stairs}
   \item{stairs2}
   \item{symmetry_nodes}

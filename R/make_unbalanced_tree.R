@@ -36,7 +36,7 @@ make_unbalanced_tree <- function(init_tree,
     stop("group method unknown, pick from 'any' and 'terminal'")
   }
   if (!selection_method %in% c("youngest", "oldest", "random")) {
-    stop("selection method unknown, pick from 'youngest', 'oldest' or 'random")
+    stop("selection method unknown, pick from 'youngest', 'oldest' or 'random'")
   }
 
   ltab_in <- treestats::phylo_to_l(init_tree)

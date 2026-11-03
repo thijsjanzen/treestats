@@ -14,7 +14,7 @@ var_pair_dist <- function(phy) {
              require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
 

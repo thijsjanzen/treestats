@@ -32,3 +32,6 @@ A. Purvis, A. Katzourakis, and P.-M. Agapow. Evaluating Phylogenetic Tree
 Shape: Two Modifications to Fusco & Cronks Method. Journal of Theoretical
 Biology, 2002. doi: 10.1006/jtbi.2001.2443.
 }
+\seealso{
+\link{mean_i}
+}

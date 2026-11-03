@@ -16,9 +16,8 @@
 #include <algorithm>
 #include <string>
 
+#include "util.h"    // NOLINT [build/include_subdir]"
 #include "binom.h"   // NOLINT [build/include_subdir]
-
-using ltable = std::vector< std::array<double, 4>>;
 
 inline double calc_sackin(const ltable& ltable_,
                    std::string normalization) {

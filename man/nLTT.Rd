@@ -12,7 +12,7 @@ nLTT(phy, ref_tree)
 \item{ref_tree}{reference tree to compare with (should be same type as phy)}
 }
 \value{
-number of lineages
+the nLTT statistic
 }
 \description{
 The nLTT statistic calculates the sum of

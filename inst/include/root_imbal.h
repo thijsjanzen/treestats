@@ -15,8 +15,6 @@
 #include <array>
 #include <algorithm>
 
-using ltable = std::vector< std::array<double, 4>>;
-
 double calc_root_imbal(const ltable& ltab) {
   std::array<double, 2> lin_cnt = {0, 0};
   for (const auto& i : ltab) {

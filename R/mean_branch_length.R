@@ -5,6 +5,11 @@
 #' @export
 mean_branch_length <- function(phy) {
 
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
     return(calc_mean_branch_length_ltable_cpp(phy))
   }
@@ -22,8 +27,13 @@ mean_branch_length <- function(phy) {
 #' @return variance of branch lengths
 #' @export
 var_branch_length <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     return(stats::var(phy$edge.length))
@@ -39,13 +49,16 @@ var_branch_length <- function(phy) {
 #' @return variance of internal branch lengths
 #' @export
 var_branch_length_int <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- min(phy$edge[, 1])
-
-    int_branches <- phy$edge.length[phy$edge[, 2] >= root_no]
+    int_branches <- get_internal_branches(phy)
 
     return(stats::var(int_branches))
   }
@@ -60,13 +73,16 @@ var_branch_length_int <- function(phy) {
 #' @return mean of internal branch lengths
 #' @export
 mean_branch_length_int <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- min(phy$edge[, 1])
-
-    int_branches <- phy$edge.length[phy$edge[, 2] >= root_no]
+    int_branches <- get_internal_branches(phy)
 
     return(mean(int_branches))
   }
@@ -81,14 +97,16 @@ mean_branch_length_int <- function(phy) {
 #' @return variance of external branch lengths
 #' @export
 var_branch_length_ext <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- min(phy$edge[, 1])
-
-    ext_branches <- phy$edge.length[phy$edge[, 2] < root_no]
-
+    ext_branches <- get_external_branches(phy)
     return(stats::var(ext_branches))
   }
 
@@ -102,16 +120,33 @@ var_branch_length_ext <- function(phy) {
 #' @return mean of external branch lengths
 #' @export
 mean_branch_length_ext <- function(phy) {
+  check_tree(phy,
+             require_binary = FALSE,
+             require_ultrametric = FALSE,
+             require_rooted = TRUE)
+
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
-    root_no <- min(phy$edge[, 1])
-
-    ext_branches <- phy$edge.length[phy$edge[, 2] < root_no]
-
+    ext_branches <- get_external_branches(phy)
     return(mean(ext_branches))
   }
 
   stop("input object has to be phylo or ltable")
+}
+
+
+#' @keywords internal
+get_internal_branches <- function(phy) {
+  root_no <- min(phy$edge[, 1])
+  int_branches <- phy$edge.length[phy$edge[, 2] >= root_no]
+  return(int_branches)
+}
+
+#' @keywords internal
+get_external_branches <- function(phy) {
+  root_no <- min(phy$edge[, 1])
+  ext_branches <- phy$edge.length[phy$edge[, 2] < root_no]
+  return(ext_branches)
 }

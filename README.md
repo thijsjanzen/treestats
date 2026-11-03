@@ -463,7 +463,7 @@ The following summary statistics are included:
         <td>None</td>
         <td>FALSE</td>
         <td>FALSE</td>
-        <td>FALSE</td>
+        <td>TRUE</td>
         <td>YES</td>
         <td>Janzen &amp; Etienne, 2017</td>
     </tr>
@@ -473,8 +473,8 @@ The following summary statistics are included:
         <td>None</td>
         <td>FALSE</td>
         <td>FALSE</td>
-        <td>FALSE</td>
-        <td>NO</td>
+        <td>TRUE</td>
+        <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
     <tr>
@@ -483,7 +483,7 @@ The following summary statistics are included:
         <td>None</td>
         <td>FALSE</td>
         <td>FALSE</td>
-        <td>FALSE</td>
+        <td>TRUE</td>
         <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
@@ -723,7 +723,7 @@ The following summary statistics are included:
         <td>None</td>
         <td>FALSE</td>
         <td>FALSE</td>
-        <td>FALSE</td>
+        <td>TRUE</td>
         <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
@@ -733,7 +733,7 @@ The following summary statistics are included:
         <td>None</td>
         <td>FALSE</td>
         <td>FALSE</td>
-        <td>FALSE</td>
+        <td>TRUE</td>
         <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>
@@ -743,7 +743,7 @@ The following summary statistics are included:
         <td>None</td>
         <td>FALSE</td>
         <td>FALSE</td>
-        <td>FALSE</td>
+        <td>TRUE</td>
         <td>YES</td>
         <td>Saulnier et al., 2017</td>
     </tr>

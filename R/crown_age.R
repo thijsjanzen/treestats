@@ -7,7 +7,7 @@
 #' \link[adephylo:distRoot]{adephylo::distRoot} will
 #' also yield the tree height (including the root branch), but will typically
 #' perform many superfluous calculations and thus be slow.
-#' @param phy phylo object
+#' @param phy phylo object or ltable
 #' @return crown age
 #' @export
 tree_height <- function(phy) {
@@ -29,7 +29,7 @@ tree_height <- function(phy) {
     tree_height <- crown_age_of_tree + root_length
     return(tree_height)
   }
-  stop("input object has to be of class phylo")
+  stop("input object has to be of class phylo or ltable")
 }
 
 #' Crown age of a tree.

@@ -15,8 +15,6 @@
 #include <array>
 #include <numeric>
 
-using ltable = std::vector< std::array<double, 4>>;
-
 double calc_mntd_ltable(const ltable& ltable_) {
   std::vector<double> dist(ltable_.size() + 1, -1);
 

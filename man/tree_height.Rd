@@ -7,7 +7,7 @@
 tree_height(phy)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{phy}{phylo object or ltable}
 }
 \value{
 crown age

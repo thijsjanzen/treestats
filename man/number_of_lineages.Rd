@@ -7,7 +7,7 @@
 number_of_lineages(phy)
 }
 \arguments{
-\item{phy}{phylo object}
+\item{phy}{phylo object or ltable}
 }
 \value{
 number of lineages

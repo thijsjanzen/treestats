@@ -23,8 +23,6 @@
 #include <RcppArmadillo.h>
 
 
-using ltable = std::vector< std::array<double, 4>>;
-
 class betastat {
  public:
   explicit betastat(const std::vector< std::array< int, 2 >> e) : edge(e) {

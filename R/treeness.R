@@ -7,22 +7,18 @@
 #' @export
 treeness <- function(phy) {
 
-
   check_tree(phy,
              require_binary = FALSE,
              require_ultrametric = FALSE,
              require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     # in an unrooted tree, this number still indicates the first non-tip
-    root_no <- min(phy$edge[, 1])
-
-    int_branch_length <- sum(phy$edge.length[phy$edge[, 2] >= root_no])
-
-    return(int_branch_length / (sum(phy$edge.length)))
+    int_branch_length <- get_internal_branches(phy)
+    return(sum(int_branch_length) / (sum(phy$edge.length)))
   }
 
   stop("input object has to be phylo or ltable")

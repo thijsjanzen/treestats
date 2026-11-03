@@ -32,11 +32,11 @@ double calc_colless_cpp(const std::vector<int>& parent_list,
 
   if (normalization == "yule") {
     size_t n  = parent_list.size() / 4 + 1;
-    output = correction::correct_yule(output, n);
+    output = correction_colless::correct_yule(output, n);
   }
   if (normalization == "pda") {
     size_t n  = parent_list.size() / 4 + 1;
-    output = correction::correct_pda(output, n);
+    output = correction_colless::correct_pda(output, n);
   }
   return output;
 }
@@ -49,10 +49,10 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
   double output = static_cast<double>(s.colless());
 
   if (normalization == "yule") {
-    output = correction::correct_yule(output, s.size());
+    output = correction_colless::correct_yule(output, s.size());
   }
   if (normalization == "pda") {
-    output = correction::correct_pda(output, s.size());
+    output = correction_colless::correct_pda(output, s.size());
   }
   return output;
 }
@@ -171,6 +171,20 @@ size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   return c.count_pitchforks();
 }
 
+double colless_corr_yule(size_t n) {
+  double expected_val_yule = 2.0 * n / ((n - 1) * (n - 2));
+
+  double sum_thing = 0.0;
+  if (n % 2 == 0) {  // even number of tips
+    for (size_t j = 2; j < n / 2; ++j) sum_thing += 1.0 / j;
+  } else {
+    sum_thing = 1.0 / n;
+    for (size_t j = 2; j < (n - 1) / 2; ++j) sum_thing += 1.0 / j;
+  }
+  expected_val_yule *= sum_thing;
+  return expected_val_yule;
+}
+
 // [[Rcpp::export]]
 double calc_colless_corr_cpp(const std::vector<int>& parent_list,
                              std::string normalization) {
@@ -182,17 +196,7 @@ double calc_colless_corr_cpp(const std::vector<int>& parent_list,
   output *= 2.0 / ((n - 1) * (n - 2));
 
   if (normalization == "yule") {
-    auto expected_val_yule = 2.0 * n / ((n - 1) * (n - 2));
-
-    double sum_thing = 0.0;
-    if (n % 2 == 0) {  // even number of tips
-      for (size_t j = 2; j < n / 2; ++j) sum_thing += 1.0 / j;
-    } else {
-      sum_thing = 1.0 / n;
-      for (size_t j = 2; j < (n - 1) / 2; ++j) sum_thing += 1.0 / j;
-    }
-
-    expected_val_yule *= sum_thing;
+    auto expected_val_yule = colless_corr_yule(n);
 
     output *= 1.0 / expected_val_yule;
   }
@@ -211,20 +215,20 @@ double calc_colless_corr_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
   output *= 2.0 / ((n - 1) * (n - 2));
 
   if (normalization == "yule") {
-    auto expected_val_yule = 2.0 * n / ((n - 1) * (n - 2));
-
-    double sum_thing = 0.0;
-    if (n % 2 == 0) {  // even number of tips
-      for (size_t j = 2; j < n / 2; ++j) sum_thing += 1.0 / j;
-    } else {
-      sum_thing = 1.0 / n;
-      for (size_t j = 2; j < (n - 1) / 2; ++j) sum_thing += 1.0 / j;
-    }
-    expected_val_yule *= sum_thing;
+    double expected_val_yule = colless_corr_yule(n);
 
     output *= 1.0 / expected_val_yule;
   }
   return output;
+}
+
+double colless_corr_quad(size_t n) {
+  auto expected_yule = n * (n + 1);
+  double sum_thing = 0.0;
+  for (size_t i = 1; i <= n; ++i) sum_thing += 1.0 / i;
+
+  expected_yule -= 2 * n * sum_thing;
+  return expected_yule;
 }
 
 // [[Rcpp::export]]
@@ -234,11 +238,7 @@ double calc_colless_quad_cpp(const std::vector<int>& parent_list,
   double output = focal_tree.calc_stat(&calc_colless_quad);
   if (normalization == "yule") {
     size_t n = focal_tree.size() + 1;
-    auto expected_yule = n * (n + 1);
-    double sum_thing = 0.0;
-    for (size_t i = 1; i <= n; ++i) sum_thing += 1.0 / i;
-
-    expected_yule -= 2 * n * sum_thing;
+    auto expected_yule = colless_corr_quad(n);
 
     output *= 1.0 / expected_yule;
   }
@@ -255,12 +255,7 @@ double calc_colless_quad_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
 
   if (normalization == "yule") {
     size_t n = s.size();
-    auto expected_yule = n * (n + 1);
-    double sum_thing = 0.0;
-    for (size_t i = 1; i <= n; ++i) sum_thing += 1.0 / i;
-
-    expected_yule -= 2 * n * sum_thing;
-
+    auto expected_yule = colless_corr_quad(n);
     output *= 1.0 / expected_yule;
   }
   return output;

@@ -1,5 +1,5 @@
 #' Number of tips of a tree, including extinct tips.
-#' @param phy phylo object
+#' @param phy phylo object or ltable
 #' @return number of lineages
 #' @export
 number_of_lineages <- function(phy) {

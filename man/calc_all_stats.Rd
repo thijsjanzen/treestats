@@ -34,8 +34,10 @@ single tree, being:
   \item nLTT with empty tree
   \item phylogenetic diversity
   \item avgLadder index
+  \item max ladder
   \item cherries
   \item double cherries
+  \item four prong
   \item ILnumber
   \item pitchforks
   \item stairs

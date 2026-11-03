@@ -27,7 +27,7 @@ psv <- function(phy, normalization = "none") {
              require_rooted = FALSE)
 
   if (inherits(phy, "matrix")) {
-    phy <- treestats::l_to_phylo(phy)
+    phy <- treestats::l_to_phylo(phy, drop_extinct = FALSE)
   }
   if (inherits(phy, "phylo")) {
     psv_stat <- treestats::mean_pair_dist(phy) * 0.5

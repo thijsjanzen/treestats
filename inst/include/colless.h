@@ -200,7 +200,6 @@ class colless_tree {
 
 }    // end namespace colless_tree
 
-using ltable = std::vector< std::array<double, 4>>;
 
 class colless_stat_ltable {
  public:
@@ -424,7 +423,7 @@ class colless_stat_ltable {
 
 
 // correction functions:
-namespace correction {
+namespace correction_colless {
 double correct_pda(double Ic, size_t num_tips) {  // colless corrections
     double denom = powf(num_tips, 1.5f);
     return 1.0 * Ic / denom;

@@ -10,7 +10,7 @@ nLTT_base(phy)
 \item{phy}{phylo object}
 }
 \value{
-number of lineages
+the nLTT statistic calculated on an empty base tree
 }
 \description{
 The base nLTT statistic can be used as a semi stand-alone

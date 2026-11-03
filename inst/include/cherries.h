@@ -14,8 +14,6 @@
 #include <vector>
 #include <array>
 
-using ltable = std::vector< std::array<double, 4>>;
-
 size_t find_daughters(const ltable& ltab_in,
                       double id,
                       double bt) {
