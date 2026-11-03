@@ -45,7 +45,7 @@ double correct_blum(size_t n,
   return Is * 1.0 / n;
 }
 
-}   // namespace correction
+}   // namespace correction_sackin
 
 // [[Rcpp::export]]
 double calc_sackin_cpp(const std::vector<int>& tree_edge,

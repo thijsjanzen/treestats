@@ -437,4 +437,4 @@ double correct_yule(double Ic, size_t num_tips) {
     return output;
 }
 
-}   // namespace correction
+}   // namespace correction_colless
