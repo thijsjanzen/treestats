@@ -11,4 +11,3 @@ test_that("usage", {
 test_that("wrong_object", {
   test_abuse(treestats::mw_over_md)
 })
-

@@ -128,4 +128,3 @@ test_that("polytomies", {
 test_that("wrong_object", {
   test_abuse(treestats::eigen_centrality)
 })
-

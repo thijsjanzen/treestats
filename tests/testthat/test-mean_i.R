@@ -35,4 +35,3 @@ test_that("abuse", {
 test_that("wrong_object", {
   test_abuse(treestats::mean_i)
 })
-

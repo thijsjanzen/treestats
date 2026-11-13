@@ -38,4 +38,3 @@ test_that("yule", {
 test_that("wrong_object", {
   test_abuse(treestats::ew_colless)
 })
-

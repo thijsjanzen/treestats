@@ -21,9 +21,9 @@ var_leaf_depth <- function(phy, normalization = "none") {
 
   if (inherits(phy, "matrix")) {
     var_leaf_depth_stat <- calc_var_leaf_depth_ltable_cpp(phy)
-    if (normalization == "yule" || normalization == TRUE) {
+    if (normalization == "yule") {
       n <- length(phy[, 1])
-      yule_expected <-  2 * log(n)
+      yule_expected <- (2 * (n + 1) / n) * harmonic(n) + 1 / n - 5
       var_leaf_depth_stat <- var_leaf_depth_stat / yule_expected
     }
     return(var_leaf_depth_stat)
@@ -32,9 +32,9 @@ var_leaf_depth <- function(phy, normalization = "none") {
     # polytomies are checked at the Rcpp side
     var_leaf_depth_stat <- calc_var_leaf_depth_cpp(as.vector(t(phy$edge)))
 
-    if (normalization == "yule" || normalization == TRUE) {
+    if (normalization == "yule") {
       n <- length(phy$tip.label)
-      yule_expected <-  2 * log(n)
+      yule_expected <- (2 * (n + 1) / n) * harmonic(n) + 1 / n - 5
       var_leaf_depth_stat <- var_leaf_depth_stat / yule_expected
     }
     return(var_leaf_depth_stat)

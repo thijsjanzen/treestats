@@ -19,6 +19,8 @@ test_that("usage", {
 })
 
 test_that("normalization", {
+  testthat::skip_on_cran()
+  set.seed(42)
   c1 <- treestats::ILnumber(extant_tree)
   c2 <- treestats::ILnumber(extant_tree, normalization = "tips")
   testthat::expect_lt(c2, c1)

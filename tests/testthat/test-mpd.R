@@ -60,4 +60,3 @@ test_that("normalization", {
 test_that("wrong_object", {
   test_abuse(treestats::mean_pair_dist)
 })
-

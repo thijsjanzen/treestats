@@ -43,4 +43,3 @@ test_that("normalization", {
 test_that("wrong_object", {
   test_abuse(treestats::max_del_width)
 })
-

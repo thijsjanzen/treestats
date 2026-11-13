@@ -53,16 +53,15 @@ test_that("wrong_object", {
   tree1 <- ape::rphylo(n = 10, birth = 1, death = 0)
   testthat::expect_error(
     treestats::nLTT(10, tree1),
-    "input needs to be phylo or ltable object"
+    "input object has to be phylo or ltable"
   )
 
   testthat::expect_error(
     treestats::nLTT(list(), tree1),
-    "input needs to be phylo or ltable object"
+    "input object has to be phylo or ltable"
   )
 })
 
 test_that("wrong_object", {
   test_abuse(treestats::nLTT_base)
 })
-
