@@ -367,46 +367,50 @@ BEGIN_RCPP
 END_RCPP
 }
 // stairs_cpp
-double stairs_cpp(const std::vector<int>& tree_edge);
-RcppExport SEXP _treestats_stairs_cpp(SEXP tree_edgeSEXP) {
+double stairs_cpp(const std::vector<int>& tree_edge, std::string normalization);
+RcppExport SEXP _treestats_stairs_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs_cpp(tree_edge));
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs_cpp(tree_edge, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
 // stairs_ltable_cpp
-double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_stairs_ltable_cpp(SEXP ltable_RSEXP) {
+double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R, std::string normalization);
+RcppExport SEXP _treestats_stairs_ltable_cpp(SEXP ltable_RSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs_ltable_cpp(ltable_R));
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs_ltable_cpp(ltable_R, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
 // stairs2_cpp
-double stairs2_cpp(const std::vector<int>& tree_edge);
-RcppExport SEXP _treestats_stairs2_cpp(SEXP tree_edgeSEXP) {
+double stairs2_cpp(const std::vector<int>& tree_edge, std::string normalization);
+RcppExport SEXP _treestats_stairs2_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs2_cpp(tree_edge));
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs2_cpp(tree_edge, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
 // stairs2_ltable_cpp
-double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R);
-RcppExport SEXP _treestats_stairs2_ltable_cpp(SEXP ltable_RSEXP) {
+double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R, std::string normalization);
+RcppExport SEXP _treestats_stairs2_ltable_cpp(SEXP ltable_RSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltable_R(ltable_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(stairs2_ltable_cpp(ltable_R));
+    Rcpp::traits::input_parameter< std::string >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(stairs2_ltable_cpp(ltable_R, normalization));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1114,10 +1118,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
     {"_treestats_calc_rquartet_cpp", (DL_FUNC) &_treestats_calc_rquartet_cpp, 1},
     {"_treestats_calc_rquartet_ltable_cpp", (DL_FUNC) &_treestats_calc_rquartet_ltable_cpp, 1},
-    {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 1},
-    {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 1},
-    {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 1},
-    {"_treestats_stairs2_ltable_cpp", (DL_FUNC) &_treestats_stairs2_ltable_cpp, 1},
+    {"_treestats_stairs_cpp", (DL_FUNC) &_treestats_stairs_cpp, 2},
+    {"_treestats_stairs_ltable_cpp", (DL_FUNC) &_treestats_stairs_ltable_cpp, 2},
+    {"_treestats_stairs2_cpp", (DL_FUNC) &_treestats_stairs2_cpp, 2},
+    {"_treestats_stairs2_ltable_cpp", (DL_FUNC) &_treestats_stairs2_ltable_cpp, 2},
     {"_treestats_calc_rogers_cpp", (DL_FUNC) &_treestats_calc_rogers_cpp, 1},
     {"_treestats_calc_rogers_ltable_cpp", (DL_FUNC) &_treestats_calc_rogers_ltable_cpp, 1},
     {"_treestats_calc_j_one_cpp", (DL_FUNC) &_treestats_calc_j_one_cpp, 1},

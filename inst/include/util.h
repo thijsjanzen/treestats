@@ -141,3 +141,11 @@ inline double harmonic(const size_t n) {
   return s;
 }
 
+inline double harmonic2(const size_t n) {
+  double s = 0.0;
+  for (size_t k = 1; k <= n; ++k) {
+    s += 1.0 / (k * k);
+  }
+  return s;
+}
+

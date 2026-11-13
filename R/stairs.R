@@ -4,23 +4,31 @@
 #' imbalanced, e.g. subtrees where the left child has more extant tips than the
 #' right child, or vice versa.
 #' @param input_obj phylo object or ltable
+#' @param normalization "none" or "yule". When providing "yule", the
+#' statistic is normalized by the expectation under the Yule model, as given
+#' in Bauman & Rosenberg 2026.
 #' @return number of stairs
 #' @references Norström, Melissa M., et al. "Phylotempo: a set of r scripts for
 #' assessing and visualizing temporal clustering in genealogies inferred from
 #' serially sampled viral sequences." Evolutionary Bioinformatics 8 (2012):
 #' EBO-S9738.
+#' Bauman, D. J., & Rosenberg, N. A. (2026). Basis statistics for phylogenetic
+#' tree shape: tree balance formulas beyond expectations. arXiv preprint
+#' arXiv:2610.40894.
 #' @export
-stairs <- function(input_obj) {
+stairs <- function(input_obj,
+                   normalization = "none") {
   check_tree(input_obj,
              require_binary = TRUE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(input_obj, "matrix")) {
-    return(stairs_ltable_cpp(input_obj))
+    return(stairs_ltable_cpp(input_obj, normalization))
   }
   if (inherits(input_obj, "phylo")) {
-    return(stairs_cpp(as.vector(t(input_obj$edge))))
+    return(stairs_cpp(as.vector(t(input_obj$edge)), normalization))
   }
   stop("input object has to be phylo or ltable")
 }
@@ -32,23 +40,31 @@ stairs <- function(input_obj) {
 #' where L and R reflect the number of tips connected at the left (L) and right
 #' (R) daughter.
 #' @param input_obj phylo object or ltable
+#' @param normalization "none" or "yule". When providing "yule", the
+#' statistic is normalized by the expectation under the Yule model, as given
+#' in Bauman & Rosenberg 2026.
 #' @return number of stairs
 #' @references Norström, Melissa M., et al. "Phylotempo: a set of r scripts for
 #' assessing and visualizing temporal clustering in genealogies inferred from
 #' serially sampled viral sequences." Evolutionary Bioinformatics 8 (2012):
 #' EBO-S9738.
+#' Bauman, D. J., & Rosenberg, N. A. (2026). Basis statistics for phylogenetic
+#' tree shape: tree balance formulas beyond expectations. arXiv preprint
+#' arXiv:2610.40894.
 #' @export
-stairs2 <- function(input_obj) {
+stairs2 <- function(input_obj,
+                    normalization = "none") {
   check_tree(input_obj,
              require_binary = TRUE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
+  normalization <- check_normalization_key(normalization)
 
   if (inherits(input_obj, "matrix")) {
-    return(stairs2_ltable_cpp(input_obj))
+    return(stairs2_ltable_cpp(input_obj, normalization))
   }
   if (inherits(input_obj, "phylo")) {
-    return(stairs2_cpp(as.vector(t(input_obj$edge))))
+    return(stairs2_cpp(as.vector(t(input_obj$edge)), normalization))
   }
   stop("input object has to be phylo or ltable")
 }

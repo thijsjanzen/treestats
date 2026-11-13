@@ -121,20 +121,20 @@ calc_rquartet_ltable_cpp <- function(ltable_R) {
     .Call('_treestats_calc_rquartet_ltable_cpp', PACKAGE = 'treestats', ltable_R)
 }
 
-stairs_cpp <- function(tree_edge) {
-    .Call('_treestats_stairs_cpp', PACKAGE = 'treestats', tree_edge)
+stairs_cpp <- function(tree_edge, normalization) {
+    .Call('_treestats_stairs_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }
 
-stairs_ltable_cpp <- function(ltable_R) {
-    .Call('_treestats_stairs_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+stairs_ltable_cpp <- function(ltable_R, normalization) {
+    .Call('_treestats_stairs_ltable_cpp', PACKAGE = 'treestats', ltable_R, normalization)
 }
 
-stairs2_cpp <- function(tree_edge) {
-    .Call('_treestats_stairs2_cpp', PACKAGE = 'treestats', tree_edge)
+stairs2_cpp <- function(tree_edge, normalization) {
+    .Call('_treestats_stairs2_cpp', PACKAGE = 'treestats', tree_edge, normalization)
 }
 
-stairs2_ltable_cpp <- function(ltable_R) {
-    .Call('_treestats_stairs2_ltable_cpp', PACKAGE = 'treestats', ltable_R)
+stairs2_ltable_cpp <- function(ltable_R, normalization) {
+    .Call('_treestats_stairs2_ltable_cpp', PACKAGE = 'treestats', ltable_R, normalization)
 }
 
 calc_rogers_cpp <- function(parent_list) {

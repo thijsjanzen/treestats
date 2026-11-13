@@ -21,6 +21,11 @@ test_that("usage stairs2", {
   }
 })
 
+test_that("yule", {
+  test_yule(treestats::stairs)
+  test_yule(treestats::stairs2)
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::stairs(10),

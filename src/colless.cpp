@@ -122,32 +122,83 @@ double calc_rquartet_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
   return 3.0 * c.count_rquartet();
 }
 
+double correct_stairs1(double stat, size_t n) {
+  // correction under the expectation of the Yule model
+  bool is_even = n % 2 == 0;
+
+  double correction = is_even ?
+    2 * n * (harmonic((n / 2) - 1) - harmonic(n - 1) + 1) :       // even
+    2 * n * (harmonic((n - 1) / 2) - harmonic(n - 1) + 1) - 2;       // odd
+
+  correction *= 1.0 / (n - 1);
+  //if (!is_even) correction -= 2;
+
+  stat *= 1.0 / correction;
+  return stat;
+}
+
+double correct_stairs2(double stat, size_t n) {
+  double correction;
+  if (n % 2 == 0) { // even
+    correction = 2 * n * harmonic2(n - 1) - n * harmonic2(n / 2 )  -
+                 2 * (harmonic(n - 1) - harmonic(n / 2)) - (n - 1);
+  } else { // odd
+    correction = 2 * n * harmonic2(n - 1) - n * harmonic2((n - 1) / 2 )  -
+                 2 * (harmonic(n - 1) - harmonic((n - 1) / 2)) - (n - 1);
+  }
+  correction *= 1.0 / (n - 1);
+  stat *= 1.0 / correction;
+  return stat;
+}
+
 // [[Rcpp::export]]
-double stairs_cpp(const std::vector<int>& tree_edge) {
+double stairs_cpp(const std::vector<int>& tree_edge,
+                  std::string normalization) {
   colless_tree::colless_tree focal_tree(tree_edge);
   double s = focal_tree.calc_stat(&calc_stairs);
-  return s * 1.0 / focal_tree.size();
+
+  auto answ = s * 1.0 / focal_tree.size();
+  if (normalization == "yule") {
+    size_t n  = tree_edge.size() / 4 + 1;
+    answ = correct_stairs1(answ, n);
+  }
+  return answ;
 }
 
 // [[Rcpp::export]]
-double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+double stairs_ltable_cpp(const Rcpp::NumericMatrix& ltable_R,
+                         std::string normalization) {
   auto local_ltab = convert_to_ltable(ltable_R);
   colless_stat_ltable c(local_ltab);
-  return c.count_stairs();
+  auto answ = c.count_stairs();
+  if (normalization == "yule") {
+    answ = correct_stairs1(answ, local_ltab.size());
+  }
+  return answ;
 }
 
 // [[Rcpp::export]]
-double stairs2_cpp(const std::vector<int>& tree_edge) {
+double stairs2_cpp(const std::vector<int>& tree_edge,
+                   std::string normalization) {
   colless_tree::colless_tree focal_tree(tree_edge);
   double s = focal_tree.calc_stat(&calc_stairs2);
-  return s * 1.0 / focal_tree.size();
+  auto answ = s * 1.0 / focal_tree.size();
+  if (normalization == "yule") {
+    answ = correct_stairs2(answ, focal_tree.size());
+  }
+  return answ;
 }
 
 // [[Rcpp::export]]
-double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
+double stairs2_ltable_cpp(const Rcpp::NumericMatrix& ltable_R,
+                          std::string normalization) {
   auto local_ltab = convert_to_ltable(ltable_R);
   colless_stat_ltable c(local_ltab);
-  return c.count_stairs2();
+  auto answ = c.count_stairs2();
+  if (normalization == "yule") {
+    answ = correct_stairs2(answ, local_ltab.size());
+  }
+  return answ;
 }
 
 // [[Rcpp::export]]
