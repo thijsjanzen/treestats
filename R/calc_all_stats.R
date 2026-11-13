@@ -103,7 +103,7 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   #stats$blum               <- try_stat(phylo, treestats::blum,
   #                                     normalize, c(TRUE, FALSE))
   stats$sshape             <- try_stat(phylo, treestats::sshape,
-                                       normalize, c(TRUE, FALSE))
+                                       normalize, c("yule", "none"))
 
   stats$crown_age          <- try_stat(phylo, treestats::crown_age)
   stats$tree_height        <- try_stat(phylo, treestats::tree_height)
@@ -128,7 +128,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$pitchforks         <- try_stat(phylo, treestats::pitchforks,
                                        normalize, c("tips", "none"))
 
-  stats$stairs              <- try_stat(phylo, treestats::stairs)
+  stats$stairs              <- try_stat(phylo, treestats::stairs,
+                                        normalize, c("yule", "none"))
 
   temp_stats <- tryCatch(expr = {treestats::laplacian_spectrum(phylo) }, #nolint
                          error = function(e) {return(NA) }) #nolint
@@ -197,7 +198,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
 
   stats$i_stat             <- try_stat(phylo, treestats::mean_i)
 
-  stats$ew_colless         <- try_stat(phylo, treestats::ew_colless)
+  stats$ew_colless         <- try_stat(phylo, treestats::ew_colless,
+                                       normalize, c("yule", "none"))
 
   stats$max_del_width      <- try_stat(phylo, treestats::max_del_width,
                                        normalize, c("tips", "none"))
@@ -205,22 +207,26 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   stats$max_depth          <- try_stat(phylo, treestats::max_depth,
                                        normalize, c("tips", "none"))
 
-  stats$avg_vert_depth     <- try_stat(phylo, treestats::avg_vert_depth)
+  stats$avg_vert_depth     <- try_stat(phylo, treestats::avg_vert_depth,
+                                       normalize, c("yule", "none"))
 
   stats$max_width          <- try_stat(phylo, treestats::max_width,
                                        normalize, c("tips", "none"))
 
   stats$mw_over_md         <- try_stat(phylo, treestats::mw_over_md)
 
-  stats$tot_path           <- try_stat(phylo, treestats::tot_path_length)
+  stats$tot_path           <- try_stat(phylo, treestats::tot_path_length,
+                                       normalize, c("yule", "none"))
 
-  stats$tot_internal_path  <- try_stat(phylo, treestats::tot_internal_path)
+  stats$tot_internal_path  <- try_stat(phylo, treestats::tot_internal_path,
+                                       normalize, c("yule", "none"))
 
   stats$rogers             <- try_stat(phylo, treestats::rogers,
-                                       normalize, c("tips", "none"))
+                                       normalize, c("yule", "none"))
 
 
-  stats$stairs2            <- try_stat(phylo, treestats::stairs2)
+  stats$stairs2            <- try_stat(phylo, treestats::stairs2,
+                                       normalize, c("yule", "none"))
 
   stats$tot_coph           <- try_stat(phylo, treestats::tot_coph,
                                        normalize, c("yule", "none"))
