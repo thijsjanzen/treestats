@@ -91,3 +91,15 @@ test_yule <- function(treestats_func) {
   res <- unlist(res)
   testthat::expect_equal(mean(res), 1.0, tolerance = 0.1)
 }
+
+test_abuse <- function(func) {
+  testthat::expect_error(
+    func(10),
+    "input object has to be phylo or ltable"
+  )
+
+  testthat::expect_error(
+    func(list()),
+    "input object has to be phylo or ltable"
+  )
+}

@@ -28,13 +28,5 @@ test_that("unrooted", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::var_pair_dist(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::var_pair_dist(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::var_pair_dist)
 })

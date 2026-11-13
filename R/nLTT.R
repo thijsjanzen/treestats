@@ -38,7 +38,7 @@ nLTT <- function(phy, # nolint
     return(calc_nltt_ltable_cpp(phy, ref_tree))
   }
 
-  stop("input needs to be phylo or ltable object")
+  stop("input object has to be phylo or ltable")
 }
 
 #' Reference nLTT statistic

@@ -54,15 +54,11 @@ test_that("usage", {
 
 test_that("polytomies", {
   if (requireNamespace("apTreeshape")) {
-
     local_func <- function(phy) {
-      res <- apTreeshape::avgLeafDepI(phy)
+      res <- apTreeshape::maxlik.betasplit(phy)
       return(res$max_lik)
     }
-
-    testthat::expect_warning(
-      test_polytomies(treestats::beta, local_func)
-    )
+    test_polytomies(treestats::beta_statistic, local_func)
   }
 })
 
@@ -80,16 +76,6 @@ test_that("abuse", {
   testthat::expect_warning(
     treestats::beta_statistic(phy = focal_tree, algorithm = "none"),
     "Trees with only two tips have undefined beta")
-})
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::beta_statistic(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::beta_statistic(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::beta_statistic)
 })

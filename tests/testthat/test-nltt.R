@@ -61,3 +61,8 @@ test_that("wrong_object", {
     "input needs to be phylo or ltable object"
   )
 })
+
+test_that("wrong_object", {
+  test_abuse(treestats::nLTT_base)
+})
+

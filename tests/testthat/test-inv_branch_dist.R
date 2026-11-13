@@ -27,15 +27,7 @@ test_that("polytomies", {
   testthat::expect_true(!is.na(local_stat))
 })
 
-
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::inv_branch_dist(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::inv_branch_dist(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::inv_branch_dist)
 })
+

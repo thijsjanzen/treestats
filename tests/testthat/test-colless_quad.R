@@ -57,13 +57,5 @@ test_that("basis equality", {
 
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::colless_quad(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::colless_quad(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::colless_quad)
 })

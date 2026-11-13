@@ -29,6 +29,8 @@ test_that("polytomies", {
 
 
 test_that("normalisation", {
+  testthat::skip_on_cran()
+  set.seed(42)
   c1 <- treestats::b1(extant_tree)
   c2 <- treestats::b1(extant_tree, normalization = "tips")
   testthat::expect_lt(c2, c1)
@@ -51,14 +53,6 @@ test_that("normalisation", {
   testthat::expect_lt(a2, 0.5)
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::b1(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::b1(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("abuse", {
+  test_abuse(treestats::b1)
 })

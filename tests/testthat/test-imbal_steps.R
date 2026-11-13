@@ -37,15 +37,7 @@ test_that("abuse", {
   )
 })
 
-
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::imbalance_steps(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::imbalance_steps(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::imbalance_steps)
 })
+

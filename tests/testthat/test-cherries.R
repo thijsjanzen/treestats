@@ -53,6 +53,8 @@ test_that("normalisation", {
 
   testthat::expect_lt(a2, a1)
   testthat::expect_equal(a2, a3)
+
+  test_yule(treestats::cherries)
 })
 
 test_that("polytomies", {
@@ -63,14 +65,6 @@ test_that("polytomies", {
   }
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::cherries(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::cherries(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("abuse", {
+  test_abuse(treestats::cherries)
 })

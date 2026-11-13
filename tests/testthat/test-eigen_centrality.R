@@ -126,13 +126,6 @@ test_that("polytomies", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::eigen_centrality(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::eigen_centrality(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::eigen_centrality)
 })
+

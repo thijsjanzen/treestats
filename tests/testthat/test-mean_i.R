@@ -33,13 +33,6 @@ test_that("abuse", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::mean_i(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::mean_i(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::mean_i)
 })
+

@@ -25,13 +25,5 @@ test_that("usage", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::number_of_lineages(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::number_of_lineages(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::number_of_lineages)
 })

@@ -9,13 +9,6 @@ test_that("usage", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::mw_over_md(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::mw_over_md(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::mw_over_md)
 })
+

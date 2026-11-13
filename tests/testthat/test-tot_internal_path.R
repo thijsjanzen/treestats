@@ -14,13 +14,5 @@ test_that("yule", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::tot_internal_path(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::tot_internal_path(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::tot_internal_path)
 })

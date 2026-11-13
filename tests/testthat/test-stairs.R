@@ -26,18 +26,6 @@ test_that("yule", {
   test_yule(treestats::stairs2)
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::stairs(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::stairs(list()),
-    "input object has to be phylo or ltable"
-  )
-})
-
 test_that("polytomies", {
   for (focal_tree in poly_trees) {
     a1 <- try_stat(focal_tree, treestats::stairs)
@@ -49,13 +37,6 @@ test_that("polytomies", {
 
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::stairs2(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::stairs2(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::stairs)
+  test_abuse(treestats::stairs2)
 })

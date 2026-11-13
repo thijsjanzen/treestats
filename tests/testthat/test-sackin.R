@@ -46,14 +46,8 @@ test_that("usage", {
   }
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::sackin(10),
-    "input object has to be phylo or ltable"
-  )
 
-  testthat::expect_error(
-    treestats::sackin(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("wrong_object", {
+  test_abuse(treestats::sackin)
 })
+

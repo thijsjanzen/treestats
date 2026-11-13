@@ -31,13 +31,5 @@ test_that("polytomy", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::rquartet(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::rquartet(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::rquartet)
 })

@@ -52,13 +52,5 @@ test_that("normalisation", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::psv(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::psv(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::psv)
 })

@@ -25,14 +25,6 @@ test_that("usage", {
 })
 
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::area_per_pair(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::area_per_pair(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("abuse", {
+  test_abuse(treestats::area_per_pair)
 })

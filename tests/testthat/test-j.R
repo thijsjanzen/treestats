@@ -43,14 +43,7 @@ test_that("unrooted", {
   testthat::expect_equal(a1, a2)
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::entropy_j(10),
-    "input object has to be phylo or ltable"
-  )
 
-  testthat::expect_error(
-    treestats::entropy_j(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("wrong_object", {
+  test_abuse(treestats::entropy_j)
 })

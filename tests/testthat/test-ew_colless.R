@@ -35,15 +35,7 @@ test_that("yule", {
   test_yule(treestats::ew_colless)
 })
 
-
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::ew_colless(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::ew_colless(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::ew_colless)
 })
+

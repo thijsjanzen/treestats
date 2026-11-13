@@ -30,14 +30,6 @@ test_that("yule", {
   test_yule(treestats::avg_vert_depth)
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::avg_vert_depth(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::avg_vert_depth(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("abuse", {
+  test_abuse(treestats::avg_vert_depth)
 })

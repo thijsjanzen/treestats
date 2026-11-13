@@ -14,14 +14,6 @@ test_that("polytomies", {
   }
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::avg_ladder(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::avg_ladder(list()),
-    "input object has to be phylo or ltable"
-  )
+test_that("abuse", {
+  test_abuse(treestats::avg_ladder)
 })

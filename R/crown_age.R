@@ -29,7 +29,7 @@ tree_height <- function(phy) {
     tree_height <- crown_age_of_tree + root_length
     return(tree_height)
   }
-  stop("input object has to be of class phylo or ltable")
+  stop("input object has to be phylo or ltable")
 }
 
 #' Crown age of a tree.

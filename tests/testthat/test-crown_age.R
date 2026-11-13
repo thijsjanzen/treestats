@@ -49,25 +49,7 @@ test_that("polytomies", {
 
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::crown_age(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::crown_age(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::crown_age)
+  test_abuse(treestats::tree_height)
 })
 
-test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::tree_height(10),
-    "input object has to be of class phylo"
-  )
-
-  testthat::expect_error(
-    treestats::tree_height(list()),
-    "input object has to be of class phylo"
-  )
-})

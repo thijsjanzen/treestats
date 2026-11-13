@@ -13,7 +13,7 @@ test_that("usage", {
     testthat::expect_equal(colless_cl, colless_check)
 
     ## with extinct lineages:
-     colless_c <- treestats::colless_corr(complete_tree)
+    colless_c <- treestats::colless_corr(complete_tree)
     colless_check <- treebalance::collessI(complete_tree, method = "corrected")
     testthat::expect_equal(colless_c, colless_check)
 
@@ -42,13 +42,5 @@ test_that("polytomies", {
 
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::colless_corr(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::colless_corr(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::colless_corr)
 })

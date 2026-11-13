@@ -44,53 +44,10 @@ test_that("usage", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::var_branch_length(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::var_branch_length(list()),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::var_branch_length_int(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::var_branch_length_int(list()),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::var_branch_length_ext(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::var_branch_length_ext(list()),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::mean_branch_length_ext(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::mean_branch_length_ext(list()),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::mean_branch_length_int(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::mean_branch_length_int(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::mean_branch_length)
+  test_abuse(treestats::mean_branch_length_ext)
+  test_abuse(treestats::mean_branch_length_int)
+  test_abuse(treestats::var_branch_length)
+  test_abuse(treestats::var_branch_length_ext)
+  test_abuse(treestats::var_branch_length_int)
 })

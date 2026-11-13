@@ -43,13 +43,8 @@ test_that("polytomies", {
 
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::four_prong(10),
-    "input object has to be phylo or ltable"
-  )
+  test_that("wrong_object", {
+    test_abuse(treestats::four_prong)
+  })
 
-  testthat::expect_error(
-    treestats::four_prong(list()),
-    "input object has to be phylo or ltable"
-  )
 })

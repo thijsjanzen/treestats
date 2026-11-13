@@ -28,15 +28,6 @@ test_that("polytomies", {
     testthat::expect_true(!is.na(res))
   }
 })
-
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::treeness(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::treeness(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::treeness)
 })

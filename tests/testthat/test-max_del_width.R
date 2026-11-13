@@ -41,13 +41,6 @@ test_that("normalization", {
 })
 
 test_that("wrong_object", {
-  testthat::expect_error(
-    treestats::max_del_width(10),
-    "input object has to be phylo or ltable"
-  )
-
-  testthat::expect_error(
-    treestats::max_del_width(list()),
-    "input object has to be phylo or ltable"
-  )
+  test_abuse(treestats::max_del_width)
 })
+
