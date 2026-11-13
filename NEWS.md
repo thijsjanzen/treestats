@@ -1,3 +1,8 @@
+# Version 1.71.14
+- Added Yule expectation corrections for the following statistics: ew_colless,
+rogers, total_internal_path, total_path, avg_vertex_depth, stairs1 and stairs2, 
+following the publication by Bauman & Rosenberg, arXiv:2610.40894
+
 # Version 1.71.13
 - Polytomies were not handled correctly, and code for the following statistics
 was adjusted accordingly: ILnumber, entropy_j, tot_internal_path, tot_path,
