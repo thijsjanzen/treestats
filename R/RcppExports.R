@@ -397,3 +397,7 @@ pitchforks_cpp <- function(tree_edge) {
     .Call('_treestats_pitchforks_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
+max_bauman_cpp <- function(tree_edge) {
+    .Call('_treestats_max_bauman_cpp', PACKAGE = 'treestats', tree_edge)
+}
+
