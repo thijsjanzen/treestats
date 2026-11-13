@@ -9,7 +9,7 @@ average_leaf_depth(phy, normalization = "none")
 \arguments{
 \item{phy}{phylo object or ltable}
 
-\item{normalization}{"none" or "yule", in which case the statistic is
+\item{normalization}{"none", "yule", in which case the statistic is
 divided by the expectation under the yule model, following Remark 1 in
 Coronado et al. 2020.}
 }

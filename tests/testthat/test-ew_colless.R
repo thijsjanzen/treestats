@@ -30,6 +30,11 @@ test_that("polytomies", {
   }
 })
 
+test_that("yule", {
+  testthat::skip_on_cran()
+  test_yule(treestats::ew_colless)
+})
+
 
 test_that("wrong_object", {
   testthat::expect_error(

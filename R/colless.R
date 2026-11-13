@@ -40,6 +40,9 @@ colless <- function(phy,
 #' where L (or R) is the number of extant tips associated with the L (or R)
 #' daughter branch at that node.  Maximal imbalance is associated with a value
 #' of 1.0. The ew_colless index is not sensitive to tree size.
+#' @param normalization A character string equals to "none" (default) for no
+#' normalization or "yule", in which case the obtained index is divided by
+#' the Yule expectation.
 #' @param phy phylo object or ltable
 #' @return colless index
 #' @references  A. O. Mooers and S. B. Heard. Inferring Evolutionary Process
@@ -51,16 +54,17 @@ colless <- function(phy,
 #' unbalanced_tree <- treestats::create_fully_unbalanced_tree(simulated_tree)
 #' ew_colless(balanced_tree)
 #' ew_colless(unbalanced_tree) # should be higher
-ew_colless <- function(phy) {
+ew_colless <- function(phy, normalization = "none") {
+  normalization <- check_normalization_key(normalization)
   check_tree(phy,
              require_binary = TRUE,
              require_ultrametric = FALSE,
              require_rooted = TRUE)
   if (inherits(phy, "matrix")) {
-    return(calc_eWcolless_ltable_cpp(phy))
+    return(calc_eWcolless_ltable_cpp(phy, normalization))
   }
   if (inherits(phy, "phylo")) {
-    return(calc_eWcolless_cpp(as.vector(t(phy$edge))))
+    return(calc_eWcolless_cpp(as.vector(t(phy$edge)), normalization))
   }
   stop("input object has to be phylo or ltable")
 }

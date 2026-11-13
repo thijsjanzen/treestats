@@ -11,6 +11,24 @@ set.seed(42)
 extant_tree   <- ape::rphylo(n = 100, birth = 1, death = 0)
 complete_tree <- ape::rphylo(n = 100, birth = 1, death = 0.2, fossils = TRUE)
 
+yule_trees_even <- list()
+for (i in 1:100)
+  yule_trees_even[[i]] <- ape::rphylo(n = 100, birth = 1, death = 0)
+
+yule_trees_odd <- list()
+for (i in 1:100)
+  yule_trees_odd[[i]] <- ape::rphylo(n = 101, birth = 1, death = 0)
+
+yule_ltab_even <- list()
+for (i in 1:100)
+  yule_ltab_even[[i]] <- treestats::phylo_to_l(yule_trees_even[[i]])
+
+yule_ltab_odd <- list()
+for (i in 1:100)
+  yule_ltab_odd[[i]] <- treestats::phylo_to_l(yule_trees_odd[[i]])
+
+
+
 #' @keywords internal
 test_stat <- function(phylo, func) {
   res <- tryCatch(expr = {func(phylo)},  #nolint
@@ -19,7 +37,9 @@ test_stat <- function(phylo, func) {
 }
 
 
-test_polytomies <- function(treestats_func, ref_func, tol = NA) {
+test_polytomies <- function(treestats_func,
+                            ref_func,
+                            tol = NA) {
   for (focal_tree in poly_trees) {
     a1 <- test_stat(focal_tree, treestats_func)
     a2 <- test_stat(focal_tree, ref_func)
@@ -52,4 +72,22 @@ standard_test <- function(treestats_func,
     testthat::expect_equal(treestats_func(complete_tree),
                            treestats_func(ltab))
   }
+}
+
+test_yule <- function(treestats_func) {
+  res <- lapply(yule_trees_even, treestats_func, normalization = "yule")
+  res <- unlist(res)
+  testthat::expect_equal(mean(res), 1.0, tolerance = 0.1)
+
+  res <- lapply(yule_trees_odd, treestats_func, normalization = "yule")
+  res <- unlist(res)
+  testthat::expect_equal(mean(res), 1.0, tolerance = 0.1)
+
+  res <- lapply(yule_ltab_even, treestats_func, normalization = "yule")
+  res <- unlist(res)
+  testthat::expect_equal(mean(res), 1.0, tolerance = 0.1)
+
+  res <- lapply(yule_ltab_odd, treestats_func, normalization = "yule")
+  res <- unlist(res)
+  testthat::expect_equal(mean(res), 1.0, tolerance = 0.1)
 }

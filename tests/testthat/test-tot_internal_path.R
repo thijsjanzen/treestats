@@ -8,6 +8,11 @@ test_that("usage", {
   }
 })
 
+test_that("yule", {
+  testthat::skip_on_cran()
+  test_yule(treestats::tot_internal_path)
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::tot_internal_path(10),

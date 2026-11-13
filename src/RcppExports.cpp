@@ -299,24 +299,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_eWcolless_cpp
-double calc_eWcolless_cpp(const std::vector<int>& parent_list);
-RcppExport SEXP _treestats_calc_eWcolless_cpp(SEXP parent_listSEXP) {
+double calc_eWcolless_cpp(const std::vector<int>& parent_list, std::string normalize);
+RcppExport SEXP _treestats_calc_eWcolless_cpp(SEXP parent_listSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type parent_list(parent_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_eWcolless_cpp(parent_list));
+    Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_eWcolless_cpp(parent_list, normalize));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_eWcolless_ltable_cpp
-double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R);
-RcppExport SEXP _treestats_calc_eWcolless_ltable_cpp(SEXP l_from_RSEXP) {
+double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R, std::string normalize);
+RcppExport SEXP _treestats_calc_eWcolless_ltable_cpp(SEXP l_from_RSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type l_from_R(l_from_RSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_eWcolless_ltable_cpp(l_from_R));
+    Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_eWcolless_ltable_cpp(l_from_R, normalize));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1002,25 +1004,25 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_blum_cpp
-double calc_blum_cpp(const std::vector<int>& tree_edge, bool normalize);
+double calc_blum_cpp(const std::vector<int>& tree_edge, std::string normalize);
 RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
-    Rcpp::traits::input_parameter< bool >::type normalize(normalizeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge, normalize));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_blum_ltable_cpp
-double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in, bool normalize);
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in, std::string normalize);
 RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
-    Rcpp::traits::input_parameter< bool >::type normalize(normalizeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_blum_ltable_cpp(ltab_in, normalize));
     return rcpp_result_gen;
 END_RCPP
@@ -1106,8 +1108,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_diameter_ltable_cpp", (DL_FUNC) &_treestats_calc_diameter_ltable_cpp, 2},
     {"_treestats_calc_colless_cpp", (DL_FUNC) &_treestats_calc_colless_cpp, 2},
     {"_treestats_calc_colless_ltable_cpp", (DL_FUNC) &_treestats_calc_colless_ltable_cpp, 2},
-    {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 1},
-    {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 1},
+    {"_treestats_calc_eWcolless_cpp", (DL_FUNC) &_treestats_calc_eWcolless_cpp, 2},
+    {"_treestats_calc_eWcolless_ltable_cpp", (DL_FUNC) &_treestats_calc_eWcolless_ltable_cpp, 2},
     {"_treestats_ILnumber_cpp", (DL_FUNC) &_treestats_ILnumber_cpp, 1},
     {"_treestats_ILnumber_ltable_cpp", (DL_FUNC) &_treestats_ILnumber_ltable_cpp, 1},
     {"_treestats_calc_rquartet_cpp", (DL_FUNC) &_treestats_calc_rquartet_cpp, 1},

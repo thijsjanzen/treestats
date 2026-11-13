@@ -10,6 +10,7 @@ test_that("usage", {
 
 
 test_that("normalization", {
+  testthat::skip_on_cran()
   set.seed(42)
   focal_tree <- ape::rphylo(n = 30, birth = 1, death = 0)
 
@@ -18,6 +19,12 @@ test_that("normalization", {
   testthat::expect_lt(c2, c1)
   c3 <- treestats::rogers(treestats::phylo_to_l(focal_tree),
                           normalization = "tips")
+  testthat::expect_equal(c2, c3)
+
+  c2 <- treestats::rogers(focal_tree, normalization = "yule")
+  testthat::expect_lt(c2, c1)
+  c3 <- treestats::rogers(treestats::phylo_to_l(focal_tree),
+                          normalization = "yule")
   testthat::expect_equal(c2, c3)
 
   stats1 <- c()
@@ -33,6 +40,19 @@ test_that("normalization", {
 
   testthat::expect_lt(a2, a1)
   testthat::expect_lt(a2, 0.2)
+
+
+
+  found <- c()
+  found2 <- c()
+  for (r in 1:100) {
+    focal_tree <- ape::rphylo(n = 31, birth = 1, death = 0)
+    found[r] <- treestats::rogers(focal_tree, normalization = "yule")
+    found2[r] <- treestats::rogers(treestats::phylo_to_l(focal_tree),
+                                       normalization = "yule")
+  }
+  testthat::expect_equal(mean(found), 1.0, tolerance = 0.1)
+  testthat::expect_equal(mean(found), mean(found2), tolerance = 0.01)
 })
 
 test_that("wrong_object", {

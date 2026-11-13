@@ -9,7 +9,9 @@ rogers(phy, normalization = "none")
 \arguments{
 \item{phy}{phylo object or ltable}
 
-\item{normalization}{"none" or "tips", in which case the resulting statistic
+\item{normalization}{"none", "yule", or "tips". When providing "yule", the
+statistic is normalized by the expectation under the Yule model, as given
+in Bauman & Rosenberg 2026. When providing "tips", the resulting statistic
 is divided by the number of tips - 2 (e.g. the maximum value of the rogers
 index for a tree).}
 }
@@ -34,4 +36,7 @@ rogers(unbalanced_tree) # should be higher
 J. S. Rogers. Central Moments and Probability Distributions of
 Three Measures of Phylogenetic Tree Imbalance. Systematic Biology,
 45(1):99-110, 1996. doi: 10.1093/sysbio/45.1.99.
+Bauman, D. J., & Rosenberg, N. A. (2026). Basis statistics for phylogenetic
+tree shape: tree balance formulas beyond expectations. arXiv preprint
+arXiv:2610.40894.
 }

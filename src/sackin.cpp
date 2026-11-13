@@ -91,25 +91,43 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
   return s.calc_tot_coph();
 }
 
+double normalize_blum(double stat, size_t n) {
+    double expected_val = std::log(n - 1);
+    double add = 0.0;
+    for (size_t r = 2; r <= n - 1; ++r) {
+      add += 1.0 * std::log(r - 1) / (r * (r + 1));
+    }
+    expected_val += 2 * n * add;
+
+    return stat / expected_val;
+}
+
+
 // [[Rcpp::export]]
 double calc_blum_cpp(const std::vector<int>& tree_edge,
-                     bool normalize) {
+                     std::string normalize) {
   auto sackin_tree = depth::create_depth_tree(tree_edge,
                                               depth::used_for::sackin);
   double output = sackin_tree->calc_blum();
 
-  if (normalize)  {
+  if (normalize == "yule") {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = correction_sackin::correct_blum(n, output);
+    output = normalize_blum(output, n);
   }
+
   return output;
 }
 // [[Rcpp::export]]
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
-                            bool normalize) {
+                            std::string normalize) {
   auto local_ltab = convert_to_ltable(ltab_in);
   ltab::stat s(local_ltab);
-  return s.calc_blum(normalize);
+  auto output = s.calc_blum();
+  if (normalize == "yule") {
+    size_t n  = local_ltab.size();
+    output = normalize_blum(output, n);
+  }
+  return output;
 }
 
 

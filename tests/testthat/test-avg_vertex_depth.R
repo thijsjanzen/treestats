@@ -26,6 +26,10 @@ test_that("polytomies", {
   }
 })
 
+test_that("yule", {
+  test_yule(treestats::avg_vert_depth)
+})
+
 test_that("wrong_object", {
   testthat::expect_error(
     treestats::avg_vert_depth(10),

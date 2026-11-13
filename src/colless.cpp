@@ -57,18 +57,44 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
   return output;
 }
 
-// [[Rcpp::export]]
-double calc_eWcolless_cpp(const std::vector<int>& parent_list) {
-  colless_tree::colless_tree colless_tree(parent_list);
-  double s = colless_tree.calc_stat(calc_ew_colless);
-  return s * 1.0 / (colless_tree.size() - 1);
+double normalize_ew_colless(double stat, size_t n) {
+  bool is_even = ! (n % 2);
+  double correction = 0.0;
+  if (is_even) {
+    auto numerator = 4 * n * (n - 1) * (harmonic(n) - harmonic(n / 2)) - n;
+    auto denumerator = 6 * (n - 1) * (n - 2);
+
+    correction = numerator / denumerator;
+  } else {
+    auto numerator = 4 * n * (n - 2) * (harmonic(n - 1) - harmonic ((n - 1) / 2)) - n + 3;
+    auto denumerator = 6 * (n - 2) * (n - 2);
+    correction = numerator / denumerator;
+  }
+  return stat / correction;
 }
 
 // [[Rcpp::export]]
-double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R) {
+double calc_eWcolless_cpp(const std::vector<int>& parent_list,
+                          std::string normalize) {
+  colless_tree::colless_tree colless_tree(parent_list);
+  double s = colless_tree.calc_stat(calc_ew_colless);
+  auto answ = s * 1.0 / (colless_tree.size() - 1);
+  if (normalize == "yule") {
+    answ = normalize_ew_colless(answ, colless_tree.size());
+  }
+  return answ;
+}
+
+// [[Rcpp::export]]
+double calc_eWcolless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
+                                 std::string normalize) {
   auto l_in_cpp = convert_to_ltable(l_from_R);
   colless_stat_ltable s(l_in_cpp);
-  return s.ew_colless();
+  auto answ = s.ew_colless();
+  if (normalize == "yule") {
+    answ = normalize_ew_colless(answ, l_in_cpp.size());
+  }
+  return answ;
 }
 
 // [[Rcpp::export]]

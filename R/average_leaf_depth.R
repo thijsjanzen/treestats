@@ -3,7 +3,7 @@
 #' is a normalized version of the Sackin index, normalized by the number of
 #' tips.
 #' @param phy phylo object or ltable
-#' @param normalization "none" or "yule", in which case the statistic is
+#' @param normalization "none", "yule", in which case the statistic is
 #' divided by the expectation under the yule model, following Remark 1 in
 #' Coronado et al. 2020.
 #' @return average leaf depth statistic
@@ -28,7 +28,7 @@ average_leaf_depth <- function(phy, normalization = "none") {
     n <- length(phy$tip.label)
     ald <- calc_sackin_cpp(as.vector(t(phy$edge)), "none") / n
     if (normalization == "yule" || normalization == TRUE) {
-      expectation <- 2 * log(n)
+      expectation <- 2 * (harmonic(n) - 1)
       ald <- ald / expectation
     }
     return(ald)
@@ -38,7 +38,7 @@ average_leaf_depth <- function(phy, normalization = "none") {
     n <- length(phy[, 1])
     ald <- calc_sackin_ltable_cpp(phy, "none") / n
     if (normalization == "yule" || normalization == TRUE) {
-      expectation <- 2 * log(n)
+      expectation <- 2 * (harmonic(n) - 1)
       ald <- ald / expectation
     }
     return(ald)

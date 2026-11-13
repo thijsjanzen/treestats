@@ -104,7 +104,7 @@ class stat {
     return tot_coph;
   }
 
-  double calc_blum(bool normalize) {
+  double calc_blum() {
     std::vector< int > s_values(ltable_.size(), 1);
     for (size_t i = ltable_.size() - 1; i > 0; i--) {
       int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
@@ -117,10 +117,6 @@ class stat {
       if (s_values[i] != 0.0) {
         s += log2(1.0 * s_values[i] - 1.0);
       }
-    }
-
-    if (normalize) {
-      s *= 1.0 / ltable_.size();
     }
 
     return s;

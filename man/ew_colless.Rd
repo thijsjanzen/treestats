@@ -4,10 +4,14 @@
 \alias{ew_colless}
 \title{Equal weights Colless index of (im)balance.}
 \usage{
-ew_colless(phy)
+ew_colless(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{A character string equals to "none" (default) for no
+normalization or "yule", in which case the obtained index is divided by
+the Yule expectation.}
 }
 \value{
 colless index

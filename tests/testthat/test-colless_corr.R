@@ -26,27 +26,7 @@ test_that("usage", {
 
 test_that("yule", {
   testthat::skip_on_cran()
-  found <- c()
-  found2 <- c()
-  for (r in 1:100) {
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-    found[r] <- treestats::colless_corr(focal_tree, normalization = "yule")
-    found2[r] <- treestats::colless_corr(treestats::phylo_to_l(focal_tree),
-                                         normalization = "yule")
-  }
-  testthat::expect_equal(mean(found), 1.0, tolerance = 0.1)
-  testthat::expect_equal(mean(found), mean(found2))
-
-  found <- c()
-  found2 <- c()
-  for (r in 1:100) {
-    focal_tree <- ape::rphylo(n = 31, birth = 1, death = 0)
-    found[r] <- treestats::colless_corr(focal_tree, normalization = "yule")
-    found2[r] <- treestats::colless_corr(treestats::phylo_to_l(focal_tree),
-                                         normalization = "yule")
-  }
-  testthat::expect_equal(mean(found), 1.0, tolerance = 0.1)
-  testthat::expect_equal(mean(found), mean(found2))
+  test_yule(treestats::colless_corr)
 })
 
 test_that("polytomies", {

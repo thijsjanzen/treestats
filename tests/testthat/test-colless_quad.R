@@ -38,16 +38,21 @@ test_that("polytomies", {
 
 test_that("yule", {
   testthat::skip_on_cran()
-  found <- c()
-  found2 <- c()
-  for (r in 1:100) {
-    focal_tree <- ape::rphylo(n = 100, birth = 1, death = 0)
-    found[r] <- treestats::colless_quad(focal_tree, "yule")
-    found2[r] <- treestats::colless_quad(treestats::phylo_to_l(focal_tree),
-                                         "yule")
-  }
-  testthat::expect_equal(mean(found), 1.0, tolerance = 0.1)
-  testthat::expect_equal(mean(found), mean(found2))
+  test_yule(treestats::colless_quad)
+})
+
+test_that("basis equality", {
+ # in Bauman & Rosenberg 2026, they show that:
+ # QC = 2 * tot_coph + sackin - n * (n - 1), where n is the number of tips
+
+ phy   <- ape::rphylo(n = 100, birth = 1, death = 0)
+ res   <- treestats::colless_quad(phy)
+ n     <- treestats::number_of_lineages(phy) # 100
+ sack  <- treestats::sackin(phy)
+ tcoph <- treestats::tot_coph(phy)
+
+ testthat::expect_equal(res,
+                        2 * tcoph + sack  - n * (n - 1))
 })
 
 

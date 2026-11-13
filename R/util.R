@@ -89,3 +89,8 @@ check_tree <- function(phy,
     binary_check_ltable(phy, require_binary)
   }
 }
+
+#' @keywords internal
+harmonic <- function(n) {
+  sum(1 / seq_len(n))
+}

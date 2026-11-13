@@ -5,10 +5,8 @@
 #' to that node. An alternative implementation can be found in the Castor R
 #' package.
 #' @param phy phylogeny or ltable
-#' @param normalization because the Blum index sums over all nodes,
-#' the resulting statistic tends to be correlated with the number of extant
-#' tips. Normalization can be performed by dividing by the number of extant
-#' tips.
+#' @param normalization "none" or "yule", in which case the acquired result
+#' is divided by the expectation for the Yule model.
 #' @return Blum index of imbalance
 #' @references M. G. B. Blum and O. Francois (2006). Which random processes
 #' describe the Tree of Life? A large-scale study of phylogenetic tree
@@ -20,7 +18,7 @@
 #'   blum(balanced_tree)
 #'   blum(unbalanced_tree) # should be higher
 blum <- function(phy,
-                 normalization = FALSE) {
+                 normalization = "none") {
   normalization <- check_normalization_key(normalization)
   check_tree(phy,
              require_binary = FALSE,
@@ -44,10 +42,8 @@ blum <- function(phy,
 #' to that node. An alternative implementation can be found in the Castor R
 #' package.
 #' @param phy phylogeny or ltable
-#' @param normalization because the sshape statistic sums over all nodes,
-#' the resulting statistic tends to be correlated with the number of extant
-#' tips. Normalization can be performed by dividing by the number of extant
-#' tips.
+#' @param normalization "none" or "yule", in which case the acquired result
+#' is divided by the expectation for the Yule model.
 #' @return s shape statistic of imbalance
 #' @references M. G. B. Blum and O. Francois (2006). Which random processes
 #' describe the Tree of Life? A large-scale study of phylogenetic tree
@@ -59,6 +55,6 @@ blum <- function(phy,
 #'   sshape(balanced_tree)
 #'   sshape(unbalanced_tree) # should be higher
 sshape <- function(phy,
-                   normalization = FALSE) {
+                   normalization = "none") {
   return(blum(phy, normalization))
 }

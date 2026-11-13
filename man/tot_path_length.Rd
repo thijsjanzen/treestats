@@ -4,10 +4,14 @@
 \alias{tot_path_length}
 \title{Total path length}
 \usage{
-tot_path_length(phy)
+tot_path_length(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylo object or ltable}
+
+\item{normalization}{"none" or "yule". When providing "yule", the
+statistic is normalized by the expectation under the Yule model, as given
+in Bauman & Rosenberg 2026.}
 }
 \value{
 Total path length
@@ -21,4 +25,6 @@ total internal path and the sackin index.
 C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease
 transmission patterns. Evolution, Medicine, and Public Health,
 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
+Bauman, D. J., & Rosenberg, N. A. (2026). Basis statistics for phylogenetic
+tree shape: tree balance formulas beyond expectations. arXiv preprint
 }

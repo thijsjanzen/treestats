@@ -132,3 +132,12 @@ inline bool is_binary(const std::vector<int>& tree_edge) {
 inline bool is_poly(const std::vector<int>& tree_edge) {
   return !is_binary(tree_edge);
 }
+
+inline double harmonic(const size_t n) {
+  double s = 0.0;
+  for (size_t k = 1; k <= n; ++k) {
+    s += 1.0 / k;
+  }
+  return s;
+}
+

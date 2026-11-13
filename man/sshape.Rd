@@ -4,15 +4,13 @@
 \alias{sshape}
 \title{s shape statistic of (im)balance.}
 \usage{
-sshape(phy, normalization = FALSE)
+sshape(phy, normalization = "none")
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
 
-\item{normalization}{because the sshape statistic sums over all nodes,
-the resulting statistic tends to be correlated with the number of extant
-tips. Normalization can be performed by dividing by the number of extant
-tips.}
+\item{normalization}{"none" or "yule", in which case the acquired result
+is divided by the expectation for the Yule model.}
 }
 \value{
 s shape statistic of imbalance
