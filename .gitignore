@@ -15,3 +15,5 @@ docs/
 .RDataTmp
 .positai
 .DS_Store
+.RDataTmp1
+.RDataTmp2
