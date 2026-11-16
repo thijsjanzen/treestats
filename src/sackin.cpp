@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <array>
+#include <string>
 #include <RcppArmadillo.h>
 
 #include "util.h"     // NOLINT [build/include_subdir]
@@ -39,12 +40,6 @@ double correct_yule(size_t n,
   }
   return 1.0 * (Is - 2.0 * n * sum_count) / n;
 }
-
-double correct_blum(size_t n,
-                    double Is) {
-  return Is * 1.0 / n;
-}
-
 }   // namespace correction_sackin
 
 // [[Rcpp::export]]
@@ -91,11 +86,12 @@ double calc_tot_coph_ltable_cpp(const Rcpp::NumericMatrix& ltab) {
   return s.calc_tot_coph();
 }
 
-double normalize_blum(double stat, size_t n) {
-    double expected_val = std::log(n - 1);
+double normalize_blum(double stat, size_t n, double log_base) {
+    double base_log = std::log(log_base);
+    double expected_val = std::log(n - 1) / base_log;
     double add = 0.0;
     for (size_t r = 2; r <= n - 1; ++r) {
-      add += 1.0 * std::log(r - 1) / (r * (r + 1));
+      add += 1.0 * (std::log(r - 1) / base_log) / (r * (r + 1));
     }
     expected_val += 2 * n * add;
 
@@ -105,27 +101,29 @@ double normalize_blum(double stat, size_t n) {
 
 // [[Rcpp::export]]
 double calc_blum_cpp(const std::vector<int>& tree_edge,
-                     std::string normalize) {
+                     std::string normalize,
+                     double log_base) {
   auto sackin_tree = depth::create_depth_tree(tree_edge,
                                               depth::used_for::sackin);
-  double output = sackin_tree->calc_blum();
+  double output = sackin_tree->calc_blum(log_base);
 
   if (normalize == "yule") {
     size_t n  = tree_edge.size() / 4 + 1;
-    output = normalize_blum(output, n);
+    output = normalize_blum(output, n, log_base);
   }
 
   return output;
 }
 // [[Rcpp::export]]
 double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
-                            std::string normalize) {
+                            std::string normalize,
+                            double log_base) {
   auto local_ltab = convert_to_ltable(ltab_in);
   ltab::stat s(local_ltab);
-  auto output = s.calc_blum();
+  auto output = s.calc_blum(log_base);
   if (normalize == "yule") {
     size_t n  = local_ltab.size();
-    output = normalize_blum(output, n);
+    output = normalize_blum(output, n, log_base);
   }
   return output;
 }

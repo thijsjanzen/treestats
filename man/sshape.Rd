@@ -4,13 +4,16 @@
 \alias{sshape}
 \title{s shape statistic of (im)balance.}
 \usage{
-sshape(phy, normalization = "none")
+sshape(phy, normalization = "none", log_base = 2)
 }
 \arguments{
 \item{phy}{phylogeny or ltable}
 
 \item{normalization}{"none" or "yule", in which case the acquired result
 is divided by the expectation for the Yule model.}
+
+\item{log_base}{the logarithm base that will be used. For binary trees it is
+common to use base 2.}
 }
 \value{
 s shape statistic of imbalance

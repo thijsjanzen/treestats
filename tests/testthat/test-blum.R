@@ -9,12 +9,18 @@ test_that("usage", {
 test_that("usage", {
   set.seed(5)
   focal_tree <- ape::rphylo(n = 4, birth = 1, death = 0)
-  blum1 <- treestats::blum(focal_tree)
+  blum1 <- treestats::blum(focal_tree, log_base = 2)
   blum_check <- log2(2 - 1) + log2(3 - 1) + log2(4 - 1)
   testthat::expect_equal(blum1, blum_check)
   ltab <- treestats::phylo_to_l(focal_tree)
   blum2 <- treestats::blum(ltab)
   testthat::expect_equal(blum1, blum2)
+
+  # other log base
+  blum1 <- treestats::blum(focal_tree, log_base = exp(1))
+  blum_check <- log(2 - 1) + log(3 - 1) + log(4 - 1)
+  testthat::expect_equal(blum1, blum_check)
+
 
   sshape1 <- treestats::sshape(focal_tree)
   testthat::expect_equal(sshape1, blum1)
@@ -28,6 +34,9 @@ test_that("polytomies", {
   }
 })
 
+test_that("normalization", {
+  test_yule(treestats::blum)
+})
 
 test_that("abuse", {
   test_abuse(treestats::blum)

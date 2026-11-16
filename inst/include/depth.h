@@ -250,7 +250,7 @@ struct tree_base {
   virtual double calc_b1() = 0;
   virtual int max_depth() = 0;
   virtual int calc_sackin() = 0;
-  virtual double calc_blum() = 0;
+  virtual double calc_blum(double log_base) = 0;
   virtual size_t count_cherries() = 0;
   virtual size_t count_pitchforks() = 0;
   virtual double calc_tot_coph() = 0;
@@ -412,11 +412,12 @@ class depth_tree : public tree_base {
     return num_four_prong;
   }
 
-  double calc_blum() override {
+  double calc_blum(double log_base) override {
+    double base_log = log(log_base);
     double s = 0;
     for (size_t i = root_no; i < tree.size(); ++i) {
       if (tree[i].num_extant_tips > 1) {
-        s += log2(1.0 * tree[i].num_extant_tips - 1);
+        s += log(1.0 * tree[i].num_extant_tips - 1) / base_log;
       }
     }
     return s;

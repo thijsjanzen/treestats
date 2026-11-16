@@ -369,12 +369,12 @@ calc_tot_coph_ltable_cpp <- function(ltab) {
     .Call('_treestats_calc_tot_coph_ltable_cpp', PACKAGE = 'treestats', ltab)
 }
 
-calc_blum_cpp <- function(tree_edge, normalize) {
-    .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge, normalize)
+calc_blum_cpp <- function(tree_edge, normalize, log_base) {
+    .Call('_treestats_calc_blum_cpp', PACKAGE = 'treestats', tree_edge, normalize, log_base)
 }
 
-calc_blum_ltable_cpp <- function(ltab_in, normalize) {
-    .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in, normalize)
+calc_blum_ltable_cpp <- function(ltab_in, normalize, log_base) {
+    .Call('_treestats_calc_blum_ltable_cpp', PACKAGE = 'treestats', ltab_in, normalize, log_base)
 }
 
 cherries_cpp <- function(tree_edge) {

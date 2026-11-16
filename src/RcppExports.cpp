@@ -1008,26 +1008,28 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_blum_cpp
-double calc_blum_cpp(const std::vector<int>& tree_edge, std::string normalize);
-RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP, SEXP normalizeSEXP) {
+double calc_blum_cpp(const std::vector<int>& tree_edge, std::string normalize, double log_base);
+RcppExport SEXP _treestats_calc_blum_cpp(SEXP tree_edgeSEXP, SEXP normalizeSEXP, SEXP log_baseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
     Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge, normalize));
+    Rcpp::traits::input_parameter< double >::type log_base(log_baseSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_blum_cpp(tree_edge, normalize, log_base));
     return rcpp_result_gen;
 END_RCPP
 }
 // calc_blum_ltable_cpp
-double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in, std::string normalize);
-RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP, SEXP normalizeSEXP) {
+double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in, std::string normalize, double log_base);
+RcppExport SEXP _treestats_calc_blum_ltable_cpp(SEXP ltab_inSEXP, SEXP normalizeSEXP, SEXP log_baseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
     Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_blum_ltable_cpp(ltab_in, normalize));
+    Rcpp::traits::input_parameter< double >::type log_base(log_baseSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_blum_ltable_cpp(ltab_in, normalize, log_base));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1174,8 +1176,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_sackin_ltable_cpp", (DL_FUNC) &_treestats_calc_sackin_ltable_cpp, 2},
     {"_treestats_calc_tot_coph_cpp", (DL_FUNC) &_treestats_calc_tot_coph_cpp, 1},
     {"_treestats_calc_tot_coph_ltable_cpp", (DL_FUNC) &_treestats_calc_tot_coph_ltable_cpp, 1},
-    {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 2},
-    {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 2},
+    {"_treestats_calc_blum_cpp", (DL_FUNC) &_treestats_calc_blum_cpp, 3},
+    {"_treestats_calc_blum_ltable_cpp", (DL_FUNC) &_treestats_calc_blum_ltable_cpp, 3},
     {"_treestats_cherries_cpp", (DL_FUNC) &_treestats_cherries_cpp, 1},
     {"_treestats_calc_double_cherries_cpp", (DL_FUNC) &_treestats_calc_double_cherries_cpp, 1},
     {"_treestats_calc_four_prong_cpp", (DL_FUNC) &_treestats_calc_four_prong_cpp, 1},

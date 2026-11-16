@@ -11,6 +11,8 @@
 #' @references M. G. B. Blum and O. Francois (2006). Which random processes
 #' describe the Tree of Life? A large-scale study of phylogenetic tree
 #' imbalance. Systematic Biology. 55:685-691.
+#' @param log_base the logarithm base that will be used. For binary trees it is
+#' common to use base 2.
 #' @export
 #' @examples simulated_tree <- ape::rphylo(n = 10, birth = 1, death = 0)
 #'   balanced_tree <- treestats::create_fully_balanced_tree(simulated_tree)
@@ -18,7 +20,8 @@
 #'   blum(balanced_tree)
 #'   blum(unbalanced_tree) # should be higher
 blum <- function(phy,
-                 normalization = "none") {
+                 normalization = "none",
+                 log_base = 2) {
   normalization <- check_normalization_key(normalization)
   check_tree(phy,
              require_binary = FALSE,
@@ -26,10 +29,10 @@ blum <- function(phy,
              require_rooted = TRUE)
 
   if (inherits(phy, "matrix")) {
-    return(calc_blum_ltable_cpp(phy, normalization))
+    return(calc_blum_ltable_cpp(phy, normalization, log_base))
   }
   if (inherits(phy, "phylo")) {
-    return(calc_blum_cpp(as.vector(t(phy$edge)), normalization))
+    return(calc_blum_cpp(as.vector(t(phy$edge)), normalization, log_base))
   }
   stop("input object has to be phylo or ltable")
 }
@@ -44,6 +47,8 @@ blum <- function(phy,
 #' @param phy phylogeny or ltable
 #' @param normalization "none" or "yule", in which case the acquired result
 #' is divided by the expectation for the Yule model.
+#' @param log_base the logarithm base that will be used. For binary trees it is
+#' common to use base 2.
 #' @return s shape statistic of imbalance
 #' @references M. G. B. Blum and O. Francois (2006). Which random processes
 #' describe the Tree of Life? A large-scale study of phylogenetic tree
@@ -55,6 +60,7 @@ blum <- function(phy,
 #'   sshape(balanced_tree)
 #'   sshape(unbalanced_tree) # should be higher
 sshape <- function(phy,
-                   normalization = "none") {
-  return(blum(phy, normalization))
+                   normalization = "none",
+                   log_base = 2) {
+  return(blum(phy, normalization, log_base))
 }

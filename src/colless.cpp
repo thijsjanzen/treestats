@@ -58,7 +58,7 @@ double calc_colless_ltable_cpp(const Rcpp::NumericMatrix& l_from_R,
 }
 
 double normalize_ew_colless(double stat, size_t n) {
-  bool is_even = ! (n % 2);
+  bool is_even = !(n % 2);
   double correction = 0.0;
   if (is_even) {
     auto numerator = 4 * n * (n - 1) * (harmonic(n) - harmonic(n / 2)) - n;
@@ -66,7 +66,8 @@ double normalize_ew_colless(double stat, size_t n) {
 
     correction = numerator / denumerator;
   } else {
-    auto numerator = 4 * n * (n - 2) * (harmonic(n - 1) - harmonic ((n - 1) / 2)) - n + 3;
+    auto numerator = 4 * n * (n - 2) * (harmonic(n - 1) -
+                     harmonic((n - 1) / 2)) - n + 3;
     auto denumerator = 6 * (n - 2) * (n - 2);
     correction = numerator / denumerator;
   }
@@ -128,10 +129,9 @@ double correct_stairs1(double stat, size_t n) {
 
   double correction = is_even ?
     2 * n * (harmonic((n / 2) - 1) - harmonic(n - 1) + 1) :       // even
-    2 * n * (harmonic((n - 1) / 2) - harmonic(n - 1) + 1) - 2;       // odd
+    2 * n * (harmonic((n - 1) / 2) - harmonic(n - 1) + 1) - 2;    // odd
 
   correction *= 1.0 / (n - 1);
-  //if (!is_even) correction -= 2;
 
   stat *= 1.0 / correction;
   return stat;
@@ -139,11 +139,11 @@ double correct_stairs1(double stat, size_t n) {
 
 double correct_stairs2(double stat, size_t n) {
   double correction;
-  if (n % 2 == 0) { // even
-    correction = 2 * n * harmonic2(n - 1) - n * harmonic2(n / 2 )  -
+  if (n % 2 == 0) {     // even
+    correction = 2 * n * harmonic2(n - 1) - n * harmonic2(n / 2)  -
                  2 * (harmonic(n - 1) - harmonic(n / 2)) - (n - 1);
-  } else { // odd
-    correction = 2 * n * harmonic2(n - 1) - n * harmonic2((n - 1) / 2 )  -
+  } else {              // odd
+    correction = 2 * n * harmonic2(n - 1) - n * harmonic2((n - 1) / 2)  -
                  2 * (harmonic(n - 1) - harmonic((n - 1) / 2)) - (n - 1);
   }
   correction *= 1.0 / (n - 1);
