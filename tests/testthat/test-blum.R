@@ -16,16 +16,15 @@ test_that("usage", {
   blum2 <- treestats::blum(ltab)
   testthat::expect_equal(blum1, blum2)
 
-  # other log base
-  blum1 <- treestats::blum(focal_tree, log_base = exp(1))
-  blum_check <- log(2 - 1) + log(3 - 1) + log(4 - 1)
-  testthat::expect_equal(blum1, blum_check)
-
-
   sshape1 <- treestats::sshape(focal_tree)
   testthat::expect_equal(sshape1, blum1)
   sshape2 <- treestats::sshape(ltab)
   testthat::expect_equal(sshape2, blum1)
+
+  # other log base
+  blum1 <- treestats::blum(focal_tree, log_base = exp(1))
+  blum_check <- log(2 - 1) + log(3 - 1) + log(4 - 1)
+  testthat::expect_equal(blum1, blum_check)
 })
 
 test_that("polytomies", {
