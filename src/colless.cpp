@@ -249,17 +249,14 @@ size_t pitchforks_ltable_cpp(const Rcpp::NumericMatrix& ltable_R) {
 }
 
 double colless_corr_yule(size_t n) {
-  double expected_val_yule = 2.0 * n / ((n - 1) * (n - 2));
-
-  double sum_thing = 0.0;
+  double numerator = 0.0;
   if (n % 2 == 0) {  // even number of tips
-    for (size_t j = 2; j < n / 2; ++j) sum_thing += 1.0 / j;
+    numerator = 2 * n * (harmonic(n / 2) - 1);
   } else {
-    sum_thing = 1.0 / n;
-    for (size_t j = 2; j < (n - 1) / 2; ++j) sum_thing += 1.0 / j;
+    numerator = 2 * n * (harmonic((n - 1) / 2) - 1) + 2;
   }
-  expected_val_yule *= sum_thing;
-  return expected_val_yule;
+  auto answer = numerator * 1.0 / ((n - 2) * (n - 1));
+  return answer;
 }
 
 // [[Rcpp::export]]
