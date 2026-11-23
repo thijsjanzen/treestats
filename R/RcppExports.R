@@ -397,7 +397,11 @@ pitchforks_cpp <- function(tree_edge) {
     .Call('_treestats_pitchforks_cpp', PACKAGE = 'treestats', tree_edge)
 }
 
-max_bauman_cpp <- function(tree_edge) {
-    .Call('_treestats_max_bauman_cpp', PACKAGE = 'treestats', tree_edge)
+calc_max_clade_basis_cpp <- function(tree_edge, normalization) {
+    .Call('_treestats_calc_max_clade_basis_cpp', PACKAGE = 'treestats', tree_edge, normalization)
+}
+
+calc_max_clade_basis_ltable_cpp <- function(ltab_in, normalize) {
+    .Call('_treestats_calc_max_clade_basis_ltable_cpp', PACKAGE = 'treestats', ltab_in, normalize)
 }
 

@@ -123,6 +123,25 @@ class stat {
     return s;
   }
 
+  double calc_max_clade_basis() {
+    std::vector< int > s_values(ltable_.size(), 1);
+    for (size_t i = ltable_.size() - 1; i > 0; i--) {
+      int parent_index = abs(static_cast<int>(ltable_[i][1])) - 1;
+      s_values[parent_index] += s_values[i];
+      s_values[i] = s_values[parent_index];
+    }
+
+    double s = 0.0;
+    for (size_t i = 1; i < s_values.size(); ++i) {
+      auto k = s_values[i];
+      if (k > 1) {
+        s += 1.0 / (k * (k + 1));
+      }
+    }
+
+    return s;
+  }
+
   auto collect_depths() {
     std::vector< int > s_values(ltable_.size(), 0);
     s_values[0] = 1;

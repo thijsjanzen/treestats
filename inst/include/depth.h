@@ -242,6 +242,7 @@ struct node_poly {
 
 struct tree_base {
   virtual ~tree_base() = default;
+  virtual size_t size() = 0;
   virtual int calc_max_width() = 0;
   virtual int calc_max_del_width() = 0;
   virtual double var_leaf_depth() = 0;
@@ -258,7 +259,7 @@ struct tree_base {
   virtual size_t count_four_prong() = 0;
   virtual double root_imbalance() = 0;
   virtual double calc_b2() = 0;
-  virtual double calc_max_bauman() = 0;
+  virtual double calc_max_clade_basis() = 0;
 };
 
 enum used_for {depth, b1, sackin};
@@ -289,6 +290,12 @@ class depth_tree : public tree_base {
     }
     if (setting == used_for::depth)  tree[root_no].set_depth(-1);
     if (setting == used_for::sackin) tree[root_no].get_acc_num_tips();
+  }
+
+  size_t size() override {
+    if (tree[root_no].num_extant_tips == 0) tree[root_no].get_acc_num_tips();
+
+    return tree[root_no].num_extant_tips;
   }
 
   int calc_max_width() override {
@@ -373,9 +380,9 @@ class depth_tree : public tree_base {
     return s;
   }
 
-  double calc_max_bauman() override {
+  double calc_max_clade_basis() override {
     double s = 0;
-    for (size_t i = root_no; i < tree.size(); ++i) {
+    for (size_t i = root_no + 1; i < tree.size(); ++i) {
       auto k = tree[i].num_extant_tips;
       s += 1.0 / (k * (k + 1));
     }

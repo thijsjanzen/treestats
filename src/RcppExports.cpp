@@ -1088,14 +1088,27 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// max_bauman_cpp
-double max_bauman_cpp(const std::vector<int>& tree_edge);
-RcppExport SEXP _treestats_max_bauman_cpp(SEXP tree_edgeSEXP) {
+// calc_max_clade_basis_cpp
+double calc_max_clade_basis_cpp(const std::vector<int>& tree_edge, const std::string& normalization);
+RcppExport SEXP _treestats_calc_max_clade_basis_cpp(SEXP tree_edgeSEXP, SEXP normalizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
-    rcpp_result_gen = Rcpp::wrap(max_bauman_cpp(tree_edge));
+    Rcpp::traits::input_parameter< const std::string& >::type normalization(normalizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_clade_basis_cpp(tree_edge, normalization));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_max_clade_basis_ltable_cpp
+double calc_max_clade_basis_ltable_cpp(const Rcpp::NumericMatrix& ltab_in, std::string normalize);
+RcppExport SEXP _treestats_calc_max_clade_basis_ltable_cpp(SEXP ltab_inSEXP, SEXP normalizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type ltab_in(ltab_inSEXP);
+    Rcpp::traits::input_parameter< std::string >::type normalize(normalizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_max_clade_basis_ltable_cpp(ltab_in, normalize));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1194,7 +1207,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_four_prong_cpp", (DL_FUNC) &_treestats_calc_four_prong_cpp, 1},
     {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
     {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
-    {"_treestats_max_bauman_cpp", (DL_FUNC) &_treestats_max_bauman_cpp, 1},
+    {"_treestats_calc_max_clade_basis_cpp", (DL_FUNC) &_treestats_calc_max_clade_basis_cpp, 2},
+    {"_treestats_calc_max_clade_basis_ltable_cpp", (DL_FUNC) &_treestats_calc_max_clade_basis_ltable_cpp, 2},
     {NULL, NULL, 0}
 };
 

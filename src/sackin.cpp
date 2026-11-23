@@ -51,11 +51,11 @@ double calc_sackin_cpp(const std::vector<int>& tree_edge,
   double output = static_cast<double>(sackin_tree->calc_sackin());
 
   if (normalization == "yule") {
-    size_t n  = tree_edge.size() / 4 + 1;
+    size_t n  = sackin_tree->size();
     output = correction_sackin::correct_yule(n, output);
   }
   if (normalization == "pda") {
-    size_t n  = tree_edge.size() / 4 + 1;
+    size_t n  = sackin_tree->size();
     output = correction_sackin::correct_pda(n, output);
   }
 
@@ -108,7 +108,7 @@ double calc_blum_cpp(const std::vector<int>& tree_edge,
   double output = sackin_tree->calc_blum(log_base);
 
   if (normalize == "yule") {
-    size_t n  = tree_edge.size() / 4 + 1;
+    size_t n  = sackin_tree->size();
     output = normalize_blum(output, n, log_base);
   }
 
@@ -133,7 +133,6 @@ double calc_blum_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
 size_t cherries_cpp(const std::vector<int>& tree_edge) {
   auto sackin_tree = depth::create_depth_tree(tree_edge,
                                               depth::used_for::sackin);
-
   return sackin_tree->count_cherries();
 }
 
@@ -165,14 +164,37 @@ size_t pitchforks_cpp(const std::vector<int>& tree_edge) {
   return sackin_tree->count_pitchforks();
 }
 
+double calc_max_clade_basis_expected(size_t n) {
+  double expected = 4 * n * harmonic2(n - 1) - 13 * n / 2 + 4 + 2.0 / n;
+  return expected;
+}
+
 // [[Rcpp::export]]
-double max_bauman_cpp(const std::vector<int>& tree_edge) {
+double calc_max_clade_basis_cpp(const std::vector<int>& tree_edge,
+                            const std::string& normalization) {
   // ltable version uses colless
   auto sackin_tree = depth::create_depth_tree(tree_edge,
                                               depth::used_for::sackin);
-  return sackin_tree->calc_max_bauman();
+  auto stat = sackin_tree->calc_max_clade_basis();
+  if (normalization == "yule") {
+    size_t n  = sackin_tree->size();
+    auto expected_val = calc_max_clade_basis_expected(n);
+   // std::cerr << expected_val << "\n";
+    stat *= 1.0 / expected_val;
+  }
+  return stat;
 }
 
-
-
-
+// [[Rcpp::export]]
+double calc_max_clade_basis_ltable_cpp(const Rcpp::NumericMatrix& ltab_in,
+                                      std::string normalize) {
+  auto local_ltab = convert_to_ltable(ltab_in);
+  ltab::stat s(local_ltab);
+  auto output = s.calc_max_clade_basis();
+  if (normalize == "yule") {
+    size_t n  = local_ltab.size();
+    auto expected_val = calc_max_clade_basis_expected(n);
+    output *= 1.0 / expected_val;
+  }
+  return output;
+}

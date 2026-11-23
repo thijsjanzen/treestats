@@ -16,6 +16,7 @@ require(ggplot2)
 require(tibble)
 require(tidyr)
 require(dplyr)
+set.seed(42)
 ```
 
 ## Tree Size
@@ -34,10 +35,11 @@ a similar distribution. We keep the speciation rate constant. Alternatively, we
 could also keep crown age constant and vary the speciation rate.
 
 ```{r simulate_trees}
+
 found <- c()
 found_min <- c()
 found_max <- c()
-for (tree_size in ceiling(10^seq(1, 3, length.out = 10))) {
+for (tree_size in ceiling(10^seq(1.75, 3, length.out = 10))) {
   cat(tree_size, "\n")
   stats <- c()
 
@@ -59,8 +61,10 @@ for (tree_size in ceiling(10^seq(1, 3, length.out = 10))) {
   }
   stats2 <- apply(stats, 2, mean)
 
-  min_stats <- apply(stats, 2, function(x) return(quantile(x, 0.025)))
-  max_stats <- apply(stats, 2, function(x) return(quantile(x, 0.975)))
+  min_stats <- apply(stats, 2,
+                     function(x) return(quantile(x, na.rm = TRUE, 0.025)))
+  max_stats <- apply(stats, 2,
+                     function(x) return(quantile(x, na.rm = TRUE, 0.975)))
 
   found <- rbind(found, stats2)
   found_min <- rbind(found_min, min_stats)
@@ -101,8 +105,8 @@ Now, we can plot the relationship between tree size and the statistic:
 found3 |>
   filter(Normalization == "Yule") |>
   ggplot(aes(x = number_of_lineages, y = mean)) +
-  geom_ribbon(aes(ymin = min, ymax = max), fill = "yellow", alpha = 0.2) +
-  geom_point(col = "blue", alpha = 0.3) +
+  geom_ribbon(aes(ymin = min, ymax = max), fill = "purple", alpha = 0.2) +
+  geom_point(col = "blue") +
   geom_line(col = "gold") +
   scale_x_log10() +
   facet_wrap(~statistic, scales = "free_y", ncol = 5) +
@@ -121,8 +125,8 @@ instead, we can normalize by the number of tips. We then find:
 found3 |>
   filter(Normalization == "Tips") |>
   ggplot(aes(x = number_of_lineages, y = mean)) +
-  geom_ribbon(aes(ymin = min, ymax = max), fill = "yellow", alpha = 0.2) +
-  geom_point(col = "blue", alpha = 0.3) +
+  geom_ribbon(aes(ymin = min, ymax = max), fill = "purple", alpha = 0.2) +
+  geom_point(col = "blue") +
   geom_line(col = "gold") +
   scale_x_log10() +
   facet_wrap(~statistic, scales = "free_y", ncol = 5) +
@@ -141,8 +145,8 @@ Lastly, we have those statistics for which no normalization is available
 found3 |>
   filter(Normalization == "None") |>
   ggplot(aes(x = number_of_lineages, y = mean)) +
-  geom_ribbon(aes(ymin = min, ymax = max), fill = "yellow", alpha = 0.2) +
-  geom_point(col = "blue", alpha = 0.3) +
+  geom_ribbon(aes(ymin = min, ymax = max), fill = "purple", alpha = 0.2) +
+  geom_point(col = "blue") +
   geom_line(col = "gold") +
   scale_x_log10() +
   facet_wrap(~statistic, scales = "free_y", ncol = 7) +
@@ -171,7 +175,6 @@ found_min <- c()
 found_max <- c()
 for (tree_size in ceiling(10^seq(1.75, 3, length.out = 10))) {
   cat(tree_size, "\n")
-  
 
   # more replicates for smaller trees:
   num_repl <- min(100, ceiling(5 + 1000 / tree_size))
@@ -181,7 +184,7 @@ for (tree_size in ceiling(10^seq(1.75, 3, length.out = 10))) {
   max_t <- (1 / speciation) * log(tree_size / 2)
 
   K <- tree_size * 1.2
-  
+
   stats <- c()
   for (r in 1:num_repl) {
     tree <- DDD::dd_sim(pars = c(speciation, 0, tree_size),
@@ -191,14 +194,15 @@ for (tree_size in ceiling(10^seq(1.75, 3, length.out = 10))) {
     stats <- rbind(stats, treestats::calc_all_stats(tree, normalize = TRUE))
   }
   stats2 <- apply(stats, 2, mean)
-  
 
-  min_stats <- apply(stats, 2, function(x) return(quantile(x, 0.025)))
-  max_stats <- apply(stats, 2, function(x) return(quantile(x, 0.975)))
-  
-  stats2[stats2 == "number_of_lineages"]       <- tree_size
-  min_stats[min_stats == "number_of_lineages"] <- tree_size
-  max_stats[max_stats == "number_of_lineages"] <- tree_size
+  min_stats <- apply(stats, 2,
+                     function(x) return(quantile(x, na.rm = TRUE, 0.025)))
+  max_stats <- apply(stats, 2,
+                     function(x) return(quantile(x, na.rm = TRUE, 0.975)))
+
+  stats2[names(stats2) == "number_of_lineages"]       <- tree_size
+  min_stats[names(min_stats) == "number_of_lineages"] <- tree_size
+  max_stats[names(max_stats) == "number_of_lineages"] <- tree_size
 
   found <- rbind(found, stats2)
   found_min <- rbind(found_min, min_stats)
@@ -223,7 +227,7 @@ found3 <- left_join(found2, found_min2,
 found3 <- left_join(found3, found_max2,
                     by = join_by(statistic, number_of_lineages))
 
-found3 <- left_join(found2, norm_info,
+found3 <- left_join(found3, norm_info,
                     by = join_by(statistic))
 ```
 
@@ -232,8 +236,8 @@ And now we can plot things.
 found3 |>
   filter(Normalization == "Yule") |>
   ggplot(aes(x = number_of_lineages, y = mean)) +
-  geom_ribbon(aes(ymin = min, ymax = max), fill = "yellow", alpha = 0.2) +
-  geom_point(col = "blue", alpha = 0.3) +
+  geom_ribbon(aes(ymin = min, ymax = max), fill = "purple", alpha = 0.2) +
+  geom_point(col = "blue") +
   geom_line(col = "gold") +
   scale_x_log10() +
   facet_wrap(~statistic, scales = "free_y", ncol = 3) +
@@ -244,8 +248,8 @@ found3 |>
 found3 |>
   filter(Normalization == "Tips") |>
   ggplot(aes(x = number_of_lineages, y = mean)) +
-  geom_ribbon(aes(ymin = min, ymax = max), fill = "yellow", alpha = 0.2) +
-  geom_point(col = "blue", alpha = 0.3) +
+  geom_ribbon(aes(ymin = min, ymax = max), fill = "purple", alpha = 0.2) +
+  geom_point(col = "blue") +
   geom_line(col = "gold") +
   scale_x_log10() +
   facet_wrap(~statistic, scales = "free_y", ncol = 5) +
@@ -256,8 +260,8 @@ found3 |>
 found3 |>
   filter(Normalization == "None") |>
   ggplot(aes(x = number_of_lineages, y = mean)) +
-  geom_ribbon(aes(ymin = min, ymax = max), fill = "yellow", alpha = 0.2) +
-  geom_point(col = "blue", alpha = 0.3) +
+  geom_ribbon(aes(ymin = min, ymax = max), fill = "purple", alpha = 0.2) +
+  geom_point(col = "blue") +
   geom_line(col = "gold") +
   scale_x_log10() +
   facet_wrap(~statistic, scales = "free_y", ncol = 7) +

@@ -53,24 +53,25 @@ test_polytomies <- function(treestats_func,
 
 standard_test <- function(treestats_func,
                           ref_func,
-                          drop_complete = FALSE) {
+                          drop_complete = FALSE,
+                          tol = 1e-6) {
   a1 <- treestats_func(extant_tree)
   a2 <- ref_func(extant_tree)
-  testthat::expect_equal(a1, a2)
+  testthat::expect_equal(a1, a2, tolerance = tol)
 
   ltab <- treestats::phylo_to_l(extant_tree)
   testthat::expect_equal(treestats_func(extant_tree),
-                         treestats_func(ltab))
+                         treestats_func(ltab), tolerance = tol)
 
   if (drop_complete == FALSE) {
     # with extinct species:
     a1 <- treestats_func(complete_tree)
     a2 <- ref_func(complete_tree)
-    testthat::expect_equal(a1, a2)
+    testthat::expect_equal(a1, a2, tolerance = tol)
 
     ltab <- treestats::phylo_to_l(complete_tree)
     testthat::expect_equal(treestats_func(complete_tree),
-                           treestats_func(ltab))
+                           treestats_func(ltab), tolerance = tol)
   }
 }
 

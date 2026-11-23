@@ -1,3 +1,7 @@
+# Version 1.72.14
+- Added the max_clade_basis statistic, following equation 7.2 from Bauman &
+Rosenberg, arXiv:2610.40894.
+
 # Version 1.71.14
 - Added Yule expectation corrections for the following statistics: ew_colless,
 rogers, sshape, total_internal_path, total_path, avg_vertex_depth, stairs1 and 

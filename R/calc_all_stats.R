@@ -301,6 +301,8 @@ calc_all_stats <- function(phylo, normalize = FALSE) {
   inv_path_dist <- try_stat(phylo, treestats::inv_branch_dist)
   stats$mean_inv_branch_dist <- mean(inv_path_dist)
 
+  stats$max_clade_basis <- try_stat(phylo, treestats::max_clade_basis)
+
   stats <- unlist(stats)
   stats <- stats[order(names(stats))]
 
