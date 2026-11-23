@@ -165,3 +165,14 @@ size_t pitchforks_cpp(const std::vector<int>& tree_edge) {
   return sackin_tree->count_pitchforks();
 }
 
+// [[Rcpp::export]]
+double max_bauman_cpp(const std::vector<int>& tree_edge) {
+  // ltable version uses colless
+  auto sackin_tree = depth::create_depth_tree(tree_edge,
+                                              depth::used_for::sackin);
+  return sackin_tree->calc_max_bauman();
+}
+
+
+
+

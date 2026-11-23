@@ -1088,6 +1088,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// max_bauman_cpp
+double max_bauman_cpp(const std::vector<int>& tree_edge);
+RcppExport SEXP _treestats_max_bauman_cpp(SEXP tree_edgeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type tree_edge(tree_edgeSEXP);
+    rcpp_result_gen = Rcpp::wrap(max_bauman_cpp(tree_edge));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_beta_cpp", (DL_FUNC) &_treestats_calc_beta_cpp, 5},
@@ -1183,6 +1194,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treestats_calc_four_prong_cpp", (DL_FUNC) &_treestats_calc_four_prong_cpp, 1},
     {"_treestats_cherries_ltable_cpp", (DL_FUNC) &_treestats_cherries_ltable_cpp, 1},
     {"_treestats_pitchforks_cpp", (DL_FUNC) &_treestats_pitchforks_cpp, 1},
+    {"_treestats_max_bauman_cpp", (DL_FUNC) &_treestats_max_bauman_cpp, 1},
     {NULL, NULL, 0}
 };
 

@@ -258,6 +258,7 @@ struct tree_base {
   virtual size_t count_four_prong() = 0;
   virtual double root_imbalance() = 0;
   virtual double calc_b2() = 0;
+  virtual double calc_max_bauman() = 0;
 };
 
 enum used_for {depth, b1, sackin};
@@ -369,6 +370,15 @@ class depth_tree : public tree_base {
       s += tree[i].num_extant_tips;
     }
 
+    return s;
+  }
+
+  double calc_max_bauman() override {
+    double s = 0;
+    for (size_t i = root_no; i < tree.size(); ++i) {
+      auto k = tree[i].num_extant_tips;
+      s += 1.0 / (k * (k + 1));
+    }
     return s;
   }
 
