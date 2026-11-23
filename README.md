@@ -100,7 +100,7 @@ The following summary statistics are included:
     <tr>
         <td>avg_vert_depth</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>FALSE</td>
         <td>FALSE</td>
         <td>TRUE</td>
@@ -140,7 +140,7 @@ The following summary statistics are included:
     <tr>
         <td>blum / sshape</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>FALSE</td>
         <td>FALSE</td>
         <td>TRUE</td>
@@ -240,7 +240,7 @@ The following summary statistics are included:
     <tr>
         <td>ew_colless</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>TRUE</td>
         <td>FALSE</td>
         <td>TRUE</td>
@@ -386,6 +386,16 @@ The following summary statistics are included:
         <td>TRUE</td>
         <td>YES</td>
         <td>Chindelevitch et al., 2021</td>
+    </tr>
+    <tr>
+        <td>max_clade_dist</td>
+        <td>Topology</td>
+        <td>Yule</td>
+        <td>FALSE</td>
+        <td>FALSE</td>
+        <td>TRUE</td>
+        <td>YES</td>
+        <td>Bauman & Rosenberg 2026</td>
     </tr>
     <tr>
         <td>max_closeness</td>
@@ -600,7 +610,7 @@ The following summary statistics are included:
     <tr>
         <td>rogers</td>
         <td>Topology</td>
-        <td>Tips</td>
+        <td>Yule</td>
         <td>TRUE</td>
         <td>FALSE</td>
         <td>FALSE</td>
@@ -640,7 +650,7 @@ The following summary statistics are included:
     <tr>
         <td>stairs</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>TRUE</td>
         <td>FALSE</td>
         <td>TRUE</td>
@@ -650,7 +660,7 @@ The following summary statistics are included:
     <tr>
         <td>stairs2</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>TRUE</td>
         <td>FALSE</td>
         <td>TRUE</td>
@@ -680,7 +690,7 @@ The following summary statistics are included:
     <tr>
         <td>tot_internal_path</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>FALSE</td>
         <td>FALSE</td>
         <td>TRUE</td>
@@ -690,7 +700,7 @@ The following summary statistics are included:
     <tr>
         <td>tot_path</td>
         <td>Topology</td>
-        <td>None</td>
+        <td>Yule</td>
         <td>FALSE</td>
         <td>FALSE</td>
         <td>TRUE</td>
