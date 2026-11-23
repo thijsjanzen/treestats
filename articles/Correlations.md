@@ -37,7 +37,7 @@ for (i in seq_along(tree_collection_files)) {
   cat(taxa_names[i], "\n")
   for (j in seq_along(tree_collection)) {
     focal_tree <- tree_collection[[j]]
-    if (length(focal_tree$tip.label) >= 10) {
+    if (length(focal_tree$tip.label) >= 10 && ape::is.rooted(focal_tree)) {
       if (!ape::is.ultrametric(focal_tree)) {
         testthat::expect_output(
           focal_tree <- phytools::force.ultrametric(focal_tree)
@@ -270,7 +270,7 @@ hc <- hclust(res_dist, method = "average")
 dend0 <- stats::as.dendrogram(hc)
 ddata <- ggdendro::dendro_data(hc, type = "rectangle")
 
-xmax <- 0.8
+xmax <- 0.7
 
 clust_ref <- dendextend::cutree(dend0, h = xmax)
 xmin <- 0
@@ -335,5 +335,3 @@ hm1 <- pheatmap::pheatmap(mat = cor2,
 ```
 
 ![](Correlations_files/figure-html/heatmap%20poly,%20-1.png)
-
-## 

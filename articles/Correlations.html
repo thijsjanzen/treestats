@@ -108,7 +108,7 @@ collection of empirical trees, as used in Janzen (2024).</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">taxa_names</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">tree_collection</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">focal_tree</span> <span class="op">&lt;-</span> <span class="va">tree_collection</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">focal_tree</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">focal_tree</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;&amp;</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/root.html" class="external-link">is.rooted</a></span><span class="op">(</span><span class="va">focal_tree</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/is.ultrametric.html" class="external-link">is.ultrametric</a></span><span class="op">(</span><span class="va">focal_tree</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_output.html" class="external-link">expect_output</a></span><span class="op">(</span></span>
 <span>          <span class="va">focal_tree</span> <span class="op">&lt;-</span> <span class="fu">phytools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phytools/man/force.ultrametric.html" class="external-link">force.ultrametric</a></span><span class="op">(</span><span class="va">focal_tree</span><span class="op">)</span></span>
@@ -317,7 +317,7 @@ reasonable, and avoids creating many small groups.</p>
 <span><span class="va">dend0</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span>
 <span><span class="va">ddata</span> <span class="op">&lt;-</span> <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://andrie.github.io/ggdendro/reference/dendro_data.html" class="external-link">dendro_data</a></span><span class="op">(</span><span class="va">hc</span>, type <span class="op">=</span> <span class="st">"rectangle"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">xmax</span> <span class="op">&lt;-</span> <span class="fl">0.8</span></span>
+<span><span class="va">xmax</span> <span class="op">&lt;-</span> <span class="fl">0.7</span></span>
 <span></span>
 <span><span class="va">clust_ref</span> <span class="op">&lt;-</span> <span class="fu">dendextend</span><span class="fu">::</span><span class="fu">cutree</span><span class="op">(</span><span class="va">dend0</span>, h <span class="op">=</span> <span class="va">xmax</span><span class="op">)</span></span>
 <span><span class="va">xmin</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
@@ -375,9 +375,6 @@ blue colors indicate negative correlations.</p>
 <span>                          fontsize_col <span class="op">=</span> <span class="fl">18</span>,</span>
 <span>                          fontsize_row <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Correlations_files/figure-html/heatmap%20poly,%20-1.png" class="r-plt" alt="" width="2400"></p>
-</div>
-<div class="section level2">
-<h2 id="section"></h2>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
