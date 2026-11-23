@@ -286,7 +286,7 @@ found3 |>
   ggtitle("Statistics normalized by the Yule expectation")
 ```
 
-    ## Warning: Removed 9 rows containing missing values or values outside the scale range
+    ## Warning: Removed 10 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
 ![](Tree_size_files/figure-html/yule_plots_ddd-1.png)
