@@ -80,7 +80,7 @@ The following summary statistics are included:
 | laplace_spectrum_p | Topo + br len | None | FALSE | FALSE | FALSE | YES | Lewitus & Morlon, 2016 |
 | max_adj | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | max_betweenness | Topology | Tips | FALSE | FALSE | TRUE | YES | Chindelevitch et al., 2021 |
-| max_clade_dist | Topology | Yule | FALSE | FALSE | TRUE | YES | Bauman & Rosenberg 2026 |
+| max_clade_basis | Topology | Yule | FALSE | FALSE | TRUE | YES | Bauman & Rosenberg 2026 |
 | max_closeness | Topology | Tips | FALSE | FALSE | FALSE | Small | Chindelevitch et al., 2021 |
 | max_closenessW | Topo + br len | None | FALSE | FALSE | FALSE | Small | Chindelevitch et al., 2021 |
 | max_del_width | Topology | Tips | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
