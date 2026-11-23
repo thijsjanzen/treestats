@@ -56,10 +56,7 @@ for (i in seq_along(tree_collection_files)) {
 }
 ```
 
-    ## Amphibians
-
-    ## Loading required namespace: RSpectra
-
+    ## Amphibians 
     ## Birds 
     ## Ferns 
     ## Mammals 
@@ -338,3 +335,5 @@ hm1 <- pheatmap::pheatmap(mat = cor2,
 ```
 
 ![](Correlations_files/figure-html/heatmap%20poly,%20-1.png)
+
+## 

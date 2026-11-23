@@ -12,7 +12,7 @@ number_of_lineages(phy)
 
 - phy:
 
-  phylo object
+  phylo object or ltable
 
 ## Value
 

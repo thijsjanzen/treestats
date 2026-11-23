@@ -27,12 +27,6 @@ for (i in seq_along(focal_trees)) {
   focal_stats <- treestats::calc_all_stats(focal_trees[[i]])
   all_stats <- rbind(all_stats, focal_stats)
 }
-```
-
-    ## Loading required namespace: RSpectra
-
-``` r
-
 all_stats <- as.data.frame(all_stats)
 ```
 

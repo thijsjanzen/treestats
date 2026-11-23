@@ -9,7 +9,7 @@ ew_colless index is not sensitive to tree size.
 ## Usage
 
 ``` r
-ew_colless(phy)
+ew_colless(phy, normalization = "none")
 ```
 
 ## Arguments
@@ -17,6 +17,12 @@ ew_colless(phy)
 - phy:
 
   phylo object or ltable
+
+- normalization:
+
+  A character string equals to "none" (default) for no normalization or
+  "yule", in which case the obtained index is divided by the Yule
+  expectation.
 
 ## Value
 

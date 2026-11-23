@@ -20,7 +20,7 @@ pigot_rho(phy)
 
 - phy:
 
-  phylo object
+  phylo object or ltable
 
 ## Value
 

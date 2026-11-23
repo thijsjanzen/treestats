@@ -31,9 +31,13 @@ single tree, being:
 
 - avgLadder index
 
+- max ladder
+
 - cherries
 
 - double cherries
+
+- four prong
 
 - ILnumber
 

@@ -18,7 +18,7 @@ tree_height(phy)
 
 - phy:
 
-  phylo object
+  phylo object or ltable
 
 ## Value
 

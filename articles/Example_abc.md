@@ -29,12 +29,6 @@ for (r in 1:num_points) {
   focal_stats <- treestats::calc_all_stats(focal_tree)
   test_data[r, ] <- c(b, focal_stats)
 }
-```
-
-    ## Loading required namespace: RSpectra
-
-``` r
-
 colnames(test_data) <- c("birth", names(focal_stats))
 test_data <- as.data.frame(test_data)
 ```
@@ -59,9 +53,9 @@ predict(forest, test_stats, test_data)
 ```
 
     ##      expectation    median variance (post.MSE.mean) variance.cdf quantile=0.025
-    ## [1,]   0.4094318 0.3990544              0.003239358   0.00266392      0.3201379
+    ## [1,]   0.4095219 0.3978062              0.003529013  0.002875223      0.3187723
     ##      quantile=0.975 post.NMAE.mean
-    ## [1,]      0.5522065      0.1158216
+    ## [1,]      0.5484993      0.1176767
 
 We see that even using only 100 decision trees, the parameter estimate
 is quite close to 0.5. This can be visualized further:
@@ -156,16 +150,16 @@ predict(forest, to_test, for_abc)
 ```
 
     ##    selected model votes model1 votes model2 post.proba
-    ## 1               1         1000            0  1.0000000
-    ## 2               1          980           20  1.0000000
-    ## 3               1         1000            0  1.0000000
-    ## 4               1         1000            0  1.0000000
-    ## 5               1         1000            0  1.0000000
-    ## 6               2            0         1000  1.0000000
-    ## 7               2            0         1000  1.0000000
-    ## 8               2            0         1000  1.0000000
-    ## 9               2            0         1000  0.9971667
-    ## 10              2            0         1000  1.0000000
+    ## 1               1         1000            0    0.99900
+    ## 2               1          980           20    1.00000
+    ## 3               1         1000            0    1.00000
+    ## 4               1         1000            0    1.00000
+    ## 5               1         1000            0    1.00000
+    ## 6               2            0         1000    1.00000
+    ## 7               2            0         1000    1.00000
+    ## 8               2            0         1000    1.00000
+    ## 9               2            0         1000    0.99725
+    ## 10              2           10          990    1.00000
 
 Indeed, we see that the first five trees are convincingly assigned model
 1 (BD), and that the last five trees are convincingly assigned model 2

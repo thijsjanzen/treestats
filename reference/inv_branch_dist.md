@@ -20,6 +20,11 @@ inv_branch_dist(phy, add_one = FALSE)
   should we take 1 / bl or 1 / (1 + bl) ? if TRUE, then 1 / (1 + bl) is
   used. Default: FALSE.
 
+## Value
+
+vector of sum of inverse branch distances, in order of the tips as given
+by the phy object
+
 ## References
 
 Williams, P. H., Alonso-Alonso, P., Arbetman, M., Françoso, E.,

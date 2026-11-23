@@ -14,6 +14,10 @@ mw_over_md(phy)
 
   phylogeny or ltable
 
+## Value
+
+mw over md statistic
+
 ## References
 
 C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease

@@ -13,3 +13,7 @@ check_binary(phy)
 - phy:
 
   phylo object
+
+## Value
+
+boolean, true if binary

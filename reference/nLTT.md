@@ -28,7 +28,7 @@ nLTT(phy, ref_tree)
 
 ## Value
 
-number of lineages
+the nLTT statistic
 
 ## References
 

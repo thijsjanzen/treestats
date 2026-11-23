@@ -25,7 +25,7 @@ nLTT_base(phy)
 
 ## Value
 
-number of lineages
+the nLTT statistic calculated on an empty base tree
 
 ## Examples
 

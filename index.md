@@ -87,9 +87,9 @@ The following summary statistics are included:
 | max_ladder | Topology | None | TRUE | FALSE | FALSE | YES | Kendall et al., 2018 |
 | max_laplace | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | max_width | Topology | Tips | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
-| mean_branch_length | Topo + br len | None | FALSE | FALSE | FALSE | YES | Janzen & Etienne, 2017 |
-| mean_branch_length_ext | Topo + br len | None | FALSE | FALSE | FALSE | NO | Saulnier et al., 2017 |
-| mean_branch_length_int | Topo + br len | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
+| mean_branch_length | Topo + br len | None | FALSE | FALSE | TRUE | YES | Janzen & Etienne, 2017 |
+| mean_branch_length_ext | Topo + br len | None | FALSE | FALSE | TRUE | YES | Saulnier et al., 2017 |
+| mean_branch_length_int | Topo + br len | None | FALSE | FALSE | TRUE | YES | Saulnier et al., 2017 |
 | min_adj | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | min_laplace | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | mntd | Topo + br len | None | FALSE | FALSE | FALSE | NO | Webb et al., 2002 |
@@ -113,9 +113,9 @@ The following summary statistics are included:
 | tot_path | Topology | None | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
 | tree_height | Br times | None | FALSE | FALSE | TRUE | YES |  |
 | treeness | Topo + br len | None | FALSE | FALSE | FALSE | YES | Astolfi & Zonta-Sgaramella, 1984 |
-| var_branch_length | Topo + br len | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
-| var_branch_length_ext | Topo + br len | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
-| var_branch_length_int | Topo + br len | None | FALSE | FALSE | FALSE | YES | Saulnier et al., 2017 |
+| var_branch_length | Topo + br len | None | FALSE | FALSE | TRUE | YES | Saulnier et al., 2017 |
+| var_branch_length_ext | Topo + br len | None | FALSE | FALSE | TRUE | YES | Saulnier et al., 2017 |
+| var_branch_length_int | Topo + br len | None | FALSE | FALSE | TRUE | YES | Saulnier et al., 2017 |
 | var_depth | Topology | Yule | FALSE | FALSE | TRUE | YES | Coronado et al., 2020 |
 | vpd | Topo + br len | None | FALSE | FALSE | FALSE | NO | Webb et al., 2002 |
 | wiener | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |

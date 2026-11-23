@@ -9,7 +9,7 @@ alternative implementation can be found in the Castor R package.
 ## Usage
 
 ``` r
-sshape(phy, normalization = FALSE)
+sshape(phy, normalization = "none", log_base = 2)
 ```
 
 ## Arguments
@@ -20,10 +20,13 @@ sshape(phy, normalization = FALSE)
 
 - normalization:
 
-  because the sshape statistic sums over all nodes, the resulting
-  statistic tends to be correlated with the number of extant tips.
-  Normalization can be performed by dividing by the number of extant
-  tips.
+  "none" or "yule", in which case the acquired result is divided by the
+  expectation for the Yule model.
+
+- log_base:
+
+  the logarithm base that will be used. For binary trees it is common to
+  use base 2.
 
 ## Value
 

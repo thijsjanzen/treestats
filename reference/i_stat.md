@@ -35,3 +35,7 @@ phylogenies. Journal of Theoretical Biology, 1995. doi:
 A. Purvis, A. Katzourakis, and P.-M. Agapow. Evaluating Phylogenetic
 Tree Shape: Two Modifications to Fusco & Cronks Method. Journal of
 Theoretical Biology, 2002. doi: 10.1006/jtbi.2001.2443.
+
+## See also
+
+[mean_i](https://thijsjanzen.github.io/treestats/reference/mean_i.md)

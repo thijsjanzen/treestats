@@ -1,6 +1,20 @@
 # Changelog
 
+## Version 1.72.14
+
+- Added the max_clade_basis statistic, following equation 7.2 from
+  Bauman & Rosenberg, arXiv:2610.40894.
+
+## Version 1.71.14
+
+- Added Yule expectation corrections for the following statistics:
+  ew_colless, rogers, sshape, total_internal_path, total_path,
+  avg_vertex_depth, stairs1 and stairs2, following the publication by
+  Bauman & Rosenberg, arXiv:2610.40894.
+
 ## Version 1.71.13
+
+CRAN release: 2026-08-24
 
 - Polytomies were not handled correctly, and code for the following
   statistics was adjusted accordingly: ILnumber, entropy_j,
@@ -124,25 +138,25 @@ CRAN release: 2024-07-17
 ## Version 1.1.1
 
 - Added the following statistics:
-- minimum(\>0) eigenvalue of the Adjacency matrix
-- maximum eigenvalue of the Adjacency matrix
-- minimum(\>0) eigenvalue of the Laplacian matrix
-- maximum eigenvalue of the Laplacian matrix
-- double cherries
-- root imbalance
-- four prong
-- Renamed eigenvector to eigen_centrality (in line with the analogous
-  function in igraph)
+  - minimum(\>0) eigenvalue of the Adjacency matrix
+  - maximum eigenvalue of the Adjacency matrix
+  - minimum(\>0) eigenvalue of the Laplacian matrix
+  - maximum eigenvalue of the Laplacian matrix
+  - double cherries
+  - root imbalance
+  - four prong
+  - Renamed eigenvector to eigen_centrality (in line with the analogous
+    function in igraph)
 
 ## Version 1.1.0
 
-- Add several new statistics:
-- Colless-corrected
-- Colless-Quadratic
-- Total path index
-- Total internal path index
-- Average vertex depth
-- Max Width over Max Depth
+- Added several new statistics:
+  - Colless-corrected
+  - Colless-Quadratic
+  - Total path index
+  - Total internal path index
+  - Average vertex depth
+  - Max Width over Max Depth
 
 ## Version 1.0.7
 

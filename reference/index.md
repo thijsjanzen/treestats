@@ -79,6 +79,8 @@
   : Stepwise increase the imbalance of a tree
 - [`max_betweenness()`](https://thijsjanzen.github.io/treestats/reference/max_betweenness.md)
   : Maximum betweenness centrality.
+- [`max_clade_basis()`](https://thijsjanzen.github.io/treestats/reference/max_clade_basis.md)
+  : Maximum Clade-basis statistic
 - [`max_closeness()`](https://thijsjanzen.github.io/treestats/reference/max_closeness.md)
   : Maximum closeness
 - [`max_del_width()`](https://thijsjanzen.github.io/treestats/reference/max_del_width.md)

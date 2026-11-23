@@ -17,8 +17,6 @@ in this package for a single tree, being:
 
 - beta
 
-- blum
-
 - cherries
 
 - colless
@@ -45,6 +43,8 @@ in this package for a single tree, being:
 
 - j_one
 
+- max_clade_basis
+
 - max_betweenness
 
 - max_closeness
@@ -68,6 +68,8 @@ in this package for a single tree, being:
 - rquartet
 
 - sackin
+
+- sshape
 
 - stairs
 
