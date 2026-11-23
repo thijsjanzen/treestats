@@ -388,7 +388,7 @@ The following summary statistics are included:
         <td>Chindelevitch et al., 2021</td>
     </tr>
     <tr>
-        <td>max_clade_dist</td>
+        <td>max_clade_basis</td>
         <td>Topology</td>
         <td>Yule</td>
         <td>FALSE</td>
