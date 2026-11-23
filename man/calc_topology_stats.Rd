@@ -39,6 +39,7 @@ available in this package for a single tree, being:
   \item{il_number}
   \item{imbalance_steps}
   \item{j_one}
+  \item{max_clade_basis}
   \item{max_betweenness}
   \item{max_closeness}
   \item{max_del_width}

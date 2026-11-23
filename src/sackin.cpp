@@ -179,7 +179,6 @@ double calc_max_clade_basis_cpp(const std::vector<int>& tree_edge,
   if (normalization == "yule") {
     size_t n  = sackin_tree->size();
     auto expected_val = calc_max_clade_basis_expected(n);
-   // std::cerr << expected_val << "\n";
     stat *= 1.0 / expected_val;
   }
   return stat;

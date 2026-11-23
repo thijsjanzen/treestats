@@ -27,6 +27,7 @@
 #'   \item{il_number}
 #'   \item{imbalance_steps}
 #'   \item{j_one}
+#'   \item{max_clade_basis}
 #'   \item{max_betweenness}
 #'   \item{max_closeness}
 #'   \item{max_del_width}
@@ -159,6 +160,8 @@ calc_topology_stats <- function(phylo, normalize = FALSE) {
   stats$tot_internal_path  <- try_stat(phylo, treestats::tot_internal_path)
 
   stats$tot_path_length    <- try_stat(phylo, treestats::tot_path_length)
+
+  stats$max_clade_basis <- try_stat(phylo, treestats::max_clade_basis)
 
   stats <- unlist(stats)
   stats <- stats[order(names(stats))]
