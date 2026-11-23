@@ -51,11 +51,11 @@ The following summary statistics are included:
 | area_per_pair | Topology | Yule | FALSE | FALSE | TRUE | YES | Lima et al., 2020 |
 | average_leaf_depth | Topology | Yule | FALSE | FALSE | TRUE | YES | Shao & Sokal, 1990 |
 | avg_ladder | Topology | None | TRUE | FALSE | TRUE | YES | Kendall et al., 2018 |
-| avg_vert_depth | Topology | None | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| avg_vert_depth | Topology | Yule | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
 | b1 | Topology | Tips | FALSE | FALSE | TRUE | YES | Shao & Sokal, 1990 |
 | b2 | Topology | Yule | FALSE | FALSE | TRUE | YES | Shao & Sokal, 1990 |
 | beta | Topology | None | TRUE | FALSE | TRUE | YES | Aldous, 1996 |
-| blum / sshape | Topology | None | FALSE | FALSE | TRUE | YES | Blum & François, 2006 |
+| blum / sshape | Topology | Yule | FALSE | FALSE | TRUE | YES | Blum & François, 2006 |
 | cherries | Topology | Yule | FALSE | FALSE | FALSE | YES | McKenzie et al., 1999 |
 | colless | Topology | Yule | TRUE | FALSE | TRUE | YES | Colless, 1982 |
 | colless_corr | Topology | None | TRUE | FALSE | TRUE | YES | Heard, 1992 |
@@ -65,7 +65,7 @@ The following summary statistics are included:
 | double_cherries | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | eigen_centrality | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | eigen_centralityW | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
-| ew_colless | Topology | None | TRUE | FALSE | TRUE | YES | Mooers & S. B. Heard, 1997 |
+| ew_colless | Topology | Yule | TRUE | FALSE | TRUE | YES | Mooers & S. B. Heard, 1997 |
 | four_prong | Topology | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | gamma | Br times | None | FALSE | TRUE | TRUE | YES | Pybus & Harvey, 2000 |
 | i_stat | Topology | None | TRUE | FALSE | TRUE | YES | Fusco & Cronk, 1995 |
@@ -80,6 +80,7 @@ The following summary statistics are included:
 | laplace_spectrum_p | Topo + br len | None | FALSE | FALSE | FALSE | YES | Lewitus & Morlon, 2016 |
 | max_adj | Topo + br len | None | FALSE | FALSE | FALSE | YES | Chindelevitch et al., 2021 |
 | max_betweenness | Topology | Tips | FALSE | FALSE | TRUE | YES | Chindelevitch et al., 2021 |
+| max_clade_dist | Topology | Yule | FALSE | FALSE | TRUE | YES | Bauman & Rosenberg 2026 |
 | max_closeness | Topology | Tips | FALSE | FALSE | FALSE | Small | Chindelevitch et al., 2021 |
 | max_closenessW | Topo + br len | None | FALSE | FALSE | FALSE | Small | Chindelevitch et al., 2021 |
 | max_del_width | Topology | Tips | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
@@ -101,16 +102,16 @@ The following summary statistics are included:
 | pigot_rho | Br times | None | FALSE | FALSE | TRUE | YES | Pigot et al., 2010 |
 | pitchforks | Topology | Tips | FALSE | FALSE | FALSE | YES | Kendall et al., 2018 |
 | psv | Topo + br len | Tips | FALSE | FALSE | FALSE | NO | Helmus et al., 2007 |
-| rogers | Topology | Tips | TRUE | FALSE | FALSE | YES | Rogers, 1996 |
+| rogers | Topology | Yule | TRUE | FALSE | FALSE | YES | Rogers, 1996 |
 | root_imbalance | Topology | None | FALSE | FALSE | TRUE | YES | Guyer et al., 1993 |
 | rquartet | Topology | Yule | FALSE | FALSE | TRUE | YES | Coronado et al., 2019 |
 | sackin | Topology | Yule | FALSE | FALSE | TRUE | YES | Sackin, 1972 |
-| stairs | Topology | None | TRUE | FALSE | TRUE | YES | Norström et al., 2012 |
-| stairs2 | Topology | None | TRUE | FALSE | TRUE | YES | Norström et al., 2012 |
+| stairs | Topology | Yule | TRUE | FALSE | TRUE | YES | Norström et al., 2012 |
+| stairs2 | Topology | Yule | TRUE | FALSE | TRUE | YES | Norström et al., 2012 |
 | symmetry_nodes | Topology | Tips | TRUE | FALSE | TRUE | YES | Kersting & Fischer, 2021 |
 | tot_coph | Topology | Yule | FALSE | FALSE | TRUE | YES | Mir et al., 2013 |
-| tot_internal_path | Topology | None | FALSE | FALSE | TRUE | YES | Knuth, 1997 |
-| tot_path | Topology | None | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
+| tot_internal_path | Topology | Yule | FALSE | FALSE | TRUE | YES | Knuth, 1997 |
+| tot_path | Topology | Yule | FALSE | FALSE | TRUE | YES | Colijn & Gardy, 2014 |
 | tree_height | Br times | None | FALSE | FALSE | TRUE | YES |  |
 | treeness | Topo + br len | None | FALSE | FALSE | FALSE | YES | Astolfi & Zonta-Sgaramella, 1984 |
 | var_branch_length | Topo + br len | None | FALSE | FALSE | TRUE | YES | Saulnier et al., 2017 |
